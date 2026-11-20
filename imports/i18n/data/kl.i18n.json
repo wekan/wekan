@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Niuernermi naleqassusaa",
   "wsjf-time-criticality": "Piffissap pingaaruteqassusaa",
   "wsjf-risk-reduction": "Navianartup annikillisinneqarnera",
-  "wsjf-job-size": "Suliap annertussusaa"
+  "wsjf-job-size": "Suliap annertussusaa",
+  "listPolicyPopup-title": "Allattorsimaffiup maleruagassai",
+  "list-policy": "Allattorsimaffiup maleruagassai",
+  "list-policy-placeholder": "Qaqugu kortsi allattorsimaffimmut matumunnga isersinnaava, qaqugulu maani naammassisimava?",
+  "show-list-policies": "Allattorsimaffiit maleruagassaat takutikkit",
+  "commitment-point": "Pisussaaffiliiffik",
+  "commitment-point-hint": "Suliaq allattorsimaffimmit matumannga pisussaaffigineqalersarpoq; allattorsimaffiit siulii periarfissaapput.",
+  "person-wip-limit": "Inummut ataatsimut WIP-ip killissaa",
+  "person-wip-over": "__user__ __count__-nik kortsinik ammasunik peqarpoq; inummut ataatsimut WIP-ip killissaa __limit__-uvoq.",
+  "feature-list-policies": "Allattorsimaffiit maleruagassaat",
+  "feature-list-policies-desc": "Allattorsimaffiup tamarmi maleruagassai (qaqugu kortsi isersinnaanersoq qaqugulu tassani naammassisimanersoq) allattorsimaffiup qulequttaani. Ilisarnaatini tamani ikkunneqartarpoq Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi.",
+  "feature-commitment-point": "Pisussaaffiliiffik",
+  "feature-commitment-point-desc": "Allattorsimaffik suliap pisussaaffigineqalerfia, qulequttaani nalunaaqutsersugaq. Ilisarnaatini tamani toqqarneqartarpoq Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi.",
+  "feature-person-wip-limit": "Inummut ataatsimut WIP-ip killissaa",
+  "feature-person-wip-limit-desc": "Kortsit ammasut qassit inuk ataaseq ilisarnaammi tigumisinnaavai; kortsi ammaasoq kikkulluunniit qaangiisut pillugit mianersoqqussaasarpoq. Ilisarnaatini tamani aalajangersarneqartarpoq Ilisarnaammi aaqqissuussaanerit / Allattorsimaffik-mi.",
+  "scrum-definition-of-ready": "Piareersimanerup nassuiaataa"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Asitsatsa ƒe asixɔxɔ",
   "wsjf-time-criticality": "Ɣeyiɣi ƒe vevienyenye",
   "wsjf-risk-reduction": "Afɔku ɖeɖe ɖe edzi",
-  "wsjf-job-size": "Dɔa ƒe lolome"
+  "wsjf-job-size": "Dɔa ƒe lolome",
+  "listPolicyPopup-title": "Xexlẽdzesi ƒe ɖoɖo",
+  "list-policy": "Xexlẽdzesi ƒe ɖoɖo",
+  "list-policy-placeholder": "Ɣekaɣie agbalẽvi ate ŋu ava xexlẽdzesi sia me, eye ɣekaɣie wòwu nu le afii?",
+  "show-list-policies": "Ɖe xexlẽdzesiwo ƒe ɖoɖowo fia",
+  "commitment-point": "Adzɔgbeɖeɖe ƒe teƒe",
+  "commitment-point-hint": "Wotsɔa adzɔgbe ɖe dɔa ŋu tso xexlẽdzesi sia dzi; xexlẽdzesi siwo do ŋgɔ nɛ la nye tiatiawo.",
+  "person-wip-limit": "WIP ƒe seƒoƒo na ame ɖesiaɖe",
+  "person-wip-over": "Agbalẽvi __count__ siwo le ʋuʋu le __user__ si; WIP ƒe seƒoƒo na ame ɖesiaɖe nye __limit__.",
+  "feature-list-policies": "Xexlẽdzesiwo ƒe ɖoɖowo",
+  "feature-list-policies-desc": "Xexlẽdzesi ɖesiaɖe ƒe ɖoɖo - ɣeyiɣi si agbalẽvi ate ŋu age ɖe eme kple ɣeyiɣi si wòwu nu le afima - le xexlẽdzesi ƒe tanya me. Wotsɔnɛ dea dɔ me na ŋɔŋlɔkpe ɖesiaɖe le Ŋɔŋlɔkpe ƒe ɖoɖowo / Xexlẽdzesi me.",
+  "feature-commitment-point": "Adzɔgbeɖeɖe ƒe teƒe",
+  "feature-commitment-point-desc": "Xexlẽdzesi si dzi wotsɔa adzɔgbe ɖe dɔa ŋu tsona, wode dzesi eƒe tanya. Wotianɛ na ŋɔŋlɔkpe ɖesiaɖe le Ŋɔŋlɔkpe ƒe ɖoɖowo / Xexlẽdzesi me.",
+  "feature-person-wip-limit": "WIP ƒe seƒoƒo na ame ɖesiaɖe",
+  "feature-person-wip-limit-desc": "Agbalẽvi ʋuʋu nenie ame ɖeka ate ŋu alé ɖe ŋɔŋlɔkpe dzi; agbalẽvi si woʋu la xlɔ̃a nu tso ame sia ame si wu eŋu la ŋu. Woɖonɛ na ŋɔŋlɔkpe ɖesiaɖe le Ŋɔŋlɔkpe ƒe ɖoɖowo / Xexlẽdzesi me.",
+  "scrum-definition-of-ready": "Dzadzraɖo ƒe gɔmeɖeɖe"
 }

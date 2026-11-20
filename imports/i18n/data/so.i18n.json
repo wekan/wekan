@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Qiimaha ganacsiga",
   "wsjf-time-criticality": "Muhiimadda waqtiga",
   "wsjf-risk-reduction": "Yaraynta khatarta",
-  "wsjf-job-size": "Cabbirka shaqada"
+  "wsjf-job-size": "Cabbirka shaqada",
+  "listPolicyPopup-title": "Siyaasadda liiska",
+  "list-policy": "Siyaasadda liiska",
+  "list-policy-placeholder": "Goorma ayuu kaar soo geli karaa liiskan, goormaana halkan ku dhammaanayaa?",
+  "show-list-policies": "Muuji siyaasadaha liisaska",
+  "commitment-point": "Barta ballanqaadka",
+  "commitment-point-hint": "Liiskan laga bilaabo shaqada waa la ballanqaadaa; liisaska ka horreeya waa doorashooyin.",
+  "person-wip-limit": "Xadka WIP qofkiiba",
+  "person-wip-over": "__user__ wuxuu haystaa __count__ kaar oo furan; xadka WIP qofkiiba waa __limit__.",
+  "feature-list-policies": "Siyaasadaha liisaska",
+  "feature-list-policies-desc": "Siyaasadda liis kasta - goorma uu kaar soo geli karo iyo goorma uu halkaas ku dhammaado - madaxa liiska. Waxaa loo shidaa sabuurad kasta Dejinta sabuuradda / Liis.",
+  "feature-commitment-point": "Barta ballanqaadka",
+  "feature-commitment-point-desc": "Liiska laga ballanqaado shaqada, oo lagu calaamadeeyay madaxiisa. Waxaa loo doortaa sabuurad kasta Dejinta sabuuradda / Liis.",
+  "feature-person-wip-limit": "Xadka WIP qofkiiba",
+  "feature-person-wip-limit-desc": "Imisa kaar oo furan uu qof keliya ku hayn karaa sabuurad; kaar la furay wuxuu ka digaa qof kasta oo dhaafay. Waxaa loo dejiyaa sabuurad kasta Dejinta sabuuradda / Liis.",
+  "scrum-definition-of-ready": "Qeexidda diyaarsanaanta"
 }

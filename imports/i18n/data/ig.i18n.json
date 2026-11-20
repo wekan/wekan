@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Uru azụmahịa",
   "wsjf-time-criticality": "Mkpa oge",
   "wsjf-risk-reduction": "Mbelata ihe ize ndụ",
-  "wsjf-job-size": "Nha ọrụ"
+  "wsjf-job-size": "Nha ọrụ",
+  "listPolicyPopup-title": "Iwu ndepụta",
+  "list-policy": "Iwu ndepụta",
+  "list-policy-placeholder": "Olee mgbe kaadị nwere ike ịbata na ndepụta a, oleekwa mgbe ọ gwụchara ebe a?",
+  "show-list-policies": "Gosi iwu ndepụta",
+  "commitment-point": "Ebe nkwa",
+  "commitment-point-hint": "A na-ekwe nkwa ọrụ site na ndepụta a gaa n'ihu; ndepụta ndị bu ya ụzọ bụ nhọrọ.",
+  "person-wip-limit": "Oke WIP maka onye ọ bụla",
+  "person-wip-over": "__user__ nwere kaadị __count__ ghe oghe; oke WIP maka onye ọ bụla bụ __limit__.",
+  "feature-list-policies": "Iwu ndepụta niile",
+  "feature-list-policies-desc": "Iwu nke ndepụta ọ bụla (mgbe kaadị nwere ike ịbata na mgbe ọ gwụchara n'ebe ahụ) n'isi ndepụta ahụ. A na-agbanye ya maka bọọdụ ọ bụla na Ntọala bọọdụ / Ndepụta.",
+  "feature-commitment-point": "Ebe nkwa",
+  "feature-commitment-point-desc": "Ndepụta e si na ya ekwe nkwa ọrụ, akara n'isi ya. A na-ahọrọ ya maka bọọdụ ọ bụla na Ntọala bọọdụ / Ndepụta.",
+  "feature-person-wip-limit": "Oke WIP maka onye ọ bụla",
+  "feature-person-wip-limit-desc": "Kaadị ole ghe oghe otu onye nwere ike ijide na bọọdụ; kaadị e meghere na-adọ aka ná ntị maka onye ọ bụla gafere ya. A na-esetịpụ ya maka bọọdụ ọ bụla na Ntọala bọọdụ / Ndepụta.",
+  "scrum-definition-of-ready": "Nkọwa nke ọrụ dị njikere"
 }

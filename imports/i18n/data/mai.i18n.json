@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "व्यावसायिक मूल्य",
   "wsjf-time-criticality": "समयक गंभीरता",
   "wsjf-risk-reduction": "जोखिम न्यूनीकरण",
-  "wsjf-job-size": "कार्यक आकार"
+  "wsjf-job-size": "कार्यक आकार",
+  "listPolicyPopup-title": "सूची नीति",
+  "list-policy": "सूची नीति",
+  "list-policy-placeholder": "कोनो कार्ड एहि सूची मे कहिया आबि सकैत अछि, आ एतय कहिया पूर्ण होइत अछि?",
+  "show-list-policies": "सूची नीति सभ देखाउ",
+  "commitment-point": "प्रतिबद्धता बिन्दु",
+  "commitment-point-hint": "एहि सूची सँ काजक प्रतिबद्धता होइत अछि; एकर पहिलुका सूची सभ विकल्प अछि।",
+  "person-wip-limit": "प्रति व्यक्ति WIP सीमा",
+  "person-wip-over": "__user__ लग __count__ खुजल कार्ड अछि; प्रति व्यक्ति WIP सीमा __limit__ अछि।",
+  "feature-list-policies": "सूची नीति सभ",
+  "feature-list-policies-desc": "प्रत्येक सूचीक नीति - कार्ड कहिया आबि सकैत अछि आ ओतय कहिया पूर्ण होइत अछि - सूचीक शीर्षक पर। प्रत्येक पट्ट लेल पट्ट सेटिंग / सूची मे चालू कयल जाइत अछि।",
+  "feature-commitment-point": "प्रतिबद्धता बिन्दु",
+  "feature-commitment-point-desc": "ओ सूची जाहि सँ काजक प्रतिबद्धता होइत अछि, ओकर शीर्षक पर चिन्हित। प्रत्येक पट्ट लेल पट्ट सेटिंग / सूची मे चुनल जाइत अछि।",
+  "feature-person-wip-limit": "प्रति व्यक्ति WIP सीमा",
+  "feature-person-wip-limit-desc": "एक व्यक्ति एक पट्ट पर कतेक खुजल कार्ड राखि सकैत अछि; खोलल कार्ड सीमा सँ ऊपर सभक बारे मे चेतावनी दैत अछि। प्रत्येक पट्ट लेल पट्ट सेटिंग / सूची मे निर्धारित।",
+  "scrum-definition-of-ready": "तैयार होयबाक परिभाषा"
 }

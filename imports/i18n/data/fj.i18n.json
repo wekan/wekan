@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Yaga ni bisinisi",
   "wsjf-time-criticality": "Bibi ni gauna",
   "wsjf-risk-reduction": "Vakalailaitaki ni rerevaki",
-  "wsjf-job-size": "Levu ni cakacaka"
+  "wsjf-job-size": "Levu ni cakacaka",
+  "listPolicyPopup-title": "Lawa ni lisi",
+  "list-policy": "Lawa ni lisi",
+  "list-policy-placeholder": "Ni rawa ni curu e na lisi oqo e dua na kadi, ka ni sa oti kina e ke?",
+  "show-list-policies": "Vakaraitaka na lawa ni lisi",
+  "commitment-point": "Vanua ni veiyalayalati",
+  "commitment-point-hint": "Na cakacaka e yalataki mai na lisi oqo; na lisi e liu kina e veidigidigi.",
+  "person-wip-limit": "iYalayala WIP ni dua na tamata",
+  "person-wip-over": "E __count__ na kadi dola i __user__; na iyalayala WIP ni dua na tamata e __limit__.",
+  "feature-list-policies": "Lawa ni veilisi",
+  "feature-list-policies-desc": "Na lawa ni lisi yadua (ni rawa ni curu e dua na kadi kei na gauna e oti kina) e na ulu ni lisi. Vakayacori e na vola yadua e Ituvatuva ni Vola / Lisi.",
+  "feature-commitment-point": "Vanua ni veiyalayalati",
+  "feature-commitment-point-desc": "Na lisi e yalataki kina na cakacaka, vakatakilakilataki e na kena ulu. Digitaki e na vola yadua e Ituvatuva ni Vola / Lisi.",
+  "feature-person-wip-limit": "iYalayala WIP ni dua na tamata",
+  "feature-person-wip-limit-desc": "E vica na kadi dola e rawa ni taura e dua na tamata e na dua na vola; na kadi e dolavi e vakatakila ni dua e sivita. Lesia e na vola yadua e Ituvatuva ni Vola / Lisi.",
+  "scrum-definition-of-ready": "Ivakamacala ni Sa Vakarau"
 }

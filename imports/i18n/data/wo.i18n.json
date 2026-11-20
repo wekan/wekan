@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Njëgu njaay",
   "wsjf-time-criticality": "Solo jamono",
   "wsjf-risk-reduction": "Wàññi musiba",
-  "wsjf-job-size": "Réyaayu liggéey"
+  "wsjf-job-size": "Réyaayu liggéey",
+  "listPolicyPopup-title": "Politigu limu",
+  "list-policy": "Politigu limu",
+  "list-policy-placeholder": "Kañ la karta mën a dugg ci limu bii, te kañ la jeex fii?",
+  "show-list-policies": "Wone politigu limu yi",
+  "commitment-point": "Bérebu dige",
+  "commitment-point-hint": "Liggéey bi dañu koy dige li dale ci limu bii; limu yi ko jiitu ay tànneef lañu.",
+  "person-wip-limit": "WIP Limit ci ku nekk",
+  "person-wip-over": "__user__ am na __count__ karta yu ubbeeku; WIP Limit ci ku nekk mooy __limit__.",
+  "feature-list-policies": "Politigu limu yi",
+  "feature-list-policies-desc": "Politigu limu bu nekk - kañ la karta mën a dugg ak kañ la jeex foofu - ci boppu limu bi. Dañu koy taal ci tablo bu nekk ci Tëraliini Tablo / Limu.",
+  "feature-commitment-point": "Bérebu dige",
+  "feature-commitment-point-desc": "Limu bi liggéey bi dale ci moom lañu koy dige, mu am màndarga ci boppam. Dañu koy tànn ci tablo bu nekk ci Tëraliini Tablo / Limu.",
+  "feature-person-wip-limit": "WIP Limit ci ku nekk",
+  "feature-person-wip-limit-desc": "Ñaata karta yu ubbeeku la benn nit mën a yor ci tablo; karta bu ubbeeku dina artu ci ku ko weesu. Dañu koy taxawal ci tablo bu nekk ci Tëraliini Tablo / Limu.",
+  "scrum-definition-of-ready": "Melokaanu Lu Pare"
 }

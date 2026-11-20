@@ -83,6 +83,14 @@ const FEATURES = [
     views: [] },
   { key: 'search-phrases', labelKey: 'feature-search-phrases', descKey: 'feature-search-phrases-desc',
     views: [] },
+  // The Kanban flow policies of the lists (models/lib/boardFlowPolicies.js):
+  // each also turned on per board in Board Settings / List.
+  { key: 'list-policies', labelKey: 'feature-list-policies', descKey: 'feature-list-policies-desc',
+    views: [] },
+  { key: 'commitment-point', labelKey: 'feature-commitment-point', descKey: 'feature-commitment-point-desc',
+    views: [] },
+  { key: 'person-wip-limit', labelKey: 'feature-person-wip-limit', descKey: 'feature-person-wip-limit-desc',
+    views: [] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

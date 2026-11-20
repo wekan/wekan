@@ -9,7 +9,8 @@ const keys = Object.keys(english).filter(key => key.startsWith('scrum-') || [
 ].includes(key));
 
 test('Somali Scrum messages cover planning and reports without losing interpolation tokens', () => {
-  assert.equal(keys.length, 127);
+  // 128 since scrum-definition-of-ready (2026-11-20), translated like the rest.
+  assert.equal(keys.length, 128);
   for (const key of keys) {
     assert.ok(data[key].trim(), key);
     assert.notEqual(data[key], english[key], key);

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Boleng bja kgwebo",
   "wsjf-time-criticality": "Bohlokwa bja nako",
   "wsjf-risk-reduction": "Phokotšo ya kotsi",
-  "wsjf-job-size": "Bogolo bja mošomo"
+  "wsjf-job-size": "Bogolo bja mošomo",
+  "listPolicyPopup-title": "Molao wa lelokelelo",
+  "list-policy": "Molao wa lelokelelo",
+  "list-policy-placeholder": "Karata e ka tsena neng lelokelelong le, gomme e phethwa neng mo?",
+  "show-list-policies": "Bontšha melao ya malokelelo",
+  "commitment-point": "Ntlha ya boikgafo",
+  "commitment-point-hint": "Go tloga lelokelelong le mošomo o a ikgafelwa; malokelelo a pele ga lona ke dikgetho.",
+  "person-wip-limit": "Moedi wa WIP ka motho",
+  "person-wip-over": "__user__ o na le dikarata tše di bulegilego tše __count__; moedi wa WIP ka motho ke __limit__.",
+  "feature-list-policies": "Melao ya malokelelo",
+  "feature-list-policies-desc": "Molao wa lelokelelo le lengwe le le lengwe - neng karata e ka tsena le neng e phethwa moo - hlogong ya lelokelelo. E bulwa ka poto ka Dipeakanyo tša poto / Lelokelelo.",
+  "feature-commitment-point": "Ntlha ya boikgafo",
+  "feature-commitment-point-desc": "Lelokelelo leo mošomo o ikgafelwago go tloga go lona, le swailwe hlogong ya lona. Le kgethwa ka poto ka Dipeakanyo tša poto / Lelokelelo.",
+  "feature-person-wip-limit": "Moedi wa WIP ka motho",
+  "feature-person-wip-limit-desc": "Ke dikarata tše kae tše di bulegilego motho o tee a ka di swarago potong; karata ye e bulegilego e lemoša ka mang le mang yo a fetago. E beakanywa ka poto ka Dipeakanyo tša poto / Lelokelelo.",
+  "scrum-definition-of-ready": "Tlhalošo ya go loketše"
 }

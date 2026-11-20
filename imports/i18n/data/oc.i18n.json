@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valor comerciala",
   "wsjf-time-criticality": "Criticitat temporala",
   "wsjf-risk-reduction": "Reduccion del risc",
-  "wsjf-job-size": "Talha del trabalh"
+  "wsjf-job-size": "Talha del trabalh",
+  "listPolicyPopup-title": "Règla de la lista",
+  "list-policy": "Règla de la lista",
+  "list-policy-placeholder": "Quora una carta pòt dintrar dins aquesta lista, e quora es acabada aquí?",
+  "show-list-policies": "Afichar las règlas de las listas",
+  "commitment-point": "Punt d'engatjament",
+  "commitment-point-hint": "A partir d'aquesta lista lo trabalh es engatjat; las listas d'abans son d'opcions.",
+  "person-wip-limit": "Limita WIP per persona",
+  "person-wip-over": "__user__ a __count__ cartas dobèrtas; la limita WIP per persona es __limit__.",
+  "feature-list-policies": "Règlas de las listas",
+  "feature-list-policies-desc": "La règla de cada lista - quora una carta pòt dintrar e quora es acabada aquí - dins l'entèsta de la lista. S'activa per tablèu dins Opcions del tablèu / Lista.",
+  "feature-commitment-point": "Punt d'engatjament",
+  "feature-commitment-point-desc": "La lista a partir de la quala lo trabalh es engatjat, marcada dins son entèsta. Se causís per tablèu dins Opcions del tablèu / Lista.",
+  "feature-person-wip-limit": "Limita WIP per persona",
+  "feature-person-wip-limit-desc": "Quantas cartas dobèrtas una persona pòt téner sus un tablèu; una carta dobèrta avisa de qual que siá que la despassa. Se definís per tablèu dins Opcions del tablèu / Lista.",
+  "scrum-definition-of-ready": "Definicion de prèst"
 }

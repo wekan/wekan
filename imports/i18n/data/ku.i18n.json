@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Nirxa karsaziyê",
   "wsjf-time-criticality": "Krîtîkbûna demê",
   "wsjf-risk-reduction": "Kêmkirina xetereyê",
-  "wsjf-job-size": "Mezinahiya karî"
+  "wsjf-job-size": "Mezinahiya karî",
+  "listPolicyPopup-title": "Siyaseta lîsteyê",
+  "list-policy": "Siyaseta lîsteyê",
+  "list-policy-placeholder": "Kart kengî dikare bikeve vê lîsteyê, û li vir kengî qediyaye?",
+  "show-list-policies": "Siyasetên lîsteyan nîşan bide",
+  "commitment-point": "Xala sozdanê",
+  "commitment-point-hint": "Ji vê lîsteyê û pê ve soz ji bo kar tê dayîn; lîsteyên berî wê vebijark in.",
+  "person-wip-limit": "Sînorê WIP ji bo her kesî",
+  "person-wip-over": "__user__ xwedî __count__ kartên vekirî ye; sînorê WIP ji bo her kesî __limit__ e.",
+  "feature-list-policies": "Siyasetên lîsteyan",
+  "feature-list-policies-desc": "Siyaseta her lîsteyê (kart kengî dikare bikeve û li wir kengî qediyaye) di serê lîsteyê de. Ji bo her depoyê di Mîhengên depoyê / Lîste de tê vekirin.",
+  "feature-commitment-point": "Xala sozdanê",
+  "feature-commitment-point-desc": "Lîsteya ku soz ji bo kar jê tê dayîn, di serê wê de nîşankirî. Ji bo her depoyê di Mîhengên depoyê / Lîste de tê hilbijartin.",
+  "feature-person-wip-limit": "Sînorê WIP ji bo her kesî",
+  "feature-person-wip-limit-desc": "Kesek dikare çend kartên vekirî li ser depoyekê bigire; karta vekirî li ser her kesê ku jê derbas dibe hişyar dike. Ji bo her depoyê di Mîhengên depoyê / Lîste de tê sazkirin.",
+  "scrum-definition-of-ready": "Pênaseya amadebûnê"
 }

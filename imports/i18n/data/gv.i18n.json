@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Feeuid dellal",
   "wsjf-time-criticality": "Siyrid traa",
   "wsjf-risk-reduction": "Giaree gaue",
-  "wsjf-job-size": "Mooadys obbyr"
+  "wsjf-job-size": "Mooadys obbyr",
+  "listPolicyPopup-title": "Polasee y rolley",
+  "list-policy": "Polasee y rolley",
+  "list-policy-placeholder": "Cuin oddys kaart cheet stiagh 'sy rolley shoh, as cuin t'eh jeant ayns shoh?",
+  "show-list-policies": "Taishbyn polaseeyn ny rolleeyn",
+  "commitment-point": "Ynnyd giallyn",
+  "commitment-point-hint": "Ta'n obbyr er ny ghiallyn veih'n rolley shoh magh; she reihyn ny rolleeyn roish.",
+  "person-wip-limit": "Eallagh WIP son dagh persoon",
+  "person-wip-over": "Ta __count__ kaartyn foshlit ec __user__; she __limit__ yn eallagh WIP son dagh persoon.",
+  "feature-list-policies": "Polaseeyn ny rolleeyn",
+  "feature-list-policies-desc": "Polasee dagh rolley (cuin oddys kaart cheet stiagh as cuin t'eh jeant ayn) ec kione y rolley. Er ny chur er son dagh boayrd ayns Reaghyssyn y Voayrd / Rolley.",
+  "feature-commitment-point": "Ynnyd giallyn",
+  "feature-commitment-point-desc": "Yn rolley veih ta'n obbyr er ny ghiallyn, cowrit ec y chione echey. Er ny reih son dagh boayrd ayns Reaghyssyn y Voayrd / Rolley.",
+  "feature-person-wip-limit": "Eallagh WIP son dagh persoon",
+  "feature-person-wip-limit-desc": "Wheesh kaartyn foshlit as oddys un persoon y chummal er boayrd; ta kaart foshlit cur raaue mychione peiagh erbee harrish. Er ny hoiaghey son dagh boayrd ayns Reaghyssyn y Voayrd / Rolley.",
+  "scrum-definition-of-ready": "Meanaghey Aarloo"
 }

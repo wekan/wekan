@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Liiketoiminta-arvo",
   "wsjf-time-criticality": "Aikakriittisyys",
   "wsjf-risk-reduction": "Riskin pienentäminen",
-  "wsjf-job-size": "Työn koko"
+  "wsjf-job-size": "Työn koko",
+  "listPolicyPopup-title": "Listan käytäntö",
+  "list-policy": "Listan käytäntö",
+  "list-policy-placeholder": "Milloin kortti saa tulla tälle listalle, ja milloin se on täällä valmis?",
+  "show-list-policies": "Näytä listojen käytännöt",
+  "commitment-point": "Sitoutumiskohta",
+  "commitment-point-hint": "Työhön sitoudutaan tästä listasta alkaen; sitä edeltävät listat ovat vaihtoehtoja.",
+  "person-wip-limit": "WIP-raja henkilöä kohden",
+  "person-wip-over": "Käyttäjällä __user__ on __count__ avointa korttia; WIP-raja henkilöä kohden on __limit__.",
+  "feature-list-policies": "Listojen käytännöt",
+  "feature-list-policies-desc": "Kunkin listan käytäntö – milloin kortti saa tulla ja milloin se on siellä valmis – listan otsakkeessa. Otetaan käyttöön tauluittain kohdassa Taulun asetukset / Lista.",
+  "feature-commitment-point": "Sitoutumiskohta",
+  "feature-commitment-point-desc": "Lista, josta alkaen työhön sitoudutaan, merkittynä sen otsakkeeseen. Valitaan tauluittain kohdassa Taulun asetukset / Lista.",
+  "feature-person-wip-limit": "WIP-raja henkilöä kohden",
+  "feature-person-wip-limit-desc": "Kuinka monta avointa korttia yksi henkilö saa pitää taululla; avattu kortti varoittaa jokaisesta, joka ylittää sen. Asetetaan tauluittain kohdassa Taulun asetukset / Lista.",
+  "scrum-definition-of-ready": "Aloitusvalmiuden määritelmä"
 }

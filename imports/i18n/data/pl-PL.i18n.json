@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Wartość biznesowa",
   "wsjf-time-criticality": "Krytyczność czasowa",
   "wsjf-risk-reduction": "Redukcja ryzyka",
-  "wsjf-job-size": "Rozmiar zadania"
+  "wsjf-job-size": "Rozmiar zadania",
+  "listPolicyPopup-title": "Zasady listy",
+  "list-policy": "Zasady listy",
+  "list-policy-placeholder": "Kiedy karta może trafić na tę listę i kiedy jest tu ukończona?",
+  "show-list-policies": "Pokaż zasady list",
+  "commitment-point": "Punkt zobowiązania",
+  "commitment-point-hint": "Od tej listy praca jest zobowiązaniem; listy przed nią to opcje.",
+  "person-wip-limit": "Limit WIP na osobę",
+  "person-wip-over": "__user__ ma __count__ otwartych kart; limit WIP na osobę wynosi __limit__.",
+  "feature-list-policies": "Zasady list",
+  "feature-list-policies-desc": "Zasady każdej listy - kiedy karta może wejść i kiedy jest tam ukończona - w nagłówku listy. Włączane dla każdej tablicy w Ustawienia tablicy / Lista.",
+  "feature-commitment-point": "Punkt zobowiązania",
+  "feature-commitment-point-desc": "Lista, od której praca jest zobowiązaniem, oznaczona w jej nagłówku. Wybierana dla każdej tablicy w Ustawienia tablicy / Lista.",
+  "feature-person-wip-limit": "Limit WIP na osobę",
+  "feature-person-wip-limit-desc": "Ile otwartych kart może mieć jedna osoba na tablicy; otwarta karta ostrzega o każdym, kto go przekracza. Ustawiany dla każdej tablicy w Ustawienia tablicy / Lista.",
+  "scrum-definition-of-ready": "Definicja gotowości"
 }

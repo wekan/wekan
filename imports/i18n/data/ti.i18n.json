@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ዋጋ ንግዲ",
   "wsjf-time-criticality": "ኣገዳስነት ግዜ",
   "wsjf-risk-reduction": "ምንካይ ሓደጋ",
-  "wsjf-job-size": "ዓቐን ስራሕ"
+  "wsjf-job-size": "ዓቐን ስራሕ",
+  "listPolicyPopup-title": "ፖሊሲ ዝርዝር",
+  "list-policy": "ፖሊሲ ዝርዝር",
+  "list-policy-placeholder": "ካርድ ናብዚ ዝርዝር መዓስ ክኣቱ ይኽእል፡ ኣብዚኸ መዓስ ይውዳእ?",
+  "show-list-policies": "ፖሊሲታት ዝርዝር ኣርኢ",
+  "commitment-point": "ነጥቢ ተወፋይነት",
+  "commitment-point-hint": "ስራሕ ካብዚ ዝርዝር ጀሚሩ ይውፈ፤ ቅድሚኡ ዘለዉ ዝርዝራት ምርጫታት እዮም።",
+  "person-wip-limit": "ደረት WIP ንሓደ ሰብ",
+  "person-wip-over": "__user__ __count__ ክፉታት ካርዳት ኣለዉዎ፤ ደረት WIP ንሓደ ሰብ __limit__ እዩ።",
+  "feature-list-policies": "ፖሊሲታት ዝርዝር",
+  "feature-list-policies-desc": "ፖሊሲ ነፍሲ ወከፍ ዝርዝር - ካርድ መዓስ ክኣቱ ከም ዝኽእልን ኣብኡ መዓስ ከም ዝውዳእን - ኣብ ርእሲ ዝርዝር። ንነፍሲ ወከፍ ሰሌዳ ኣብ ናይ ሰሌዳ ቅንብራት / ዝርዝር ይውላዕ።",
+  "feature-commitment-point": "ነጥቢ ተወፋይነት",
+  "feature-commitment-point-desc": "ስራሕ ካብኡ ጀሚሩ ዝውፈ ዝርዝር፡ ኣብ ርእሱ ተመልኪቱ። ንነፍሲ ወከፍ ሰሌዳ ኣብ ናይ ሰሌዳ ቅንብራት / ዝርዝር ይሕረይ።",
+  "feature-person-wip-limit": "ደረት WIP ንሓደ ሰብ",
+  "feature-person-wip-limit-desc": "ሓደ ሰብ ኣብ ሰሌዳ ክንደይ ክፉታት ካርዳት ክሕዝ ከም ዝኽእል፤ ዝተኸፍተ ካርድ ብዛዕባ ዝሓለፎ ዝኾነ ሰብ የጠንቅቕ። ንነፍሲ ወከፍ ሰሌዳ ኣብ ናይ ሰሌዳ ቅንብራት / ዝርዝር ይቕመጥ።",
+  "scrum-definition-of-ready": "ትርጉም ድሉው"
 }

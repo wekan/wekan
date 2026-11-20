@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Bili han negosyo",
   "wsjf-time-criticality": "Pagkaapura han oras",
   "wsjf-risk-reduction": "Pagpaubos han peligro",
-  "wsjf-job-size": "Kadako han trabaho"
+  "wsjf-job-size": "Kadako han trabaho",
+  "listPolicyPopup-title": "Polisiya han lista",
+  "list-policy": "Polisiya han lista",
+  "list-policy-placeholder": "San-o puydi sumulod an kard hini nga lista, ngan san-o ini tapos dinhi?",
+  "show-list-policies": "Ipakita an mga polisiya han lista",
+  "commitment-point": "Punto han pasaad",
+  "commitment-point-hint": "Tikang hini nga lista an buruhaton iginpapasaad; an mga lista antes hini mga pilian.",
+  "person-wip-limit": "WIP Limit kada tawo",
+  "person-wip-over": "May-ada __count__ nga bukas nga kard hi __user__; an WIP limit kada tawo __limit__.",
+  "feature-list-policies": "Mga polisiya han lista",
+  "feature-list-policies-desc": "An polisiya han kada lista - san-o puydi sumulod an kard ngan san-o ini tapos didto - ha ulohan han lista. Ginbubukas kada pisara ha Mga Setting han Board / Lista.",
+  "feature-commitment-point": "Punto han pasaad",
+  "feature-commitment-point-desc": "An lista nga tikang didto iginpapasaad an buruhaton, gintimaan ha ulohan hini. Ginpipili kada pisara ha Mga Setting han Board / Lista.",
+  "feature-person-wip-limit": "WIP Limit kada tawo",
+  "feature-person-wip-limit-desc": "Pira nga bukas nga kard an puydi kuptan han usa nga tawo ha pisara; an ginbuksan nga kard nagpapahamangno mahitungod ha bisan hin-o nga lumapos hini. Gintatakda kada pisara ha Mga Setting han Board / Lista.",
+  "scrum-definition-of-ready": "Kahulogan han andam na nga buruhaton"
 }

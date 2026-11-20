@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Äriväärtus",
   "wsjf-time-criticality": "Ajakriitilisus",
   "wsjf-risk-reduction": "Riski vähendamine",
-  "wsjf-job-size": "Töö maht"
+  "wsjf-job-size": "Töö maht",
+  "listPolicyPopup-title": "Loetelu reeglid",
+  "list-policy": "Loetelu reeglid",
+  "list-policy-placeholder": "Millal võib kaart sellesse loetellu tulla ja millal on see siin valmis?",
+  "show-list-policies": "Näita loetelude reegleid",
+  "commitment-point": "Kohustumise punkt",
+  "commitment-point-hint": "Sellest loetelust alates võetakse töö kohustuseks; sellele eelnevad loetelud on valikud.",
+  "person-wip-limit": "WIP limiit inimese kohta",
+  "person-wip-over": "Kasutajal __user__ on __count__ avatud kaarti; WIP limiit inimese kohta on __limit__.",
+  "feature-list-policies": "Loetelude reeglid",
+  "feature-list-policies-desc": "Iga loetelu reeglid – millal võib kaart tulla ja millal on see seal valmis – loetelu päises. Lülitatakse sisse tahvli kaupa jaotises Tahvli seaded / Loetelu.",
+  "feature-commitment-point": "Kohustumise punkt",
+  "feature-commitment-point-desc": "Loetelu, millest alates töö võetakse kohustuseks, märgitud selle päises. Valitakse tahvli kaupa jaotises Tahvli seaded / Loetelu.",
+  "feature-person-wip-limit": "WIP limiit inimese kohta",
+  "feature-person-wip-limit-desc": "Mitu avatud kaarti võib üks inimene tahvlil hoida; avatud kaart hoiatab igaühest, kes seda ületab. Määratakse tahvli kaupa jaotises Tahvli seaded / Loetelu.",
+  "scrum-definition-of-ready": "Alustamisvalmiduse määratlus"
 }

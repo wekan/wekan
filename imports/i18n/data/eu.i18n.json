@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Negozio-balioa",
   "wsjf-time-criticality": "Denbora-larritasuna",
   "wsjf-risk-reduction": "Arrisku-murrizketa",
-  "wsjf-job-size": "Lanaren tamaina"
+  "wsjf-job-size": "Lanaren tamaina",
+  "listPolicyPopup-title": "Zerrendaren politika",
+  "list-policy": "Zerrendaren politika",
+  "list-policy-placeholder": "Noiz sar daiteke txartel bat zerrenda honetan, eta noiz dago hemen eginda?",
+  "show-list-policies": "Erakutsi zerrenden politikak",
+  "commitment-point": "Konpromiso-puntua",
+  "commitment-point-hint": "Zerrenda honetatik aurrera konprometitzen da lana; aurreko zerrendak aukerak dira.",
+  "person-wip-limit": "Pertsona bakoitzeko WIP muga",
+  "person-wip-over": "__user__ erabiltzaileak __count__ txartel ireki ditu; pertsona bakoitzeko WIP muga __limit__ da.",
+  "feature-list-policies": "Zerrenden politikak",
+  "feature-list-policies-desc": "Zerrenda bakoitzaren politika (noiz sar daitekeen txartel bat eta noiz dagoen han eginda) zerrendaren goiburuan. Arbelka aktibatzen da Arbelaren ezarpenak / Zerrenda atalean.",
+  "feature-commitment-point": "Konpromiso-puntua",
+  "feature-commitment-point-desc": "Lana konprometitzen den zerrenda, bere goiburuan markatuta. Arbelka aukeratzen da Arbelaren ezarpenak / Zerrenda atalean.",
+  "feature-person-wip-limit": "Pertsona bakoitzeko WIP muga",
+  "feature-person-wip-limit-desc": "Pertsona batek arbel batean zenbat txartel ireki izan ditzakeen; txartel ireki batek ohartarazten du muga gainditzen duen edonori buruz. Arbelka ezartzen da Arbelaren ezarpenak / Zerrenda atalean.",
+  "scrum-definition-of-ready": "Prestatutakoaren definizioa"
 }

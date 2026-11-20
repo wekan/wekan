@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "業務價值",
   "wsjf-time-criticality": "時間緊迫性",
   "wsjf-risk-reduction": "風險降低",
-  "wsjf-job-size": "工作規模"
+  "wsjf-job-size": "工作規模",
+  "listPolicyPopup-title": "清單規則",
+  "list-policy": "清單規則",
+  "list-policy-placeholder": "卡片何時可以進入此清單，何時在此清單中算作完成？",
+  "show-list-policies": "顯示清單規則",
+  "commitment-point": "承諾點",
+  "commitment-point-hint": "從此清單開始承諾執行工作；之前的清單為備選項。",
+  "person-wip-limit": "每人 WIP 限制",
+  "person-wip-over": "__user__ 有 __count__ 張未完成的卡片；每人 WIP 限制為 __limit__。",
+  "feature-list-policies": "清單規則",
+  "feature-list-policies-desc": "每個清單的規則——卡片何時可以進入、何時在該清單中算作完成——顯示在清單標題處。在 看板設定 / 清單 中按看板啟用。",
+  "feature-commitment-point": "承諾點",
+  "feature-commitment-point-desc": "從此開始承諾執行工作的清單，在其標題處標出。在 看板設定 / 清單 中按看板選擇。",
+  "feature-person-wip-limit": "每人 WIP 限制",
+  "feature-person-wip-limit-desc": "一個人在看板上最多可持有的未完成卡片數；開啟卡片時會提醒超出限制的人員。在 看板設定 / 清單 中按看板設定。",
+  "scrum-definition-of-ready": "就緒的定義"
 }

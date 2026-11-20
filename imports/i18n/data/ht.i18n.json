@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valè biznis",
   "wsjf-time-criticality": "Ijans tan",
   "wsjf-risk-reduction": "Rediksyon risk",
-  "wsjf-job-size": "Gwosè travay"
+  "wsjf-job-size": "Gwosè travay",
+  "listPolicyPopup-title": "Règ lis la",
+  "list-policy": "Règ lis la",
+  "list-policy-placeholder": "Kilè yon kat ka antre nan lis sa a, e kilè li fini isit la?",
+  "show-list-policies": "Montre règ lis yo",
+  "commitment-point": "Pwen angajman",
+  "commitment-point-hint": "Travay la angaje apati lis sa a; lis ki anvan l yo se opsyon.",
+  "person-wip-limit": "Limit WIP pou chak moun",
+  "person-wip-over": "__user__ gen __count__ kat ki louvri; limit WIP pou chak moun se __limit__.",
+  "feature-list-policies": "Règ lis yo",
+  "feature-list-policies-desc": "Règ chak lis (kilè yon kat ka antre ak kilè li fini la) nan tèt lis la. Yo aktive l pou chak tablo nan Paramèt tablo / Lis.",
+  "feature-commitment-point": "Pwen angajman",
+  "feature-commitment-point-desc": "Lis kote travay la angaje apati li, ki make nan tèt li. Yo chwazi l pou chak tablo nan Paramèt tablo / Lis.",
+  "feature-person-wip-limit": "Limit WIP pou chak moun",
+  "feature-person-wip-limit-desc": "Konbyen kat louvri yon sèl moun ka genyen sou yon tablo; yon kat ki louvri avèti sou nenpòt moun ki depase l. Yo regle l pou chak tablo nan Paramèt tablo / Lis.",
+  "scrum-definition-of-ready": "Definisyon travay pare"
 }

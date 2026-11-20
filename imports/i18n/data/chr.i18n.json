@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ᎠᏕᎳ ᎤᏓᏁᏟᏴᏍᏓᏁᏗ",
   "wsjf-time-criticality": "ᎢᏳᏟᎶᏛ ᎤᎵᏍᎨᏛ",
   "wsjf-risk-reduction": "ᎤᏲ ᎢᏳᎵᏍᏙᏗ ᎠᏗᏒᏍᏗ",
-  "wsjf-job-size": "ᏚᎸᏫᏍᏓᏁᏗ ᎤᏔᎾ"
+  "wsjf-job-size": "ᏚᎸᏫᏍᏓᏁᏗ ᎤᏔᎾ",
+  "listPolicyPopup-title": "ᎠᏎᏊᎢ ᏗᎧᎿᏩᏛᏍᏗ",
+  "list-policy": "ᎠᏎᏊᎢ ᏗᎧᎿᏩᏛᏍᏗ",
+  "list-policy-placeholder": "ᎢᎳᎪ ᎪᏪᎵ ᏯᏴᎵ ᎯᎠ ᎠᏎᏊᎢ, ᎠᎴ ᎢᎳᎪ ᎠᏍᏆᏛ ᎠᏂ?",
+  "show-list-policies": "ᎬᏂᎨᏒ ᎢᏯᏛᏁᎸ ᎠᏎᏊᎢ ᏗᎧᎿᏩᏛᏍᏗ",
+  "commitment-point": "ᎠᏚᎢᏍᏛ ᎤᏍᏗ",
+  "commitment-point-hint": "ᎯᎠ ᎠᏎᏊᎢ ᏅᏓᎬᏩᏓᎴᏅᏛ ᏚᏳᎪᏛ ᏗᎦᎸᏫᏍᏓᏁᏗ; ᎢᎬᏱ ᎠᏎᏊᎢ ᏗᏑᏰᏍᏗ.",
+  "person-wip-limit": "WIP ᎢᎦᎢ ᏏᏏᏴᏫ",
+  "person-wip-over": "__user__ ᎤᏪᎧ __count__ ᏗᎪᏪᎵ ᏧᏍᏚᎢᏛ; WIP ᎢᎦᎢ ᏏᏏᏴᏫ __limit__.",
+  "feature-list-policies": "ᎠᏎᏊᎢ ᏗᎧᎿᏩᏛᏍᏗ ᏂᎦᏛ",
+  "feature-list-policies-desc": "ᏂᎦᏓ ᎠᏎᏊᎢ ᏗᎧᎿᏩᏛᏍᏗ - ᎢᎳᎪ ᎪᏪᎵ ᏯᏴᎵ ᎠᎴ ᎢᎳᎪ ᎠᏍᏆᏛ - ᎠᏎᏊᎢ ᎠᏍᎪᎵ. ᏗᏟᎶᏍᏙᏗ ᏗᏄᏬᏍᏗ / ᎠᏎᏊᎢ ᏧᏍᏚᎢᏍᏗ.",
+  "feature-commitment-point": "ᎠᏚᎢᏍᏛ ᎤᏍᏗ",
+  "feature-commitment-point-desc": "ᎠᏎᏊᎢ ᏗᎦᎸᏫᏍᏓᏁᏗ ᎠᏚᎢᏍᏛ ᏅᏓᎬᏩᏓᎴᏅᏛ, ᎠᏍᎪᎵ ᎪᏪᎸ. ᏗᏟᎶᏍᏙᏗ ᏗᏄᏬᏍᏗ / ᎠᏎᏊᎢ ᏑᏰᏍᏗ.",
+  "feature-person-wip-limit": "WIP ᎢᎦᎢ ᏏᏏᏴᏫ",
+  "feature-person-wip-limit-desc": "ᎯᎳᎪ ᏗᎪᏪᎵ ᏧᏍᏚᎢᏛ ᏌᏉ ᏴᏫ ᏰᎵ ᎤᏂᏴᏗ ᏗᏟᎶᏍᏙᏗ; ᏧᏍᏚᎢᏛ ᎪᏪᎵ ᎠᏓᏅᏍᎨ ᎩᎶ ᎤᏓᎾᏩᏍᏛ. ᏗᏟᎶᏍᏙᏗ ᏗᏄᏬᏍᏗ / ᎠᏎᏊᎢ ᎦᏟᏌᏅ.",
+  "scrum-definition-of-ready": "ᎠᏛᏅᎢᏍᏗ ᎧᏃᎮᏗ"
 }

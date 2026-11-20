@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Biznes dəyəri",
   "wsjf-time-criticality": "Vaxt kritikliyi",
   "wsjf-risk-reduction": "Riskin azaldılması",
-  "wsjf-job-size": "İşin həcmi"
+  "wsjf-job-size": "İşin həcmi",
+  "listPolicyPopup-title": "Siyahı siyasəti",
+  "list-policy": "Siyahı siyasəti",
+  "list-policy-placeholder": "Kart bu siyahıya nə vaxt daxil ola bilər və burada nə vaxt tamamlanmış sayılır?",
+  "show-list-policies": "Siyahı siyasətlərini göstər",
+  "commitment-point": "Öhdəlik nöqtəsi",
+  "commitment-point-hint": "İş bu siyahıdan etibarən öhdəliyə götürülür; ondan əvvəlki siyahılar seçimlərdir.",
+  "person-wip-limit": "Hər şəxs üçün WIP limiti",
+  "person-wip-over": "__user__ istifadəçisinin __count__ açıq kartı var; hər şəxs üçün WIP limiti __limit__ təşkil edir.",
+  "feature-list-policies": "Siyahı siyasətləri",
+  "feature-list-policies-desc": "Hər siyahının siyasəti - kartın nə vaxt daxil ola biləcəyi və orada nə vaxt tamamlandığı - siyahı başlığında. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində aktivləşdirilir.",
+  "feature-commitment-point": "Öhdəlik nöqtəsi",
+  "feature-commitment-point-desc": "İşin öhdəliyə götürüldüyü siyahı, başlığında işarələnir. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində seçilir.",
+  "feature-person-wip-limit": "Hər şəxs üçün WIP limiti",
+  "feature-person-wip-limit-desc": "Bir şəxsin lövhədə neçə açıq kart saxlaya biləcəyi; açılmış kart limiti aşan hər kəs barədə xəbərdarlıq edir. Hər lövhə üçün Board Parametrləri / Siyahı bölməsində təyin edilir.",
+  "scrum-definition-of-ready": "Hazırlıq meyarları"
 }

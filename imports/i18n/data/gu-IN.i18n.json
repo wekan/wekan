@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "વ્યવસાય મૂલ્ય",
   "wsjf-time-criticality": "સમયની નિર્ણાયકતા",
   "wsjf-risk-reduction": "જોખમ ઘટાડો",
-  "wsjf-job-size": "કાર્યનું કદ"
+  "wsjf-job-size": "કાર્યનું કદ",
+  "listPolicyPopup-title": "યાદી નીતિ",
+  "list-policy": "યાદી નીતિ",
+  "list-policy-placeholder": "કાર્ડ આ યાદીમાં ક્યારે આવી શકે, અને અહીં તે ક્યારે પૂર્ણ થાય?",
+  "show-list-policies": "યાદી નીતિઓ બતાવો",
+  "commitment-point": "પ્રતિબદ્ધતા બિંદુ",
+  "commitment-point-hint": "આ યાદીથી આગળ કામ માટે પ્રતિબદ્ધતા થાય છે; તેની પહેલાંની યાદીઓ વિકલ્પો છે.",
+  "person-wip-limit": "વ્યક્તિ દીઠ WIP મર્યાદા",
+  "person-wip-over": "__user__ પાસે __count__ ખુલ્લાં કાર્ડ છે; વ્યક્તિ દીઠ WIP મર્યાદા __limit__ છે.",
+  "feature-list-policies": "યાદી નીતિઓ",
+  "feature-list-policies-desc": "દરેક યાદીની નીતિ (કાર્ડ ક્યારે અંદર આવી શકે અને ત્યાં ક્યારે પૂર્ણ થાય) યાદીના હેડરમાં. બોર્ડ સેટિંગ્સ / યાદી માં દરેક બોર્ડ માટે ચાલુ કરાય છે.",
+  "feature-commitment-point": "પ્રતિબદ્ધતા બિંદુ",
+  "feature-commitment-point-desc": "જે યાદીથી કામ માટે પ્રતિબદ્ધતા થાય છે, તેના હેડરમાં ચિહ્નિત. બોર્ડ સેટિંગ્સ / યાદી માં દરેક બોર્ડ માટે પસંદ કરાય છે.",
+  "feature-person-wip-limit": "વ્યક્તિ દીઠ WIP મર્યાદા",
+  "feature-person-wip-limit-desc": "એક વ્યક્તિ બોર્ડ પર કેટલાં ખુલ્લાં કાર્ડ રાખી શકે; ખોલેલું કાર્ડ તેનાથી વધુ ધરાવનાર કોઈપણ વિશે ચેતવે છે. બોર્ડ સેટિંગ્સ / યાદી માં દરેક બોર્ડ માટે સેટ કરાય છે.",
+  "scrum-definition-of-ready": "તૈયાર હોવાની વ્યાખ્યા"
 }

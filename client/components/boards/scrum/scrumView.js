@@ -306,7 +306,8 @@ Template.scrumView.events({
     event.preventDefault(); const values = fields(event.currentTarget);
     const formData = new FormData(event.currentTarget);
     await mutate(tpl, 'scrum.configure', { enabled: values.enabled === 'on', productGoal: values.productGoal,
-      definitionOfDone: values.definitionOfDone, estimateSource: values.estimateSource,
+      definitionOfDone: values.definitionOfDone, definitionOfReady: values.definitionOfReady,
+      estimateSource: values.estimateSource,
       estimateCustomFieldId: nullable(values.estimateCustomFieldId), estimateUnit: values.estimateUnit,
       completionPolicy: values.completionPolicy, productOwnerId: nullable(values.productOwnerId),
       scrumMasterId: nullable(values.scrumMasterId), developerIds: formData.getAll('developerIds'),

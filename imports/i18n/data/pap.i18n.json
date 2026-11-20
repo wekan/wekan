@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Balor di negoshi",
   "wsjf-time-criticality": "Urgensia di tempu",
   "wsjf-risk-reduction": "Redukshon di riesgo",
-  "wsjf-job-size": "Tamaño di trabou"
+  "wsjf-job-size": "Tamaño di trabou",
+  "listPolicyPopup-title": "Regla di lista",
+  "list-policy": "Regla di lista",
+  "list-policy-placeholder": "Ki ora un karchi por drenta e lista aki, i ki ora e ta kla aki?",
+  "show-list-policies": "Mustra reglanan di lista",
+  "commitment-point": "Punto di kompromiso",
+  "commitment-point-hint": "For di e lista aki e trabou ta kompromete; e listanan promé ku e ta opshonnan.",
+  "person-wip-limit": "Límite WIP pa persona",
+  "person-wip-over": "__user__ tin __count__ karchi habrí; e límite WIP pa persona ta __limit__.",
+  "feature-list-policies": "Reglanan di lista",
+  "feature-list-policies-desc": "E regla di kada lista - ki ora un karchi por drenta i ki ora e ta kla einan - den e kabes di e lista. Ta aktivá pa kada tabla den Konfigurashon di tabla / Lista.",
+  "feature-commitment-point": "Punto di kompromiso",
+  "feature-commitment-point-desc": "E lista for di kua e trabou ta kompromete, marká den su kabes. Ta skohé pa kada tabla den Konfigurashon di tabla / Lista.",
+  "feature-person-wip-limit": "Límite WIP pa persona",
+  "feature-person-wip-limit-desc": "Kuantu karchi habrí un persona por tene riba un tabla; un karchi habrí ta avisá tokante kualke hende ku ta pasa e límite. Ta stablesé pa kada tabla den Konfigurashon di tabla / Lista.",
+  "scrum-definition-of-ready": "Definishon di kla pa kuminsá"
 }

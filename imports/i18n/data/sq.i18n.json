@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Vlera e biznesit",
   "wsjf-time-criticality": "Kritikaliteti kohor",
   "wsjf-risk-reduction": "Ulja e rrezikut",
-  "wsjf-job-size": "Madhësia e punës"
+  "wsjf-job-size": "Madhësia e punës",
+  "listPolicyPopup-title": "Rregulla e listës",
+  "list-policy": "Rregulla e listës",
+  "list-policy-placeholder": "Kur mund të hyjë një kartë në këtë listë dhe kur përfundon këtu?",
+  "show-list-policies": "Shfaq rregullat e listave",
+  "commitment-point": "Pika e angazhimit",
+  "commitment-point-hint": "Nga kjo listë e tutje puna merret përsipër; listat para saj janë mundësi.",
+  "person-wip-limit": "Kufiri WIP për person",
+  "person-wip-over": "__user__ ka __count__ karta të hapura; kufiri WIP për person është __limit__.",
+  "feature-list-policies": "Rregullat e listave",
+  "feature-list-policies-desc": "Rregulla e çdo liste - kur mund të hyjë një kartë dhe kur përfundon atje - në kokën e listës. Aktivizohet për çdo tabelë te Cilësimet e tabelës / Listë.",
+  "feature-commitment-point": "Pika e angazhimit",
+  "feature-commitment-point-desc": "Lista nga e cila puna merret përsipër, e shënuar në kokën e saj. Zgjidhet për çdo tabelë te Cilësimet e tabelës / Listë.",
+  "feature-person-wip-limit": "Kufiri WIP për person",
+  "feature-person-wip-limit-desc": "Sa karta të hapura mund të mbajë një person në një tabelë; një kartë e hapur paralajmëron për këdo që e kalon. Caktohet për çdo tabelë te Cilësimet e tabelës / Listë.",
+  "scrum-definition-of-ready": "Përkufizimi i gatishmërisë"
 }

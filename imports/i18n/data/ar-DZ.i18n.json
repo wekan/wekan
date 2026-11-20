@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "قيمة العمل",
   "wsjf-time-criticality": "الأهمية الزمنية",
   "wsjf-risk-reduction": "تقليل المخاطر",
-  "wsjf-job-size": "حجم العمل"
+  "wsjf-job-size": "حجم العمل",
+  "listPolicyPopup-title": "سياسة القائمة",
+  "list-policy": "سياسة القائمة",
+  "list-policy-placeholder": "متى يمكن للبطاقة أن تدخل هذه القائمة، ومتى تُعدّ منجزة هنا؟",
+  "show-list-policies": "إظهار سياسات القوائم",
+  "commitment-point": "نقطة الالتزام",
+  "commitment-point-hint": "يُلتزم بالعمل ابتداءً من هذه القائمة؛ والقوائم التي قبلها خيارات.",
+  "person-wip-limit": "حد العمل الجاري (WIP) لكل شخص",
+  "person-wip-over": "لدى __user__ عدد __count__ من البطاقات المفتوحة؛ وحد العمل الجاري (WIP) لكل شخص هو __limit__.",
+  "feature-list-policies": "سياسات القوائم",
+  "feature-list-policies-desc": "سياسة كل قائمة - متى يمكن للبطاقة أن تدخل ومتى تُعدّ منجزة فيها - في رأس القائمة. تُفعَّل لكل لوحة في إعدادات اللوحة / قائمة.",
+  "feature-commitment-point": "نقطة الالتزام",
+  "feature-commitment-point-desc": "القائمة التي يُلتزم بالعمل ابتداءً منها، مع علامة في رأسها. تُختار لكل لوحة في إعدادات اللوحة / قائمة.",
+  "feature-person-wip-limit": "حد العمل الجاري (WIP) لكل شخص",
+  "feature-person-wip-limit-desc": "عدد البطاقات المفتوحة التي يمكن لشخص واحد الاحتفاظ بها في لوحة؛ وتُنبّه البطاقة المفتوحة إلى أي شخص تجاوزه. يُضبط لكل لوحة في إعدادات اللوحة / قائمة.",
+  "scrum-definition-of-ready": "تعريف الجاهزية"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Agaciro k'ubucuruzi",
   "wsjf-time-criticality": "Ihutirwa ry'igihe",
   "wsjf-risk-reduction": "Kugabanya ingaruka",
-  "wsjf-job-size": "Ingano y'akazi"
+  "wsjf-job-size": "Ingano y'akazi",
+  "listPolicyPopup-title": "Politiki y'urutonde",
+  "list-policy": "Politiki y'urutonde",
+  "list-policy-placeholder": "Ikarita yinjira ryari muri uru rutonde, kandi irangira ryari hano?",
+  "show-list-policies": "Erekana politiki z'intonde",
+  "commitment-point": "Ingingo y'ubwiyemeze",
+  "commitment-point-hint": "Guhera kuri uru rutonde akazi karemerwa; intonde ziri mbere yarwo ni amahitamo.",
+  "person-wip-limit": "Urugero rwa WIP ku muntu",
+  "person-wip-over": "__user__ afite amakarita __count__ afunguye; urugero rwa WIP ku muntu ni __limit__.",
+  "feature-list-policies": "Politiki z'intonde",
+  "feature-list-policies-desc": "Politiki ya buri rutonde - igihe ikarita yinjira n'igihe irangirira aho - ku mutwe w'urutonde. Ifungurwa kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde.",
+  "feature-commitment-point": "Ingingo y'ubwiyemeze",
+  "feature-commitment-point-desc": "Urutonde akazi kemerwa guhera kurwo, rugaragazwa ku mutwe warwo. Ruhitwamo kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde.",
+  "feature-person-wip-limit": "Urugero rwa WIP ku muntu",
+  "feature-person-wip-limit-desc": "Umubare w'amakarita afunguye umuntu umwe ashobora gufata ku kibaho; ikarita ifunguye iburira ku muntu wese urenzeho. Ushyirwaho kuri buri kibaho muri Igenamiterere ry'ikibaho / Urutonde.",
+  "scrum-definition-of-ready": "Igisobanuro cy'Icyiteguye"
 }

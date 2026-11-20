@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ቅምት ንግድ",
   "wsjf-time-criticality": "ኣገዳስነት ሰዓት",
   "wsjf-risk-reduction": "ምንቃስ ሐደጋ",
-  "wsjf-job-size": "ዐቢ ሸቅል"
+  "wsjf-job-size": "ዐቢ ሸቅል",
+  "listPolicyPopup-title": "ፖሊሲ ዝርዝር",
+  "list-policy": "ፖሊሲ ዝርዝር",
+  "list-policy-placeholder": "ወረቀት ካርድ ናብ እዚ ዝርዝር መዓስ ክኣቱ ይኽእል፡ ኣብዚኸ መዓስ ይውዳእ?",
+  "show-list-policies": "ፖሊሲታት ዝርዝር ኣርኢ",
+  "commitment-point": "ነጥቢ ተወፋይነት",
+  "commitment-point-hint": "ስራሕ ካብዚ ዝርዝር ጀሚሩ ይውፈ፤ ቅድሚኡ ዘለዉ ዝርዝራት ምርጫታት እዮም።",
+  "person-wip-limit": "ደረት WIP ንሓደ ነፈር",
+  "person-wip-over": "__user__ __count__ ክፉት ወረቀት ካርዳት ኣለዎ፤ ደረት WIP ንሓደ ነፈር __limit__ እዩ።",
+  "feature-list-policies": "ፖሊሲታት ዝርዝር",
+  "feature-list-policies-desc": "ፖሊሲ ነፍሲ ወከፍ ዝርዝር - ወረቀት ካርድ መዓስ ክኣቱ ከም ዝኽእልን ኣብኡ መዓስ ከም ዝውዳእን - ኣብ ርእሲ ዝርዝር። ንነፍሲ ወከፍ ምዱድ ኣብ ናይ ምዱድ ምድላው / ዝርዝር ይውላዕ።",
+  "feature-commitment-point": "ነጥቢ ተወፋይነት",
+  "feature-commitment-point-desc": "ስራሕ ካብኡ ጀሚሩ ዝውፈ ዝርዝር፡ ኣብ ርእሱ ተመልኪቱ። ንነፍሲ ወከፍ ምዱድ ኣብ ናይ ምዱድ ምድላው / ዝርዝር ይሕረይ።",
+  "feature-person-wip-limit": "ደረት WIP ንሓደ ነፈር",
+  "feature-person-wip-limit-desc": "ሓደ ነፈር ኣብ ምዱድ ክንደይ ክፉት ወረቀት ካርዳት ክሕዝ ከም ዝኽእል፤ ዝተኸፍተ ወረቀት ካርድ ብዛዕባ ዝሓለፎ ዝኾነ ነፈር የጠንቅቕ። ንነፍሲ ወከፍ ምዱድ ኣብ ናይ ምዱድ ምድላው / ዝርዝር ይቕመጥ።",
+  "scrum-definition-of-ready": "ትርጉም ድሉው"
 }

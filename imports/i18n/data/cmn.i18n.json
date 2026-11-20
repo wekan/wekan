@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "业务价值",
   "wsjf-time-criticality": "时间紧迫性",
   "wsjf-risk-reduction": "风险降低",
-  "wsjf-job-size": "工作规模"
+  "wsjf-job-size": "工作规模",
+  "listPolicyPopup-title": "列表策略",
+  "list-policy": "列表策略",
+  "list-policy-placeholder": "卡片何时可以进入此列表，何时在此算作完成？",
+  "show-list-policies": "显示列表策略",
+  "commitment-point": "承诺点",
+  "commitment-point-hint": "从此列表开始承诺开展工作；在它之前的列表是备选项。",
+  "person-wip-limit": "每人在制品限制",
+  "person-wip-over": "__user__ 有 __count__ 张未完成的卡片；每人在制品限制为 __limit__。",
+  "feature-list-policies": "列表策略",
+  "feature-list-policies-desc": "每个列表的策略——卡片何时可以进入、何时在此完成——显示在列表标题处。在看板设置 / 列表中按看板开启。",
+  "feature-commitment-point": "承诺点",
+  "feature-commitment-point-desc": "从此开始承诺开展工作的列表，在其标题处标记。在看板设置 / 列表中按看板选择。",
+  "feature-person-wip-limit": "每人在制品限制",
+  "feature-person-wip-limit-desc": "一个人在看板上可持有多少张未完成的卡片；打开的卡片会提示任何超出限制的人。在看板设置 / 列表中按看板设置。",
+  "scrum-definition-of-ready": "就绪的定义"
 }

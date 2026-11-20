@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Nilai bisnis",
   "wsjf-time-criticality": "Kekritisan waktu",
   "wsjf-risk-reduction": "Pengurangan risiko",
-  "wsjf-job-size": "Ukuran pekerjaan"
+  "wsjf-job-size": "Ukuran pekerjaan",
+  "listPolicyPopup-title": "Kebijakan daftar",
+  "list-policy": "Kebijakan daftar",
+  "list-policy-placeholder": "Kapan sebuah kartu boleh masuk ke daftar ini, dan kapan kartu itu selesai di sini?",
+  "show-list-policies": "Tampilkan kebijakan daftar",
+  "commitment-point": "Titik komitmen",
+  "commitment-point-hint": "Pekerjaan dikomitmenkan mulai dari daftar ini; daftar sebelumnya adalah opsi.",
+  "person-wip-limit": "Batas WIP per orang",
+  "person-wip-over": "__user__ memiliki __count__ kartu terbuka; batas WIP per orang adalah __limit__.",
+  "feature-list-policies": "Kebijakan daftar",
+  "feature-list-policies-desc": "Kebijakan tiap daftar (kapan kartu boleh masuk dan kapan selesai di sana) di kepala daftar. Diaktifkan per papan di Setelan Papan / Daftar.",
+  "feature-commitment-point": "Titik komitmen",
+  "feature-commitment-point-desc": "Daftar tempat pekerjaan mulai dikomitmenkan, ditandai di kepalanya. Dipilih per papan di Setelan Papan / Daftar.",
+  "feature-person-wip-limit": "Batas WIP per orang",
+  "feature-person-wip-limit-desc": "Berapa banyak kartu terbuka yang boleh dipegang satu orang di sebuah papan; kartu yang dibuka memperingatkan tentang siapa pun yang melampauinya. Diatur per papan di Setelan Papan / Daftar.",
+  "scrum-definition-of-ready": "Definisi siap"
 }

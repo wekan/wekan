@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ビジネス価値",
   "wsjf-time-criticality": "時間的緊急度",
   "wsjf-risk-reduction": "リスク低減",
-  "wsjf-job-size": "作業規模"
+  "wsjf-job-size": "作業規模",
+  "listPolicyPopup-title": "リストのポリシー",
+  "list-policy": "リストのポリシー",
+  "list-policy-placeholder": "カードがこのリストに入ってよいのはいつで、ここで完了となるのはいつですか？",
+  "show-list-policies": "リストのポリシーを表示",
+  "commitment-point": "コミットメントポイント",
+  "commitment-point-hint": "このリストから作業がコミットされます。それより前のリストは選択肢です。",
+  "person-wip-limit": "1人あたりの仕掛中制限",
+  "person-wip-over": "__user__ には未完了のカードが __count__ 枚あります。1人あたりの仕掛中制限は __limit__ です。",
+  "feature-list-policies": "リストのポリシー一覧",
+  "feature-list-policies-desc": "各リストのポリシー（カードが入ってよい時と、そこで完了となる時）をリストのヘッダーに表示します。ボードごとに「ボード設定 / リスト」で有効にします。",
+  "feature-commitment-point": "コミットメントポイント",
+  "feature-commitment-point-desc": "作業がコミットされるリストで、そのヘッダーに印が付きます。ボードごとに「ボード設定 / リスト」で選択します。",
+  "feature-person-wip-limit": "1人あたりの仕掛中制限",
+  "feature-person-wip-limit-desc": "1人がボード上で持てる未完了のカードの数です。開いたカードは、それを超えている人について警告します。ボードごとに「ボード設定 / リスト」で設定します。",
+  "scrum-definition-of-ready": "準備完了の定義"
 }

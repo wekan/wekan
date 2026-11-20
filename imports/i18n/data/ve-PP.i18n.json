@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Biznesan znamoičend",
   "wsjf-time-criticality": "Aigan kriticižuz",
   "wsjf-risk-reduction": "Riskan vähenduz",
-  "wsjf-job-size": "Radon suruz"
+  "wsjf-job-size": "Radon suruz",
+  "listPolicyPopup-title": "Lugetišen politik",
+  "list-policy": "Lugetišen politik",
+  "list-policy-placeholder": "Konz kart voib tulda neche lugetišhe, i konz se om tägä tehtud?",
+  "show-list-policies": "Ozutada lugetišiden politikad",
+  "commitment-point": "Kohustusen čokvaz",
+  "commitment-point-hint": "Necespäi lugetišespäi radon kohustadas; edeližed lugetišed oma valičendad.",
+  "person-wip-limit": "WIP-röun ühtele ristitule",
+  "person-wip-over": "__user__ pidab __count__ avaitud kartad; WIP-röun ühtele ristitule om __limit__.",
+  "feature-list-policies": "Lugetišiden politikad",
+  "feature-list-policies-desc": "Kaiken lugetišen politik - konz kart voib tulda i konz se om sigä tehtud - lugetišen pälkirjutuses. Kävutadas kaikuččele laudale Laudan sändod / Lugetiž -kohtas.",
+  "feature-commitment-point": "Kohustusen čokvaz",
+  "feature-commitment-point-desc": "Lugetiž, kuspäi radon kohustadas, znamoitud sen pälkirjutuses. Valitas kaikuččele laudale Laudan sändod / Lugetiž -kohtas.",
+  "feature-person-wip-limit": "WIP-röun ühtele ristitule",
+  "feature-person-wip-limit-desc": "Äjak avaitud kartoid üks' ristitud voib pidäda laudal; avaitud kart varutoitab kaikuččes, ken mäneb röunan taga. Säritas kaikuččele laudale Laudan sändod / Lugetiž -kohtas.",
+  "scrum-definition-of-ready": "Vaumuden-märičend"
 }

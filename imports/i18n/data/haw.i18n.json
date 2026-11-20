@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Waiwai ʻoihana",
   "wsjf-time-criticality": "Koʻikoʻi o ka manawa",
   "wsjf-risk-reduction": "Hoʻēmi pilikia",
-  "wsjf-job-size": "Nui o ka hana"
+  "wsjf-job-size": "Nui o ka hana",
+  "listPolicyPopup-title": "Kulekele papa inoa",
+  "list-policy": "Kulekele papa inoa",
+  "list-policy-placeholder": "Ahea e hiki ai i ke kāleka ke komo i kēia papa inoa, a ahea e pau ai ma ʻaneʻi?",
+  "show-list-policies": "Hōʻike i nā kulekele papa inoa",
+  "commitment-point": "Kahi hoʻohiki",
+  "commitment-point-hint": "Hoʻohiki ʻia ka hana mai kēia papa inoa aku; he mau koho nā papa inoa ma mua ona.",
+  "person-wip-limit": "Palena WIP no kēlā me kēia kanaka",
+  "person-wip-over": "Loaʻa iā __user__ he __count__ kāleka hāmama; ʻo __limit__ ka palena WIP no kēlā me kēia kanaka.",
+  "feature-list-policies": "Nā kulekele papa inoa",
+  "feature-list-policies-desc": "Ke kulekele o kēlā me kēia papa inoa (ahea e komo ai ke kāleka a ahea e pau ai ma laila) ma ke poʻo o ka papa inoa. Hoʻā ʻia no kēlā me kēia papa ma Hoʻonohonoho Papa / Papa inoa.",
+  "feature-commitment-point": "Kahi hoʻohiki",
+  "feature-commitment-point-desc": "Ka papa inoa e hoʻohiki ʻia ai ka hana mai laila aku, i kaha ʻia ma kona poʻo. Koho ʻia no kēlā me kēia papa ma Hoʻonohonoho Papa / Papa inoa.",
+  "feature-person-wip-limit": "Palena WIP no kēlā me kēia kanaka",
+  "feature-person-wip-limit-desc": "ʻEhia kāleka hāmama e hiki ai i ke kanaka hoʻokahi ke paʻa ma kahi papa; hoʻolaha ke kāleka i wehe ʻia no ka mea i ʻoi aku. Hoʻonohonoho ʻia no kēlā me kēia papa ma Hoʻonohonoho Papa / Papa inoa.",
+  "scrum-definition-of-ready": "Wehewehena o ka mākaukau"
 }

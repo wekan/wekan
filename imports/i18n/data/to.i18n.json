@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Mahuʻinga fakapisinisi",
   "wsjf-time-criticality": "Mahuʻinga ʻo e taimi",
   "wsjf-risk-reduction": "Fakasiʻisiʻi ʻo e fakatuʻutāmaki",
-  "wsjf-job-size": "Lahi ʻo e ngāue"
+  "wsjf-job-size": "Lahi ʻo e ngāue",
+  "listPolicyPopup-title": "Tuʻutuʻuni ʻo e lisi",
+  "list-policy": "Tuʻutuʻuni ʻo e lisi",
+  "list-policy-placeholder": "ʻAfē ʻe lava ke hū ai ha kaati ki he lisi ko ʻeni, pea ʻafē ʻe ʻosi ai ʻi heni?",
+  "show-list-policies": "Fakahaaʻi ʻa e ngaahi tuʻutuʻuni ʻo e lisi",
+  "commitment-point": "Poini fakapapau",
+  "commitment-point-hint": "ʻOku fakapapauʻi ʻa e ngāue mei he lisi ko ʻeni; ko e ngaahi lisi ki muʻa ai ko e ngaahi fili.",
+  "person-wip-limit": "Fakangatangata WIP ki he tokotaha",
+  "person-wip-over": "ʻOku maʻu ʻe __user__ ha kaati ʻe __count__ ʻoku ava; ko e fakangatangata WIP ki he tokotaha ko e __limit__.",
+  "feature-list-policies": "Ngaahi tuʻutuʻuni ʻo e lisi",
+  "feature-list-policies-desc": "Ko e tuʻutuʻuni ʻa e lisi taki taha - ʻafē ʻe lava ke hū ai ha kaati pea ʻafē ʻe ʻosi ai ʻi ai - ʻi he ʻulu ʻo e lisi. ʻOku fakaava ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi.",
+  "feature-commitment-point": "Poini fakapapau",
+  "feature-commitment-point-desc": "Ko e lisi ʻoku fakapapauʻi mei ai ʻa e ngāue, kuo fakaʻilongaʻi ʻi hono ʻulu. ʻOku fili ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi.",
+  "feature-person-wip-limit": "Fakangatangata WIP ki he tokotaha",
+  "feature-person-wip-limit-desc": "Ko e kaati ʻoku ava ʻe fiha ʻe lava ke puke ʻe ha tokotaha ʻi ha papa; ʻoku fakatokanga ha kaati kuo fakaava ki ha taha pē kuo ne laka ange ai. ʻOku fokotuʻu ki he papa taki taha ʻi he Ngaahi fokotuʻutuʻu ʻo e papa / Lisi.",
+  "scrum-definition-of-ready": "ʻUhinga ʻo e mateuteu"
 }

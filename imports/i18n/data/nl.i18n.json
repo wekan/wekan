@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Bedrijfswaarde",
   "wsjf-time-criticality": "Tijdkritiek",
   "wsjf-risk-reduction": "Risicovermindering",
-  "wsjf-job-size": "Taakgrootte"
+  "wsjf-job-size": "Taakgrootte",
+  "listPolicyPopup-title": "Lijstbeleid",
+  "list-policy": "Lijstbeleid",
+  "list-policy-placeholder": "Wanneer mag een kaart deze lijst in, en wanneer is hij hier klaar?",
+  "show-list-policies": "Lijstbeleid tonen",
+  "commitment-point": "Commitmentpunt",
+  "commitment-point-hint": "Vanaf deze lijst wordt het werk toegezegd; de lijsten ervoor zijn opties.",
+  "person-wip-limit": "WIP limiet per persoon",
+  "person-wip-over": "__user__ heeft __count__ open kaarten; de WIP limiet per persoon is __limit__.",
+  "feature-list-policies": "Lijstbeleid",
+  "feature-list-policies-desc": "Het beleid van elke lijst - wanneer een kaart erin mag en wanneer hij daar klaar is - in de lijstkop. Per bord aan te zetten in Bord Instellingen / Lijst.",
+  "feature-commitment-point": "Commitmentpunt",
+  "feature-commitment-point-desc": "De lijst vanaf waar het werk wordt toegezegd, gemarkeerd in de kop. Per bord te kiezen in Bord Instellingen / Lijst.",
+  "feature-person-wip-limit": "WIP limiet per persoon",
+  "feature-person-wip-limit-desc": "Hoeveel open kaarten één persoon op een bord mag hebben; een geopende kaart waarschuwt voor iedereen die erboven zit. Per bord in te stellen in Bord Instellingen / Lijst.",
+  "scrum-definition-of-ready": "Definitie van startklaar"
 }

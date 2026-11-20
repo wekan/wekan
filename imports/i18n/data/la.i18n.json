@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valor negotii",
   "wsjf-time-criticality": "Urgentia temporis",
   "wsjf-risk-reduction": "Deminutio periculi",
-  "wsjf-job-size": "Magnitudo operis"
+  "wsjf-job-size": "Magnitudo operis",
+  "listPolicyPopup-title": "Ratio indicis",
+  "list-policy": "Ratio indicis",
+  "list-policy-placeholder": "Quando charta in hunc indicem venire potest, et quando hic perfecta est?",
+  "show-list-policies": "Rationes indicum monstra",
+  "commitment-point": "Punctum obligationis",
+  "commitment-point-hint": "Ab hoc indice opus suscipitur; indices ante eum optiones sunt.",
+  "person-wip-limit": "Limes WIP per personam",
+  "person-wip-over": "__user__ habet __count__ chartas apertas; limes WIP per personam est __limit__.",
+  "feature-list-policies": "Rationes indicum",
+  "feature-list-policies-desc": "Ratio cuiusque indicis - quando charta intrare potest et quando ibi perfecta est - in capite indicis. Per tabulam accenditur in Optiones tabulae / Index.",
+  "feature-commitment-point": "Punctum obligationis",
+  "feature-commitment-point-desc": "Index a quo opus suscipitur, in capite eius notatus. Per tabulam eligitur in Optiones tabulae / Index.",
+  "feature-person-wip-limit": "Limes WIP per personam",
+  "feature-person-wip-limit-desc": "Quot chartas apertas una persona in tabula tenere potest; charta aperta de quoquam qui eum excedit monet. Per tabulam constituitur in Optiones tabulae / Index.",
+  "scrum-definition-of-ready": "Definitio operis parati"
 }

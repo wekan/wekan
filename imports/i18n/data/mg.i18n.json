@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Sanda ara-barotra",
   "wsjf-time-criticality": "Fahamehana ara-potoana",
   "wsjf-risk-reduction": "Fampihenana ny loza",
-  "wsjf-job-size": "Haben'ny asa"
+  "wsjf-job-size": "Haben'ny asa",
+  "listPolicyPopup-title": "Fitsipiky ny lisitra",
+  "list-policy": "Fitsipiky ny lisitra",
+  "list-policy-placeholder": "Rahoviana no afaka miditra amin'ity lisitra ity ny karatra, ary rahoviana no vita eto izy?",
+  "show-list-policies": "Asehoy ny fitsipiky ny lisitra",
+  "commitment-point": "Teboka fanoloran-tena",
+  "commitment-point-hint": "Manomboka amin'ity lisitra ity no anoloran-tena amin'ny asa; safidy ny lisitra eo alohany.",
+  "person-wip-limit": "Fetra WIP isan'olona",
+  "person-wip-over": "__user__ dia manana karatra misokatra __count__; __limit__ ny fetra WIP isan'olona.",
+  "feature-list-policies": "Fitsipiky ny lisitra rehetra",
+  "feature-list-policies-desc": "Ny fitsipiky ny lisitra tsirairay - rahoviana no afaka miditra ny karatra ary rahoviana no vita any - eo amin'ny lohan'ny lisitra. Alefa isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra.",
+  "feature-commitment-point": "Teboka fanoloran-tena",
+  "feature-commitment-point-desc": "Ny lisitra anoloran-tena amin'ny asa, voamarika eo amin'ny lohany. Fidiana isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra.",
+  "feature-person-wip-limit": "Fetra WIP isan'olona",
+  "feature-person-wip-limit-desc": "Firy ny karatra misokatra azon'ny olona iray tazonina amin'ny solaitra; mampitandrina momba izay mihoatra ny karatra nosokafana. Apetraka isaky ny solaitra ao amin'ny Fandrindrana ny solaitra / Lisitra.",
+  "scrum-definition-of-ready": "Famaritana ny hoe vonona"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "کاروباری قدر",
   "wsjf-time-criticality": "وقت کی اہمیت",
   "wsjf-risk-reduction": "خطرے میں کمی",
-  "wsjf-job-size": "کام کا حجم"
+  "wsjf-job-size": "کام کا حجم",
+  "listPolicyPopup-title": "فہرست کی پالیسی",
+  "list-policy": "فہرست کی پالیسی",
+  "list-policy-placeholder": "کوئی کارڈ اس فہرست میں کب آ سکتا ہے، اور یہاں وہ کب مکمل ہوتا ہے؟",
+  "show-list-policies": "فہرست کی پالیسیاں دکھائیں",
+  "commitment-point": "عزم کا مقام",
+  "commitment-point-hint": "اس فہرست سے کام کا عزم کیا جاتا ہے؛ اس سے پہلے کی فہرستیں اختیارات ہیں۔",
+  "person-wip-limit": "فی فرد WIP حد",
+  "person-wip-over": "__user__ کے پاس __count__ کھلے کارڈز ہیں؛ فی فرد WIP حد __limit__ ہے۔",
+  "feature-list-policies": "فہرست کی پالیسیاں",
+  "feature-list-policies-desc": "ہر فہرست کی پالیسی - کارڈ کب آ سکتا ہے اور وہاں کب مکمل ہوتا ہے - فہرست کے ہیڈر میں۔ ہر بورڈ کے لیے بورڈ کی ترتیبات / فہرست میں فعال کی جاتی ہے۔",
+  "feature-commitment-point": "عزم کا مقام",
+  "feature-commitment-point-desc": "وہ فہرست جہاں سے کام کا عزم کیا جاتا ہے، اس کے ہیڈر پر نشان زد۔ ہر بورڈ کے لیے بورڈ کی ترتیبات / فہرست میں منتخب کی جاتی ہے۔",
+  "feature-person-wip-limit": "فی فرد WIP حد",
+  "feature-person-wip-limit-desc": "ایک بورڈ پر ایک فرد کتنے کھلے کارڈز رکھ سکتا ہے؛ کھولا گیا کارڈ اس حد سے تجاوز کرنے والے ہر فرد کے بارے میں خبردار کرتا ہے۔ ہر بورڈ کے لیے بورڈ کی ترتیبات / فہرست میں مقرر کی جاتی ہے۔",
+  "scrum-definition-of-ready": "تیار ہونے کی تعریف"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ارزش تجاری",
   "wsjf-time-criticality": "حساسیت زمانی",
   "wsjf-risk-reduction": "کاهش ریسک",
-  "wsjf-job-size": "اندازه کار"
+  "wsjf-job-size": "اندازه کار",
+  "listPolicyPopup-title": "سیاست لیست",
+  "list-policy": "سیاست لیست",
+  "list-policy-placeholder": "یک کارت چه زمانی می‌تواند وارد این لیست شود و چه زمانی در اینجا انجام‌شده است؟",
+  "show-list-policies": "نمایش سیاست‌های لیست‌ها",
+  "commitment-point": "نقطه تعهد",
+  "commitment-point-hint": "کار از این لیست به بعد تعهد می‌شود؛ لیست‌های قبل از آن گزینه‌ها هستند.",
+  "person-wip-limit": "محدودیت WIP برای هر نفر",
+  "person-wip-over": "__user__ تعداد __count__ کارت باز دارد؛ محدودیت WIP برای هر نفر __limit__ است.",
+  "feature-list-policies": "سیاست‌های لیست",
+  "feature-list-policies-desc": "سیاست هر لیست (اینکه یک کارت چه زمانی می‌تواند وارد شود و چه زمانی در آنجا انجام‌شده است) در سرصفحه لیست. برای هر برد در تنظیمات برد / لیست روشن می‌شود.",
+  "feature-commitment-point": "نقطه تعهد",
+  "feature-commitment-point-desc": "لیستی که کار از آن به بعد تعهد می‌شود، در سرصفحه‌اش علامت‌گذاری شده است. برای هر برد در تنظیمات برد / لیست انتخاب می‌شود.",
+  "feature-person-wip-limit": "محدودیت WIP برای هر نفر",
+  "feature-person-wip-limit-desc": "یک نفر چند کارت باز می‌تواند در یک برد داشته باشد؛ کارت بازشده درباره هر کسی که از آن فراتر رفته هشدار می‌دهد. برای هر برد در تنظیمات برد / لیست تنظیم می‌شود.",
+  "scrum-definition-of-ready": "تعریف آماده‌بودن"
 }

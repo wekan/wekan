@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valore 'e business",
   "wsjf-time-criticality": "Urgenza 'e tiempo",
   "wsjf-risk-reduction": "Riduzione d' 'o rischio",
-  "wsjf-job-size": "Grandezza d' 'o lavoro"
+  "wsjf-job-size": "Grandezza d' 'o lavoro",
+  "listPolicyPopup-title": "Regola d'a lista",
+  "list-policy": "Regola d'a lista",
+  "list-policy-placeholder": "Quanno pò trasì na carta dint'a sta lista, e quanno è fernuta ccà?",
+  "show-list-policies": "Fa vedé 'e regole d'e liste",
+  "commitment-point": "Punto d'impegno",
+  "commitment-point-hint": "Â parte 'e sta lista 'a fatica se piglia mpegno; 'e liste primma so' opzione.",
+  "person-wip-limit": "Limite WIP pe' perzona",
+  "person-wip-over": "__user__ tene __count__ carte aperte; 'o limite WIP pe' perzona è __limit__.",
+  "feature-list-policies": "Regole d'e liste",
+  "feature-list-policies-desc": "'A regola 'e ogne lista - quanno na carta pò trasì e quanno è fernuta llà - ncopp'â capa d'a lista. S'appiccia pe' ogne tavula dint'a Mpustaziune d'a tavula / Lista.",
+  "feature-commitment-point": "Punto d'impegno",
+  "feature-commitment-point-desc": "'A lista 'a do' 'a fatica se piglia mpegno, signata ncopp'â capa soja. Se sceglie pe' ogne tavula dint'a Mpustaziune d'a tavula / Lista.",
+  "feature-person-wip-limit": "Limite WIP pe' perzona",
+  "feature-person-wip-limit-desc": "Quanta carte aperte pò tené na perzona ncopp'a na tavula; na carta aperta avvisa pe' chi 'o passa. Se mposta pe' ogne tavula dint'a Mpustaziune d'a tavula / Lista.",
+  "scrum-definition-of-ready": "Definizzione 'e pronto"
 }

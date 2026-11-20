@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Giá trị kinh doanh",
   "wsjf-time-criticality": "Mức độ cấp bách về thời gian",
   "wsjf-risk-reduction": "Giảm thiểu rủi ro",
-  "wsjf-job-size": "Quy mô công việc"
+  "wsjf-job-size": "Quy mô công việc",
+  "listPolicyPopup-title": "Chính sách danh sách",
+  "list-policy": "Chính sách danh sách",
+  "list-policy-placeholder": "Khi nào một thẻ được vào danh sách này, và khi nào nó hoàn thành ở đây?",
+  "show-list-policies": "Hiển thị chính sách danh sách",
+  "commitment-point": "Điểm cam kết",
+  "commitment-point-hint": "Công việc được cam kết từ danh sách này trở đi; các danh sách trước nó là các lựa chọn.",
+  "person-wip-limit": "Giới hạn WIP mỗi người",
+  "person-wip-over": "__user__ có __count__ thẻ đang mở; giới hạn WIP mỗi người là __limit__.",
+  "feature-list-policies": "Các chính sách danh sách",
+  "feature-list-policies-desc": "Chính sách của từng danh sách - khi nào thẻ được vào và khi nào nó hoàn thành ở đó - ở tiêu đề danh sách. Bật cho từng bảng trong Cài đặt Bảng / Danh sách.",
+  "feature-commitment-point": "Điểm cam kết",
+  "feature-commitment-point-desc": "Danh sách mà từ đó công việc được cam kết, được đánh dấu ở tiêu đề của nó. Chọn cho từng bảng trong Cài đặt Bảng / Danh sách.",
+  "feature-person-wip-limit": "Giới hạn WIP mỗi người",
+  "feature-person-wip-limit-desc": "Số thẻ đang mở mà một người được giữ trên một bảng; thẻ được mở sẽ cảnh báo về bất kỳ ai vượt quá giới hạn. Đặt cho từng bảng trong Cài đặt Bảng / Danh sách.",
+  "scrum-definition-of-ready": "Tiêu chuẩn sẵn sàng"
 }

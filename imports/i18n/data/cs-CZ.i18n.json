@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Obchodní hodnota",
   "wsjf-time-criticality": "Časová kritičnost",
   "wsjf-risk-reduction": "Snížení rizika",
-  "wsjf-job-size": "Velikost práce"
+  "wsjf-job-size": "Velikost práce",
+  "listPolicyPopup-title": "Pravidla seznamu",
+  "list-policy": "Pravidla seznamu",
+  "list-policy-placeholder": "Kdy může karta vstoupit do tohoto seznamu a kdy je zde hotová?",
+  "show-list-policies": "Zobrazit pravidla seznamů",
+  "commitment-point": "Bod závazku",
+  "commitment-point-hint": "Od tohoto seznamu se k práci zavazuje; seznamy před ním jsou možnosti.",
+  "person-wip-limit": "WIP limit na osobu",
+  "person-wip-over": "__user__ má __count__ otevřených karet; WIP limit na osobu je __limit__.",
+  "feature-list-policies": "Pravidla seznamů",
+  "feature-list-policies-desc": "Pravidla každého seznamu - kdy do něj karta může vstoupit a kdy je v něm hotová - v záhlaví seznamu. Zapíná se pro každé tablo v Nastavení Tabla / Seznam.",
+  "feature-commitment-point": "Bod závazku",
+  "feature-commitment-point-desc": "Seznam, od kterého se k práci zavazuje, označený v jeho záhlaví. Volí se pro každé tablo v Nastavení Tabla / Seznam.",
+  "feature-person-wip-limit": "WIP limit na osobu",
+  "feature-person-wip-limit-desc": "Kolik otevřených karet smí jedna osoba na tablu držet; otevřená karta upozorní na každého, kdo jej překročil. Nastavuje se pro každé tablo v Nastavení Tabla / Seznam.",
+  "scrum-definition-of-ready": "Definice připravenosti"
 }

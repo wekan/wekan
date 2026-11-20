@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "비즈니스 가치",
   "wsjf-time-criticality": "시간 긴급성",
   "wsjf-risk-reduction": "위험 감소",
-  "wsjf-job-size": "작업 크기"
+  "wsjf-job-size": "작업 크기",
+  "listPolicyPopup-title": "목록 정책",
+  "list-policy": "목록 정책",
+  "list-policy-placeholder": "카드가 언제 이 목록에 들어올 수 있고, 언제 여기서 완료되나요?",
+  "show-list-policies": "목록 정책 표시",
+  "commitment-point": "약속 지점",
+  "commitment-point-hint": "이 목록부터 작업이 약속됩니다. 그 앞의 목록은 선택지입니다.",
+  "person-wip-limit": "1인당 WIP 제한",
+  "person-wip-over": "__user__ 님에게 열린 카드가 __count__개 있습니다. 1인당 WIP 제한은 __limit__입니다.",
+  "feature-list-policies": "목록 정책들",
+  "feature-list-policies-desc": "각 목록의 정책(카드가 언제 들어올 수 있고 언제 그곳에서 완료되는지)을 목록 머리글에 표시합니다. 보드 설정 / 목록에서 보드별로 켭니다.",
+  "feature-commitment-point": "약속 지점",
+  "feature-commitment-point-desc": "작업이 약속되는 시작 목록으로, 머리글에 표시됩니다. 보드 설정 / 목록에서 보드별로 선택합니다.",
+  "feature-person-wip-limit": "1인당 WIP 제한",
+  "feature-person-wip-limit-desc": "한 사람이 보드에서 보유할 수 있는 열린 카드 수입니다. 열린 카드는 이를 초과한 사람에 대해 경고합니다. 보드 설정 / 목록에서 보드별로 설정합니다.",
+  "scrum-definition-of-ready": "준비의 정의"
 }

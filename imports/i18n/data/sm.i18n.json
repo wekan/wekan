@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Taua faapisinisi",
   "wsjf-time-criticality": "Taua o le taimi",
   "wsjf-risk-reduction": "Faaitiitiga o tulaga lamatia",
-  "wsjf-job-size": "Telē o le galuega"
+  "wsjf-job-size": "Telē o le galuega",
+  "listPolicyPopup-title": "Tulafono o le lisi",
+  "list-policy": "Tulafono o le lisi",
+  "list-policy-placeholder": "O afea e mafai ai e se pepa ona sau i lenei lisi, ma o afea e maea ai iinei?",
+  "show-list-policies": "Faaali tulafono o lisi",
+  "commitment-point": "Tulaga o le tautinoga",
+  "commitment-point-hint": "Mai lenei lisi e tautino ai le galuega; o lisi i ona luma o filifiliga.",
+  "person-wip-limit": "Tapulaa WIP i le tagata",
+  "person-wip-over": "O __user__ e __count__ pepa tatala; o le tapulaa WIP i le tagata e __limit__.",
+  "feature-list-policies": "Tulafono o lisi",
+  "feature-list-policies-desc": "O le tulafono o lisi taitasi - o afea e mafai ai ona ulu mai se pepa ma o afea e maea ai iina - i le ulutala o le lisi. E ki i laupapa taitasi i Faatulagaga o le laupapa / Lisi.",
+  "feature-commitment-point": "Tulaga o le tautinoga",
+  "feature-commitment-point-desc": "O le lisi e tautino mai ai le galuega, ua faailogaina i lona ulutala. E filifilia i laupapa taitasi i Faatulagaga o le laupapa / Lisi.",
+  "feature-person-wip-limit": "Tapulaa WIP i le tagata",
+  "feature-person-wip-limit-desc": "E fia pepa tatala e mafai e se tagata e toatasi ona taofi i se laupapa; e lapataia e se pepa tatala soo se tasi ua sili atu. E seti i laupapa taitasi i Faatulagaga o le laupapa / Lisi.",
+  "scrum-definition-of-ready": "Faauigaga o le Sauni"
 }

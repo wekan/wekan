@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Talvosogneth negys",
   "wsjf-time-criticality": "Toth an termyn",
   "wsjf-risk-reduction": "Lehe peryl",
-  "wsjf-job-size": "Myns an ober"
+  "wsjf-job-size": "Myns an ober",
+  "listPolicyPopup-title": "Polici an rol",
+  "list-policy": "Polici an rol",
+  "list-policy-placeholder": "P'eur hyll karten dos y'n rol ma, ha p'eur yw hi gwrys omma?",
+  "show-list-policies": "Diskwedhes policis an rolyow",
+  "commitment-point": "Poynt ambos",
+  "commitment-point-hint": "Ober a vydh ambosys a'n rol ma yn-rag; an rolyow kyns hi yw dewisyow.",
+  "person-wip-limit": "Fin WIP rag pub den",
+  "person-wip-over": "__user__ a'n jeves __count__ karten igor; an fin WIP rag pub den yw __limit__.",
+  "feature-list-policies": "Policis an rolyow",
+  "feature-list-policies-desc": "Polici pub rol (p'eur hyll karten dos ha p'eur yw hi gwrys ena) yn penn an rol. Gorrys yn fyw rag pub estyllen yn Settyansow Estyllen / Rol.",
+  "feature-commitment-point": "Poynt ambos",
+  "feature-commitment-point-desc": "An rol mayth yw ober ambosys anedhi, merkys yn hy fenn. Dewisys rag pub estyllen yn Settyansow Estyllen / Rol.",
+  "feature-person-wip-limit": "Fin WIP rag pub den",
+  "feature-person-wip-limit-desc": "Pes karten igor a hyll unn den synsi war estyllen; karten igorys a warn a-dro dhe neb dres an fin. Settys rag pub estyllen yn Settyansow Estyllen / Rol.",
+  "scrum-definition-of-ready": "Styryans a Barys"
 }

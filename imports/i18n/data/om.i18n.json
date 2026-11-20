@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Gatii daldalaa",
   "wsjf-time-criticality": "Yeroo murteessaa",
   "wsjf-risk-reduction": "Hir'ina balaa",
-  "wsjf-job-size": "Hamma hojii"
+  "wsjf-job-size": "Hamma hojii",
+  "listPolicyPopup-title": "Imaammata tarree",
+  "list-policy": "Imaammata tarree",
+  "list-policy-placeholder": "Kaardiin yoom tarree kana seenuu danda'a, akkasumas asitti yoom xumurama?",
+  "show-list-policies": "Imaammata tarreewwanii agarsiisi",
+  "commitment-point": "Qabxii waadaa",
+  "commitment-point-hint": "Tarree kana irraa jalqabee hojiin waadaa itti galama; tarreewwan isaa dura jiran filannoowwan dha.",
+  "person-wip-limit": "Daangaa WIP nama tokkoof",
+  "person-wip-over": "__user__ kaardii banaa __count__ qaba; daangaan WIP nama tokkoof __limit__ dha.",
+  "feature-list-policies": "Imaammatoota tarreewwanii",
+  "feature-list-policies-desc": "Imaammata tarree hundaa - kaardiin yoom seenuu danda'uu fi achitti yoom xumuramu - mataa tarree irratti. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti banama.",
+  "feature-commitment-point": "Qabxii waadaa",
+  "feature-commitment-point-desc": "Tarree hojiin irraa waadaa itti galamu, mataa isaa irratti mallattaa'e. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti filatama.",
+  "feature-person-wip-limit": "Daangaa WIP nama tokkoof",
+  "feature-person-wip-limit-desc": "Namni tokko gabatee irratti kaardii banaa meeqa qabachuu danda'a; kaardiin banamee nama daangaa darbe kamiifuu akeekkachiisa. Gabatee tokko tokkoof Qindaa'ina gabatee / Tarree keessatti qindaa'a.",
+  "scrum-definition-of-ready": "Hiika Qophaa'uu"
 }

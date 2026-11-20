@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Alakipa chani",
   "wsjf-time-criticality": "Pacha wakisiri",
   "wsjf-risk-reduction": "Jan walt'aw jisk'achaña",
-  "wsjf-job-size": "Irnaqaw jach'a"
+  "wsjf-job-size": "Irnaqaw jach'a",
+  "listPolicyPopup-title": "Sutinaka kamachi",
+  "list-policy": "Sutinaka kamachi",
+  "list-policy-placeholder": "Kunapachas mä karta aka sutinakar mantaspa, ukat kunapachas akan tukuyataspa?",
+  "show-list-policies": "Sutinaka kamachinak uñacht'ayaña",
+  "commitment-point": "Arsuña chiqa",
+  "commitment-point-hint": "Aka sutinakat irnaqañax arsutawa; nayraqat sutinakax ajlliñanakawa.",
+  "person-wip-limit": "Sapa jaqitaki WIP tukuyawi",
+  "person-wip-over": "__user__ ukax __count__ jist'arat kartanakaniwa; sapa jaqitaki WIP tukuyawix __limit__ ukawa.",
+  "feature-list-policies": "Sutinaka kamachinaka",
+  "feature-list-policies-desc": "Sapa sutinaka kamachi - kunapachas karta mantaspa ukat kunapachas ukan tukuyataspa - sutinaka p'iqiparu. Sapa pirqatak Pirqa wakichawinaka / Sutinaka ukan sartayata.",
+  "feature-commitment-point": "Arsuña chiqa",
+  "feature-commitment-point-desc": "Kawkïr sutinakat irnaqañax arsutäki, p'iqipan chimpuntata. Sapa pirqatak Pirqa wakichawinaka / Sutinaka ukan ajllita.",
+  "feature-person-wip-limit": "Sapa jaqitaki WIP tukuyawi",
+  "feature-person-wip-limit-desc": "Mä jaqix pirqan qhawqha jist'arat kartanak katxaspa; jist'arat kartax juk'amp katxirit yatiyi. Sapa pirqatak Pirqa wakichawinaka / Sutinaka ukan uchata.",
+  "scrum-definition-of-ready": "Wakicht'atäñ qhanañchäwipa"
 }

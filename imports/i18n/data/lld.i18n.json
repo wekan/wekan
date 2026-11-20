@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valuta de negoze",
   "wsjf-time-criticality": "Urgenza de tëmp",
   "wsjf-risk-reduction": "Reduzion dl risch",
-  "wsjf-job-size": "Grandëza dl lëur"
+  "wsjf-job-size": "Grandëza dl lëur",
+  "listPolicyPopup-title": "Regola dla lista",
+  "list-policy": "Regola dla lista",
+  "list-policy-placeholder": "Canche possa na ciarta vegnì te chësta lista, y canche éla fenida chiò?",
+  "show-list-policies": "Mostra les regoles dles listes",
+  "commitment-point": "Pont de ampegn",
+  "commitment-point-hint": "Da chësta lista inant vegn l laour sourantout; les listes dant da ela é opzions.",
+  "person-wip-limit": "Limit WIP per persona",
+  "person-wip-over": "__user__ à __count__ ciartes davertes; l limit WIP per persona é __limit__.",
+  "feature-list-policies": "Regoles dles listes",
+  "feature-list-policies-desc": "La regola de vigni lista - canche na ciarta possa vegnì ite y canche éla fenida - tl cë dla lista. Ativà per tofl te Mpustazions dla tofl / Lista.",
+  "feature-commitment-point": "Pont de ampegn",
+  "feature-commitment-point-desc": "La lista dalaìte l laour vegn sourantout, marcada tl si cë. Cernida per tofl te Mpustazions dla tofl / Lista.",
+  "feature-person-wip-limit": "Limit WIP per persona",
+  "feature-person-wip-limit-desc": "Tan de ciartes davertes che una na persona possa tenì sun na tofl; na ciarta daverta avisa de vigni un sura. Metù per tofl te Mpustazions dla tofl / Lista.",
+  "scrum-definition-of-ready": "Definizion de laour pront"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Ixabiso loshishino",
   "wsjf-time-criticality": "Ukubaluleka kwexesha",
   "wsjf-risk-reduction": "Ukunciphisa umngcipheko",
-  "wsjf-job-size": "Ubungakanani bomsebenzi"
+  "wsjf-job-size": "Ubungakanani bomsebenzi",
+  "listPolicyPopup-title": "Umgaqo-nkqubo woluhlu",
+  "list-policy": "Umgaqo-nkqubo woluhlu",
+  "list-policy-placeholder": "Ikhadi lingangena nini kolu luhlu, kwaye ligqitywa nini apha?",
+  "show-list-policies": "Bonisa imigaqo-nkqubo yoluhlu",
+  "commitment-point": "Indawo yokuzibophelela",
+  "commitment-point-hint": "Umsebenzi uzibophelelwa ukusuka kolu luhlu; uluhlu olungaphambi kwalo lukhetho.",
+  "person-wip-limit": "Umda we-WIP ngomntu ngamnye",
+  "person-wip-over": "U-__user__ unamakhadi avulekileyo angama-__count__; umda we-WIP ngomntu ngamnye ngu-__limit__.",
+  "feature-list-policies": "Imigaqo-nkqubo yoluhlu",
+  "feature-list-policies-desc": "Umgaqo-nkqubo woluhlu ngalunye - xa ikhadi linokungena naxa ligqitywa khona - kwintloko yoluhlu. Uvulwa kwibhodi nganye kwi-Izicwangciso zeBhodi / Uluhlu.",
+  "feature-commitment-point": "Indawo yokuzibophelela",
+  "feature-commitment-point-desc": "Uluhlu ekuzibophelelwa kumsebenzi ukusuka kulo, oluphawulwe kwintloko yalo. Lukhethwa kwibhodi nganye kwi-Izicwangciso zeBhodi / Uluhlu.",
+  "feature-person-wip-limit": "Umda we-WIP ngomntu ngamnye",
+  "feature-person-wip-limit-desc": "Mangaphi amakhadi avulekileyo umntu omnye anokuwaphatha kwibhodi; ikhadi elivuliweyo liyalumkisa ngomntu ngamnye ogqithileyo. Usetwa kwibhodi nganye kwi-Izicwangciso zeBhodi / Uluhlu.",
+  "scrum-definition-of-ready": "Inkcazelo yokulungela umsebenzi"
 }

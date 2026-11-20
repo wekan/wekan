@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Pe bilong bisnis",
   "wsjf-time-criticality": "Taim i bikpela samting",
   "wsjf-risk-reduction": "Daunim hevi",
-  "wsjf-job-size": "Sais bilong wok"
+  "wsjf-job-size": "Sais bilong wok",
+  "listPolicyPopup-title": "Lo bilong lis",
+  "list-policy": "Lo bilong lis",
+  "list-policy-placeholder": "Wanem taim wanpela kat inap i kam insait long dispela lis, na wanem taim em i pinis long hia?",
+  "show-list-policies": "Soim ol lo bilong lis",
+  "commitment-point": "Ples bilong promis",
+  "commitment-point-hint": "Long dispela lis i go, ol i promis long wok; ol lis i stap paslain long en em ol chois.",
+  "person-wip-limit": "Mak bilong WIP long wanpela man",
+  "person-wip-over": "__user__ i gat __count__ kat i op; mak bilong WIP long wanpela man em __limit__.",
+  "feature-list-policies": "Ol lo bilong lis",
+  "feature-list-policies-desc": "Lo bilong olgeta lis - wanem taim kat inap i kam insait na wanem taim em i pinis long en - long het bilong lis. Ol i onim long wan wan bot long Ol seting bilong bot / Lis.",
+  "feature-commitment-point": "Ples bilong promis",
+  "feature-commitment-point-desc": "Lis we ol i promis long wok long en i go, ol i makim long het bilong en. Ol i makim long wan wan bot long Ol seting bilong bot / Lis.",
+  "feature-person-wip-limit": "Mak bilong WIP long wanpela man",
+  "feature-person-wip-limit-desc": "Hamas kat i op wanpela man inap holim long wanpela bot; kat i op i save givim tok lukaut long husat i winim mak. Ol i putim long wan wan bot long Ol seting bilong bot / Lis.",
+  "scrum-definition-of-ready": "Tok bilong makim olsem wok i redi"
 }

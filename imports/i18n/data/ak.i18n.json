@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Adwadie mfasoɔ",
   "wsjf-time-criticality": "Bere ho hia",
   "wsjf-risk-reduction": "Asiane so tew",
-  "wsjf-job-size": "Adwuma kɛseɛ"
+  "wsjf-job-size": "Adwuma kɛseɛ",
+  "listPolicyPopup-title": "Din a wɔahyehyɛ ho mmara",
+  "list-policy": "Din a wɔahyehyɛ ho mmara",
+  "list-policy-placeholder": "Bere bɛn na kaad betumi aba din yi mu, na bere bɛn na ɛwie wɔ ha?",
+  "show-list-policies": "Kyerɛ din ho mmara",
+  "commitment-point": "Bɔhyɛ beaeɛ",
+  "commitment-point-hint": "Efi din yi so na wɔhyɛ bɔ sɛ wɔbɛyɛ adwuma no; din a ɛdi kan no yɛ apaw.",
+  "person-wip-limit": "Adwuma a ɛrekɔ so dodow ano ma onipa biara",
+  "person-wip-over": "__user__ wɔ kaad __count__ a ɛda hɔ; adwuma a ɛrekɔ so dodow ano ma onipa biara yɛ __limit__.",
+  "feature-list-policies": "Din ho mmara ahodoɔ",
+  "feature-list-policies-desc": "Din biara ho mmara - bere a kaad betumi aba mu ne bere a ɛwie wɔ hɔ - wɔ din no ti. Wɔbue no bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ.",
+  "feature-commitment-point": "Bɔhyɛ beaeɛ",
+  "feature-commitment-point-desc": "Din a efi so na wɔhyɛ bɔ sɛ wɔbɛyɛ adwuma, wɔahyɛ ho agyirae wɔ ne ti. Wɔpaw no bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ.",
+  "feature-person-wip-limit": "Adwuma a ɛrekɔ so dodow ano ma onipa biara",
+  "feature-person-wip-limit-desc": "Kaad dodow a ɛda hɔ a onipa baako betumi akura wɔ bɔɔd so; kaad a wɔabue no bɔ obiara a ɔboro so no ho kɔkɔ. Wɔhyehyɛ no bɔɔd biara mu wɔ Bɔɔd nhyehyɛeɛ / Din a wɔahyehyɛ.",
+  "scrum-definition-of-ready": "Nea ɛkyerɛ sɛ ayɛ krado"
 }

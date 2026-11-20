@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Uara pakihi",
   "wsjf-time-criticality": "Hiranga wā",
   "wsjf-risk-reduction": "Whakaiti tūraru",
-  "wsjf-job-size": "Rahi mahi"
+  "wsjf-job-size": "Rahi mahi",
+  "listPolicyPopup-title": "Kaupapahere rārangi",
+  "list-policy": "Kaupapahere rārangi",
+  "list-policy-placeholder": "Āhea e āhei ai tētahi kāri ki te uru ki tēnei rārangi, ā, āhea ka oti ki konei?",
+  "show-list-policies": "Whakaatu kaupapahere rārangi",
+  "commitment-point": "Pūwāhi taunaha",
+  "commitment-point-hint": "Ka taunahatia te mahi mai i tēnei rārangi; ko ngā rārangi i mua i a ia he kōwhiringa.",
+  "person-wip-limit": "Tepe WIP mō ia tangata",
+  "person-wip-over": "E __count__ ngā kāri tuwhera a __user__; ko te tepe WIP mō ia tangata ko __limit__.",
+  "feature-list-policies": "Ngā kaupapahere rārangi",
+  "feature-list-policies-desc": "Te kaupapahere o ia rārangi - āhea e uru ai te kāri, āhea ka oti ki reira - kei te pane o te rārangi. Ka whakakāngia mō ia papa i Ngā tautuhinga papa / Rārangi.",
+  "feature-commitment-point": "Pūwāhi taunaha",
+  "feature-commitment-point-desc": "Te rārangi e taunahatia ai te mahi, kua tohua ki tōna pane. Ka kōwhiria mō ia papa i Ngā tautuhinga papa / Rārangi.",
+  "feature-person-wip-limit": "Tepe WIP mō ia tangata",
+  "feature-person-wip-limit-desc": "E hia ngā kāri tuwhera ka puritia e te tangata kotahi ki tētahi papa; ka whakatūpato te kāri kua whakatuwheratia mō te hunga kua hipa. Ka tautuhia mō ia papa i Ngā tautuhinga papa / Rārangi.",
+  "scrum-definition-of-ready": "Whakamāramatanga o te mahi kua rite"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Suy' lo'laHghach",
   "wsjf-time-criticality": "poH potlh",
   "wsjf-risk-reduction": "Qob nup",
-  "wsjf-job-size": "Qu' tIn"
+  "wsjf-job-size": "Qu' tIn",
+  "listPolicyPopup-title": "tetlh chut",
+  "list-policy": "tetlh chut",
+  "list-policy-placeholder": "ghorgh tetlhvamDaq 'el 'echletHom, ghorgh naDev rIn?",
+  "show-list-policies": "tetlh chutmey cha'",
+  "commitment-point": "lay' Daq",
+  "commitment-point-hint": "tetlhvam vo' Qu' lay'lu'; tetlhmey nungbogh DuHmey bopbe'.",
+  "person-wip-limit": "nuv wa' WIP 'aqroS",
+  "person-wip-over": "__count__ 'echletHommey poSbogh ghaj __user__; nuv wa' WIP 'aqroS __limit__ 'oH.",
+  "feature-list-policies": "tetlh chutmey",
+  "feature-list-policies-desc": "Hoch tetlh chut - ghorgh 'el 'echletHom, ghorgh pa' rIn - tetlh nachDaq. Hoch 'echletDaq raS DuHmey / tetlh Daq chu'lu'.",
+  "feature-commitment-point": "lay' Daq",
+  "feature-commitment-point-desc": "tetlh vo' Qu' lay'lu'bogh, nachDaq ghItlhlu'. Hoch 'echletDaq raS DuHmey / tetlh Daq wIvlu'.",
+  "feature-person-wip-limit": "nuv wa' WIP 'aqroS",
+  "feature-person-wip-limit-desc": "'echletDaq 'echletHommey poSbogh 'ar ghaj nuv wa'; 'echletHom poSlu'bogh ghoH nuv 'aqroS juSbogh. Hoch 'echletDaq raS DuHmey / tetlh Daq cherlu'.",
+  "scrum-definition-of-ready": "ghuHghach QIjmeH De'"
 }

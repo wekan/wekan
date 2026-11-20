@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "سوداګریز ارزښت",
   "wsjf-time-criticality": "د وخت حساسیت",
   "wsjf-risk-reduction": "د خطر کمول",
-  "wsjf-job-size": "د کار اندازه"
+  "wsjf-job-size": "د کار اندازه",
+  "listPolicyPopup-title": "د لړليک تګلاره",
+  "list-policy": "د لړليک تګلاره",
+  "list-policy-placeholder": "یو کارت کله دې لړليک ته راتلای شي، او دلته کله بشپړ وي؟",
+  "show-list-policies": "د لړليکونو تګلارې وښایاست",
+  "commitment-point": "د ژمنې ټکی",
+  "commitment-point-hint": "له دې لړليک څخه کار ته ژمنه کیږي؛ له دې مخکې لړليکونه انتخابونه دي.",
+  "person-wip-limit": "د هر کس لپاره د WIP حد",
+  "person-wip-over": "__user__ __count__ پرانیستي کارتونه لري؛ د هر کس لپاره د WIP حد __limit__ دی.",
+  "feature-list-policies": "د لړليکونو تګلارې",
+  "feature-list-policies-desc": "د هر لړليک تګلاره - کارت کله راتلای شي او هلته کله بشپړ وي - د لړليک په سرليک کې. د هرې تختې لپاره په د تختې امستنې / لړليک کې فعالیږي.",
+  "feature-commitment-point": "د ژمنې ټکی",
+  "feature-commitment-point-desc": "هغه لړليک چې له هغه څخه کار ته ژمنه کیږي، په سرليک کې یې نښه شوی. د هرې تختې لپاره په د تختې امستنې / لړليک کې ټاکل کیږي.",
+  "feature-person-wip-limit": "د هر کس لپاره د WIP حد",
+  "feature-person-wip-limit-desc": "یو کس په یوه تخته کې څومره پرانیستي کارتونه ساتلای شي؛ پرانیستل شوی کارت د هر هغه چا په اړه خبرداری ورکوي چې ترې اوړي. د هرې تختې لپاره په د تختې امستنې / لړليک کې ټاکل کیږي.",
+  "scrum-definition-of-ready": "د چمتو کار تعريف"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Talvoud kenwerzh",
   "wsjf-time-criticality": "Pouez an amzer",
   "wsjf-risk-reduction": "Digresk an argoll",
-  "wsjf-job-size": "Ment al labour"
+  "wsjf-job-size": "Ment al labour",
+  "listPolicyPopup-title": "Reolenn ar roll",
+  "list-policy": "Reolenn ar roll",
+  "list-policy-placeholder": "Pegoulz e c'hall ur gartenn dont er roll-mañ, ha pegoulz eo echu amañ?",
+  "show-list-policies": "Diskouez reolennoù ar rolloù",
+  "commitment-point": "Poent emouestl",
+  "commitment-point-hint": "Adal ar roll-mañ eo emouestlet al labour; ar rolloù a-raok a zo dibaboù.",
+  "person-wip-limit": "Bevenn WIP dre zen",
+  "person-wip-over": "__count__ kartenn digor en deus __user__; ar vevenn WIP dre zen a zo __limit__.",
+  "feature-list-policies": "Reolennoù ar rolloù",
+  "feature-list-policies-desc": "Reolenn pep roll - pegoulz e c'hall ur gartenn dont e-barzh ha pegoulz eo echu eno - e penn ar roll. Gweredekaet evit pep taolenn e Arventennoù an daolenn / Roll.",
+  "feature-commitment-point": "Poent emouestl",
+  "feature-commitment-point-desc": "Ar roll adal pehini eo emouestlet al labour, merket en e benn. Dibabet evit pep taolenn e Arventennoù an daolenn / Roll.",
+  "feature-person-wip-limit": "Bevenn WIP dre zen",
+  "feature-person-wip-limit-desc": "Pet kartenn digor a c'hall un den derc'hel war un daolenn; ur gartenn digoret a ziwall diwar-benn an neb a ya dreist. Termenet evit pep taolenn e Arventennoù an daolenn / Roll.",
+  "scrum-definition-of-ready": "Termenadur ar prest"
 }

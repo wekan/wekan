@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Geschäftswäert",
   "wsjf-time-criticality": "Zäitkritikalitéit",
   "wsjf-risk-reduction": "Risikoreduktioun",
-  "wsjf-job-size": "Aarbechtsgréisst"
+  "wsjf-job-size": "Aarbechtsgréisst",
+  "listPolicyPopup-title": "Lëschtereegel",
+  "list-policy": "Lëschtereegel",
+  "list-policy-placeholder": "Wéini däerf eng Kaart an dës Lëscht kommen, a wéini ass se hei fäerdeg?",
+  "show-list-policies": "Lëschtereegele weisen",
+  "commitment-point": "Engagementspunkt",
+  "commitment-point-hint": "Vun dëser Lëscht un gëtt d'Aarbecht zougesot; d'Lëschten dovir sinn Optiounen.",
+  "person-wip-limit": "WIP-Limit pro Persoun",
+  "person-wip-over": "__user__ huet __count__ oppe Kaarten; d'WIP-Limit pro Persoun ass __limit__.",
+  "feature-list-policies": "Lëschtereegelen",
+  "feature-list-policies-desc": "D'Regel vun all Lëscht - wéini eng Kaart era kënnt a wéini se do fäerdeg ass - am Lëschtekapp. Pro Tafel ageschalt an Tafel-Astellungen / Lëscht.",
+  "feature-commitment-point": "Engagementspunkt",
+  "feature-commitment-point-desc": "D'Lëscht, vun där un d'Aarbecht zougesot gëtt, an hirem Kapp markéiert. Pro Tafel gewielt an Tafel-Astellungen / Lëscht.",
+  "feature-person-wip-limit": "WIP-Limit pro Persoun",
+  "feature-person-wip-limit-desc": "Wéi vill oppe Kaarten eng Persoun op enger Tafel hale däerf; eng opgemaach Kaart warnt virun jidderengem driwwer. Pro Tafel festgeluecht an Tafel-Astellungen / Lëscht.",
+  "scrum-definition-of-ready": "Definitioun vu Prett"
 }

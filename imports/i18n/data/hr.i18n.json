@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Poslovna vrijednost",
   "wsjf-time-criticality": "Vremenska kritičnost",
   "wsjf-risk-reduction": "Smanjenje rizika",
-  "wsjf-job-size": "Veličina posla"
+  "wsjf-job-size": "Veličina posla",
+  "listPolicyPopup-title": "Pravilo popisa",
+  "list-policy": "Pravilo popisa",
+  "list-policy-placeholder": "Kada kartica smije ući u ovaj popis i kada je ovdje gotova?",
+  "show-list-policies": "Prikaži pravila popisa",
+  "commitment-point": "Točka obveze",
+  "commitment-point-hint": "Rad se preuzima kao obveza od ovog popisa nadalje; popisi prije njega su opcije.",
+  "person-wip-limit": "WIP ograničenje po osobi",
+  "person-wip-over": "__user__ ima __count__ otvorenih kartica; WIP ograničenje po osobi je __limit__.",
+  "feature-list-policies": "Pravila popisa",
+  "feature-list-policies-desc": "Pravilo svakog popisa (kada kartica smije ući i kada je ondje gotova) u zaglavlju popisa. Uključuje se po ploči u Postavkama ploče / Popis.",
+  "feature-commitment-point": "Točka obveze",
+  "feature-commitment-point-desc": "Popis od kojeg se rad preuzima kao obveza, označen u svom zaglavlju. Bira se po ploči u Postavkama ploče / Popis.",
+  "feature-person-wip-limit": "WIP ograničenje po osobi",
+  "feature-person-wip-limit-desc": "Koliko otvorenih kartica jedna osoba smije držati na ploči; otvorena kartica upozorava na svakoga tko ga prelazi. Postavlja se po ploči u Postavkama ploče / Popis.",
+  "scrum-definition-of-ready": "Definicija spremnosti"
 }

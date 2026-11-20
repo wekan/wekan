@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ערך עסקי",
   "wsjf-time-criticality": "קריטיות זמן",
   "wsjf-risk-reduction": "הפחתת סיכון",
-  "wsjf-job-size": "גודל העבודה"
+  "wsjf-job-size": "גודל העבודה",
+  "listPolicyPopup-title": "מדיניות רשימה",
+  "list-policy": "מדיניות רשימה",
+  "list-policy-placeholder": "מתי כרטיס יכול להיכנס לרשימה הזאת, ומתי הוא הושלם כאן?",
+  "show-list-policies": "הצגת מדיניות הרשימות",
+  "commitment-point": "נקודת התחייבות",
+  "commitment-point-hint": "מרשימה זו והלאה מתחייבים לעבודה; הרשימות שלפניה הן אפשרויות.",
+  "person-wip-limit": "מגבלת WIP לאדם",
+  "person-wip-over": "__user__ מחזיק __count__ כרטיסים פתוחים; מגבלת ה־WIP לאדם היא __limit__.",
+  "feature-list-policies": "מדיניות רשימות",
+  "feature-list-policies-desc": "המדיניות של כל רשימה (מתי כרטיס יכול להיכנס ומתי הוא הושלם שם) בכותרת הרשימה. מופעלת לכל לוח בהגדרות הלוח / רשימה.",
+  "feature-commitment-point": "נקודת התחייבות",
+  "feature-commitment-point-desc": "הרשימה שממנה מתחייבים לעבודה, מסומנת בכותרתה. נבחרת לכל לוח בהגדרות הלוח / רשימה.",
+  "feature-person-wip-limit": "מגבלת WIP לאדם",
+  "feature-person-wip-limit-desc": "כמה כרטיסים פתוחים אדם אחד יכול להחזיק בלוח; כרטיס פתוח מזהיר על כל מי שחורג ממנה. נקבעת לכל לוח בהגדרות הלוח / רשימה.",
+  "scrum-definition-of-ready": "הגדרת מוכנות"
 }

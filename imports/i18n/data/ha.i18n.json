@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Darajar kasuwanci",
   "wsjf-time-criticality": "Muhimmancin lokaci",
   "wsjf-risk-reduction": "Rage haɗari",
-  "wsjf-job-size": "Girman aiki"
+  "wsjf-job-size": "Girman aiki",
+  "listPolicyPopup-title": "Manufar jerin",
+  "list-policy": "Manufar jerin",
+  "list-policy-placeholder": "Yaushe kati zai iya shigowa wannan jerin, kuma yaushe aka kammala shi a nan?",
+  "show-list-policies": "Nuna manufofin jerin abubuwa",
+  "commitment-point": "Wurin alƙawari",
+  "commitment-point-hint": "Ana ɗaukar alƙawarin aiki daga wannan jerin zuwa gaba; jerin da ke gabansa zaɓuɓɓuka ne.",
+  "person-wip-limit": "Iyakar WIP ga kowane mutum",
+  "person-wip-over": "__user__ yana da katunan buɗaɗɗu __count__; iyakar WIP ga kowane mutum __limit__ ce.",
+  "feature-list-policies": "Manufofin jerin abubuwa",
+  "feature-list-policies-desc": "Manufar kowane jerin (yaushe kati zai iya shigowa da kuma yaushe aka kammala shi a can) a kan kan jerin. Ana kunna shi ga kowane allo a Saitunan allo / Jerin.",
+  "feature-commitment-point": "Wurin alƙawari",
+  "feature-commitment-point-desc": "Jerin da ake ɗaukar alƙawarin aiki daga gare shi, an yi masa alama a kansa. Ana zaɓa ga kowane allo a Saitunan allo / Jerin.",
+  "feature-person-wip-limit": "Iyakar WIP ga kowane mutum",
+  "feature-person-wip-limit-desc": "Katunan buɗaɗɗu nawa mutum ɗaya zai iya riƙe a kan allo; kati da aka buɗe yana gargaɗi game da duk wanda ya wuce ta. Ana saita shi ga kowane allo a Saitunan allo / Jerin.",
+  "scrum-definition-of-ready": "Ma’anar shiryawa"
 }

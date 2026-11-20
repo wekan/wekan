@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Boleng jwa kgwebo",
   "wsjf-time-criticality": "Botlhokwa jwa nako",
   "wsjf-risk-reduction": "Phokotso ya kotsi",
-  "wsjf-job-size": "Bogolo jwa tiro"
+  "wsjf-job-size": "Bogolo jwa tiro",
+  "listPolicyPopup-title": "Pholisi ya lenaane",
+  "list-policy": "Pholisi ya lenaane",
+  "list-policy-placeholder": "Karata e ka tsena mo lenaaneng leno leng, mme e wediwa fano leng?",
+  "show-list-policies": "Bontsha dipholisi tsa manaane",
+  "commitment-point": "Ntlha ya boitlamo",
+  "commitment-point-hint": "Tiro e itlamelwa go simolola mo lenaaneng leno; manaane a pele ga lone ke ditlhopho.",
+  "person-wip-limit": "Tekanyetso ya WIP ka motho",
+  "person-wip-over": "__user__ o na le dikarata di le __count__ tse di butsweng; tekanyetso ya WIP ka motho ke __limit__.",
+  "feature-list-policies": "Dipholisi tsa manaane",
+  "feature-list-policies-desc": "Pholisi ya lenaane lengwe le lengwe - fa karata e ka tsena le fa e wediwa teng - mo tlhogong ya lenaane. E bulwa ka boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane.",
+  "feature-commitment-point": "Ntlha ya boitlamo",
+  "feature-commitment-point-desc": "Lenaane le tiro e itlamelwang go simolola go lone, le tshwailwe mo tlhogong ya lone. Le tlhophiwa ka boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane.",
+  "feature-person-wip-limit": "Tekanyetso ya WIP ka motho",
+  "feature-person-wip-limit-desc": "Gore motho a le mongwe a ka tshwara dikarata di le kae tse di butsweng mo botong; karata e e butsweng e tlhagisa ka mongwe le mongwe yo o e fetang. E beiwa ka boto nngwe le nngwe mo Dipeakanyo tsa boto / Lenaane.",
+  "scrum-definition-of-ready": "Tlhaloso ya go Ipaakanya"
 }

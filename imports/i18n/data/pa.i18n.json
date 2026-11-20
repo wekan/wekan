@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ਕਾਰੋਬਾਰੀ ਮੁੱਲ",
   "wsjf-time-criticality": "ਸਮੇਂ ਦੀ ਨਾਜ਼ੁਕਤਾ",
   "wsjf-risk-reduction": "ਜੋਖਮ ਘਟਾਉਣਾ",
-  "wsjf-job-size": "ਕੰਮ ਦਾ ਆਕਾਰ"
+  "wsjf-job-size": "ਕੰਮ ਦਾ ਆਕਾਰ",
+  "listPolicyPopup-title": "ਸੂਚੀ ਨੀਤੀ",
+  "list-policy": "ਸੂਚੀ ਨੀਤੀ",
+  "list-policy-placeholder": "ਕੋਈ ਕਾਰਡ ਇਸ ਸੂਚੀ ਵਿੱਚ ਕਦੋਂ ਆ ਸਕਦਾ ਹੈ, ਅਤੇ ਇੱਥੇ ਕਦੋਂ ਪੂਰਾ ਹੁੰਦਾ ਹੈ?",
+  "show-list-policies": "ਸੂਚੀ ਨੀਤੀਆਂ ਦਿਖਾਓ",
+  "commitment-point": "ਵਚਨਬੱਧਤਾ ਬਿੰਦੂ",
+  "commitment-point-hint": "ਇਸ ਸੂਚੀ ਤੋਂ ਕੰਮ ਲਈ ਵਚਨਬੱਧਤਾ ਹੁੰਦੀ ਹੈ; ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਦੀਆਂ ਸੂਚੀਆਂ ਵਿਕਲਪ ਹਨ।",
+  "person-wip-limit": "ਪ੍ਰਤੀ ਵਿਅਕਤੀ WIP ਸੀਮਾ",
+  "person-wip-over": "__user__ ਕੋਲ __count__ ਖੁੱਲ੍ਹੇ ਕਾਰਡ ਹਨ; ਪ੍ਰਤੀ ਵਿਅਕਤੀ WIP ਸੀਮਾ __limit__ ਹੈ।",
+  "feature-list-policies": "ਸੂਚੀ ਨੀਤੀਆਂ",
+  "feature-list-policies-desc": "ਹਰ ਸੂਚੀ ਦੀ ਨੀਤੀ - ਕਾਰਡ ਕਦੋਂ ਆ ਸਕਦਾ ਹੈ ਅਤੇ ਉੱਥੇ ਕਦੋਂ ਪੂਰਾ ਹੁੰਦਾ ਹੈ - ਸੂਚੀ ਦੇ ਸਿਰਲੇਖ ਵਿੱਚ। ਹਰ ਬੋਰਡ ਲਈ ਬੋਰਡ ਸੈਟਿੰਗਾਂ / ਸੂਚੀ ਵਿੱਚ ਚਾਲੂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
+  "feature-commitment-point": "ਵਚਨਬੱਧਤਾ ਬਿੰਦੂ",
+  "feature-commitment-point-desc": "ਉਹ ਸੂਚੀ ਜਿਸ ਤੋਂ ਕੰਮ ਲਈ ਵਚਨਬੱਧਤਾ ਹੁੰਦੀ ਹੈ, ਉਸਦੇ ਸਿਰਲੇਖ ਵਿੱਚ ਨਿਸ਼ਾਨਬੱਧ। ਹਰ ਬੋਰਡ ਲਈ ਬੋਰਡ ਸੈਟਿੰਗਾਂ / ਸੂਚੀ ਵਿੱਚ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।",
+  "feature-person-wip-limit": "ਪ੍ਰਤੀ ਵਿਅਕਤੀ WIP ਸੀਮਾ",
+  "feature-person-wip-limit-desc": "ਇੱਕ ਵਿਅਕਤੀ ਬੋਰਡ ਉੱਤੇ ਕਿੰਨੇ ਖੁੱਲ੍ਹੇ ਕਾਰਡ ਰੱਖ ਸਕਦਾ ਹੈ; ਖੋਲ੍ਹਿਆ ਕਾਰਡ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹਰ ਕਿਸੇ ਬਾਰੇ ਚੇਤਾਵਨੀ ਦਿੰਦਾ ਹੈ। ਹਰ ਬੋਰਡ ਲਈ ਬੋਰਡ ਸੈਟਿੰਗਾਂ / ਸੂਚੀ ਵਿੱਚ ਸੈੱਟ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
+  "scrum-definition-of-ready": "ਕੰਮ ਤਿਆਰ ਹੋਣ ਦੀ ਪਰਿਭਾਸ਼ਾ"
 }

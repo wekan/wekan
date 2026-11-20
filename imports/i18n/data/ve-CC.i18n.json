@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valor de afari",
   "wsjf-time-criticality": "Criticità del tenpo",
   "wsjf-risk-reduction": "Ridusion del riscio",
-  "wsjf-job-size": "Grandesa del lavoro"
+  "wsjf-job-size": "Grandesa del lavoro",
+  "listPolicyPopup-title": "Regoła de ła lista",
+  "list-policy": "Regoła de ła lista",
+  "list-policy-placeholder": "Quando pol na scheda entrar in sta lista, e quando ła xe fata qua?",
+  "show-list-policies": "Mostra łe regołe de łe liste",
+  "commitment-point": "Ponto de inpegno",
+  "commitment-point-hint": "Da sta lista in vanti el lavoro el vien inpegnà; łe liste prima de eła łe xe opsion.",
+  "person-wip-limit": "Łimite WIP par persona",
+  "person-wip-over": "__user__ el ga __count__ schede verte; el łimite WIP par persona el xe __limit__.",
+  "feature-list-policies": "Regołe de łe liste",
+  "feature-list-policies-desc": "Ła regoła de ogni lista - quando na scheda ła pol entrar e quando ła xe fata là - inte l'intestasion de ła lista. Se ła inpisa par ogni quadro in Inpostasion del quadro / Lista.",
+  "feature-commitment-point": "Ponto de inpegno",
+  "feature-commitment-point-desc": "Ła lista da cuała el lavoro el vien inpegnà, segnà inte ła so intestasion. Se ła siełze par ogni quadro in Inpostasion del quadro / Lista.",
+  "feature-person-wip-limit": "Łimite WIP par persona",
+  "feature-person-wip-limit-desc": "Quante schede verte na persona ła pol tegner su un quadro; na scheda verta ła avisa de chi che ło sorpasa. Se ło inposta par ogni quadro in Inpostasion del quadro / Lista.",
+  "scrum-definition-of-ready": "Definision de Pronto"
 }

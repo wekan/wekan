@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "业务价值",
   "wsjf-time-criticality": "时间紧迫性",
   "wsjf-risk-reduction": "降低风险",
-  "wsjf-job-size": "工作规模"
+  "wsjf-job-size": "工作规模",
+  "listPolicyPopup-title": "清單規則",
+  "list-policy": "清單規則",
+  "list-policy-placeholder": "卡片幾時可以入呢個清單，幾時喺度算做完？",
+  "show-list-policies": "顯示清單規則",
+  "commitment-point": "承諾點",
+  "commitment-point-hint": "由呢個清單開始承諾做嘢；之前嘅清單係選項。",
+  "person-wip-limit": "每人在製品限制",
+  "person-wip-over": "__user__ 有 __count__ 張打開咗嘅卡片；每人在製品限制係 __limit__。",
+  "feature-list-policies": "各清單規則",
+  "feature-list-policies-desc": "每個清單嘅規則——卡片幾時可以入、幾時喺嗰度算做完——顯示喺清單標題。每塊看板喺 看板設定 / 清單 開啟。",
+  "feature-commitment-point": "承諾點",
+  "feature-commitment-point-desc": "由佢開始承諾做嘢嘅清單，喺佢標題度標示。每塊看板喺 看板設定 / 清單 揀選。",
+  "feature-person-wip-limit": "每人在製品限制",
+  "feature-person-wip-limit-desc": "一個人喺一塊看板上面最多可以揸幾多張打開咗嘅卡片；打開咗嘅卡片會提醒超出限制嘅人。每塊看板喺 看板設定 / 清單 設定。",
+  "scrum-definition-of-ready": "就緒定義"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Gwerth busnes",
   "wsjf-time-criticality": "Pwysigrwydd amser",
   "wsjf-risk-reduction": "Lleihau risg",
-  "wsjf-job-size": "Maint y gwaith"
+  "wsjf-job-size": "Maint y gwaith",
+  "listPolicyPopup-title": "Polisi rhestr",
+  "list-policy": "Polisi rhestr",
+  "list-policy-placeholder": "Pryd y caiff cerdyn ddod i'r rhestr hon, a phryd mae wedi'i gwblhau yma?",
+  "show-list-policies": "Dangos polisïau rhestrau",
+  "commitment-point": "Pwynt ymrwymo",
+  "commitment-point-hint": "Ymrwymir i waith o'r rhestr hon ymlaen; opsiynau yw'r rhestrau cyn hon.",
+  "person-wip-limit": "Terfyn WIP fesul unigolyn",
+  "person-wip-over": "Mae gan __user__ __count__ cerdyn agored; y terfyn WIP fesul unigolyn yw __limit__.",
+  "feature-list-policies": "Polisïau rhestrau",
+  "feature-list-policies-desc": "Polisi pob rhestr - pryd y caiff cerdyn ddod i mewn a phryd mae wedi'i gwblhau yno - ym mhennawd y rhestr. Caiff ei droi ymlaen fesul bwrdd yn Gosodiadau Bwrdd / Rhestr.",
+  "feature-commitment-point": "Pwynt ymrwymo",
+  "feature-commitment-point-desc": "Y rhestr yr ymrwymir i waith ohoni, wedi'i marcio yn ei phennawd. Caiff ei dewis fesul bwrdd yn Gosodiadau Bwrdd / Rhestr.",
+  "feature-person-wip-limit": "Terfyn WIP fesul unigolyn",
+  "feature-person-wip-limit-desc": "Faint o gardiau agored y caiff un unigolyn eu dal ar fwrdd; mae cerdyn a agorwyd yn rhybuddio am unrhyw un sydd drosto. Caiff ei osod fesul bwrdd yn Gosodiadau Bwrdd / Rhestr.",
+  "scrum-definition-of-ready": "Diffiniad o barod"
 }

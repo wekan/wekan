@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Tiamiquiliztli itlazotiliz",
   "wsjf-time-criticality": "Cahuitl itlanequiliz",
   "wsjf-risk-reduction": "Ohuitiliztli tlapopolihuiliztli",
-  "wsjf-job-size": "Tequitl iuehcapan"
+  "wsjf-job-size": "Tequitl iuehcapan",
+  "listPolicyPopup-title": "Tocatlahtolli tenahuatilli",
+  "list-policy": "Tocatlahtolli tenahuatilli",
+  "list-policy-placeholder": "¿Quemman huel calaqui ce amatlapalli ipan inin tocatlahtolli, auh quemman tlami nican?",
+  "show-list-policies": "Xiquinnexti tocatlahtolli tenahuatilli",
+  "commitment-point": "Ichan tlaneltoquiliztli",
+  "commitment-point-hint": "Ipan inin tocatlahtolli peuhqui tequitl motlaquetza; in tocatlahtolli achtopa tlaixpepenaliztli.",
+  "person-wip-limit": "WIP nepantlaliztli ce tlacatl",
+  "person-wip-over": "__user__ quipia __count__ tlapouhtoc amatlapaltin; WIP nepantlaliztli ce tlacatl __limit__.",
+  "feature-list-policies": "Tocatlahtolli tenahuatiltin",
+  "feature-list-policies-desc": "Tenahuatilli ce ce tocatlahtolli - quemman calaqui amatlapalli auh quemman tlami - ipan itzontecon tocatlahtolli. Motlachia ce ce huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli.",
+  "feature-commitment-point": "Ichan tlaneltoquiliztli",
+  "feature-commitment-point-desc": "In tocatlahtolli campa motlaquetza tequitl, machiyotilli ipan itzontecon. Mopepena ce ce huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli.",
+  "feature-person-wip-limit": "WIP nepantlaliztli ce tlacatl",
+  "feature-person-wip-limit-desc": "Quezquich tlapouhtoc amatlapaltin huel quipia ce tlacatl ipan huapalli; ce tlapouhtoc amatlapalli quinnotza aquin panhuetzi. Motlalia ce ce huapalli ipan Huapalli tlaahxitiliztli / Tocatlahtolli.",
+  "scrum-definition-of-ready": "Tlen quihtoa ye cualtitoc"
 }

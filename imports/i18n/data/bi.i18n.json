@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valiu blong bisnis",
   "wsjf-time-criticality": "Taem i impoten",
   "wsjf-risk-reduction": "Daonem risk",
-  "wsjf-job-size": "Saes blong wok"
+  "wsjf-job-size": "Saes blong wok",
+  "listPolicyPopup-title": "Polisi blong lis",
+  "list-policy": "Polisi blong lis",
+  "list-policy-placeholder": "Wanem taem wan kad i save kam long lis ia, mo wanem taem hem i finis long ples ia?",
+  "show-list-policies": "Soem ol polisi blong lis",
+  "commitment-point": "Ples blong promis",
+  "commitment-point-hint": "Wok i stap promis stat long lis ia; ol lis we i stap fastaem long hem oli ol jois.",
+  "person-wip-limit": "Limit blong wok we i stap gohed blong wan wan man",
+  "person-wip-over": "__user__ i gat __count__ kad we i open; limit blong wok we i stap gohed blong wan wan man hem i __limit__.",
+  "feature-list-policies": "Ol polisi blong lis",
+  "feature-list-policies-desc": "Polisi blong evri lis - wanem taem kad i save kam insaed mo wanem taem hem i finis long ples ia - long hed blong lis. Yu tanem i on long evri bod long Ol seting blong bod / Lis.",
+  "feature-commitment-point": "Ples blong promis",
+  "feature-commitment-point-desc": "Lis we wok i stap promis stat long hem, i gat mak long hed blong hem. Yu jusum long evri bod long Ol seting blong bod / Lis.",
+  "feature-person-wip-limit": "Limit blong wok we i stap gohed blong wan wan man",
+  "feature-person-wip-limit-desc": "Hamas kad we i open wan man i save holem long wan bod; wan kad we i open i wonem long eni man we i pas long hem. Yu setem long evri bod long Ol seting blong bod / Lis.",
+  "scrum-definition-of-ready": "Mining blong wok we i redi"
 }

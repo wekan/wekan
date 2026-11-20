@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Luach gnìomhachais",
   "wsjf-time-criticality": "Èiginneachd ùine",
   "wsjf-risk-reduction": "Lùghdachadh cunnairt",
-  "wsjf-job-size": "Meud na h-obrach"
+  "wsjf-job-size": "Meud na h-obrach",
+  "listPolicyPopup-title": "Poileasaidh an liosta",
+  "list-policy": "Poileasaidh an liosta",
+  "list-policy-placeholder": "Cuin a dh'fhaodas cairt tighinn a-steach dhan liosta seo, agus cuin a bhios i deiseil an-seo?",
+  "show-list-policies": "Seall poileasaidhean nan liostaichean",
+  "commitment-point": "Puing gealltanais",
+  "commitment-point-hint": "Thèid gealltainn na h-obrach on liosta seo air adhart; 's e roghainnean a th' anns na liostaichean roimhe.",
+  "person-wip-limit": "Crìoch WIP gach neach",
+  "person-wip-over": "Tha __count__ cairtean fosgailte aig __user__; 's e __limit__ a' chrìoch WIP gach neach.",
+  "feature-list-policies": "Poileasaidhean nan liostaichean",
+  "feature-list-policies-desc": "Poileasaidh gach liosta (cuin a dh'fhaodas cairt tighinn a-steach agus cuin a bhios i deiseil ann) ann am bann-cinn an liosta. Cuirear air e airson gach bùird ann an Roghainnean a' bhùird / Liosta.",
+  "feature-commitment-point": "Puing gealltanais",
+  "feature-commitment-point-desc": "An liosta on tèid gealltainn na h-obrach, comharraichte na bhann-cinn. Taghar e airson gach bùird ann an Roghainnean a' bhùird / Liosta.",
+  "feature-person-wip-limit": "Crìoch WIP gach neach",
+  "feature-person-wip-limit-desc": "Co mheud cairt fhosgailte a dh'fhaodas aon neach a chumail air bòrd; bheir cairt fhosgailte rabhadh mu neach sam bith a tha thairis oirre. Suidhichear e airson gach bùird ann an Roghainnean a' bhùird / Liosta.",
+  "scrum-definition-of-ready": "Mìneachadh air Ullamh"
 }

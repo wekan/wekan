@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "İş değeri",
   "wsjf-time-criticality": "Zaman kritikliği",
   "wsjf-risk-reduction": "Risk azaltma",
-  "wsjf-job-size": "İş büyüklüğü"
+  "wsjf-job-size": "İş büyüklüğü",
+  "listPolicyPopup-title": "Liste politikası",
+  "list-policy": "Liste politikası",
+  "list-policy-placeholder": "Bir kart bu listeye ne zaman girebilir ve burada ne zaman tamamlanmış olur?",
+  "show-list-policies": "Liste politikalarını göster",
+  "commitment-point": "Taahhüt noktası",
+  "commitment-point-hint": "İş bu listeden itibaren taahhüt edilir; ondan önceki listeler seçeneklerdir.",
+  "person-wip-limit": "Kişi başına devam eden iş sınırı",
+  "person-wip-over": "__user__ kullanıcısının __count__ açık kartı var; kişi başına devam eden iş sınırı __limit__.",
+  "feature-list-policies": "Liste politikaları",
+  "feature-list-policies-desc": "Her listenin politikası - bir kartın ne zaman girebileceği ve orada ne zaman tamamlanmış olacağı - liste başlığında. Her pano için Pano Ayarları / Liste bölümünden açılır.",
+  "feature-commitment-point": "Taahhüt noktası",
+  "feature-commitment-point-desc": "İşin taahhüt edildiği liste, başlığında işaretlenir. Her pano için Pano Ayarları / Liste bölümünden seçilir.",
+  "feature-person-wip-limit": "Kişi başına devam eden iş sınırı",
+  "feature-person-wip-limit-desc": "Bir kişinin bir panoda kaç açık kart tutabileceği; açılan bir kart bu sınırı aşan herkes için uyarır. Her pano için Pano Ayarları / Liste bölümünden ayarlanır.",
+  "scrum-definition-of-ready": "Hazır Tanımı"
 }

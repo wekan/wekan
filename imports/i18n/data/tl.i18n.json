@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Halaga sa negosyo",
   "wsjf-time-criticality": "Pagkaapurahan ng oras",
   "wsjf-risk-reduction": "Pagbabawas ng panganib",
-  "wsjf-job-size": "Laki ng trabaho"
+  "wsjf-job-size": "Laki ng trabaho",
+  "listPolicyPopup-title": "Patakaran ng listahan",
+  "list-policy": "Patakaran ng listahan",
+  "list-policy-placeholder": "Kailan maaaring pumasok ang isang kard sa listahang ito, at kailan ito tapos dito?",
+  "show-list-policies": "Ipakita ang mga patakaran ng listahan",
+  "commitment-point": "Punto ng pangako",
+  "commitment-point-hint": "Mula sa listahang ito pinangangakuan ang gawain; ang mga listahan bago nito ay mga opsyon.",
+  "person-wip-limit": "WIP limitasyon bawat tao",
+  "person-wip-over": "May __count__ bukas na kard si __user__; ang WIP limitasyon bawat tao ay __limit__.",
+  "feature-list-policies": "Mga patakaran ng listahan",
+  "feature-list-policies-desc": "Ang patakaran ng bawat listahan - kailan maaaring pumasok ang kard at kailan ito tapos doon - sa header ng listahan. Binubuksan bawat pisara sa Mga setting ng pisara / Listahan.",
+  "feature-commitment-point": "Punto ng pangako",
+  "feature-commitment-point-desc": "Ang listahan kung saan nagsisimulang pangakuan ang gawain, minarkahan sa header nito. Pinipili bawat pisara sa Mga setting ng pisara / Listahan.",
+  "feature-person-wip-limit": "WIP limitasyon bawat tao",
+  "feature-person-wip-limit-desc": "Ilang bukas na kard ang maaaring hawakan ng isang tao sa isang pisara; ang nabuksang kard ay nagbababala tungkol sa sinumang lumampas dito. Itinatakda bawat pisara sa Mga setting ng pisara / Listahan.",
+  "scrum-definition-of-ready": "Pamantayan ng pagkahanda"
 }

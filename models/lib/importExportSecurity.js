@@ -170,7 +170,7 @@ export function anonymizeBoardTextInPlace(board, byUsername) {
   };
   const scrumText = data => {
     if (!data) return;
-    rewriteFields(data.scrum || data.settings, ['productGoal', 'definitionOfDone']);
+    rewriteFields(data.scrum || data.settings, ['productGoal', 'definitionOfDone', 'definitionOfReady']);
     for (const card of dataRows(data.cards)) rewriteFields(card?.scrum, ['issueType', 'acceptanceCriteria']);
     for (const lane of dataRows(data.swimlanes)) rewriteFields(lane?.scrum, ['purpose']);
     for (const key of ['sprints', 'releases', 'events']) {

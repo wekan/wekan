@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "የንግድ ዋጋ",
   "wsjf-time-criticality": "የጊዜ አጣዳፊነት",
   "wsjf-risk-reduction": "የአደጋ ቅነሳ",
-  "wsjf-job-size": "የሥራ መጠን"
+  "wsjf-job-size": "የሥራ መጠን",
+  "listPolicyPopup-title": "የዝርዝር ፖሊሲ",
+  "list-policy": "የዝርዝር ፖሊሲ",
+  "list-policy-placeholder": "ካርድ ወደዚህ ዝርዝር መቼ መግባት ይችላል፣ እዚህስ መቼ ይጠናቀቃል?",
+  "show-list-policies": "የዝርዝር ፖሊሲዎችን አሳይ",
+  "commitment-point": "የቁርጠኝነት ነጥብ",
+  "commitment-point-hint": "ከዚህ ዝርዝር ጀምሮ ሥራ ቃል ይገባበታል፤ ከሱ በፊት ያሉት ዝርዝሮች አማራጮች ናቸው።",
+  "person-wip-limit": "የWIP ገደብ ለአንድ ሰው",
+  "person-wip-over": "__user__ __count__ ክፍት ካርዶች አሉት፤ የWIP ገደብ ለአንድ ሰው __limit__ ነው።",
+  "feature-list-policies": "የዝርዝር ፖሊሲዎች",
+  "feature-list-policies-desc": "የእያንዳንዱ ዝርዝር ፖሊሲ - ካርድ መቼ መግባት እንደሚችል እና እዚያ መቼ እንደሚጠናቀቅ - በዝርዝሩ ራስጌ ላይ። በየሰሌዳው በሰሌዳ ቅንብሮች / ዝርዝር ውስጥ ይበራል።",
+  "feature-commitment-point": "የቁርጠኝነት ነጥብ",
+  "feature-commitment-point-desc": "ሥራ ቃል የሚገባበት ዝርዝር፣ በራስጌው ላይ ምልክት የተደረገበት። በየሰሌዳው በሰሌዳ ቅንብሮች / ዝርዝር ውስጥ ይመረጣል።",
+  "feature-person-wip-limit": "የWIP ገደብ ለአንድ ሰው",
+  "feature-person-wip-limit-desc": "አንድ ሰው በሰሌዳ ላይ ስንት ክፍት ካርዶችን መያዝ እንደሚችል፤ የተከፈተ ካርድ ከገደቡ ስላለፈ ማንኛውም ሰው ያስጠነቅቃል። በየሰሌዳው በሰሌዳ ቅንብሮች / ዝርዝር ውስጥ ይዘጋጃል።",
+  "scrum-definition-of-ready": "የዝግጁ ሥራ መስፈርት"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Verslo vertė",
   "wsjf-time-criticality": "Laiko kritiškumas",
   "wsjf-risk-reduction": "Rizikos mažinimas",
-  "wsjf-job-size": "Darbo dydis"
+  "wsjf-job-size": "Darbo dydis",
+  "listPolicyPopup-title": "Sąrašo taisyklė",
+  "list-policy": "Sąrašo taisyklė",
+  "list-policy-placeholder": "Kada kortelė gali patekti į šį sąrašą ir kada joje ji baigta?",
+  "show-list-policies": "Rodyti sąrašų taisykles",
+  "commitment-point": "Įsipareigojimo taškas",
+  "commitment-point-hint": "Nuo šio sąrašo įsipareigojama darbui; ankstesni sąrašai yra galimybės.",
+  "person-wip-limit": "WIP limitas vienam asmeniui",
+  "person-wip-over": "__user__ turi __count__ atvirų kortelių; WIP limitas vienam asmeniui yra __limit__.",
+  "feature-list-policies": "Sąrašų taisyklės",
+  "feature-list-policies-desc": "Kiekvieno sąrašo taisyklė - kada kortelė gali patekti ir kada ji ten baigta - sąrašo antraštėje. Įjungiama kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas.",
+  "feature-commitment-point": "Įsipareigojimo taškas",
+  "feature-commitment-point-desc": "Sąrašas, nuo kurio įsipareigojama darbui, pažymėtas jo antraštėje. Pasirenkamas kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas.",
+  "feature-person-wip-limit": "WIP limitas vienam asmeniui",
+  "feature-person-wip-limit-desc": "Kiek atvirų kortelių vienas asmuo gali turėti lentoje; atidaryta kortelė įspėja apie kiekvieną viršijusį. Nustatoma kiekvienai lentai skiltyje Lentos nustatymai / Sąrašas.",
+  "scrum-definition-of-ready": "Pasirengimo apibrėžimas"
 }

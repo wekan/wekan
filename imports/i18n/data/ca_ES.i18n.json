@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valor de negoci",
   "wsjf-time-criticality": "Criticitat temporal",
   "wsjf-risk-reduction": "Reducció del risc",
-  "wsjf-job-size": "Mida de la feina"
+  "wsjf-job-size": "Mida de la feina",
+  "listPolicyPopup-title": "Política de la llista",
+  "list-policy": "Política de la llista",
+  "list-policy-placeholder": "Quan pot entrar una fitxa en aquesta llista, i quan està acabada aquí?",
+  "show-list-policies": "Mostra les polítiques de les llistes",
+  "commitment-point": "Punt de compromís",
+  "commitment-point-hint": "A partir d'aquesta llista es compromet la feina; les llistes anteriors són opcions.",
+  "person-wip-limit": "Límit de Treball en Progrés per persona",
+  "person-wip-over": "__user__ té __count__ fitxes obertes; el límit de Treball en Progrés per persona és __limit__.",
+  "feature-list-policies": "Polítiques de les llistes",
+  "feature-list-policies-desc": "La política de cada llista - quan hi pot entrar una fitxa i quan hi està acabada - a la capçalera de la llista. S'activa per tauler a Configuració del tauler / Llista.",
+  "feature-commitment-point": "Punt de compromís",
+  "feature-commitment-point-desc": "La llista a partir de la qual es compromet la feina, marcada a la seva capçalera. Es tria per tauler a Configuració del tauler / Llista.",
+  "feature-person-wip-limit": "Límit de Treball en Progrés per persona",
+  "feature-person-wip-limit-desc": "Quantes fitxes obertes pot tenir una persona en un tauler; una fitxa oberta avisa de qualsevol que el superi. Es defineix per tauler a Configuració del tauler / Llista.",
+  "scrum-definition-of-ready": "Definició de preparat"
 }

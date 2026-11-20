@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Besigheidswaarde",
   "wsjf-time-criticality": "Tydkritiekheid",
   "wsjf-risk-reduction": "Risikovermindering",
-  "wsjf-job-size": "Werkgrootte"
+  "wsjf-job-size": "Werkgrootte",
+  "listPolicyPopup-title": "Lysbeleid",
+  "list-policy": "Lysbeleid",
+  "list-policy-placeholder": "Wanneer mag 'n kaart in hierdie lys kom, en wanneer is dit hier klaar?",
+  "show-list-policies": "Wys lysbeleide",
+  "commitment-point": "Verbintenispunt",
+  "commitment-point-hint": "Vanaf hierdie lys word werk aan verbind; die lyste daarvoor is opsies.",
+  "person-wip-limit": "WIP-limiet per persoon",
+  "person-wip-over": "__user__ het __count__ oop kaarte; die WIP-limiet per persoon is __limit__.",
+  "feature-list-policies": "Lysbeleide",
+  "feature-list-policies-desc": "Elke lys se beleid - wanneer 'n kaart mag inkom en wanneer dit daar klaar is - by die lysopskrif. Per bord aangeskakel in Bordinstellings / Lys.",
+  "feature-commitment-point": "Verbintenispunt",
+  "feature-commitment-point-desc": "Die lys vanaf waar werk aan verbind word, gemerk by sy opskrif. Per bord gekies in Bordinstellings / Lys.",
+  "feature-person-wip-limit": "WIP-limiet per persoon",
+  "feature-person-wip-limit-desc": "Hoeveel oop kaarte een persoon op 'n bord mag hou; 'n oopgemaakte kaart waarsku oor enigiemand daarbo. Per bord gestel in Bordinstellings / Lys.",
+  "scrum-definition-of-ready": "Definisie van gereed"
 }

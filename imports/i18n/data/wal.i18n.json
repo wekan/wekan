@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Daldduwaa hirggaa",
   "wsjf-time-criticality": "Wodiyaa koshshaa",
   "wsjf-risk-reduction": "Hiixatiyaa ziqqisuwaa",
-  "wsjf-job-size": "Oosuwaa gitatethaa"
+  "wsjf-job-size": "Oosuwaa gitatethaa",
+  "listPolicyPopup-title": "Mazgabaa wogaa",
+  "list-policy": "Mazgabaa wogaa",
+  "list-policy-placeholder": "Kaardiyay ha mazgabaa awude gelana danddayii, qassi hagaani awude wurssettii?",
+  "show-list-policies": "Mazgabaa wogata bessa",
+  "commitment-point": "Ammanettido bessaa",
+  "commitment-point-hint": "Oosuwaa ha mazgabaappe doomettidi ammanettoosona; hagaappe sinttan de'iya mazgabati doorettanaba.",
+  "person-wip-limit": "Asa issuwaas WIP gaxaa",
+  "person-wip-over": "__user__ __count__ dooyettida kaardiyati de'oosona; asa issuwaas WIP gaxaa __limit__.",
+  "feature-list-policies": "Mazgabaa wogata",
+  "feature-list-policies-desc": "Mazgabaa ubbaa wogaa - kaardiyay awude gelanaakko qassi yan awude wurssettiyaakko - mazgabaa huuphiyan. Bookkiya ubbaas Bookkiya giigissuwaa / Mazgabaa giddon doyettees.",
+  "feature-commitment-point": "Ammanettido bessaa",
+  "feature-commitment-point-desc": "Oosuwaa ammanettiya mazgabaa, ba huuphiyan malaatettidaagaa. Bookkiya ubbaas Bookkiya giigissuwaa / Mazgabaa giddon doorettees.",
+  "feature-person-wip-limit": "Asa issuwaas WIP gaxaa",
+  "feature-person-wip-limit-desc": "Asi issoy bookkiya bolla dooyettida kaardiyata awudde gidiya oyqqana danddayiyaakko; dooyettida kaardiyay gaxaa aattida oonakka zoriyees. Bookkiya ubbaas Bookkiya giigissuwaa / Mazgabaa giddon wottettees.",
+  "scrum-definition-of-ready": "Giigettidaagaa qonccissuwaa"
 }

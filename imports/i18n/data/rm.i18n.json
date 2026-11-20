@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valur commerziala",
   "wsjf-time-criticality": "Urgenza da temp",
   "wsjf-risk-reduction": "Reducziun dal ristg",
-  "wsjf-job-size": "Grondezza da la lavur"
+  "wsjf-job-size": "Grondezza da la lavur",
+  "listPolicyPopup-title": "Regla da la glista",
+  "list-policy": "Regla da la glista",
+  "list-policy-placeholder": "Cura dastga ina carta entrar en questa glista, e cura è ella terminada qua?",
+  "show-list-policies": "Mussar las reglas da las glistas",
+  "commitment-point": "Punct d'engaschament",
+  "commitment-point-hint": "A partir da questa glista vegn la lavur surpigliada; las glistas avant ella èn opziuns.",
+  "person-wip-limit": "Limita WIP per persuna",
+  "person-wip-over": "__user__ ha __count__ cartas avertas; la limita WIP per persuna è __limit__.",
+  "feature-list-policies": "Reglas da las glistas",
+  "feature-list-policies-desc": "La regla da mintga glista - cura ch'ina carta dastga entrar e cura ch'ella è terminada là - en il chau da la glista. Activada per tabella en Parameters da la tabella / Glista.",
+  "feature-commitment-point": "Punct d'engaschament",
+  "feature-commitment-point-desc": "La glista a partir da la quala la lavur vegn surpigliada, marcada en ses chau. Tschernida per tabella en Parameters da la tabella / Glista.",
+  "feature-person-wip-limit": "Limita WIP per persuna",
+  "feature-person-wip-limit-desc": "Quantas cartas avertas ina persuna dastga tegnair sin ina tabella; ina carta averta avertescha da mintgin che la surpassa. Fixada per tabella en Parameters da la tabella / Glista.",
+  "scrum-definition-of-ready": "Definiziun da pront"
 }

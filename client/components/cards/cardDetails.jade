@@ -398,6 +398,8 @@ template(name="cardFieldSectionDate")
 template(name="cardFieldSectionMembers")
   +cardSectionHeader(section="members" icon="fa-users" label="members")
   if isSectionOpen "members"
+    //- The board's WIP limit per person (listFlowPolicies.jade).
+    +cardPersonWipWarnings(card=this)
     .card-details-group-body
       each field in orderedMembersFields
         if $eq field "members"

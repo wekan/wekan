@@ -83,10 +83,7 @@ board's settings and in Admin Panel features. Sources: the Kanban Guide
 (kanban.university), the Scrum Glossary (scrum.org), Scrum Alliance's scrum
 board article, ScrumDesk's feature list.
 
-- Explicit list policies: each list's entry and exit criteria, shown at the
-  list header (Kanban practice "make policies explicit").
-- Definition of Ready next to the existing Definition of Done.
-- WIP limit per person: how many open cards one assignee may hold.
 - Retrospective board: Start / Stop / Continue lists made for a sprint.
 - Daily standup timer per person.
-- Commitment point and split Doing / Done columns.
+- Split Doing / Done columns: a list split into two halves, so finished work
+  waits visibly before it is pulled on.

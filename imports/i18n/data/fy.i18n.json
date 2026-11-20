@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Bedriuwswearde",
   "wsjf-time-criticality": "Tiidkritykens",
   "wsjf-risk-reduction": "Risikoferleging",
-  "wsjf-job-size": "Wurkgrutte"
+  "wsjf-job-size": "Wurkgrutte",
+  "listPolicyPopup-title": "Listbelied",
+  "list-policy": "Listbelied",
+  "list-policy-placeholder": "Wannear mei in kaart yn dizze list komme, en wannear is er hjir klear?",
+  "show-list-policies": "Belied fan listen sjen litte",
+  "commitment-point": "Ferplichtingspunt",
+  "commitment-point-hint": "Fan dizze list ôf wurdt it wurk tasein; de listen dêrfoar binne opsjes.",
+  "person-wip-limit": "WIP-limyt per persoan",
+  "person-wip-over": "__user__ hat __count__ iepen kaarten; de WIP-limyt per persoan is __limit__.",
+  "feature-list-policies": "Belied fan listen",
+  "feature-list-policies-desc": "It belied fan elke list (wannear't in kaart deryn komme mei en wannear't er dêr klear is) yn de listkop. Per boerd ynskeakele yn Boerdynstellings / List.",
+  "feature-commitment-point": "Ferplichtingspunt",
+  "feature-commitment-point-desc": "De list fan wêr ôf it wurk tasein wurdt, markearre yn de kop. Per boerd keazen yn Boerdynstellings / List.",
+  "feature-person-wip-limit": "WIP-limyt per persoan",
+  "feature-person-wip-limit-desc": "Hoefolle iepen kaarten ien persoan op in boerd hawwe mei; in iepene kaart warskôget oer elkenien dy't deroer giet. Per boerd ynsteld yn Boerdynstellings / List.",
+  "scrum-definition-of-ready": "Definysje fan ree"
 }

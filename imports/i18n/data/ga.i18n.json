@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Luach gnó",
   "wsjf-time-criticality": "Criticiúlacht ama",
   "wsjf-risk-reduction": "Laghdú riosca",
-  "wsjf-job-size": "Méid na hoibre"
+  "wsjf-job-size": "Méid na hoibre",
+  "listPolicyPopup-title": "Polasaí liosta",
+  "list-policy": "Polasaí liosta",
+  "list-policy-placeholder": "Cathain is féidir le cárta teacht isteach sa liosta seo, agus cathain atá sé críochnaithe anseo?",
+  "show-list-policies": "Taispeáin polasaithe liostaí",
+  "commitment-point": "Pointe tiomantais",
+  "commitment-point-hint": "Déantar tiomantas don obair ón liosta seo ar aghaidh; is roghanna iad na liostaí roimhe.",
+  "person-wip-limit": "Teorainn WIP in aghaidh an duine",
+  "person-wip-over": "Tá __count__ cárta oscailte ag __user__; is é __limit__ an teorainn WIP in aghaidh an duine.",
+  "feature-list-policies": "Polasaithe liostaí",
+  "feature-list-policies-desc": "Polasaí gach liosta (cathain is féidir le cárta teacht isteach agus cathain atá sé críochnaithe ann) i gceannteideal an liosta. Cuirtear ar siúl é in aghaidh an chláir i Socruithe cláir / Liosta.",
+  "feature-commitment-point": "Pointe tiomantais",
+  "feature-commitment-point-desc": "An liosta óna ndéantar tiomantas don obair, marcáilte ina cheannteideal. Roghnaítear é in aghaidh an chláir i Socruithe cláir / Liosta.",
+  "feature-person-wip-limit": "Teorainn WIP in aghaidh an duine",
+  "feature-person-wip-limit-desc": "Cé mhéad cárta oscailte is féidir le duine amháin a choinneáil ar chlár; tugann cárta oscailte rabhadh faoi aon duine os a chionn. Socraítear é in aghaidh an chláir i Socruithe cláir / Liosta.",
+  "scrum-definition-of-ready": "Sainmhíniú ar réidh"
 }

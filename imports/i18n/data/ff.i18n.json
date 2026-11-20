@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Nafoore njulaagu",
   "wsjf-time-criticality": "Hittaare sahaa",
   "wsjf-risk-reduction": "Ustugol bone",
-  "wsjf-job-size": "Mawnugol golle"
+  "wsjf-job-size": "Mawnugol golle",
+  "listPolicyPopup-title": "Sariya doggol",
+  "list-policy": "Sariya doggol",
+  "list-policy-placeholder": "Ndey kartal waawi naatde e ndee doggol, ndey nde timmi ɗoo?",
+  "show-list-policies": "Hollu sariyaaji doggi",
+  "commitment-point": "Nokku ahde",
+  "commitment-point-hint": "Golle ahdetee gila e ndee doggol; doggi adii mayre ko suɓaaɗe.",
+  "person-wip-limit": "Keerol WIP neɗɗo kala",
+  "person-wip-over": "__user__ jogii karte udditiiɗe __count__; keerol WIP neɗɗo kala ko __limit__.",
+  "feature-list-policies": "Sariyaaji doggi",
+  "feature-list-policies-desc": "Sariya doggol kala (ndey kartal waawi naatde e ndey nde timmi toon) e hoore doggol ngol. Hubbetee e alluwal kala e Teelte alluwal / Doggol.",
+  "feature-commitment-point": "Nokku ahde",
+  "feature-commitment-point-desc": "Doggol ngol golle ahdetee gila e mayre, maantaaɗo e hoore mayre. Suɓetee e alluwal kala e Teelte alluwal / Doggol.",
+  "feature-person-wip-limit": "Keerol WIP neɗɗo kala",
+  "feature-person-wip-limit-desc": "Karte udditiiɗe no foti neɗɗo gooto waawi jogaade e alluwal; kartal udditiingal no jeertina e kala on rewtuɗo ɗum. Teeltetee e alluwal kala e Teelte alluwal / Doggol.",
+  "scrum-definition-of-ready": "Firo heblaade"
 }

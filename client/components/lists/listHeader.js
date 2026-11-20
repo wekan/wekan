@@ -452,6 +452,11 @@ Template.listHeader.events({
 });
 
 Template.listActionPopup.helpers({
+  showsListPolicies() {
+    const board = ReactiveCache.getBoard(this.boardId);
+    return board?.allowsListPolicies === true
+      && require('/client/lib/instanceFeatures').allowFeature('list-policies');
+  },
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
@@ -611,6 +616,7 @@ Template.listActionPopup.events({
     Popup.back();
   },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
+  'click .js-list-policy': Popup.open('listPolicy'),
   'click .js-list-permissions': Popup.open('listPermissions'),
   'click .js-copy-list': Popup.open('copyList'),
   'click .js-move-list': Popup.open('moveList'),

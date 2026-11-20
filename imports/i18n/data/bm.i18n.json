@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Jago nafa",
   "wsjf-time-criticality": "Waati nafa",
   "wsjf-risk-reduction": "Farati dɔgɔya",
-  "wsjf-job-size": "Baara bonya"
+  "wsjf-job-size": "Baara bonya",
+  "listPolicyPopup-title": "Sɛbɛn sariya",
+  "list-policy": "Sɛbɛn sariya",
+  "list-policy-placeholder": "Karti bɛ se ka don sɛbɛn in na tuma jumɛn, wa a bɛ ban yan tuma jumɛn?",
+  "show-list-policies": "Sɛbɛn sariyaw jira",
+  "commitment-point": "Layidu yɔrɔ",
+  "commitment-point-hint": "Baara layidu bɛ ta ka bɔ sɛbɛn in na; sɛbɛn minnu bɛ a ɲɛ, olu ye sugandiliw ye.",
+  "person-wip-limit": "WIP dantigɛ mɔgɔ kelen-kelen na",
+  "person-wip-over": "Karti dayɛlɛlen __count__ bɛ __user__ bolo; WIP dantigɛ mɔgɔ kelen-kelen na ye __limit__ ye.",
+  "feature-list-policies": "Sɛbɛn sariyaw",
+  "feature-list-policies-desc": "Sɛbɛn kelen-kelen bɛɛ sariya - karti bɛ se ka don tuma min na ani a bɛ ban yen tuma min na - sɛbɛn kunkan na. A bɛ dayɛlɛ walan kelen-kelen na Walan labɛnw / Sɛbɛn kɔnɔ.",
+  "feature-commitment-point": "Layidu yɔrɔ",
+  "feature-commitment-point-desc": "Sɛbɛn min na baara layidu bɛ ta, taamasiyɛn bɛ a kunkan na. A bɛ sugandi walan kelen-kelen na Walan labɛnw / Sɛbɛn kɔnɔ.",
+  "feature-person-wip-limit": "WIP dantigɛ mɔgɔ kelen-kelen na",
+  "feature-person-wip-limit-desc": "Karti dayɛlɛlen joli mɔgɔ kelen bɛ se ka mara walan kan; karti dayɛlɛlen bɛ mɔgɔ o mɔgɔ lasɔmi min tɛmɛna a kan. A bɛ sigi walan kelen-kelen na Walan labɛnw / Sɛbɛn kɔnɔ.",
+  "scrum-definition-of-ready": "Labɛnni ɲɛfɔli"
 }

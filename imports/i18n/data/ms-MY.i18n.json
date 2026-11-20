@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Nilai perniagaan",
   "wsjf-time-criticality": "Kritikal masa",
   "wsjf-risk-reduction": "Pengurangan risiko",
-  "wsjf-job-size": "Saiz kerja"
+  "wsjf-job-size": "Saiz kerja",
+  "listPolicyPopup-title": "Dasar senarai",
+  "list-policy": "Dasar senarai",
+  "list-policy-placeholder": "Bilakah kad boleh masuk ke senarai ini, dan bilakah ia selesai di sini?",
+  "show-list-policies": "Tunjukkan dasar senarai",
+  "commitment-point": "Titik komitmen",
+  "commitment-point-hint": "Kerja dikomitkan mulai senarai ini; senarai sebelumnya ialah pilihan.",
+  "person-wip-limit": "Had WIP setiap orang",
+  "person-wip-over": "__user__ mempunyai __count__ kad terbuka; had WIP setiap orang ialah __limit__.",
+  "feature-list-policies": "Dasar-dasar senarai",
+  "feature-list-policies-desc": "Dasar setiap senarai - bila kad boleh masuk dan bila ia selesai di situ - di pengepala senarai. Dihidupkan bagi setiap papan dalam Tetapan Papan / Senarai.",
+  "feature-commitment-point": "Titik komitmen",
+  "feature-commitment-point-desc": "Senarai tempat kerja mula dikomitkan, ditanda pada pengepalanya. Dipilih bagi setiap papan dalam Tetapan Papan / Senarai.",
+  "feature-person-wip-limit": "Had WIP setiap orang",
+  "feature-person-wip-limit-desc": "Berapa banyak kad terbuka yang boleh dipegang seorang pada papan; kad yang dibuka memberi amaran tentang sesiapa yang melebihinya. Ditetapkan bagi setiap papan dalam Tetapan Papan / Senarai.",
+  "scrum-definition-of-ready": "Takrif sedia"
 }

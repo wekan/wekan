@@ -33,6 +33,16 @@ template(name="scrumView")
               p {{_ 'scrum-history-job-running' done=historyJob.done total=historyJob.total}}
               .scrum-progress
                 .scrum-progress-bar(style=historyJob.style)
+        //- The team's Definition of Ready and Definition of Done, readable by
+          every member - the settings below are the board admin's.
+        if settings.definitionOfReady
+          details.scrum-definition.js-scrum-definition-of-ready
+            summary {{_ 'scrum-definition-of-ready'}}
+            p.scrum-definition-text= settings.definitionOfReady
+        if settings.definitionOfDone
+          details.scrum-definition.js-scrum-definition-of-done
+            summary {{_ 'scrum-definition-of-done'}}
+            p.scrum-definition-text= settings.definitionOfDone
         if canAdmin
           details.scrum-settings(open=settingsOpen)
             summary {{_ 'scrum-settings'}}
@@ -42,6 +52,10 @@ template(name="scrumView")
                 | {{_ 'scrum-enabled'}}
               label {{_ 'scrum-product-goal'}}
                 textarea(name="productGoal") {{settings.productGoal}}
+              //- Definition of Ready (2026-11-20): when a backlog item may be
+                taken into a sprint, beside the Definition of Done.
+              label {{_ 'scrum-definition-of-ready'}}
+                textarea(name="definitionOfReady") {{settings.definitionOfReady}}
               label {{_ 'scrum-definition-of-done'}}
                 textarea(name="definitionOfDone") {{settings.definitionOfDone}}
               each accountabilityFields

@@ -1,0 +1,35 @@
+/* The Kanban flow policies of the lists (docs/Features/Lists/Flow-Policies.md). */
+.list-policy-mark,
+.list-commitment-mark {
+  display: inline-block;
+  margin-inline-start: 4px;
+  opacity: 0.75;
+}
+.list-policy-mark {
+  cursor: pointer;
+}
+.list-commitment-mark {
+  color: #27ae60;
+}
+.list-policy-popup textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.list-policy-popup .list-policy-text {
+  white-space: pre-wrap;
+}
+.board-flow-list-settings .board-flow-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+.board-flow-list-settings .board-flow-setting input,
+.board-flow-list-settings .board-flow-setting select {
+  max-width: 50%;
+}
+.card-person-wip-over {
+  color: #c0392b;
+  margin-bottom: 4px;
+}

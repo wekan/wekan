@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valor de negociu",
   "wsjf-time-criticality": "Criticidá temporal",
   "wsjf-risk-reduction": "Amenorgamientu del riesgu",
-  "wsjf-job-size": "Tamañu del trabayu"
+  "wsjf-job-size": "Tamañu del trabayu",
+  "listPolicyPopup-title": "Política de la lista",
+  "list-policy": "Política de la lista",
+  "list-policy-placeholder": "¿Cuándo pue entrar una tarxeta nesta lista, y cuándo ta fecha equí?",
+  "show-list-policies": "Amosar les polítiques de les listes",
+  "commitment-point": "Puntu de compromisu",
+  "commitment-point-hint": "El trabayu comprométese a partir d'esta lista; les listes d'enantes son opciones.",
+  "person-wip-limit": "Llende del trabayu en cursu por persona",
+  "person-wip-over": "__user__ tien __count__ tarxetes abiertes; la llende del trabayu en cursu por persona ye __limit__.",
+  "feature-list-policies": "Polítiques de les listes",
+  "feature-list-policies-desc": "La política de cada lista - cuándo pue entrar una tarxeta y cuándo ta fecha ellí - na cabecera de la lista. Actívase per tableru en Preferencias del tablero / Lista.",
+  "feature-commitment-point": "Puntu de compromisu",
+  "feature-commitment-point-desc": "La lista a partir de la que se compromete'l trabayu, marcada na so cabecera. Escuéyese per tableru en Preferencias del tablero / Lista.",
+  "feature-person-wip-limit": "Llende del trabayu en cursu por persona",
+  "feature-person-wip-limit-desc": "Cuántes tarxetes abiertes pue tener una persona nun tableru; una tarxeta abierta avisa de cualquiera que la pase. Afítase per tableru en Preferencias del tablero / Lista.",
+  "scrum-definition-of-ready": "Definición de preparáu"
 }

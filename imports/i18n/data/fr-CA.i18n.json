@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Valeur métier",
   "wsjf-time-criticality": "Criticité temporelle",
   "wsjf-risk-reduction": "Réduction des risques",
-  "wsjf-job-size": "Taille du travail"
+  "wsjf-job-size": "Taille du travail",
+  "listPolicyPopup-title": "Politique de la liste",
+  "list-policy": "Politique de la liste",
+  "list-policy-placeholder": "Quand une carte peut-elle entrer dans cette liste, et quand y est-elle terminée?",
+  "show-list-policies": "Afficher les politiques des listes",
+  "commitment-point": "Point d'engagement",
+  "commitment-point-hint": "Le travail est engagé à partir de cette liste; les listes précédentes sont des options.",
+  "person-wip-limit": "Limite WIP par personne",
+  "person-wip-over": "__user__ a __count__ cartes ouvertes; la limite WIP par personne est de __limit__.",
+  "feature-list-policies": "Politiques des listes",
+  "feature-list-policies-desc": "La politique de chaque liste (quand une carte peut y entrer et quand elle y est terminée), dans l'en-tête de la liste. S'active par tableau dans Paramètres du tableau / Liste.",
+  "feature-commitment-point": "Point d'engagement",
+  "feature-commitment-point-desc": "La liste à partir de laquelle le travail est engagé, signalée dans son en-tête. Se choisit par tableau dans Paramètres du tableau / Liste.",
+  "feature-person-wip-limit": "Limite WIP par personne",
+  "feature-person-wip-limit-desc": "Combien de cartes ouvertes une personne peut détenir sur un tableau; une carte ouverte avertit de toute personne qui la dépasse. Se définit par tableau dans Paramètres du tableau / Liste.",
+  "scrum-definition-of-ready": "Définition de prêt"
 }

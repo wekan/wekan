@@ -63,3 +63,8 @@
    global form rules give selects one row's height; show a few rows. */
 .scrum-view select[multiple], .scrum-metadata select[multiple] { min-height: 5.5em; height: auto; }
 .scrum-multiple-help { display: block; opacity: .8; max-width: 32em; }
+
+/* The Definition of Ready and of Done, readable by every member. */
+.scrum-definition .scrum-definition-text {
+  white-space: pre-wrap;
+}

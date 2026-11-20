@@ -7,7 +7,8 @@ const {translationTokens}=require('../releases/translations/placeholder-tokens.m
 const keys=Object.keys(english).filter(k=>k.startsWith('scrum-')||['board-view-product-backlog','board-view-sprints','board-view-sprint-report','board-view-velocity'].includes(k));
 
 test('Northern Sotho Scrum messages preserve coverage, tokens and shared labels',()=>{
- assert.equal(keys.length,127);
+ // 128 since scrum-definition-of-ready (2026-11-20), translated like the rest.
+ assert.equal(keys.length,128);
  for(const key of keys){
   assert.ok(data[key].trim(),key);
   assert.notEqual(data[key],english[key],key);

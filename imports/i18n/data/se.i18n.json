@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Fitnodatárvu",
   "wsjf-time-criticality": "Áiggi kritihkalašvuohta",
   "wsjf-risk-reduction": "Riskka geahpideapmi",
-  "wsjf-job-size": "Barggu sturrodat"
+  "wsjf-job-size": "Barggu sturrodat",
+  "listPolicyPopup-title": "Listu njuolggadus",
+  "list-policy": "Listu njuolggadus",
+  "list-policy-placeholder": "Goas sáhttá goartta boahtit dán listui, ja goas dat lea gárvvis dáppe?",
+  "show-list-policies": "Čájet listtuid njuolggadusaid",
+  "commitment-point": "Geatnegahttinčuokkis",
+  "commitment-point-hint": "Dán listtus ovddosguvlui bargu lea geatnegahtton; listtut ovdal dan leat molssaeavttut.",
+  "person-wip-limit": "WIP-rádji olbmo nammii",
+  "person-wip-over": "__user__ lea __count__ rabas goartta; WIP-rádji olbmo nammii lea __limit__.",
+  "feature-list-policies": "Listtuid njuolggadusat",
+  "feature-list-policies-desc": "Juohke listtu njuolggadus - goas goartta sáhttá boahtit sisa ja goas dat lea gárvvis doppe - listtu bajilčállagis. Doaimmahuvvo juohke távvalii Távvala heivehusat / Listu siste.",
+  "feature-commitment-point": "Geatnegahttinčuokkis",
+  "feature-commitment-point-desc": "Listu mas bargu geatnegahttojuvvo, merkejuvvon dan bajilčállagis. Válljejuvvo juohke távvalii Távvala heivehusat / Listu siste.",
+  "feature-person-wip-limit": "WIP-rádji olbmo nammii",
+  "feature-person-wip-limit-desc": "Man galle rabas goartta okta olmmoš sáhttá doallat távvalis; rahppon goartta várreha juohkehačča birra gii manná badjel. Bidjojuvvo juohke távvalii Távvala heivehusat / Listu siste.",
+  "scrum-definition-of-ready": "Gearggusvuođa definišuvdna"
 }

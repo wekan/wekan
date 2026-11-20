@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Poslovna vrijednost",
   "wsjf-time-criticality": "Vremenska kritičnost",
   "wsjf-risk-reduction": "Smanjenje rizika",
-  "wsjf-job-size": "Veličina posla"
+  "wsjf-job-size": "Veličina posla",
+  "listPolicyPopup-title": "Politika liste",
+  "list-policy": "Politika liste",
+  "list-policy-placeholder": "Kada kartica smije ući u ovu listu, i kada je ovdje završena?",
+  "show-list-policies": "Prikaži politike lista",
+  "commitment-point": "Tačka obaveze",
+  "commitment-point-hint": "Od ove liste se preuzima obaveza za rad; liste prije nje su opcije.",
+  "person-wip-limit": "WIP ograničenje po osobi",
+  "person-wip-over": "__user__ ima __count__ otvorenih kartica; WIP ograničenje po osobi je __limit__.",
+  "feature-list-policies": "Politike lista",
+  "feature-list-policies-desc": "Politika svake liste - kada kartica smije ući i kada je tamo završena - u zaglavlju liste. Uključuje se po tabli u Postavke table / Lista.",
+  "feature-commitment-point": "Tačka obaveze",
+  "feature-commitment-point-desc": "Lista od koje se preuzima obaveza za rad, označena u njenom zaglavlju. Bira se po tabli u Postavke table / Lista.",
+  "feature-person-wip-limit": "WIP ograničenje po osobi",
+  "feature-person-wip-limit-desc": "Koliko otvorenih kartica jedna osoba smije držati na tabli; otvorena kartica upozorava na svakoga ko ga prelazi. Postavlja se po tabli u Postavke table / Lista.",
+  "scrum-definition-of-ready": "Definicija spremnosti"
 }

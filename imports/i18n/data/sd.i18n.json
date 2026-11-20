@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "ڪاروباري قدر",
   "wsjf-time-criticality": "وقت جي اهميت",
   "wsjf-risk-reduction": "خطري ۾ گهٽتائي",
-  "wsjf-job-size": "ڪم جي ماپ"
+  "wsjf-job-size": "ڪم جي ماپ",
+  "listPolicyPopup-title": "فهرست جي پاليسي",
+  "list-policy": "فهرست جي پاليسي",
+  "list-policy-placeholder": "ڪارڊ هن فهرست ۾ ڪڏهن اچي سگهي ٿو، ۽ هتي ڪڏهن مڪمل ٿئي ٿو؟",
+  "show-list-policies": "فهرستن جون پاليسيون ڏيکاريو",
+  "commitment-point": "واعدي جو نقطو",
+  "commitment-point-hint": "هن فهرست کان ڪم جو واعدو ڪيو وڃي ٿو؛ ان کان اڳ واريون فهرستون اختيار آهن.",
+  "person-wip-limit": "في ماڻهو WIP حد",
+  "person-wip-over": "__user__ وٽ __count__ کليل ڪارڊ آهن؛ في ماڻهو WIP حد __limit__ آهي.",
+  "feature-list-policies": "فهرستن جون پاليسيون",
+  "feature-list-policies-desc": "هر فهرست جي پاليسي - ڪارڊ ڪڏهن اچي سگهي ٿو ۽ اتي ڪڏهن مڪمل ٿئي ٿو - فهرست جي سري تي. هر بورڊ لاءِ بورڊ سيٽنگون / فهرست ۾ چالو ڪئي وڃي ٿي.",
+  "feature-commitment-point": "واعدي جو نقطو",
+  "feature-commitment-point-desc": "اها فهرست جنهن کان ڪم جو واعدو ڪيو وڃي ٿو، ان جي سري تي نشان لڳل. هر بورڊ لاءِ بورڊ سيٽنگون / فهرست ۾ چونڊي وڃي ٿي.",
+  "feature-person-wip-limit": "في ماڻهو WIP حد",
+  "feature-person-wip-limit-desc": "هڪ ماڻهو بورڊ تي ڪيترا کليل ڪارڊ رکي سگهي ٿو؛ کوليل ڪارڊ حد کان مٿي هر ڪنهن بابت خبردار ڪري ٿو. هر بورڊ لاءِ بورڊ سيٽنگون / فهرست ۾ مقرر ڪئي وڃي ٿي.",
+  "scrum-definition-of-ready": "تيار ٿيڻ جي تعريف"
 }

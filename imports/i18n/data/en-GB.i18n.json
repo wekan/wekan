@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Business value",
   "wsjf-time-criticality": "Time criticality",
   "wsjf-risk-reduction": "Risk reduction",
-  "wsjf-job-size": "Job size"
+  "wsjf-job-size": "Job size",
+  "listPolicyPopup-title": "List policy",
+  "list-policy": "List policy",
+  "list-policy-placeholder": "When may a card come into this list, and when is it done here?",
+  "show-list-policies": "Show list policies",
+  "commitment-point": "Commitment point",
+  "commitment-point-hint": "Work is committed to from this list on; the lists before it are options.",
+  "person-wip-limit": "WIP limit per person",
+  "person-wip-over": "__user__ has __count__ open cards; the WIP limit per person is __limit__.",
+  "feature-list-policies": "List policies",
+  "feature-list-policies-desc": "Each list's policy - when a card may come in and when it is done there - at the list header. Turned on per board in Board Settings / List.",
+  "feature-commitment-point": "Commitment point",
+  "feature-commitment-point-desc": "The list from which work is committed to, marked at its header. Chosen per board in Board Settings / List.",
+  "feature-person-wip-limit": "WIP limit per person",
+  "feature-person-wip-limit-desc": "How many open cards one person may hold on a board; an opened card warns about anyone over it. Set per board in Board Settings / List.",
+  "scrum-definition-of-ready": "Definition of Ready"
 }

@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Viðskiptavirði",
   "wsjf-time-criticality": "Tímanæmi",
   "wsjf-risk-reduction": "Áhættuminnkun",
-  "wsjf-job-size": "Umfang verks"
+  "wsjf-job-size": "Umfang verks",
+  "listPolicyPopup-title": "Stefna lista",
+  "list-policy": "Stefna lista",
+  "list-policy-placeholder": "Hvenær má spjald koma inn á þennan lista og hvenær er því lokið hér?",
+  "show-list-policies": "Sýna stefnur lista",
+  "commitment-point": "Skuldbindingarpunktur",
+  "commitment-point-hint": "Frá þessum lista er skuldbundið sig til verksins; listarnir á undan eru valkostir.",
+  "person-wip-limit": "WIP-mörk á mann",
+  "person-wip-over": "__user__ er með __count__ opin spjöld; WIP-mörk á mann eru __limit__.",
+  "feature-list-policies": "Stefnur lista",
+  "feature-list-policies-desc": "Stefna hvers lista (hvenær spjald má koma inn og hvenær því er lokið þar) í haus listans. Kveikt á fyrir hverja töflu í Stillingar töflu / Listi.",
+  "feature-commitment-point": "Skuldbindingarpunktur",
+  "feature-commitment-point-desc": "Listinn sem skuldbundið er til verksins frá, merktur í haus sínum. Valinn fyrir hverja töflu í Stillingar töflu / Listi.",
+  "feature-person-wip-limit": "WIP-mörk á mann",
+  "feature-person-wip-limit-desc": "Hve mörg opin spjöld einn maður má hafa á töflu; opnað spjald varar við hverjum þeim sem fer yfir þau. Stillt fyrir hverja töflu í Stillingar töflu / Listi.",
+  "scrum-definition-of-ready": "Skilgreining á tilbúnu verki"
 }

@@ -1,0 +1,57 @@
+//- The Kanban flow policies of the lists (models/lib/boardFlowPolicies.js,
+  docs/Features/Lists/Flow-Policies.md). Each is shown only when Admin Panel /
+  Features offers it; a board admin changes them, others see them disabled.
+template(name="boardFlowListSettings")
+  form.board-flow-list-settings
+    if allowFeature 'list-policies'
+      div.check-div
+        a.flex.js-toggle-list-policies(class="{{#if allowsListPolicies}}is-checked{{/if}}" title="{{_ 'show-list-policies'}}")
+          i.fa(class="{{#if allowsListPolicies}}fa-check{{else}}fa-square-o{{/if}}")
+          span
+            i.fa.fa-gavel
+            | {{_ 'show-list-policies'}}
+    if allowFeature 'commitment-point'
+      label.board-flow-setting
+        span
+          i.fa.fa-flag-checkered
+          | {{_ 'commitment-point'}}
+        select.js-commitment-list(disabled=notBoardAdmin)
+          each option in commitmentOptions
+            option(value=option.value selected=option.selected) {{option.title}}
+      p.quiet {{_ 'commitment-point-hint'}}
+    if allowFeature 'person-wip-limit'
+      label.board-flow-setting
+        span
+          i.fa.fa-user-times
+          | {{_ 'person-wip-limit'}}
+        input.js-person-wip-limit(type="number" min="1" max="99" value=personWipLimit disabled=notBoardAdmin)
+
+//- At the list header: the policy as an icon whose tooltip is the text, and the
+  commitment point's flag.
+template(name="listFlowMarks")
+  if showPolicy
+    a.list-policy-mark.js-open-list-policy(title=policy aria-label="{{_ 'list-policy'}}")
+      i.fa.fa-gavel
+  if isCommitmentPoint
+    span.list-commitment-mark(title="{{_ 'commitment-point'}}: {{_ 'commitment-point-hint'}}" aria-label="{{_ 'commitment-point'}}")
+      i.fa.fa-flag-checkered
+
+template(name="listPolicyPopup")
+  .list-policy-popup
+    if canEdit
+      form.js-list-policy-form
+        textarea.js-list-policy-text(rows="6" maxlength="2000" placeholder="{{_ 'list-policy-placeholder'}}")= policy
+        input.primary(type="submit" value="{{_ 'save'}}")
+    else
+      if policy
+        p.list-policy-text= policy
+      else
+        p.quiet {{_ 'list-policy-placeholder'}}
+
+//- In the opened card's Members section: each of its people over the board's
+  WIP limit per person.
+template(name="cardPersonWipWarnings")
+  each warning in warnings
+    .card-person-wip-over.js-card-person-wip-over
+      i.fa.fa-user-times
+      |  {{_ 'person-wip-over' user=warning.name count=warning.count limit=warning.limit}}

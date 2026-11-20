@@ -4873,5 +4873,20 @@
   "wsjf-business-value": "Biznesa vērtība",
   "wsjf-time-criticality": "Laika kritiskums",
   "wsjf-risk-reduction": "Riska samazināšana",
-  "wsjf-job-size": "Darba apjoms"
+  "wsjf-job-size": "Darba apjoms",
+  "listPolicyPopup-title": "Saraksta politika",
+  "list-policy": "Saraksta politika",
+  "list-policy-placeholder": "Kad kartiņa drīkst nonākt šajā sarakstā un kad tā šeit ir pabeigta?",
+  "show-list-policies": "Rādīt sarakstu politikas",
+  "commitment-point": "Saistību punkts",
+  "commitment-point-hint": "No šī saraksta darbs tiek apņemts; saraksti pirms tā ir iespējas.",
+  "person-wip-limit": "WIP ierobežojums vienai personai",
+  "person-wip-over": "__user__ ir __count__ atvērtas kartiņas; WIP ierobežojums vienai personai ir __limit__.",
+  "feature-list-policies": "Sarakstu politikas",
+  "feature-list-policies-desc": "Katra saraksta politika - kad kartiņa drīkst ienākt un kad tā tur ir pabeigta - saraksta galvenē. Ieslēdz katram dēlim sadaļā Dēļa iestatījumi / Saraksts.",
+  "feature-commitment-point": "Saistību punkts",
+  "feature-commitment-point-desc": "Saraksts, no kura darbs tiek apņemts, atzīmēts tā galvenē. Izvēlas katram dēlim sadaļā Dēļa iestatījumi / Saraksts.",
+  "feature-person-wip-limit": "WIP ierobežojums vienai personai",
+  "feature-person-wip-limit-desc": "Cik atvērtu kartiņu viena persona drīkst turēt uz dēļa; atvērta kartiņa brīdina par ikvienu, kas to pārsniedz. Iestata katram dēlim sadaļā Dēļa iestatījumi / Saraksts.",
+  "scrum-definition-of-ready": "Gatavības definīcija"
 }
