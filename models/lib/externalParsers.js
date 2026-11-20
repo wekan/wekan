@@ -746,6 +746,10 @@ export function parseGitlab(data) {
     if (milestoneTitle) tag(`milestone:${milestoneTitle}`);
     if (issue.iteration && issue.iteration.title) tag(`iteration:${issue.iteration.title}`);
     if (issue.issue_type && issue.issue_type !== 'issue') tags.push(`type:${issue.issue_type}`);
+    // An issue's health status (on_track, needs_attention, at_risk) and an
+    // incident's severity (Issues API v4): labels, as the type is.
+    if (typeof issue.health_status === 'string' && issue.health_status) tag(`health:${issue.health_status.replace(/_/g, ' ')}`);
+    if (typeof issue.severity === 'string' && issue.severity && issue.severity.toUpperCase() !== 'UNKNOWN') tag(`severity:${issue.severity.toLowerCase()}`);
     if (issue.confidential) {
       tags.push('confidential');
       warnings.push(`${path}: confidential in GitLab; on the board, the board's visibility decides who can read it`);

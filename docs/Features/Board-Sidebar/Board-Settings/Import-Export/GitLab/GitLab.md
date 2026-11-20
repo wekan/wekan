@@ -182,6 +182,8 @@ second `Source:` line.
 | `milestone` | Scrum release, and label `milestone:...` |
 | `iteration` | Scrum sprint, and label `iteration:...` |
 | `issue_type` other than issue | Label `type:...` |
+| `health_status` (on_track, needs_attention, at_risk) | Label `health:...` |
+| `severity` of an incident (not UNKNOWN) | Label `severity:...` |
 | `confidential` | Label `confidential`, and a warning |
 | `due_date`, else `milestone.due_date` | Due date |
 | `created_at` | Creation date |

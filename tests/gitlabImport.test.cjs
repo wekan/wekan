@@ -112,6 +112,13 @@ async function main() {
     assert.strictEqual(parseGitlab(out).tasks[0].spent_hours, 2.25);
   });
 
+  test('health status and an incident\'s severity are labels; UNKNOWN severity is none', () => {
+    const out = parseGitlab([{ iid: 1, title: 'A', state: 'opened', health_status: 'needs_attention', severity: 'HIGH', issue_type: 'incident' },
+      { iid: 2, title: 'B', state: 'opened', severity: 'UNKNOWN', health_status: null }]);
+    assert.deepStrictEqual(out.tasks[0].tags, ['type:incident', 'health:needs attention', 'severity:high']);
+    assert.deepStrictEqual(out.tasks[1].tags, [], 'negative: no health, and an unknown severity, are no labels');
+  });
+
   console.log(`\ngitlabImport: ${passed} tests passed`);
 }
 
