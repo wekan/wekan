@@ -47,6 +47,8 @@
 // Reported: 🔁 recurrence, ❌ cancelled dates, other frontmatter keys and
 // dates that do not match the date format. Wikilinks stay text.
 
+import { pagingOf, byListOrder, outlineMarks, markKey } from './exportPaging.js';
+
 const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 const PRIORITY = { '🔺': 'Highest', '⏫': 'High', '🔼': 'Medium', '🔽': 'Low', '⏬': 'Lowest' };
 const PRIORITY_EMOJI = Object.fromEntries(Object.entries(PRIORITY).map(([emoji, name]) => [name, emoji]));
@@ -259,16 +261,30 @@ const clock = value => {
 // The board as the plugin writes it (boardToMd): frontmatter, each lane with a
 // blank line, its cards and three blank lines, then the settings footer.
 // WeKan exports no archived cards, so there is no Archive section.
-export function formatObsidianKanban({ lists, items }) {
-  const titles = (Array.isArray(lists) ? lists : []).map(list => list.title).filter(Boolean);
-  for (const item of items || []) if (item.listTitle && !titles.includes(item.listTitle)) titles.push(item.listTitle);
+//
+// The whole board, or one page of it (models/lib/exportPaging.js: the pages
+// come list by list, and together are the whole file): every lane is written
+// where it stands, a lane with no cards between the lanes around it.
+export function formatObsidianKanban(collected) {
+  const { lists } = collected;
+  const { items: pageItems, all, first, last } = pagingOf(collected);
+  const titles = [...new Set((Array.isArray(lists) ? lists : []).map(list => list.title).filter(Boolean))];
+  for (const item of (collected.page ? all : pageItems)) if (item.listTitle && !titles.includes(item.listTitle)) titles.push(item.listTitle);
   const limits = Object.fromEntries((Array.isArray(lists) ? lists : [])
     .filter(list => list.wipLimit && list.wipLimit.enabled && list.wipLimit.value > 0)
     .map(list => [list.title, list.wipLimit.value]));
-  let out = '---\n\nkanban-plugin: board\n\n---\n\n';
-  for (const title of titles) {
-    out += `## ${title}${limits[title] ? ` (${limits[title]})` : ''}\n\n`;
-    for (const item of (items || []).filter(it => it.listTitle === title)) {
+  const ordered = collected.page ? pageItems : byListOrder(pageItems, titles);
+  const { marks, lastKnown } = outlineMarks(collected.page ? all : ordered, titles);
+  const lane = index => `## ${titles[index]}${limits[titles[index]] ? ` (${limits[titles[index]]})` : ''}\n\n`;
+  let out = first ? '---\n\nkanban-plugin: board\n\n---\n\n' : '';
+  for (const item of ordered) {
+    const mark = marks.get(markKey(item));
+    if (mark.list === -1) continue; // a card of no lane
+    if (mark.first) {
+      for (let k = mark.before + 1; k < mark.list; k += 1) out += `${lane(k)}\n\n\n`;
+      out += lane(mark.list);
+    }
+    {
       const labels = (Array.isArray(item.labels) ? item.labels : []).filter(Boolean);
       const done = labels.includes('done') || Boolean(item.endAt);
       const fields = item.customFields || {};
@@ -290,8 +306,10 @@ export function formatObsidianKanban({ lists, items }) {
       ].filter(line => line !== undefined);
       body.filter((line, i) => line || i < body.length - 1).forEach(line => { out += `    ${line}\n`; });
     }
-    out += '\n\n\n';
+    if (mark.last) out += '\n\n\n';
   }
+  if (!last) return out;
+  for (let k = lastKnown + 1; k < titles.length; k += 1) out += `${lane(k)}\n\n\n`;
   out += `%% kanban:settings\n\`\`\`\n${JSON.stringify({ [FRONTMATTER_KEY]: 'board' })}\n\`\`\`\n%%\n`;
   return out;
 }

@@ -42,7 +42,7 @@ test.before(async () => {
   paging = await import('../models/lib/exportPaging.js');
 });
 
-const PAGED = ['todotxt', 'taskwarrior', 'meistertask', 'linear', 'ticktick', 'clickup', 'pivotal', 'redmine', 'quire', 'todoist'];
+const PAGED = ['todotxt', 'taskwarrior', 'meistertask', 'linear', 'ticktick', 'clickup', 'pivotal', 'redmine', 'quire', 'todoist', 'notion'];
 
 function paged(format, size) {
   const byList = format === 'todoist';
@@ -90,8 +90,59 @@ test('the export route streams these formats with the light first pass', () => {
   for (const format of PAGED) assert.match(render, new RegExp(`\\b${format}: \\{`), `${format} is paged`);
   assert.match(render, /todoist: \{ byList: true \}/);
   const exporters = read('models/lib/externalExporters.js');
-  assert.match(exporters, /all = secureTransfer\(\(await collect\(boardId, fields, format, null, true\)\)\.items, context\);/,
+  assert.match(exporters, /const light = await collect\(boardId, fields, format, null, true\);\n\s+all = secureTransfer\(light\.items, context\);/,
     'the references pass through the export boundary too');
+  assert.match(exporters, /yield \{ \.\.\.collected, \.\.\.safeParts\(collected\), items,/,
+    'and every page\'s board, list and swimlane titles, as the whole export\'s');
   assert.match(exporters, /description: light \? '' : c\.description \|\| ''/);
   assert.match(exporters, /fields: \{ cardId: 1, userId: 1, createdAt: 1 \}/, 'no comment text is read in the first pass');
+});
+
+// The outlines group the cards under their lists, in the board's list order
+// (byList: 'lists'): a list's heading opens before its first card and closes
+// after its last, a list with no cards stands where it is, between the cards
+// of the lists around it, and a card names a list the board does not have.
+const OUTLINES = ['markdown', 'opml', 'orgmode', 'obsidian'];
+const outlineLists = [{ title: 'Ideas' }, { title: 'To Do' }, { title: 'Review' }, { title: 'Doing' }, { title: 'Done' }, { title: 'Later' }];
+const outlineItems = [...items, { cardId: 'g', title: 'Stray', listTitle: 'Elsewhere', description: 'Not on the board' }];
+
+function pagedOutline(format, size) {
+  const lightAll = outlineItems.map(item => ({ ...item, description: '' }));
+  const all = paging.byListOrder(lightAll, paging.listTitlesOf(outlineLists, lightAll));
+  const full = new Map(outlineItems.map(item => [item.cardId, item]));
+  const pages = Math.max(1, Math.ceil(all.length / size));
+  let out = '';
+  for (let n = 0; n < pages; n += 1) {
+    const pageItems = all.slice(n * size, (n + 1) * size).map(item => full.get(item.cardId));
+    out += fmt[format]({ board, lists: outlineLists, items: pageItems, page: { all, offset: n * size, first: n === 0, last: n === pages - 1 } });
+  }
+  return out;
+}
+
+test('every outline: the pages together are the whole file, list headings and empty lists included', () => {
+  for (const format of OUTLINES) {
+    const whole = fmt[format]({ board, lists: outlineLists, items: outlineItems });
+    for (const size of [1, 2, 3, 5, 100]) assert.strictEqual(pagedOutline(format, size), whole, `${format}, ${size} card(s) a page`);
+  }
+  // The whole file still groups the cards by list, whatever order they came in.
+  const md = fmt.markdown({ board, lists: outlineLists, items: [...outlineItems].reverse() });
+  assert.ok(md.indexOf('## To Do') < md.indexOf('## Doing') && md.indexOf('## Doing') < md.indexOf('## Done'));
+  assert.doesNotMatch(md, /## Ideas|## Review|## Later|Stray/, 'Markdown leaves out empty lists and a card of no list, as before');
+  const opml = fmt.opml({ board, lists: outlineLists, items: outlineItems });
+  assert.match(opml, /<outline text="Ideas"\/>[\s\S]*<outline text="To Do">[\s\S]*<outline text="Review"\/>[\s\S]*<outline text="Later"\/>[\s\S]*<outline text="Elsewhere">/,
+    'OPML keeps every list in its place, and a list only a card names after them');
+  const obsidian = fmt.obsidian({ board, lists: outlineLists, items: outlineItems });
+  assert.match(obsidian, /## Ideas\n\n\n\n\n## To Do\n\n/, 'an Obsidian lane with no cards keeps its place and its blank lines');
+  const org = fmt.orgmode({ board, lists: outlineLists, items: outlineItems });
+  assert.match(org, /\* Ideas\n\* To Do\n/, 'an empty list heading stands before the next list\'s');
+  assert.match(org, /\* Later\n\* Elsewhere\n/);
+});
+
+test('negative: an empty board is one page of headings, and the route streams the outlines list by list', () => {
+  for (const format of OUTLINES) {
+    const whole = fmt[format]({ board, lists: outlineLists, items: [] });
+    assert.strictEqual(fmt[format]({ board, lists: outlineLists, items: [], page: { all: [], offset: 0, first: true, last: true } }), whole, format);
+  }
+  const render = read('server/lib/renderExternalExport.js');
+  for (const format of OUTLINES) assert.match(render, new RegExp(`\\b${format}: \\{ byList: 'lists' \\}`), `${format} is paged list by list`);
 });

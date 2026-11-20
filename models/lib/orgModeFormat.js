@@ -36,6 +36,8 @@
 // repeater (+1w) or warning delay (-2d) is dropped and reported, as are text
 // under a list heading and before the first heading.
 
+import { pagingOf, listTitlesOf, byListOrder, outlineMarks, joinPage, markKey } from './exportPaging.js';
+
 export const MAX_ORG_LENGTH = 16 * 1024 * 1024;
 export const MAX_ORG_HEADINGS = 100000;
 const DEFAULT_KEYWORDS = { todo: ['TODO'], done: ['DONE'] };
@@ -222,13 +224,23 @@ function stamp(value, active = true) {
 const oneLine = value => String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
 const orgTag = value => String(value).trim().replace(/[^\p{L}\p{N}_@#%]+/gu, '_').replace(/^_+|_+$/g, '');
 
-export function formatOrgMode({ board, lists, items }) {
-  const out = [`#+TITLE: ${oneLine(board && board.title)}`, '#+TODO: TODO | DONE', ''];
-  const listTitles = (lists || []).map(l => l.title);
-  for (const item of items || []) if (item.listTitle && !listTitles.includes(item.listTitle)) listTitles.push(item.listTitle);
-  for (const listTitle of listTitles) {
-    out.push(`* ${oneLine(listTitle) || 'List'}`);
-    for (const item of (items || []).filter(i => i.listTitle === listTitle)) {
+// The whole board, or one page of it (models/lib/exportPaging.js: the pages
+// come list by list, and together are the whole file): every list's heading
+// is written where it stands, a list with no cards between the lists around it.
+export function formatOrgMode(collected) {
+  const { board, lists } = collected;
+  const { items, all, first, last } = pagingOf(collected);
+  const out = first ? [`#+TITLE: ${oneLine(board && board.title)}`, '#+TODO: TODO | DONE', ''] : [];
+  const listTitles = listTitlesOf(lists, collected.page ? all : items);
+  const ordered = collected.page ? items : byListOrder(items, listTitles);
+  const { marks, lastKnown } = outlineMarks(collected.page ? all : ordered, listTitles);
+  const heading = index => `* ${oneLine(listTitles[index]) || 'List'}`;
+  for (const item of ordered) {
+    const mark = marks.get(markKey(item));
+    if (mark.first) {
+      for (let k = mark.before + 1; k <= mark.list; k += 1) out.push(heading(k));
+    }
+    {
       const labels = Array.isArray(item.labels) ? item.labels : [];
       const priority = labels.map(name => /^priority:([A-Z0-9])$/.exec(name)).find(Boolean);
       const tags = labels.filter(name => !/^priority:[A-Z0-9]$/.test(name) && name !== 'done').map(orgTag).filter(Boolean);
@@ -254,5 +266,7 @@ export function formatOrgMode({ board, lists, items }) {
       }
     }
   }
-  return `${out.join('\n')}\n`;
+  if (!last) return joinPage(out, first);
+  for (let k = lastKnown + 1; k < listTitles.length; k += 1) out.push(heading(k));
+  return `${joinPage(out, first)}\n`;
 }

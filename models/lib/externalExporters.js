@@ -195,9 +195,20 @@ export async function* externalExportPages(boardId, format, fields, pageSize = 5
   const context = { direction: 'export', source: `export:${format}` };
   let all = null;
   let ids;
+  // The board's, lists' and swimlanes' titles pass the boundary as the cards
+  // do, on every page as in buildExternalExport below.
+  const safeTitle = doc => (doc && typeof doc.title === 'string'
+    ? Object.assign(Object.create(Object.getPrototypeOf(doc)), doc, { title: secureTransfer(doc.title, context) }) : doc);
+  const safeParts = collected => ({ board: safeTitle(collected.board), lists: (collected.lists || []).map(safeTitle),
+    swimlanes: (collected.swimlanes || []).map(safeTitle) });
   if (options.paged) {
-    all = secureTransfer((await collect(boardId, fields, format, null, true)).items, context);
-    if (options.byList) all = require('./exportPaging').byFirstListOrder(all, item => item.listTitle || '');
+    const light = await collect(boardId, fields, format, null, true);
+    all = secureTransfer(light.items, context);
+    const paging = require('./exportPaging');
+    // 'lists': in the board's list order, as the outlines group them;
+    // true: in the order the cards first name their lists (Todoist).
+    if (options.byList === 'lists') all = paging.byListOrder(all, paging.listTitlesOf(safeParts(light).lists, all));
+    else if (options.byList) all = paging.byFirstListOrder(all, item => item.listTitle || '');
     ids = all.map(item => item.cardId);
   } else {
     ids = (await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 }, fields: { _id: 1 } })).map(c => c._id);
@@ -210,7 +221,7 @@ export async function* externalExportPages(boardId, format, fields, pageSize = 5
     // A page is in the order of its ids (the board's order, or list by list).
     const rank = new Map(pageIds.map((id, i) => [id, i]));
     const items = secureTransfer(collected.items, context).sort((a, b) => rank.get(a.cardId) - rank.get(b.cardId));
-    yield { ...collected, items,
+    yield { ...collected, ...safeParts(collected), items,
       ...(all ? { page: { all, offset: n * pageSize, first: n === 0, last: n === pages - 1 } } : {}) };
   }
 }

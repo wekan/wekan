@@ -73,9 +73,12 @@ const STREAMED = {
 // with the board's light references (models/lib/exportPaging.js): the
 // formatter writes the head on the first page and the tail on the last.
 // byList: its cards are written list by list (Todoist's sections).
+// byList: 'lists': the outlines, list by list in the board's order, each
+// list's heading opened before its first card and closed after its last.
 const PAGED = {
   todotxt: {}, taskwarrior: {}, meistertask: {}, linear: {}, ticktick: {}, clickup: {},
-  pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true },
+  pivotal: {}, redmine: {}, quire: {}, todoist: { byList: true }, notion: {},
+  markdown: { byList: 'lists' }, opml: { byList: 'lists' }, orgmode: { byList: 'lists' }, obsidian: { byList: 'lists' },
 };
 
 // Writes the export to `res` page by page, or answers false when the format

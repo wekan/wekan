@@ -57,6 +57,7 @@
 // and links in a page body that point into the export.
 
 import { readCsv } from './todoistCsvFormat.js';
+import { pagingOf } from './exportPaging.js';
 
 export const MAX_NOTION_CSV_CHARS = 32 * 1024 * 1024;
 export const MAX_NOTION_DATABASES = 50;
@@ -415,12 +416,16 @@ const usDate = value => {
 // The CSV Notion's CSV import reads: the title first, one column per
 // property, UTF-8. A Swimlane column is written when the board has more than
 // one swimlane; custom fields follow in the order they first appear.
-export function formatNotionCsv({ items } = {}) {
-  const list = Array.isArray(items) ? items : [];
-  const lanes = new Set(list.map(item => str(item.swimlaneTitle) || 'Default'));
+//
+// The whole board, or one page of it (models/lib/exportPaging.js): the
+// columns are counted over the whole board, the header written on the first
+// page.
+export function formatNotionCsv(collected = {}) {
+  const { items: list, all, first } = pagingOf(collected);
+  const lanes = new Set(all.map(item => str(item.swimlaneTitle) || 'Default'));
   const withLanes = lanes.size > 1;
   const customNames = [];
-  for (const item of list) {
+  for (const item of all) {
     for (const name of Object.keys(item.customFields || {})) {
       if (!customNames.includes(name) && !UNSAFE_NAMES.has(name) && !NOTION_EXPORT_COLUMNS.some(c => lower(c) === lower(name)) && lower(name) !== 'swimlane') {
         customNames.push(name);
@@ -428,7 +433,7 @@ export function formatNotionCsv({ items } = {}) {
     }
   }
   const columns = [...NOTION_EXPORT_COLUMNS, ...(withLanes ? ['Swimlane'] : []), ...customNames];
-  const rows = [columns];
+  const rows = first ? [columns] : [];
   for (const item of list) {
     const people = [item.owner, ...(Array.isArray(item.assignees) ? item.assignees : [])]
       .map(person => str(person).replace(/,/g, ' ').trim()).filter(Boolean);
@@ -450,5 +455,5 @@ export function formatNotionCsv({ items } = {}) {
     }
     rows.push(columns.map(name => values[name] || ''));
   }
-  return `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n`;
+  return rows.length ? `${rows.map(cells => cells.map(field).join(',')).join('\r\n')}\r\n` : '';
 }

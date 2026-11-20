@@ -31,3 +31,53 @@ export function byFirstListOrder(items, listOf) {
     .sort((a, b) => (rank.get(listOf(a.item)) - rank.get(listOf(b.item))) || (a.index - b.index))
     .map(({ item }) => item);
 }
+
+// The outlines that group cards under their lists (Markdown, OPML, Org mode):
+// the lists in the board's order, then any list only a card names, in the
+// order the cards first name it.
+export function listTitlesOf(lists, all) {
+  const titles = (lists || []).map(l => l.title);
+  for (const item of all || []) if (item.listTitle && !titles.includes(item.listTitle)) titles.push(item.listTitle);
+  return titles;
+}
+
+// The cards list by list in `titles` order, each list's cards in board order;
+// a card of no list in `titles` goes last.
+export function byListOrder(all, titles) {
+  const rank = new Map(titles.map((title, i) => [title, i]));
+  const at = item => (rank.has(item.listTitle) ? rank.get(item.listTitle) : titles.length);
+  return all.map((item, index) => ({ item, index }))
+    .sort((a, b) => (at(a.item) - at(b.item)) || (a.index - b.index))
+    .map(({ item }) => item);
+}
+
+// For a page of an outline: where each of its cards stands in its list.
+// cardId -> { list (index in titles, -1 when none), first, last, before }:
+// first/last - the first/last card of its list on the whole board; before -
+// the index of the list of the card before it on the board (-1 for none),
+// so the lists between the two, which have no cards, are written there.
+// `trailing` - the lists after the board's last card's, for the last page.
+// A card is found by its id; a card written without one (a caller that is
+// not the export) by itself.
+export const markKey = item => (item && item.cardId !== undefined ? item.cardId : item);
+
+export function outlineMarks(all, titles) {
+  const rank = new Map(titles.map((title, i) => [title, i]));
+  const listOf = item => (rank.has(item.listTitle) ? rank.get(item.listTitle) : -1);
+  const marks = new Map();
+  let lastKnown = -1;
+  all.forEach((item, i) => {
+    const list = listOf(item);
+    const prev = i > 0 ? listOf(all[i - 1]) : -2;
+    const next = i < all.length - 1 ? listOf(all[i + 1]) : -2;
+    marks.set(markKey(item), { list, first: prev !== list, last: next !== list, before: lastKnown });
+    if (list !== -1) lastKnown = list;
+  });
+  return { marks, lastKnown };
+}
+
+// A page's lines, joined so that the pages together are the whole file's
+// lines joined with '\n': every line after the file's first starts with it.
+export function joinPage(lines, first) {
+  return lines.map((line, i) => (first && i === 0 ? line : `\n${line}`)).join('');
+}
