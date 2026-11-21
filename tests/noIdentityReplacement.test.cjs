@@ -117,7 +117,9 @@ function value(literal) {
 // replacement holding a $, which can name what was matched.
 const REGEX_IDENTITY = new RegExp(
   '\\.replace(?:All)?\\(\\s*' +
-  '/(\\^?(?:[^/\\\\\\n.*+?^$|()[\\]{}]|\\\\[^a-zA-Z0-9\\n])+\\$?)/([a-z]*)' +
+  // \n, \t, \r, \f, \v are one character each, compared as that character
+  // (CodeQL #608: replace(/\n$/, '\n') in models/lib/sandstorm/grainApps.js).
+  '/(\\^?(?:[^/\\\\\\n.*+?^$|()[\\]{}]|\\\\[^a-zA-Z0-9\\n]|\\\\[ntrfv])+\\$?)/([a-z]*)' +
   '\\s*,\\s*' +
   "(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\")" +
   '\\s*\\)',
@@ -131,7 +133,9 @@ function regexIdentity(m) {
   // A leading ^ or trailing $ only anchors the match; replacing the anchored text
   // with itself is still a no-op (tests/boardLabelLookup.test.cjs: /^getLabel/).
   const literal = source.replace(/^\^|(?<!\\)\$$/g, '');
-  return literal.replace(/\\(.)/g, '$1') === value(replacement);
+  // value() reads the regex's escapes as a string literal's: \n is a newline,
+  // \. is a dot - the pattern above admits no escape where the two differ.
+  return value(literal) === value(replacement);
 }
 
 // Comments are stripped before scanning. This file and the one it was written
@@ -191,6 +195,8 @@ test('the pattern really does catch the shape CodeQL reported (negative)', () =>
     "src.replace(/^getLabel/, 'getLabel')",
     "src.replace(/end$/, 'end')",
     "raw.replace(/\"/g, '\\\"')",
+    // CodeQL #608.
+    ".join('\\n').replace(/\\n$/, '\\n')",
   ]) {
     assert.strictEqual([...sample.matchAll(REGEX_IDENTITY)].filter(regexIdentity).length, 1, `not detected: ${sample}`);
   }
@@ -216,6 +222,9 @@ test('and does not report a replacement that changes something', () => {
     "s.replace(/[ ]/g, ' ')",                // a class is not compared
     "s.replace(/x/g, '$&')",                 // $& names the match
     "s.replace(/\\s/g, 's')",              // \s is whitespace, not an s
+    "s.replace(/\\n$/, '')",                 // removes the newline
+    "s.replace(/\\n/g, 'n')",                // a newline is not an n
+    "s.replace(/\\r\\n/g, '\\n')",            // CRLF to LF
     "escapeRegExp = str => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')",
   ]) {
     assert.deepStrictEqual([...sample.matchAll(REGEX_IDENTITY)].filter(regexIdentity).map(h => h[0]), [], `false positive: ${sample}`);

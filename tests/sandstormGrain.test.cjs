@@ -118,6 +118,10 @@ test('the written grains have the layout the apps\' own grains have', async () =
   const calc = (await roundTrip('sandstormethercalc')).entries;
   assert.match(strFromU8(calc['data/dump/snapshot-sheet1.txt']), /^socialcalc:version:1\.0\nMIME-Version: 1\.0\n[\s\S]*cell:A2:t:Plan\\c the move\n/);
   assert.match(strFromU8(calc['data/dump/snapshot-sheet.txt']), /cell:A2:t:\/sheet1\n/);
+  // CodeQL #608: the header ends with exactly one newline before the first
+  // part (it was followed by a replace of that newline with itself).
+  assert.match(strFromU8(calc['data/dump/snapshot-sheet1.txt']),
+    /^socialcalc:version:1\.0\nMIME-Version: 1\.0\nContent-Type: multipart\/mixed; boundary=SocialCalcSpreadsheetControlSave\n--SocialCalcSpreadsheetControlSave\n/);
   // Hacker CMS: www is a symbolic link to published, as zip -y stores it.
   const cmsZip = (await roundTrip('sandstormhackercms')).zip;
   // Its central directory entry: the name at +46, the external attributes at +38.
@@ -178,7 +182,8 @@ test('import only: a WeKan grain (FerretDB SQLite), a Gogs grain and a WordPress
     'CREATE TABLE wp_term_taxonomy (term_taxonomy_id INTEGER, term_id INTEGER, taxonomy TEXT)', 'CREATE TABLE wp_term_relationships (object_id INTEGER, term_taxonomy_id INTEGER)',
   ], [
     ['insert into wp_posts values (1, 1, ?, ?, ?, ?, 0, ?)', ['2026-11-01 10:00:00', '<!-- wp:paragraph --><p>Hello <b>world</b></p>', 'First post', 'publish', 'post']],
-    ['insert into wp_posts values (2, 1, ?, ?, ?, ?, 0, ?)', ['2026-11-02 10:00:00', '<p>About</p>', 'About', 'draft', 'page']],
+    // CodeQL #607: a comment spliced from two halves is removed too.
+    ['insert into wp_posts values (2, 1, ?, ?, ?, ?, 0, ?)', ['2026-11-02 10:00:00', '<!-<!-- x -->- hidden --><p>About</p>', 'About', 'draft', 'page']],
     ['insert into wp_posts values (3, 1, ?, ?, ?, ?, 1, ?)', ['2026-11-02 10:00:00', '', 'photo', 'inherit', 'attachment']],
     ['insert into wp_comments values (1, ?, ?, ?, ?)', ['Reader', '2026-11-03 10:00:00', 'Nice', '1']],
     ['insert into wp_users values (1, ?, ?)', ['admin', 'Megan']], ['insert into wp_terms values (5, ?)', ['News']],
@@ -220,4 +225,34 @@ test('the Sandstorm apps are one group, sources and exports wired', () => {
   assert.match(read('models/lib/toolGroups.js'), /\{ group: 'sandstorm', label: 'Sandstorm' \}/);
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   assert.match(en['import-board-instruction-sandstorm'], /__app__/);
+});
+
+// CodeQL #605 (js/insecure-randomness): SandChat's users.uid names a user, so
+// it comes from Web Crypto, never Math.random - and no grain writer uses
+// Math.random for anything, so the shape cannot come back in another app.
+test('SandChat user ids are 32 hex digits from a cryptographic generator', async () => {
+  const uids = async () => {
+    const { entries } = await roundTrip('sandstormsandchat');
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'grain-test-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'db'), entries['data/db.sqlite3']);
+      const db = new DatabaseSync(path.join(dir, 'db'), { readOnly: true });
+      const rows = db.prepare('select uid from users order by id').all().map(r => r.uid);
+      db.close();
+      return rows;
+    } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+  };
+  const first = await uids();
+  const second = await uids();
+  assert.strictEqual(first.length, 2);
+  for (const uid of [...first, ...second]) assert.match(uid, /^[0-9a-f]{32}$/);
+  assert.strictEqual(new Set([...first, ...second]).size, 4, 'every export makes new ids');
+  // negative: no Math.random call anywhere in the Sandstorm grain code.
+  const dir = path.join(__dirname, '..', 'models', 'lib', 'sandstorm');
+  const files = [...fs.readdirSync(dir).map(f => path.join(dir, f)), path.join(__dirname, '..', 'server', 'lib', 'sandstormGrain.js')]
+    .filter(f => f.endsWith('.js'));
+  for (const file of files) {
+    const code = fs.readFileSync(file, 'utf8').replace(/^\s*\/\/.*$/gm, '');
+    assert.doesNotMatch(code, /\bMath\.random\s*\(/, path.relative(path.join(__dirname, '..'), file));
+  }
 });

@@ -135,3 +135,15 @@ test('negative: not what the import fetched, no such notebook, a next link off G
   // A to-do box with markup inside is its text only.
   assert.deepStrictEqual(one.onenotePage('<p data-tag="to-do"><b>Bold</b> <script>x</script>task</p>').todos, [{ title: 'Bold task', done: false }]);
 });
+
+// CodeQL #606 (js/incomplete-multi-character-sanitization): comments,
+// declarations, processing instructions and head/style/script removed in ONE
+// loop to a fixed point. With the comment pass run once after the element
+// loop, `<scr<!---->ipt>` became `<script>` after the element loop was done,
+// and its content reached the card as text.
+test('a page\'s comments cannot splice a script or another comment back together', () => {
+  const page = one.onenotePage('<p>Hi</p><scr<!---->ipt>alert(1)</scr<!---->ipt><!-<!-- x -->- hidden --><st<!---->yle>p{}</style>');
+  assert.strictEqual(page.text, 'Hi');
+  // negative: an ordinary page still keeps all of its text.
+  assert.strictEqual(one.onenotePage('<p>a &lt;!-- b</p><!-- c --><p>d</p>').text.replace(/\s+/g, ' '), 'a <!-- b d');
+});

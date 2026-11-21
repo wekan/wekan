@@ -56,11 +56,15 @@ export function onenotePage(html) {
   const created = (/<meta\s+name="created"\s+content="([^"]+)"/i.exec(str(html)) || [])[1] || '';
   let source = str(html);
   let prev;
+  // One loop for all four, until nothing changes: removing one can join the
+  // halves of another around it (`<!-<!---->-` is a comment again once the
+  // inner one is gone, `<scr<!---->ipt>` a script), so a single pass of any
+  // of them is incomplete (CodeQL js/incomplete-multi-character-sanitization).
   do {
     prev = source;
-    source = source.replace(/<(head|style|script)\b[\s\S]*?<\/\1\s*>/gi, '');
+    source = source.replace(/<(head|style|script)\b[\s\S]*?<\/\1\s*>/gi, '')
+      .replace(/<!--[\s\S]*?-->/g, '').replace(/<![^>]*>/g, '').replace(/<\?[\s\S]*?\?>/g, '');
   } while (source !== prev);
-  source = source.replace(/<!--[\s\S]*?-->/g, '').replace(/<![^>]*>/g, '').replace(/<\?[\s\S]*?\?>/g, '');
   const todos = [];
   source = source.replace(/<(p|li|span|div|h[1-6])\b([^>]*\bdata-tag="([^"]*)"[^>]*)>([\s\S]*?)<\/\1\s*>/gi, (whole, tag, attrs, tags, inner) => {
     const kinds = tags.split(',').map(t => t.trim());

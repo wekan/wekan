@@ -29,6 +29,10 @@ const ELEMENT_STRIP = /\.replace\(\/<\(?(\?:)?(script|style|head)\b/i;
 // answers it.
 const ON_NAME_STRIP = /\.replace\(\/(?:[^/\\\n]|\\.)*\bon[A-Z](?:[^/\\\n]|\\.)*\/[a-z]*,\s*(?:''|"")\)/;
 
+// Alerts #606/#607: removing a comment, `<!--...-->`, or a declaration,
+// `<!...>`, once: `<!-<!-- x -->- y -->` is a comment again after one pass.
+const COMMENT_STRIP = /\.replace\(\/<!(?:--|\[\^>\])/;
+
 // Output that is not HTML, so a re-formed tag in it is inert text.
 const NOT_HTML = {
   'models/lib/pdfDocument.js': 'PDF text: tags become spaces before the text is drawn with a PDF font',
@@ -52,7 +56,7 @@ function findings(files) {
   for (const file of files) {
     const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split('\n');
     lines.forEach((line, index) => {
-      if (!(TAG_STRIP.test(line) || ELEMENT_STRIP.test(line) || ON_NAME_STRIP.test(line)) || /^\s*\/\//.test(line)) return;
+      if (!(TAG_STRIP.test(line) || ELEMENT_STRIP.test(line) || ON_NAME_STRIP.test(line) || COMMENT_STRIP.test(line)) || /^\s*\/\//.test(line)) return;
       if (NOT_HTML[file] || inFixedPointLoop(lines, index)) return;
       out.push(`${file}:${index + 1}: ${line.trim()}`);
     });
@@ -101,6 +105,14 @@ try {
   fs.writeFileSync(path.join(tmp, 'element.js'),
     "text = text.replace(/<(script|style|head)\\b[^>]*>[\\s\\S]*?<\\/\\1\\b[^>]*>/gi, '');\n");
   assert.equal(findings([rel('element.js')]).length, 1, 'removing a whole element by pattern is caught (#581)');
+  // Alerts #606/#607: a comment removed once, and the same in a loop.
+  fs.writeFileSync(path.join(tmp, 'comment-once.js'), "text = html(post.replace(/<!--[\\s\\S]*?-->/g, ''));\n");
+  fs.writeFileSync(path.join(tmp, 'comment-loop.js'),
+    "let prev;\ndo {\n  prev = s;\n  s = s.replace(/<!--[\\s\\S]*?-->/g, '');\n} while (s !== prev);\n");
+  fs.writeFileSync(path.join(tmp, 'decl-once.js'), "s = s.replace(/<![^>]*>/g, '');\n");
+  assert.equal(findings([rel('comment-once.js')]).length, 1, 'a one-pass comment strip is caught (#607)');
+  assert.equal(findings([rel('comment-loop.js')]).length, 0, 'and passes in a fixed-point loop');
+  assert.equal(findings([rel('decl-once.js')]).length, 1, 'a one-pass declaration strip is caught (#606)');
   fs.writeFileSync(path.join(tmp, 'fake.js'), "function untilStable(text, step) { return step(text); }\ntext = untilStable(text, s => s.replace(/<[^>]*>/g, ''));\n");
   assert.equal(findings([rel('fake.js')]).length, 1, 'an untilStable that does not loop is not accepted');
 } finally {

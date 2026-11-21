@@ -21,6 +21,7 @@
 import { parseICalendar } from '../icalendarFormat.js';
 import { vikunjaHtmlToText } from '../vikunjaFormat.js';
 import { writeGrainInfo } from './grainInfo.js';
+import { randomHex } from './randomHex.js';
 
 export const SANDSTORM_APPS = [
   { key: 'sandstormwekan', app: 'wekan', name: 'WeKan', appId: 'm86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h', export: false },
@@ -62,6 +63,17 @@ const iso = value => {
 // A SQLite datetime without a zone (Rails writes UTC) as ISO.
 const sqlTime = value => iso(str(value) && !/[zZ]|[+-]\d\d:?\d\d$/.test(str(value)) ? `${str(value)}Z` : value);
 const htmlText = html => (str(html).trim() ? vikunjaHtmlToText(str(html), { checklists: false }).text : '');
+// HTML comments removed until none is left: one pass leaves `<!-<!---->->`
+// as a comment again (CodeQL js/incomplete-multi-character-sanitization).
+const stripComments = html => {
+  let out = str(html);
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<!--[\s\S]*?-->/g, '');
+  } while (out !== prev);
+  return out;
+};
 const isDoneList = title => /^(done|closed|complete(d)?|finished|valmis)$/i.test(str(title).trim());
 const board = (name, columns, tasks, { swimlanes, unsupported = [] } = {}) => ({
   board: { name: name || 'Imported Sandstorm grain' },
@@ -518,7 +530,7 @@ function wordpressBoard(data, info) {
     if (!columns.includes(column)) columns.push(column);
     return {
       title: str(p.post_title) || `(${p.post_type} ${p.ID})`,
-      description: htmlText(str(p.post_content).replace(/<!--[\s\S]*?-->/g, '')),
+      description: htmlText(stripComments(p.post_content)),
       column_name: column,
       swimlane_name: p.post_type === 'page' ? 'Pages' : 'Posts',
       tags: termsOf.get(p.ID) || [],
@@ -590,7 +602,6 @@ const fold = line => {
   return out.join('\r\n');
 };
 const uidOf = (item, n) => `${slug(item.cardId, `card-${n}`)}@wekan`;
-const hex = n => Array.from({ length: n }, () => Math.floor(Math.random() * 16).toString(16)).join('');
 const nowIso = () => new Date().toISOString();
 
 function socialCalcSave(rows) {
@@ -602,7 +613,8 @@ function socialCalcSave(rows) {
   lines.push(`sheet:c:${Math.max(1, ...rows.map(r => r.length))}:r:${Math.max(1, rows.length)}:tvf:1`, 'valueformat:1:text-wiki');
   const part = '--SocialCalcSpreadsheetControlSave\nContent-type: text/plain; charset=UTF-8\n\n';
   return ['socialcalc:version:1.0', 'MIME-Version: 1.0', 'Content-Type: multipart/mixed; boundary=SocialCalcSpreadsheetControlSave', '']
-    .join('\n').replace(/\n$/, '\n')
+    // The empty last element ends the header with its newline.
+    .join('\n')
     + `${part}# SocialCalc Spreadsheet Control Save\nversion:1.0\npart:sheet\npart:edit\npart:audit\n`
     + `${part}${lines.join('\n')}\n`
     + `${part}version:1.0\nrowpane:0:1:1\ncolpane:0:1:1\necell:A1\n`
@@ -665,7 +677,7 @@ const WRITERS = {
       rows: {
         schema_migrations: ['20161023151424', '20161023151458', '20161031003402'].map(version => ({ version })),
         ar_internal_metadata: [{ key: 'environment', value: 'production', created_at: now, updated_at: now }],
-        users: names.map((name, n) => ({ id: n + 1, uid: hex(32), name, picture: null, pronouns: null, created_at: now, updated_at: now, tabs_count: 0 })),
+        users: names.map((name, n) => ({ id: n + 1, uid: randomHex(32), name, picture: null, pronouns: null, created_at: now, updated_at: now, tabs_count: 0 })),
         chats: messages.map((m, n) => ({ id: n + 1, message: m.text, user_id: names.indexOf(m.name) + 1, created_at: stamp(m.date), updated_at: stamp(m.date) })),
       },
     } } };
