@@ -2,7 +2,7 @@
   "name": "wekan-playwright-tests",
   "private": true,
   "devDependencies": {
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "axe-core": "^4.14.1"
   },
   "dependencies": {
