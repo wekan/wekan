@@ -43,7 +43,7 @@
     "@rspack/cli": "^2.2.9",
     "@rspack/core": "^2.2.9",
     "@rspack/dev-server": "^2.2.2",
-    "@swc/core": "^1.16.18",
+    "@swc/core": "^1.16.22",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.2",
     "chai": "^6.3.0",
