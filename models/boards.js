@@ -4,6 +4,7 @@ import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors } = require('/models/lib/boardPermission');
@@ -134,16 +135,7 @@ Boards.attachSchema(
        * Creation time of the board
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     // XXX Inconsistent field naming
     modifiedAt: {
@@ -152,14 +144,7 @@ Boards.attachSchema(
        */
       type: Date,
       optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     // De-normalized number of users that have starred this board
     stars: {

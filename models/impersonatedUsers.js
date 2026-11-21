@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const ImpersonatedUsers = new Mongo.Collection('impersonatedUsers');
@@ -49,32 +50,14 @@ ImpersonatedUsers.attachSchema(
        * creation date of the impersonation
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return {
-            $setOnInsert: new Date(),
-          };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     modifiedAt: {
       /**
        * modified date of the impersonation
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
   }),
 );

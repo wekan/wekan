@@ -15,6 +15,7 @@ import {
 import { CHECKLIST_RESET_INTERVALS } from '/models/lib/checklistResetSchedule';
 import { checklistHideState, isItemHidden as itemHiddenBy } from '/models/lib/checklistHide';
 import { selectBulkCheckItemIds } from '/models/lib/checklistBulkCheck';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Checklists = new Mongo.Collection('checklists');
@@ -65,27 +66,11 @@ Checklists.attachSchema(
        * Creation date of the checklist
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     modifiedAt: {
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     sort: {
       /**

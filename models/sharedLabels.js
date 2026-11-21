@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 // Shared labels (#2761, #4698): the catalogs, written only by site admins
@@ -15,21 +16,12 @@ SharedLabels.attachSchema(new SimpleSchema({
   createdAt: {
     type: Date,
     optional: true,
-    // eslint-disable-next-line consistent-return
-    autoValue() {
-      if (this.isInsert) return new Date();
-      if (this.isUpsert) return { $setOnInsert: new Date() };
-      this.unset();
-    },
+    autoValue: createdAtAutoValue,
   },
   modifiedAt: {
     type: Date,
     optional: true,
-    // eslint-disable-next-line consistent-return
-    autoValue() {
-      if (this.isInsert || this.isUpsert || this.isUpdate) return new Date();
-      this.unset();
-    },
+    autoValue: modifiedAtAutoValue,
   },
 }));
 

@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { createdAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 // Immutable credential versions, selected by Lists.syncRevision. A version
@@ -42,11 +43,7 @@ ListSyncCredentials.attachSchema(
     },
     createdAt: {
       type: Date,
-      autoValue() {
-        if (this.isInsert) return new Date();
-        if (this.isUpsert) return { $setOnInsert: new Date() };
-        this.unset();
-      },
+      autoValue: createdAtAutoValue,
     },
     updatedAt: {
       type: Date,

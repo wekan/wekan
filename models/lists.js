@@ -13,6 +13,7 @@ import {
 } from '/models/lib/swimlaneFilter';
 import { planListCopy, copiedCardSwimlaneId } from './lib/listCopyPlan';
 import { planListMove } from './lib/listMovePlan';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Lists = new Mongo.Collection('lists');
@@ -168,16 +169,7 @@ Lists.attachSchema(
        * creation date
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     sort: {
       /**
@@ -193,14 +185,7 @@ Lists.attachSchema(
        */
       type: Date,
       optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isUpdate || this.isUpsert || this.isInsert) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     modifiedAt: {
       type: Date,

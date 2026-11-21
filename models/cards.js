@@ -4,6 +4,7 @@ import { Random } from 'meteor/random';
 import { EJSON } from 'meteor/ejson';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { wipLimitBlocksRestore } = require('/models/lib/wipRestore');
 const { FIELD_KEYS: CARD_SHOWN_FIELD_KEYS } = require('/models/lib/cardShownFields');
 import {
@@ -272,38 +273,18 @@ Cards.attachSchema(
       /** When this card entered its current board/list. Unrelated edits do not reset it. */
       type: Date,
       optional: true,
-      autoValue() {
-        if (this.isInsert) return new Date();
-        if (this.isUpsert) return { $setOnInsert: new Date() };
-        this.unset();
-      },
+      autoValue: createdAtAutoValue,
     },
     createdAt: {
       /**
        * creation date
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     modifiedAt: {
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     customFields: {
       /**

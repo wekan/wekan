@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import Triggers from './triggers';
 import Actions from './actions';
 import { generateDefaultRuleTitle } from './lib/generateDefaultRuleTitle';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Rules = new Mongo.Collection('rules');
@@ -106,27 +107,11 @@ Rules.attachSchema(
     createdAt: {
       type: Date,
       optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     modifiedAt: {
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
   }),
 );

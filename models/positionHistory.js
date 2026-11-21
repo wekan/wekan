@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 /**
@@ -62,28 +63,14 @@ PositionHistory.attachSchema(
        * When this position history was created
        */
       type: Date,
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     updatedAt: {
       /**
        * When this position history was last updated
        */
       type: Date,
-      autoValue() {
-        if (this.isUpdate || this.isUpsert || this.isInsert) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
   }),
 );

@@ -14,6 +14,7 @@ import {
   MIN_LIST_WIDTH,
   normalizeListWidth,
 } from '/models/lib/listWidth';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
@@ -284,29 +285,11 @@ Users.attachSchema(
        * creation date of the user
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return {
-            $setOnInsert: new Date(),
-          };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     modifiedAt: {
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     profile: {
       /**

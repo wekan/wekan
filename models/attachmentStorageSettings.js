@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { createdAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 import {
   STORAGE_NAME_FILESYSTEM,
@@ -258,15 +259,7 @@ AttachmentStorageSettings.attachSchema(
     // Metadata
     createdAt: {
       type: Date,
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
       label: 'Created At'
     },
 

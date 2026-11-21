@@ -8,6 +8,7 @@ import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import { createdAtAutoValue } from '/models/lib/schemaTimestamps';
 
 /**
  * UserPositionHistory collection - Per-user history of entity movements
@@ -102,15 +103,7 @@ UserPositionHistory.attachSchema(
        * When this history entry was created
        */
       type: Date,
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     // For savepoint/checkpoint feature
     isCheckpoint: {

@@ -9,6 +9,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists, { normalizeListColor } from '/models/lists';
 import { remapLabelIds } from '/server/lib/labelRemap';
+import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Swimlanes = new Mongo.Collection('swimlanes');
@@ -57,16 +58,7 @@ Swimlanes.attachSchema(
        * creation date of the swimlane
        */
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return { $setOnInsert: new Date() };
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: createdAtAutoValue,
     },
     sort: {
       /**
@@ -98,25 +90,11 @@ Swimlanes.attachSchema(
        */
       type: Date,
       optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isUpdate || this.isUpsert || this.isInsert) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     modifiedAt: {
       type: Date,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
-          return new Date();
-        } else {
-          this.unset();
-        }
-      },
+      autoValue: modifiedAtAutoValue,
     },
     type: {
       /**
