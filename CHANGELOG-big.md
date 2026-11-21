@@ -99,13 +99,12 @@ Which databases WeKan supports
 
 **In short:** New **Workload and capacity** and **Budget and billing** pages
 show each person's hours against their working time across boards, and each
-board's cost and forecast against its budget. Time is kept by day, and
-invoices of a period download as **PDF**, **SVG**, **Excel** and **e-invoice**
-with the payment **QR codes** and bank barcodes of many countries, in each
-currency's own decimals. The **Venda** and **Klingon** translations hold only
-their own language, the move and copy pickers show names without numbers
-(#6135), the brute-force lockout starts again when Meteor.settings configures
-it, and unused or copied code is removed or shared.
+board's cost, forecast and margin against its budget, with **expenses**, **fixed
+fees**, **time approval**, **quotes**, **utilization** and **skills**. Invoices
+of a period download as **PDF**, **SVG**, **Excel** and **e-invoice** with the
+payment **QR codes** of many countries. The **Venda** and **Klingon**
+translations hold only their own language, the move and copy pickers show names
+without numbers (#6135), and unused or copied code is removed or shared.
 
 This release adds the following new features:
 
@@ -188,7 +187,59 @@ examples and billing in JPY and KWD.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690">Expenses, fixed fees and retainers, approving time, cost rates and margin, and quotes</a>. Thanks to xet7.</summary>
+
+What a professional services automation system has besides time and
+invoices. Expenses - travel, materials, a subcontractor - with a markup, on
+a card and a person, spend the budget and go on the next invoice once. Fixed
+fees are billed once from their day and retainers every month to their end;
+a board can be a fixed price that bills no time. With approval on, only time
+a board admin approved is invoiced, and the card's Time popup shows the
+decision. A cost per hour gives the board its cost, unbilled work and margin.
+Quotes price the work still to do, and accepting one can make it the budget.
+Invoices and quotes fill in the board's customer. `tests/billing.test.cjs`,
+`tests/billingAccess.test.cjs`, `tests/invoiceFiles.test.cjs` and
+`tests/ublInvoice.test.cjs` pin it, and a Playwright spec drives it.
+
+</details>
+
+**Workload and capacity** - utilization and skills.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690">Billable utilization against a target, and placeholders that list who has the skill</a>. Thanks to xet7.</summary>
+
+Under each person, the billable hours they logged against the hours they
+had, red under their own target. Skills with levels 1 to 5 are part of a
+person's working time; a placeholder that needs a skill lists the people
+with it at that level or better, the most free hours first.
+`tests/workload.test.cjs` and `tests/workloadAccess.test.cjs` pin it.
+
+</details>
+
 and fixes the following bugs:
+
+**Budget and billing** - two faults found while adding the above.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690">Crediting an invoice works on a real database</a>. Thanks to xet7.</summary>
+
+The invoice schema allowed draft, sent, paid and void but not credited, so
+the credit note's update of the invoice was refused by collection2; the
+tests ran on in-memory collections that check no schema. A test now reads
+the schemas and requires every status, line kind and decision the server
+writes to be one of them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690">The workload report uses each person's own working time</a>. Thanks to xet7.</summary>
+
+`capacityOf` validated the stored document, with its `_id` and `userId`, as
+if it were a form; the unknown fields failed it, and the report fell back to
+37.5 hours a week for everybody. It now reads only the capacity's own fields.
+
+</details>
 
 **Move and copy pickers** - how boards, swimlanes and lists are named in them.
 
@@ -8509,84 +8560,6 @@ and fails on any `Math.random()` in the forks and on a key, secret, token,
 nonce, salt, password or code made from `Math.random()` anywhere in the tree. A
 wrong key is not recorded in Admin Panel → Problems: another WeKan instance
 behind the same load balancer legitimately sends its own.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.59 2026-10-22 WeKan ® release
-
-**In short:** WeKan carries **Meteor 3.5.3's six security fixes** - DDP,
-allow/deny, dynamic import, Google and Facebook login, and meteor shell - on
-Meteor 3.6-rc.0, which does not have them yet. **Release recovery** no longer
-stops on a passing GitHub API error, and **Cancel workflow** is kept able to
-stop every release workflow.
-
-This release fixes the following CRITICAL SECURITY ISSUES:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0189bc53b">Meteor 3.5.3's six security fixes on Meteor 3.6-rc.0</a>. Thanks to Meteor developers, Vext Labs and xet7.</summary>
-
-Meteor published the same six fixes as 3.3.3, 3.4.2 and 3.5.3
-([announcement](https://forums.meteor.com/t/meteor-security-releases-3-3-3-3-4-2-and-3-5-3/64836)).
-3.6-rc.0, which WeKan runs, does not have them: its tag is behind 3.5.3 by
-exactly the 15 security commits. Going back to 3.5.3 would also mean Node.js
-24 and Rspack 1, so WeKan carries 3.6-rc.0's `allow-deny`, `ddp-server`,
-`dynamic-import`, `facebook-oauth`, `google-oauth` and `shell-server` in
-`packages/` with Meteor's 3.5.3 patch applied unchanged:
-
-- DDP: a message named `__proto__`, `toString` or not a string, and an async
-  handler that rejected, crashed the server.
-- allow/deny: a top-level `__proto__` in an update was missing from the field
-  list the validators saw.
-- dynamic `import()`: requests are bounded in size (413) and complexity (400).
-- Google and Facebook direct-token login: a token issued to another
-  application was accepted. Identity now comes from the provider, and a
-  Facebook verification error no longer carries the app secret.
-- `meteor shell`: its history and compile cache are private.
-- Deploy discovery is in `meteor-tool`, which an app cannot replace. WeKan is
-  never deployed with `meteor deploy`, and a test keeps it so.
-
-Refused attempts show in Admin Panel → Problems as Meteor DDP, Meteor
-allow-deny, Meteor dynamic-import and Meteor OAuth, and none disables an
-account. `tests/meteor353SecurityFixes.test.cjs` runs each fix's own code and
-searches the tree for the shape of each fault; every check fails on the unfixed
-packages, and the suite fails when `.meteor/release` moves on, because a fork
-would silently keep 3.6-rc.0's code. The Playwright spec sends each attack to
-a running WeKan built with the forks. See
-[Meteor 3.5.3 security fixes](docs/Security/Meteor-3.5.3-Security-Fixes-2026-10-22.md).
-
-</details>
-
-and has the following release-tooling fixes:
-
-**Release workflows** - how a release run recovers from GitHub errors, and how
-it stops when cancelled.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e304e1948a">Release recovery waits out GitHub API errors instead of dying on one</a>. Thanks to xet7.</summary>
-
-The Recover job of Release All missing died on one HTTP 502 from the GitHub
-API while `gh run watch --exit-status` listed the rerun's jobs, so its plan
-and every build after it were skipped. `releases/retry-failed-release.py` now
-polls `gh run view`, retries up to ten API errors in a row, waits for the new
-attempt instead of reading the old attempt's failure, and stops only on the
-rerun's own conclusion. `tests/retryFailedRelease.test.py` pins the 502, a
-failed rerun, a lasting outage and the stale attempt, and that `gh run watch`
-is gone.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/94e1749977">Every workflow's jobs that run after a cancel end on their own</a>. Thanks to xet7.</summary>
-
-Cancel workflow does not cancel a job whose `if:` is still true, and
-`always()` is true in a cancelled run. `tests/releaseCancelSafeJobs.test.cjs`
-checked only `release-all.yml`; it now fails on a job on `always()` in any
-workflow that is a reusable-workflow call or has no timeout of 60 minutes or
-less. Every such job today is a short report and is bounded. node-patches had
-eleven five-hour resume stages called this way, and Cancel workflow did not
-stop them.
 
 </details>
 
