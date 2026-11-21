@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 // GHSA-2g94-9x3m-hv37: decide from the attempt's structural fields, not the
 // (ambiguous, Meteor-rewritten) reason string. See loginFailureDecision.js.
 const { shouldProcessKnownUser } = require('./loginFailureDecision');
+const { validateLockoutSettings, mergeLockoutSettings, lockoutSettingsOverride } = require('./lockoutSettings');
 // GHSA-rf3w-rj48-jxcc: which counter an attempt belongs to, and what to do
 // about it. Both are pure modules so the decision can be tested without a
 // server - see lockoutScope.js and lockoutDecision.js for what went wrong.
@@ -31,34 +32,11 @@ class KnownUser {
   }
 
   updateSettings() {
-    const settings = KnownUser.knownUsers();
-    if (settings) {
-      settings.forEach(function updateSetting({ key, value }) {
-        this.settings[key] = value;
-      });
-    }
-    this.validateSettings();
+    this.settings = validateLockoutSettings(mergeLockoutSettings(this.settings, KnownUser.knownUsers()));
   }
 
   validateSettings() {
-    if (
-      !this.settings.failuresBeforeLockout ||
-      this.settings.failuresBeforeLockout < 0
-    ) {
-      throw new Error('"failuresBeforeLockout" is not positive integer');
-    }
-    if (
-      !this.settings.lockoutPeriod ||
-      this.settings.lockoutPeriod < 0
-    ) {
-      throw new Error('"lockoutPeriod" is not positive integer');
-    }
-    if (
-      !this.settings.failureWindow ||
-      this.settings.failureWindow < 0
-    ) {
-      throw new Error('"failureWindow" is not positive integer');
-    }
+    validateLockoutSettings(this.settings);
   }
 
   // The two sweeps below read the PRE-FIX flat fields
@@ -322,13 +300,7 @@ class KnownUser {
   }
 
   static knownUsers() {
-    let knownUsers;
-    try {
-      knownUsers = Meteor.settings['accounts-lockout'].knownUsers;
-    } catch (e) {
-      knownUsers = false;
-    }
-    return knownUsers || false;
+    return lockoutSettingsOverride(Meteor.settings, 'knownUsers');
   }
 
   static unlockTime(user) {

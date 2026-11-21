@@ -5,6 +5,7 @@ import _AccountsLockoutCollection from './accountsLockoutCollection';
 // GHSA-2g94-9x3m-hv37: decide from the attempt's structural fields, not the
 // (ambiguous, Meteor-rewritten) reason string. See loginFailureDecision.js.
 const { shouldProcessUnknownUser } = require('./loginFailureDecision');
+const { validateLockoutSettings, mergeLockoutSettings, lockoutSettingsOverride } = require('./lockoutSettings');
 
 class UnknownUser {
   constructor(
@@ -27,34 +28,11 @@ class UnknownUser {
   }
 
   updateSettings() {
-    const settings = UnknownUser.unknownUsers();
-    if (settings) {
-      settings.forEach(function updateSetting({ key, value }) {
-        this.settings[key] = value;
-      });
-    }
-    this.validateSettings();
+    this.settings = validateLockoutSettings(mergeLockoutSettings(this.settings, UnknownUser.unknownUsers()));
   }
 
   validateSettings() {
-    if (
-      !this.settings.failuresBeforeLockout ||
-      this.settings.failuresBeforeLockout < 0
-    ) {
-      throw new Error('"failuresBeforeLockout" is not positive integer');
-    }
-    if (
-      !this.settings.lockoutPeriod ||
-      this.settings.lockoutPeriod < 0
-    ) {
-      throw new Error('"lockoutPeriod" is not positive integer');
-    }
-    if (
-      !this.settings.failureWindow ||
-      this.settings.failureWindow < 0
-    ) {
-      throw new Error('"failureWindow" is not positive integer');
-    }
+    validateLockoutSettings(this.settings);
   }
 
   async scheduleUnlocksForLockedAccounts() {
@@ -262,13 +240,7 @@ class UnknownUser {
   }
 
   static unknownUsers() {
-    let unknownUsers;
-    try {
-      unknownUsers = Meteor.settings['accounts-lockout'].unknownUsers;
-    } catch (e) {
-      unknownUsers = false;
-    }
-    return unknownUsers || false;
+    return lockoutSettingsOverride(Meteor.settings, 'unknownUsers');
   }
 
   async findOneByConnection(connection) {
