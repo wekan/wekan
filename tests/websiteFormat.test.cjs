@@ -154,7 +154,7 @@ function test(name, fn) { tests.push([name, fn]); }
     const { files } = W.htmlSiteFiles(collected);
     assert.ok(files['index.html'] && files['about-us.html'] && files['posts/hello-world.html'] && files['style.css']);
     assert.equal(Object.keys(files).some(f => /not-yet/.test(f)), false, 'negative: a draft is not on the exported site');
-    assert.doesNotMatch(files['posts/hello-world.html'], /<script>/, 'negative: no script from a card reaches the site');
+    assert.doesNotMatch(files['posts/hello-world.html'], /<script/i, 'negative: no script from a card reaches the site');
     assert.match(files['index.html'], /<a href="posts\/hello-world\.html">Hello world<\/a>/);
     assert.match(files['posts/hello-world.html'], /href="\.\.\/style\.css"/);
   });
@@ -173,7 +173,7 @@ function test(name, fn) { tests.push([name, fn]); }
     assert.throws(() => W.siteBoard([]), /no pages or posts/);
     assert.throws(() => W.siteBoard([{ type: 'attachment', status: 'publish' }]), /no pages or posts/);
     const board = W.siteBoard([{ type: 'post', status: 'publish', title: 'x', html: '<p>ok</p><script>alert(1)</script><img src=x onerror=alert(1)>' }]);
-    assert.doesNotMatch(board.tasks[0].description, /<script|onerror/);
+    assert.doesNotMatch(board.tasks[0].description, /<script|onerror/i);
     assert.equal(W.markdownHtml('<b>x</b>'), '<p>&lt;b&gt;x&lt;/b&gt;</p>\n', 'raw HTML in Markdown is escaped on the way out');
   });
 

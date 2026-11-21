@@ -59,7 +59,10 @@ const iso = value => {
 function stripComments(html) {
   let out = str(html);
   let prev;
-  do { prev = out; out = out.replace(/<!--[\s\S]*?-->/g, ''); } while (out !== prev);
+  do {
+    prev = out;
+    out = out.replace(/<!--[\s\S]*?-->/g, '');
+  } while (out !== prev);
   return out;
 }
 
