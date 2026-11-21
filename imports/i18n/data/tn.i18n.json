@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Molaetsa",
   "cloud-panel-chat-send": "Romela",
   "cloud-panel-chat-import": "Tsenya dipuisano tsa pele",
-  "cloud-panel-chat-imported": "Melaetsa e le __count__ e tsentswe."
+  "cloud-panel-chat-imported": "Melaetsa e le __count__ e tsentswe.",
+  "board-view-website": "Webosaete",
+  "tool-group-website": "Webosaete",
+  "website-view-empty": "Ga go sepe se se phasaladitsweng mo webosaeteng eno ga jaana.",
+  "feature-views-website": "Ponagalo ya webosaete",
+  "feature-views-website-desc": "Boto jaaka webosaete: dikarata tsa lenaane la yone la Published, tsela ya Pages jaaka lenaane la ditlhopho le dikarata tse dingwe jaaka dikwalo, tse dintšhwa pele, le tse di tshwaraganeng tsa tsone. Boto e e phatlalatsang e ka bulega mo go yone, gore baeti ba bone webosaete mo atereseng ya boto.",
+  "import-board-instruction-wordpress": "Mo WordPress, tlhopha Tools, Export, All content le Download Export File, mme o tlhophe faele eo ya .xml fa, kgotsa o kgomaretse mokwalo wa yone. Squarespace, Wix le disaete tse dingwe tse di ntshang faele ya WordPress di dira ka tsela e e tshwanang. Tsebe nngwe le nngwe le sekwalo sengwe le sengwe di fetoga karata mo lenaaneng la maemo a sone, ditsebe mo tseleng ya Pages le dikwalo mo Posts, le diteng tsa sone, dikarolo le dithegi jaaka ditshwao, le dikakgelo tsa sone tse di amogetsweng.",
+  "import-board-instruction-wordpressjson": "Boloka dikwalo le ditsebe tsa WordPress REST API (/wp-json/wp/v2/posts le /wp-json/wp/v2/pages) jaaka faele e le nngwe ya .json, mme o e tlhophe fa kgotsa o e kgomaretse. Tsebe nngwe le nngwe le sekwalo sengwe le sengwe di fetoga karata mo lenaaneng la maemo a sone.",
+  "import-board-instruction-ghost": "Mo Ghost, tlhopha Settings, Labs, Export your content, mme o tlhophe faele ya .json fa kgotsa o e kgomaretse. Tsebe nngwe le nngwe le sekwalo sengwe le sengwe di fetoga karata mo lenaaneng la maemo a sone, le dithegi tsa sone jaaka ditshwao.",
+  "import-board-instruction-blogger": "Mo Blogger, tlhopha Settings, Back up content, mme o tlhophe faele ya .xml fa kgotsa o kgomaretse mokwalo wa yone. Sekwalo sengwe le sengwe le tsebe nngwe le nngwe di fetoga karata, thalwa e le mo lenaaneng la Draft, le ditshwao le dikakgelo tsa sone.",
+  "import-board-instruction-markdownsite": "Dira zip ya metswedi ya saete e e sa fetogeng ya Hugo, Jekyll, Eleventy, Astro kgotsa e nngwe - difaele tsa Markdown le front matter ya tsone, le ditshwantsho tsa tsone - mme o tlhophe .zip fa. Faele nngwe le nngwe ya Markdown e fetoga karata: dikwalo go tswa mo diforoutareng tsa posts kgotsa tse di nang le letlha mo leineng la faele, tse dingwe ke ditsebe, dithalwa mo lenaaneng la Draft, mme ditshwantsho tse e di dirisang jaaka tse di tshwaraganeng tsa yone.",
+  "import-board-instruction-htmlsite": "Dira zip ya difaele tsa webosaete - ditsebe tsa yone tsa .html le ditshwantsho, jaaka di bolokilwe ka wget kgotsa HTTrack, kgotsa export ya Medium - mme o tlhophe .zip fa. Tsebe nngwe le nngwe e fetoga karata le mokwalo wa yone o mogolo, le ditshwantsho tse e di dirisang jaaka tse di tshwaraganeng; disekripiti, malaneo a ditlhopho le diforomo di a tlogelwa.",
+  "import-board-instruction-substack": "Mo Substack, tlhopha Settings, Exports, Create new export, mme o tlhophe .zip e e folotsweng fa. Sekwalo sengwe le sengwe se fetoga karata le mokwalo wa sone, se se phasaladitsweng kgotsa thalwa."
 }

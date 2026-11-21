@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesajo",
   "cloud-panel-chat-send": "Manda",
   "cloud-panel-chat-import": "Importa łe conversasion de prima",
-  "cloud-panel-chat-imported": "__count__ mesaji importai."
+  "cloud-panel-chat-imported": "__count__ mesaji importai.",
+  "board-view-website": "Sito web",
+  "tool-group-website": "Sito web",
+  "website-view-empty": "Gnente no xe stà ancora publicà su sto sito web.",
+  "feature-views-website": "Vista sito web",
+  "feature-views-website-desc": "El quadro come sito web: le schede de la so lista Published, la corsia Pages come menù e le altre schede come articołi, i pì novi par primi, co i so ałegati. Un quadro pùblico el pol vèrzarse inte sta vista, cussì i visitadori i vede el sito web a l'indirizo del quadro.",
+  "import-board-instruction-wordpress": "In WordPress, sielzi Strumenti, Esporta, Tuti i contenuti e Scarica il file di esportazione, e sielzi qua quel file .xml, o incoła el so testo. Squarespace, Wix e altri siti che i esporta un file WordPress i funsiona istesso. Ogni pàxena e articoło el deventa na scheda inte la lista del so stato, le pàxene inte la corsia Pages e i articołi in Posts, co el so contenuto, le categorie e i tag come etichete, e i so comenti aprovà.",
+  "import-board-instruction-wordpressjson": "Salva i articołi e le pàxene de la WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) come un file .json soło, e sielzilo qua o incołalo. Ogni pàxena e articoło el deventa na scheda inte la lista del so stato.",
+  "import-board-instruction-ghost": "In Ghost, sielzi Settings, Labs, Export your content, e sielzi qua el file .json o incołalo. Ogni pàxena e articoło el deventa na scheda inte la lista del so stato, co i so tag come etichete.",
+  "import-board-instruction-blogger": "In Blogger, sielzi Inpostasion, Copia de seguresa del contegnùo, e sielzi qua el file .xml o incoła el so testo. Ogni articoło e pàxena el deventa na scheda, un sbozo inte la lista Draft, co le so etichete e comenti.",
+  "import-board-instruction-markdownsite": "Meti in zip i sorgenti de un sito stàtico Hugo, Jekyll, Eleventy, Astro o altro - i file Markdown co el so front matter, e le so imàxini - e sielzi qua el .zip. Ogni file Markdown el deventa na scheda: articołi da le carteƚe posts o co na data nel nome del file, el resto pàxene, le bozze inte la lista Draft, e le imàxini che el dopara come so ałegati.",
+  "import-board-instruction-htmlsite": "Meti in zip i file de un sito web - le so pàxene .html e imàxini, come salvà co wget o HTTrack, o l'esportasion de Medium - e sielzi qua el .zip. Ogni pàxena la deventa na scheda col so testo prinsipałe, e le imàxini che la dopara come so ałegati; script, menù e moduli i vien lassà fora.",
+  "import-board-instruction-substack": "In Substack, sielzi Settings, Exports, Create new export, e sielzi qua el .zip descargà. Ogni articoło el deventa na scheda col so testo, publicà o bozza."
 }

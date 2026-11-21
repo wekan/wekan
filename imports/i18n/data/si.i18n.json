@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "පණිවිඩය",
   "cloud-panel-chat-send": "යවන්න",
   "cloud-panel-chat-import": "පෙර සංවාද ආයාත කරන්න",
-  "cloud-panel-chat-imported": "පණිවිඩ __count__ ක් ආයාත කරන ලදී."
+  "cloud-panel-chat-imported": "පණිවිඩ __count__ ක් ආයාත කරන ලදී.",
+  "board-view-website": "වෙබ් අඩවිය",
+  "tool-group-website": "වෙබ් අඩවිය",
+  "website-view-empty": "මෙම වෙබ් අඩවියේ තවමත් කිසිවක් ප්‍රකාශයට පත් කර නැත.",
+  "feature-views-website": "වෙබ් අඩවි දසුන",
+  "feature-views-website-desc": "පුවරුව වෙබ් අඩවියක් ලෙස: එහි Published ලැයිස්තුවේ කාඩ්පත්, පථය Pages මෙනුව ලෙස සහ අනෙක් කාඩ්පත් ලිපි ලෙස, අලුත්ම ඒවා මුලින්, ඒවායේ ඇමුණුම් සමඟ. පොදු පුවරුවක් මෙම දසුනෙන් විවෘත විය හැක, එවිට අමුත්තන් පුවරුවේ ලිපිනයේ වෙබ් අඩවිය දකිති.",
+  "import-board-instruction-wordpress": "WordPress හි 'Tools', 'Export', 'All content' සහ 'Download Export File' තෝරා, එම .xml ගොනුව මෙහි තෝරන්න, නැතහොත් එහි පෙළ අලවන්න. WordPress ගොනුවක් අපනයනය කරන Squarespace, Wix සහ වෙනත් අඩවි ද එලෙසම ක්‍රියා කරයි. සෑම පිටුවක්ම සහ ලිපියක්ම එහි තත්ත්වයේ ලැයිස්තුවේ කාඩ්පතක් බවට පත් වේ, පිටු පථය Pages හි සහ ලිපි Posts හි, එහි අන්තර්ගතය, ප්‍රවර්ග සහ ටැග් ලේබල ලෙස, සහ අනුමත අදහස් සමඟ.",
+  "import-board-instruction-wordpressjson": "WordPress REST API හි ලිපි සහ පිටු (/wp-json/wp/v2/posts සහ /wp-json/wp/v2/pages) එක් .json ගොනුවක් ලෙස සුරකින්න, එය මෙහි තෝරන්න හෝ අලවන්න. සෑම පිටුවක්ම සහ ලිපියක්ම එහි තත්ත්වයේ ලැයිස්තුවේ කාඩ්පතක් බවට පත් වේ.",
+  "import-board-instruction-ghost": "Ghost හි 'Settings', 'Labs', 'Export your content' තෝරා, .json ගොනුව මෙහි තෝරන්න හෝ අලවන්න. සෑම පිටුවක්ම සහ ලිපියක්ම එහි තත්ත්වයේ ලැයිස්තුවේ කාඩ්පතක් බවට පත් වේ, එහි ටැග් ලේබල ලෙස.",
+  "import-board-instruction-blogger": "Blogger හි 'Settings', 'Back up content' තෝරා, .xml ගොනුව මෙහි තෝරන්න හෝ එහි පෙළ අලවන්න. සෑම ලිපියක්ම සහ පිටුවක්ම කාඩ්පතක් බවට පත් වේ, කෙටුම්පත Draft ලැයිස්තුවේ, එහි ලේබල සහ අදහස් සමඟ.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro හෝ වෙනත් ස්ථිතික අඩවියක මූලාශ්‍ර .zip කරන්න - front matter සහිත Markdown ගොනු, සහ ඒවායේ රූප - සහ .zip මෙහි තෝරන්න. සෑම Markdown ගොනුවක්ම කාඩ්පතක් බවට පත් වේ: posts ෆෝල්ඩරවලින් හෝ ගොනු නාමයේ දිනයක් ඇති ලිපි, ඉතිරිය පිටු, කෙටුම්පත් Draft ලැයිස්තුවේ, සහ එය භාවිත කරන රූප එහි ඇමුණුම් ලෙස.",
+  "import-board-instruction-htmlsite": "වෙබ් අඩවියක ගොනු .zip කරන්න - wget හෝ HTTrack මගින් සුරකින ලද එහි .html පිටු සහ රූප, හෝ Medium හි අපනයනය - සහ .zip මෙහි තෝරන්න. සෑම පිටුවක්ම එහි ප්‍රධාන පෙළ සමඟ කාඩ්පතක් බවට පත් වේ, සහ එය භාවිත කරන රූප ඇමුණුම් ලෙස; ස්ක්‍රිප්ට්, මෙනු සහ පෝරම ඉවත් කෙරේ.",
+  "import-board-instruction-substack": "Substack හි 'Settings', 'Exports', 'Create new export' තෝරා, බාගත කළ .zip මෙහි තෝරන්න. සෑම ලිපියක්ම එහි පෙළ සමඟ කාඩ්පතක් බවට පත් වේ, ප්‍රකාශිත හෝ කෙටුම්පත."
 }

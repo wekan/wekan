@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "メッセージ",
   "cloud-panel-chat-send": "送信",
   "cloud-panel-chat-import": "以前の会話をインポート",
-  "cloud-panel-chat-imported": "__count__ 件のメッセージをインポートしました。"
+  "cloud-panel-chat-imported": "__count__ 件のメッセージをインポートしました。",
+  "board-view-website": "ウェブサイト",
+  "tool-group-website": "ウェブサイト",
+  "website-view-empty": "このウェブサイトにはまだ何も公開されていません。",
+  "feature-views-website": "ウェブサイト表示",
+  "feature-views-website-desc": "ボードをウェブサイトとして表示します。Published リストのカード、スイムレーン Pages をメニュー、その他のカードを新しい順の投稿として、添付ファイルとともに表示します。公開ボードはこの表示で開くことができ、訪問者はボードのアドレスでウェブサイトを見られます。",
+  "import-board-instruction-wordpress": "WordPress で「ツール」、「エクスポート」、「すべてのコンテンツ」、「エクスポートファイルをダウンロード」を選び、その .xml ファイルをここで選ぶか、テキストを貼り付けてください。WordPress ファイルをエクスポートする Squarespace、Wix などのサイトも同じように使えます。各固定ページと投稿は、その状態のリストのカードになります。固定ページはスイムレーン Pages、投稿は Posts に入り、本文、カテゴリーとタグはラベルとして、承認済みのコメントも取り込まれます。",
+  "import-board-instruction-wordpressjson": "WordPress REST API の投稿と固定ページ (/wp-json/wp/v2/posts と /wp-json/wp/v2/pages) を 1 つの .json ファイルとして保存し、ここで選ぶか貼り付けてください。各固定ページと投稿は、その状態のリストのカードになります。",
+  "import-board-instruction-ghost": "Ghost で Settings、Labs、Export your content を選び、.json ファイルをここで選ぶか貼り付けてください。各ページと投稿は、その状態のリストのカードになり、タグはラベルになります。",
+  "import-board-instruction-blogger": "Blogger で「設定」、「コンテンツのバックアップ」を選び、.xml ファイルをここで選ぶか、テキストを貼り付けてください。各投稿とページはカードになり、下書きはリスト Draft に入り、ラベルとコメントも取り込まれます。",
+  "import-board-instruction-markdownsite": "Hugo、Jekyll、Eleventy、Astro などの静的サイトのソース (front matter 付きの Markdown ファイルと画像) を .zip にまとめ、ここでその .zip を選んでください。各 Markdown ファイルはカードになります。posts フォルダー内またはファイル名に日付があるものは投稿、それ以外はページ、下書きはリスト Draft に入り、使われている画像は添付ファイルになります。",
+  "import-board-instruction-htmlsite": "ウェブサイトのファイル (wget や HTTrack で保存した .html ページと画像、または Medium のエクスポート) を .zip にまとめ、ここでその .zip を選んでください。各ページは本文を持つカードになり、使われている画像は添付ファイルになります。スクリプト、メニュー、フォームは除外されます。",
+  "import-board-instruction-substack": "Substack で Settings、Exports、Create new export を選び、ダウンロードした .zip をここで選んでください。各投稿は本文を持つカードになり、公開済みか下書きになります。"
 }

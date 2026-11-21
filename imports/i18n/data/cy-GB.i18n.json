@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Neges",
   "cloud-panel-chat-send": "Anfon",
   "cloud-panel-chat-import": "Mewnforio sgyrsiau cynharach",
-  "cloud-panel-chat-imported": "Mewnforiwyd __count__ neges."
+  "cloud-panel-chat-imported": "Mewnforiwyd __count__ neges.",
+  "board-view-website": "Gwefan",
+  "tool-group-website": "Gwefan",
+  "website-view-empty": "Nid oes dim wedi'i gyhoeddi ar y wefan hon eto.",
+  "feature-views-website": "Golwg gwefan",
+  "feature-views-website-desc": "Y bwrdd fel gwefan: cardiau ei restr Published, y lôn Pages fel y ddewislen a'r cardiau eraill fel cofnodion, y mwyaf newydd yn gyntaf, gyda'u hatodiadau. Gall bwrdd cyhoeddus agor ynddi, fel bod ymwelwyr yn gweld y wefan yng nghyfeiriad y bwrdd.",
+  "import-board-instruction-wordpress": "Yn WordPress, dewiswch Tools, Export, All content a Download Export File, a dewiswch y ffeil .xml honno yma, neu gludwch ei thestun. Mae Squarespace, Wix a gwefannau eraill sy'n allforio ffeil WordPress yn gweithio yr un ffordd. Daw pob tudalen a chofnod yn gerdyn yn rhestr ei statws, tudalennau yn y lôn Pages a chofnodion yn Posts, gyda'i gynnwys, ei gategorïau a'i dagiau fel labeli, a'i sylwadau cymeradwy.",
+  "import-board-instruction-wordpressjson": "Cadwch gofnodion a thudalennau REST API WordPress (/wp-json/wp/v2/posts a /wp-json/wp/v2/pages) fel un ffeil .json, a'i dewis yma neu ei gludo. Daw pob tudalen a chofnod yn gerdyn yn rhestr ei statws.",
+  "import-board-instruction-ghost": "Yn Ghost, dewiswch Settings, Labs, Export your content, a dewiswch y ffeil .json yma neu ei gludo. Daw pob tudalen a chofnod yn gerdyn yn rhestr ei statws, gyda'i dagiau fel labeli.",
+  "import-board-instruction-blogger": "Yn Blogger, dewiswch Settings, Back up content, a dewiswch y ffeil .xml yma neu gludwch ei thestun. Daw pob cofnod a thudalen yn gerdyn, drafft yn y rhestr Draft, gyda'i labeli a'i sylwadau.",
+  "import-board-instruction-markdownsite": "Cywasgwch ffynonellau gwefan statig Hugo, Jekyll, Eleventy, Astro neu arall yn .zip - y ffeiliau Markdown gyda'u blaenddeunydd (front matter), a'u delweddau - a dewiswch y .zip yma. Daw pob ffeil Markdown yn gerdyn: cofnodion o'r ffolderi posts neu gyda dyddiad yn enw'r ffeil, y gweddill yn dudalennau, drafftiau yn y rhestr Draft, a'r delweddau y mae'n eu defnyddio fel ei atodiadau.",
+  "import-board-instruction-htmlsite": "Cywasgwch ffeiliau gwefan yn .zip - ei thudalennau .html a'i delweddau, fel y'u cadwyd gyda wget neu HTTrack, neu allforiad Medium - a dewiswch y .zip yma. Daw pob tudalen yn gerdyn gyda'i phrif destun, a'r delweddau y mae'n eu defnyddio fel ei hatodiadau; gadewir sgriptiau, dewislenni a ffurflenni allan.",
+  "import-board-instruction-substack": "Yn Substack, dewiswch Settings, Exports, Create new export, a dewiswch y .zip a lwythwyd i lawr yma. Daw pob cofnod yn gerdyn gyda'i destun, wedi'i gyhoeddi neu'n ddrafft."
 }

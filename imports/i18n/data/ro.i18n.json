@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaj",
   "cloud-panel-chat-send": "Trimite",
   "cloud-panel-chat-import": "Importă conversațiile anterioare",
-  "cloud-panel-chat-imported": "__count__ mesaje importate."
+  "cloud-panel-chat-imported": "__count__ mesaje importate.",
+  "board-view-website": "Sit web",
+  "tool-group-website": "Sit web",
+  "website-view-empty": "Nu s-a publicat încă nimic pe acest sit web.",
+  "feature-views-website": "Vizualizare sit web",
+  "feature-views-website-desc": "Panoul ca sit web: cardurile din lista sa Published, culoarul Pages ca meniu și celelalte carduri ca articole, cele mai noi primele, cu atașamentele lor. Un panou public se poate deschide în această vizualizare, astfel încât vizitatorii să vadă situl web la adresa panoului.",
+  "import-board-instruction-wordpress": "În WordPress, alegeți 'Unelte', 'Exportă', 'Tot conținutul' și 'Descarcă fișierul de export', și alegeți acel fișier .xml aici, sau lipiți textul său. Squarespace, Wix și alte situri care exportă un fișier WordPress funcționează la fel. Fiecare pagină și fiecare articol devine un card în lista stării sale, paginile pe culoarul Pages și articolele în Posts, cu conținutul său, categoriile și etichetele ca etichete, și comentariile aprobate.",
+  "import-board-instruction-wordpressjson": "Salvați articolele și paginile din WordPress REST API (/wp-json/wp/v2/posts și /wp-json/wp/v2/pages) ca un singur fișier .json, și alegeți-l aici sau lipiți-l. Fiecare pagină și fiecare articol devine un card în lista stării sale.",
+  "import-board-instruction-ghost": "În Ghost, alegeți 'Settings', 'Labs', 'Export your content', și alegeți fișierul .json aici sau lipiți-l. Fiecare pagină și fiecare articol devine un card în lista stării sale, cu etichetele sale.",
+  "import-board-instruction-blogger": "În Blogger, alegeți 'Setări', 'Creează o copie de rezervă a conținutului', și alegeți fișierul .xml aici sau lipiți textul său. Fiecare postare și fiecare pagină devine un card, o ciornă în lista Draft, cu etichetele și comentariile sale.",
+  "import-board-instruction-markdownsite": "Arhivați în .zip sursele unui sit Hugo, Jekyll, Eleventy, Astro sau alt sit static - fișierele Markdown cu front matter-ul lor, și imaginile lor - și alegeți .zip-ul aici. Fiecare fișier Markdown devine un card: articole din dosarele posts sau cu o dată în numele fișierului, restul pagini, ciornele în lista Draft, iar imaginile pe care le folosește ca atașamente.",
+  "import-board-instruction-htmlsite": "Arhivați în .zip fișierele unui sit web - paginile sale .html și imaginile, salvate cu wget sau HTTrack, sau exportul din Medium - și alegeți .zip-ul aici. Fiecare pagină devine un card cu textul său principal, iar imaginile pe care le folosește ca atașamente; scripturile, meniurile și formularele sunt omise.",
+  "import-board-instruction-substack": "În Substack, alegeți 'Settings', 'Exports', 'Create new export', și alegeți aici .zip-ul descărcat. Fiecare articol devine un card cu textul său, publicat sau ciornă."
 }

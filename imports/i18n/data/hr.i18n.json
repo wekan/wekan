@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Poruka",
   "cloud-panel-chat-send": "Pošalji",
   "cloud-panel-chat-import": "Uvezi ranije razgovore",
-  "cloud-panel-chat-imported": "Uvezeno poruka: __count__."
+  "cloud-panel-chat-imported": "Uvezeno poruka: __count__.",
+  "board-view-website": "Web-stranica",
+  "tool-group-website": "Web-stranice",
+  "website-view-empty": "Na ovoj web-stranici još ništa nije objavljeno.",
+  "feature-views-website": "Prikaz web-stranice",
+  "feature-views-website-desc": "Ploča kao web-stranica: kartice njezina popisa Published, traka Pages kao izbornik i ostale kartice kao objave, od najnovije, s njihovim privitcima. Javna ploča može se otvoriti u ovom prikazu, pa posjetitelji vide web-stranicu na adresi ploče.",
+  "import-board-instruction-wordpress": "U WordPressu odaberite Alati, Izvoz, Sav sadržaj i Preuzmi datoteku izvoza, pa odaberite tu .xml datoteku ovdje ili zalijepite njezin tekst. Squarespace, Wix i druge stranice koje izvoze WordPress datoteku rade na isti način. Svaka stranica i objava postaje kartica u popisu svog statusa, stranice u traci Pages, a objave u Posts, sa svojim sadržajem, kategorijama i oznakama kao oznakama te odobrenim komentarima.",
+  "import-board-instruction-wordpressjson": "Spremite objave i stranice WordPress REST API-ja (/wp-json/wp/v2/posts i /wp-json/wp/v2/pages) kao jednu .json datoteku, pa je odaberite ovdje ili zalijepite. Svaka stranica i objava postaje kartica u popisu svog statusa.",
+  "import-board-instruction-ghost": "U Ghostu odaberite Settings, Labs, Export your content, pa odaberite .json datoteku ovdje ili je zalijepite. Svaka stranica i objava postaje kartica u popisu svog statusa, s tagovima kao oznakama.",
+  "import-board-instruction-blogger": "U Bloggeru odaberite Postavke, Sigurnosno kopiranje sadržaja, pa odaberite .xml datoteku ovdje ili zalijepite njezin tekst. Svaka objava i stranica postaje kartica, skica u popisu Draft, sa svojim oznakama i komentarima.",
+  "import-board-instruction-markdownsite": "Zapakirajte u .zip izvore statične stranice Hugo, Jekyll, Eleventy, Astro ili druge - Markdown datoteke s njihovim front matterom i njihove slike - pa odaberite .zip ovdje. Svaka Markdown datoteka postaje kartica: objave iz mapa posts ili s datumom u nazivu datoteke, ostalo stranice, skice u popisu Draft, a slike koje koristi kao privitci.",
+  "import-board-instruction-htmlsite": "Zapakirajte u .zip datoteke web-stranice - njezine .html stranice i slike, kako ih sprema wget ili HTTrack, ili izvoz iz Mediuma - pa odaberite .zip ovdje. Svaka stranica postaje kartica sa svojim glavnim tekstom, a slike koje koristi kao privitci; skripte, izbornici i obrasci izostavljaju se.",
+  "import-board-instruction-substack": "U Substacku odaberite Settings, Exports, Create new export, pa odaberite preuzeti .zip ovdje. Svaka objava postaje kartica sa svojim tekstom, objavljena ili skica."
 }

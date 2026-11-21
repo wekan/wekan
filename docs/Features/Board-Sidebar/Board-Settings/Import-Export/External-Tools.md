@@ -122,6 +122,18 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 | [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | Fetched from Microsoft Graph, the personal export `.tar`, or Graph chat messages `.json` | Teams chats as Graph chat messages `.json` |
 | [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
 
+## Website
+
+| Tool | Import | Export |
+| --- | --- | --- |
+| [WordPress (.xml)](./Website/Website.md) | Tools → Export (WXR) `.xml` | WordPress (.xml) |
+| [WordPress REST API (.json)](./Website/Website.md) | `/wp-json/wp/v2/posts` and `/pages` `.json` | WordPress REST API (.json) |
+| [Ghost](./Website/Website.md) | Settings → Labs → Export `.json` | Ghost |
+| [Blogger (.xml)](./Website/Website.md) | Settings → Back up content `.xml` | Blogger (.xml) |
+| [Hugo, Jekyll, Eleventy, Astro (.zip)](./Website/Website.md) | The site's Markdown sources `.zip` | Hugo, Jekyll, Eleventy, Astro (.zip) |
+| [HTML website, Medium (.zip)](./Website/Website.md) | The site's `.html` files `.zip`, or Medium's export | HTML website (.zip) |
+| [Substack (.zip)](./Website/Website.md) | Settings → Exports `.zip` | — |
+
 ## Sandstorm
 
 [Sandstorm](https://sandstorm.org) apps' grain backups: under the heading

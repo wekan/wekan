@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Yatiyawi",
   "cloud-panel-chat-send": "Apayaña",
   "cloud-panel-chat-import": "Nayra parlanak mantayaña",
-  "cloud-panel-chat-imported": "__count__ yatiyawinakaw mantayata."
+  "cloud-panel-chat-imported": "__count__ yatiyawinakaw mantayata.",
+  "board-view-website": "Web uñstayiri",
+  "tool-group-website": "Web uñstayiri",
+  "website-view-empty": "Aka web uñstayirinxa janiw kunas uñstayatäkiti.",
+  "feature-views-website": "Web uñstayiri uñjaña",
+  "feature-views-website-desc": "Tabla web uñstayiri ukham: Published listapan tarjetanakapa, Pages thakhi menú ukham, mayni tarjetanakasti qillqatanakjama, machaqanakax nayraqata, chikt'atanakapampi. Taqinitaki tablax ukan jist'aratawa, ukhamat visitantenakax web uñstayirx tablan direcciónapan uñjapxi.",
+  "import-board-instruction-wordpress": "WordPress ukanxa, Tools, Export, All content ukat Download Export File ajlliñamawa, ukat uka .xml archivo akan ajlliñamawa, jan ukax qillqatap ch'akuntaña. Squarespace, Wix ukat yaqha WordPress archivo apsupki uka sitionakax pachpakiw irnaqapxi. Sapa p'anqa ukat qillqatax estadopan listapan tarjetaruw tukuyi, p'anqanakax Pages thakhin, qillqatanakas Posts ukan, utjirinakapampi, categorías ukat etiquetanakapampi etiqueta ukham, ukat iyawsata arsutanakapampi.",
+  "import-board-instruction-wordpressjson": "WordPress REST API ukan qillqatanakapa ukat p'anqanakapa (/wp-json/wp/v2/posts ukat /wp-json/wp/v2/pages) mä .json archivo ukham imaña, ukat akan ajlliña jan ukax ch'akuntaña. Sapa p'anqa ukat qillqatax estadopan listapan tarjetaruw tukuyi.",
+  "import-board-instruction-ghost": "Ghost ukanxa, Settings, Labs, Export your content ajlliñamawa, ukat .json archivo akan ajlliña jan ukax ch'akuntaña. Sapa p'anqa ukat qillqatax estadopan listapan tarjetaruw tukuyi, etiquetanakapampi etiqueta ukham.",
+  "import-board-instruction-blogger": "Blogger ukanxa, Settings, Back up content ajlliñamawa, ukat .xml archivo akan ajlliña jan ukax qillqatap ch'akuntaña. Sapa qillqata ukat p'anqax tarjetaruw tukuyi, borradorax Draft listan, etiquetanakapampi ukat arsutanakapampi.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro jan ukax yaqha estático sition phuqhanakap .zip ukar ch'irsuña - Markdown archivonaka front matter ukampi, ukat jamuqanakapampi - ukat .zip akan ajlliña. Sapa Markdown archivox tarjetaruw tukuyi: posts carpetanakat jan ukax archivo sutin urupampi qillqatanaka, mayninakax p'anqanaka, borradoranakax Draft listan, ukat apnaqki uka jamuqanakax chikt'atanakapjama.",
+  "import-board-instruction-htmlsite": "Mä web uñstayirin archivonakap .zip ukar ch'irsuña - .html p'anqanakapa ukat jamuqanakapa, wget jan ukax HTTrack ukamp imatajama, jan ukax Medium ukan apsutapa - ukat .zip akan ajlliña. Sapa p'anqax nayrïr qillqatapamp tarjetaruw tukuyi, apnaqki uka jamuqanakax chikt'atanakapjama; scripts, menús ukat formularios ukanakax jaytatawa.",
+  "import-board-instruction-substack": "Substack ukanxa, Settings, Exports, Create new export ajlliñamawa, ukat apaqata .zip akan ajlliña. Sapa qillqatax qillqatapamp tarjetaruw tukuyi, uñstayata jan ukax borrador."
 }

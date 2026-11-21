@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensaxe",
   "cloud-panel-chat-send": "Unviar",
   "cloud-panel-chat-import": "Importar conversaciones anteriores",
-  "cloud-panel-chat-imported": "__count__ mensaxes importaos."
+  "cloud-panel-chat-imported": "__count__ mensaxes importaos.",
+  "board-view-website": "Sitiu web",
+  "tool-group-website": "Sitiu web",
+  "website-view-empty": "Entá nun se publicó nada nesti sitiu web.",
+  "feature-views-website": "Vista de sitiu web",
+  "feature-views-website-desc": "El tableru como sitiu web: les tarxetes de la so llista Published, el carril Pages como menú y les otres tarxetes como entraes, les más nueves primero, colos sos axuntos. Un tableru públicu pue abrise nella, de mou que los visitantes ven el sitiu web na direición del tableru.",
+  "import-board-instruction-wordpress": "En WordPress, escueyi Tools, Export, All content y Download Export File, y escueyi esi ficheru .xml equí, o apega'l so testu. Squarespace, Wix y otros sitios qu'esporten un ficheru de WordPress funcionen de la mesma manera. Cada páxina y entrada vuélvese una tarxeta na llista del so estáu, les páxines nel carril Pages y les entraes en Posts, col so conteníu, categoríes y etiquetes como etiquetes, y los sos comentarios aprobaos.",
+  "import-board-instruction-wordpressjson": "Guarda les entraes y páxines de la REST API de WordPress (/wp-json/wp/v2/posts y /wp-json/wp/v2/pages) como un ficheru .json, y escuéyilu equí o apégalu. Cada páxina y entrada vuélvese una tarxeta na llista del so estáu.",
+  "import-board-instruction-ghost": "En Ghost, escueyi Settings, Labs, Export your content, y escueyi'l ficheru .json equí o apégalu. Cada páxina y entrada vuélvese una tarxeta na llista del so estáu, coles sos etiquetes como etiquetes.",
+  "import-board-instruction-blogger": "En Blogger, escueyi Settings, Back up content, y escueyi'l ficheru .xml equí o apega'l so testu. Cada entrada y páxina vuélvese una tarxeta, un borrador na llista Draft, coles sos etiquetes y comentarios.",
+  "import-board-instruction-markdownsite": "Comprimi en .zip les fontes d'un sitiu estáticu Hugo, Jekyll, Eleventy, Astro o otru - los ficheros Markdown cola so cabecera (front matter), y les sos imáxenes - y escueyi'l .zip equí. Cada ficheru Markdown vuélvese una tarxeta: entraes de les carpetes posts o con una data nel nome del ficheru, el restu páxines, borradores na llista Draft, y les imáxenes qu'usa como los sos axuntos.",
+  "import-board-instruction-htmlsite": "Comprimi en .zip los ficheros d'un sitiu web - les sos páxines .html ya imáxenes, guardaes con wget o HTTrack, o la esportación de Medium - y escueyi'l .zip equí. Cada páxina vuélvese una tarxeta col so testu principal, y les imáxenes qu'usa como los sos axuntos; los scripts, menús y formularios déxense fuera.",
+  "import-board-instruction-substack": "En Substack, escueyi Settings, Exports, Create new export, y escueyi'l .zip descargáu equí. Cada entrada vuélvese una tarxeta col so testu, publicada o borrador."
 }

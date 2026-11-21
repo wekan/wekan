@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "消息",
   "cloud-panel-chat-send": "发送",
   "cloud-panel-chat-import": "导入老早个对话",
-  "cloud-panel-chat-imported": "导入了 __count__ 条消息。"
+  "cloud-panel-chat-imported": "导入了 __count__ 条消息。",
+  "board-view-website": "网站",
+  "tool-group-website": "网站",
+  "website-view-empty": "搿个网站浪向还呒没发布过啥。",
+  "feature-views-website": "网站视图",
+  "feature-views-website-desc": "看板当网站：伊个 Published 列表里个卡片，Pages 泳道当菜单，别个卡片当文章，最新个排前头，连带伊拉个附件。公开看板可以用搿个视图打开，实概访客勒看板个地址浪就看得到网站。",
+  "import-board-instruction-wordpress": "勒 WordPress 里向，选“工具”、“导出”、“所有内容”搭“下载导出文件”，再勒此地选搿个 .xml 文件，或者粘贴伊个文本。Squarespace、Wix 搭别个导出 WordPress 文件个网站也是一样个。每只页面搭文章侪变成伊状态列表里个一张卡片，页面勒 Pages 泳道，文章勒 Posts，连带内容、分类搭 tag 当标签，还有审核通过个评论。",
+  "import-board-instruction-wordpressjson": "拿 WordPress REST API 个文章搭页面（/wp-json/wp/v2/posts 搭 /wp-json/wp/v2/pages）存成一只 .json 文件，勒此地选伊或者粘贴。每只页面搭文章侪变成伊状态列表里个一张卡片。",
+  "import-board-instruction-ghost": "勒 Ghost 里向，选 Settings、Labs、Export your content，再勒此地选 .json 文件或者粘贴。每只页面搭文章侪变成伊状态列表里个一张卡片，tag 当标签。",
+  "import-board-instruction-blogger": "勒 Blogger 里向，选“设置”、“备份内容”，再勒此地选 .xml 文件或者粘贴伊个文本。每篇文章搭页面侪变成一张卡片，草稿勒 Draft 列表，连带伊个标签搭评论。",
+  "import-board-instruction-markdownsite": "拿 Hugo、Jekyll、Eleventy、Astro 或者别个静态网站个源文件——Markdown 文件连带伊拉个 front matter，还有图片——打成 zip，再勒此地选 .zip。每只 Markdown 文件变成一张卡片：posts 文件夹里个或者文件名里有日脚个是文章，其余是页面，草稿勒 Draft 列表，伊用到个图片当附件。",
+  "import-board-instruction-htmlsite": "拿一个网站个文件——伊个 .html 页面搭图片，用 wget 或者 HTTrack 存落来个，或者 Medium 个导出——打成 zip，再勒此地选 .zip。每只页面变成一张带主要文本个卡片，伊用到个图片当附件；脚本、菜单搭表单侪勿要。",
+  "import-board-instruction-substack": "勒 Substack 里向，选 Settings、Exports、Create new export，再勒此地选下载好个 .zip。每篇文章变成一张带文本个卡片，已发布或者草稿。"
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Molaetsa",
   "cloud-panel-chat-send": "Romela",
   "cloud-panel-chat-import": "Kenya dipuisano tsa pele",
-  "cloud-panel-chat-imported": "Melaetsa e __count__ e kentswe."
+  "cloud-panel-chat-imported": "Melaetsa e __count__ e kentswe.",
+  "board-view-website": "Webosaete",
+  "tool-group-website": "Webosaete",
+  "website-view-empty": "Ha ho letho le phatlaladitsweng webosaeteng ena hajwale.",
+  "feature-views-website": "Ponahalo ya webosaete",
+  "feature-views-website-desc": "Boto e le webosaete: dikarete tsa lenane la yona la Published, tsela ya Pages e le lenane la dikgetho, le dikarete tse ding e le dingolwa, tse ntjha pele, le tse kopantsoeng tsa tsona. Boto ya setjhaba e ka buleha ka yona, hore baeti ba bone webosaete atereseng ya boto.",
+  "import-board-instruction-wordpress": "Ho WordPress, kgetha Tools, Export, All content le Download Export File, mme o kgethe faele eo ya .xml mona, kapa o kgomaretse mongolo wa yona. Squarespace, Wix le disaete tse ding tse ntshang faele ya WordPress di sebetsa ka tsela e tshwanang. Leqephe le leng le le leng le sengolwa se seng le se seng di fetoha karete lenaneng la boemo ba sona, maqephe tseleng ya Pages le dingolwa ho Posts, le dikahare tsa tsona, dihlopha le ditaga e le dileibole, le maikutlo a tsona a amohetsweng.",
+  "import-board-instruction-wordpressjson": "Boloka dingolwa le maqephe a WordPress REST API (/wp-json/wp/v2/posts le /wp-json/wp/v2/pages) e le faele e le nngwe ya .json, mme o e kgethe mona kapa o e kgomaretse. Leqephe le leng le le leng le sengolwa se seng le se seng di fetoha karete lenaneng la boemo ba sona.",
+  "import-board-instruction-ghost": "Ho Ghost, kgetha Settings, Labs, Export your content, mme o kgethe faele ya .json mona kapa o e kgomaretse. Leqephe le leng le le leng le sengolwa se seng le se seng di fetoha karete lenaneng la boemo ba sona, le ditaga tsa sona e le dileibole.",
+  "import-board-instruction-blogger": "Ho Blogger, kgetha Settings, Back up content, mme o kgethe faele ya .xml mona kapa o kgomaretse mongolo wa yona. Sengolwa se seng le se seng le leqephe le leng le le leng di fetoha karete, moralo o le lenaneng la Draft, le dileibole le maikutlo a tsona.",
+  "import-board-instruction-markdownsite": "Etsa zip ya mehlodi ya saete e emeng ya Hugo, Jekyll, Eleventy, Astro kapa e nngwe - difaele tsa Markdown le front matter ya tsona, le ditshwantsho tsa tsona - mme o kgethe .zip mona. Faele e nngwe le e nngwe ya Markdown e fetoha karete: dingolwa tse tswang diforoleng tsa posts kapa tse nang le letsatsi lebitsong la faele, tse ding ke maqephe, meralo lenaneng la Draft, mme ditshwantsho tseo e di sebedisang e le tse kopantsoeng tsa yona.",
+  "import-board-instruction-htmlsite": "Etsa zip ya difaele tsa webosaete - maqephe a yona a .html le ditshwantsho, jwalo ka ha di bolokilwe ka wget kapa HTTrack, kapa export ya Medium - mme o kgethe .zip mona. Leqephe le leng le le leng le fetoha karete le mongolo wa lona o moholo, le ditshwantsho tseo le di sebedisang e le tse kopantsoeng; diskripte, mananeo a dikgetho le diforomo di a siuwa.",
+  "import-board-instruction-substack": "Ho Substack, kgetha Settings, Exports, Create new export, mme o kgethe .zip e jarollotsweng mona. Sengolwa se seng le se seng se fetoha karete le mongolo wa sona, se phatlaladitsweng kapa moralo."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Tin nhắn",
   "cloud-panel-chat-send": "Gửi",
   "cloud-panel-chat-import": "Nhập các cuộc trò chuyện trước đây",
-  "cloud-panel-chat-imported": "Đã nhập __count__ tin nhắn."
+  "cloud-panel-chat-imported": "Đã nhập __count__ tin nhắn.",
+  "board-view-website": "Trang web",
+  "tool-group-website": "Trang web",
+  "website-view-empty": "Chưa có gì được xuất bản trên trang web này.",
+  "feature-views-website": "Chế độ xem trang web",
+  "feature-views-website-desc": "Bảng dưới dạng trang web: các thẻ trong danh sách Published của bảng, làn ngang Pages làm menu và các thẻ khác làm bài viết, mới nhất trước, kèm tệp đính kèm. Bảng công khai có thể mở ở chế độ này, để khách truy cập thấy trang web tại địa chỉ của bảng.",
+  "import-board-instruction-wordpress": "Trong WordPress, chọn Công cụ, Xuất, Tất cả nội dung và Tải xuống tập tin xuất, rồi chọn tệp .xml đó ở đây, hoặc dán văn bản của nó. Squarespace, Wix và các trang khác xuất tệp WordPress cũng hoạt động như vậy. Mỗi trang và bài viết trở thành một thẻ trong danh sách theo trạng thái của nó, các trang trong làn ngang Pages và bài viết trong Posts, cùng nội dung, chuyên mục và thẻ tag làm nhãn, và các bình luận đã duyệt.",
+  "import-board-instruction-wordpressjson": "Lưu bài viết và trang của WordPress REST API (/wp-json/wp/v2/posts và /wp-json/wp/v2/pages) thành một tệp .json, rồi chọn nó ở đây hoặc dán vào. Mỗi trang và bài viết trở thành một thẻ trong danh sách theo trạng thái của nó.",
+  "import-board-instruction-ghost": "Trong Ghost, chọn Settings, Labs, Export your content, rồi chọn tệp .json ở đây hoặc dán vào. Mỗi trang và bài viết trở thành một thẻ trong danh sách theo trạng thái của nó, với các tag làm nhãn.",
+  "import-board-instruction-blogger": "Trong Blogger, chọn Cài đặt, Sao lưu nội dung, rồi chọn tệp .xml ở đây hoặc dán văn bản của nó. Mỗi bài viết và trang trở thành một thẻ, bản nháp trong danh sách Draft, cùng nhãn và bình luận.",
+  "import-board-instruction-markdownsite": "Nén zip mã nguồn của một trang tĩnh Hugo, Jekyll, Eleventy, Astro hoặc khác - các tệp Markdown cùng front matter, và hình ảnh của chúng - rồi chọn tệp .zip ở đây. Mỗi tệp Markdown trở thành một thẻ: bài viết từ các thư mục posts hoặc có ngày trong tên tệp, phần còn lại là trang, bản nháp trong danh sách Draft, và hình ảnh nó dùng làm tệp đính kèm.",
+  "import-board-instruction-htmlsite": "Nén zip các tệp của một trang web - các trang .html và hình ảnh, như được lưu bằng wget hoặc HTTrack, hoặc bản xuất của Medium - rồi chọn tệp .zip ở đây. Mỗi trang trở thành một thẻ với văn bản chính, và hình ảnh nó dùng làm tệp đính kèm; script, menu và biểu mẫu bị bỏ qua.",
+  "import-board-instruction-substack": "Trong Substack, chọn Settings, Exports, Create new export, rồi chọn tệp .zip đã tải xuống ở đây. Mỗi bài viết trở thành một thẻ với văn bản, đã xuất bản hoặc bản nháp."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messatge",
   "cloud-panel-chat-send": "Mandar",
   "cloud-panel-chat-import": "Importar las charradissas d'abans",
-  "cloud-panel-chat-imported": "__count__ messatges importats."
+  "cloud-panel-chat-imported": "__count__ messatges importats.",
+  "board-view-website": "Site web",
+  "tool-group-website": "Site web",
+  "website-view-empty": "Res es pas encara publicat sus aqueste site web.",
+  "feature-views-website": "Vista site web",
+  "feature-views-website-desc": "Lo tablèu coma site web: las cartas de sa lista Published, lo corredor Pages coma menut e las autras cartas coma articles, los mai recents en primièr, amb lors pèças jonchas. Un tablèu public se pòt dobrir dins aquesta vista, que los visitaires vejan lo site web a l'adreça del tablèu.",
+  "import-board-instruction-wordpress": "Dins WordPress, causissètz 'Tools', 'Export', 'All content' e 'Download Export File', e causissètz aquel fichièr .xml aquí, o pegatz son tèxt. Squarespace, Wix e los autres sites qu'exportan un fichièr WordPress foncionan de la meteissa manièra. Cada pagina e cada article ven una carta dins la lista de son estatut, las paginas dins lo corredor Pages e los articles dins Posts, amb son contengut, sas categorias e etiquetas coma etiquetas, e sos comentaris aprovats.",
+  "import-board-instruction-wordpressjson": "Enregistratz los articles e las paginas de la WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) coma un sol fichièr .json, e causissètz-lo aquí o pegatz-lo. Cada pagina e cada article ven una carta dins la lista de son estatut.",
+  "import-board-instruction-ghost": "Dins Ghost, causissètz 'Settings', 'Labs', 'Export your content', e causissètz lo fichièr .json aquí o pegatz-lo. Cada pagina e cada article ven una carta dins la lista de son estatut, amb sas etiquetas.",
+  "import-board-instruction-blogger": "Dins Blogger, causissètz 'Settings', 'Back up content', e causissètz lo fichièr .xml aquí o pegatz son tèxt. Cada article e cada pagina ven una carta, un borrolhon dins la lista Draft, amb sas etiquetas e sos comentaris.",
+  "import-board-instruction-markdownsite": "Compressatz en .zip las fonts d'un site Hugo, Jekyll, Eleventy, Astro o d'un autre site estatic - los fichièrs Markdown amb lor front matter, e lors imatges - e causissètz lo .zip aquí. Cada fichièr Markdown ven una carta: articles dels dorsièrs posts o amb una data dins lo nom del fichièr, lo demai paginas, los borrolhons dins la lista Draft, e los imatges qu'utiliza coma pèças jonchas.",
+  "import-board-instruction-htmlsite": "Compressatz en .zip los fichièrs d'un site web - sas paginas .html e imatges, enregistrats amb wget o HTTrack, o l'exportacion de Medium - e causissètz lo .zip aquí. Cada pagina ven una carta amb son tèxt principal, e los imatges qu'utiliza coma pèças jonchas; los scripts, menuts e formularis son daissats de costat.",
+  "import-board-instruction-substack": "Dins Substack, causissètz 'Settings', 'Exports', 'Create new export', e causissètz lo .zip telecargat aquí. Cada article ven una carta amb son tèxt, publicat o borrolhon."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Хәбәр",
   "cloud-panel-chat-send": "Ебәреү",
   "cloud-panel-chat-import": "Элекке әңгәмәләрҙе импортлау",
-  "cloud-panel-chat-imported": "__count__ хәбәр импортланды."
+  "cloud-panel-chat-imported": "__count__ хәбәр импортланды.",
+  "board-view-website": "Веб-сайт",
+  "tool-group-website": "Веб-сайт",
+  "website-view-empty": "Был веб-сайтта әлегә бер нәмә лә баҫтырылмаған.",
+  "feature-views-website": "Веб-сайт күренеше",
+  "feature-views-website-desc": "Таҡта веб-сайт булараҡ: уның Published исемлеге карточкалары, Pages юлы меню булараҡ һәм ҡалған карточкалар яҙмалар булараҡ, иң яңылары тәүҙә, ҡушымталары менән. Асыҡ таҡта унда асыла ала, шулай итеп килеүселәр веб-сайтты таҡта адресында күрә.",
+  "import-board-instruction-wordpress": "WordPress-та Tools, Export, All content һәм Download Export File һайлағыҙ, һәм шул .xml файлын бында һайлағыҙ йәки уның тексын ҡуйығыҙ. Squarespace, Wix һәм WordPress файлын экспортлаған башҡа сайттар шулай уҡ эшләй. Һәр бит һәм яҙма үҙ статусы исемлегендә карточкаға әйләнә, биттәр Pages юлында, яҙмалар Posts-та, йөкмәткеһе, категориялары һәм тегтары тамғалар булараҡ, һәм раҫланған комментарийҙары менән.",
+  "import-board-instruction-wordpressjson": "WordPress REST API яҙмаларын һәм биттәрен (/wp-json/wp/v2/posts һәм /wp-json/wp/v2/pages) бер .json файлы итеп һаҡлағыҙ, һәм уны бында һайлағыҙ йәки ҡуйығыҙ. Һәр бит һәм яҙма үҙ статусы исемлегендә карточкаға әйләнә.",
+  "import-board-instruction-ghost": "Ghost-та Settings, Labs, Export your content һайлағыҙ, һәм .json файлын бында һайлағыҙ йәки ҡуйығыҙ. Һәр бит һәм яҙма үҙ статусы исемлегендә карточкаға әйләнә, тегтары тамғалар булараҡ.",
+  "import-board-instruction-blogger": "Blogger-ҙа Settings, Back up content һайлағыҙ, һәм .xml файлын бында һайлағыҙ йәки уның тексын ҡуйығыҙ. Һәр яҙма һәм бит карточкаға әйләнә, ҡараламаһы Draft исемлегендә, тамғалары һәм комментарийҙары менән.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro йәки башҡа статик сайттың сығанаҡтарын .zip-ҡа ҡыҫығыҙ - Markdown файлдарын front matter менән һәм уларҙың һүрәттәрен - һәм .zip-ты бында һайлағыҙ. Һәр Markdown файлы карточкаға әйләнә: posts папкаларынан йәки файл исемендә датаһы булған яҙмалар, ҡалғаны биттәр, ҡараламалар Draft исемлегендә, ә ҡулланған һүрәттәре уның ҡушымталары булараҡ.",
+  "import-board-instruction-htmlsite": "Веб-сайттың файлдарын .zip-ҡа ҡыҫығыҙ - уның .html биттәрен һәм һүрәттәрен, wget йәки HTTrack менән һаҡланғанса, йәки Medium экспортын - һәм .zip-ты бында һайлағыҙ. Һәр бит төп тексы менән карточкаға әйләнә, ҡулланған һүрәттәре уның ҡушымталары булараҡ; скрипттар, менюлар һәм формалар ташлана.",
+  "import-board-instruction-substack": "Substack-та Settings, Exports, Create new export һайлағыҙ, һәм йөкләнгән .zip-ты бында һайлағыҙ. Һәр яҙма тексы менән карточкаға әйләнә, баҫтырылған йәки ҡаралама."
 }

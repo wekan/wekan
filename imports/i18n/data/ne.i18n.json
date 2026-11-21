@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "सन्देश",
   "cloud-panel-chat-send": "पठाउनुहोस्",
   "cloud-panel-chat-import": "अघिल्ला कुराकानीहरू आयात गर्नुहोस्",
-  "cloud-panel-chat-imported": "__count__ सन्देशहरू आयात गरियो।"
+  "cloud-panel-chat-imported": "__count__ सन्देशहरू आयात गरियो।",
+  "board-view-website": "वेबसाइट",
+  "tool-group-website": "वेबसाइट",
+  "website-view-empty": "यस वेबसाइटमा अहिलेसम्म केही पनि प्रकाशित गरिएको छैन।",
+  "feature-views-website": "वेबसाइट दृश्य",
+  "feature-views-website-desc": "बोर्ड वेबसाइटको रूपमा: यसको Published सूचीका कार्डहरू, मार्ग Pages मेनुको रूपमा र अन्य कार्डहरू पोस्टको रूपमा, सबैभन्दा नयाँ पहिले, तिनका संलग्नकहरूसहित। सार्वजनिक बोर्ड यसमा खुल्न सक्छ, जसले गर्दा आगन्तुकहरूले बोर्डको ठेगानामा वेबसाइट देख्छन्।",
+  "import-board-instruction-wordpress": "WordPress मा 'Tools', 'Export', 'All content' र 'Download Export File' छान्नुहोस्, र त्यो .xml फाइल यहाँ छान्नुहोस्, वा यसको पाठ टाँस्नुहोस्। WordPress फाइल निर्यात गर्ने Squarespace, Wix र अन्य साइटहरू पनि यसरी नै काम गर्छन्। प्रत्येक पृष्ठ र पोस्ट आफ्नो स्थितिको सूचीमा एउटा कार्ड बन्छ, पृष्ठहरू मार्ग Pages मा र पोस्टहरू Posts मा, यसको सामग्री, वर्ग र ट्यागहरू लेबलको रूपमा, र स्वीकृत टिप्पणीहरूसहित।",
+  "import-board-instruction-wordpressjson": "WordPress REST API का पोस्ट र पृष्ठहरू (/wp-json/wp/v2/posts र /wp-json/wp/v2/pages) एउटै .json फाइलको रूपमा सुरक्षित गर्नुहोस्, र यसलाई यहाँ छान्नुहोस् वा टाँस्नुहोस्। प्रत्येक पृष्ठ र पोस्ट आफ्नो स्थितिको सूचीमा एउटा कार्ड बन्छ।",
+  "import-board-instruction-ghost": "Ghost मा 'Settings', 'Labs', 'Export your content' छान्नुहोस्, र .json फाइल यहाँ छान्नुहोस् वा टाँस्नुहोस्। प्रत्येक पृष्ठ र पोस्ट आफ्नो स्थितिको सूचीमा एउटा कार्ड बन्छ, यसका ट्यागहरू लेबलको रूपमा।",
+  "import-board-instruction-blogger": "Blogger मा 'Settings', 'Back up content' छान्नुहोस्, र .xml फाइल यहाँ छान्नुहोस् वा यसको पाठ टाँस्नुहोस्। प्रत्येक पोस्ट र पृष्ठ एउटा कार्ड बन्छ, मस्यौदा Draft सूचीमा, यसका लेबल र टिप्पणीहरूसहित।",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro वा अन्य स्थिर साइटका स्रोतहरू .zip गर्नुहोस् - front matter सहितका Markdown फाइलहरू, र तिनका तस्बिरहरू - र .zip यहाँ छान्नुहोस्। प्रत्येक Markdown फाइल एउटा कार्ड बन्छ: posts फोल्डरबाट वा फाइल नाममा मिति भएका पोस्ट, बाँकी पृष्ठ, मस्यौदाहरू Draft सूचीमा, र यसले प्रयोग गर्ने तस्बिरहरू यसका संलग्नकको रूपमा।",
+  "import-board-instruction-htmlsite": "वेबसाइटका फाइलहरू .zip गर्नुहोस् - wget वा HTTrack ले सुरक्षित गरेका यसका .html पृष्ठ र तस्बिरहरू, वा Medium को निर्यात - र .zip यहाँ छान्नुहोस्। प्रत्येक पृष्ठ यसको मुख्य पाठसहित एउटा कार्ड बन्छ, र यसले प्रयोग गर्ने तस्बिरहरू संलग्नकको रूपमा; स्क्रिप्ट, मेनु र फारमहरू छोडिन्छन्।",
+  "import-board-instruction-substack": "Substack मा 'Settings', 'Exports', 'Create new export' छान्नुहोस्, र डाउनलोड गरिएको .zip यहाँ छान्नुहोस्। प्रत्येक पोस्ट यसको पाठसहित एउटा कार्ड बन्छ, प्रकाशित वा मस्यौदा।"
 }

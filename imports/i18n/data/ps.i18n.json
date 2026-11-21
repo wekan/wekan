@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "پیغام",
   "cloud-panel-chat-send": "ولېږئ",
   "cloud-panel-chat-import": "پخوانۍ خبرې اترې راوړئ",
-  "cloud-panel-chat-imported": "__count__ پیغامونه راوړل شول."
+  "cloud-panel-chat-imported": "__count__ پیغامونه راوړل شول.",
+  "board-view-website": "وېبپاڼه",
+  "tool-group-website": "وېبپاڼه",
+  "website-view-empty": "په دې وېبپاڼه کې تر اوسه هېڅ نه دي خپاره شوي.",
+  "feature-views-website": "د وېبپاڼې لید",
+  "feature-views-website-desc": "تخته د وېبپاڼې په توګه: د هغې د Published لړليک کارتونه، کرښه Pages د غورنۍ په توګه او نور کارتونه د لیکنو په توګه، تر ټولو نوي لومړی، د خپلو ضميمو سره. یوه عامه تخته په دې لید کې پرانیستل کېدای شي، څو لیدونکي د تختې په پته کې وېبپاڼه ووینی.",
+  "import-board-instruction-wordpress": "په WordPress کې 'Tools'، 'Export'، 'All content' او 'Download Export File' وټاکئ، او هغه .xml دوتنه دلته وټاکئ، یا یې متن ونښلوئ. Squarespace، Wix او نورې وېبپاڼې چې د WordPress دوتنه صادروي په همدې ډول کار کوي. هره پاڼه او هره لیکنه د خپل حالت په لړليک کې یو کارت کېږي، پاڼې په کرښه Pages کې او لیکنې په Posts کې، د خپل منځپانګې، کټګوریو او ټګونو د نښو په توګه، او منل شویو تبصرو سره.",
+  "import-board-instruction-wordpressjson": "د WordPress REST API لیکنې او پاڼې (/wp-json/wp/v2/posts او /wp-json/wp/v2/pages) د یوې .json دوتنې په توګه خوندي کړئ، او دلته یې وټاکئ یا یې ونښلوئ. هره پاڼه او هره لیکنه د خپل حالت په لړليک کې یو کارت کېږي.",
+  "import-board-instruction-ghost": "په Ghost کې 'Settings'، 'Labs'، 'Export your content' وټاکئ، او .json دوتنه دلته وټاکئ یا یې ونښلوئ. هره پاڼه او هره لیکنه د خپل حالت په لړليک کې یو کارت کېږي، د خپلو ټګونو سره د نښو په توګه.",
+  "import-board-instruction-blogger": "په Blogger کې 'Settings'، 'Back up content' وټاکئ، او .xml دوتنه دلته وټاکئ یا یې متن ونښلوئ. هره لیکنه او هره پاڼه یو کارت کېږي، مسوده په Draft لړليک کې، د خپلو نښو او تبصرو سره.",
+  "import-board-instruction-markdownsite": "د Hugo، Jekyll، Eleventy، Astro یا بلې ثابتې وېبپاڼې سرچینې .zip کړئ - Markdown دوتنې د هغوی د front matter سره، او د هغوی انځورونه - او .zip دلته وټاکئ. هره Markdown دوتنه یو کارت کېږي: لیکنې د posts فولډرونو څخه یا هغه چې د دوتنې په نوم کې نېټه لري، پاتې پاڼې، مسودې په Draft لړليک کې، او هغه انځورونه چې کاروي یې د ضميمو په توګه.",
+  "import-board-instruction-htmlsite": "د یوې وېبپاڼې دوتنې .zip کړئ - د هغې .html پاڼې او انځورونه، لکه څنګه چې د wget یا HTTrack سره خوندي شوي، یا د Medium صادرات - او .zip دلته وټاکئ. هره پاڼه د خپل اصلي متن سره یو کارت کېږي، او هغه انځورونه چې کاروي یې د ضميمو په توګه؛ سکرېپټونه، غورنۍ او فورمې پرېښودل کېږي.",
+  "import-board-instruction-substack": "په Substack کې 'Settings'، 'Exports'، 'Create new export' وټاکئ، او ښکته شوی .zip دلته وټاکئ. هره لیکنه د خپل متن سره یو کارت کېږي، خپره شوې یا مسوده."
 }

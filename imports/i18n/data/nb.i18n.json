@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Melding",
   "cloud-panel-chat-send": "Send melding",
   "cloud-panel-chat-import": "Importer tidligere samtaler",
-  "cloud-panel-chat-imported": "__count__ meldinger importert."
+  "cloud-panel-chat-imported": "__count__ meldinger importert.",
+  "board-view-website": "Nettsted",
+  "tool-group-website": "Nettsted",
+  "website-view-empty": "Ingenting er publisert på dette nettstedet ennå.",
+  "feature-views-website": "Nettstedvisning",
+  "feature-views-website-desc": "Tavlen som et nettsted: kortene i listen Published, svømmebanen Pages som meny og de andre kortene som innlegg, nyeste først, med vedleggene sine. En offentlig tavle kan åpnes i denne visningen, slik at besøkende ser nettstedet på tavlens adresse.",
+  "import-board-instruction-wordpress": "I WordPress velger du «Verktøy», «Eksporter», «Alt innhold» og «Last ned eksportfil», og velger den .xml-filen her, eller limer inn teksten. Squarespace, Wix og andre nettsteder som eksporterer en WordPress-fil, fungerer på samme måte. Hver side og hvert innlegg blir et kort i listen for sin status, sider i svømmebanen Pages og innlegg i Posts, med innholdet, kategorier og stikkord som etiketter, og de godkjente kommentarene.",
+  "import-board-instruction-wordpressjson": "Lagre innleggene og sidene fra WordPress REST API (/wp-json/wp/v2/posts og /wp-json/wp/v2/pages) som én .json-fil, og velg den her eller lim den inn. Hver side og hvert innlegg blir et kort i listen for sin status.",
+  "import-board-instruction-ghost": "I Ghost velger du «Settings», «Labs», «Export your content», og velger .json-filen her eller limer den inn. Hver side og hvert innlegg blir et kort i listen for sin status, med stikkordene som etiketter.",
+  "import-board-instruction-blogger": "I Blogger velger du «Innstillinger», «Sikkerhetskopier innhold», og velger .xml-filen her eller limer inn teksten. Hvert innlegg og hver side blir et kort, et utkast i listen Draft, med etiketter og kommentarer.",
+  "import-board-instruction-markdownsite": "Pakk kildene til et Hugo-, Jekyll-, Eleventy-, Astro- eller annet statisk nettsted i en .zip - Markdown-filene med front matter, og bildene deres - og velg .zip-filen her. Hver Markdown-fil blir et kort: innlegg fra posts-mappene eller med en dato i filnavnet, resten sider, utkast i listen Draft, og bildene den bruker som vedlegg.",
+  "import-board-instruction-htmlsite": "Pakk filene til et nettsted i en .zip - .html-sidene og bildene, lagret med wget eller HTTrack, eller eksporten fra Medium - og velg .zip-filen her. Hver side blir et kort med hovedteksten sin, og bildene den bruker som vedlegg; skript, menyer og skjemaer utelates.",
+  "import-board-instruction-substack": "I Substack velger du «Settings», «Exports», «Create new export», og velger den nedlastede .zip-filen her. Hvert innlegg blir et kort med teksten sin, publisert eller utkast."
 }

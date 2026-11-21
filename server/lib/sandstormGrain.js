@@ -234,4 +234,4 @@ async function writeSandstormGrain(spec, { readAttachment } = {}) {
   return Buffer.from(zipSync(entries, { level: 6 }));
 }
 
-module.exports = { readSandstormGrain, readSandstormGrainData, writeSandstormGrain, sqliteRows };
+module.exports = { readSandstormGrain, readSandstormGrainData, writeSandstormGrain, sqliteRows, attachmentBytes, MAX_EXPORT_ATTACHMENT_BYTES };

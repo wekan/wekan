@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Xabar",
   "cloud-panel-chat-send": "Yuborish",
   "cloud-panel-chat-import": "Oldingi suhbatlarni import qilish",
-  "cloud-panel-chat-imported": "__count__ ta xabar import qilindi."
+  "cloud-panel-chat-imported": "__count__ ta xabar import qilindi.",
+  "board-view-website": "Veb-sayt",
+  "tool-group-website": "Veb-sayt",
+  "website-view-empty": "Bu veb-saytda hali hech narsa e'lon qilinmagan.",
+  "feature-views-website": "Veb-sayt ko'rinishi",
+  "feature-views-website-desc": "Taxta veb-sayt sifatida: uning Published ro'yxatidagi kartalar, menyu sifatida Pages suzish yo'li va boshqa kartalar postlar sifatida, eng yangilari birinchi, qo'shimchalari bilan. Ommaviy taxta unda ochilishi mumkin, shunda tashrif buyuruvchilar veb-saytni taxta manzilida ko'radi.",
+  "import-board-instruction-wordpress": "WordPress'da Tools, Export, All content va Download Export File'ni tanlang, so'ng o'sha .xml faylni shu yerda tanlang yoki uning matnini joylang. WordPress faylini eksport qiladigan Squarespace, Wix va boshqa saytlar ham xuddi shunday ishlaydi. Har bir sahifa va post o'z holati ro'yxatida karta bo'ladi, sahifalar Pages suzish yo'lida, postlar Posts'da, mazmuni, toifalari va teglari yorliqlar sifatida, hamda tasdiqlangan fikrlari bilan.",
+  "import-board-instruction-wordpressjson": "WordPress REST API postlari va sahifalarini (/wp-json/wp/v2/posts va /wp-json/wp/v2/pages) bitta .json fayl sifatida saqlang va uni shu yerda tanlang yoki joylang. Har bir sahifa va post o'z holati ro'yxatida karta bo'ladi.",
+  "import-board-instruction-ghost": "Ghost'da Settings, Labs, Export your content'ni tanlang va .json faylni shu yerda tanlang yoki joylang. Har bir sahifa va post o'z holati ro'yxatida karta bo'ladi, teglari yorliqlar sifatida.",
+  "import-board-instruction-blogger": "Blogger'da Settings, Back up content'ni tanlang va .xml faylni shu yerda tanlang yoki uning matnini joylang. Har bir post va sahifa karta bo'ladi, qoralama Draft ro'yxatida, yorliqlari va fikrlari bilan.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro yoki boshqa statik saytning manbalarini - front matter bilan Markdown fayllari va ularning rasmlarini - zip qiling va .zip'ni shu yerda tanlang. Har bir Markdown fayl karta bo'ladi: posts papkalaridan yoki fayl nomida sanasi borlari postlar, qolganlari sahifalar, qoralamalar Draft ro'yxatida, u ishlatadigan rasmlar esa uning qo'shimchalari sifatida.",
+  "import-board-instruction-htmlsite": "Veb-sayt fayllarini - wget yoki HTTrack bilan saqlangan .html sahifalari va rasmlarini, yoki Medium eksportini - zip qiling va .zip'ni shu yerda tanlang. Har bir sahifa asosiy matni bilan karta bo'ladi, u ishlatadigan rasmlar esa uning qo'shimchalari sifatida; skriptlar, menyular va shakllar tashlab ketiladi.",
+  "import-board-instruction-substack": "Substack'da Settings, Exports, Create new export'ni tanlang va yuklab olingan .zip'ni shu yerda tanlang. Har bir post matni bilan karta bo'ladi, e'lon qilingan yoki qoralama."
 }

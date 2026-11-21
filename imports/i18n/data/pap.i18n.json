@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensahe",
   "cloud-panel-chat-send": "Manda",
   "cloud-panel-chat-import": "Importá kòmbersashonnan di promé",
-  "cloud-panel-chat-imported": "__count__ mensahe importá."
+  "cloud-panel-chat-imported": "__count__ mensahe importá.",
+  "board-view-website": "Wèpsait",
+  "tool-group-website": "Wèpsait",
+  "website-view-empty": "Ainda no a publiká nada riba e wèpsait aki.",
+  "feature-views-website": "Bista di wèpsait",
+  "feature-views-website-desc": "E tabla komo wèpsait: e karchinan di su lista Published, e kaminda Pages komo menú i e otro karchinan komo artíkulo, esun mas nobo promé, ku nan adhuntonan. Un tabla públiko por habri den e bista aki, pa bishitantenan mira e wèpsait na e adrès di e tabla.",
+  "import-board-instruction-wordpress": "Den WordPress, skohe 'Tools', 'Export', 'All content' i 'Download Export File', i skohe e archivo .xml ei aki, òf pega su teksto. Squarespace, Wix i otro sitio ku ta eksportá un archivo WordPress ta funshoná meskos. Kada página i kada artíkulo ta bira un karchi den e lista di su status, páginanan den e kaminda Pages i artíkulonan den Posts, ku su kontenido, kategorianan i tagnan komo etiketa, i su komentarionan aprobá.",
+  "import-board-instruction-wordpressjson": "Warda e artíkulonan i páginanan di e WordPress REST API (/wp-json/wp/v2/posts i /wp-json/wp/v2/pages) komo un archivo .json, i skohe aki òf peg'é. Kada página i kada artíkulo ta bira un karchi den e lista di su status.",
+  "import-board-instruction-ghost": "Den Ghost, skohe 'Settings', 'Labs', 'Export your content', i skohe e archivo .json aki òf peg'é. Kada página i kada artíkulo ta bira un karchi den e lista di su status, ku su tagnan komo etiketa.",
+  "import-board-instruction-blogger": "Den Blogger, skohe 'Settings', 'Back up content', i skohe e archivo .xml aki òf pega su teksto. Kada artíkulo i kada página ta bira un karchi, un borador den e lista Draft, ku su etiketanan i komentarionan.",
+  "import-board-instruction-markdownsite": "Hasi un .zip di e fuentenan di un sitio Hugo, Jekyll, Eleventy, Astro òf otro sitio státiko - e archivonan Markdown ku nan front matter, i nan imágennan - i skohe e .zip aki. Kada archivo Markdown ta bira un karchi: artíkulo for di e mapanan posts òf ku un fecha den e nòmber di archivo, e resto página, boradornan den e lista Draft, i e imágennan ku e ta usa komo su adhuntonan.",
+  "import-board-instruction-htmlsite": "Hasi un .zip di e archivonan di un wèpsait - su páginanan .html i imágennan, manera warda ku wget òf HTTrack, òf e eksportashon di Medium - i skohe e .zip aki. Kada página ta bira un karchi ku su teksto prinsipal, i e imágennan ku e ta usa komo su adhuntonan; skript, menú i formulario ta keda afó.",
+  "import-board-instruction-substack": "Den Substack, skohe 'Settings', 'Exports', 'Create new export', i skohe e .zip deskargá aki. Kada artíkulo ta bira un karchi ku su teksto, publiká òf borador."
 }

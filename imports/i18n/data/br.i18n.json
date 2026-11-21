@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Kemennadenn",
   "cloud-panel-chat-send": "Kas",
   "cloud-panel-chat-import": "Enporzhiañ kaozeadennoù kent",
-  "cloud-panel-chat-imported": "__count__ kemennadenn enporzhiet."
+  "cloud-panel-chat-imported": "__count__ kemennadenn enporzhiet.",
+  "board-view-website": "Lec'hienn",
+  "tool-group-website": "Lec'hienn",
+  "website-view-empty": "N'eus bet embannet netra war al lec'hienn-mañ c'hoazh.",
+  "feature-views-website": "Gwel lec'hienn",
+  "feature-views-website-desc": "An daolenn evel ul lec'hienn: kartennoù he roll Published, an hent Pages evel lañser hag ar c'hartennoù all evel pennadoù, ar re nevesañ da gentañ, gant o restroù stag. Un daolenn foran a c'hall digeriñ enni, evit ma welfe ar weladennerien al lec'hienn e chomlec'h an daolenn.",
+  "import-board-instruction-wordpress": "E WordPress, dibabit Tools, Export, All content ha Download Export File, ha dibabit ar restr .xml-se amañ, pe pegit he zestenn. Squarespace, Wix ha lec'hiennoù all a ezporzh ur restr WordPress a ya en-dro er memes doare. Pep pajenn ha pennad a zeu da vezañ ur gartenn e roll e statud, ar pajennoù en hent Pages hag ar pennadoù e Posts, gant e endalc'had, e rummadoù hag e dikedennoù evel tikedennoù, hag e evezhiadennoù aprouet.",
+  "import-board-instruction-wordpressjson": "Enrollit pennadoù ha pajennoù REST API WordPress (/wp-json/wp/v2/posts ha /wp-json/wp/v2/pages) evel ur restr .json hepken, ha dibabit anezhi amañ pe pegit anezhi. Pep pajenn ha pennad a zeu da vezañ ur gartenn e roll e statud.",
+  "import-board-instruction-ghost": "E Ghost, dibabit Settings, Labs, Export your content, ha dibabit ar restr .json amañ pe pegit anezhi. Pep pajenn ha pennad a zeu da vezañ ur gartenn e roll e statud, gant e dikedennoù evel tikedennoù.",
+  "import-board-instruction-blogger": "E Blogger, dibabit Settings, Back up content, ha dibabit ar restr .xml amañ pe pegit he zestenn. Pep pennad ha pajenn a zeu da vezañ ur gartenn, ur brouenn er roll Draft, gant e dikedennoù hag e evezhiadennoù.",
+  "import-board-instruction-markdownsite": "Gwaskit e .zip mammennoù ul lec'hienn statek Hugo, Jekyll, Eleventy, Astro pe all - ar restroù Markdown gant o fennad (front matter), hag o skeudennoù - ha dibabit ar .zip amañ. Pep restr Markdown a zeu da vezañ ur gartenn: pennadoù eus an teuliadoù posts pe gant un deiziad en anv ar restr, ar peurrest pajennoù, ar brouennoù er roll Draft, hag ar skeudennoù a implij evel e restroù stag.",
+  "import-board-instruction-htmlsite": "Gwaskit e .zip restroù ul lec'hienn - he fajennoù .html hag he skeudennoù, enrollet gant wget pe HTTrack, pe ezporzh Medium - ha dibabit ar .zip amañ. Pep pajenn a zeu da vezañ ur gartenn gant he zestenn bennañ, hag ar skeudennoù a implij evel he restroù stag; ar skriptoù, al lañserioù hag ar furmskridoù a vez lezet a-gostez.",
+  "import-board-instruction-substack": "E Substack, dibabit Settings, Exports, Create new export, ha dibabit ar .zip pellgarget amañ. Pep pennad a zeu da vezañ ur gartenn gant e destenn, embannet pe brouenn."
 }

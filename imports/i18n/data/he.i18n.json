@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "הודעה",
   "cloud-panel-chat-send": "שליחה",
   "cloud-panel-chat-import": "ייבוא שיחות קודמות",
-  "cloud-panel-chat-imported": "__count__ הודעות יובאו."
+  "cloud-panel-chat-imported": "__count__ הודעות יובאו.",
+  "board-view-website": "אתר אינטרנט",
+  "tool-group-website": "אתרי אינטרנט",
+  "website-view-empty": "עדיין לא פורסם דבר באתר זה.",
+  "feature-views-website": "תצוגת אתר",
+  "feature-views-website-desc": "הלוח כאתר אינטרנט: הכרטיסים של הרשימה Published שלו, המסלול Pages כתפריט ושאר הכרטיסים כפוסטים, החדש ביותר תחילה, עם הקבצים המצורפים שלהם. לוח ציבורי יכול להיפתח בתצוגה זו, כך שמבקרים רואים את האתר בכתובת הלוח.",
+  "import-board-instruction-wordpress": "ב-WordPress, בחרו כלים, ייצוא, כל התוכן והורדת קובץ ייצוא, ובחרו כאן את קובץ ה-.xml הזה או הדביקו את הטקסט שלו. Squarespace,‏ Wix ואתרים אחרים שמייצאים קובץ WordPress פועלים באותה דרך. כל עמוד ופוסט הופך לכרטיס ברשימת המצב שלו, עמודים במסלול Pages ופוסטים ב-Posts, עם התוכן שלו, הקטגוריות והתגיות שלו כתוויות, וההערות המאושרות שלו.",
+  "import-board-instruction-wordpressjson": "שמרו את הפוסטים והעמודים של ה-REST API של WordPress (/wp-json/wp/v2/posts ו-/wp-json/wp/v2/pages) כקובץ .json אחד, ובחרו אותו כאן או הדביקו אותו. כל עמוד ופוסט הופך לכרטיס ברשימת המצב שלו.",
+  "import-board-instruction-ghost": "ב-Ghost, בחרו Settings, Labs, Export your content, ובחרו כאן את קובץ ה-.json או הדביקו אותו. כל עמוד ופוסט הופך לכרטיס ברשימת המצב שלו, עם התגיות שלו כתוויות.",
+  "import-board-instruction-blogger": "ב-Blogger, בחרו הגדרות, גיבוי תוכן, ובחרו כאן את קובץ ה-.xml או הדביקו את הטקסט שלו. כל פוסט ועמוד הופך לכרטיס, טיוטה ברשימה Draft, עם התוויות וההערות שלו.",
+  "import-board-instruction-markdownsite": "דחסו ל-.zip את קובצי המקור של אתר סטטי של Hugo,‏ Jekyll,‏ Eleventy,‏ Astro או אחר - קובצי ה-Markdown עם ה-front matter שלהם, והתמונות שלהם - ובחרו כאן את ה-.zip. כל קובץ Markdown הופך לכרטיס: פוסטים מתיקיות ה-posts או עם תאריך בשם הקובץ, השאר עמודים, טיוטות ברשימה Draft, והתמונות שבהן הוא משתמש כקבצים המצורפים שלו.",
+  "import-board-instruction-htmlsite": "דחסו ל-.zip את הקבצים של אתר אינטרנט - דפי ה-.html והתמונות שלו, כפי ששומרים אותם wget או HTTrack, או הייצוא של Medium - ובחרו כאן את ה-.zip. כל דף הופך לכרטיס עם הטקסט הראשי שלו, והתמונות שבהן הוא משתמש כקבצים המצורפים שלו; סקריפטים, תפריטים וטפסים מושמטים.",
+  "import-board-instruction-substack": "ב-Substack, בחרו Settings, Exports, Create new export, ובחרו כאן את ה-.zip שהורד. כל פוסט הופך לכרטיס עם הטקסט שלו, מפורסם או טיוטה."
 }

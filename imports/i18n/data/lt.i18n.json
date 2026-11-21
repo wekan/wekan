@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Žinutė",
   "cloud-panel-chat-send": "Siųsti",
   "cloud-panel-chat-import": "Importuoti ankstesnius pokalbius",
-  "cloud-panel-chat-imported": "Importuota žinučių: __count__."
+  "cloud-panel-chat-imported": "Importuota žinučių: __count__.",
+  "board-view-website": "Svetainė",
+  "tool-group-website": "Svetainė",
+  "website-view-empty": "Šioje svetainėje dar niekas nepaskelbta.",
+  "feature-views-website": "Svetainės rodinys",
+  "feature-views-website-desc": "Lenta kaip svetainė: jos sąrašo Published kortelės, plaukimo juosta Pages kaip meniu, o kitos kortelės kaip įrašai, naujausi pirmiausia, su jų priedais. Vieša lenta gali atsidaryti šiame rodinyje, kad lankytojai matytų svetainę lentos adresu.",
+  "import-board-instruction-wordpress": "WordPress pasirinkite „Tools“, „Export“, „All content“ ir „Download Export File“, tada pasirinkite tą .xml failą čia arba įklijuokite jo tekstą. Squarespace, Wix ir kitos svetainės, eksportuojančios WordPress failą, veikia taip pat. Kiekvienas puslapis ir įrašas tampa kortele savo būsenos sąraše, puslapiai plaukimo juostoje Pages, o įrašai juostoje Posts, su turiniu, kategorijomis ir žymomis kaip etiketėmis bei patvirtintais komentarais.",
+  "import-board-instruction-wordpressjson": "Išsaugokite WordPress REST API įrašus ir puslapius (/wp-json/wp/v2/posts ir /wp-json/wp/v2/pages) kaip vieną .json failą ir pasirinkite jį čia arba įklijuokite. Kiekvienas puslapis ir įrašas tampa kortele savo būsenos sąraše.",
+  "import-board-instruction-ghost": "Ghost pasirinkite „Settings“, „Labs“, „Export your content“, tada pasirinkite .json failą čia arba jį įklijuokite. Kiekvienas puslapis ir įrašas tampa kortele savo būsenos sąraše, su žymomis kaip etiketėmis.",
+  "import-board-instruction-blogger": "Blogger pasirinkite „Settings“, „Back up content“, tada pasirinkite .xml failą čia arba įklijuokite jo tekstą. Kiekvienas įrašas ir puslapis tampa kortele, juodraštis - sąraše Draft, su etiketėmis ir komentarais.",
+  "import-board-instruction-markdownsite": "Suspauskite Hugo, Jekyll, Eleventy, Astro ar kitos statinės svetainės šaltinius į .zip - Markdown failus su jų front matter ir paveikslėlius - ir pasirinkite .zip čia. Kiekvienas Markdown failas tampa kortele: įrašai iš posts aplankų arba su data failo pavadinime, kiti - puslapiai, juodraščiai sąraše Draft, o naudojami paveikslėliai - jos priedai.",
+  "import-board-instruction-htmlsite": "Suspauskite svetainės failus į .zip - jos .html puslapius ir paveikslėlius, išsaugotus su wget ar HTTrack, arba Medium eksportą - ir pasirinkite .zip čia. Kiekvienas puslapis tampa kortele su pagrindiniu tekstu, o naudojami paveikslėliai - jos priedai; scenarijai, meniu ir formos praleidžiami.",
+  "import-board-instruction-substack": "Substack pasirinkite „Settings“, „Exports“, „Create new export“, tada pasirinkite atsisiųstą .zip čia. Kiekvienas įrašas tampa kortele su tekstu, paskelbtu arba juodraščiu."
 }

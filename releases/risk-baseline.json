@@ -38,6 +38,15 @@
       "http://caddy(:2019)?",
       "https://\\{\\{settings\\.domain.*"
     ],
+    "models/lib/websiteFormat.js": [
+      "http://purl\\.org/.*",
+      "http://wordpress\\.org/export/.*",
+      "http://wellformedweb\\.org/.*",
+      "http://schemas\\.google\\.com/.*",
+      "http://www\\.blogger\\.com/atom/ns#",
+      "http://www\\.w3\\.org/2005/Atom",
+      "https://wekan\\.fi"
+    ],
     "server/cloudPanel.js": [
       "https://api\\.cloudflare\\.com.*",
       "https://\\$\\{domain\\.domain.*"

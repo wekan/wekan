@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Itukutuku",
   "cloud-panel-chat-send": "Vakauta",
   "cloud-panel-chat-import": "Kauta mai na veitalanoa e liu",
-  "cloud-panel-chat-imported": "__count__ na itukutuku sa kauta mai."
+  "cloud-panel-chat-imported": "__count__ na itukutuku sa kauta mai.",
+  "board-view-website": "Vanua e na initaneti",
+  "tool-group-website": "Vanua e na initaneti",
+  "website-view-empty": "E sega ni tabaki e dua na ka ena vanua e na initaneti oqo.",
+  "feature-views-website": "Raitayaki ni vanua e na initaneti",
+  "feature-views-website-desc": "Na vola me vaka e dua na vanua e na initaneti: na kadi ni lisi Published, na sala Pages me digidigi kei na kadi tale eso me itukutuku, na kena vou duadua e liu, vata kei na veika e semati. E rawa ni dolavi e dua na vola vei ira kece ena raitayaki oqo, mera raica na vulagi na vanua e na initaneti ena kena itikotiko na vola.",
+  "import-board-instruction-wordpress": "Ena WordPress, digia na Tools, Export, All content kei na Download Export File, ka digia na faile .xml oya eke se vakacabolea na kena vosa. Squarespace, Wix kei na vanua tale eso era vakauta yani e dua na faile WordPress era cakacaka vakakina. Na veitabana kei na itukutuku kece e yaco me kadi ena lisi ni kena ituvaki, na veitabana ena sala Pages kei na itukutuku ena Posts, vata kei na kena ka, na kena mataqali kei na kena tags me ivakatakilakila, kei na kena vakasama e vakadonui.",
+  "import-board-instruction-wordpressjson": "Maroroya na itukutuku kei na veitabana ni REST API ni WordPress (/wp-json/wp/v2/posts kei na /wp-json/wp/v2/pages) me dua ga na faile .json, ka digia eke se vakacabolea. Na veitabana kei na itukutuku kece e yaco me kadi ena lisi ni kena ituvaki.",
+  "import-board-instruction-ghost": "Ena Ghost, digia na Settings, Labs, Export your content, ka digia na faile .json eke se vakacabolea. Na veitabana kei na itukutuku kece e yaco me kadi ena lisi ni kena ituvaki, vata kei na kena tags me ivakatakilakila.",
+  "import-board-instruction-blogger": "Ena Blogger, digia na Settings, Back up content, ka digia na faile .xml eke se vakacabolea na kena vosa. Na itukutuku kei na veitabana kece e yaco me kadi, na ivakarau taumada ena lisi Draft, vata kei na kena ivakatakilakila kei na vakasama.",
+  "import-board-instruction-markdownsite": "Vakalailaitaka me .zip na kena vu na vanua sega ni veisau Hugo, Jekyll, Eleventy, Astro se dua tale - na faile Markdown vata kei na nodra front matter, kei na nodra iyaloyalo - ka digia na .zip eke. Na faile Markdown kece e yaco me kadi: na itukutuku mai na kato posts se e tiko kina na siga ena yaca ni faile, na kena vo me veitabana, na ivakarau taumada ena lisi Draft, kei na iyaloyalo e vakayagataka me veika e semati.",
+  "import-board-instruction-htmlsite": "Vakalailaitaka me .zip na faile ni dua na vanua e na initaneti - na kena veitabana .html kei na iyaloyalo, me vaka e maroroya na wget se HTTrack, se na ka e vakauta yani na Medium - ka digia na .zip eke. Na veitabana kece e yaco me kadi vata kei na kena vosa levu, kei na iyaloyalo e vakayagataka me veika e semati; na script, digidigi kei na fomu e biuta tu.",
+  "import-board-instruction-substack": "Ena Substack, digia na Settings, Exports, Create new export, ka digia na .zip e lavetaki eke. Na itukutuku kece e yaco me kadi vata kei na kena vosa, tabaki se ivakarau taumada."
 }

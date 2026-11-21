@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "پیغام",
   "cloud-panel-chat-send": "سوزِو",
   "cloud-panel-chat-import": "گۄڈنِچ گپہٕ شپہٕ درآمد کریو",
-  "cloud-panel-chat-imported": "__count__ پیغام درآمد کٔرۍ۔"
+  "cloud-panel-chat-imported": "__count__ پیغام درآمد کٔرۍ۔",
+  "board-view-website": "ویب سائٹ",
+  "tool-group-website": "ویب سائٹہٕ",
+  "website-view-empty": "یَتھ ویب سائٹس پؠٹھ چھُ نہٕ وُنی کینٛہہ شایع کرنہٕ آمُت۔",
+  "feature-views-website": "ویب سائٹُک نظارٕ",
+  "feature-views-website-desc": "بورڈ ویب سائٹِ ہِنٛدِ پٲٹھۍ: امیُک فہرست Published ہِنٛدۍ کارڈ، وَتھ Pages مینیو ہِنٛدِ پٲٹھۍ تہٕ باقی کارڈ پوسٹن ہِنٛدِ پٲٹھۍ، نوِ ہیٚتھ، تِہنٛدۍ منسلکاتن سٕتۍ۔ اَکھ عام بورڈ ہیٚکہِ یَتھ نظارس منٛز کُھلِتھ، تاکہ مہمان وُچھن ویب سائٹ بورڈُک پتہٕ پؠٹھ۔",
+  "import-board-instruction-wordpress": "WordPress منٛز ژارِو Tools، Export، All content تہٕ Download Export File، تہٕ یَتھ ژارِو سُہ .xml فائل یا چسپاں کریو تمیُک متن۔ Squarespace، Wix تہٕ باقی سائٹہٕ یِم WordPress فائل برآمد کران چھِ، تِم چھِ تِتھۍ پٲٹھۍ کٲم کران۔ پرٛتھ صفحہ تہٕ پوسٹ بنان کارڈ پننہِ حالتُک فہرستس منٛز، صفحہٕ وَتھ Pages منٛز تہٕ پوسٹ Posts منٛز، پننِس مواد، زمرن تہٕ ٹیگن لیبلن ہِنٛدِ پٲٹھۍ، تہٕ منظور شُدہ تبصرن سٕتۍ۔",
+  "import-board-instruction-wordpressjson": "WordPress REST API ہِنٛدۍ پوسٹ تہٕ صفحہٕ (/wp-json/wp/v2/posts تہٕ /wp-json/wp/v2/pages) کریو اَکھ .json فائلِ ہِنٛدِ پٲٹھۍ محفوظ، تہٕ یَتھ ژارِو یا چسپاں کریو۔ پرٛتھ صفحہ تہٕ پوسٹ بنان کارڈ پننہِ حالتُک فہرستس منٛز۔",
+  "import-board-instruction-ghost": "Ghost منٛز ژارِو Settings، Labs، Export your content، تہٕ یَتھ ژارِو .json فائل یا چسپاں کریو۔ پرٛتھ صفحہ تہٕ پوسٹ بنان کارڈ پننہِ حالتُک فہرستس منٛز، ٹیگن لیبلن ہِنٛدِ پٲٹھۍ۔",
+  "import-board-instruction-blogger": "Blogger منٛز ژارِو Settings، Back up content، تہٕ یَتھ ژارِو .xml فائل یا چسپاں کریو تمیُک متن۔ پرٛتھ پوسٹ تہٕ صفحہ بنان کارڈ، مسودٕ فہرست Draft منٛز، پننِس لیبلن تہٕ تبصرن سٕتۍ۔",
+  "import-board-instruction-markdownsite": "Hugo، Jekyll، Eleventy، Astro یا بیٚیہِ ساکن سائٹُک ماخذ کریو .zip - Markdown فائل تِہنٛدِس front matter سٕتۍ، تہٕ تِہنٛدۍ تصویر - تہٕ یَتھ ژارِو .zip۔ پرٛتھ Markdown فائل بنان کارڈ: posts فولڈرن ہِنٛدۍ یا فائل ناوس منٛز تٲریٖخ وٲلۍ پوسٹ، باقی صفحہٕ، مسودٕ فہرست Draft منٛز، تہٕ یِم تصویر سُہ ورتاوان چھُ تِم منسلکاتن ہِنٛدِ پٲٹھۍ۔",
+  "import-board-instruction-htmlsite": "اَکھ ویب سائٹُک فائل کریو .zip - امیُک .html صفحہٕ تہٕ تصویر، یِتھ wget یا HTTrack محفوظ کران چھِ، یا Medium ہُک برآمد - تہٕ یَتھ ژارِو .zip۔ پرٛتھ صفحہ بنان کارڈ پننِس بُنیٲدی متنس سٕتۍ، تہٕ یِم تصویر سُہ ورتاوان چھُ تِم منسلکاتن ہِنٛدِ پٲٹھۍ؛ اسکرپٹ، مینیو تہٕ فارم چھِ ترانٛونہٕ یِوان۔",
+  "import-board-instruction-substack": "Substack منٛز ژارِو Settings، Exports، Create new export، تہٕ یَتھ ژارِو ڈاؤن لوڈ کرنہٕ آمُت .zip۔ پرٛتھ پوسٹ بنان کارڈ پننِس متنس سٕتۍ، شایع یا مسودٕ۔"
 }

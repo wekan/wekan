@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Sporočilo",
   "cloud-panel-chat-send": "Pošlji",
   "cloud-panel-chat-import": "Uvozi prejšnje pogovore",
-  "cloud-panel-chat-imported": "Uvožena sporočila: __count__."
+  "cloud-panel-chat-imported": "Uvožena sporočila: __count__.",
+  "board-view-website": "Spletno mesto",
+  "tool-group-website": "Spletno mesto",
+  "website-view-empty": "Na tem spletnem mestu še ni nič objavljeno.",
+  "feature-views-website": "Pogled spletnega mesta",
+  "feature-views-website-desc": "Tabla kot spletno mesto: kartice njenega seznama Published, plavalna steza Pages kot meni in druge kartice kot prispevki, najnovejši najprej, z njihovimi priponkami. Javna tabla se lahko odpre v tem pogledu, da obiskovalci vidijo spletno mesto na naslovu table.",
+  "import-board-instruction-wordpress": "V WordPressu izberite »Orodja«, »Izvozi«, »Vsa vsebina« in »Prenesi izvozno datoteko« ter tukaj izberite to datoteko .xml ali prilepite njeno besedilo. Squarespace, Wix in druga spletna mesta, ki izvozijo datoteko WordPress, delujejo enako. Vsaka stran in vsak prispevek postane kartica na seznamu svojega stanja, strani na plavalni stezi Pages in prispevki v Posts, z vsebino, kategorijami in značkami kot oznakami ter odobrenimi komentarji.",
+  "import-board-instruction-wordpressjson": "Shranite prispevke in strani iz WordPress REST API (/wp-json/wp/v2/posts in /wp-json/wp/v2/pages) kot eno datoteko .json in jo izberite tukaj ali prilepite. Vsaka stran in vsak prispevek postane kartica na seznamu svojega stanja.",
+  "import-board-instruction-ghost": "V Ghostu izberite »Settings«, »Labs«, »Export your content« ter tukaj izberite datoteko .json ali jo prilepite. Vsaka stran in vsak prispevek postane kartica na seznamu svojega stanja, z značkami kot oznakami.",
+  "import-board-instruction-blogger": "V Bloggerju izberite »Nastavitve«, »Varnostno kopiranje vsebine« ter tukaj izberite datoteko .xml ali prilepite njeno besedilo. Vsaka objava in vsaka stran postane kartica, osnutek na seznamu Draft, z oznakami in komentarji.",
+  "import-board-instruction-markdownsite": "Stisnite v .zip vire spletnega mesta Hugo, Jekyll, Eleventy, Astro ali drugega statičnega mesta - datoteke Markdown z njihovim front matter in njihove slike - ter tukaj izberite .zip. Vsaka datoteka Markdown postane kartica: prispevki iz map posts ali z datumom v imenu datoteke, ostalo strani, osnutki na seznamu Draft, slike, ki jih uporablja, pa njene priponke.",
+  "import-board-instruction-htmlsite": "Stisnite v .zip datoteke spletnega mesta - njegove strani .html in slike, shranjene z wget ali HTTrack, ali izvoz iz Mediuma - ter tukaj izberite .zip. Vsaka stran postane kartica z glavnim besedilom, slike, ki jih uporablja, pa njene priponke; skripti, meniji in obrazci so izpuščeni.",
+  "import-board-instruction-substack": "V Substacku izberite »Settings«, »Exports«, »Create new export« ter tukaj izberite preneseni .zip. Vsak prispevek postane kartica z besedilom, objavljena ali osnutek."
 }

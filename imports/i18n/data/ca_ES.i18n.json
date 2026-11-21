@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Missatge",
   "cloud-panel-chat-send": "Envia",
   "cloud-panel-chat-import": "Importa converses anteriors",
-  "cloud-panel-chat-imported": "__count__ missatges importats."
+  "cloud-panel-chat-imported": "__count__ missatges importats.",
+  "board-view-website": "Lloc web",
+  "tool-group-website": "Lloc web",
+  "website-view-empty": "Encara no s'ha publicat res en aquest lloc web.",
+  "feature-views-website": "Vista de lloc web",
+  "feature-views-website-desc": "El tauler com a lloc web: les targetes de la seva llista Published, el carril Pages com a menú i les altres targetes com a entrades, les més noves primer, amb els seus adjunts. Un tauler públic s'hi pot obrir, de manera que els visitants veuen el lloc web a l'adreça del tauler.",
+  "import-board-instruction-wordpress": "A WordPress, trieu Eines, Exporta, Tot el contingut i Descarrega el fitxer d'exportació, i trieu aquí aquell fitxer .xml, o enganxeu-ne el text. Squarespace, Wix i altres llocs que exporten un fitxer de WordPress funcionen igual. Cada pàgina i entrada esdevé una targeta a la llista del seu estat, les pàgines al carril Pages i les entrades a Posts, amb el seu contingut, les categories i etiquetes com a etiquetes, i els comentaris aprovats.",
+  "import-board-instruction-wordpressjson": "Deseu les entrades i pàgines de la REST API de WordPress (/wp-json/wp/v2/posts i /wp-json/wp/v2/pages) com un sol fitxer .json, i trieu-lo aquí o enganxeu-lo. Cada pàgina i entrada esdevé una targeta a la llista del seu estat.",
+  "import-board-instruction-ghost": "A Ghost, trieu Settings, Labs, Export your content, i trieu aquí el fitxer .json o enganxeu-lo. Cada pàgina i entrada esdevé una targeta a la llista del seu estat, amb les seves etiquetes com a etiquetes.",
+  "import-board-instruction-blogger": "A Blogger, trieu Configuració, Fes una còpia de seguretat del contingut, i trieu aquí el fitxer .xml o enganxeu-ne el text. Cada entrada i pàgina esdevé una targeta, un esborrany a la llista Draft, amb les seves etiquetes i comentaris.",
+  "import-board-instruction-markdownsite": "Comprimiu en .zip les fonts d'un lloc estàtic Hugo, Jekyll, Eleventy, Astro o un altre - els fitxers Markdown amb la seva capçalera (front matter), i les seves imatges - i trieu aquí el .zip. Cada fitxer Markdown esdevé una targeta: entrades de les carpetes posts o amb una data al nom del fitxer, la resta pàgines, esborranys a la llista Draft, i les imatges que fa servir com a adjunts.",
+  "import-board-instruction-htmlsite": "Comprimiu en .zip els fitxers d'un lloc web - les seves pàgines .html i imatges, desades amb wget o HTTrack, o l'exportació de Medium - i trieu aquí el .zip. Cada pàgina esdevé una targeta amb el seu text principal, i les imatges que fa servir com a adjunts; els scripts, menús i formularis es deixen fora.",
+  "import-board-instruction-substack": "A Substack, trieu Settings, Exports, Create new export, i trieu aquí el .zip descarregat. Cada entrada esdevé una targeta amb el seu text, publicada o esborrany."
 }

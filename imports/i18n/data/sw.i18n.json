@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ujumbe",
   "cloud-panel-chat-send": "Tuma",
   "cloud-panel-chat-import": "Ingiza mazungumzo ya awali",
-  "cloud-panel-chat-imported": "Ujumbe __count__ umeingizwa."
+  "cloud-panel-chat-imported": "Ujumbe __count__ umeingizwa.",
+  "board-view-website": "Tovuti",
+  "tool-group-website": "Tovuti",
+  "website-view-empty": "Bado hakuna kilichochapishwa kwenye tovuti hii.",
+  "feature-views-website": "Mwonekano wa tovuti",
+  "feature-views-website-desc": "Bodi kama tovuti: kadi za orodha yake ya Published, njia ya Pages kama menyu na kadi nyingine kama machapisho, mapya kwanza, pamoja na viambatisho vyake. Bodi ya hadharani inaweza kufunguka ndani yake, ili wageni waone tovuti kwenye anwani ya bodi.",
+  "import-board-instruction-wordpress": "Katika WordPress, chagua Zana, Hamisha, Maudhui yote na Pakua Faili ya Kuhamisha, kisha chagua faili hiyo ya .xml hapa, au bandika maandishi yake. Squarespace, Wix na tovuti nyingine zinazohamisha faili ya WordPress hufanya kazi vivyo hivyo. Kila ukurasa na chapisho huwa kadi katika orodha ya hali yake, kurasa katika njia ya Pages na machapisho katika Posts, pamoja na maudhui yake, kategoria na vitambulisho vyake kama lebo, na maoni yake yaliyoidhinishwa.",
+  "import-board-instruction-wordpressjson": "Hifadhi machapisho na kurasa za WordPress REST API (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) kama faili moja ya .json, kisha uichague hapa au uibandike. Kila ukurasa na chapisho huwa kadi katika orodha ya hali yake.",
+  "import-board-instruction-ghost": "Katika Ghost, chagua Settings, Labs, Export your content, kisha chagua faili ya .json hapa au uibandike. Kila ukurasa na chapisho huwa kadi katika orodha ya hali yake, pamoja na vitambulisho vyake kama lebo.",
+  "import-board-instruction-blogger": "Katika Blogger, chagua Mipangilio, Hifadhi nakala ya maudhui, kisha chagua faili ya .xml hapa au ubandike maandishi yake. Kila chapisho na ukurasa huwa kadi, rasimu katika orodha ya Draft, pamoja na lebo na maoni yake.",
+  "import-board-instruction-markdownsite": "Bana kama zip vyanzo vya tovuti tuli ya Hugo, Jekyll, Eleventy, Astro au nyingine - faili za Markdown pamoja na front matter yake, na picha zake - kisha chagua .zip hapa. Kila faili ya Markdown huwa kadi: machapisho kutoka folda za posts au yenye tarehe katika jina la faili, zilizobaki ni kurasa, rasimu katika orodha ya Draft, na picha inazotumia kama viambatisho vyake.",
+  "import-board-instruction-htmlsite": "Bana kama zip faili za tovuti - kurasa zake za .html na picha, kama zilivyohifadhiwa kwa wget au HTTrack, au uhamishaji wa Medium - kisha chagua .zip hapa. Kila ukurasa huwa kadi yenye maandishi yake makuu, na picha unazotumia kama viambatisho vyake; hati za script, menyu na fomu huachwa.",
+  "import-board-instruction-substack": "Katika Substack, chagua Settings, Exports, Create new export, kisha chagua .zip uliyopakua hapa. Kila chapisho huwa kadi yenye maandishi yake, iliyochapishwa au rasimu."
 }

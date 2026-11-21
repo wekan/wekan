@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Umlayezo",
   "cloud-panel-chat-send": "Thumela",
   "cloud-panel-chat-import": "Ngenisa izingxoxo zangaphambili",
-  "cloud-panel-chat-imported": "Imilayezo engu-__count__ ingenisiwe."
+  "cloud-panel-chat-imported": "Imilayezo engu-__count__ ingenisiwe.",
+  "board-view-website": "Iwebhusayithi",
+  "tool-group-website": "Iwebhusayithi",
+  "website-view-empty": "Akukho okumenyezelweyo kule webhusayithi okwamanje.",
+  "feature-views-website": "Ukubuka njengewebhusayithi",
+  "feature-views-website-desc": "Ibhodi njengewebhusayithi: amakhadi ohlu lwayo Published, umzila Pages njengemenyu lamanye amakhadi njengezithunywa, ezintsha kuqala, lokunamathiselweyo kwazo. Ibhodi yomphakathi ingavula kulokhu, ukuze izivakatshi zibone iwebhusayithi ekhelini lebhodi.",
+  "import-board-instruction-wordpress": "Ku-WordPress, khetha 'Tools', 'Export', 'All content' le 'Download Export File', ukhethe lelo fayili le-.xml lapha, kumbe unamathisele umbhalo walo. I-Squarespace, i-Wix lamanye amasayithi athumela ngaphandle ifayili le-WordPress asebenza ngendlela efanayo. Ikhasi ngalinye lesithunywa ngasinye kuba likhadi ohlwini lwesimo salo, amakhasi emzileni Pages lezithunywa ku-Posts, lokuqukethweyo kwalo, izigaba lama-tag njengamalebula, lemibono yalo evunyelweyo.",
+  "import-board-instruction-wordpressjson": "Gcina izithunywa lamakhasi e-WordPress REST API (/wp-json/wp/v2/posts le /wp-json/wp/v2/pages) njengefayili elilodwa le-.json, ulikhethe lapha kumbe ulinamathisele. Ikhasi ngalinye lesithunywa ngasinye kuba likhadi ohlwini lwesimo salo.",
+  "import-board-instruction-ghost": "Ku-Ghost, khetha 'Settings', 'Labs', 'Export your content', ukhethe ifayili le-.json lapha kumbe ulinamathisele. Ikhasi ngalinye lesithunywa ngasinye kuba likhadi ohlwini lwesimo salo, lama-tag alo njengamalebula.",
+  "import-board-instruction-blogger": "Ku-Blogger, khetha 'Settings', 'Back up content', ukhethe ifayili le-.xml lapha kumbe unamathisele umbhalo walo. Isithunywa ngasinye lekhasi ngalinye kuba likhadi, okungakaphelelwa ohlwini Draft, lamalebula alo lemibono.",
+  "import-board-instruction-markdownsite": "Faka ku-.zip imithombo yesayithi ye-Hugo, Jekyll, Eleventy, Astro kumbe enye isayithi engaguquki - amafayili e-Markdown lama-front matter awo, lezithombe zawo - ukhethe i-.zip lapha. Ifayili ngalinye le-Markdown liba likhadi: izithunywa ezivela kumafolda e-posts kumbe ezilosuku ebizweni lefayili, okunye kungamakhasi, okungakaphelelwa ohlwini Draft, lezithombe elizisebenzisayo njengokunamathiselweyo kwalo.",
+  "import-board-instruction-htmlsite": "Faka ku-.zip amafayili ewebhusayithi - amakhasi ayo e-.html lezithombe, njengoba agcinwe nge-wget kumbe nge-HTTrack, kumbe okuthunyelwe ngaphandle yi-Medium - ukhethe i-.zip lapha. Ikhasi ngalinye liba likhadi lombhalo walo omkhulu, lezithombe elizisebenzisayo njengokunamathiselweyo; ama-script, amamenyu lamafomu kuyatshiywa.",
+  "import-board-instruction-substack": "Ku-Substack, khetha 'Settings', 'Exports', 'Create new export', ukhethe i-.zip oyilandileyo lapha. Isithunywa ngasinye siba likhadi lombhalo waso, esimenyezelweyo kumbe esingakapheleli."
 }

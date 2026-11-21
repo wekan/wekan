@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Missaggiu",
   "cloud-panel-chat-send": "Manna",
   "cloud-panel-chat-import": "Mporta li chiacchiariati di prima",
-  "cloud-panel-chat-imported": "__count__ missaggi mpurtati."
+  "cloud-panel-chat-imported": "__count__ missaggi mpurtati.",
+  "board-view-website": "Situ web",
+  "tool-group-website": "Situ web",
+  "website-view-empty": "Supra stu situ web nun fu pubblicatu ancora nenti.",
+  "feature-views-website": "Vista dû situ web",
+  "feature-views-website-desc": "La tavula comu situ web: li carti dâ so lista Published, la curseva Pages comu menù e l'àutri carti comu articuli, li cchiù novi prima, cu li so allegati. Na tavula pùbbrica si pò rapiri nta sta vista, accussì li visitatura vìdinu lu situ web all'indirizzu dâ tavula.",
+  "import-board-instruction-wordpress": "Nta WordPress scegghi 'Tools', 'Export', 'All content' e 'Download Export File', e scegghi chiddu file .xml ccà, o mpiccica lu so testu. Squarespace, Wix e àutri siti ca espòrtanu un file WordPress fùnzionanu â stissa manera. Ogni pàggina e ogni articulu addiventa na carta nta la lista dû so statu, li pàggini nta la curseva Pages e l'articuli nta Posts, cu lu so cuntinutu, li categurìi e li tag comu etichetti, e li so cummenti appruvati.",
+  "import-board-instruction-wordpressjson": "Sarva l'articuli e li pàggini dâ WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) comu un sulu file .json, e scegghilu ccà o mpiccicalu. Ogni pàggina e ogni articulu addiventa na carta nta la lista dû so statu.",
+  "import-board-instruction-ghost": "Nta Ghost scegghi 'Settings', 'Labs', 'Export your content', e scegghi lu file .json ccà o mpiccicalu. Ogni pàggina e ogni articulu addiventa na carta nta la lista dû so statu, cu li so tag comu etichetti.",
+  "import-board-instruction-blogger": "Nta Blogger scegghi 'Settings', 'Back up content', e scegghi lu file .xml ccà o mpiccica lu so testu. Ogni articulu e ogni pàggina addiventa na carta, na bozza nta la lista Draft, cu li so etichetti e cummenti.",
+  "import-board-instruction-markdownsite": "Fai un .zip dî surgenti di un situ Hugo, Jekyll, Eleventy, Astro o n'àutru situ stàticu - li file Markdown cu lu so front matter, e li so mmàggini - e scegghi lu .zip ccà. Ogni file Markdown addiventa na carta: articuli dî cartelli posts o cu na data nnô nomu dû file, lu restu pàggini, li bozzi nta la lista Draft, e li mmàggini ca usa comu so allegati.",
+  "import-board-instruction-htmlsite": "Fai un .zip dî file di un situ web - li so pàggini .html e mmàggini, comu sarvati cu wget o HTTrack, o l'esportazzioni di Medium - e scegghi lu .zip ccà. Ogni pàggina addiventa na carta cu lu so testu principali, e li mmàggini ca usa comu so allegati; script, menù e mòduli sunnu lassati fora.",
+  "import-board-instruction-substack": "Nta Substack scegghi 'Settings', 'Exports', 'Create new export', e scegghi lu .zip scaricatu ccà. Ogni articulu addiventa na carta cu lu so testu, pubblicatu o bozza."
 }

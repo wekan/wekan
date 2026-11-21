@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Hat",
   "cloud-panel-chat-send": "Iber",
   "cloud-panel-chat-import": "Öňki söhbetdeşlikleri import et",
-  "cloud-panel-chat-imported": "__count__ hat import edildi."
+  "cloud-panel-chat-imported": "__count__ hat import edildi.",
+  "board-view-website": "Web sahypa",
+  "tool-group-website": "Web sahypa",
+  "website-view-empty": "Bu web sahypada heniz hiç zat çap edilmedi.",
+  "feature-views-website": "Web sahypa görnüşi",
+  "feature-views-website-desc": "Tagta web sahypa hökmünde: onuň Published sanawynyň kartlary, Pages swimüzmegi menýu hökmünde we beýleki kartlar ýazgylar hökmünde, iň täzeleri öňde, goşundylary bilen. Köpçülikleýin tagta onda açylyp biler, şeýlelikde myhmanlar web sahypany tagtanyň salgysynda görýärler.",
+  "import-board-instruction-wordpress": "WordPress-de Tools, Export, All content we Download Export File saýlaň, şol .xml faýly şu ýerde saýlaň ýa-da onuň tekstini goýuň. WordPress faýlyny eksport edýän Squarespace, Wix we beýleki saýtlar hem şeýle işleýär. Her sahypa we ýazgy öz ýagdaýynyň sanawynda karta öwrülýär, sahypalar Pages swimüzmeginde, ýazgylar Posts-da, mazmuny, kategoriýalary we tegleri bellikler hökmünde, we tassyklanan teswirleri bilen.",
+  "import-board-instruction-wordpressjson": "WordPress REST API-niň ýazgylaryny we sahypalaryny (/wp-json/wp/v2/posts we /wp-json/wp/v2/pages) bir .json faýl hökmünde saklaň we ony şu ýerde saýlaň ýa-da goýuň. Her sahypa we ýazgy öz ýagdaýynyň sanawynda karta öwrülýär.",
+  "import-board-instruction-ghost": "Ghost-da Settings, Labs, Export your content saýlaň we .json faýly şu ýerde saýlaň ýa-da goýuň. Her sahypa we ýazgy öz ýagdaýynyň sanawynda karta öwrülýär, tegleri bellikler hökmünde.",
+  "import-board-instruction-blogger": "Blogger-de Settings, Back up content saýlaň we .xml faýly şu ýerde saýlaň ýa-da onuň tekstini goýuň. Her ýazgy we sahypa karta öwrülýär, garalama Draft sanawynda, bellikleri we teswirleri bilen.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro ýa-da başga statik saýtyň çeşmelerini - Markdown faýllaryny front matter-i bilen we suratlaryny - zip ediň we .zip-i şu ýerde saýlaň. Her Markdown faýly karta öwrülýär: posts bukjalaryndan ýa-da faýl adynda senesi bolanlar ýazgylar, galanlary sahypalar, garalamalar Draft sanawynda, ulanýan suratlary bolsa goşundylary hökmünde.",
+  "import-board-instruction-htmlsite": "Web sahypanyň faýllaryny - wget ýa-da HTTrack bilen saklanan .html sahypalaryny we suratlaryny, ýa-da Medium eksportyny - zip ediň we .zip-i şu ýerde saýlaň. Her sahypa esasy teksti bilen karta öwrülýär, ulanýan suratlary goşundylary hökmünde; skriptler, menýular we formalar goşulmaýar.",
+  "import-board-instruction-substack": "Substack-da Settings, Exports, Create new export saýlaň we göçürilip alnan .zip-i şu ýerde saýlaň. Her ýazgy teksti bilen karta öwrülýär, çap edilen ýa-da garalama."
 }

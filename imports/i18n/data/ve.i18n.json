@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mulaedza",
   "cloud-panel-chat-send": "Rumelani",
   "cloud-panel-chat-import": "Dzhenisani nyambedzano dza kale",
-  "cloud-panel-chat-imported": "Milaedza ya __count__ yo dzheniswa."
+  "cloud-panel-chat-imported": "Milaedza ya __count__ yo dzheniswa.",
+  "board-view-website": "Webusaithi",
+  "tool-group-website": "Webusaithi",
+  "website-view-empty": "A hu na tshithu tsho gandiswaho kha webusaithi iyi zwa zwino.",
+  "feature-views-website": "U vhona sa webusaithi",
+  "feature-views-website-desc": "Bodo sa webusaithi: makhadi a mutevhe wayo wa Published, ḽaini ya Pages sa menyu na makhadi manwe sa zwiṅwalwa, maswa u thoma, na zwiṱumetshedzwa zwao. Bodo ya tshitshavha i nga vulea khayo, uri vhadali vha vhone webusaithi kha diresi ya bodo.",
+  "import-board-instruction-wordpress": "Kha WordPress, nangani Tools, Export, All content na Download Export File, ni nange faela iyo ya .xml fhano, kana ni nambatedze maṅwalwa ayo. Squarespace, Wix na saithi dziṅwe dzi bvisaho faela ya WordPress dzi shuma nga nḓila i fanaho. Siaṱari ḽiṅwe na ḽiṅwe na tshiṅwalwa tshiṅwe na tshiṅwe zwi vha khadi kha mutevhe wa tshiimo tshazwo, masiaṱari kha ḽaini ya Pages na zwiṅwalwa kha Posts, na zwi re ngomu, zwigwada na dzithegi sa dziḽeibuḽu, na mahumbulwa ane a tendelwa.",
+  "import-board-instruction-wordpressjson": "Vhulungani zwiṅwalwa na masiaṱari a WordPress REST API (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) sa faela nthihi ya .json, ni i nange fhano kana ni i nambatedze. Siaṱari ḽiṅwe na ḽiṅwe na tshiṅwalwa tshiṅwe na tshiṅwe zwi vha khadi kha mutevhe wa tshiimo tshazwo.",
+  "import-board-instruction-ghost": "Kha Ghost, nangani Settings, Labs, Export your content, ni nange faela ya .json fhano kana ni i nambatedze. Siaṱari ḽiṅwe na ḽiṅwe na tshiṅwalwa tshiṅwe na tshiṅwe zwi vha khadi kha mutevhe wa tshiimo tshazwo, na dzithegi dzazwo sa dziḽeibuḽu.",
+  "import-board-instruction-blogger": "Kha Blogger, nangani Settings, Back up content, ni nange faela ya .xml fhano kana ni nambatedze maṅwalwa ayo. Tshiṅwalwa tshiṅwe na tshiṅwe na siaṱari ḽiṅwe na ḽiṅwe zwi vha khadi, tshiṅwalwa tshi songo fhela kha mutevhe wa Draft, na dziḽeibuḽu na mahumbulwa azwo.",
+  "import-board-instruction-markdownsite": "Itani zip ya zwiko zwa saithi i sa shandukiho ya Hugo, Jekyll, Eleventy, Astro kana iṅwe - faela dza Markdown na front matter yadzo, na zwifanyiso zwadzo - ni nange .zip fhano. Faela iṅwe na iṅwe ya Markdown i vha khadi: zwiṅwalwa zwi bvaho kha dziforoda dza posts kana zwi re na datumu kha dzina ḽa faela, zwiṅwe ndi masiaṱari, zwiṅwalwa zwi songo fhela kha mutevhe wa Draft, na zwifanyiso zwine ya zwi shumisa sa zwiṱumetshedzwa zwayo.",
+  "import-board-instruction-htmlsite": "Itani zip ya faela dza webusaithi - masiaṱari ayo a .html na zwifanyiso, nga nḓila ye dza vhulungwa ngayo nga wget kana HTTrack, kana u bviswa ha Medium - ni nange .zip fhano. Siaṱari ḽiṅwe na ḽiṅwe ḽi vha khadi na maṅwalwa aḽo a ndeme, na zwifanyiso zwine ḽa zwi shumisa sa zwiṱumetshedzwa zwaḽo; zwikiripiti, menyu na fomo zwi a litshwa.",
+  "import-board-instruction-substack": "Kha Substack, nangani Settings, Exports, Create new export, ni nange .zip ye na i dawunuloda fhano. Tshiṅwalwa tshiṅwe na tshiṅwe tshi vha khadi na maṅwalwa atsho, tsho gandiswaho kana tshi songo fhela."
 }

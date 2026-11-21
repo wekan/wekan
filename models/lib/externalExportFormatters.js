@@ -49,6 +49,7 @@ import { formatNotionCsv } from './notionFormat.js';
 import { formatOpml } from './opmlOutlineFormat.js';
 import { formatMbox } from './mailFormat.js';
 import { formatEnex } from './enexFormat.js';
+import { formatWxr, formatWordPressJson, formatGhost, formatBlogger, markdownSiteFiles, htmlSiteFiles } from './websiteFormat.js';
 import { formatMattermostBulk, formatRocketChat, formatTeams } from './chatExportFormats.js';
 import { formatOrgMode } from './orgModeFormat.js';
 
@@ -598,6 +599,16 @@ export const formatters = {
   // The .zip Rocket.Chat's CSV importer reads: rows here, the files written by
   // server/lib/renderExternalExport.js (rocketChatCsvFiles).
   rocketchat: formatRocketChat,
+  // Websites (models/lib/websiteFormat.js), each read back by WeKan's import
+  // of the same format: WordPress's WXR and REST JSON, Ghost, Blogger, and a
+  // .zip of a Markdown site or of the HTML pages
+  // (server/lib/renderExternalExport.js zips those two).
+  wordpress: data => formatWxr(data),
+  wordpressjson: data => formatWordPressJson(data),
+  ghost: data => formatGhost(data),
+  blogger: data => formatBlogger(data),
+  markdownsite: data => markdownSiteFiles(data),
+  htmlsite: data => htmlSiteFiles(data),
   // Microsoft: the CSV Azure DevOps Boards' and Microsoft Lists' imports read,
   // the XML Microsoft Project opens, .eml files for Outlook and OneNote pages
   // (both a .zip, server/lib/renderExternalExport.js), and Teams chats as

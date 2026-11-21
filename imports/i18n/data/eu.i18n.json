@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mezua",
   "cloud-panel-chat-send": "Bidali",
   "cloud-panel-chat-import": "Inportatu lehengo elkarrizketak",
-  "cloud-panel-chat-imported": "__count__ mezu inportatuta."
+  "cloud-panel-chat-imported": "__count__ mezu inportatuta.",
+  "board-view-website": "Webgunea",
+  "tool-group-website": "Webguneak",
+  "website-view-empty": "Oraindik ez dago ezer argitaratuta webgune honetan.",
+  "feature-views-website": "Webgune ikuspegia",
+  "feature-views-website-desc": "Arbela webgune gisa: bere Published zerrendako txartelak, Pages erraila menu gisa eta gainerako txartelak argitalpen gisa, berrienetik hasita, beren eranskinekin. Arbela publiko bat ikuspegi honetan ireki daiteke, bisitariek webgunea arbelaren helbidean ikus dezaten.",
+  "import-board-instruction-wordpress": "WordPress-en, aukeratu Tresnak, Esportatu, Eduki guztia eta Deskargatu esportazio-fitxategia, eta aukeratu .xml fitxategi hori hemen edo itsatsi bere testua. Squarespace, Wix eta WordPress fitxategia esportatzen duten beste guneek modu berean funtzionatzen dute. Orri eta argitalpen bakoitza txartel bihurtzen da bere egoerako zerrendan, orriak Pages errailean eta argitalpenak Posts-en, bere edukiarekin, bere kategoria eta etiketak etiketa gisa, eta onartutako iruzkinekin.",
+  "import-board-instruction-wordpressjson": "Gorde WordPress REST API-ko argitalpenak eta orriak (/wp-json/wp/v2/posts eta /wp-json/wp/v2/pages) .json fitxategi bakar gisa, eta aukeratu hemen edo itsatsi. Orri eta argitalpen bakoitza txartel bihurtzen da bere egoerako zerrendan.",
+  "import-board-instruction-ghost": "Ghost-en, aukeratu Settings, Labs, Export your content, eta aukeratu .json fitxategia hemen edo itsatsi. Orri eta argitalpen bakoitza txartel bihurtzen da bere egoerako zerrendan, bere tag-ak etiketa gisa.",
+  "import-board-instruction-blogger": "Blogger-en, aukeratu Ezarpenak, Egin edukiaren babeskopia, eta aukeratu .xml fitxategia hemen edo itsatsi bere testua. Argitalpen eta orri bakoitza txartel bihurtzen da, zirriborroak Draft zerrendan, bere etiketa eta iruzkinekin.",
+  "import-board-instruction-markdownsite": "Konprimitu .zip batean Hugo, Jekyll, Eleventy, Astro edo beste gune estatiko baten iturburuak - Markdown fitxategiak beren front matter-arekin, eta beren irudiak - eta aukeratu .zip-a hemen. Markdown fitxategi bakoitza txartel bihurtzen da: argitalpenak posts karpetetakoak edo fitxategi-izenean data dutenak, orriak gainerakoak, zirriborroak Draft zerrendan, eta erabiltzen dituen irudiak bere eranskin gisa.",
+  "import-board-instruction-htmlsite": "Konprimitu .zip batean webgune baten fitxategiak - bere .html orriak eta irudiak, wget edo HTTrack-ekin gordeta, edo Medium-en esportazioa - eta aukeratu .zip-a hemen. Orri bakoitza txartel bihurtzen da bere testu nagusiarekin, eta erabiltzen dituen irudiak bere eranskin gisa; scriptak, menuak eta formularioak kanpoan uzten dira.",
+  "import-board-instruction-substack": "Substack-en, aukeratu Settings, Exports, Create new export, eta aukeratu deskargatutako .zip-a hemen. Argitalpen bakoitza txartel bihurtzen da bere testuarekin, argitaratuta edo zirriborro gisa."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaggio",
   "cloud-panel-chat-send": "Manna",
   "cloud-panel-chat-import": "Mporta 'e chiacchiere 'e primma",
-  "cloud-panel-chat-imported": "__count__ messagge mportate."
+  "cloud-panel-chat-imported": "__count__ messagge mportate.",
+  "board-view-website": "Sito web",
+  "tool-group-website": "Sito web",
+  "website-view-empty": "Ncopp'a stu sito web nun s'è pubblicato ancora niente.",
+  "feature-views-website": "Vista d'o sito web",
+  "feature-views-website-desc": "'A tavula comme sito web: 'e carte d'a lista Published, 'a corsia Pages comme menu e ll'ate carte comme articule, 'e cchiù nuove primma, cu ll'allegate lloro. Na tavula pubbleca se pò arapì dint'a sta vista, accussì 'e visitature vedono 'o sito web all'indirizzo d'a tavula.",
+  "import-board-instruction-wordpress": "Dint'a WordPress sceglie 'Tools', 'Export', 'All content' e 'Download Export File', e sceglie chillu file .xml ccà, o ncolla 'o testo suio. Squarespace, Wix e ll'ate site ca esportano nu file WordPress funzionano 'o stesso. Ogne paggena e ogne articulo addeventa na carta dint'a lista d'o stato suio, 'e paggene dint'a corsia Pages e ll'articule dint'a Posts, cu 'o cuntenuto suio, 'e categorie e 'e tag comme etichette, e 'e commiente apprubbate.",
+  "import-board-instruction-wordpressjson": "Sarva ll'articule e 'e paggene d'a WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) comme nu file .json sulo, e sciegliello ccà o ncollalo. Ogne paggena e ogne articulo addeventa na carta dint'a lista d'o stato suio.",
+  "import-board-instruction-ghost": "Dint'a Ghost sceglie 'Settings', 'Labs', 'Export your content', e sceglie 'o file .json ccà o ncollalo. Ogne paggena e ogne articulo addeventa na carta dint'a lista d'o stato suio, cu 'e tag suie comme etichette.",
+  "import-board-instruction-blogger": "Dint'a Blogger sceglie 'Settings', 'Back up content', e sceglie 'o file .xml ccà o ncolla 'o testo suio. Ogne articulo e ogne paggena addeventa na carta, na bozza dint'a lista Draft, cu ll'etichette e 'e commiente suie.",
+  "import-board-instruction-markdownsite": "Fa' nu .zip d'e sorgente 'e nu sito Hugo, Jekyll, Eleventy, Astro o n'ato sito statico - 'e file Markdown c'o front matter lloro, e 'e mmagine lloro - e sceglie 'o .zip ccà. Ogne file Markdown addeventa na carta: articule d'e cartelle posts o cu na data dint'o nomme d'o file, 'o riesto paggene, 'e bozze dint'a lista Draft, e 'e mmagine ca usa comme allegate suie.",
+  "import-board-instruction-htmlsite": "Fa' nu .zip d'e file 'e nu sito web - 'e paggene .html e 'e mmagine suie, comme sarvate cu wget o HTTrack, o ll'esportazzione 'e Medium - e sceglie 'o .zip ccà. Ogne paggena addeventa na carta c'o testo prencepale suio, e 'e mmagine ca usa comme allegate suie; script, menu e modul' se lassano fore.",
+  "import-board-instruction-substack": "Dint'a Substack sceglie 'Settings', 'Exports', 'Create new export', e sceglie 'o .zip scarrecato ccà. Ogne articulo addeventa na carta c'o testo suio, pubblicato o bozza."
 }

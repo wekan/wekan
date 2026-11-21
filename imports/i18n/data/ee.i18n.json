@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Gbedasi",
   "cloud-panel-chat-send": "Ɖoe ɖa",
   "cloud-panel-chat-import": "Tsɔ dzeɖoɖo xoxowo va eme",
-  "cloud-panel-chat-imported": "Wotsɔ gbedasi __count__ va eme."
+  "cloud-panel-chat-imported": "Wotsɔ gbedasi __count__ va eme.",
+  "board-view-website": "Nyatakakadzraɖoƒe",
+  "tool-group-website": "Nyatakakadzraɖoƒe",
+  "website-view-empty": "Wometa naneke ɖe nyatakakadzraɖoƒe sia dzi haɖe o.",
+  "feature-views-website": "Nyatakakadzraɖoƒe ƒe kpɔkpɔ",
+  "feature-views-website-desc": "Kpo la abe nyatakakadzraɖoƒe ene: eƒe Published xexlẽdzesi ƒe kaɖwo, mɔ Pages abe menu ene kple kaɖ bubuawo abe nyatakakawo ene, yeyeawo gbã, kple woƒe nusiwo wotsɔ kpe ɖe eŋu. Kpo si le dutoƒo ate ŋu aʋu le eme, ale be amedzrowo akpɔ nyatakakadzraɖoƒe la le kpo la ƒe adrɛs dzi.",
+  "import-board-instruction-wordpress": "Le WordPress me la, tia Tools, Export, All content kple Download Export File, eye nàtia .xml faɛl ma le afisia, alo nàtsɔ eƒe nuŋlɔɖi ade eme. Squarespace, Wix kple nyatakakadzraɖoƒe bubu siwo ɖoa WordPress faɛl ɖa la wɔa dɔ nenema ke. Axa kple nyatakaka ɖesiaɖe zua kaɖ le eƒe nɔnɔme ƒe xexlẽdzesi me, axawo le mɔ Pages me eye nyatakakawo le Posts me, kple eƒe emenyawo, eƒe hatsotsowo kple tagwo abe dzesiwo ene, kple eƒe nyagbɔgblɔ siwo wolɔ̃ ɖe edzi.",
+  "import-board-instruction-wordpressjson": "Dzra WordPress REST API ƒe nyatakakawo kple axawo (/wp-json/wp/v2/posts kple /wp-json/wp/v2/pages) ɖo abe .json faɛl ɖeka ene, eye nàtiae le afisia alo nàtsɔe ade eme. Axa kple nyatakaka ɖesiaɖe zua kaɖ le eƒe nɔnɔme ƒe xexlẽdzesi me.",
+  "import-board-instruction-ghost": "Le Ghost me la, tia Settings, Labs, Export your content, eye nàtia .json faɛl la le afisia alo nàtsɔe ade eme. Axa kple nyatakaka ɖesiaɖe zua kaɖ le eƒe nɔnɔme ƒe xexlẽdzesi me, kple eƒe tagwo abe dzesiwo ene.",
+  "import-board-instruction-blogger": "Le Blogger me la, tia Settings, Back up content, eye nàtia .xml faɛl la le afisia alo nàtsɔ eƒe nuŋlɔɖi ade eme. Nyatakaka kple axa ɖesiaɖe zua kaɖ, nusi womewu nu o le xexlẽdzesi Draft me, kple eƒe dzesiwo kple nyagbɔgblɔwo.",
+  "import-board-instruction-markdownsite": "Tsɔ Hugo, Jekyll, Eleventy, Astro alo nyatakakadzraɖoƒe bubu si metrɔna o ƒe dzɔtsoƒewo de .zip me - Markdown faɛlwo kple woƒe front matter, kple woƒe nɔnɔmetatawo - eye nàtia .zip la le afisia. Markdown faɛl ɖesiaɖe zua kaɖ: nyatakaka siwo tso posts faɛldzraɖoƒewo alo ŋkekenyanu le faɛl ƒe ŋkɔ me, susɔeawo nye axawo, nusiwo womewu nu o le xexlẽdzesi Draft me, kple nɔnɔmetata siwo wòzãna abe eƒe nusiwo wotsɔ kpe ɖe eŋu ene.",
+  "import-board-instruction-htmlsite": "Tsɔ nyatakakadzraɖoƒe aɖe ƒe faɛlwo de .zip me - eƒe .html axawo kple nɔnɔmetatawo, abe ale si wodzra wo ɖo kple wget alo HTTrack ene, alo Medium ƒe ɖoɖoɖa - eye nàtia .zip la le afisia. Axa ɖesiaɖe zua kaɖ kple eƒe nuŋlɔɖi vevitɔ, kple nɔnɔmetata siwo wòzãna abe eƒe nusiwo wotsɔ kpe ɖe eŋu ene; woɖe scripts, menuwo kple formwo ɖa.",
+  "import-board-instruction-substack": "Le Substack me la, tia Settings, Exports, Create new export, eye nàtia .zip si nèɖe la le afisia. Nyatakaka ɖesiaɖe zua kaɖ kple eƒe nuŋlɔɖi, wota alo womewu nu o."
 }

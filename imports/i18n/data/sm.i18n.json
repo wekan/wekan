@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Feau",
   "cloud-panel-chat-send": "Auina atu",
   "cloud-panel-chat-import": "Aumai talanoaga muamua",
-  "cloud-panel-chat-imported": "Feau e __count__ ua aumaia."
+  "cloud-panel-chat-imported": "Feau e __count__ ua aumaia.",
+  "board-view-website": "Upega tafaʻilagi",
+  "tool-group-website": "Upega tafaʻilagi",
+  "website-view-empty": "E leʻi iai se mea ua lomia i lenei upega tafaʻilagi.",
+  "feature-views-website": "Vaaiga upega tafaʻilagi",
+  "feature-views-website-desc": "O le laupapa o se upega tafaʻilagi: o pepa o lona lisi Published, le ala Pages o le lisi autū ma isi pepa o ni tusitusiga, o mea fou muamua, faatasi ma a latou faapipiiga. E mafai ona tatala se laupapa lautele i lenei vaaiga, ina ia vaai tagata asiasi i le upega tafaʻilagi i le tuatusi o le laupapa.",
+  "import-board-instruction-wordpress": "I le WordPress, filifili 'Tools', 'Export', 'All content' ma 'Download Export File', ma filifili lena faila .xml iinei, pe faapipii lona tusitusiga. O Squarespace, Wix ma isi upega e auina atu se faila WordPress e galulue faapena foi. O itulau uma ma tusitusiga uma e avea ma pepa i le lisi o lona tulaga, o itulau i le ala Pages ma tusitusiga i le Posts, faatasi ma ona anotusi, vaega ma tags o ni igoa faailoga, ma ana faamatalaga ua faamaonia.",
+  "import-board-instruction-wordpressjson": "Teu tusitusiga ma itulau o le WordPress REST API (/wp-json/wp/v2/posts ma /wp-json/wp/v2/pages) o se faila .json e tasi, ma filifili iinei pe faapipii. O itulau uma ma tusitusiga uma e avea ma pepa i le lisi o lona tulaga.",
+  "import-board-instruction-ghost": "I le Ghost, filifili 'Settings', 'Labs', 'Export your content', ma filifili le faila .json iinei pe faapipii. O itulau uma ma tusitusiga uma e avea ma pepa i le lisi o lona tulaga, faatasi ma ona tags o ni igoa faailoga.",
+  "import-board-instruction-blogger": "I le Blogger, filifili 'Settings', 'Back up content', ma filifili le faila .xml iinei pe faapipii lona tusitusiga. O tusitusiga uma ma itulau uma e avea ma pepa, o se ata faataitai i le lisi Draft, faatasi ma ona igoa faailoga ma faamatalaga.",
+  "import-board-instruction-markdownsite": "Fai se .zip o punavai o se upega Hugo, Jekyll, Eleventy, Astro po o se isi upega e lē suia - faila Markdown ma o latou front matter, ma o latou ata - ma filifili le .zip iinei. O faila Markdown uma e avea ma pepa: tusitusiga mai faila posts po o ē e iai se aso i le igoa o le faila, o isi o itulau, ata faataitai i le lisi Draft, ma ata e faaaogā o ana faapipiiga.",
+  "import-board-instruction-htmlsite": "Fai se .zip o faila o se upega tafaʻilagi - ona itulau .html ma ata, e pei ona teu i le wget po o le HTTrack, po o le mea na auina mai Medium - ma filifili le .zip iinei. O itulau uma e avea ma pepa ma lona tusitusiga autū, ma ata e faaaogā o ana faapipiiga; o scripts, lisi autū ma pepa fesili e tuu ese.",
+  "import-board-instruction-substack": "I le Substack, filifili 'Settings', 'Exports', 'Create new export', ma filifili le .zip na sii mai iinei. O tusitusiga uma e avea ma pepa ma lona tusitusiga, ua lomia po o se ata faataitai."
 }

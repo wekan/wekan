@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ergaa",
   "cloud-panel-chat-send": "Ergi",
   "cloud-panel-chat-import": "Haasaa duraanii galchi",
-  "cloud-panel-chat-imported": "Ergaawwan __count__ galfamaniiru."
+  "cloud-panel-chat-imported": "Ergaawwan __count__ galfamaniiru.",
+  "board-view-website": "Marsariitii",
+  "tool-group-website": "Marsariitii",
+  "website-view-empty": "Marsariitii kana irratti hanga ammaatti wanti maxxanfame hin jiru.",
+  "feature-views-website": "Mul'ata marsariitii",
+  "feature-views-website-desc": "Gabatee akka marsariitiitti: kaardiiwwan tarree isaa Published, karaa Pages akka baafataatti, kaardiiwwan biroo immoo akka barreeffamootaatti, haaraan dursee, maxxansaalee isaanii wajjin. Gabateen uummataa mul'ata kanaan banamuu danda'a, akka daawwattoonni teessoo gabatee irratti marsariitii arganiif.",
+  "import-board-instruction-wordpress": "WordPress keessatti 'Tools', 'Export', 'All content' fi 'Download Export File' filadhu, faayilii .xml sana as filadhu, ykn barreeffama isaa maxxansi. Squarespace, Wix fi marsariitiiwwan biroo faayilii WordPress ergan haaluma walfakkaatuun hojjetu. Fuulli fi barreeffamni hundi tarree haala isaa keessatti kaardii ta'a, fuulonni karaa Pages keessa, barreeffamoonni immoo Posts keessa, qabiyyee isaa, ramaddiiwwan fi tags akka mallattoowwanitti, akkasumas yaadota mirkanaa'an wajjin.",
+  "import-board-instruction-wordpressjson": "Barreeffamootaa fi fuulota WordPress REST API (/wp-json/wp/v2/posts fi /wp-json/wp/v2/pages) akka faayilii .json tokkootti olkaa'i, as filadhu ykn maxxansi. Fuulli fi barreeffamni hundi tarree haala isaa keessatti kaardii ta'a.",
+  "import-board-instruction-ghost": "Ghost keessatti 'Settings', 'Labs', 'Export your content' filadhu, faayilii .json as filadhu ykn maxxansi. Fuulli fi barreeffamni hundi tarree haala isaa keessatti kaardii ta'a, tags isaa akka mallattoowwanitti.",
+  "import-board-instruction-blogger": "Blogger keessatti 'Settings', 'Back up content' filadhu, faayilii .xml as filadhu ykn barreeffama isaa maxxansi. Barreeffamni fi fuulli hundi kaardii ta'a, kan hin xumuramin tarree Draft keessa, mallattoowwanii fi yaadota isaa wajjin.",
+  "import-board-instruction-markdownsite": "Maddoota marsariitii Hugo, Jekyll, Eleventy, Astro ykn kan biraa hin jijjiiramne .zip godhi - faayiloota Markdown front matter isaanii wajjin, fi suuraalee isaanii - .zip as filadhu. Faayiliin Markdown hundi kaardii ta'a: barreeffamoota galmee posts keessaa ykn guyyaa maqaa faayilii keessatti qaban, kan hafan fuulota, kanneen hin xumuramin tarree Draft keessa, suuraaleen inni fayyadamu immoo akka maxxansaalee isaatti.",
+  "import-board-instruction-htmlsite": "Faayiloota marsariitii .zip godhi - fuulota .html fi suuraalee isaa, akka wget ykn HTTrack'n olkaa'amanitti, ykn kan Medium irraa ergame - .zip as filadhu. Fuulli hundi barreeffama isaa ijoo wajjin kaardii ta'a, suuraaleen inni fayyadamu akka maxxansaaleetti; scriptoonni, baafataa fi unkaaleen hin galan.",
+  "import-board-instruction-substack": "Substack keessatti 'Settings', 'Exports', 'Create new export' filadhu, .zip buufatame as filadhu. Barreeffamni hundi barreeffama isaa wajjin kaardii ta'a, kan maxxanfame ykn kan hin xumuramin."
 }

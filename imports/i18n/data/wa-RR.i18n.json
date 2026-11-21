@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensahe",
   "cloud-panel-chat-send": "Ipadara",
   "cloud-panel-chat-import": "I-import an mga nahauna nga istorya",
-  "cloud-panel-chat-imported": "__count__ nga mga mensahe an na-import."
+  "cloud-panel-chat-imported": "__count__ nga mga mensahe an na-import.",
+  "board-view-website": "Websayt",
+  "tool-group-website": "Websayt",
+  "website-view-empty": "Waray pa napublikar dinhi nga websayt.",
+  "feature-views-website": "Pagkita han websayt",
+  "feature-views-website-desc": "An pisara sugad hin websayt: an mga kard han iya lista nga Published, an agianan nga Pages sugad hin menu ngan an iba nga mga kard sugad hin mga post, an pinakabag-o una, upod an ira mga attachment. An publiko nga pisara mahimo mabuksan dinhi, basi makita han mga bisita an websayt ha address han pisara.",
+  "import-board-instruction-wordpress": "Ha WordPress, pilia an Tools, Export, All content ngan Download Export File, ngan pilia dinhi an amo nga .xml nga file, o i-paste an iya teksto. An Squarespace, Wix ngan iba nga mga site nga nag-eexport hin WordPress nga file parehas an pagtrabaho. Kada pahina ngan post nagigin kard ha lista han iya kahimtang, an mga pahina ha agianan nga Pages ngan an mga post ha Posts, upod an iya sulod, mga kategorya ngan mga tag sugad hin mga label, ngan an iya mga inaprobahan nga komento.",
+  "import-board-instruction-wordpressjson": "I-save an mga post ngan pahina han WordPress REST API (/wp-json/wp/v2/posts ngan /wp-json/wp/v2/pages) sugad hin usa nga .json nga file, ngan pilia ini dinhi o i-paste. Kada pahina ngan post nagigin kard ha lista han iya kahimtang.",
+  "import-board-instruction-ghost": "Ha Ghost, pilia an Settings, Labs, Export your content, ngan pilia dinhi an .json nga file o i-paste ini. Kada pahina ngan post nagigin kard ha lista han iya kahimtang, upod an iya mga tag sugad hin mga label.",
+  "import-board-instruction-blogger": "Ha Blogger, pilia an Settings, Back up content, ngan pilia dinhi an .xml nga file o i-paste an iya teksto. Kada post ngan pahina nagigin kard, an draft ha lista nga Draft, upod an iya mga label ngan komento.",
+  "import-board-instruction-markdownsite": "I-zip an mga source han usa nga Hugo, Jekyll, Eleventy, Astro o iba nga static nga site - an mga Markdown nga file upod an ira front matter, ngan an ira mga litrato - ngan pilia dinhi an .zip. Kada Markdown nga file nagigin kard: mga post tikang ha mga folder nga posts o may petsa ha ngaran han file, an iba mga pahina, mga draft ha lista nga Draft, ngan an mga litrato nga iya gin-gagamit sugad hin iya mga attachment.",
+  "import-board-instruction-htmlsite": "I-zip an mga file han usa nga websayt - an iya mga .html nga pahina ngan litrato, sugad han gin-save gamit an wget o HTTrack, o an export han Medium - ngan pilia dinhi an .zip. Kada pahina nagigin kard upod an iya panguna nga teksto, ngan an mga litrato nga iya gin-gagamit sugad hin iya mga attachment; an mga script, menu ngan form diri iginlalakip.",
+  "import-board-instruction-substack": "Ha Substack, pilia an Settings, Exports, Create new export, ngan pilia dinhi an na-download nga .zip. Kada post nagigin kard upod an iya teksto, napublikar o draft."
 }

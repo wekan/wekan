@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Diehtu",
   "cloud-panel-chat-send": "Sádde",
   "cloud-panel-chat-import": "Buvtte ovdalaš ságastallamiid",
-  "cloud-panel-chat-imported": "__count__ dieđu sisabuvttiihuvvon."
+  "cloud-panel-chat-imported": "__count__ dieđu sisabuvttiihuvvon.",
+  "board-view-website": "Neahttabáiki",
+  "tool-group-website": "Neahttabáiki",
+  "website-view-empty": "Dán neahttabáikkis ii leat vel mihkkege almmuhuvvon.",
+  "feature-views-website": "Neahttabáikečájeheapmi",
+  "feature-views-website-desc": "Távval neahttabáikin: dan listtu Published goarttat, bálggis Pages fállun ja eará goarttat čállosin, ođđasamosat vuosttažin, iežaset mildosiiguin. Almmolaš távval sáhttá rahpasit dán čájeheapmái, nu ahte guossit oidnet neahttabáikki távvala čujuhusas.",
+  "import-board-instruction-wordpress": "WordPressas vállje 'Tools', 'Export', 'All content' ja 'Download Export File', ja vállje dan .xml-fiilla dás, dahje lasit dan teavstta. Squarespace, Wix ja eará báikkit mat olggosfievrridit WordPress-fiilla doibmet seammá láhkai. Juohke siidu ja juohke čála šaddá goartan iežas stáhtusa listui, siiddut bálgái Pages ja čállosat Posts:ii, sisdoaluin, kategoriijaiguin ja tags gilkorin, ja dohkkehuvvon kommeanttaiguin.",
+  "import-board-instruction-wordpressjson": "Vurke WordPress REST API čállosiid ja siidduid (/wp-json/wp/v2/posts ja /wp-json/wp/v2/pages) okta .json-fiilan, ja vállje dan dás dahje lasit dan. Juohke siidu ja juohke čála šaddá goartan iežas stáhtusa listui.",
+  "import-board-instruction-ghost": "Ghostas vállje 'Settings', 'Labs', 'Export your content', ja vállje .json-fiilla dás dahje lasit dan. Juohke siidu ja juohke čála šaddá goartan iežas stáhtusa listui, iežas tags gilkorin.",
+  "import-board-instruction-blogger": "Bloggeris vállje 'Settings', 'Back up content', ja vállje .xml-fiilla dás dahje lasit dan teavstta. Juohke čála ja juohke siidu šaddá goartan, konseapta listui Draft, iežas gilkoriiguin ja kommeanttaiguin.",
+  "import-board-instruction-markdownsite": "Čoaggit .zip-fiilii Hugo-, Jekyll-, Eleventy-, Astro- dahje eará statalaš báikki gálduid - Markdown-fiillaid sin front matteriin, ja sin govaid - ja vállje .zip dás. Juohke Markdown-fiila šaddá goartan: čállosat posts-máhpain dahje main lea dáhton fiilanamas, eará siiddut, konseavttat listui Draft, ja govat maid dat geavaha mildosin.",
+  "import-board-instruction-htmlsite": "Čoaggit .zip-fiilii neahttabáikki fiillaid - dan .html-siidduid ja govaid, vurkejuvvon wgetiin dahje HTTrackain, dahje Medium olggosfievrrideami - ja vállje .zip dás. Juohke siidu šaddá goartan iežas váldoteavsttain, ja govat maid dat geavaha mildosin; skriptat, fálut ja skovit guđđojuvvojit eret.",
+  "import-board-instruction-substack": "Substackas vállje 'Settings', 'Exports', 'Create new export', ja vállje viežžojuvvon .zip dás. Juohke čála šaddá goartan iežas teavsttain, almmuhuvvon dahje konseaptan."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Uthenga",
   "cloud-panel-chat-send": "Tumizani",
   "cloud-panel-chat-import": "Lowetsani macheza akale",
-  "cloud-panel-chat-imported": "Mauthenga __count__ alowetsedwa."
+  "cloud-panel-chat-imported": "Mauthenga __count__ alowetsedwa.",
+  "board-view-website": "Webusayiti",
+  "tool-group-website": "Webusayiti",
+  "website-view-empty": "Palibe chomwe chasindikizidwa pa webusayiti iyi pakadali pano.",
+  "feature-views-website": "Maonekedwe a webusayiti",
+  "feature-views-website-desc": "Bolodi ngati webusayiti: makhadi a mndandanda wake wa Published, njira ya Pages ngati menyu ndipo makhadi ena ngati zolemba, zatsopano poyamba, pamodzi ndi zolumikizidwa zawo. Bolodi lapoyera lingatsegulidwe m'maonekedwe awa, kuti alendo aone webusayiti pa adilesi ya bolodi.",
+  "import-board-instruction-wordpress": "Mu WordPress, sankhani 'Tools', 'Export', 'All content' ndi 'Download Export File', ndipo sankhani fayilo ya .xml imeneyo pano, kapena matani mawu ake. Squarespace, Wix ndi masamba ena omwe amatumiza fayilo ya WordPress amagwira ntchito chimodzimodzi. Tsamba lililonse ndi cholemba chilichonse chimakhala khadi mu mndandanda wa momwe chilili, masamba mu njira ya Pages ndi zolemba mu Posts, pamodzi ndi zomwe zili mkati, magulu ndi ma tag ngati zilembo, ndi ndemanga zovomerezeka.",
+  "import-board-instruction-wordpressjson": "Sungani zolemba ndi masamba a WordPress REST API (/wp-json/wp/v2/posts ndi /wp-json/wp/v2/pages) ngati fayilo imodzi ya .json, ndipo isankheni pano kapena muimate. Tsamba lililonse ndi cholemba chilichonse chimakhala khadi mu mndandanda wa momwe chilili.",
+  "import-board-instruction-ghost": "Mu Ghost, sankhani 'Settings', 'Labs', 'Export your content', ndipo sankhani fayilo ya .json pano kapena muimate. Tsamba lililonse ndi cholemba chilichonse chimakhala khadi mu mndandanda wa momwe chilili, ndi ma tag ake ngati zilembo.",
+  "import-board-instruction-blogger": "Mu Blogger, sankhani 'Settings', 'Back up content', ndipo sankhani fayilo ya .xml pano kapena matani mawu ake. Cholemba chilichonse ndi tsamba lililonse chimakhala khadi, cholemba chosamalizidwa mu mndandanda wa Draft, ndi zilembo ndi ndemanga zake.",
+  "import-board-instruction-markdownsite": "Pangani .zip ya magwero a webusayiti ya Hugo, Jekyll, Eleventy, Astro kapena ina yosasintha - mafayilo a Markdown ndi front matter yawo, ndi zithunzi zawo - ndipo sankhani .zip pano. Fayilo iliyonse ya Markdown imakhala khadi: zolemba zochokera m'mafoda a posts kapena zokhala ndi tsiku m'dzina la fayilo, zina ndi masamba, zosamalizidwa mu mndandanda wa Draft, ndipo zithunzi zomwe imagwiritsa ntchito ngati zolumikizidwa zake.",
+  "import-board-instruction-htmlsite": "Pangani .zip ya mafayilo a webusayiti - masamba ake a .html ndi zithunzi, monga zasungidwa ndi wget kapena HTTrack, kapena zotumizidwa kuchokera ku Medium - ndipo sankhani .zip pano. Tsamba lililonse limakhala khadi ndi mawu ake akulu, ndipo zithunzi zomwe limagwiritsa ntchito ngati zolumikizidwa; ma script, menyu ndi mafomu amasiyidwa.",
+  "import-board-instruction-substack": "Mu Substack, sankhani 'Settings', 'Exports', 'Create new export', ndipo sankhani .zip yomwe mwatsitsa pano. Cholemba chilichonse chimakhala khadi ndi mawu ake, chosindikizidwa kapena chosamalizidwa."
 }

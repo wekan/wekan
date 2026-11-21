@@ -1068,6 +1068,7 @@ Users.attachSchema(
         'board-view-distribution',
         'board-view-dependency-map',
         'board-view-activity-heatmap',
+        'board-view-website',
       ],
     },
     'profile.listSortBy': {

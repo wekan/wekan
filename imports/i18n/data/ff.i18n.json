@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaas",
   "cloud-panel-chat-send": "Neldu",
   "cloud-panel-chat-import": "Naatnu haaldeeji ɓennuɗi",
-  "cloud-panel-chat-imported": "Mesaasji __count__ naatnaama."
+  "cloud-panel-chat-imported": "Mesaasji __count__ naatnaama.",
+  "board-view-website": "Lowre geese",
+  "tool-group-website": "Nokkuuji geese",
+  "website-view-empty": "Alaa ko yaltinaa e ndee lowre geese tawo.",
+  "feature-views-website": "Jiytol lowre geese",
+  "feature-views-website-desc": "Alluwal ngal hono lowre geese: kartalle doggol mum Published, laawol Pages hono dosol e kartalle goɗɗe hono binndanɗe, kesere adannde, e ceŋaaɗi maɗɗe. Alluwal kala neɗɗo ina waawi udditeede e ndee jiytol, ngam yillooɓe njiya lowre geese ndee e ñiiɓirde alluwal ngal.",
+  "import-board-instruction-wordpress": "E WordPress, suɓo Tools, Export, All content e Download Export File, suɓo fiilde .xml ndee ɗoo walla ɗakku binndi mayre. Squarespace, Wix e nokkuuji goɗɗi yaltinooji fiilde WordPress ina golla no wootere. Hello kala e binndol kala wonta kartal e doggol ngonka mum, hello ɗe e laawol Pages e binndanɗe e Posts, e loowdi mum, fedde mum e tags mum hono maandeeji, e yowe mum jaɓaaɗe.",
+  "import-board-instruction-wordpressjson": "Mooftu binndanɗe e hello ɗe REST API WordPress (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) hono fiilde .json wootere, suɓo nde ɗoo walla ɗakku nde. Hello kala e binndol kala wonta kartal e doggol ngonka mum.",
+  "import-board-instruction-ghost": "E Ghost, suɓo Settings, Labs, Export your content, suɓo fiilde .json ndee ɗoo walla ɗakku nde. Hello kala e binndol kala wonta kartal e doggol ngonka mum, e tags mum hono maandeeji.",
+  "import-board-instruction-blogger": "E Blogger, suɓo Settings, Back up content, suɓo fiilde .xml ndee ɗoo walla ɗakku binndi mayre. Binndol kala e hello kala wonta kartal, daftaare e doggol Draft, e maandeeji mum e yowe mum.",
+  "import-board-instruction-markdownsite": "Mottin ɗaɗi lowre ɗarnde Hugo, Jekyll, Eleventy, Astro walla goɗnde e .zip - fiilde Markdown e front matter mum en, e nate mum en - suɓo .zip ndee ɗoo. Fiilde Markdown kala wonta kartal: binndanɗe iwɗe e dosiyeeji posts walla jogiiɗe ñalnde e innde fiilde, heddiiɗe ɗe hello, daftaareeji e doggol Draft, e nate nde huutortoo hono ceŋaaɗi mayre.",
+  "import-board-instruction-htmlsite": "Mottin fiilde lowre geese e .zip - hello mayre .html e nate, no wget walla HTTrack mooftiri ɗe, walla yaltinal Medium - suɓo .zip ndee ɗoo. Hello kala wonta kartal e binndi mum mawɗi, e nate ɗo huutortoo hono ceŋaaɗi mum; skiriptuuji, dosol e formuleeruuji ina accee.",
+  "import-board-instruction-substack": "E Substack, suɓo Settings, Exports, Create new export, suɓo .zip aawtaaɗo oo ɗoo. Binndol kala wonta kartal e binndi mum, yaltinaaɗo walla daftaare."
 }

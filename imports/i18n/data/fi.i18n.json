@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Viesti",
   "cloud-panel-chat-send": "Lähetä",
   "cloud-panel-chat-import": "Tuo aiemmat keskustelut",
-  "cloud-panel-chat-imported": "__count__ viestiä tuotu."
+  "cloud-panel-chat-imported": "__count__ viestiä tuotu.",
+  "board-view-website": "Verkkosivusto",
+  "tool-group-website": "Verkkosivustot",
+  "website-view-empty": "Tällä verkkosivustolla ei ole vielä julkaistu mitään.",
+  "feature-views-website": "Verkkosivustonäkymä",
+  "feature-views-website-desc": "Taulu verkkosivustona: sen Published-listan kortit, uimarata Pages valikkona ja muut kortit kirjoituksina uusin ensin, liitetiedostoineen. Julkinen taulu voi avautua tähän näkymään, jolloin vierailijat näkevät verkkosivuston taulun osoitteessa.",
+  "import-board-instruction-wordpress": "Valitse WordPressissä Työkalut, Vie, Kaikki sisältö ja Lataa vientitiedosto, ja valitse se .xml-tiedosto tästä tai liitä sen teksti. Squarespace, Wix ja muut sivustot, jotka vievät WordPress-tiedoston, toimivat samoin. Jokaisesta sivusta ja artikkelista tulee kortti tilansa listaan, sivut uimaradalle Pages ja artikkelit radalle Posts, sisältöineen, kategoriat ja avainsanat nimilappuina, sekä hyväksytyt kommentit.",
+  "import-board-instruction-wordpressjson": "Tallenna WordPressin REST API:n artikkelit ja sivut (/wp-json/wp/v2/posts ja /wp-json/wp/v2/pages) yhdeksi .json-tiedostoksi, ja valitse se tästä tai liitä se. Jokaisesta sivusta ja artikkelista tulee kortti tilansa listaan.",
+  "import-board-instruction-ghost": "Valitse Ghostissa Settings, Labs, Export your content, ja valitse .json-tiedosto tästä tai liitä se. Jokaisesta sivusta ja artikkelista tulee kortti tilansa listaan, tagit nimilappuina.",
+  "import-board-instruction-blogger": "Valitse Bloggerissa Asetukset, Varmuuskopioi sisältö, ja valitse .xml-tiedosto tästä tai liitä sen teksti. Jokaisesta tekstistä ja sivusta tulee kortti, luonnokset listaan Draft, tunnisteineen ja kommentteineen.",
+  "import-board-instruction-markdownsite": "Pakkaa Hugo-, Jekyll-, Eleventy-, Astro- tai muun staattisen sivuston lähdetiedostot .zip-tiedostoksi - Markdown-tiedostot front matter -osineen ja niiden kuvat - ja valitse .zip tästä. Jokaisesta Markdown-tiedostosta tulee kortti: posts-kansioiden tai tiedostonimessään päivämäärän sisältävät ovat kirjoituksia, muut sivuja, luonnokset menevät listaan Draft ja käytetyt kuvat liitetiedostoiksi.",
+  "import-board-instruction-htmlsite": "Pakkaa verkkosivuston tiedostot .zip-tiedostoksi - sen .html-sivut ja kuvat, wgetillä tai HTTrackillä tallennettuina, tai Mediumin vienti - ja valitse .zip tästä. Jokaisesta sivusta tulee kortti päätekstinsä kanssa ja käytetyt kuvat liitetiedostoiksi; skriptit, valikot ja lomakkeet jätetään pois.",
+  "import-board-instruction-substack": "Valitse Substackissa Settings, Exports, Create new export, ja valitse ladattu .zip tästä. Jokaisesta kirjoituksesta tulee kortti tekstinsä kanssa, julkaistuna tai luonnoksena."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Teachtaireacht",
   "cloud-panel-chat-send": "Seol",
   "cloud-panel-chat-import": "Iompórtáil comhráite níos luaithe",
-  "cloud-panel-chat-imported": "__count__ teachtaireacht iompórtáilte."
+  "cloud-panel-chat-imported": "__count__ teachtaireacht iompórtáilte.",
+  "board-view-website": "Suíomh gréasáin",
+  "tool-group-website": "Suíomhanna gréasáin",
+  "website-view-empty": "Níl aon rud foilsithe ar an suíomh gréasáin seo fós.",
+  "feature-views-website": "Amharc suímh ghréasáin",
+  "feature-views-website-desc": "An clár mar shuíomh gréasáin: cártaí a liosta Published, an lána Pages mar roghchlár agus na cártaí eile mar phostálacha, an ceann is nuaí ar dtús, lena gceangaltáin. Is féidir le clár poiblí oscailt san amharc seo, ionas go bhfeiceann cuairteoirí an suíomh gréasáin ag seoladh an chláir.",
+  "import-board-instruction-wordpress": "In WordPress, roghnaigh Tools, Export, All content agus Download Export File, agus roghnaigh an comhad .xml sin anseo nó greamaigh a théacs. Oibríonn Squarespace, Wix agus suíomhanna eile a easpórtálann comhad WordPress ar an mbealach céanna. Déantar cárta de gach leathanach agus postáil i liosta a stádais, leathanaigh sa lána Pages agus postálacha in Posts, lena n-ábhar, a gcatagóirí agus a gclibeanna mar lipéid, agus a nótaí tráchta ceadaithe.",
+  "import-board-instruction-wordpressjson": "Sábháil postálacha agus leathanaigh REST API WordPress (/wp-json/wp/v2/posts agus /wp-json/wp/v2/pages) mar chomhad .json amháin, agus roghnaigh anseo é nó greamaigh é. Déantar cárta de gach leathanach agus postáil i liosta a stádais.",
+  "import-board-instruction-ghost": "In Ghost, roghnaigh Settings, Labs, Export your content, agus roghnaigh an comhad .json anseo nó greamaigh é. Déantar cárta de gach leathanach agus postáil i liosta a stádais, lena clibeanna mar lipéid.",
+  "import-board-instruction-blogger": "In Blogger, roghnaigh Settings, Back up content, agus roghnaigh an comhad .xml anseo nó greamaigh a théacs. Déantar cárta de gach postáil agus leathanach, dréacht sa liosta Draft, lena lipéid agus a nótaí tráchta.",
+  "import-board-instruction-markdownsite": "Cuir foinsí suímh statach Hugo, Jekyll, Eleventy, Astro nó eile i gcomhad .zip - na comhaid Markdown lena front matter, agus a n-íomhánna - agus roghnaigh an .zip anseo. Déantar cárta de gach comhad Markdown: postálacha ó na fillteáin posts nó le dáta in ainm an chomhaid, leathanaigh don chuid eile, dréachtaí sa liosta Draft, agus na híomhánna a úsáideann sé mar cheangaltáin.",
+  "import-board-instruction-htmlsite": "Cuir comhaid suímh ghréasáin i gcomhad .zip - a leathanaigh .html agus a íomhánna, mar a shábháiltear iad le wget nó HTTrack, nó easpórtáil Medium - agus roghnaigh an .zip anseo. Déantar cárta de gach leathanach lena phríomhthéacs, agus na híomhánna a úsáideann sé mar cheangaltáin; fágtar scripteanna, roghchláir agus foirmeacha ar lár.",
+  "import-board-instruction-substack": "In Substack, roghnaigh Settings, Exports, Create new export, agus roghnaigh an .zip íoslódáilte anseo. Déantar cárta de gach postáil lena téacs, foilsithe nó mar dhréacht."
 }

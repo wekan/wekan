@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Pesan",
   "cloud-panel-chat-send": "Kirim",
   "cloud-panel-chat-import": "Impor percakapan sebelumnya",
-  "cloud-panel-chat-imported": "__count__ pesan diimpor."
+  "cloud-panel-chat-imported": "__count__ pesan diimpor.",
+  "board-view-website": "Situs web",
+  "tool-group-website": "Situs web",
+  "website-view-empty": "Belum ada yang diterbitkan di situs web ini.",
+  "feature-views-website": "Tampilan situs web",
+  "feature-views-website-desc": "Papan sebagai situs web: kartu-kartu dari daftar Published-nya, jalur Pages sebagai menu dan kartu lainnya sebagai tulisan, yang terbaru lebih dulu, beserta lampirannya. Papan publik dapat terbuka dalam tampilan ini, sehingga pengunjung melihat situs web di alamat papan.",
+  "import-board-instruction-wordpress": "Di WordPress, pilih Alat, Ekspor, Semua konten dan Unduh Berkas Ekspor, lalu pilih berkas .xml itu di sini atau tempelkan teksnya. Squarespace, Wix, dan situs lain yang mengekspor berkas WordPress bekerja dengan cara yang sama. Setiap halaman dan tulisan menjadi kartu di daftar statusnya, halaman di jalur Pages dan tulisan di Posts, dengan kontennya, kategori dan tag sebagai label, dan komentar yang disetujui.",
+  "import-board-instruction-wordpressjson": "Simpan tulisan dan halaman dari REST API WordPress (/wp-json/wp/v2/posts dan /wp-json/wp/v2/pages) sebagai satu berkas .json, lalu pilih di sini atau tempelkan. Setiap halaman dan tulisan menjadi kartu di daftar statusnya.",
+  "import-board-instruction-ghost": "Di Ghost, pilih Settings, Labs, Export your content, lalu pilih berkas .json di sini atau tempelkan. Setiap halaman dan tulisan menjadi kartu di daftar statusnya, dengan tag sebagai label.",
+  "import-board-instruction-blogger": "Di Blogger, pilih Setelan, Cadangkan konten, lalu pilih berkas .xml di sini atau tempelkan teksnya. Setiap postingan dan halaman menjadi kartu, draf di daftar Draft, dengan label dan komentarnya.",
+  "import-board-instruction-markdownsite": "Kompres sumber situs statis Hugo, Jekyll, Eleventy, Astro, atau lainnya menjadi .zip - berkas Markdown dengan front matter-nya, dan gambarnya - lalu pilih .zip di sini. Setiap berkas Markdown menjadi kartu: tulisan dari folder posts atau dengan tanggal di nama berkas, sisanya halaman, draf di daftar Draft, dan gambar yang dipakainya sebagai lampirannya.",
+  "import-board-instruction-htmlsite": "Kompres berkas situs web menjadi .zip - halaman .html dan gambarnya, seperti disimpan dengan wget atau HTTrack, atau ekspor Medium - lalu pilih .zip di sini. Setiap halaman menjadi kartu dengan teks utamanya, dan gambar yang dipakainya sebagai lampirannya; skrip, menu, dan formulir tidak disertakan.",
+  "import-board-instruction-substack": "Di Substack, pilih Settings, Exports, Create new export, lalu pilih .zip yang diunduh di sini. Setiap tulisan menjadi kartu dengan teksnya, terbit atau draf."
 }

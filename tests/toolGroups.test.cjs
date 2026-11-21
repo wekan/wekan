@@ -27,10 +27,10 @@ test('every import source and every export tool is named in a group, once', () =
 
 test('the groups are in order, each with a heading in English', () => {
   assert.deepStrictEqual(TOOL_GROUPS.map(g => g.group), ['wekan', '37signals', 'atlassian', 'google', 'microsoft', 'sandstorm',
-    'kanban', 'issues', 'tasks', 'spreadsheets', 'text', 'messages', 'api']);
+    'kanban', 'issues', 'tasks', 'spreadsheets', 'text', 'messages', 'website', 'api']);
   for (const g of TOOL_GROUPS.filter(t => t.labelKey)) assert.strictEqual(typeof en[g.labelKey], 'string', g.labelKey);
-  assert.deepStrictEqual(['gitlab', 'mail', 'slack', 'csv', 'planka'].map(toolGroupOf),
-    ['issues', 'messages', 'messages', 'spreadsheets', 'api']);
+  assert.deepStrictEqual(['gitlab', 'mail', 'slack', 'csv', 'planka', 'wordpress', 'htmlsite', 'sandstormwordpress'].map(toolGroupOf),
+    ['issues', 'messages', 'messages', 'spreadsheets', 'api', 'website', 'website', 'sandstorm']);
 });
 
 test('grouping keeps the order inside a group and heads only the first of each', () => {

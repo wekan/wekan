@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Zpráva",
   "cloud-panel-chat-send": "Odeslat",
   "cloud-panel-chat-import": "Importovat dřívější konverzace",
-  "cloud-panel-chat-imported": "Importováno __count__ zpráv."
+  "cloud-panel-chat-imported": "Importováno __count__ zpráv.",
+  "board-view-website": "Webové stránky",
+  "tool-group-website": "Webové stránky",
+  "website-view-empty": "Na těchto webových stránkách zatím nic není zveřejněno.",
+  "feature-views-website": "Zobrazení webových stránek",
+  "feature-views-website-desc": "Tabule jako webové stránky: karty jejího seznamu Published, dráha Pages jako nabídka a ostatní karty jako příspěvky, nejnovější první, s jejich přílohami. Veřejná tabule se v něm může otevřít, takže návštěvníci vidí webové stránky na adrese tabule.",
+  "import-board-instruction-wordpress": "Ve WordPressu zvolte Nástroje, Export, Veškerý obsah a Stáhnout soubor s exportem, a zvolte zde tento soubor .xml, nebo vložte jeho text. Squarespace, Wix a další weby, které exportují soubor WordPressu, fungují stejně. Každá stránka a příspěvek se stane kartou v seznamu svého stavu, stránky v dráze Pages a příspěvky v Posts, s obsahem, kategoriemi a štítky jako štítky a schválenými komentáři.",
+  "import-board-instruction-wordpressjson": "Uložte příspěvky a stránky z WordPress REST API (/wp-json/wp/v2/posts a /wp-json/wp/v2/pages) jako jeden soubor .json, a zvolte jej zde nebo jej vložte. Každá stránka a příspěvek se stane kartou v seznamu svého stavu.",
+  "import-board-instruction-ghost": "V Ghostu zvolte Settings, Labs, Export your content, a zvolte zde soubor .json nebo jej vložte. Každá stránka a příspěvek se stane kartou v seznamu svého stavu, se svými štítky jako štítky.",
+  "import-board-instruction-blogger": "V Bloggeru zvolte Nastavení, Zálohovat obsah, a zvolte zde soubor .xml nebo vložte jeho text. Každý příspěvek a stránka se stane kartou, koncept v seznamu Draft, se svými štítky a komentáři.",
+  "import-board-instruction-markdownsite": "Zabalte do .zip zdroje statického webu Hugo, Jekyll, Eleventy, Astro nebo jiného - soubory Markdown s jejich front matter a jejich obrázky - a zvolte zde .zip. Každý soubor Markdown se stane kartou: příspěvky ze složek posts nebo s datem v názvu souboru, zbytek stránky, koncepty v seznamu Draft, a obrázky, které používá, jako jeho přílohy.",
+  "import-board-instruction-htmlsite": "Zabalte do .zip soubory webu - jeho stránky .html a obrázky, uložené pomocí wget nebo HTTrack, nebo export z Medium - a zvolte zde .zip. Každá stránka se stane kartou se svým hlavním textem a obrázky, které používá, jako přílohami; skripty, nabídky a formuláře se vynechají.",
+  "import-board-instruction-substack": "V Substacku zvolte Settings, Exports, Create new export, a zvolte zde stažený .zip. Každý příspěvek se stane kartou se svým textem, zveřejněný nebo koncept."
 }

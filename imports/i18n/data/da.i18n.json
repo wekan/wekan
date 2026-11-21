@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Besked",
   "cloud-panel-chat-send": "Send besked",
   "cloud-panel-chat-import": "Importér tidligere samtaler",
-  "cloud-panel-chat-imported": "__count__ beskeder importeret."
+  "cloud-panel-chat-imported": "__count__ beskeder importeret.",
+  "board-view-website": "Hjemmeside",
+  "tool-group-website": "Hjemmeside",
+  "website-view-empty": "Der er endnu ikke udgivet noget på denne hjemmeside.",
+  "feature-views-website": "Hjemmesidevisning",
+  "feature-views-website-desc": "Tavlen som en hjemmeside: kortene i dens liste Published, banen Pages som menuen og de andre kort som indlæg, nyeste først, med deres vedhæftninger. En offentlig tavle kan åbne i den, så besøgende ser hjemmesiden på tavlens adresse.",
+  "import-board-instruction-wordpress": "I WordPress skal du vælge Værktøjer, Eksport, Alt indhold og Download eksportfil, og vælge den .xml-fil her eller indsætte dens tekst. Squarespace, Wix og andre sider, der eksporterer en WordPress-fil, fungerer på samme måde. Hver side og hvert indlæg bliver et kort i listen for dets status, sider i banen Pages og indlæg i Posts, med indhold, kategorier og tags som etiketter og de godkendte kommentarer.",
+  "import-board-instruction-wordpressjson": "Gem indlæg og sider fra WordPress REST API (/wp-json/wp/v2/posts og /wp-json/wp/v2/pages) som én .json-fil, og vælg den her eller indsæt den. Hver side og hvert indlæg bliver et kort i listen for dets status.",
+  "import-board-instruction-ghost": "I Ghost skal du vælge Settings, Labs, Export your content, og vælge .json-filen her eller indsætte den. Hver side og hvert indlæg bliver et kort i listen for dets status, med dets tags som etiketter.",
+  "import-board-instruction-blogger": "I Blogger skal du vælge Indstillinger, Sikkerhedskopiér indhold, og vælge .xml-filen her eller indsætte dens tekst. Hvert indlæg og hver side bliver et kort, en kladde i listen Draft, med etiketter og kommentarer.",
+  "import-board-instruction-markdownsite": "Zip kilderne til en Hugo-, Jekyll-, Eleventy-, Astro- eller anden statisk side - Markdown-filerne med deres front matter og deres billeder - og vælg .zip-filen her. Hver Markdown-fil bliver et kort: indlæg fra posts-mapperne eller med en dato i filnavnet, resten sider, kladder i listen Draft, og de billeder, den bruger, som vedhæftninger.",
+  "import-board-instruction-htmlsite": "Zip en hjemmesides filer - dens .html-sider og billeder, som gemt med wget eller HTTrack, eller Mediums eksport - og vælg .zip-filen her. Hver side bliver et kort med dens hovedtekst, og de billeder, den bruger, som vedhæftninger; scripts, menuer og formularer udelades.",
+  "import-board-instruction-substack": "I Substack skal du vælge Settings, Exports, Create new export, og vælge den downloadede .zip-fil her. Hvert indlæg bliver et kort med dets tekst, udgivet eller kladde."
 }

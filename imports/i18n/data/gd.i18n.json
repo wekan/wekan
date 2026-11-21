@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Teachdaireachd",
   "cloud-panel-chat-send": "Cuir",
   "cloud-panel-chat-import": "Ion-phortaich còmhraidhean na bu tràithe",
-  "cloud-panel-chat-imported": "Chaidh __count__ teachdaireachdan ion-phortadh."
+  "cloud-panel-chat-imported": "Chaidh __count__ teachdaireachdan ion-phortadh.",
+  "board-view-website": "Làrach-lìn",
+  "tool-group-website": "Làraichean-lìn",
+  "website-view-empty": "Chan eil dad foillsichte air an làrach-lìn seo fhathast.",
+  "feature-views-website": "Sealladh làraich-lìn",
+  "feature-views-website-desc": "Am bòrd mar làrach-lìn: cairtean na liosta Published aige, an t-slighe Pages mar chlàr-taice agus na cairtean eile mar phostaichean, am fear as ùire an toiseach, le na ceanglachain aca. Faodaidh bòrd poblach fosgladh san t-sealladh seo, gus am faic luchd-tadhail an làrach-lìn aig seòladh a' bhùird.",
+  "import-board-instruction-wordpress": "Ann an WordPress, tagh Tools, Export, All content agus Download Export File, agus tagh am faidhle .xml sin an-seo no cuir a theacsa ann. Obraichidh Squarespace, Wix is làraichean eile a dh'às-phortaicheas faidhle WordPress san aon dòigh. Bidh gach duilleag is post na chairt ann an liosta na h-inbhe aige, duilleagan san t-slighe Pages agus postaichean ann am Posts, leis an t-susbaint, na roinnean-seòrsa is tagaichean mar leubailean, agus na beachdan aontaichte aige.",
+  "import-board-instruction-wordpressjson": "Sàbhail postaichean is duilleagan REST API WordPress (/wp-json/wp/v2/posts agus /wp-json/wp/v2/pages) mar aon fhaidhle .json, agus tagh an-seo e no cuir ann e. Bidh gach duilleag is post na chairt ann an liosta na h-inbhe aige.",
+  "import-board-instruction-ghost": "Ann an Ghost, tagh Settings, Labs, Export your content, agus tagh am faidhle .json an-seo no cuir ann e. Bidh gach duilleag is post na chairt ann an liosta na h-inbhe aige, le na tagaichean aige mar leubailean.",
+  "import-board-instruction-blogger": "Ann am Blogger, tagh Settings, Back up content, agus tagh am faidhle .xml an-seo no cuir a theacsa ann. Bidh gach post is duilleag na chairt, dreachd san liosta Draft, le na leubailean is beachdan aige.",
+  "import-board-instruction-markdownsite": "Dùmhlaich tùsan làraich statach Hugo, Jekyll, Eleventy, Astro no eile ann an .zip - na faidhlichean Markdown leis an front matter aca, agus na dealbhan aca - agus tagh an .zip an-seo. Bidh gach faidhle Markdown na chairt: postaichean bho na pasganan posts no le ceann-là ann an ainm an fhaidhle, duilleagan don chòrr, dreachdan san liosta Draft, agus na dealbhan a chleachdas e mar cheanglachain.",
+  "import-board-instruction-htmlsite": "Dùmhlaich faidhlichean làraich-lìn ann an .zip - na duilleagan .html is dealbhan aige, mar a shàbhaileas wget no HTTrack iad, no às-phortadh Medium - agus tagh an .zip an-seo. Bidh gach duilleag na chairt leis a' phrìomh theacsa aice, agus na dealbhan a chleachdas i mar cheanglachain; fàgar sgriobtaichean, clàran-taice is foirmean a-mach.",
+  "import-board-instruction-substack": "Ann an Substack, tagh Settings, Exports, Create new export, agus tagh an .zip a luchdaich thu a-nuas an-seo. Bidh gach post na chairt leis an teacsa aige, foillsichte no na dhreachd."
 }

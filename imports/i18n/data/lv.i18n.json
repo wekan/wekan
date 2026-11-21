@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ziņojums",
   "cloud-panel-chat-send": "Sūtīt",
   "cloud-panel-chat-import": "Importēt agrākās sarunas",
-  "cloud-panel-chat-imported": "Importēti ziņojumi: __count__."
+  "cloud-panel-chat-imported": "Importēti ziņojumi: __count__.",
+  "board-view-website": "Tīmekļa vietne",
+  "tool-group-website": "Tīmekļa vietne",
+  "website-view-empty": "Šajā tīmekļa vietnē vēl nekas nav publicēts.",
+  "feature-views-website": "Tīmekļa vietnes skats",
+  "feature-views-website-desc": "Dēlis kā tīmekļa vietne: tā saraksta Published kartiņas, josla Pages kā izvēlne un pārējās kartiņas kā ieraksti, jaunākie vispirms, ar to failiem. Publisks dēlis var atvērties šajā skatā, lai apmeklētāji redzētu tīmekļa vietni dēļa adresē.",
+  "import-board-instruction-wordpress": "WordPress izvēlieties 'Tools', 'Export', 'All content' un 'Download Export File', un izvēlieties šo .xml failu šeit vai ielīmējiet tā tekstu. Squarespace, Wix un citas vietnes, kas eksportē WordPress failu, darbojas tāpat. Katra lapa un ieraksts kļūst par kartiņu sava statusa sarakstā, lapas joslā Pages un ieraksti joslā Posts, ar saturu, kategorijām un tagiem kā birkām un apstiprinātajiem komentāriem.",
+  "import-board-instruction-wordpressjson": "Saglabājiet WordPress REST API ierakstus un lapas (/wp-json/wp/v2/posts un /wp-json/wp/v2/pages) kā vienu .json failu un izvēlieties to šeit vai ielīmējiet. Katra lapa un ieraksts kļūst par kartiņu sava statusa sarakstā.",
+  "import-board-instruction-ghost": "Ghost izvēlieties 'Settings', 'Labs', 'Export your content', un izvēlieties .json failu šeit vai ielīmējiet to. Katra lapa un ieraksts kļūst par kartiņu sava statusa sarakstā, ar tagiem kā birkām.",
+  "import-board-instruction-blogger": "Blogger izvēlieties 'Settings', 'Back up content', un izvēlieties .xml failu šeit vai ielīmējiet tā tekstu. Katrs ieraksts un lapa kļūst par kartiņu, melnraksts sarakstā Draft, ar birkām un komentāriem.",
+  "import-board-instruction-markdownsite": "Saspiediet .zip failā Hugo, Jekyll, Eleventy, Astro vai citas statiskas vietnes avotus - Markdown failus ar to front matter un attēlus - un izvēlieties .zip šeit. Katrs Markdown fails kļūst par kartiņu: ieraksti no posts mapēm vai ar datumu faila nosaukumā, pārējie - lapas, melnraksti sarakstā Draft, un izmantotie attēli kā tās faili.",
+  "import-board-instruction-htmlsite": "Saspiediet .zip failā tīmekļa vietnes failus - tās .html lapas un attēlus, kas saglabāti ar wget vai HTTrack, vai Medium eksportu - un izvēlieties .zip šeit. Katra lapa kļūst par kartiņu ar tās galveno tekstu un izmantotajiem attēliem kā failiem; skripti, izvēlnes un formas tiek izlaisti.",
+  "import-board-instruction-substack": "Substack izvēlieties 'Settings', 'Exports', 'Create new export', un izvēlieties lejupielādēto .zip šeit. Katrs ieraksts kļūst par kartiņu ar tā tekstu, publicētu vai melnrakstu."
 }

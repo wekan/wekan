@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "संदेश",
   "cloud-panel-chat-send": "धाडात",
   "cloud-panel-chat-import": "आदलीं संभाशणां आयात करात",
-  "cloud-panel-chat-imported": "__count__ संदेश आयात केले."
+  "cloud-panel-chat-imported": "__count__ संदेश आयात केले.",
+  "board-view-website": "संकेतथळ",
+  "tool-group-website": "संकेतथळां",
+  "website-view-empty": "ह्या संकेतथळार अजून कांयच उजवाडाक आयिल्लें ना.",
+  "feature-views-website": "संकेतथळ दृश्य",
+  "feature-views-website-desc": "फळो संकेतथळ म्हूण: ताच्या Published वळेरीचीं कार्डां, वाट Pages मेनू म्हूण आनी उरिल्लीं कार्डां पोस्ट म्हूण, सगळ्यांत नवें पयलें, तांच्या जोडण्यां सयत. एक सार्वजनीक फळो ह्या दृश्यांत उगडूं येता, जाका लागून भेट दिवपी फळ्याच्या पत्त्यार संकेतथळ पळयतात.",
+  "import-board-instruction-wordpress": "WordPress हांतूत Tools, Export, All content आनी Download Export File वेंचात, आनी ती .xml फायल हांगा वेंचात वा तिचो मजकूर चिकटयात. Squarespace, Wix आनी WordPress फायल निर्यात करपी हेर थळां तशेंच वावुरतात. दर एक पान आनी पोस्ट आपल्या स्थितीच्या वळेरींत एक कार्ड जाता, पानां वाट Pages हांतूत आनी पोस्ट Posts हांतूत, आपलो मजकूर, वर्ग आनी टॅग लेबलां म्हूण, आनी मान्य केल्ल्या टिप्पण्यां सयत.",
+  "import-board-instruction-wordpressjson": "WordPress REST API चे पोस्ट आनी पानां (/wp-json/wp/v2/posts आनी /wp-json/wp/v2/pages) एक .json फायल म्हूण सांबाळात, आनी ती हांगा वेंचात वा चिकटयात. दर एक पान आनी पोस्ट आपल्या स्थितीच्या वळेरींत एक कार्ड जाता.",
+  "import-board-instruction-ghost": "Ghost हांतूत Settings, Labs, Export your content वेंचात, आनी .json फायल हांगा वेंचात वा चिकटयात. दर एक पान आनी पोस्ट आपल्या स्थितीच्या वळेरींत एक कार्ड जाता, आपले टॅग लेबलां म्हूण.",
+  "import-board-instruction-blogger": "Blogger हांतूत Settings, Back up content वेंचात, आनी .xml फायल हांगा वेंचात वा तिचो मजकूर चिकटयात. दर एक पोस्ट आनी पान एक कार्ड जाता, मसुदो वळेरी Draft हांतूत, आपल्या लेबलां आनी टिप्पण्यां सयत.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro वा हेर स्थिर थळाचे स्रोत .zip करात - Markdown फायली तांच्या front matter सयत, आनी तांचीं चित्रां - आनी .zip हांगा वेंचात. दर एक Markdown फायल एक कार्ड जाता: posts फोल्डरांतल्यो वा फायलीच्या नांवांत तारीख आशिल्ल्यो पोस्ट, उरिल्लीं पानां, मसुदे वळेरी Draft हांतूत, आनी ती वापरता तीं चित्रां तिच्यो जोडण्यो.",
+  "import-board-instruction-htmlsite": "एका संकेतथळाच्यो फायली .zip करात - ताचीं .html पानां आनी चित्रां, wget वा HTTrack हांणी सांबाळिल्ले भशेन, वा Medium ची निर्यात - आनी .zip हांगा वेंचात. दर एक पान आपल्या मुखेल मजकुरा सयत एक कार्ड जाता, आनी तें वापरता तीं चित्रां ताच्यो जोडण्यो; स्क्रिप्ट, मेनू आनी अर्ज सोडून दितात.",
+  "import-board-instruction-substack": "Substack हांतूत Settings, Exports, Create new export वेंचात, आनी डाउनलोड केल्ली .zip हांगा वेंचात. दर एक पोस्ट आपल्या मजकुरा सयत एक कार्ड जाता, उजवाडाक आयिल्लो वा मसुदो."
 }

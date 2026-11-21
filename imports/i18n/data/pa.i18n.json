@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "ਸੁਨੇਹਾ",
   "cloud-panel-chat-send": "ਭੇਜੋ",
   "cloud-panel-chat-import": "ਪਿਛਲੀਆਂ ਗੱਲਬਾਤਾਂ ਆਯਾਤ ਕਰੋ",
-  "cloud-panel-chat-imported": "__count__ ਸੁਨੇਹੇ ਆਯਾਤ ਕੀਤੇ ਗਏ।"
+  "cloud-panel-chat-imported": "__count__ ਸੁਨੇਹੇ ਆਯਾਤ ਕੀਤੇ ਗਏ।",
+  "board-view-website": "ਵੈੱਬਸਾਈਟ",
+  "tool-group-website": "ਵੈੱਬਸਾਈਟ",
+  "website-view-empty": "ਇਸ ਵੈੱਬਸਾਈਟ 'ਤੇ ਹਾਲੇ ਕੁਝ ਵੀ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੋਇਆ।",
+  "feature-views-website": "ਵੈੱਬਸਾਈਟ ਦ੍ਰਿਸ਼",
+  "feature-views-website-desc": "ਬੋਰਡ ਇੱਕ ਵੈੱਬਸਾਈਟ ਵਜੋਂ: ਇਸ ਦੀ Published ਸੂਚੀ ਦੇ ਕਾਰਡ, ਤੈਰਾਕੀ Pages ਮੀਨੂ ਵਜੋਂ ਅਤੇ ਬਾਕੀ ਕਾਰਡ ਪੋਸਟਾਂ ਵਜੋਂ, ਸਭ ਤੋਂ ਨਵੇਂ ਪਹਿਲਾਂ, ਉਨ੍ਹਾਂ ਦੀਆਂ ਅਟੈਚਮੈਂਟਸ ਸਮੇਤ। ਇੱਕ ਜਨਤਕ ਬੋਰਡ ਇਸ ਵਿੱਚ ਖੁੱਲ੍ਹ ਸਕਦਾ ਹੈ, ਤਾਂ ਜੋ ਮਹਿਮਾਨ ਬੋਰਡ ਦੇ ਪਤੇ 'ਤੇ ਵੈੱਬਸਾਈਟ ਦੇਖਣ।",
+  "import-board-instruction-wordpress": "WordPress ਵਿੱਚ 'Tools', 'Export', 'All content' ਅਤੇ 'Download Export File' ਚੁਣੋ, ਅਤੇ ਉਹ .xml ਫਾਈਲ ਇੱਥੇ ਚੁਣੋ, ਜਾਂ ਉਸ ਦਾ ਟੈਕਸਟ ਚਿਪਕਾਓ। WordPress ਫਾਈਲ ਨਿਰਯਾਤ ਕਰਨ ਵਾਲੀਆਂ Squarespace, Wix ਅਤੇ ਹੋਰ ਸਾਈਟਾਂ ਵੀ ਇਸੇ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ। ਹਰ ਪੰਨਾ ਅਤੇ ਪੋਸਟ ਆਪਣੀ ਸਥਿਤੀ ਦੀ ਸੂਚੀ ਵਿੱਚ ਇੱਕ ਕਾਰਡ ਬਣਦਾ ਹੈ, ਪੰਨੇ ਤੈਰਾਕੀ Pages ਵਿੱਚ ਅਤੇ ਪੋਸਟਾਂ Posts ਵਿੱਚ, ਉਸ ਦੀ ਸਮੱਗਰੀ, ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਟੈਗ ਲੇਬਲਾਂ ਵਜੋਂ, ਅਤੇ ਮਨਜ਼ੂਰ ਟਿੱਪਣੀਆਂ ਸਮੇਤ।",
+  "import-board-instruction-wordpressjson": "WordPress REST API ਦੀਆਂ ਪੋਸਟਾਂ ਅਤੇ ਪੰਨੇ (/wp-json/wp/v2/posts ਅਤੇ /wp-json/wp/v2/pages) ਇੱਕ .json ਫਾਈਲ ਵਜੋਂ ਸੰਭਾਲੋ, ਅਤੇ ਇਸ ਨੂੰ ਇੱਥੇ ਚੁਣੋ ਜਾਂ ਚਿਪਕਾਓ। ਹਰ ਪੰਨਾ ਅਤੇ ਪੋਸਟ ਆਪਣੀ ਸਥਿਤੀ ਦੀ ਸੂਚੀ ਵਿੱਚ ਇੱਕ ਕਾਰਡ ਬਣਦਾ ਹੈ।",
+  "import-board-instruction-ghost": "Ghost ਵਿੱਚ 'Settings', 'Labs', 'Export your content' ਚੁਣੋ, ਅਤੇ .json ਫਾਈਲ ਇੱਥੇ ਚੁਣੋ ਜਾਂ ਚਿਪਕਾਓ। ਹਰ ਪੰਨਾ ਅਤੇ ਪੋਸਟ ਆਪਣੀ ਸਥਿਤੀ ਦੀ ਸੂਚੀ ਵਿੱਚ ਇੱਕ ਕਾਰਡ ਬਣਦਾ ਹੈ, ਉਸ ਦੇ ਟੈਗ ਲੇਬਲਾਂ ਵਜੋਂ।",
+  "import-board-instruction-blogger": "Blogger ਵਿੱਚ 'Settings', 'Back up content' ਚੁਣੋ, ਅਤੇ .xml ਫਾਈਲ ਇੱਥੇ ਚੁਣੋ ਜਾਂ ਉਸ ਦਾ ਟੈਕਸਟ ਚਿਪਕਾਓ। ਹਰ ਪੋਸਟ ਅਤੇ ਪੰਨਾ ਇੱਕ ਕਾਰਡ ਬਣਦਾ ਹੈ, ਖਰੜਾ Draft ਸੂਚੀ ਵਿੱਚ, ਉਸ ਦੇ ਲੇਬਲਾਂ ਅਤੇ ਟਿੱਪਣੀਆਂ ਸਮੇਤ।",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro ਜਾਂ ਕਿਸੇ ਹੋਰ ਸਥਿਰ ਸਾਈਟ ਦੇ ਸਰੋਤ .zip ਕਰੋ - front matter ਵਾਲੀਆਂ Markdown ਫਾਈਲਾਂ, ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਤਸਵੀਰਾਂ - ਅਤੇ .zip ਇੱਥੇ ਚੁਣੋ। ਹਰ Markdown ਫਾਈਲ ਇੱਕ ਕਾਰਡ ਬਣਦੀ ਹੈ: posts ਫੋਲਡਰਾਂ ਤੋਂ ਜਾਂ ਫਾਈਲ ਨਾਮ ਵਿੱਚ ਮਿਤੀ ਵਾਲੀਆਂ ਪੋਸਟਾਂ, ਬਾਕੀ ਪੰਨੇ, ਖਰੜੇ Draft ਸੂਚੀ ਵਿੱਚ, ਅਤੇ ਜੋ ਤਸਵੀਰਾਂ ਉਹ ਵਰਤਦੀ ਹੈ ਉਹ ਉਸ ਦੀਆਂ ਅਟੈਚਮੈਂਟਸ ਵਜੋਂ।",
+  "import-board-instruction-htmlsite": "ਇੱਕ ਵੈੱਬਸਾਈਟ ਦੀਆਂ ਫਾਈਲਾਂ .zip ਕਰੋ - wget ਜਾਂ HTTrack ਨਾਲ ਸੰਭਾਲੇ ਉਸ ਦੇ .html ਪੰਨੇ ਅਤੇ ਤਸਵੀਰਾਂ, ਜਾਂ Medium ਦਾ ਨਿਰਯਾਤ - ਅਤੇ .zip ਇੱਥੇ ਚੁਣੋ। ਹਰ ਪੰਨਾ ਆਪਣੇ ਮੁੱਖ ਟੈਕਸਟ ਨਾਲ ਇੱਕ ਕਾਰਡ ਬਣਦਾ ਹੈ, ਅਤੇ ਜੋ ਤਸਵੀਰਾਂ ਉਹ ਵਰਤਦਾ ਹੈ ਉਹ ਅਟੈਚਮੈਂਟਸ ਵਜੋਂ; ਸਕ੍ਰਿਪਟਾਂ, ਮੀਨੂ ਅਤੇ ਫਾਰਮ ਛੱਡ ਦਿੱਤੇ ਜਾਂਦੇ ਹਨ।",
+  "import-board-instruction-substack": "Substack ਵਿੱਚ 'Settings', 'Exports', 'Create new export' ਚੁਣੋ, ਅਤੇ ਡਾਊਨਲੋਡ ਕੀਤੀ .zip ਇੱਥੇ ਚੁਣੋ। ਹਰ ਪੋਸਟ ਆਪਣੇ ਟੈਕਸਟ ਨਾਲ ਇੱਕ ਕਾਰਡ ਬਣਦੀ ਹੈ, ਪ੍ਰਕਾਸ਼ਿਤ ਜਾਂ ਖਰੜਾ।"
 }

@@ -250,6 +250,13 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'enex', icon: 'fa-sticky-note', label: 'Evernote (.enex)', path: 'export/enex', ext: 'enex', scopes: BOARD_ONLY },
       { key: 'mattermost', icon: 'fa-comments', label: 'Mattermost', path: 'export/mattermost', ext: 'jsonl', scopes: BOARD_ONLY },
       { key: 'rocketchat', icon: 'fa-comments', label: 'Rocket.Chat', path: 'export/rocketchat', ext: 'zip', scopes: BOARD_ONLY },
+      // Websites (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md).
+      { key: 'wordpress', icon: 'fa-wordpress', label: 'WordPress (.xml)', path: 'export/wordpress', ext: 'xml', scopes: BOARD_ONLY },
+      { key: 'wordpressjson', icon: 'fa-wordpress', label: 'WordPress REST API (.json)', path: 'export/wordpressjson', ext: 'json', scopes: BOARD_ONLY },
+      { key: 'ghost', icon: 'fa-file-text-o', label: 'Ghost', path: 'export/ghost', ext: 'json', scopes: BOARD_ONLY },
+      { key: 'blogger', icon: 'fa-rss', label: 'Blogger (.xml)', path: 'export/blogger', ext: 'xml', scopes: BOARD_ONLY },
+      { key: 'markdownsite', icon: 'fa-file-code-o', label: 'Hugo, Jekyll, Eleventy, Astro (.zip)', path: 'export/markdownsite', ext: 'zip', scopes: BOARD_ONLY },
+      { key: 'htmlsite', icon: 'fa-globe', label: 'HTML website (.zip)', path: 'export/htmlsite', ext: 'zip', scopes: BOARD_ONLY },
       { key: 'todotxt', icon: 'fa-list-ul', label: 'todo.txt', path: 'export/todotxt', ext: 'txt', scopes: BOARD_ONLY },
       { key: 'taskwarrior', icon: 'fa-terminal', label: 'Taskwarrior', path: 'export/taskwarrior', ext: 'json', scopes: BOARD_ONLY },
       { key: 'focalboard', icon: 'fa-th-large', label: 'Focalboard', path: 'export/focalboard', ext: 'jsonl', scopes: BOARD_ONLY },

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Wiadōmość",
   "cloud-panel-chat-send": "Poślij",
   "cloud-panel-chat-import": "Importuj starsze rozmōwy",
-  "cloud-panel-chat-imported": "__count__ wiadōmości zaimportowanych."
+  "cloud-panel-chat-imported": "__count__ wiadōmości zaimportowanych.",
+  "board-view-website": "Strōna internetowa",
+  "tool-group-website": "Strōna internetowa",
+  "website-view-empty": "Na tyj strōnie jeszcze nic niy ma publikowane.",
+  "feature-views-website": "Widok strōny internetowyj",
+  "feature-views-website-desc": "Tabula jako strōna internetowa: karty z jeji listy Published, ślak Pages jako spis opcji, a inksze karty jako wpisy, nojnowsze piyrsze, ze swojimi przidŏwkami. Publiczno tabula może sie w nim ôtwiyrać, coby goście widzieli strōna pod adresym tabule.",
+  "import-board-instruction-wordpress": "We WordPressie wybier Narzędzia, Eksport, Cało treść i Pobier plik eksportu, a potym wybier tyn plik .xml sam abo wraź jego tekst. Squarespace, Wix i inksze strōny, co eksportujōm plik WordPressa, działajōm tak samo. Kożdo strōna i kożdy wpis stŏwajōm sie kartōm na liście swojigo statusu, strōny na ślaku Pages, a wpisy na Posts, ze swojōm treściōm, kategoryjami i tagami jako etykety, i ze swojimi zatwierdzōnymi kōmyntŏrzami.",
+  "import-board-instruction-wordpressjson": "Spamiyntej wpisy i strōny z WordPress REST API (/wp-json/wp/v2/posts i /wp-json/wp/v2/pages) jako jedyn plik .json i wybier go sam abo wraź. Kożdo strōna i kożdy wpis stŏwajōm sie kartōm na liście swojigo statusu.",
+  "import-board-instruction-ghost": "W Ghost wybier Settings, Labs, Export your content i wybier plik .json sam abo go wraź. Kożdo strōna i kożdy wpis stŏwajōm sie kartōm na liście swojigo statusu, z tagami jako etykety.",
+  "import-board-instruction-blogger": "W Bloggerze wybier Sztelōnki, Kopia zapasowo treści i wybier plik .xml sam abo wraź jego tekst. Kożdy wpis i kożdo strōna stŏwajōm sie kartōm, szkic na liście Draft, ze swojimi etykietami i kōmyntŏrzami.",
+  "import-board-instruction-markdownsite": "Spakuj do zip źrōdła statycznyj strōny Hugo, Jekyll, Eleventy, Astro abo inkszyj - pliki Markdown z jejich front matter i jejich ôbrazki - i wybier sam .zip. Kożdy plik Markdown stŏwo sie kartōm: wpisy z folderōw posts abo z datōm w miani pliku, reszta to strōny, szkice na liście Draft, a ôbrazki, co ich używo, jako jego przidŏwki.",
+  "import-board-instruction-htmlsite": "Spakuj do zip pliki strōny internetowyj - jeji strōny .html i ôbrazki, spamiyntane z wget abo HTTrack, abo eksport z Medium - i wybier sam .zip. Kożdo strōna stŏwo sie kartōm ze swojim gŏwnym tekstym, a ôbrazki, co ich używo, jako jeji przidŏwki; skrypty, spisy opcji i formularze sōm pōminiynte.",
+  "import-board-instruction-substack": "W Substack wybier Settings, Exports, Create new export i wybier sam pobrany .zip. Kożdy wpis stŏwo sie kartōm ze swojim tekstym, publikowany abo szkic."
 }

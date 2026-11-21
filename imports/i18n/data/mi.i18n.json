@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Karere",
   "cloud-panel-chat-send": "Tukuna",
   "cloud-panel-chat-import": "Kawemai i ngā kōrerorero o mua",
-  "cloud-panel-chat-imported": "Kua kawemaitia ngā karere __count__."
+  "cloud-panel-chat-imported": "Kua kawemaitia ngā karere __count__.",
+  "board-view-website": "Paetukutuku",
+  "tool-group-website": "Paetukutuku",
+  "website-view-empty": "Kāore anō tētahi mea kia whakaputaina ki tēnei paetukutuku.",
+  "feature-views-website": "Tirohanga paetukutuku",
+  "feature-views-website-desc": "Ko te papa hei paetukutuku: ngā kāri o tōna rārangi Published, te ara Pages hei tahua, ā, ko ērā atu kāri hei tuhinga, ko ngā mea hōu tuatahi, me ō rātou āpitihanga. Ka taea te whakatuwhera i tētahi papa tūmatanui ki tēnei, kia kite ngā manuhiri i te paetukutuku i te wāhitau o te papa.",
+  "import-board-instruction-wordpress": "I WordPress, kōwhiria 'Tools', 'Export', 'All content' me 'Download Export File', ā, kōwhiria taua kōnae .xml ki konei, kia whakapiri rānei i tōna kuputuhi. He pērā anō a Squarespace, Wix me ētahi atu pae e kaweake ana i tētahi kōnae WordPress. Ka huri ia whārangi me ia tuhinga hei kāri i te rārangi o tōna tūnga, ngā whārangi i te ara Pages me ngā tuhinga i Posts, me tōna ihirangi, ōna kāwai me ōna tūtohu hei tapanga, me ōna kōrero kua whakaaetia.",
+  "import-board-instruction-wordpressjson": "Tiakina ngā tuhinga me ngā whārangi o te WordPress REST API (/wp-json/wp/v2/posts me /wp-json/wp/v2/pages) hei kōnae .json kotahi, ā, kōwhiria ki konei, whakapiri rānei. Ka huri ia whārangi me ia tuhinga hei kāri i te rārangi o tōna tūnga.",
+  "import-board-instruction-ghost": "I Ghost, kōwhiria 'Settings', 'Labs', 'Export your content', ā, kōwhiria te kōnae .json ki konei, whakapiri rānei. Ka huri ia whārangi me ia tuhinga hei kāri i te rārangi o tōna tūnga, me ōna tūtohu hei tapanga.",
+  "import-board-instruction-blogger": "I Blogger, kōwhiria 'Settings', 'Back up content', ā, kōwhiria te kōnae .xml ki konei, whakapiri rānei i tōna kuputuhi. Ka huri ia tuhinga me ia whārangi hei kāri, he tauira i te rārangi Draft, me ōna tapanga me ōna kōrero.",
+  "import-board-instruction-markdownsite": "Kōpīhia ki tētahi .zip ngā mātāpuna o tētahi pae Hugo, Jekyll, Eleventy, Astro, pae pateko kē rānei - ngā kōnae Markdown me ō rātou front matter, me ō rātou whakaahua - ā, kōwhiria te .zip ki konei. Ka huri ia kōnae Markdown hei kāri: he tuhinga mai i ngā kōpaki posts, he rā rānei kei te ingoa kōnae, ko te toenga he whārangi, ngā tauira i te rārangi Draft, ā, ko ngā whakaahua e whakamahia ana hei āpitihanga.",
+  "import-board-instruction-htmlsite": "Kōpīhia ki tētahi .zip ngā kōnae o tētahi paetukutuku - ōna whārangi .html me ōna whakaahua, kua tiakina ki wget, ki HTTrack rānei, te kaweake rānei a Medium - ā, kōwhiria te .zip ki konei. Ka huri ia whārangi hei kāri me tōna kuputuhi matua, ā, ko ngā whakaahua e whakamahia ana hei āpitihanga; ka waiho ngā hōtuhi, ngā tahua me ngā puka.",
+  "import-board-instruction-substack": "I Substack, kōwhiria 'Settings', 'Exports', 'Create new export', ā, kōwhiria te .zip kua tikiake ki konei. Ka huri ia tuhinga hei kāri me tōna kuputuhi, kua whakaputaina, he tauira rānei."
 }

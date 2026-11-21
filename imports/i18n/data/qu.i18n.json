@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Willakuy",
   "cloud-panel-chat-send": "Kachay",
   "cloud-panel-chat-import": "Ñawpaq rimanakuykunata apamuy",
-  "cloud-panel-chat-imported": "__count__ willakuykuna apamusqa."
+  "cloud-panel-chat-imported": "__count__ willakuykuna apamusqa.",
+  "board-view-website": "Llika k'itilla",
+  "tool-group-website": "Llika k'itilla",
+  "website-view-empty": "Kay llika k'itillapiqa manaraq imapas rikuchisqachu.",
+  "feature-views-website": "Llika k'itilla qaway",
+  "feature-views-website-desc": "Pirqa llika k'itilla hina: Published sutisuyunpa kartankuna, Pages ñan akllana hina, wak kartakunataq qillqasqakuna hina, aswan musuqkuna ñawpaqta, watasqankunawan. Llapapaq pirqaqa kay qawaypi kichakuyta atin, watukuqkuna pirqap tiyananpi llika k'itillata rikunankupaq.",
+  "import-board-instruction-wordpress": "WordPress nisqapi 'Tools', 'Export', 'All content', 'Download Export File' ima akllay, chay .xml willañiqita kaypi akllay, utaq qillqanta k'askachiy. Squarespace, Wix, WordPress willañiqita hurquq wak k'itillakunapas kikillantataq llamk'anku. Sapa p'anqa, sapa qillqasqapas imayna kasqanpa sutisuyunpi huk karta kapun, p'anqakuna Pages ñanpi, qillqasqakunataq Posts nisqapi, ukhunwan, t'aqankunawan, tags unanchakuna hina, chaskisqa rimayninkunawan ima.",
+  "import-board-instruction-wordpressjson": "WordPress REST API nisqap qillqasqankunata p'anqankunatapas (/wp-json/wp/v2/posts, /wp-json/wp/v2/pages) huk .json willañiqi hina waqaychay, kaypi akllay utaq k'askachiy. Sapa p'anqa, sapa qillqasqapas imayna kasqanpa sutisuyunpi huk karta kapun.",
+  "import-board-instruction-ghost": "Ghost nisqapi 'Settings', 'Labs', 'Export your content' akllay, .json willañiqita kaypi akllay utaq k'askachiy. Sapa p'anqa, sapa qillqasqapas imayna kasqanpa sutisuyunpi huk karta kapun, tagsninkunawan unanchakuna hina.",
+  "import-board-instruction-blogger": "Blogger nisqapi 'Settings', 'Back up content' akllay, .xml willañiqita kaypi akllay utaq qillqanta k'askachiy. Sapa qillqasqa, sapa p'anqapas huk karta kapun, manaraq tukusqataq Draft sutisuyupi, unanchankunawan rimayninkunawan.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro utaq wak mana kuyuq k'itillap pukyunkunata .zip nisqapi huñuy - Markdown willañiqikunata front matter nisqankuwan, siq'inkunatapas - .zip nisqatataq kaypi akllay. Sapa Markdown willañiqi huk karta kapun: posts q'ipikunamanta utaq willañiqip sutinpi p'unchawniyuq qillqasqakuna, puchuqkunataq p'anqakuna, manaraq tukusqakuna Draft sutisuyupi, siq'ikunataq llamk'achisqan watasqankuna hina.",
+  "import-board-instruction-htmlsite": "Huk llika k'itillap willañiqinkunata .zip nisqapi huñuy - .html p'anqankunata siq'inkunatapas, wget utaq HTTrack nisqawan waqaychasqa hina, utaq Medium hurqusqanta - .zip nisqatataq kaypi akllay. Sapa p'anqa hatun qillqanwan huk karta kapun, siq'ikunataq llamk'achisqan watasqankuna hina; scripts, akllanakuna, hunt'ana p'anqakunapas qhepanku.",
+  "import-board-instruction-substack": "Substack nisqapi 'Settings', 'Exports', 'Create new export' akllay, uraqachisqa .zip nisqata kaypi akllay. Sapa qillqasqa qillqanwan huk karta kapun, rikuchisqa utaq manaraq tukusqa."
 }

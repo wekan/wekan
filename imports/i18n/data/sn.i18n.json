@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Meseji",
   "cloud-panel-chat-send": "Tumira",
   "cloud-panel-chat-import": "Pinza hurukuro dzekare",
-  "cloud-panel-chat-imported": "Mameseji __count__ apinzwa."
+  "cloud-panel-chat-imported": "Mameseji __count__ apinzwa.",
+  "board-view-website": "Webhusaiti",
+  "tool-group-website": "Webhusaiti",
+  "website-view-empty": "Hapana chakaburitswa pawebhusaiti iyi parizvino.",
+  "feature-views-website": "Maonero ewebhusaiti",
+  "feature-views-website-desc": "Bhodhi sewebhusaiti: makadhi erondedzero yayo Published, mugwagwa Pages semenyu uye mamwe makadhi semanyorerwo, matsva pekutanga, pamwe chete nezvakabatanidzwa zvawo. Bhodhi reveruzhinji rinogona kuvhurika mumaonero aya, kuitira kuti vashanyi vaone webhusaiti pakero yebhodhi.",
+  "import-board-instruction-wordpress": "MuWordPress, sarudza 'Tools', 'Export', 'All content' uye 'Download Export File', wosarudza faira iro re.xml pano, kana kunamatidza mavara aro. Squarespace, Wix nedzimwe saiti dzinoburitsa faira reWordPress dzinoshanda nenzira imwe chete. Peji yega yega nemanyorerwo ega ega zvinova kadhi murondedzero yemamiriro azvo, mapeji mumugwagwa Pages uye manyorerwo muPosts, pamwe nezvirimo, zvikamu nema tags semareberu, nemhinduro dzakabvumidzwa.",
+  "import-board-instruction-wordpressjson": "Chengetedza manyorerwo nemapeji eWordPress REST API (/wp-json/wp/v2/posts ne/wp-json/wp/v2/pages) sefaira rimwe re.json, worisarudza pano kana kurinamatidza. Peji yega yega nemanyorerwo ega ega zvinova kadhi murondedzero yemamiriro azvo.",
+  "import-board-instruction-ghost": "MuGhost, sarudza 'Settings', 'Labs', 'Export your content', wosarudza faira re.json pano kana kurinamatidza. Peji yega yega nemanyorerwo ega ega zvinova kadhi murondedzero yemamiriro azvo, nema tags azvo semareberu.",
+  "import-board-instruction-blogger": "MuBlogger, sarudza 'Settings', 'Back up content', wosarudza faira re.xml pano kana kunamatidza mavara aro. Manyorerwo ega ega nepeji yega yega zvinova kadhi, zvisati zvapera murondedzero Draft, pamwe nemareberu nemhinduro zvazvo.",
+  "import-board-instruction-markdownsite": "Isa mu.zip zvinyorwa zvekwakabva saiti yeHugo, Jekyll, Eleventy, Astro kana imwe saiti isingachinji - mafaira eMarkdown ne front matter yawo, nemifananidzo yawo - wosarudza .zip pano. Faira rega rega reMarkdown rinova kadhi: manyorerwo anobva mumafoldha e posts kana ane zuva muzita refaira, mamwe mapeji, zvisati zvapera murondedzero Draft, uye mifananidzo yarinoshandisa sezvakabatanidzwa zvaro.",
+  "import-board-instruction-htmlsite": "Isa mu.zip mafaira ewebhusaiti - mapeji ayo e.html nemifananidzo, sezvakachengetwa newget kana HTTrack, kana zvakaburitswa naMedium - wosarudza .zip pano. Peji yega yega inova kadhi nemavara ayo makuru, uye mifananidzo yainoshandisa sezvakabatanidzwa; ma script, menyu nemafomu zvinosiiwa.",
+  "import-board-instruction-substack": "MuSubstack, sarudza 'Settings', 'Exports', 'Create new export', wosarudza .zip yawadhawunirodha pano. Manyorerwo ega ega anova kadhi nemavara awo, akaburitswa kana asati apera."
 }

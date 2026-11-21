@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "메시지",
   "cloud-panel-chat-send": "보내기",
   "cloud-panel-chat-import": "이전 대화 가져오기",
-  "cloud-panel-chat-imported": "메시지 __count__개를 가져왔습니다."
+  "cloud-panel-chat-imported": "메시지 __count__개를 가져왔습니다.",
+  "board-view-website": "웹사이트",
+  "tool-group-website": "웹사이트",
+  "website-view-empty": "이 웹사이트에는 아직 게시된 것이 없습니다.",
+  "feature-views-website": "웹사이트 보기",
+  "feature-views-website-desc": "보드를 웹사이트로 보여 줍니다. Published 목록의 카드, 스윔레인 Pages를 메뉴로, 나머지 카드를 최신순 게시물로 첨부 파일과 함께 보여 줍니다. 공개 보드는 이 보기로 열 수 있어 방문자는 보드 주소에서 웹사이트를 봅니다.",
+  "import-board-instruction-wordpress": "WordPress에서 도구, 내보내기, 모든 콘텐츠, 내보내기 파일 다운로드를 선택하고 그 .xml 파일을 여기서 선택하거나 텍스트를 붙여 넣으세요. WordPress 파일을 내보내는 Squarespace, Wix 등 다른 사이트도 같은 방식으로 작동합니다. 각 페이지와 글은 상태별 목록의 카드가 되며, 페이지는 스윔레인 Pages에, 글은 Posts에 들어가고, 내용, 카테고리와 태그는 라벨로, 승인된 댓글도 함께 가져옵니다.",
+  "import-board-instruction-wordpressjson": "WordPress REST API의 글과 페이지(/wp-json/wp/v2/posts 및 /wp-json/wp/v2/pages)를 하나의 .json 파일로 저장하고 여기서 선택하거나 붙여 넣으세요. 각 페이지와 글은 상태별 목록의 카드가 됩니다.",
+  "import-board-instruction-ghost": "Ghost에서 Settings, Labs, Export your content를 선택하고 .json 파일을 여기서 선택하거나 붙여 넣으세요. 각 페이지와 글은 상태별 목록의 카드가 되며, 태그는 라벨이 됩니다.",
+  "import-board-instruction-blogger": "Blogger에서 설정, 콘텐츠 백업을 선택하고 .xml 파일을 여기서 선택하거나 텍스트를 붙여 넣으세요. 각 글과 페이지는 카드가 되며, 임시글은 목록 Draft에 들어가고 라벨과 댓글도 함께 가져옵니다.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro 또는 기타 정적 사이트의 소스(front matter가 있는 Markdown 파일과 이미지)를 .zip으로 압축하고 여기서 .zip을 선택하세요. 각 Markdown 파일은 카드가 됩니다. posts 폴더에 있거나 파일 이름에 날짜가 있는 것은 글, 나머지는 페이지, 초안은 목록 Draft에 들어가고 사용하는 이미지는 첨부 파일이 됩니다.",
+  "import-board-instruction-htmlsite": "웹사이트의 파일(wget 또는 HTTrack으로 저장한 .html 페이지와 이미지, 또는 Medium 내보내기)을 .zip으로 압축하고 여기서 .zip을 선택하세요. 각 페이지는 본문이 있는 카드가 되고 사용하는 이미지는 첨부 파일이 됩니다. 스크립트, 메뉴, 양식은 제외됩니다.",
+  "import-board-instruction-substack": "Substack에서 Settings, Exports, Create new export를 선택하고 다운로드한 .zip을 여기서 선택하세요. 각 글은 본문이 있는 카드가 되며, 게시됨 또는 초안이 됩니다."
 }

@@ -82,6 +82,10 @@ const BOARD_VIEWS = [
   { view: 'board-view-distribution', labelKey: 'board-view-distribution', icon: 'fa-pie-chart', group: 'overview' },
   { view: 'board-view-dependency-map', labelKey: 'board-view-dependency-map', icon: 'fa-share-alt', group: 'overview' },
   { view: 'board-view-activity-heatmap', labelKey: 'board-view-activity-heatmap', icon: 'fa-th', group: 'overview' },
+  // Appended after Activity Heatmap: the board as the website it was imported from - WordPress, Ghost, a
+  // static site - built from its cards and attachments; as a public board's
+  // view, what visitors see at its address (client/components/boards/websiteView.*).
+  { view: 'board-view-website', labelKey: 'board-view-website', icon: 'fa-globe', group: 'communication' },
 ];
 
 // The menu's groups, in the order they are drawn, each under its heading
@@ -164,6 +168,7 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-distribution',
   'board-view-dependency-map',
   'board-view-activity-heatmap',
+  'board-view-website',
 ];
 
 // Views added to the default order after a board could save an order of its
@@ -183,6 +188,7 @@ const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'boar
   'board-view-distribution',
   'board-view-dependency-map',
   'board-view-activity-heatmap',
+  'board-view-website',
 ];
 
 // After which entries the menu draws a separator - the same six `hr`s the

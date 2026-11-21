@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Chaghteraght",
   "cloud-panel-chat-send": "Cur",
   "cloud-panel-chat-import": "Cur stiagh co-loayrtyn ny s'leaie",
-  "cloud-panel-chat-imported": "__count__ chaghteraghtyn currit stiagh."
+  "cloud-panel-chat-imported": "__count__ chaghteraghtyn currit stiagh.",
+  "board-view-website": "Ynnyd eggey",
+  "tool-group-website": "Ynnydyn eggey",
+  "website-view-empty": "Cha nel veg soilshit er yn ynnyd eggey shoh foast.",
+  "feature-views-website": "Shilley ynnyd eggey",
+  "feature-views-website-desc": "Yn boayrd myr ynnyd eggey: kaartyn y rolley Published echey, yn cassan Pages myr claare as ny kaartyn elley myr postyn, yn fer smoo noa hoshiaght, lesh nyn goyrtyn. Foddee boayrd theayagh fosley ayns y shilley shoh, myr shen dy vaik keayrtee yn ynnyd eggey ec enmys y voayrd.",
+  "import-board-instruction-wordpress": "Ayns WordPress, reih Tools, Export, All content as Download Export File, as reih yn coadan .xml shen ayns shoh ny cur stiagh yn teks echey. Ta Squarespace, Wix as ynnydyn elley ta cur magh coadan WordPress gobbraghey er yn aght cheddin. Ta dagh duillag as post jannoo kaart ayns rolley e stayd, duillagyn ayns y cassan Pages as postyn ayns Posts, lesh e chooid, e rheynnyn as e dagyn myr lipaidyn, as e chooishyn lowit.",
+  "import-board-instruction-wordpressjson": "Sauail postyn as duillagyn REST API WordPress (/wp-json/wp/v2/posts as /wp-json/wp/v2/pages) myr un choadan .json, as reih eh ayns shoh ny cur stiagh eh. Ta dagh duillag as post jannoo kaart ayns rolley e stayd.",
+  "import-board-instruction-ghost": "Ayns Ghost, reih Settings, Labs, Export your content, as reih yn coadan .json ayns shoh ny cur stiagh eh. Ta dagh duillag as post jannoo kaart ayns rolley e stayd, lesh e dagyn myr lipaidyn.",
+  "import-board-instruction-blogger": "Ayns Blogger, reih Settings, Back up content, as reih yn coadan .xml ayns shoh ny cur stiagh yn teks echey. Ta dagh post as duillag jannoo kaart, dreaght ayns y rolley Draft, lesh e lipaidyn as e chooishyn.",
+  "import-board-instruction-markdownsite": "Jean .zip jeh bunneyn ynnyd shassoo Hugo, Jekyll, Eleventy, Astro ny elley - ny coadanyn Markdown lesh nyn front matter, as nyn jalloyn - as reih yn .zip ayns shoh. Ta dagh coadan Markdown jannoo kaart: postyn veih ny fillagyn posts ny lesh dait ayns ennym y choadan, duillagyn y chooid elley, dreaghtyn ayns y rolley Draft, as ny jalloyn t'eh dy ymmyd myr coyrtyn.",
+  "import-board-instruction-htmlsite": "Jean .zip jeh coadanyn ynnyd eggey - e ghuillagyn .html as jalloyn, myr ta wget ny HTTrack dy sauail ad, ny cur magh Medium - as reih yn .zip ayns shoh. Ta dagh duillag jannoo kaart lesh e phrimm-teks, as ny jalloyn t'ee dy ymmyd myr coyrtyn; ta scriptyn, claareyn as foirmyn faagit magh.",
+  "import-board-instruction-substack": "Ayns Substack, reih Settings, Exports, Create new export, as reih yn .zip er ny laadey neose ayns shoh. Ta dagh post jannoo kaart lesh e heks, soilshit ny myr dreaght."
 }

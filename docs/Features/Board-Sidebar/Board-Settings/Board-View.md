@@ -19,7 +19,7 @@ heading (`BOARD_VIEW_GROUPS` in `models/lib/boardViewSettings.js`):
 | Scrum | Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup, Release Burndown, Epic Progress |
 | Kanban flow | Cumulative Flow, Control, Cycle Time, Lead Time, Flow Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis, Monte Carlo, Process Behavior, Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run Chart, Due Date Performance |
 | Overview | Dashboard, Pulse, Statistics, Workload, Distribution, Dependency Map, Activity Heatmap |
-| Communication and code | Email, Chat, Version Control |
+| Communication and code | Email, Chat, Website, Version Control |
 
 The order a board admin drags here decides inside each group; a view stays in
 its own group. A group none of whose views is shown has no heading.
@@ -137,6 +137,7 @@ menu's own order**, with the same translation keys the menu uses:
 50. Distribution (`board-view-distribution`)
 51. Dependency Map (`board-view-dependency-map`)
 52. Activity Heatmap (`board-view-activity-heatmap`)
+53. Website (`board-view-website`)
 
 The one list is `BOARD_VIEWS` in `models/lib/boardViewSettings.js`. Both the
 popup and the Board View menu (`boardChangeViewPopup` in
@@ -221,6 +222,13 @@ view added to WeKan later appears at the end of an existing custom order.
   default: Version Control, Email, Chat, Roadmap and the others. A visitor
   can not write: every view draws its controls for the person's rights,
   and the server refuses a write without them.
+- **A website at the board's address.** With **Website** as the public
+  default, a visitor of a public board sees the board as a website - its
+  Published cards, Pages as the menu, the other cards as posts, the cards'
+  attachments as their images and files - built from the board itself
+  (`models/lib/websiteView.js`). A board imported from WordPress, Ghost,
+  Blogger or a static site ([Website](Import-Export/Website/Website.md)) is
+  laid out that way already; any board can be.
 - **The Board View menu** (`boardChangeViewPopup`) is rendered from the
   board: `boardViewMenuEntries` gives it the views whose *Show* box is ticked
   for the side that applies to the person looking (above), in the board's

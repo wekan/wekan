@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Novitad",
   "cloud-panel-chat-send": "Trametter",
   "cloud-panel-chat-import": "Importar conversaziuns pli baud",
-  "cloud-panel-chat-imported": "__count__ novitads importadas."
+  "cloud-panel-chat-imported": "__count__ novitads importadas.",
+  "board-view-website": "Pagina d'internet",
+  "tool-group-website": "Pagina d'internet",
+  "website-view-empty": "Sin questa pagina d'internet n'è anc nagut publitgà.",
+  "feature-views-website": "Vista da la pagina d'internet",
+  "feature-views-website-desc": "La tabella sco pagina d'internet: las cartas da sia glista Published, la via Pages sco menu e las autras cartas sco artitgels, ils pli novs l'emprim, cun lur agiuntas. Ina tabella publica po s'avrir en questa vista, uschia che visitaders vesan la pagina d'internet a l'adressa da la tabella.",
+  "import-board-instruction-wordpress": "En WordPress tscherna 'Tools', 'Export', 'All content' e 'Download Export File', e tscherna quella datoteca .xml qua, u encollescha ses text. Squarespace, Wix ed autras paginas che exportan ina datoteca WordPress funcziunan medemamain. Mintga pagina e mintga artitgel daventa ina carta en la glista da ses status, las paginas en la via Pages ed ils artitgels en Posts, cun ses cuntegn, categorias e tags sco etichettas, e ses commentaris approvads.",
+  "import-board-instruction-wordpressjson": "Memorisescha ils artitgels e las paginas da la WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) sco ina datoteca .json, e tscherna ella qua u encollescha ella. Mintga pagina e mintga artitgel daventa ina carta en la glista da ses status.",
+  "import-board-instruction-ghost": "En Ghost tscherna 'Settings', 'Labs', 'Export your content', e tscherna la datoteca .json qua u encollescha ella. Mintga pagina e mintga artitgel daventa ina carta en la glista da ses status, cun ses tags sco etichettas.",
+  "import-board-instruction-blogger": "En Blogger tscherna 'Settings', 'Back up content', e tscherna la datoteca .xml qua u encollescha ses text. Mintga artitgel e mintga pagina daventa ina carta, in sboz en la glista Draft, cun sias etichettas e ses commentaris.",
+  "import-board-instruction-markdownsite": "Fa in .zip da las funtaunas d'ina pagina Hugo, Jekyll, Eleventy, Astro u d'in'autra pagina statica - las datotecas Markdown cun lur front matter, e lur maletgs - e tscherna il .zip qua. Mintga datoteca Markdown daventa ina carta: artitgels dals ordinaturs posts u cun ina data en il num da la datoteca, il rest paginas, sbozs en la glista Draft, ed ils maletgs ch'ella dovra sco sias agiuntas.",
+  "import-board-instruction-htmlsite": "Fa in .zip da las datotecas d'ina pagina d'internet - sias paginas .html e maletgs, sco memorisads cun wget u HTTrack, u l'export da Medium - e tscherna il .zip qua. Mintga pagina daventa ina carta cun ses text principal, ed ils maletgs ch'ella dovra sco sias agiuntas; scripts, menus e formulars vegnan laschads davent.",
+  "import-board-instruction-substack": "En Substack tscherna 'Settings', 'Exports', 'Create new export', e tscherna il .zip telechargià qua. Mintga artitgel daventa ina carta cun ses text, publitgà u sboz."
 }

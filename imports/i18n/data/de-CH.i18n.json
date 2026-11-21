@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Nachricht",
   "cloud-panel-chat-send": "Senden",
   "cloud-panel-chat-import": "Frühere Unterhaltungen importieren",
-  "cloud-panel-chat-imported": "__count__ Nachrichten importiert."
+  "cloud-panel-chat-imported": "__count__ Nachrichten importiert.",
+  "board-view-website": "Webseite",
+  "tool-group-website": "Webseite",
+  "website-view-empty": "Auf dieser Webseite ist noch nichts veröffentlicht.",
+  "feature-views-website": "Webseitenansicht",
+  "feature-views-website-desc": "Das Board als Webseite: die Karten seiner Liste Published, die Swimlane Pages als Menü und die übrigen Karten als Beiträge, die neuesten zuerst, mit ihren Anhängen. Ein öffentliches Board kann darin geöffnet werden, sodass Besucher die Webseite unter der Adresse des Boards sehen.",
+  "import-board-instruction-wordpress": "Wählen Sie in WordPress Werkzeuge, Daten exportieren, Alle Inhalte und Export-Datei herunterladen, und wählen Sie diese .xml-Datei hier aus oder fügen Sie ihren Text ein. Squarespace, Wix und andere Seiten, die eine WordPress-Datei exportieren, funktionieren genauso. Jede Seite und jeder Beitrag wird eine Karte in der Liste seines Status, Seiten in der Swimlane Pages und Beiträge in Posts, mit Inhalt, Kategorien und Schlagwörtern als Labels und den freigegebenen Kommentaren.",
+  "import-board-instruction-wordpressjson": "Speichern Sie die Beiträge und Seiten der WordPress REST API (/wp-json/wp/v2/posts und /wp-json/wp/v2/pages) als eine .json-Datei, und wählen Sie sie hier aus oder fügen Sie sie ein. Jede Seite und jeder Beitrag wird eine Karte in der Liste seines Status.",
+  "import-board-instruction-ghost": "Wählen Sie in Ghost Settings, Labs, Export your content, und wählen Sie die .json-Datei hier aus oder fügen Sie sie ein. Jede Seite und jeder Beitrag wird eine Karte in der Liste seines Status, mit seinen Tags als Labels.",
+  "import-board-instruction-blogger": "Wählen Sie in Blogger Einstellungen, Inhalte sichern, und wählen Sie die .xml-Datei hier aus oder fügen Sie ihren Text ein. Jeder Beitrag und jede Seite wird eine Karte, ein Entwurf in der Liste Draft, mit Labels und Kommentaren.",
+  "import-board-instruction-markdownsite": "Packen Sie die Quellen einer Hugo-, Jekyll-, Eleventy-, Astro- oder anderen statischen Seite in ein .zip - die Markdown-Dateien mit ihrem Front Matter und ihre Bilder - und wählen Sie das .zip hier aus. Jede Markdown-Datei wird eine Karte: Beiträge aus den posts-Ordnern oder mit einem Datum im Dateinamen, der Rest Seiten, Entwürfe in der Liste Draft, und die verwendeten Bilder als Anhänge.",
+  "import-board-instruction-htmlsite": "Packen Sie die Dateien einer Webseite in ein .zip - ihre .html-Seiten und Bilder, wie mit wget oder HTTrack gespeichert, oder den Export von Medium - und wählen Sie das .zip hier aus. Jede Seite wird eine Karte mit ihrem Haupttext, und die verwendeten Bilder als Anhänge; Skripte, Menüs und Formulare werden weggelassen.",
+  "import-board-instruction-substack": "Wählen Sie in Substack Settings, Exports, Create new export, und wählen Sie das heruntergeladene .zip hier aus. Jeder Beitrag wird eine Karte mit seinem Text, veröffentlicht oder als Entwurf."
 }

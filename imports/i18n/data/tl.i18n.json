@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensahe",
   "cloud-panel-chat-send": "Ipadala",
   "cloud-panel-chat-import": "I-import ang mga naunang usapan",
-  "cloud-panel-chat-imported": "__count__ mensahe ang na-import."
+  "cloud-panel-chat-imported": "__count__ mensahe ang na-import.",
+  "board-view-website": "Pook-sapot",
+  "tool-group-website": "Pook-sapot",
+  "website-view-empty": "Wala pang nailathala sa pook-sapot na ito.",
+  "feature-views-website": "Tanaw na pook-sapot",
+  "feature-views-website-desc": "Ang pisara bilang pook-sapot: ang mga kard ng listahan nitong Published, ang daanang Pages bilang menu at ang ibang mga kard bilang mga post, pinakabago muna, kasama ang kanilang mga kalakip. Maaaring magbukas dito ang pampublikong pisara, kaya makikita ng mga bisita ang pook-sapot sa address ng pisara.",
+  "import-board-instruction-wordpress": "Sa WordPress, piliin ang Tools, Export, All content at Download Export File, at piliin dito ang .xml na file na iyon, o i-paste ang teksto nito. Ganoon din gumagana ang Squarespace, Wix at iba pang site na nag-e-export ng WordPress na file. Bawat pahina at post ay nagiging kard sa listahan ng katayuan nito, ang mga pahina sa daanang Pages at ang mga post sa Posts, kasama ang nilalaman nito, mga kategorya at tag bilang mga etiketa, at ang mga inaprubahang komento nito.",
+  "import-board-instruction-wordpressjson": "I-save ang mga post at pahina ng WordPress REST API (/wp-json/wp/v2/posts at /wp-json/wp/v2/pages) bilang isang .json na file, at piliin ito dito o i-paste. Bawat pahina at post ay nagiging kard sa listahan ng katayuan nito.",
+  "import-board-instruction-ghost": "Sa Ghost, piliin ang Settings, Labs, Export your content, at piliin dito ang .json na file o i-paste ito. Bawat pahina at post ay nagiging kard sa listahan ng katayuan nito, kasama ang mga tag nito bilang mga etiketa.",
+  "import-board-instruction-blogger": "Sa Blogger, piliin ang Settings, Back up content, at piliin dito ang .xml na file o i-paste ang teksto nito. Bawat post at pahina ay nagiging kard, ang draft sa listahang Draft, kasama ang mga etiketa at komento nito.",
+  "import-board-instruction-markdownsite": "I-zip ang mga source ng isang Hugo, Jekyll, Eleventy, Astro o ibang static na site - ang mga Markdown na file kasama ang kanilang front matter, at ang kanilang mga larawan - at piliin dito ang .zip. Bawat Markdown na file ay nagiging kard: mga post mula sa mga folder na posts o may petsa sa pangalan ng file, ang iba ay mga pahina, mga draft sa listahang Draft, at ang mga larawang ginagamit nito bilang mga kalakip nito.",
+  "import-board-instruction-htmlsite": "I-zip ang mga file ng isang pook-sapot - ang mga .html na pahina at larawan nito, gaya ng na-save gamit ang wget o HTTrack, o ang export ng Medium - at piliin dito ang .zip. Bawat pahina ay nagiging kard kasama ang pangunahing teksto nito, at ang mga larawang ginagamit nito bilang mga kalakip; hindi isinasama ang mga script, menu at form.",
+  "import-board-instruction-substack": "Sa Substack, piliin ang Settings, Exports, Create new export, at piliin dito ang na-download na .zip. Bawat post ay nagiging kard kasama ang teksto nito, nailathala o draft."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "訊息",
   "cloud-panel-chat-send": "傳送",
   "cloud-panel-chat-import": "匯入先前的對話",
-  "cloud-panel-chat-imported": "已匯入 __count__ 則訊息。"
+  "cloud-panel-chat-imported": "已匯入 __count__ 則訊息。",
+  "board-view-website": "網站",
+  "tool-group-website": "網站",
+  "website-view-empty": "此網站尚未發布任何內容。",
+  "feature-views-website": "網站檢視",
+  "feature-views-website-desc": "將看板顯示為網站：其 Published 清單中的卡片、作為選單的 Pages 泳道，以及作為文章的其他卡片，最新的在前，並附帶其附件。公開看板可以在此檢視中開啟，訪客即可在看板網址上看到網站。",
+  "import-board-instruction-wordpress": "在 WordPress 中，選擇「工具」、「匯出」、「所有內容」和「下載匯出檔案」，然後在此處選擇該 .xml 檔案，或貼上其文字。Squarespace、Wix 以及其他可匯出 WordPress 檔案的網站也同樣適用。每個頁面和文章都會成為其狀態所在清單中的一張卡片，頁面位於 Pages 泳道，文章位於 Posts，並包含其內容、作為標籤的分類和標籤，以及已核准的留言。",
+  "import-board-instruction-wordpressjson": "將 WordPress REST API 的文章和頁面（/wp-json/wp/v2/posts 和 /wp-json/wp/v2/pages）儲存為一個 .json 檔案，然後在此處選擇或貼上。每個頁面和文章都會成為其狀態所在清單中的一張卡片。",
+  "import-board-instruction-ghost": "在 Ghost 中，選擇 Settings、Labs、Export your content，然後在此處選擇該 .json 檔案或貼上。每個頁面和文章都會成為其狀態所在清單中的一張卡片，其標籤作為卡片標籤。",
+  "import-board-instruction-blogger": "在 Blogger 中，選擇「設定」、「備份內容」，然後在此處選擇該 .xml 檔案或貼上其文字。每篇文章和頁面都會成為一張卡片，草稿位於 Draft 清單，並包含其標籤和留言。",
+  "import-board-instruction-markdownsite": "將 Hugo、Jekyll、Eleventy、Astro 或其他靜態網站的原始檔（帶有 front matter 的 Markdown 檔案及其圖片）壓縮為 zip，然後在此處選擇該 .zip。每個 Markdown 檔案都會成為一張卡片：來自 posts 資料夾或檔名中帶日期的為文章，其餘為頁面，草稿位於 Draft 清單，其使用的圖片作為附件。",
+  "import-board-instruction-htmlsite": "將網站的檔案（用 wget 或 HTTrack 儲存的 .html 頁面和圖片，或 Medium 的匯出）壓縮為 zip，然後在此處選擇該 .zip。每個頁面都會成為一張包含其正文的卡片，其使用的圖片作為附件；指令碼、選單和表單將被略過。",
+  "import-board-instruction-substack": "在 Substack 中，選擇 Settings、Exports、Create new export，然後在此處選擇下載的 .zip。每篇文章都會成為一張包含其文字的卡片，已發布或草稿。"
 }

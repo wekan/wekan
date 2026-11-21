@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Rungula",
   "cloud-panel-chat-send": "Rhumela",
   "cloud-panel-chat-import": "Nghenisa mabulo ya khale",
-  "cloud-panel-chat-imported": "Marungula ya __count__ ma nghenisiwile."
+  "cloud-panel-chat-imported": "Marungula ya __count__ ma nghenisiwile.",
+  "board-view-website": "Websayiti",
+  "tool-group-website": "Websayiti",
+  "website-view-empty": "A ku si na nchumu lowu kandziyisiweke eka websayiti leyi.",
+  "feature-views-website": "Ku languta tanihi websayiti",
+  "feature-views-website-desc": "Bodo tanihi websayiti: tikhadi ta nxaxamelo wa yona wa Published, ndlela ya Pages tanihi menyu ni tikhadi tin'wana tanihi mapapila, leti ntshwa ku sungula, swin'we ni swihlanganisi swa tona. Bodo ya vanhu hinkwavo yi nga pfuleka eka yona, leswaku vaendzi va vona websayiti eka adirese ya bodo.",
+  "import-board-instruction-wordpress": "Eka WordPress, hlawula Tools, Export, All content na Download Export File, kutani u hlawula fayili yoleyo ya .xml laha, kumbe u namarheta matsalwa ya yona. Squarespace, Wix ni tisayiti tin'wana leti humesaka fayili ya WordPress ti tirha hi ndlela leyi fanaka. Pheji yin'wana ni yin'wana ni papila rin'wana ni rin'wana swi va khadi eka nxaxamelo wa xiyimo xa swona, tipheji eka ndlela ya Pages ni mapapila eka Posts, swin'we ni leswi nga endzeni, mintlawa ni tithegi tanihi swikombiso, ni mimbulavulo ya swona leyi amukeriweke.",
+  "import-board-instruction-wordpressjson": "Hlayisa mapapila ni tipheji ta WordPress REST API (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) tanihi fayili yin'we ya .json, kutani u yi hlawula laha kumbe u yi namarheta. Pheji yin'wana ni yin'wana ni papila rin'wana ni rin'wana swi va khadi eka nxaxamelo wa xiyimo xa swona.",
+  "import-board-instruction-ghost": "Eka Ghost, hlawula Settings, Labs, Export your content, kutani u hlawula fayili ya .json laha kumbe u yi namarheta. Pheji yin'wana ni yin'wana ni papila rin'wana ni rin'wana swi va khadi eka nxaxamelo wa xiyimo xa swona, swin'we ni tithegi ta swona tanihi swikombiso.",
+  "import-board-instruction-blogger": "Eka Blogger, hlawula Settings, Back up content, kutani u hlawula fayili ya .xml laha kumbe u namarheta matsalwa ya yona. Papila rin'wana ni rin'wana ni pheji yin'wana ni yin'wana swi va khadi, xiringanyeto eka nxaxamelo wa Draft, swin'we ni swikombiso ni mimbulavulo ya swona.",
+  "import-board-instruction-markdownsite": "Endla zip ya swihlovo swa sayiti leyi nga cinciki ya Hugo, Jekyll, Eleventy, Astro kumbe yin'wana - tifayili ta Markdown ni front matter ya tona, ni swifaniso swa tona - kutani u hlawula .zip laha. Fayili yin'wana ni yin'wana ya Markdown yi va khadi: mapapila ku suka eka tifolda ta posts kumbe lama nga ni siku eka vito ra fayili, leswi saleke i tipheji, swiringanyeto eka nxaxamelo wa Draft, ni swifaniso leswi yi swi tirhisaka tanihi swihlanganisi swa yona.",
+  "import-board-instruction-htmlsite": "Endla zip ya tifayili ta websayiti - tipheji ta yona ta .html ni swifaniso, tanihilaha ti hlayisiweke hakona hi wget kumbe HTTrack, kumbe ku humesiwa ka Medium - kutani u hlawula .zip laha. Pheji yin'wana ni yin'wana yi va khadi ni matsalwa ya yona lamakulu, ni swifaniso leswi yi swi tirhisaka tanihi swihlanganisi swa yona; tiskripti, timenyu ni tifomo swa tshikiwa.",
+  "import-board-instruction-substack": "Eka Substack, hlawula Settings, Exports, Create new export, kutani u hlawula .zip leyi u yi dawunilodeke laha. Papila rin'wana ni rin'wana ri va khadi ni matsalwa ya rona, leri kandziyisiweke kumbe xiringanyeto."
 }

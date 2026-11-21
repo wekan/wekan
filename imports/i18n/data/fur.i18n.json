@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaç",
   "cloud-panel-chat-send": "Mande",
   "cloud-panel-chat-import": "Impuarte lis cjacaradis di prime",
-  "cloud-panel-chat-imported": "__count__ messaçs impuartâts."
+  "cloud-panel-chat-imported": "__count__ messaçs impuartâts.",
+  "board-view-website": "Sît web",
+  "tool-group-website": "Sîts web",
+  "website-view-empty": "Nol è ancjemò nuie publicât su chest sît web.",
+  "feature-views-website": "Viodude sît web",
+  "feature-views-website-desc": "La taule tant che sît web: lis cjartis de sô liste Published, la corsie Pages tant che menù e lis altris cjartis tant che articui, dai plui gnûfs ai plui vecjos, cui lôr alegâts. Une taule publiche e pues vierzisi in cheste viodude, cussì i visitadôrs a viodin il sît web te direzion de taule.",
+  "import-board-instruction-wordpress": "In WordPress, sielç Tools, Export, All content e Download Export File, e sielç achì chel file .xml o tache il so test. Squarespace, Wix e altris sîts che a espuartin un file di WordPress a funzionin te stesse maniere. Ogni pagjine e ogni articul al devente une cjarte te liste dal so stât, lis pagjinis te corsie Pages e i articui in Posts, cul so contignût, lis sôs categoriis e tag tant che etichetis, e i siei coments aprovâts.",
+  "import-board-instruction-wordpressjson": "Salve i articui e lis pagjinis de REST API di WordPress (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) tant che un unic file .json, e sielzilu achì o tachilu. Ogni pagjine e ogni articul al devente une cjarte te liste dal so stât.",
+  "import-board-instruction-ghost": "In Ghost, sielç Settings, Labs, Export your content, e sielç achì il file .json o tachilu. Ogni pagjine e ogni articul al devente une cjarte te liste dal so stât, cui siei tag tant che etichetis.",
+  "import-board-instruction-blogger": "In Blogger, sielç Settings, Back up content, e sielç achì il file .xml o tache il so test. Ogni articul e ogni pagjine al devente une cjarte, une stampe provisorie te liste Draft, cu lis sôs etichetis e i siei coments.",
+  "import-board-instruction-markdownsite": "Strenç intun .zip i sorzints di un sît static Hugo, Jekyll, Eleventy, Astro o altri (i file Markdown cul lôr front matter, e lis lôr imagjins) e sielç achì il .zip. Ogni file Markdown al devente une cjarte: articui chei des cartelis posts o cuntune date tal non dal file, pagjinis chei altris, lis stampis provisoriis te liste Draft, e lis imagjins che al dopre tant che alegâts.",
+  "import-board-instruction-htmlsite": "Strenç intun .zip i file di un sît web (lis sôs pagjinis .html e imagjins, salvadis cun wget o HTTrack, o la esportazion di Medium) e sielç achì il .zip. Ogni pagjine e devente une cjarte cul so test principâl, e lis imagjins che e dopre tant che alegâts; script, menù e formularis a vegnin lassâts fûr.",
+  "import-board-instruction-substack": "In Substack, sielç Settings, Exports, Create new export, e sielç achì il .zip discjamât. Ogni articul al devente une cjarte cul so test, publicât o provisori."
 }

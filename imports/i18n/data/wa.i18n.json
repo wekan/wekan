@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaedje",
   "cloud-panel-chat-send": "Evoyî",
   "cloud-panel-chat-import": "Abaguer les divizes di dvant",
-  "cloud-panel-chat-imported": "__count__ messaedjes abaguîs."
+  "cloud-panel-chat-imported": "__count__ messaedjes abaguîs.",
+  "board-view-website": "Site waibe",
+  "tool-group-website": "Site waibe",
+  "website-view-empty": "I gn a co rén di publiyî so ç' site waibe ci.",
+  "feature-views-website": "Vuwe site waibe",
+  "feature-views-website-desc": "Li tåvlea come on site waibe: les cåtes di s' djivêye Published, li coridôr Pages come dressêye et les ôtes cåtes come des messaedjes, les pus noveas d' prumî, avou leus ataetches. Ene tåvlea publike pout s' drovi dvins, po k' les vizitants veyèxhe li site waibe a l' adresse del tåvlea.",
+  "import-board-instruction-wordpress": "Dins WordPress, tchoezixhoz Tools, Export, All content et Download Export File, et tchoezixhoz ci li fitchî .xml, ou aclapez s' tecse. Squarespace, Wix et ôtes sites ki ebagnèt on fitchî WordPress rotèt l' minme. Tchaeke pådje et messaedje divént ene cåte dins l' djivêye di s' estat, les pådjes dins l' coridôr Pages et les messaedjes dins Posts, avou s' contnou, ses categoreyes et ses tags come etiketes, et ses coments aprovés.",
+  "import-board-instruction-wordpressjson": "Schapez les messaedjes et les pådjes del WordPress REST API (/wp-json/wp/v2/posts et /wp-json/wp/v2/pages) come on seu fitchî .json, et tchoezixhoz-l ci ou aclapez-l. Tchaeke pådje et messaedje divént ene cåte dins l' djivêye di s' estat.",
+  "import-board-instruction-ghost": "Dins Ghost, tchoezixhoz Settings, Labs, Export your content, et tchoezixhoz ci li fitchî .json ou aclapez-l. Tchaeke pådje et messaedje divént ene cåte dins l' djivêye di s' estat, avou ses tags come etiketes.",
+  "import-board-instruction-blogger": "Dins Blogger, tchoezixhoz Settings, Back up content, et tchoezixhoz ci li fitchî .xml ou aclapez s' tecse. Tchaeke messaedje et pådje divént ene cåte, on brouyon dins l' djivêye Draft, avou ses etiketes et ses coments.",
+  "import-board-instruction-markdownsite": "Zipez les sourdants d' on site statike Hugo, Jekyll, Eleventy, Astro ou ôte - les fitchîs Markdown avou leu front matter, et leus imådjes - et tchoezixhoz ci li .zip. Tchaeke fitchî Markdown divént ene cåte: des messaedjes des ridants posts ou avou ene date e no do fitchî, l' rès des pådjes, les brouyons dins l' djivêye Draft, et les imådjes k' il eploye come ses ataetches.",
+  "import-board-instruction-htmlsite": "Zipez les fitchîs d' on site waibe - ses pådjes .html et imådjes, come schapés avou wget ou HTTrack, ou l' ebagaedje di Medium - et tchoezixhoz ci li .zip. Tchaeke pådje divént ene cåte avou s' mwaisse tecse, et les imådjes k' ele eploye come ses ataetches; les scripts, dressêyes et formulaires sont leyîs foû.",
+  "import-board-instruction-substack": "Dins Substack, tchoezixhoz Settings, Exports, Create new export, et tchoezixhoz ci li .zip aberwetté. Tchaeke messaedje divént ene cåte avou s' tecse, publiyî ou brouyon."
 }

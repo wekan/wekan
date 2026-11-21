@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaj",
   "cloud-panel-chat-send": "Gönder",
   "cloud-panel-chat-import": "Önceki konuşmaları içe aktar",
-  "cloud-panel-chat-imported": "__count__ mesaj içe aktarıldı."
+  "cloud-panel-chat-imported": "__count__ mesaj içe aktarıldı.",
+  "board-view-website": "Web Sitesi",
+  "tool-group-website": "Web Sitesi",
+  "website-view-empty": "Bu web sitesinde henüz hiçbir şey yayımlanmadı.",
+  "feature-views-website": "Web sitesi görünümü",
+  "feature-views-website-desc": "Pano bir web sitesi olarak: Published listesinin kartları, menü olarak Pages kulvarı ve yazılar olarak diğer kartlar, en yeniler önce, ekleriyle birlikte. Herkese açık bir pano bu görünümde açılabilir, böylece ziyaretçiler web sitesini panonun adresinde görür.",
+  "import-board-instruction-wordpress": "WordPress'te Araçlar, Dışa aktar, Tüm içerik ve Dışa Aktarım Dosyasını İndir'i seçin, ardından o .xml dosyasını burada seçin veya metnini yapıştırın. WordPress dosyası dışa aktaran Squarespace, Wix ve diğer siteler de aynı şekilde çalışır. Her sayfa ve yazı, durumunun listesinde bir kart olur; sayfalar Pages kulvarında, yazılar Posts'ta, içeriği, kategorileri ve etiketleri kart etiketi olarak ve onaylanmış yorumlarıyla birlikte.",
+  "import-board-instruction-wordpressjson": "WordPress REST API'nin yazılarını ve sayfalarını (/wp-json/wp/v2/posts ve /wp-json/wp/v2/pages) tek bir .json dosyası olarak kaydedin ve burada seçin veya yapıştırın. Her sayfa ve yazı, durumunun listesinde bir kart olur.",
+  "import-board-instruction-ghost": "Ghost'ta Settings, Labs, Export your content'i seçin ve .json dosyasını burada seçin veya yapıştırın. Her sayfa ve yazı, durumunun listesinde bir kart olur, etiketleri kart etiketi olarak.",
+  "import-board-instruction-blogger": "Blogger'da Ayarlar, İçeriği yedekle'yi seçin ve .xml dosyasını burada seçin veya metnini yapıştırın. Her yazı ve sayfa bir kart olur, taslaklar Draft listesinde, etiketleri ve yorumlarıyla birlikte.",
+  "import-board-instruction-markdownsite": "Bir Hugo, Jekyll, Eleventy, Astro veya başka bir statik sitenin kaynaklarını - ön bilgileriyle (front matter) Markdown dosyalarını ve görsellerini - zip'leyin ve .zip dosyasını burada seçin. Her Markdown dosyası bir kart olur: posts klasörlerinden gelenler veya dosya adında tarih olanlar yazı, geri kalanı sayfa, taslaklar Draft listesinde, kullandığı görseller de ekleri olarak.",
+  "import-board-instruction-htmlsite": "Bir web sitesinin dosyalarını - wget veya HTTrack ile kaydedilmiş .html sayfalarını ve görsellerini ya da Medium'un dışa aktarımını - zip'leyin ve .zip dosyasını burada seçin. Her sayfa ana metniyle bir kart olur, kullandığı görseller de ekleri olarak; betikler, menüler ve formlar dahil edilmez.",
+  "import-board-instruction-substack": "Substack'te Settings, Exports, Create new export'u seçin ve indirilen .zip dosyasını burada seçin. Her yazı metniyle bir kart olur, yayımlanmış ya da taslak."
 }

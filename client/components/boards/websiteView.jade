@@ -1,0 +1,46 @@
+//- Board View / Website (models/lib/websiteView.js): the board as a website -
+  the cards of its Published list, Pages as the menu, the other cards as
+  posts, newest first - built from the board's own cards and attachments.
+  A public board can open in it (Board Settings / Board View), so a visitor
+  sees the site at the board's address instead of the kanban.
+template(name="websiteView")
+  .website-view
+    header.website-header
+      h1
+        a.js-website-home(href="?") {{boardTitle}}
+      nav.website-nav(aria-label="{{_ 'board-view-website'}}")
+        each page in site.pages
+          span.website-nav-item
+            a.js-website-page(href="?page={{page._id}}" data-id=page._id class="{{#if $eq page._id currentId}}is-current{{/if}}") {{page.title}}
+            if page.children.length
+              span.website-subnav
+                each sub in page.children
+                  a.js-website-page(href="?page={{sub._id}}" data-id=sub._id class="{{#if $eq sub._id currentId}}is-current{{/if}}") {{sub.title}}
+    main.website-main
+      if shown.cardId
+        with shownCard
+          article.website-article
+            h2 {{title}}
+            if postDate
+              p.website-date {{postDate}}
+            if description
+              +viewer
+                = description
+            if images.length
+              .website-images
+                each image in images
+                  img(src=image.url alt=image.name loading="lazy")
+            if files.length
+              ul.website-files
+                each file in files
+                  li
+                    a(href=file.url target="_blank" rel="noopener noreferrer") {{file.name}}
+      else if shown.posts
+        each post in site.posts
+          article.website-summary
+            h2
+              a.js-website-page(href="?page={{post._id}}" data-id=post._id) {{post.title}}
+            if post.date
+              p.website-date {{post.date}}
+      else
+        p.quiet {{_ 'website-view-empty'}}

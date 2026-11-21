@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ozi",
   "cloud-panel-chat-send": "Ziga",
   "cloud-panel-chat-import": "Bubata mkparịta ụka mbụ",
-  "cloud-panel-chat-imported": "E bubatara ozi __count__."
+  "cloud-panel-chat-imported": "E bubatara ozi __count__.",
+  "board-view-website": "Saịtị weebụ",
+  "tool-group-website": "Saịtị weebụ",
+  "website-view-empty": "Ọ dịbeghị ihe e bipụtara na saịtị weebụ a.",
+  "feature-views-website": "Nlele saịtị weebụ",
+  "feature-views-website-desc": "Bọọdụ dị ka saịtị weebụ: kaadị nke ndepụta Published ya, ụzọ Pages dị ka menu na kaadị ndị ọzọ dị ka edemede, nke kachasị ọhụrụ na mbụ, ya na mgbakwụnye ha. Bọọdụ ọha nwere ike imepe na nlele a, ka ndị ọbịa hụ saịtị weebụ ahụ na adreesị bọọdụ ahụ.",
+  "import-board-instruction-wordpress": "Na WordPress, họrọ Tools, Export, All content na Download Export File, ma họrọ faịlụ .xml ahụ ebe a ma ọ bụ mado ederede ya. Squarespace, Wix na saịtị ndị ọzọ na-ebupụ faịlụ WordPress na-arụ ọrụ otu ụzọ ahụ. Peeji na edemede ọ bụla na-aghọ kaadị na ndepụta ọnọdụ ya, peeji n'ụzọ Pages na edemede na Posts, ya na ọdịnaya ya, ụdị ya na tags ya dị ka aha, na okwu ya ndị a nabatara.",
+  "import-board-instruction-wordpressjson": "Chekwaa edemede na peeji nke REST API WordPress (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) dị ka otu faịlụ .json, ma họrọ ya ebe a ma ọ bụ mado ya. Peeji na edemede ọ bụla na-aghọ kaadị na ndepụta ọnọdụ ya.",
+  "import-board-instruction-ghost": "Na Ghost, họrọ Settings, Labs, Export your content, ma họrọ faịlụ .json ebe a ma ọ bụ mado ya. Peeji na edemede ọ bụla na-aghọ kaadị na ndepụta ọnọdụ ya, ya na tags ya dị ka aha.",
+  "import-board-instruction-blogger": "Na Blogger, họrọ Settings, Back up content, ma họrọ faịlụ .xml ebe a ma ọ bụ mado ederede ya. Edemede na peeji ọ bụla na-aghọ kaadị, ihe e dere n'ụzọ mbụ na ndepụta Draft, ya na aha ya na okwu ya.",
+  "import-board-instruction-markdownsite": "Kpakọọ isi mmalite nke saịtị kwụ ọtọ Hugo, Jekyll, Eleventy, Astro ma ọ bụ ọzọ n'ime .zip - faịlụ Markdown ya na front matter ha, na onyonyo ha - ma họrọ .zip ebe a. Faịlụ Markdown ọ bụla na-aghọ kaadị: edemede site na folda posts ma ọ bụ nwere ụbọchị n'aha faịlụ, ndị fọdụrụ peeji, ihe e dere n'ụzọ mbụ na ndepụta Draft, na onyonyo ọ na-eji dị ka mgbakwụnye ya.",
+  "import-board-instruction-htmlsite": "Kpakọọ faịlụ saịtị weebụ n'ime .zip - peeji .html ya na onyonyo, dị ka wget ma ọ bụ HTTrack chekwara ha, ma ọ bụ mbupụ Medium - ma họrọ .zip ebe a. Peeji ọ bụla na-aghọ kaadị nwere isi ederede ya, na onyonyo ọ na-eji dị ka mgbakwụnye ya; a na-ahapụ script, menu na fọm.",
+  "import-board-instruction-substack": "Na Substack, họrọ Settings, Exports, Create new export, ma họrọ .zip ebudatara ebe a. Edemede ọ bụla na-aghọ kaadị nwere ederede ya, e bipụtara ma ọ bụ ihe e dere n'ụzọ mbụ."
 }

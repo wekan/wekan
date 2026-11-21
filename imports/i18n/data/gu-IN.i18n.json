@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "સંદેશ",
   "cloud-panel-chat-send": "મોકલો",
   "cloud-panel-chat-import": "અગાઉની વાતચીતો આયાત કરો",
-  "cloud-panel-chat-imported": "__count__ સંદેશા આયાત થયા."
+  "cloud-panel-chat-imported": "__count__ સંદેશા આયાત થયા.",
+  "board-view-website": "વેબસાઇટ",
+  "tool-group-website": "વેબસાઇટ્સ",
+  "website-view-empty": "આ વેબસાઇટ પર હજી કંઈ પ્રકાશિત થયું નથી.",
+  "feature-views-website": "વેબસાઇટ દૃશ્ય",
+  "feature-views-website-desc": "બોર્ડ એક વેબસાઇટ તરીકે: તેની Published યાદીના કાર્ડ, સ્વિમલેન Pages મેનુ તરીકે અને બાકીના કાર્ડ પોસ્ટ તરીકે, સૌથી નવા પહેલા, તેમના જોડાણો સાથે. જાહેર બોર્ડ આ દૃશ્યમાં ખુલી શકે છે, જેથી મુલાકાતીઓ બોર્ડના સરનામે વેબસાઇટ જુએ.",
+  "import-board-instruction-wordpress": "WordPress માં Tools, Export, All content અને Download Export File પસંદ કરો, અને તે .xml ફાઇલ અહીં પસંદ કરો અથવા તેનું લખાણ પેસ્ટ કરો. Squarespace, Wix અને WordPress ફાઇલ નિકાસ કરતી અન્ય સાઇટ્સ પણ આ જ રીતે કામ કરે છે. દરેક પેજ અને પોસ્ટ તેની સ્થિતિની યાદીમાં એક કાર્ડ બને છે, પેજ સ્વિમલેન Pages માં અને પોસ્ટ Posts માં, તેની સામગ્રી, શ્રેણીઓ અને ટૅગ લેબલ્સ તરીકે, અને તેની મંજૂર ટિપ્પણીઓ સાથે.",
+  "import-board-instruction-wordpressjson": "WordPress REST API ની પોસ્ટ અને પેજ (/wp-json/wp/v2/posts અને /wp-json/wp/v2/pages) એક .json ફાઇલ તરીકે સાચવો, અને તેને અહીં પસંદ કરો અથવા પેસ્ટ કરો. દરેક પેજ અને પોસ્ટ તેની સ્થિતિની યાદીમાં એક કાર્ડ બને છે.",
+  "import-board-instruction-ghost": "Ghost માં Settings, Labs, Export your content પસંદ કરો, અને .json ફાઇલ અહીં પસંદ કરો અથવા પેસ્ટ કરો. દરેક પેજ અને પોસ્ટ તેની સ્થિતિની યાદીમાં એક કાર્ડ બને છે, તેના ટૅગ લેબલ્સ તરીકે.",
+  "import-board-instruction-blogger": "Blogger માં Settings, Back up content પસંદ કરો, અને .xml ફાઇલ અહીં પસંદ કરો અથવા તેનું લખાણ પેસ્ટ કરો. દરેક પોસ્ટ અને પેજ એક કાર્ડ બને છે, ડ્રાફ્ટ યાદી Draft માં, તેના લેબલ્સ અને ટિપ્પણીઓ સાથે.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro અથવા અન્ય સ્થિર સાઇટના સ્રોતોને .zip કરો - Markdown ફાઇલો તેમના front matter સાથે, અને તેમની છબીઓ - અને .zip અહીં પસંદ કરો. દરેક Markdown ફાઇલ એક કાર્ડ બને છે: posts ફોલ્ડરોમાંથી અથવા ફાઇલ નામમાં તારીખ ધરાવતી ફાઇલો પોસ્ટ, બાકીની પેજ, ડ્રાફ્ટ યાદી Draft માં, અને તે જે છબીઓ વાપરે છે તે તેના જોડાણો.",
+  "import-board-instruction-htmlsite": "વેબસાઇટની ફાઇલોને .zip કરો - તેના .html પેજ અને છબીઓ, જેમ wget અથવા HTTrack સાચવે છે, અથવા Medium નો નિકાસ - અને .zip અહીં પસંદ કરો. દરેક પેજ તેના મુખ્ય લખાણ સાથે એક કાર્ડ બને છે, અને તે જે છબીઓ વાપરે છે તે તેના જોડાણો; સ્ક્રિપ્ટ, મેનુ અને ફોર્મ છોડી દેવાય છે.",
+  "import-board-instruction-substack": "Substack માં Settings, Exports, Create new export પસંદ કરો, અને ડાઉનલોડ કરેલી .zip અહીં પસંદ કરો. દરેક પોસ્ટ તેના લખાણ સાથે એક કાર્ડ બને છે, પ્રકાશિત અથવા ડ્રાફ્ટ."
 }

@@ -1,0 +1,47 @@
+/* Board View / Website: a readable page, whatever the board's colours. */
+.website-view {
+  max-width: 48em;
+  margin-inline: auto;
+  padding: 1em;
+  background: #fff;
+  color: #222;
+  line-height: 1.6;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+.website-header {
+  border-block-end: 1px solid #ddd;
+  margin-block-end: 1em;
+}
+.website-header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+.website-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1em;
+  padding-block-end: 0.6em;
+}
+.website-nav a.is-current {
+  font-weight: bold;
+}
+.website-subnav {
+  display: inline-flex;
+  gap: 0.6em;
+  margin-inline-start: 0.6em;
+  font-size: 0.9em;
+}
+.website-date {
+  color: #666;
+  font-size: 0.9em;
+}
+.website-images img {
+  max-width: 100%;
+  display: block;
+  margin-block: 0.6em;
+}
+.website-summary {
+  margin-block-end: 1.2em;
+}

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "संदेश",
   "cloud-panel-chat-send": "पाठवा",
   "cloud-panel-chat-import": "आधीच्या गप्पा आयात करा",
-  "cloud-panel-chat-imported": "__count__ संदेश आयात केले."
+  "cloud-panel-chat-imported": "__count__ संदेश आयात केले.",
+  "board-view-website": "संकेतस्थळ",
+  "tool-group-website": "संकेतस्थळ",
+  "website-view-empty": "या संकेतस्थळावर अजून काहीही प्रकाशित झालेले नाही.",
+  "feature-views-website": "संकेतस्थळ दृश्य",
+  "feature-views-website-desc": "फलक संकेतस्थळ म्हणून: त्याच्या Published यादीतील कार्डे, मार्गिका Pages मेनू म्हणून आणि इतर कार्डे लेख म्हणून, सर्वात नवीन आधी, त्यांच्या संलग्नकांसह. सार्वजनिक फलक यात उघडू शकतो, म्हणजे अभ्यागतांना फलकाच्या पत्त्यावर संकेतस्थळ दिसते.",
+  "import-board-instruction-wordpress": "WordPress मध्ये 'Tools', 'Export', 'All content' आणि 'Download Export File' निवडा, आणि ती .xml फाइल येथे निवडा, किंवा तिचा मजकूर चिकटवा. WordPress फाइल निर्यात करणारी Squarespace, Wix आणि इतर संकेतस्थळे याच प्रकारे काम करतात. प्रत्येक पान आणि लेख त्याच्या स्थितीच्या यादीत एक कार्ड बनतो, पाने मार्गिका Pages मध्ये आणि लेख Posts मध्ये, त्याचा मजकूर, वर्ग आणि टॅग लेबल म्हणून, आणि मंजूर टिप्पण्यांसह.",
+  "import-board-instruction-wordpressjson": "WordPress REST API चे लेख आणि पाने (/wp-json/wp/v2/posts आणि /wp-json/wp/v2/pages) एका .json फाइलमध्ये जतन करा, आणि ती येथे निवडा किंवा चिकटवा. प्रत्येक पान आणि लेख त्याच्या स्थितीच्या यादीत एक कार्ड बनतो.",
+  "import-board-instruction-ghost": "Ghost मध्ये 'Settings', 'Labs', 'Export your content' निवडा, आणि .json फाइल येथे निवडा किंवा चिकटवा. प्रत्येक पान आणि लेख त्याच्या स्थितीच्या यादीत एक कार्ड बनतो, त्याचे टॅग लेबल म्हणून.",
+  "import-board-instruction-blogger": "Blogger मध्ये 'Settings', 'Back up content' निवडा, आणि .xml फाइल येथे निवडा किंवा तिचा मजकूर चिकटवा. प्रत्येक लेख आणि पान एक कार्ड बनते, मसुदा Draft यादीत, त्याच्या लेबल आणि टिप्पण्यांसह.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro किंवा इतर स्थिर संकेतस्थळाचे स्रोत .zip करा - front matter सह Markdown फाइली आणि त्यांच्या प्रतिमा - आणि .zip येथे निवडा. प्रत्येक Markdown फाइल एक कार्ड बनते: posts फोल्डरमधील किंवा फाइल नावात तारीख असलेले लेख, उरलेली पाने, मसुदे Draft यादीत, आणि ती वापरत असलेल्या प्रतिमा तिची संलग्नके म्हणून.",
+  "import-board-instruction-htmlsite": "संकेतस्थळाच्या फाइली .zip करा - wget किंवा HTTrack ने जतन केलेली त्याची .html पाने आणि प्रतिमा, किंवा Medium ची निर्यात - आणि .zip येथे निवडा. प्रत्येक पान त्याच्या मुख्य मजकुरासह एक कार्ड बनते, आणि ते वापरत असलेल्या प्रतिमा संलग्नके म्हणून; स्क्रिप्ट, मेनू आणि फॉर्म वगळले जातात.",
+  "import-board-instruction-substack": "Substack मध्ये 'Settings', 'Exports', 'Create new export' निवडा, आणि डाउनलोड केलेली .zip येथे निवडा. प्रत्येक लेख त्याच्या मजकुरासह एक कार्ड बनतो, प्रकाशित किंवा मसुदा."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaggio",
   "cloud-panel-chat-send": "Invia",
   "cloud-panel-chat-import": "Importa conversazioni precedenti",
-  "cloud-panel-chat-imported": "__count__ messaggi importati."
+  "cloud-panel-chat-imported": "__count__ messaggi importati.",
+  "board-view-website": "Sito web",
+  "tool-group-website": "Siti web",
+  "website-view-empty": "Non c'è ancora nulla di pubblicato su questo sito web.",
+  "feature-views-website": "Vista sito web",
+  "feature-views-website-desc": "La bacheca come sito web: le schede della sua lista Published, la corsia Pages come menu e le altre schede come articoli, dal più recente, con i loro allegati. Una bacheca pubblica può aprirsi in questa vista, così i visitatori vedono il sito web all'indirizzo della bacheca.",
+  "import-board-instruction-wordpress": "In WordPress, scegli Strumenti, Esporta, Tutti i contenuti e Scarica il file di esportazione, e scegli qui quel file .xml o incolla il suo testo. Squarespace, Wix e gli altri siti che esportano un file di WordPress funzionano allo stesso modo. Ogni pagina e articolo diventa una scheda nella lista del suo stato, le pagine nella corsia Pages e gli articoli in Posts, con il suo contenuto, le sue categorie e i tag come etichette, e i suoi commenti approvati.",
+  "import-board-instruction-wordpressjson": "Salva gli articoli e le pagine della REST API di WordPress (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) come un unico file .json, e sceglilo qui o incollalo. Ogni pagina e articolo diventa una scheda nella lista del suo stato.",
+  "import-board-instruction-ghost": "In Ghost, scegli Settings, Labs, Export your content, e scegli qui il file .json o incollalo. Ogni pagina e articolo diventa una scheda nella lista del suo stato, con i suoi tag come etichette.",
+  "import-board-instruction-blogger": "In Blogger, scegli Impostazioni, Esegui il backup dei contenuti, e scegli qui il file .xml o incolla il suo testo. Ogni post e pagina diventa una scheda, una bozza nella lista Draft, con le sue etichette e i suoi commenti.",
+  "import-board-instruction-markdownsite": "Comprimi in un .zip i sorgenti di un sito statico Hugo, Jekyll, Eleventy, Astro o altro (i file Markdown con il loro front matter, e le loro immagini) e scegli qui il .zip. Ogni file Markdown diventa una scheda: articoli quelli delle cartelle posts o con una data nel nome del file, pagine gli altri, le bozze nella lista Draft, e le immagini che usa come suoi allegati.",
+  "import-board-instruction-htmlsite": "Comprimi in un .zip i file di un sito web (le sue pagine .html e le immagini, salvate con wget o HTTrack, oppure l'esportazione di Medium) e scegli qui il .zip. Ogni pagina diventa una scheda con il suo testo principale, e le immagini che usa come suoi allegati; script, menu e moduli vengono esclusi.",
+  "import-board-instruction-substack": "In Substack, scegli Settings, Exports, Create new export, e scegli qui il .zip scaricato. Ogni post diventa una scheda con il suo testo, pubblicato o bozza."
 }

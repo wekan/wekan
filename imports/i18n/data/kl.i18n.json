@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Nalunaarut",
   "cloud-panel-chat-send": "Nassiuguk",
   "cloud-panel-chat-import": "Oqaloqatigiinnerit siusinnerusut isertikkit",
-  "cloud-panel-chat-imported": "Nalunaarutit __count__ isertinneqarput."
+  "cloud-panel-chat-imported": "Nalunaarutit __count__ isertinneqarput.",
+  "board-view-website": "Nittartagaq",
+  "tool-group-website": "Nittartakkat",
+  "website-view-empty": "Nittartakkami matumani suli suna saqqummersinneqanngilaq.",
+  "feature-views-website": "Nittartagaatut takussutissaq",
+  "feature-views-website-desc": "Ilisarnaat nittartagaatut: allattorsimaffiani Published-imi kortsit, aqqut Pages menuutut kortsillu allat allaaserisatut, nutaanerpaat siulliullugit, ilanngussaasa peqatigalugit. Ilisarnaat tamanut ammasoq takussutissami matumani ammarneqarsinnaavoq, tikeraartut nittartagaq ilisarnaatip najugaani takusinnaaqqullugu.",
+  "import-board-instruction-wordpress": "WordPress-imi Tools, Export, All content aamma Download Export File toqqaruk, .xml-filelu taanna maani toqqaruk imaluunniit allagaa ikkullugu. Squarespace, Wix nittartakkallu allat WordPress-ip filianik nuussisartut taamatut ingerlapput. Quppersagaq allaaserisarlu tamarmik kortsimik killiffiata allattorsimaffiani pilersitsipput, quppersakkat aqqummi Pages-imi allaaserisallu Posts-imi, imai, immikkoortitai tags-ilu nalunaaqutsersuutitut, oqaaseqaataalu akuerisat peqatigalugit.",
+  "import-board-instruction-wordpressjson": "WordPress REST API-p allaaserisai quppersagaalu (/wp-json/wp/v2/posts aamma /wp-json/wp/v2/pages) .json-fileritut ataasiusutut toqqortikkit, maanilu toqqaruk imaluunniit ikkullugu. Quppersagaq allaaserisarlu tamarmik kortsimik killiffiata allattorsimaffiani pilersitsipput.",
+  "import-board-instruction-ghost": "Ghost-imi Settings, Labs, Export your content toqqaruk, .json-filelu maani toqqaruk imaluunniit ikkullugu. Quppersagaq allaaserisarlu tamarmik kortsimik killiffiata allattorsimaffiani pilersitsipput, tags-ii nalunaaqutsersuutitut.",
+  "import-board-instruction-blogger": "Blogger-imi Settings, Back up content toqqaruk, .xml-filelu maani toqqaruk imaluunniit allagaa ikkullugu. Allaaserisaq quppersagarlu tamarmik kortsimik pilersitsipput, missingiut allattorsimaffimmi Draft-imi, nalunaaqutsersuutai oqaaseqaataalu peqatigalugit.",
+  "import-board-instruction-markdownsite": "Hugo-p, Jekyll-ip, Eleventy-p, Astro-p allalluunniit nittartakkap aalaanngitsup aallaavii .zip-imut katersikkit - Markdown-filit front matter-iat assiilu - .zip-ilu maani toqqaruk. Markdown-file tamarmi kortsimik pilersitsivoq: allaaserisat posts-imiittut imaluunniit filip aqqani ulloqartut, sinneri quppersakkat, missingiutit allattorsimaffimmi Draft-imi, assillu atugai ilanngussatut.",
+  "import-board-instruction-htmlsite": "Nittartakkap filii .zip-imut katersikkit - .html-quppersagai assiilu, wget-imit HTTrack-imilluunniit toqqorneqartut, imaluunniit Medium-imit nuussat - .zip-ilu maani toqqaruk. Quppersagaq tamarmi kortsimik allagaa pingaarneq peqatigalugu pilersitsivoq, assillu atugai ilanngussatut; script-it, menuut immersugassallu ilanngunneqanngillat.",
+  "import-board-instruction-substack": "Substack-imi Settings, Exports, Create new export toqqaruk, .zip-ilu aaneqartoq maani toqqaruk. Allaaserisaq tamarmi kortsimik allagaa peqatigalugu pilersitsivoq, saqqummersinneqarsimasoq imaluunniit missingiut."
 }

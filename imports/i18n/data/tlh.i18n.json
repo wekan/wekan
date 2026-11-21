@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "QIn",
   "cloud-panel-chat-send": "yIngeH",
   "cloud-panel-chat-import": "ja'chuqmey ngo' yISuq",
-  "cloud-panel-chat-imported": "__count__ QInmey Suqlu'pu'."
+  "cloud-panel-chat-imported": "__count__ QInmey Suqlu'pu'.",
+  "board-view-website": "Internet Daq",
+  "tool-group-website": "Internet Daq",
+  "website-view-empty": "Internet Daq vamDaq pagh ghItlhlu'pu' DaH.",
+  "feature-views-website": "Internet Daq leghmeH",
+  "feature-views-website-desc": "'echlet Internet Daq rur: Published tetlh 'echletHommey, Pages He DuHmey tetlh rur, latlh 'echletHommey ghItlhmey rur, chu'qu' wa'DIch, rarDochmeychaj tlhej. HochvaD 'echlet 'anglu'bogh poSmoHlaH, vaj 'echlet Daq Daq Internet Daq leghlaH lengwI'pu'.",
+  "import-board-instruction-wordpress": "WordPress Daq Tools, Export, All content, Download Export File je yIwIv, 'ej naDev .xml teywI' yIwIv, pagh ghItlhHey yIlan. Squarespace, Wix, latlh Daqmey WordPress teywI' ngeHbogh je rap Qap. Hoch nav ghItlh je 'echletHom moj Dotlh tetlhDaq; navmey Pages HeDaq, ghItlhmey PostsDaq, ngaSbogh, Seghmey, tagmey je permey rur, QInHommey chaw'lu'pu'bogh je tlhej.",
+  "import-board-instruction-wordpressjson": "WordPress REST API ghItlhmey navmey je (/wp-json/wp/v2/posts, /wp-json/wp/v2/pages je) wa' .json teywI' rur yIpol, 'ej naDev yIwIv pagh yIlan. Hoch nav ghItlh je 'echletHom moj Dotlh tetlhDaq.",
+  "import-board-instruction-ghost": "Ghost Daq Settings, Labs, Export your content yIwIv, 'ej naDev .json teywI' yIwIv pagh yIlan. Hoch nav ghItlh je 'echletHom moj Dotlh tetlhDaq, tagmey permey rur.",
+  "import-board-instruction-blogger": "Blogger Daq Settings, Back up content yIwIv, 'ej naDev .xml teywI' yIwIv pagh ghItlhHey yIlan. Hoch ghItlh nav je 'echletHom moj, nab Draft tetlhDaq, permey QInHommey je tlhej.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro pagh latlh Daq choHbe'bogh Halmey yIzip - Markdown teywI'mey front matter mIllogh je - 'ej naDev .zip yIwIv. Hoch Markdown teywI' 'echletHom moj: posts ngaSwI'mey vo' ghItlhmey pagh teywI' pongDaq jaj ghajbogh, latlh navmey, nabmey Draft tetlhDaq, mIllogh lo'bogh rarDochmey rur.",
+  "import-board-instruction-htmlsite": "Internet Daq teywI'mey yIzip - .html navmey mIllogh je, wget pagh HTTrack lo'taH polta'bogh, pagh Medium ngeH - 'ej naDev .zip yIwIv. Hoch nav 'echletHom moj ghItlh potlh tlhej, mIllogh lo'bogh rarDochmey rur; ra'mey, DuHmey tetlh, forms je lutlhapbe'lu'.",
+  "import-board-instruction-substack": "Substack Daq Settings, Exports, Create new export yIwIv, 'ej naDev .zip lI'pu'bogh yIwIv. Hoch ghItlh 'echletHom moj ghItlhHey tlhej, ghItlhlu'pu'bogh pagh nab."
 }

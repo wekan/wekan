@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaġġ",
   "cloud-panel-chat-send": "Ibgħat",
   "cloud-panel-chat-import": "Importa konversazzjonijiet preċedenti",
-  "cloud-panel-chat-imported": "__count__ messaġġi importati."
+  "cloud-panel-chat-imported": "__count__ messaġġi importati.",
+  "board-view-website": "Sit elettroniku",
+  "tool-group-website": "Sit elettroniku",
+  "website-view-empty": "Għadu ma ġie ppubblikat xejn f'dan is-sit elettroniku.",
+  "feature-views-website": "Veduta tas-sit elettroniku",
+  "feature-views-website-desc": "Il-bord bħala sit elettroniku: il-karti tal-lista Published tiegħu, il-korsija Pages bħala menù u l-karti l-oħra bħala postijiet, l-aktar ġodda l-ewwel, bil-mehmużin tagħhom. Bord pubbliku jista' jinfetaħ f'din il-veduta, biex il-viżitaturi jaraw is-sit elettroniku fl-indirizz tal-bord.",
+  "import-board-instruction-wordpress": "Fil-WordPress, agħżel 'Tools', 'Export', 'All content' u 'Download Export File', u agħżel dak il-fajl .xml hawn, jew waħħal it-test tiegħu. Squarespace, Wix u siti oħra li jesportaw fajl WordPress jaħdmu bl-istess mod. Kull paġna u kull post issir karta fil-lista tal-istatus tagħha, il-paġni fil-korsija Pages u l-postijiet f'Posts, bil-kontenut tagħha, il-kategoriji u t-tags bħala tikketti, u l-kummenti approvati tagħha.",
+  "import-board-instruction-wordpressjson": "Issejvja l-postijiet u l-paġni tal-WordPress REST API (/wp-json/wp/v2/posts u /wp-json/wp/v2/pages) bħala fajl .json wieħed, u agħżlu hawn jew waħħlu. Kull paġna u kull post issir karta fil-lista tal-istatus tagħha.",
+  "import-board-instruction-ghost": "Fil-Ghost, agħżel 'Settings', 'Labs', 'Export your content', u agħżel il-fajl .json hawn jew waħħlu. Kull paġna u kull post issir karta fil-lista tal-istatus tagħha, bit-tags tagħha bħala tikketti.",
+  "import-board-instruction-blogger": "Fil-Blogger, agħżel 'Settings', 'Back up content', u agħżel il-fajl .xml hawn jew waħħal it-test tiegħu. Kull post u kull paġna ssir karta, abbozz fil-lista Draft, bit-tikketti u l-kummenti tagħha.",
+  "import-board-instruction-markdownsite": "Agħmel .zip tas-sorsi ta' sit Hugo, Jekyll, Eleventy, Astro jew sit statiku ieħor - il-fajls Markdown bil-front matter tagħhom, u l-istampi tagħhom - u agħżel il-.zip hawn. Kull fajl Markdown isir karta: postijiet mill-folders posts jew b'data fl-isem tal-fajl, il-bqija paġni, abbozzi fil-lista Draft, u l-istampi li juża bħala l-mehmużin tiegħu.",
+  "import-board-instruction-htmlsite": "Agħmel .zip tal-fajls ta' sit elettroniku - il-paġni .html u l-istampi tiegħu, kif issejvjati b'wget jew HTTrack, jew l-esportazzjoni ta' Medium - u agħżel il-.zip hawn. Kull paġna ssir karta bit-test ewlieni tagħha, u l-istampi li tuża bħala l-mehmużin tagħha; skripts, menus u formoli jitħallew barra.",
+  "import-board-instruction-substack": "Fis-Substack, agħżel 'Settings', 'Exports', 'Create new export', u agħżel il-.zip imniżżel hawn. Kull post issir karta bit-test tagħha, ippubblikata jew abbozz."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaĝo",
   "cloud-panel-chat-send": "Sendi",
   "cloud-panel-chat-import": "Importi pli fruajn konversaciojn",
-  "cloud-panel-chat-imported": "__count__ mesaĝoj importitaj."
+  "cloud-panel-chat-imported": "__count__ mesaĝoj importitaj.",
+  "board-view-website": "Retejo",
+  "tool-group-website": "Retejo",
+  "website-view-empty": "Nenio estas ankoraŭ publikigita en ĉi tiu retejo.",
+  "feature-views-website": "Reteja vido",
+  "feature-views-website-desc": "La tabulo kiel retejo: la kartoj de ĝia listo Published, la naĝleno Pages kiel la menuo kaj la aliaj kartoj kiel afiŝoj, plej novaj unue, kun siaj kunsendaĵoj. Publika tabulo povas malfermiĝi en ĝi, por ke vizitantoj vidu la retejon ĉe la adreso de la tabulo.",
+  "import-board-instruction-wordpress": "En WordPress, elektu Tools, Export, All content kaj Download Export File, kaj elektu tiun .xml-dosieron ĉi tie, aŭ algluu ĝian tekston. Squarespace, Wix kaj aliaj retejoj, kiuj eksportas WordPress-dosieron, funkcias same. Ĉiu paĝo kaj afiŝo fariĝas karto en la listo de sia stato, paĝoj en la naĝleno Pages kaj afiŝoj en Posts, kun sia enhavo, kategorioj kaj etikedoj kiel etikedoj, kaj siaj aprobitaj komentoj.",
+  "import-board-instruction-wordpressjson": "Konservu la afiŝojn kaj paĝojn de la WordPress REST API (/wp-json/wp/v2/posts kaj /wp-json/wp/v2/pages) kiel unu .json-dosieron, kaj elektu ĝin ĉi tie aŭ algluu ĝin. Ĉiu paĝo kaj afiŝo fariĝas karto en la listo de sia stato.",
+  "import-board-instruction-ghost": "En Ghost, elektu Settings, Labs, Export your content, kaj elektu la .json-dosieron ĉi tie aŭ algluu ĝin. Ĉiu paĝo kaj afiŝo fariĝas karto en la listo de sia stato, kun siaj etikedoj kiel etikedoj.",
+  "import-board-instruction-blogger": "En Blogger, elektu Settings, Back up content, kaj elektu la .xml-dosieron ĉi tie aŭ algluu ĝian tekston. Ĉiu afiŝo kaj paĝo fariĝas karto, malneto en la listo Draft, kun siaj etikedoj kaj komentoj.",
+  "import-board-instruction-markdownsite": "Kunpremu en .zip la fontojn de statika retejo Hugo, Jekyll, Eleventy, Astro aŭ alia - la Markdown-dosierojn kun ilia kaplinio (front matter), kaj iliajn bildojn - kaj elektu la .zip ĉi tie. Ĉiu Markdown-dosiero fariĝas karto: afiŝoj el la dosierujoj posts aŭ kun dato en la dosiernomo, la cetero paĝoj, malnetoj en la listo Draft, kaj la bildoj, kiujn ĝi uzas, kiel ĝiaj kunsendaĵoj.",
+  "import-board-instruction-htmlsite": "Kunpremu en .zip la dosierojn de retejo - ĝiajn .html-paĝojn kaj bildojn, kiel konservitaj per wget aŭ HTTrack, aŭ la eksporton de Medium - kaj elektu la .zip ĉi tie. Ĉiu paĝo fariĝas karto kun sia ĉefa teksto, kaj la bildoj, kiujn ĝi uzas, kiel ĝiaj kunsendaĵoj; skriptoj, menuoj kaj formularoj estas preterlasitaj.",
+  "import-board-instruction-substack": "En Substack, elektu Settings, Exports, Create new export, kaj elektu la elŝutitan .zip ĉi tie. Ĉiu afiŝo fariĝas karto kun sia teksto, publikigita aŭ malneto."
 }

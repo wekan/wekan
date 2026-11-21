@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaj",
   "cloud-panel-chat-send": "Pitreatsi",
   "cloud-panel-chat-import": "Importã zboarãli di ma ninti",
-  "cloud-panel-chat-imported": "__count__ mesadzi importats."
+  "cloud-panel-chat-imported": "__count__ mesadzi importats.",
+  "board-view-website": "Situ web",
+  "tool-group-website": "Situ web",
+  "website-view-empty": "Pi aestu situ web nu easti ninga publicat tsiva.",
+  "feature-views-website": "Videari di situ web",
+  "feature-views-website-desc": "Tabela ca situ web: cartsãli di lista a ljei Published, calea Pages ca meniu shi alanti cartsã ca articoli, atseali ma noi protili, cu atashamentili a lor. Una tabelã publicã poati s-hibã dishcljisã tu aestã videari, ta s-veadã vizitatorlji situl web la adresa a tabelãljei.",
+  "import-board-instruction-wordpress": "Tu WordPress, alidzi 'Tools', 'Export', 'All content' shi 'Download Export File', shi alidzi aoa atsel fishier .xml, i bagã textul a lui. Squarespace, Wix shi alti situri tsi exportã un fishier WordPress lucreadzã tut ashi. Cathi frãndzã shi cathi articol s-fatsi una cartã tu lista a statusului a lui, frãndzãli pi calea Pages shi articolili tu Posts, cu cuprinderea a lui, categoriili shi tag-urli ca etichete, shi comentariili aprobati.",
+  "import-board-instruction-wordpressjson": "Aveagljia articolili shi frãndzãli a WordPress REST API (/wp-json/wp/v2/posts shi /wp-json/wp/v2/pages) ca un singur fishier .json, shi alidzi-l aoa i bagã-l. Cathi frãndzã shi cathi articol s-fatsi una cartã tu lista a statusului a lui.",
+  "import-board-instruction-ghost": "Tu Ghost, alidzi 'Settings', 'Labs', 'Export your content', shi alidzi aoa fishierlu .json i bagã-l. Cathi frãndzã shi cathi articol s-fatsi una cartã tu lista a statusului a lui, cu tag-urli a lui ca etichete.",
+  "import-board-instruction-blogger": "Tu Blogger, alidzi 'Settings', 'Back up content', shi alidzi aoa fishierlu .xml i bagã textul a lui. Cathi articol shi cathi frãndzã s-fatsi una cartã, unã ciornã tu lista Draft, cu etichetili shi comentariili a lui.",
+  "import-board-instruction-markdownsite": "Fã .zip cu izvurli a unui situ Hugo, Jekyll, Eleventy, Astro i altu situ static - fishierili Markdown cu front matter a lor, shi zugrãfiili a lor - shi alidzi aoa .zip-lu. Cathi fishier Markdown s-fatsi una cartã: articoli dit dosarili posts i cu unã datã tu numa a fishierlui, alanti frãndzã, ciornili tu lista Draft, shi zugrãfiili tsi li ufilisea ca atashamentili a lui.",
+  "import-board-instruction-htmlsite": "Fã .zip cu fishierili a unui situ web - frãndzãli a lui .html shi zugrãfiili, ashi cum furã aveagljiati cu wget i HTTrack, i exportul di Medium - shi alidzi aoa .zip-lu. Cathi frãndzã s-fatsi una cartã cu textul a ljei principal, shi zugrãfiili tsi li ufilisea ca atashamenti; scripturli, meniurli shi formularili suntu alãsati nafoarã.",
+  "import-board-instruction-substack": "Tu Substack, alidzi 'Settings', 'Exports', 'Create new export', shi alidzi aoa .zip-lu discãrcat. Cathi articol s-fatsi una cartã cu textul a lui, publicat i ciornã."
 }

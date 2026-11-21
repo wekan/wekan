@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Bataaxal",
   "cloud-panel-chat-send": "Yónnee",
   "cloud-panel-chat-import": "Dugal waxtaan yu jiitu yi",
-  "cloud-panel-chat-imported": "__count__ bataaxal dugal nañu."
+  "cloud-panel-chat-imported": "__count__ bataaxal dugal nañu.",
+  "board-view-website": "Dalu web",
+  "tool-group-website": "Dalu web",
+  "website-view-empty": "Dara mosul a siiwal ci dalu web bii.",
+  "feature-views-website": "Wone dalu web",
+  "feature-views-website-desc": "Tablo bi niki dalu web: karta yi ci limu Published bi, yoonu Pages niki menu, karta yi des niki bataaxal yi, yu bees yi njëkk, ak seeni takkaay. Tablo bu ñépp man a gis man na ubbiku ci, ngir ganaay yi gis dalu web bi ci adrees bu tablo bi.",
+  "import-board-instruction-wordpress": "Ci WordPress, tànnal Tools, Export, All content ak Download Export File, te tànn fi dosiye .xml boobu, walla taf mbind mi. Squarespace, Wix ak yeneen dal yu génne dosiye WordPress noonu lañu liggéeye. Xët bu nekk ak bataaxal bu nekk dafay nekk karta ci limu anam bi, xët yi ci yoonu Pages, bataaxal yi ci Posts, ak li ci biir, seeni xeet ak tag yi niki etiket, ak xalaat yi ñu nangu.",
+  "import-board-instruction-wordpressjson": "Denc bataaxal yi ak xët yi ci WordPress REST API (/wp-json/wp/v2/posts ak /wp-json/wp/v2/pages) niki benn dosiye .json, te tànn ko fi walla taf ko. Xët bu nekk ak bataaxal bu nekk dafay nekk karta ci limu anam bi.",
+  "import-board-instruction-ghost": "Ci Ghost, tànnal Settings, Labs, Export your content, te tànn fi dosiye .json bi walla taf ko. Xët bu nekk ak bataaxal bu nekk dafay nekk karta ci limu anam bi, ak tag yi niki etiket.",
+  "import-board-instruction-blogger": "Ci Blogger, tànnal Settings, Back up content, te tànn fi dosiye .xml bi walla taf mbind mi. Bataaxal bu nekk ak xët bu nekk dafay nekk karta, mbind mu matul ci limu Draft, ak seeni etiket ak xalaat.",
+  "import-board-instruction-markdownsite": "Zipal cosaan yu dal bu dul soppiku bu Hugo, Jekyll, Eleventy, Astro walla beneen - dosiye Markdown yi ak seen front matter, ak seeni nataal - te tànn fi .zip bi. Dosiye Markdown bu nekk dafay nekk karta: bataaxal yu jóge ci kaas yu posts walla yu am bes ci turu dosiye bi, yi des xët lañu, mbind yu matul ci limu Draft, ak nataal yi mu jëfandikoo niki ay takkaayam.",
+  "import-board-instruction-htmlsite": "Zipal dosiye yu dalu web - xëtam yu .html ak nataal yi, ni ñu leen dence ak wget walla HTTrack, walla génnee bu Medium - te tànn fi .zip bi. Xët bu nekk dafay nekk karta ak mbindam mu mag, ak nataal yi mu jëfandikoo niki ay takkaayam; script yi, menu yi ak formulaire yi duñu ci bokk.",
+  "import-board-instruction-substack": "Ci Substack, tànnal Settings, Exports, Create new export, te tànn fi .zip bi nga yebb. Bataaxal bu nekk dafay nekk karta ak mbindam, bu ñu siiwal walla mbind mu matul."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Meddelande",
   "cloud-panel-chat-send": "Skicka",
   "cloud-panel-chat-import": "Importera tidigare konversationer",
-  "cloud-panel-chat-imported": "__count__ meddelanden importerade."
+  "cloud-panel-chat-imported": "__count__ meddelanden importerade.",
+  "board-view-website": "Webbplats",
+  "tool-group-website": "Webbplats",
+  "website-view-empty": "Inget har publicerats på den här webbplatsen ännu.",
+  "feature-views-website": "Webbplatsvy",
+  "feature-views-website-desc": "Tavlan som en webbplats: korten i dess lista Published, simbanan Pages som meny och övriga kort som inlägg, nyaste först, med sina bilagor. En offentlig tavla kan öppnas i den, så att besökare ser webbplatsen på tavlans adress.",
+  "import-board-instruction-wordpress": "I WordPress väljer du Verktyg, Exportera, Allt innehåll och Ladda ned exportfil, och väljer den .xml-filen här eller klistrar in dess text. Squarespace, Wix och andra webbplatser som exporterar en WordPress-fil fungerar på samma sätt. Varje sida och inlägg blir ett kort i listan för sin status, sidor i simbanan Pages och inlägg i Posts, med sitt innehåll, kategorier och taggar som etiketter samt sina godkända kommentarer.",
+  "import-board-instruction-wordpressjson": "Spara inläggen och sidorna från WordPress REST API (/wp-json/wp/v2/posts och /wp-json/wp/v2/pages) som en .json-fil och välj den här eller klistra in den. Varje sida och inlägg blir ett kort i listan för sin status.",
+  "import-board-instruction-ghost": "I Ghost väljer du Settings, Labs, Export your content och väljer .json-filen här eller klistrar in den. Varje sida och inlägg blir ett kort i listan för sin status, med sina taggar som etiketter.",
+  "import-board-instruction-blogger": "I Blogger väljer du Inställningar, Säkerhetskopiera innehåll och väljer .xml-filen här eller klistrar in dess text. Varje inlägg och sida blir ett kort, ett utkast i listan Draft, med sina etiketter och kommentarer.",
+  "import-board-instruction-markdownsite": "Packa källorna till en Hugo-, Jekyll-, Eleventy-, Astro- eller annan statisk webbplats som zip - Markdown-filerna med sin front matter och sina bilder - och välj .zip-filen här. Varje Markdown-fil blir ett kort: inlägg från posts-mapparna eller med ett datum i filnamnet, resten sidor, utkast i listan Draft, och bilderna den använder som dess bilagor.",
+  "import-board-instruction-htmlsite": "Packa en webbplats filer som zip - dess .html-sidor och bilder, sparade med wget eller HTTrack, eller Mediums export - och välj .zip-filen här. Varje sida blir ett kort med sin huvudtext och bilderna den använder som dess bilagor; skript, menyer och formulär utelämnas.",
+  "import-board-instruction-substack": "I Substack väljer du Settings, Exports, Create new export och väljer den nedladdade .zip-filen här. Varje inlägg blir ett kort med sin text, publicerat eller utkast."
 }

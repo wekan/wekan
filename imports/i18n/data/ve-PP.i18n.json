@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Tedotuz",
   "cloud-panel-chat-send": "Oigeta",
   "cloud-panel-chat-import": "Tooda edeližed pagindad",
-  "cloud-panel-chat-imported": "__count__ tedotust toodud."
+  "cloud-panel-chat-imported": "__count__ tedotust toodud.",
+  "board-view-website": "Web-lehtpol’",
+  "tool-group-website": "Web-lehtpol’",
+  "website-view-empty": "Necil web-lehtpolel ei ole vel nimidä publikoitud.",
+  "feature-views-website": "Web-lehtpolen nägu",
+  "feature-views-website-desc": "Laud kut web-lehtpol’: sen Published-lugetišen kartad, Pages-ujundšoid kut menü da toižed kartad kut kirjutesed, udembad edel, ühtes niiden tartutadud failoidenke. Üleine laud voib avaitas sen, miše gostid nägišiba web-lehtpol’t laudan adresal.",
+  "import-board-instruction-wordpress": "WordPressas valiče Tools, Export, All content da Download Export File, i valiče se .xml-fail tägä, vai pane sen tekst. Squarespace, Wix da toižed saitad, kudambad eksportiruiba WordPress-failan, radoiba muga-že. Kaik lehtpoled da kirjutesed tegesoiš kartaks ičeze statusan lugetišes, lehtpoled Pages-ujundšoidas da kirjutesed Postsas, ühtes niiden südäimišton, kategorijoiden da tegoiden kut znamoiden, i ühtes hüvästadud sel’genzoitusidenke.",
+  "import-board-instruction-wordpressjson": "Kaiče WordPress REST API:n kirjutesed da lehtpoled (/wp-json/wp/v2/posts da /wp-json/wp/v2/pages) kut üks’ .json-fail, i valiče se tägä vai pane se. Kaik lehtpoled da kirjutesed tegesoiš kartaks ičeze statusan lugetišes.",
+  "import-board-instruction-ghost": "Ghostas valiče Settings, Labs, Export your content, i valiče .json-fail tägä vai pane se. Kaik lehtpoled da kirjutesed tegesoiš kartaks ičeze statusan lugetišes, tegad kut znamad.",
+  "import-board-instruction-blogger": "Bloggeras valiče Settings, Back up content, i valiče .xml-fail tägä vai pane sen tekst. Kaik kirjutesed da lehtpoled tegesoiš kartaks, abukirjutez Draft-lugetišes, ühtes znamoidenke da sel’genzoitusidenke.",
+  "import-board-instruction-markdownsite": "Pakkiče zip-ha Hugo-, Jekyll-, Eleventy-, Astro- vai toižen statižen saitan läteht - Markdown-failad niiden front matterenke, da niiden kuvad - i valiče .zip tägä. Kaik Markdown-failad tegesoiš kartaks: kirjutesed posts-kataloguišpäi vai datanke failan nimes, toižed lehtpoled, abukirjutesed Draft-lugetišes, i kuvad, kudambid se kävutab, kut sen tartutadud failad.",
+  "import-board-instruction-htmlsite": "Pakkiče zip-ha web-lehtpolen failad - sen .html-lehtpoled da kuvad, kut ne kaičeti wget- vai HTTrack-abul, vai Medium-eksport - i valiče .zip tägä. Kaik lehtpoled tegesoiš kartaks ühtes pätekstanke, i kuvad, kudambid se kävutab, kut sen tartutadud failad; skriptad, menüd da formad jätas.",
+  "import-board-instruction-substack": "Substackas valiče Settings, Exports, Create new export, i valiče tägä jügutadud .zip. Kaik kirjutesed tegesoiš kartaks ühtes tekstanke, publikoitud vai abukirjutez."
 }

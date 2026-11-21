@@ -2032,7 +2032,8 @@ EXCEL_IMPORT_SOURCES = {'excel', 'planner', 'monday', 'wrike', 'teamwork', 'busi
 ZIP_IMPORT_SOURCES = {'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy',
                       'outlook', 'teams', 'onenote',
                       'sandstormwekan', 'sandstormprioritize', 'sandstormyatl', 'sandstormmutodo', 'sandstormsandchat', 'sandstormethercalc',
-                      'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormdavros', 'sandstormhackercms', 'sandstormgogs', 'sandstormwordpress'}
+                      'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormdavros', 'sandstormhackercms', 'sandstormgogs',
+                      'markdownsite', 'htmlsite', 'substack', 'sandstormwordpress'}
 # An Outlook .msg and the Teams export's .tar are sent as { binaryBase64 }.
 BINARY_IMPORT_EXTENSIONS = {'outlook': ('.msg',), 'teams': ('.tar',)}
 TEXT_IMPORT_SOURCES = {'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian',

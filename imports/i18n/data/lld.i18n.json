@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaja",
   "cloud-panel-chat-send": "Mané",
   "cloud-panel-chat-import": "Importé ciacolades de denant",
-  "cloud-panel-chat-imported": "__count__ mesajes importades."
+  "cloud-panel-chat-imported": "__count__ mesajes importades.",
+  "board-view-website": "Sit web",
+  "tool-group-website": "Sit web",
+  "website-view-empty": "Sun chësc sit web n'é mo nia publiché.",
+  "feature-views-website": "Vista sit web",
+  "feature-views-website-desc": "Le tofl sciöche sit web: les ciartes de süa lista Published, la streda Pages sciöche menù y les atres ciartes sciöche articui, i plü nüs dant, cun sües injuntes. N tofl publich po s'aurí te chësta vista, insciö che i visitadus vëiga le sit web al indirizz dl tofl.",
+  "import-board-instruction-wordpress": "Te WordPress tol 'Tools', 'Export', 'All content' y 'Download Export File', y tol chël file .xml chiló, o taca ite so test. Squarespace, Wix y d'atri sic che esporta n file WordPress va al medemo vers. Uni plata y uni articul deventa na ciarta tla lista de so stat, les plates tla streda Pages y i articui te Posts, cun so contignü, categories y tags sciöche etichetes, y si comënc aprovà.",
+  "import-board-instruction-wordpressjson": "Salvëia i articui y les plates dla WordPress REST API (/wp-json/wp/v2/posts y /wp-json/wp/v2/pages) sciöche n file .json, y tol le chiló o taca le ite. Uni plata y uni articul deventa na ciarta tla lista de so stat.",
+  "import-board-instruction-ghost": "Te Ghost tol 'Settings', 'Labs', 'Export your content', y tol le file .json chiló o taca le ite. Uni plata y uni articul deventa na ciarta tla lista de so stat, cun si tags sciöche etichetes.",
+  "import-board-instruction-blogger": "Te Blogger tol 'Settings', 'Back up content', y tol le file .xml chiló o taca ite so test. Uni articul y uni plata deventa na ciarta, na mineta tla lista Draft, cun si etichetes y comënc.",
+  "import-board-instruction-markdownsite": "Comprim te n .zip les fontanes de n sit Hugo, Jekyll, Eleventy, Astro o de n d'atri sit statich - i file Markdown cun so front matter, y sües images - y tol le .zip chiló. Uni file Markdown deventa na ciarta: articui dai ordinadus posts o cun na data tl inom dl file, le rest plates, minetes tla lista Draft, y les images che al adora sciöche sües injuntes.",
+  "import-board-instruction-htmlsite": "Comprim te n .zip i file de n sit web - sües plates .html y images, sciöche salvades cun wget o HTTrack, o l'esportaziun de Medium - y tol le .zip chiló. Uni plata deventa na ciarta cun so test prinzipal, y les images che ara adora sciöche sües injuntes; scripts, menù y formulars vëgn lasciá fora.",
+  "import-board-instruction-substack": "Te Substack tol 'Settings', 'Exports', 'Create new export', y tol le .zip descariché chiló. Uni articul deventa na ciarta cun so test, publiché o mineta."
 }

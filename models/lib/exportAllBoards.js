@@ -17,6 +17,7 @@ const EXTENSIONS = {
   pivotal: 'csv', redmine: 'csv', notion: 'csv', quire: 'csv', superproductivity: 'json', vikunja: 'zip', fizzy: 'zip',
   planner: 'xlsx', monday: 'xlsx', wrike: 'xlsx', teamwork: 'xlsx', businessmap: 'xlsx',
   mbox: 'mbox', enex: 'enex', mattermost: 'jsonl', rocketchat: 'zip',
+  wordpress: 'xml', wordpressjson: 'json', ghost: 'json', blogger: 'xml', markdownsite: 'zip', htmlsite: 'zip',
   sandstormprioritize: 'zip', sandstormyatl: 'zip', sandstormmutodo: 'zip', sandstormsandchat: 'zip', sandstormethercalc: 'zip', sandstormradicalecalendar: 'zip', sandstormradicalecontacts: 'zip', sandstormdavros: 'zip', sandstormhackercms: 'zip',
   azuredevops: 'csv', mslists: 'csv', msproject: 'xml', outlook: 'zip', onenote: 'zip', teams: 'json',
 };

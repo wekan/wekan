@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "សារ",
   "cloud-panel-chat-send": "ផ្ញើ",
   "cloud-panel-chat-import": "នាំចូលការសន្ទនាមុនៗ",
-  "cloud-panel-chat-imported": "បាននាំចូលសារ __count__ ។"
+  "cloud-panel-chat-imported": "បាននាំចូលសារ __count__ ។",
+  "board-view-website": "គេហទំព័រ",
+  "tool-group-website": "គេហទំព័រ",
+  "website-view-empty": "មិនទាន់មានអ្វីត្រូវបានផ្សាយនៅលើគេហទំព័រនេះទេ។",
+  "feature-views-website": "ទិដ្ឋភាពគេហទំព័រ",
+  "feature-views-website-desc": "ក្តារជាគេហទំព័រ៖ កាតនៃបញ្ជី Published របស់វា ផ្លូវហែលទឹក Pages ជាម៉ឺនុយ និងកាតផ្សេងទៀតជាអត្ថបទ ថ្មីបំផុតមុន ជាមួយឯកសារភ្ជាប់របស់វា។ ក្តារសាធារណៈអាចបើកក្នុងទិដ្ឋភាពនេះ ដូច្នេះអ្នកទស្សនាមើលឃើញគេហទំព័រនៅអាសយដ្ឋានរបស់ក្តារ។",
+  "import-board-instruction-wordpress": "នៅក្នុង WordPress សូមជ្រើស Tools, Export, All content និង Download Export File ហើយជ្រើសឯកសារ .xml នោះនៅទីនេះ ឬបិទភ្ជាប់អត្ថបទរបស់វា។ Squarespace, Wix និងគេហទំព័រផ្សេងទៀតដែលនាំចេញឯកសារ WordPress ដំណើរការដូចគ្នា។ ទំព័រ និងអត្ថបទនីមួយៗក្លាយជាកាតក្នុងបញ្ជីនៃស្ថានភាពរបស់វា ទំព័រនៅក្នុងផ្លូវហែលទឹក Pages និងអត្ថបទនៅក្នុង Posts ជាមួយខ្លឹមសារ ប្រភេទ និងស្លាករបស់វាជាស្លាក និងមតិយោបល់ដែលបានអនុម័ត។",
+  "import-board-instruction-wordpressjson": "រក្សាទុកអត្ថបទ និងទំព័រនៃ WordPress REST API (/wp-json/wp/v2/posts និង /wp-json/wp/v2/pages) ជាឯកសារ .json តែមួយ ហើយជ្រើសវានៅទីនេះ ឬបិទភ្ជាប់វា។ ទំព័រ និងអត្ថបទនីមួយៗក្លាយជាកាតក្នុងបញ្ជីនៃស្ថានភាពរបស់វា។",
+  "import-board-instruction-ghost": "នៅក្នុង Ghost សូមជ្រើស Settings, Labs, Export your content ហើយជ្រើសឯកសារ .json នៅទីនេះ ឬបិទភ្ជាប់វា។ ទំព័រ និងអត្ថបទនីមួយៗក្លាយជាកាតក្នុងបញ្ជីនៃស្ថានភាពរបស់វា ជាមួយ tag របស់វាជាស្លាក។",
+  "import-board-instruction-blogger": "នៅក្នុង Blogger សូមជ្រើស Settings, Back up content ហើយជ្រើសឯកសារ .xml នៅទីនេះ ឬបិទភ្ជាប់អត្ថបទរបស់វា។ អត្ថបទ និងទំព័រនីមួយៗក្លាយជាកាត សេចក្តីព្រាងនៅក្នុងបញ្ជី Draft ជាមួយស្លាក និងមតិយោបល់របស់វា។",
+  "import-board-instruction-markdownsite": "បង្ហាប់ប្រភពនៃគេហទំព័រឋិតិវន្ត Hugo, Jekyll, Eleventy, Astro ឬផ្សេងទៀតជា .zip - ឯកសារ Markdown ជាមួយ front matter និងរូបភាពរបស់វា - ហើយជ្រើស .zip នៅទីនេះ។ ឯកសារ Markdown នីមួយៗក្លាយជាកាត៖ អត្ថបទពីថត posts ឬមានកាលបរិច្ឆេទក្នុងឈ្មោះឯកសារ ផ្សេងទៀតជាទំព័រ សេចក្តីព្រាងនៅក្នុងបញ្ជី Draft និងរូបភាពដែលវាប្រើជាឯកសារភ្ជាប់របស់វា។",
+  "import-board-instruction-htmlsite": "បង្ហាប់ឯកសាររបស់គេហទំព័រជា .zip - ទំព័រ .html និងរូបភាពរបស់វា ដូចដែលបានរក្សាទុកដោយ wget ឬ HTTrack ឬការនាំចេញរបស់ Medium - ហើយជ្រើស .zip នៅទីនេះ។ ទំព័រនីមួយៗក្លាយជាកាតជាមួយអត្ថបទចម្បងរបស់វា និងរូបភាពដែលវាប្រើជាឯកសារភ្ជាប់របស់វា។ ស្គ្រីប ម៉ឺនុយ និងទម្រង់ត្រូវបានទុកចោល។",
+  "import-board-instruction-substack": "នៅក្នុង Substack សូមជ្រើស Settings, Exports, Create new export ហើយជ្រើស .zip ដែលបានទាញយកនៅទីនេះ។ អត្ថបទនីមួយៗក្លាយជាកាតជាមួយអត្ថបទរបស់វា ដែលបានផ្សាយ ឬជាសេចក្តីព្រាង។"
 }

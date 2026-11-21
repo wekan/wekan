@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "ସନ୍ଦେଶ",
   "cloud-panel-chat-send": "ପଠାନ୍ତୁ",
   "cloud-panel-chat-import": "ପୂର୍ବ କଥାବାର୍ତ୍ତା ଆମଦାନି କରନ୍ତୁ",
-  "cloud-panel-chat-imported": "__count__ ସନ୍ଦେଶ ଆମଦାନି ହେଲା।"
+  "cloud-panel-chat-imported": "__count__ ସନ୍ଦେଶ ଆମଦାନି ହେଲା।",
+  "board-view-website": "ୱେବସାଇଟ୍",
+  "tool-group-website": "ୱେବସାଇଟ୍",
+  "website-view-empty": "ଏହି ୱେବସାଇଟରେ ଏପର୍ଯ୍ୟନ୍ତ କିଛି ପ୍ରକାଶିତ ହୋଇନାହିଁ।",
+  "feature-views-website": "ୱେବସାଇଟ୍ ଦୃଶ୍ୟ",
+  "feature-views-website-desc": "ବୋର୍ଡକୁ ୱେବସାଇଟ୍ ଭାବରେ: ଏହାର Published ତାଲିକାର କାର୍ଡ, ସନ୍ତରଣ Pages ମେନୁ ଭାବରେ ଏବଂ ଅନ୍ୟ କାର୍ଡ ପୋଷ୍ଟ ଭାବରେ, ସବୁଠାରୁ ନୂଆ ପ୍ରଥମେ, ସେମାନଙ୍କ ସଂଲଗ୍ନକ ସହିତ। ଏକ ସାର୍ବଜନୀନ ବୋର୍ଡ ଏଥିରେ ଖୋଲିପାରେ, ଯାହାଦ୍ୱାରା ପରିଦର୍ଶକମାନେ ବୋର୍ଡର ଠିକଣାରେ ୱେବସାଇଟ୍ ଦେଖନ୍ତି।",
+  "import-board-instruction-wordpress": "WordPress ରେ 'Tools', 'Export', 'All content' ଏବଂ 'Download Export File' ବାଛନ୍ତୁ, ଏବଂ ସେହି .xml ଫାଇଲ ଏଠାରେ ବାଛନ୍ତୁ, କିମ୍ବା ଏହାର ପାଠ୍ୟ ଲଗାନ୍ତୁ। WordPress ଫାଇଲ ରପ୍ତାନି କରୁଥିବା Squarespace, Wix ଏବଂ ଅନ୍ୟ ସାଇଟ ମଧ୍ୟ ସେହିପରି କାମ କରନ୍ତି। ପ୍ରତ୍ୟେକ ପୃଷ୍ଠା ଏବଂ ପୋଷ୍ଟ ନିଜ ସ୍ଥିତିର ତାଲିକାରେ ଏକ କାର୍ଡ ହୁଏ, ପୃଷ୍ଠାଗୁଡିକ ସନ୍ତରଣ Pages ରେ ଏବଂ ପୋଷ୍ଟଗୁଡିକ Posts ରେ, ଏହାର ବିଷୟବସ୍ତୁ, ବର୍ଗ ଓ ଟ୍ୟାଗକୁ ଲେବଲ୍ ଭାବରେ, ଏବଂ ଅନୁମୋଦିତ ମନ୍ତବ୍ୟ ସହିତ।",
+  "import-board-instruction-wordpressjson": "WordPress REST API ର ପୋଷ୍ଟ ଏବଂ ପୃଷ୍ଠା (/wp-json/wp/v2/posts ଏବଂ /wp-json/wp/v2/pages) କୁ ଗୋଟିଏ .json ଫାଇଲ ଭାବରେ ସଞ୍ଚୟ କରନ୍ତୁ, ଏବଂ ଏହାକୁ ଏଠାରେ ବାଛନ୍ତୁ କିମ୍ବା ଲଗାନ୍ତୁ। ପ୍ରତ୍ୟେକ ପୃଷ୍ଠା ଏବଂ ପୋଷ୍ଟ ନିଜ ସ୍ଥିତିର ତାଲିକାରେ ଏକ କାର୍ଡ ହୁଏ।",
+  "import-board-instruction-ghost": "Ghost ରେ 'Settings', 'Labs', 'Export your content' ବାଛନ୍ତୁ, ଏବଂ .json ଫାଇଲ ଏଠାରେ ବାଛନ୍ତୁ କିମ୍ବା ଲଗାନ୍ତୁ। ପ୍ରତ୍ୟେକ ପୃଷ୍ଠା ଏବଂ ପୋଷ୍ଟ ନିଜ ସ୍ଥିତିର ତାଲିକାରେ ଏକ କାର୍ଡ ହୁଏ, ଏହାର ଟ୍ୟାଗକୁ ଲେବଲ୍ ଭାବରେ।",
+  "import-board-instruction-blogger": "Blogger ରେ 'Settings', 'Back up content' ବାଛନ୍ତୁ, ଏବଂ .xml ଫାଇଲ ଏଠାରେ ବାଛନ୍ତୁ କିମ୍ବା ଏହାର ପାଠ୍ୟ ଲଗାନ୍ତୁ। ପ୍ରତ୍ୟେକ ପୋଷ୍ଟ ଏବଂ ପୃଷ୍ଠା ଏକ କାର୍ଡ ହୁଏ, ଡ୍ରାଫ୍ଟ Draft ତାଲିକାରେ, ଏହାର ଲେବଲ୍ ଏବଂ ମନ୍ତବ୍ୟ ସହିତ।",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro କିମ୍ବା ଅନ୍ୟ ସ୍ଥିର ସାଇଟର ଉତ୍ସକୁ .zip କରନ୍ତୁ - front matter ସହିତ Markdown ଫାଇଲ, ଏବଂ ସେଗୁଡିକର ଚିତ୍ର - ଏବଂ .zip ଏଠାରେ ବାଛନ୍ତୁ। ପ୍ରତ୍ୟେକ Markdown ଫାଇଲ ଏକ କାର୍ଡ ହୁଏ: posts ଫୋଲ୍ଡରରୁ କିମ୍ବା ଫାଇଲ ନାମରେ ତାରିଖ ଥିବା ପୋଷ୍ଟ, ବାକି ପୃଷ୍ଠା, ଡ୍ରାଫ୍ଟ Draft ତାଲିକାରେ, ଏବଂ ଏହା ବ୍ୟବହାର କରୁଥିବା ଚିତ୍ର ଏହାର ସଂଲଗ୍ନକ ଭାବରେ।",
+  "import-board-instruction-htmlsite": "ଏକ ୱେବସାଇଟର ଫାଇଲକୁ .zip କରନ୍ତୁ - wget କିମ୍ବା HTTrack ଦ୍ୱାରା ସଞ୍ଚିତ ଏହାର .html ପୃଷ୍ଠା ଓ ଚିତ୍ର, କିମ୍ବା Medium ର ରପ୍ତାନି - ଏବଂ .zip ଏଠାରେ ବାଛନ୍ତୁ। ପ୍ରତ୍ୟେକ ପୃଷ୍ଠା ଏହାର ମୁଖ୍ୟ ପାଠ୍ୟ ସହିତ ଏକ କାର୍ଡ ହୁଏ, ଏବଂ ଏହା ବ୍ୟବହାର କରୁଥିବା ଚିତ୍ର ସଂଲଗ୍ନକ ଭାବରେ; ସ୍କ୍ରିପ୍ଟ, ମେନୁ ଏବଂ ଫର୍ମ ଛାଡି ଦିଆଯାଏ।",
+  "import-board-instruction-substack": "Substack ରେ 'Settings', 'Exports', 'Create new export' ବାଛନ୍ତୁ, ଏବଂ ଡାଉନଲୋଡ୍ କରାଯାଇଥିବା .zip ଏଠାରେ ବାଛନ୍ତୁ। ପ୍ରତ୍ୟେକ ପୋଷ୍ଟ ଏହାର ପାଠ୍ୟ ସହିତ ଏକ କାର୍ଡ ହୁଏ, ପ୍ରକାଶିତ କିମ୍ବା ଡ୍ରାଫ୍ଟ।"
 }

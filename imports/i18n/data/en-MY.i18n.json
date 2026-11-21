@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Message",
   "cloud-panel-chat-send": "Send",
   "cloud-panel-chat-import": "Import earlier conversations",
-  "cloud-panel-chat-imported": "__count__ messages imported."
+  "cloud-panel-chat-imported": "__count__ messages imported.",
+  "board-view-website": "Website",
+  "tool-group-website": "Website",
+  "website-view-empty": "Nothing is published on this website yet.",
+  "feature-views-website": "Website view",
+  "feature-views-website-desc": "The board as a website: the cards of its Published list, the swimlane Pages as the menu and the other cards as posts, newest first, with their attachments. A public board can open in it, so visitors see the website at the board's address.",
+  "import-board-instruction-wordpress": "In WordPress, choose Tools, Export, All content and Download Export File, and choose that .xml file here, or paste its text. Squarespace, Wix and other sites that export a WordPress file work the same way. Each page and post becomes a card in the list of its status, pages in the swimlane Pages and posts in Posts, with its content, categories and tags as labels, and its approved comments.",
+  "import-board-instruction-wordpressjson": "Save the posts and pages of the WordPress REST API (/wp-json/wp/v2/posts and /wp-json/wp/v2/pages) as one .json file, and choose it here or paste it. Each page and post becomes a card in the list of its status.",
+  "import-board-instruction-ghost": "In Ghost, choose Settings, Labs, Export your content, and choose the .json file here or paste it. Each page and post becomes a card in the list of its status, with its tags as labels.",
+  "import-board-instruction-blogger": "In Blogger, choose Settings, Back up content, and choose the .xml file here or paste its text. Each post and page becomes a card, a draft in the list Draft, with its labels and comments.",
+  "import-board-instruction-markdownsite": "Zip the sources of a Hugo, Jekyll, Eleventy, Astro or other static site - the Markdown files with their front matter, and their images - and choose the .zip here. Each Markdown file becomes a card: posts from the posts folders or with a date in the file name, the rest pages, drafts in the list Draft, and the images it uses as its attachments.",
+  "import-board-instruction-htmlsite": "Zip a website's files - its .html pages and images, as saved with wget or HTTrack, or Medium's export - and choose the .zip here. Each page becomes a card with its main text, and the images it uses as its attachments; scripts, menus and forms are left out.",
+  "import-board-instruction-substack": "In Substack, choose Settings, Exports, Create new export, and choose the downloaded .zip here. Each post becomes a card with its text, published or draft."
 }

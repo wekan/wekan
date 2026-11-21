@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "ⵜⵓⵣⵉⵏⵜ",
   "cloud-panel-chat-send": "ⴰⵣⵏ",
   "cloud-panel-chat-import": "ⵙⴽⵛⵎ ⵉⵎⵙⴰⵡⴰⵍⵏ ⵉⵣⵡⴰⵔⵏ",
-  "cloud-panel-chat-imported": "__count__ ⵏ ⵜⵓⵣⵉⵏⵉⵏ ⵜⵜⵓⵙⴽⵛⵎⵏⵜ."
+  "cloud-panel-chat-imported": "__count__ ⵏ ⵜⵓⵣⵉⵏⵉⵏ ⵜⵜⵓⵙⴽⵛⵎⵏⵜ.",
+  "board-view-website": "ⴰⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ",
+  "tool-group-website": "ⴰⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ",
+  "website-view-empty": "ⵓⵍⴰ ⵢⴰⵜ ⵓⵔ ⵜⵜⵓⵥⵕⴰⴳ ⴳ ⵓⵙⵎⵙⵉ ⴰⴷ ⵏ ⵓⵣⵟⵟⴰ ⴰⵔ ⴷⵖⵉ.",
+  "feature-views-website": "ⵜⴰⵎⵓⵖⵍⵉ ⵏ ⵓⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ",
+  "feature-views-website-desc": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⵎ ⵓⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ: ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏⵏⵙ Published, ⴰⴱⵔⵉⴷ Pages ⴰⵎ ⵓⵎⵓⵖ, ⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵢⴰⴹⵏ ⴰⵎ ⵜⵉⵥⵕⵉⴳⵉⵏ, ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ ⵣⵡⴰⵔⵏⵜ, ⴷ ⵜⵉⵙⵉⵡⴰⵢ ⵏⵏⵙⵏⵜ. ⵜⴰⴼⵍⵡⵉⵜ ⵜⴰⴳⴷⵓⴷⴰⵏⵜ ⵜⵥⵎⵎⵔ ⴰⴷ ⵜⵔⵥⵎ ⴳⵉⵙ, ⴰⴷ ⵥⵔⵏ ⵉⵎⵔⵣⴰⵢⵏ ⴰⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ ⴳ ⵓⵏⵙⴰ ⵏ ⵜⴼⵍⵡⵉⵜ.",
+  "import-board-instruction-wordpress": "ⴳ WordPress, ⵙⵜⵉ Tools, Export, All content ⴷ Download Export File, ⵜⵙⵜⵉⴷ ⴰⴼⴰⵢⵍⵓ ⴰⵏⵏ .xml ⴷⵖⵉ, ⵏⵖ ⵙⵏⵟⴹ ⴰⴹⵕⵉⵚ ⵏⵏⵙ. Squarespace, Wix ⴷ ⵉⵙⵎⵙⴰ ⵢⴰⴹⵏ ⵍⵍⵉ ⵙⵙⵓⴼⵓⵖⵏⵉⵏ ⴰⴼⴰⵢⵍⵓ ⵏ WordPress ⵅⴷⴷⵎⵏ ⵙ ⵢⴰⵜ ⵜⵖⴰⵔⴰⵙⵜ. ⴽⵓ ⵜⴰⵙⵏⴰ ⴷ ⴽⵓ ⵜⴰⵥⵕⵉⴳⵜ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⴷⴷⴰⴷ ⵏⵏⵙ, ⵜⵉⵙⵏⵉⵡⵉⵏ ⴳ ⵓⴱⵔⵉⴷ Pages ⴷ ⵜⵉⵥⵕⵉⴳⵉⵏ ⴳ Posts, ⴷ ⵓⴳⴱⵓⵔ ⵏⵏⵙ, ⵜⴰⴳⴰⵢⵉⵏ ⴷ ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⴰⵎ ⵉⵔⵛⵓⵎⵏ, ⴷ ⵉⵖⴼⴰⵡⴰⵍⵏ ⵏⵏⵙ ⵍⵍⵉ ⵉⵜⵜⵓⵙⴷⵓⵇⵇⵏ.",
+  "import-board-instruction-wordpressjson": "ⵃⴹⵓ ⵜⵉⵥⵕⵉⴳⵉⵏ ⴷ ⵜⵙⵏⵉⵡⵉⵏ ⵏ WordPress REST API (/wp-json/wp/v2/posts ⴷ /wp-json/wp/v2/pages) ⴰⵎ ⵢⴰⵏ ⵓⴼⴰⵢⵍⵓ .json, ⵜⵙⵜⵉⴷ ⵜ ⴷⵖⵉ ⵏⵖ ⵜⵙⵏⵟⴹⴷ ⵜ. ⴽⵓ ⵜⴰⵙⵏⴰ ⴷ ⴽⵓ ⵜⴰⵥⵕⵉⴳⵜ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⴷⴷⴰⴷ ⵏⵏⵙ.",
+  "import-board-instruction-ghost": "ⴳ Ghost, ⵙⵜⵉ Settings, Labs, Export your content, ⵜⵙⵜⵉⴷ ⴰⴼⴰⵢⵍⵓ .json ⴷⵖⵉ ⵏⵖ ⵜⵙⵏⵟⴹⴷ ⵜ. ⴽⵓ ⵜⴰⵙⵏⴰ ⴷ ⴽⵓ ⵜⴰⵥⵕⵉⴳⵜ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⴷⴷⴰⴷ ⵏⵏⵙ, ⴷ ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏⵏⵙ ⴰⵎ ⵉⵔⵛⵓⵎⵏ.",
+  "import-board-instruction-blogger": "ⴳ Blogger, ⵙⵜⵉ Settings, Back up content, ⵜⵙⵜⵉⴷ ⴰⴼⴰⵢⵍⵓ .xml ⴷⵖⵉ ⵏⵖ ⵙⵏⵟⴹ ⴰⴹⵕⵉⵚ ⵏⵏⵙ. ⴽⵓ ⵜⴰⵥⵕⵉⴳⵜ ⴷ ⴽⵓ ⵜⴰⵙⵏⴰ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ, ⴰⵔⵔⴰ ⵓⵔ ⵉⴽⵎⵎⵍⵏ ⴳ ⵜⵍⴳⴰⵎⵜ Draft, ⴷ ⵉⵔⵛⵓⵎⵏ ⴷ ⵉⵖⴼⴰⵡⴰⵍⵏ ⵏⵏⵙ.",
+  "import-board-instruction-markdownsite": "ⵙⴽⵍⵙ ⵙ zip ⵉⵖⴱⴰⵍⵓⵜⵏ ⵏ ⵓⵙⵎⵙⵉ ⴰⵔⵎⵙⵎⵓⵙⵙⵓ Hugo, Jekyll, Eleventy, Astro ⵏⵖ ⵢⴰⴹⵏ - ⵉⴼⴰⵢⵍⵓⵜⵏ Markdown ⴷ front matter ⵏⵏⵙⵏ, ⴷ ⵜⵉⵡⵍⴰⴼⵉⵏ ⵏⵏⵙⵏ - ⵜⵙⵜⵉⴷ .zip ⴷⵖⵉ. ⴽⵓ ⴰⴼⴰⵢⵍⵓ Markdown ⵉⵜⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ: ⵜⵉⵥⵕⵉⴳⵉⵏ ⵙⴳ ⵉⴽⴰⵔⴰⵎⵏ posts ⵏⵖ ⵍⵍⵉ ⵖⵓⵔ ⵉⵍⵍⴰ ⵓⵙⴰⴽⵓⴷ ⴳ ⵢⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ, ⵡⵉⵢⴰⴹ ⵜⵉⵙⵏⵉⵡⵉⵏ, ⵉⵔⵔⴰⵜⵏ ⵓⵔ ⵉⴽⵎⵎⵍⵏ ⴳ ⵜⵍⴳⴰⵎⵜ Draft, ⴷ ⵜⵉⵡⵍⴰⴼⵉⵏ ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⴰⵎ ⵜⵉⵙⵉⵡⴰⵢ ⵏⵏⵙ.",
+  "import-board-instruction-htmlsite": "ⵙⴽⵍⵙ ⵙ zip ⵉⴼⴰⵢⵍⵓⵜⵏ ⵏ ⵓⵙⵎⵙⵉ ⵏ ⵓⵣⵟⵟⴰ - ⵜⵉⵙⵏⵉⵡⵉⵏ ⵏⵏⵙ .html ⴷ ⵜⵉⵡⵍⴰⴼⵉⵏ, ⴰⵎⵎ ⵍⵍⵉ ⵜⵜⵓⵃⴹⴰⵏⵜ ⵙ wget ⵏⵖ HTTrack, ⵏⵖ ⴰⵙⵙⵓⴼⵖ ⵏ Medium - ⵜⵙⵜⵉⴷ .zip ⴷⵖⵉ. ⴽⵓ ⵜⴰⵙⵏⴰ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ ⴷ ⵓⴹⵕⵉⵚ ⵏⵏⵙ ⴰⴳⵊⴷⴰⵏ, ⴷ ⵜⵉⵡⵍⴰⴼⵉⵏ ⵍⵍⵉ ⵜⵙⵙⵎⵔⴰⵙ ⴰⵎ ⵜⵉⵙⵉⵡⴰⵢ ⵏⵏⵙ; ⵉⵙⴽⵔⵉⴱⵜⵏ, ⵉⵎⵓⵖⵏ ⴷ ⵜⵉⵍⵖⵉⵡⵉⵏ ⵓⵔ ⵜⵜⵓⵙⴽⵛⴰⵎⵏ.",
+  "import-board-instruction-substack": "ⴳ Substack, ⵙⵜⵉ Settings, Exports, Create new export, ⵜⵙⵜⵉⴷ .zip ⵍⵍⵉ ⵜⵙⵙⴰⴳⵎⴷ ⴷⵖⵉ. ⴽⵓ ⵜⴰⵥⵕⵉⴳⵜ ⵜⵓⵖⴰⵍ ⵜⴰⴽⴰⵔⴹⴰ ⴷ ⵓⴹⵕⵉⵚ ⵏⵏⵙ, ⵜⵜⵓⵥⵕⴰⴳ ⵏⵖ ⴰⵔⵔⴰ ⵓⵔ ⵉⴽⵎⵎⵍⵏ."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "پیغام",
   "cloud-panel-chat-send": "بھیجیں",
   "cloud-panel-chat-import": "پچھلی گفتگو درآمد کریں",
-  "cloud-panel-chat-imported": "__count__ پیغامات درآمد ہو گئے۔"
+  "cloud-panel-chat-imported": "__count__ پیغامات درآمد ہو گئے۔",
+  "board-view-website": "ویب سائٹ",
+  "tool-group-website": "ویب سائٹ",
+  "website-view-empty": "اس ویب سائٹ پر ابھی کچھ شائع نہیں ہوا۔",
+  "feature-views-website": "ویب سائٹ منظر",
+  "feature-views-website-desc": "بورڈ بطور ویب سائٹ: اس کی Published فہرست کے کارڈز، Pages سویم لین بطور مینو اور دوسرے کارڈز بطور پوسٹس، نئی پہلے، ان کے منسلکات کے ساتھ۔ عوامی بورڈ اس میں کھل سکتا ہے، تاکہ آنے والے بورڈ کے پتے پر ویب سائٹ دیکھیں۔",
+  "import-board-instruction-wordpress": "WordPress میں Tools، Export، All content اور Download Export File منتخب کریں، اور وہ .xml فائل یہاں منتخب کریں، یا اس کا متن چسپاں کریں۔ Squarespace، Wix اور دوسری سائٹس جو WordPress فائل برآمد کرتی ہیں اسی طرح کام کرتی ہیں۔ ہر صفحہ اور پوسٹ اپنی حالت کی فہرست میں ایک کارڈ بن جاتا ہے، صفحات Pages سویم لین میں اور پوسٹس Posts میں، اپنے مواد، زمروں اور ٹیگز کو لیبل کے طور پر، اور اپنے منظور شدہ تبصروں کے ساتھ۔",
+  "import-board-instruction-wordpressjson": "WordPress REST API کی پوسٹس اور صفحات (/wp-json/wp/v2/posts اور /wp-json/wp/v2/pages) کو ایک .json فائل کے طور پر محفوظ کریں، اور اسے یہاں منتخب کریں یا چسپاں کریں۔ ہر صفحہ اور پوسٹ اپنی حالت کی فہرست میں ایک کارڈ بن جاتا ہے۔",
+  "import-board-instruction-ghost": "Ghost میں Settings، Labs، Export your content منتخب کریں، اور .json فائل یہاں منتخب کریں یا چسپاں کریں۔ ہر صفحہ اور پوسٹ اپنی حالت کی فہرست میں ایک کارڈ بن جاتا ہے، اپنے ٹیگز کو لیبل کے طور پر۔",
+  "import-board-instruction-blogger": "Blogger میں Settings، Back up content منتخب کریں، اور .xml فائل یہاں منتخب کریں یا اس کا متن چسپاں کریں۔ ہر پوسٹ اور صفحہ ایک کارڈ بن جاتا ہے، مسودہ Draft فہرست میں، اپنے لیبلز اور تبصروں کے ساتھ۔",
+  "import-board-instruction-markdownsite": "Hugo، Jekyll، Eleventy، Astro یا کسی اور جامد سائٹ کے ماخذ - Markdown فائلیں ان کے front matter کے ساتھ، اور ان کی تصاویر - zip کریں اور .zip یہاں منتخب کریں۔ ہر Markdown فائل ایک کارڈ بن جاتی ہے: posts فولڈرز سے یا فائل کے نام میں تاریخ والی پوسٹس، باقی صفحات، مسودے Draft فہرست میں، اور جو تصاویر وہ استعمال کرتی ہے وہ اس کے منسلکات کے طور پر۔",
+  "import-board-instruction-htmlsite": "کسی ویب سائٹ کی فائلیں - اس کے .html صفحات اور تصاویر، جیسے wget یا HTTrack سے محفوظ کی گئیں، یا Medium کی برآمد - zip کریں اور .zip یہاں منتخب کریں۔ ہر صفحہ اپنے مرکزی متن کے ساتھ ایک کارڈ بن جاتا ہے، اور جو تصاویر وہ استعمال کرتا ہے وہ اس کے منسلکات کے طور پر؛ اسکرپٹس، مینو اور فارم چھوڑ دیے جاتے ہیں۔",
+  "import-board-instruction-substack": "Substack میں Settings، Exports، Create new export منتخب کریں، اور ڈاؤن لوڈ کی گئی .zip یہاں منتخب کریں۔ ہر پوسٹ اپنے متن کے ساتھ ایک کارڈ بن جاتی ہے، شائع شدہ یا مسودہ۔"
 }

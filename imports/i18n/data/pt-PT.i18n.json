@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensagem",
   "cloud-panel-chat-send": "Enviar",
   "cloud-panel-chat-import": "Importar conversas anteriores",
-  "cloud-panel-chat-imported": "__count__ mensagens importadas."
+  "cloud-panel-chat-imported": "__count__ mensagens importadas.",
+  "board-view-website": "Sítio web",
+  "tool-group-website": "Sítio web",
+  "website-view-empty": "Ainda não há nada publicado neste sítio web.",
+  "feature-views-website": "Vista de sítio web",
+  "feature-views-website-desc": "O quadro como sítio web: os cartões da sua lista Published, a pista Pages como menu e os outros cartões como artigos, os mais recentes primeiro, com os seus anexos. Um quadro público pode abrir nesta vista, para que os visitantes vejam o sítio web no endereço do quadro.",
+  "import-board-instruction-wordpress": "No WordPress, escolha 'Ferramentas', 'Exportar', 'Todo o conteúdo' e 'Descarregar ficheiro de exportação', e escolha esse ficheiro .xml aqui, ou cole o seu texto. Squarespace, Wix e outros sites que exportam um ficheiro WordPress funcionam da mesma forma. Cada página e cada artigo torna-se um cartão na lista do seu estado, as páginas na pista Pages e os artigos em Posts, com o seu conteúdo, categorias e etiquetas como etiquetas, e os seus comentários aprovados.",
+  "import-board-instruction-wordpressjson": "Guarde os artigos e as páginas da WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) como um único ficheiro .json, e escolha-o aqui ou cole-o. Cada página e cada artigo torna-se um cartão na lista do seu estado.",
+  "import-board-instruction-ghost": "No Ghost, escolha 'Settings', 'Labs', 'Export your content', e escolha o ficheiro .json aqui ou cole-o. Cada página e cada artigo torna-se um cartão na lista do seu estado, com as suas tags como etiquetas.",
+  "import-board-instruction-blogger": "No Blogger, escolha 'Definições', 'Fazer uma cópia de segurança do conteúdo', e escolha o ficheiro .xml aqui ou cole o seu texto. Cada mensagem e cada página torna-se um cartão, um rascunho na lista Draft, com as suas etiquetas e comentários.",
+  "import-board-instruction-markdownsite": "Comprima num .zip as fontes de um site Hugo, Jekyll, Eleventy, Astro ou outro site estático - os ficheiros Markdown com o seu front matter, e as suas imagens - e escolha o .zip aqui. Cada ficheiro Markdown torna-se um cartão: artigos das pastas posts ou com uma data no nome do ficheiro, o resto páginas, rascunhos na lista Draft, e as imagens que usa como os seus anexos.",
+  "import-board-instruction-htmlsite": "Comprima num .zip os ficheiros de um sítio web - as suas páginas .html e imagens, tal como guardadas com wget ou HTTrack, ou a exportação do Medium - e escolha o .zip aqui. Cada página torna-se um cartão com o seu texto principal, e as imagens que usa como os seus anexos; scripts, menus e formulários são deixados de fora.",
+  "import-board-instruction-substack": "No Substack, escolha 'Settings', 'Exports', 'Create new export', e escolha o .zip descarregado aqui. Cada artigo torna-se um cartão com o seu texto, publicado ou rascunho."
 }

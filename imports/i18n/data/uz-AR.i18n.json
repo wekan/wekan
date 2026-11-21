@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "خبر",
   "cloud-panel-chat-send": "یوباریش",
   "cloud-panel-chat-import": "آلدینگی صحبتلرنی ایمپورت قیلیش",
-  "cloud-panel-chat-imported": "__count__ تا خبر ایمپورت قیلیندی."
+  "cloud-panel-chat-imported": "__count__ تا خبر ایمپورت قیلیندی.",
+  "board-view-website": "ویب-سایت",
+  "tool-group-website": "ویب-سایت",
+  "website-view-empty": "بو ویب-سایتده حالی هیچ نرسه اعلان قیلینمه‌گن.",
+  "feature-views-website": "ویب-سایت کۉرینیشی",
+  "feature-views-website-desc": "تخته ویب-سایت صفتیده: اونینگ Published رۉیختیده‌گی کارتلر، مینیو صفتیده Pages ایش یۉلگی وه باشقه کارتلر پاستلر صفتیده، اینگ ینگیلری بیرینچی، بیریکتیرمه‌لری بیلن. عمومی تخته اونده آچیلیشی ممکن، شونده کیلووچیلر ویب-سایتنی تخته منزیلیده کۉره‌دی.",
+  "import-board-instruction-wordpress": "WordPress ده Tools، Export، All content وه Download Export File نی تنلنگ، سۉنگ اۉشه .xml فایلنی شو ییرده تنلنگ یاکی اونینگ متنینی جایلنگ. WordPress فایلینی اکسپورت قیله‌دیگن Squarespace، Wix وه باشقه سایتلر هم خودّی شوندی ایشلیدی. هر بیر صحیفه وه پاست اۉز حالتی رۉیختیده کارت بۉله‌دی، صحیفه‌لر Pages ایش یۉلگیده، پاستلر Posts ده، مضمونی، طایفه‌لری وه تیگلری یارلیقلر صفتیده، همده تصدیقلنگن فکرلری بیلن.",
+  "import-board-instruction-wordpressjson": "WordPress REST API پاستلری وه صحیفه‌لرینی (/wp-json/wp/v2/posts وه /wp-json/wp/v2/pages) بیتته .json فایل صفتیده سقلنگ وه اونی شو ییرده تنلنگ یاکی جایلنگ. هر بیر صحیفه وه پاست اۉز حالتی رۉیختیده کارت بۉله‌دی.",
+  "import-board-instruction-ghost": "Ghost ده Settings، Labs، Export your content نی تنلنگ وه .json فایلنی شو ییرده تنلنگ یاکی جایلنگ. هر بیر صحیفه وه پاست اۉز حالتی رۉیختیده کارت بۉله‌دی، تیگلری یارلیقلر صفتیده.",
+  "import-board-instruction-blogger": "Blogger ده Settings، Back up content نی تنلنگ وه .xml فایلنی شو ییرده تنلنگ یاکی اونینگ متنینی جایلنگ. هر بیر پاست وه صحیفه کارت بۉله‌دی، قره‌لمه Draft رۉیختیده، یارلیقلری وه فکرلری بیلن.",
+  "import-board-instruction-markdownsite": "Hugo، Jekyll، Eleventy، Astro یاکی باشقه ستاتیک سایتنینگ منبع‌لرینی - front matter بیلن Markdown فایللری وه اولرنینگ رسم‌لرینی - zip قیلینگ وه .zip نی شو ییرده تنلنگ. هر بیر Markdown فایل کارت بۉله‌دی: posts پاپکه‌لریدن یاکی فایل نامیده سنه‌سی بارلری پاستلر، قالگنلری صحیفه‌لر، قره‌لمه‌لر Draft رۉیختیده، او ایشلتیدیگن رسم‌لر ایسه اونینگ بیریکتیرمه‌لری صفتیده.",
+  "import-board-instruction-htmlsite": "ویب-سایت فایللرینی - wget یاکی HTTrack بیلن سقلنگن .html صحیفه‌لری وه رسم‌لرینی، یاکی Medium اکسپورتینی - zip قیلینگ وه .zip نی شو ییرده تنلنگ. هر بیر صحیفه اساسی متنی بیلن کارت بۉله‌دی، او ایشلتیدیگن رسم‌لر ایسه اونینگ بیریکتیرمه‌لری صفتیده؛ اسکریپتلر، مینیولر وه شکل‌لر تشلب کیتیله‌دی.",
+  "import-board-instruction-substack": "Substack ده Settings، Exports، Create new export نی تنلنگ وه یوکلب آلینگن .zip نی شو ییرده تنلنگ. هر بیر پاست متنی بیلن کارت بۉله‌دی، اعلان قیلینگن یاکی قره‌لمه."
 }

@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Пӗлтерӳ",
   "cloud-panel-chat-send": "Ярса пар",
   "cloud-panel-chat-import": "Малтанхи калаҫусене импортлас",
-  "cloud-panel-chat-imported": "__count__ пӗлтерӳ импортланӑ."
+  "cloud-panel-chat-imported": "__count__ пӗлтерӳ импортланӑ.",
+  "board-view-website": "Веб-сайт",
+  "tool-group-website": "Веб-сайт",
+  "website-view-empty": "Ҫак веб-сайтра халлӗхе нимӗн те пичетленмен.",
+  "feature-views-website": "Веб-сайт курӑнӑвӗ",
+  "feature-views-website-desc": "Хӑма веб-сайт пек: унӑн Published списокӗн карточкисем, Pages ҫулӗ меню пек тата ытти карточкӑсем ҫырусем пек, чи ҫӗннисем малтан, хушӑмӗсемпе. Уҫӑ хӑма унта уҫӑлма пултарать, ҫапла хӑнасем веб-сайта хӑма адресӗпе кураҫҫӗ.",
+  "import-board-instruction-wordpress": "WordPress-ра Tools, Export, All content тата Download Export File суйлӑр, вара ҫав .xml файла кунта суйлӑр е унӑн текстне лартӑр. Squarespace, Wix тата WordPress файлне экспортлакан ытти сайтсем ҫаплах ӗҫлеҫҫӗ. Кашни страница тата ҫыру хӑйӗн статусӗн списокӗнче карточкӑ пулса тӑрать, страницӑсем Pages ҫулӗнче, ҫырусем Posts-ра, хӑйӗн тупсӑмӗпе, категорийӗсемпе тата тегӗсемпе паллӑсем пек, тата ырланӑ комментарийӗсемпе.",
+  "import-board-instruction-wordpressjson": "WordPress REST API ҫырусемпе страницисене (/wp-json/wp/v2/posts тата /wp-json/wp/v2/pages) пӗр .json файл пек упранӑр, вара ӑна кунта суйлӑр е лартӑр. Кашни страница тата ҫыру хӑйӗн статусӗн списокӗнче карточкӑ пулса тӑрать.",
+  "import-board-instruction-ghost": "Ghost-ра Settings, Labs, Export your content суйлӑр, вара .json файла кунта суйлӑр е лартӑр. Кашни страница тата ҫыру хӑйӗн статусӗн списокӗнче карточкӑ пулса тӑрать, тегӗсем паллӑсем пек.",
+  "import-board-instruction-blogger": "Blogger-та Settings, Back up content суйлӑр, вара .xml файла кунта суйлӑр е унӑн текстне лартӑр. Кашни ҫыру тата страница карточкӑ пулса тӑрать, черновик Draft списокӗнче, паллисемпе тата комментарийӗсемпе.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro е ытти статик сайтӑн ҫӑлкуҫӗсене .zip-а хӗстерӗр - Markdown файлӗсене front matter-пе тата вӗсен ӳкерчӗкӗсене - вара .zip-а кунта суйлӑр. Кашни Markdown файл карточкӑ пулса тӑрать: posts папкисенчи е файл ятӗнче дата пур ҫырусем, юлашкисем страницӑсем, черновиксем Draft списокӗнче, усӑ куракан ӳкерчӗкӗсем хушӑмӗсем пек.",
+  "import-board-instruction-htmlsite": "Веб-сайт файлӗсене .zip-а хӗстерӗр - унӑн .html страницисене тата ӳкерчӗкӗсене, wget е HTTrack-па упраннӑ пек, е Medium экспортне - вара .zip-а кунта суйлӑр. Кашни страница тӗп текстӗпе карточкӑ пулса тӑрать, усӑ куракан ӳкерчӗкӗсем хушӑмӗсем пек; скриптсем, менюсем тата формӑсем кӗмеҫҫӗ.",
+  "import-board-instruction-substack": "Substack-ра Settings, Exports, Create new export суйлӑр, вара тиенӗ .zip-а кунта суйлӑр. Кашни ҫыру текстӗпе карточкӑ пулса тӑрать, пичетленнӗ е черновик."
 }

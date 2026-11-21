@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "نامە",
   "cloud-panel-chat-send": "ناردن",
   "cloud-panel-chat-import": "هاوردەکردنی گفتوگۆکانی پێشوو",
-  "cloud-panel-chat-imported": "__count__ نامە هاوردە کران."
+  "cloud-panel-chat-imported": "__count__ نامە هاوردە کران.",
+  "board-view-website": "ماڵپەڕ",
+  "tool-group-website": "ماڵپەڕ",
+  "website-view-empty": "هێشتا هیچ شتێک لەسەر ئەم ماڵپەڕە بڵاو نەکراوەتەوە.",
+  "feature-views-website": "پیشاندانی ماڵپەڕ",
+  "feature-views-website-desc": "تەختەکە وەک ماڵپەڕێک: کارتەکانی لیستی Published ـی، ڕێڕەوی Pages وەک لیستی ڕێنمایی و کارتەکانی تر وەک پۆست، نوێترینەکان یەکەم، لەگەڵ هاوپێچەکانیان. تەختەیەکی گشتی دەتوانێت تێیدا بکرێتەوە، بۆ ئەوەی سەردانکەران ماڵپەڕەکە لە ناونیشانی تەختەکەدا ببینن.",
+  "import-board-instruction-wordpress": "لە WordPress، Tools، Export، All content و Download Export File هەڵبژێرە، و ئەو فایلە .xml ـە لێرە هەڵبژێرە، یان دەقەکەی بلکێنە. Squarespace، Wix و ماڵپەڕەکانی تر کە فایلی WordPress هەناردە دەکەن بە هەمان شێوە کار دەکەن. هەر پەڕە و پۆستێک دەبێتە کارتێک لە لیستی دۆخەکەیدا، پەڕەکان لە ڕێڕەوی Pages و پۆستەکان لە Posts، لەگەڵ ناوەڕۆک، پۆلەکان و تاگەکانی وەک لەیبڵ، و لێدوانە پەسەندکراوەکانی.",
+  "import-board-instruction-wordpressjson": "پۆست و پەڕەکانی WordPress REST API (/wp-json/wp/v2/posts و /wp-json/wp/v2/pages) وەک یەک فایلی .json پاشەکەوت بکە، و لێرە هەڵیبژێرە یان بیلکێنە. هەر پەڕە و پۆستێک دەبێتە کارتێک لە لیستی دۆخەکەیدا.",
+  "import-board-instruction-ghost": "لە Ghost، Settings، Labs، Export your content هەڵبژێرە، و فایلی .json لێرە هەڵبژێرە یان بیلکێنە. هەر پەڕە و پۆستێک دەبێتە کارتێک لە لیستی دۆخەکەیدا، لەگەڵ تاگەکانی وەک لەیبڵ.",
+  "import-board-instruction-blogger": "لە Blogger، Settings، Back up content هەڵبژێرە، و فایلی .xml لێرە هەڵبژێرە یان دەقەکەی بلکێنە. هەر پۆست و پەڕەیەک دەبێتە کارتێک، ڕەشنووس لە لیستی Draft، لەگەڵ لەیبڵ و لێدوانەکانی.",
+  "import-board-instruction-markdownsite": "سەرچاوەکانی ماڵپەڕێکی جێگیری Hugo، Jekyll، Eleventy، Astro یان هی تر بکە بە .zip - فایلەکانی Markdown لەگەڵ front matter ـەکانیان و وێنەکانیان - و .zip ـەکە لێرە هەڵبژێرە. هەر فایلێکی Markdown دەبێتە کارتێک: پۆستەکان لە بوخچەکانی posts یان بە بەروارێک لە ناوی فایلەکەدا، ئەوانی تر پەڕە، ڕەشنووسەکان لە لیستی Draft، و ئەو وێنانەی بەکاریان دەهێنێت وەک هاوپێچەکانی.",
+  "import-board-instruction-htmlsite": "فایلەکانی ماڵپەڕێک بکە بە .zip - پەڕە .html و وێنەکانی، وەک بە wget یان HTTrack پاشەکەوت کراون، یان هەناردەی Medium - و .zip ـەکە لێرە هەڵبژێرە. هەر پەڕەیەک دەبێتە کارتێک بە دەقە سەرەکییەکەی، و ئەو وێنانەی بەکاریان دەهێنێت وەک هاوپێچەکانی؛ سکریپت، لیستی ڕێنمایی و فۆڕمەکان لادەبرێن.",
+  "import-board-instruction-substack": "لە Substack، Settings، Exports، Create new export هەڵبژێرە، و .zip ـە داگیراوەکە لێرە هەڵبژێرە. هەر پۆستێک دەبێتە کارتێک بە دەقەکەی، بڵاوکراوە یان ڕەشنووس."
 }

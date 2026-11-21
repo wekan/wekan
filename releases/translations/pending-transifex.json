@@ -4523,6 +4523,54 @@
     {
       "key": "cloud-panel-chat-imported",
       "since": "2026-11-21"
+    },
+    {
+      "key": "board-view-website",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "tool-group-website",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "website-view-empty",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "feature-views-website",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "feature-views-website-desc",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-wordpress",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-wordpressjson",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-ghost",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-blogger",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-markdownsite",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-htmlsite",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "import-board-instruction-substack",
+      "since": "2026-11-21"
     }
   ]
 }

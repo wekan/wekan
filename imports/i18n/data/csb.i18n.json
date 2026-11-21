@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Wiadło",
   "cloud-panel-chat-send": "Wëslë",
   "cloud-panel-chat-import": "Impòrtëjë wczasniészé gôdczi",
-  "cloud-panel-chat-imported": "Zaimpòrtowóno __count__ wiadłów."
+  "cloud-panel-chat-imported": "Zaimpòrtowóno __count__ wiadłów.",
+  "board-view-website": "Starna www",
+  "tool-group-website": "Starna www",
+  "website-view-empty": "Na ti starnie www nie je jesz nic ùpùblikòwóné.",
+  "feature-views-website": "Wëzdrzatk starnë www",
+  "feature-views-website-desc": "Tôfla jakno starna www: kartë z ji lëstë Published, tor Pages jakno menu a jinszé kartë jakno wpisë, nôwszé pierwi, z jich przëłączników. Pùbliczna tôfla mòże sã w nim òtemknąc, tak że gòscë widzą starnã www pòd adresã tôflë.",
+  "import-board-instruction-wordpress": "We WordPressu wëbierzë Tools, Export, All content ë Download Export File, ë wëbierzë tuwò nen lopk .xml, abò wklejë jegò tekst. Squarespace, Wix ë jinszé starnë, co eksportëją lopk WordPressa, robią tak samò. Kòżdô starna ë wpis stôwô sã kartą w lësce swòjégò stanu, starnë w torze Pages a wpisë w Posts, z jich zamkłoscą, kategòriama ë tagama jakno etiketama, ë jich przëjãtima kòmentarzama.",
+  "import-board-instruction-wordpressjson": "Zapiszë wpisë ë starnë z WordPress REST API (/wp-json/wp/v2/posts ë /wp-json/wp/v2/pages) jakno jeden lopk .json, ë wëbierzë gò tuwò abò wklejë. Kòżdô starna ë wpis stôwô sã kartą w lësce swòjégò stanu.",
+  "import-board-instruction-ghost": "W Ghosce wëbierzë Settings, Labs, Export your content, ë wëbierzë tuwò lopk .json abò wklejë gò. Kòżdô starna ë wpis stôwô sã kartą w lësce swòjégò stanu, z jich tagama jakno etiketama.",
+  "import-board-instruction-blogger": "W Bloggerze wëbierzë Settings, Back up content, ë wëbierzë tuwò lopk .xml abò wklejë jegò tekst. Kòżdi wpis ë starna stôwô sã kartą, szkic w lësce Draft, z jich etiketama ë kòmentarzama.",
+  "import-board-instruction-markdownsite": "Spakùj do .zip zdrzódła statyczny starnë Hugo, Jekyll, Eleventy, Astro abò jinszi - lopczi Markdown z jich front matter, ë jich òbrôzczi - ë wëbierzë tuwò .zip. Kòżdi lopk Markdown stôwô sã kartą: wpisë z katalogów posts abò z datą w miono lopka, reszta starnë, szkice w lësce Draft, a òbrôzczi, chtërne brëkùje, jakno jegò przëłączniczi.",
+  "import-board-instruction-htmlsite": "Spakùj do .zip lopczi starnë www - ji starnë .html ë òbrôzczi, zapisóné wget abò HTTrack, abò eksport z Medium - ë wëbierzë tuwò .zip. Kòżdô starna stôwô sã kartą z ji przédnym tekstã, a òbrôzczi, chtërne brëkùje, jakno ji przëłączniczi; skriptë, menu ë fòrmùlarze są wëpùszczoné.",
+  "import-board-instruction-substack": "W Substacku wëbierzë Settings, Exports, Create new export, ë wëbierzë tuwò ścągniãti .zip. Kòżdi wpis stôwô sã kartą z jegò tekstã, ùpùblikòwóny abò szkic."
 }

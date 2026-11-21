@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaj",
   "cloud-panel-chat-send": "Göndər",
   "cloud-panel-chat-import": "Əvvəlki söhbətləri idxal et",
-  "cloud-panel-chat-imported": "__count__ mesaj idxal edildi."
+  "cloud-panel-chat-imported": "__count__ mesaj idxal edildi.",
+  "board-view-website": "Veb-sayt",
+  "tool-group-website": "Veb-sayt",
+  "website-view-empty": "Bu veb-saytda hələ heç nə dərc olunmayıb.",
+  "feature-views-website": "Veb-sayt görünüşü",
+  "feature-views-website-desc": "Lövhə veb-sayt kimi: onun Published siyahısının kartları, Pages zolağı menyu kimi və digər kartlar yazılar kimi, ən yenisi birinci, qoşmaları ilə. İctimai lövhə onda açıla bilər ki, ziyarətçilər veb-saytı lövhənin ünvanında görsünlər.",
+  "import-board-instruction-wordpress": "WordPress-də Alətlər, İxrac, Bütün məzmun və İxrac faylını endir seçin, və o .xml faylını burada seçin, ya da mətnini yapışdırın. Squarespace, Wix və WordPress faylı ixrac edən digər saytlar eyni cür işləyir. Hər səhifə və yazı öz statusunun siyahısında karta çevrilir, səhifələr Pages zolağında, yazılar isə Posts-da, məzmunu, kateqoriyaları və teqləri etiket kimi, və təsdiqlənmiş şərhləri ilə.",
+  "import-board-instruction-wordpressjson": "WordPress REST API-nin yazılarını və səhifələrini (/wp-json/wp/v2/posts və /wp-json/wp/v2/pages) bir .json faylı kimi saxlayın, və onu burada seçin ya da yapışdırın. Hər səhifə və yazı öz statusunun siyahısında karta çevrilir.",
+  "import-board-instruction-ghost": "Ghost-da Settings, Labs, Export your content seçin, və .json faylını burada seçin ya da yapışdırın. Hər səhifə və yazı öz statusunun siyahısında karta çevrilir, teqləri etiket kimi.",
+  "import-board-instruction-blogger": "Blogger-də Ayarlar, Məzmunun ehtiyat nüsxəsini çıxar seçin, və .xml faylını burada seçin ya da mətnini yapışdırın. Hər yazı və səhifə karta çevrilir, qaralama Draft siyahısında, etiketləri və şərhləri ilə.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro və ya digər statik saytın mənbələrini .zip-ə sıxın - Markdown fayllarını front matter ilə, və şəkillərini - və .zip-i burada seçin. Hər Markdown faylı karta çevrilir: posts qovluqlarından və ya fayl adında tarix olan yazılar, qalanı səhifələr, qaralamalar Draft siyahısında, və istifadə etdiyi şəkillər qoşmaları kimi.",
+  "import-board-instruction-htmlsite": "Veb-saytın fayllarını .zip-ə sıxın - onun .html səhifələrini və şəkillərini, wget və ya HTTrack ilə saxlanıldığı kimi, və ya Medium ixracını - və .zip-i burada seçin. Hər səhifə əsas mətni ilə karta çevrilir, istifadə etdiyi şəkillər isə qoşmaları kimi; skriptlər, menyular və formalar kənarda qalır.",
+  "import-board-instruction-substack": "Substack-da Settings, Exports, Create new export seçin, və endirilmiş .zip-i burada seçin. Hər yazı mətni ilə karta çevrilir, dərc edilmiş və ya qaralama."
 }

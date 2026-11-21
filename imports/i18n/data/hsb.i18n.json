@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Powěsć",
   "cloud-panel-chat-send": "Pósłać",
   "cloud-panel-chat-import": "Prjedawše rozmołwy importować",
-  "cloud-panel-chat-imported": "__count__ powěsćow importowanych."
+  "cloud-panel-chat-imported": "__count__ powěsćow importowanych.",
+  "board-view-website": "Webstrona",
+  "tool-group-website": "Webstrony",
+  "website-view-empty": "Na tutej webstronje hišće ničo wozjewjene njeje.",
+  "feature-views-website": "Napohlad webstrony",
+  "feature-views-website-desc": "Tafla jako webstrona: karty jeje lisćiny Published, dróha Pages jako meni a druhe karty jako přinoški, najnowše najprjedy, z jich přiwěškami. Zjawna tafla móže so w tutym napohledźe wočinić, tak zo wopytowarjo webstronu na adresy tafle widźa.",
+  "import-board-instruction-wordpress": "Wubjerće we WordPress Tools, Export, All content a Download Export File, a wubjerće tutu .xml-dataju tu abo zasadźće jeje tekst. Squarespace, Wix a druhe sydła, kotrež WordPress-dataju eksportuja, samsne fungować. Kóžda strona a kóždy přinošk so z kartu w lisćinje swojeho stawa, strony w dróze Pages a přinoški w Posts, z wobsahom, kategorijemi a tagami jako etiketami a z wobkrućenymi komentarami.",
+  "import-board-instruction-wordpressjson": "Składujće přinoški a strony WordPress REST API (/wp-json/wp/v2/posts a /wp-json/wp/v2/pages) jako jednu .json-dataju a wubjerće ju tu abo zasadźće ju. Kóžda strona a kóždy přinošk so z kartu w lisćinje swojeho stawa.",
+  "import-board-instruction-ghost": "Wubjerće w Ghost Settings, Labs, Export your content a wubjerće .json-dataju tu abo zasadźće ju. Kóžda strona a kóždy přinošk so z kartu w lisćinje swojeho stawa, z tagami jako etiketami.",
+  "import-board-instruction-blogger": "Wubjerće w Blogger Settings, Back up content a wubjerće .xml-dataju tu abo zasadźće jeje tekst. Kóždy přinošk a kóžda strona so z kartu, naćisk w lisćinje Draft, z etiketami a komentarami.",
+  "import-board-instruction-markdownsite": "Zapakujće žórła statiskeho sydła Hugo, Jekyll, Eleventy, Astro abo druheho do .zip - Markdown-dataje z jich front matter a jich wobrazy - a wubjerće .zip tu. Kóžda Markdown-dataja so z kartu: přinoški z rjadowakow posts abo z datumom w mjenje dataje, zbytk strony, naćiski w lisćinje Draft, a wobrazy, kotrež wužiwa, jako přiwěški.",
+  "import-board-instruction-htmlsite": "Zapakujće dataje webstrony do .zip - jeje .html-strony a wobrazy, kaž je wget abo HTTrack składuje, abo eksport z Medium - a wubjerće .zip tu. Kóžda strona so z kartu z hłownym tekstom a wobrazy, kotrež wužiwa, jako přiwěški; skripty, menije a formulary so wuwostajeja.",
+  "import-board-instruction-substack": "Wubjerće w Substack Settings, Exports, Create new export a wubjerće sćehnjeny .zip tu. Kóždy přinošk so z kartu ze swojim tekstom, wozjewjeny abo jako naćisk."
 }

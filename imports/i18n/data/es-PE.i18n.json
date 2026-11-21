@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensaje",
   "cloud-panel-chat-send": "Enviar",
   "cloud-panel-chat-import": "Importar conversaciones anteriores",
-  "cloud-panel-chat-imported": "__count__ mensajes importados."
+  "cloud-panel-chat-imported": "__count__ mensajes importados.",
+  "board-view-website": "Sitio web",
+  "tool-group-website": "Sitios web",
+  "website-view-empty": "Todavía no hay nada publicado en este sitio web.",
+  "feature-views-website": "Vista de sitio web",
+  "feature-views-website-desc": "El tablero como sitio web: las tarjetas de su lista Published, el carril Pages como menú y las demás tarjetas como entradas, de la más reciente a la más antigua, con sus adjuntos. Un tablero público puede abrirse en esta vista, de modo que los visitantes ven el sitio web en la dirección del tablero.",
+  "import-board-instruction-wordpress": "En WordPress, elija Herramientas, Exportar, Todo el contenido y Descargar el archivo de exportación, y elija aquí ese archivo .xml o pegue su texto. Squarespace, Wix y otros sitios que exportan un archivo de WordPress funcionan igual. Cada página y entrada se convierte en una tarjeta en la lista de su estado, las páginas en el carril Pages y las entradas en Posts, con su contenido, sus categorías y etiquetas como etiquetas, y sus comentarios aprobados.",
+  "import-board-instruction-wordpressjson": "Guarde las entradas y páginas de la REST API de WordPress (/wp-json/wp/v2/posts y /wp-json/wp/v2/pages) como un único archivo .json, y elíjalo aquí o péguelo. Cada página y entrada se convierte en una tarjeta en la lista de su estado.",
+  "import-board-instruction-ghost": "En Ghost, elija Settings, Labs, Export your content, y elija aquí el archivo .json o péguelo. Cada página y entrada se convierte en una tarjeta en la lista de su estado, con sus tags como etiquetas.",
+  "import-board-instruction-blogger": "En Blogger, elija Configuración, Crear copia de seguridad del contenido, y elija aquí el archivo .xml o pegue su texto. Cada entrada y página se convierte en una tarjeta, los borradores en la lista Draft, con sus etiquetas y comentarios.",
+  "import-board-instruction-markdownsite": "Comprima en un .zip las fuentes de un sitio estático de Hugo, Jekyll, Eleventy, Astro u otro (los archivos Markdown con su front matter y sus imágenes) y elija aquí el .zip. Cada archivo Markdown se convierte en una tarjeta: entradas las de las carpetas de posts o con una fecha en el nombre del archivo, páginas el resto, los borradores en la lista Draft, y las imágenes que usa como sus adjuntos.",
+  "import-board-instruction-htmlsite": "Comprima en un .zip los archivos de un sitio web (sus páginas .html e imágenes, tal como se guardan con wget o HTTrack, o la exportación de Medium) y elija aquí el .zip. Cada página se convierte en una tarjeta con su texto principal, y las imágenes que usa como sus adjuntos; los scripts, menús y formularios se omiten.",
+  "import-board-instruction-substack": "En Substack, elija Settings, Exports, Create new export, y elija aquí el .zip descargado. Cada entrada se convierte en una tarjeta con su texto, publicada o en borrador."
 }

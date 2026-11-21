@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Sõnum",
   "cloud-panel-chat-send": "Saada",
   "cloud-panel-chat-import": "Impordi varasemad vestlused",
-  "cloud-panel-chat-imported": "__count__ sõnumit imporditud."
+  "cloud-panel-chat-imported": "__count__ sõnumit imporditud.",
+  "board-view-website": "Veebisait",
+  "tool-group-website": "Veebisaidid",
+  "website-view-empty": "Sellel veebisaidil pole veel midagi avaldatud.",
+  "feature-views-website": "Veebisaidi vaade",
+  "feature-views-website-desc": "Tahvel veebisaidina: selle loetelu Published kaardid, ujumisrada Pages menüüna ja ülejäänud kaardid postitustena, uusimad eespool, koos nende lisadega. Avalik tahvel võib avaneda selles vaates, nii et külastajad näevad veebisaiti tahvli aadressil.",
+  "import-board-instruction-wordpress": "Vali WordPressis Tööriistad, Ekspordi, Kogu sisu ja Laadi eksportfail alla ning vali see .xml-fail siin või kleebi selle tekst. Squarespace, Wix ja muud saidid, mis ekspordivad WordPressi faili, töötavad samamoodi. Iga lehest ja postitusest saab kaart oma oleku loetelus, lehed ujumisrajal Pages ja postitused rajal Posts, koos sisu, kategooriate ja siltidega märgistena ning heakskiidetud kommentaaridega.",
+  "import-board-instruction-wordpressjson": "Salvesta WordPressi REST API postitused ja lehed (/wp-json/wp/v2/posts ja /wp-json/wp/v2/pages) ühe .json-failina ning vali see siin või kleebi. Iga lehest ja postitusest saab kaart oma oleku loetelus.",
+  "import-board-instruction-ghost": "Vali Ghostis Settings, Labs, Export your content ning vali .json-fail siin või kleebi see. Iga lehest ja postitusest saab kaart oma oleku loetelus, sildid märgistena.",
+  "import-board-instruction-blogger": "Vali Bloggeris Seaded, Varunda sisu ning vali .xml-fail siin või kleebi selle tekst. Igast postitusest ja lehest saab kaart, mustand loetelus Draft, koos siltide ja kommentaaridega.",
+  "import-board-instruction-markdownsite": "Paki Hugo, Jekylli, Eleventy, Astro või muu staatilise saidi lähtefailid .zip-faili - Markdown-failid koos front matteriga ja nende pildid - ning vali see .zip siin. Igast Markdown-failist saab kaart: postitused on posts-kaustadest või failinimes kuupäevaga failid, ülejäänud on lehed, mustandid lähevad loetellu Draft ja kasutatud pildid saavad lisadeks.",
+  "import-board-instruction-htmlsite": "Paki veebisaidi failid .zip-faili - selle .html-lehed ja pildid, nagu wget või HTTrack need salvestab, või Mediumi eksport - ning vali see .zip siin. Igast lehest saab kaart oma põhitekstiga ja kasutatud pildid saavad lisadeks; skriptid, menüüd ja vormid jäetakse välja.",
+  "import-board-instruction-substack": "Vali Substackis Settings, Exports, Create new export ning vali allalaaditud .zip siin. Igast postitusest saab kaart oma tekstiga, avaldatud või mustandina."
 }

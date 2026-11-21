@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Cikan",
   "cloud-panel-chat-send": "A ci",
   "cloud-panel-chat-import": "Baro kɔrɔw don",
-  "cloud-panel-chat-imported": "Cikan __count__ donna."
+  "cloud-panel-chat-imported": "Cikan __count__ donna.",
+  "board-view-website": "Siti",
+  "tool-group-website": "Siti",
+  "website-view-empty": "Foyi ma bɔ siti nin kan halisa.",
+  "feature-views-website": "Siti filɛcogo",
+  "feature-views-website-desc": "Tabali i n'a fɔ siti: a ka lisi Published kariw, sira Pages i n'a fɔ menu, kari tɔw i n'a fɔ sɛbɛnw, kuraw fɔlɔ, ni u ka fara-ta-a-kanw ye. Tabali min ye bɛɛ ta, o bɛ se ka da a la, walasa lajɛlikɛlaw ka siti ye tabali ka adiresi la.",
+  "import-board-instruction-wordpress": "WordPress kɔnɔ, Tools, Export, All content ani Download Export File sugandi, ka o .xml filen sugandi yan, walima k'a sɛbɛn don. Squarespace, Wix ani siti wɛrɛw minnu bɛ WordPress filen bɔ, olu bɛ baara kɛ ten ten. Ɲɛ ni sɛbɛn kelen-kelen bɛɛ bɛ kɛ kari ye a cogoya ka lisi kɔnɔ, ɲɛw sira Pages kɔnɔ ani sɛbɛnw Posts kɔnɔ, ni a kɔnɔkow, a sugu ani a tagw ye i n'a fɔ taamashyɛnw, ani a kumaw minnu sɔnna.",
+  "import-board-instruction-wordpressjson": "WordPress REST API ka sɛbɛnw ni ɲɛw (/wp-json/wp/v2/posts ani /wp-json/wp/v2/pages) mara i n'a fɔ .json filen kelen, k'a sugandi yan walima k'a don. Ɲɛ ni sɛbɛn kelen-kelen bɛɛ bɛ kɛ kari ye a cogoya ka lisi kɔnɔ.",
+  "import-board-instruction-ghost": "Ghost kɔnɔ, Settings, Labs, Export your content sugandi, ka .json filen sugandi yan walima k'a don. Ɲɛ ni sɛbɛn kelen-kelen bɛɛ bɛ kɛ kari ye a cogoya ka lisi kɔnɔ, ni a tagw ye i n'a fɔ taamashyɛnw.",
+  "import-board-instruction-blogger": "Blogger kɔnɔ, Settings, Back up content sugandi, ka .xml filen sugandi yan walima k'a sɛbɛn don. Sɛbɛn ni ɲɛ kelen-kelen bɛɛ bɛ kɛ kari ye, sɛbɛn min ma ban bɛ lisi Draft kɔnɔ, ni a taamashyɛnw ni a kumaw ye.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro walima siti wɛrɛ min tɛ yɛlɛma, o sɔrɔyɔrɔw don .zip kɔnɔ - Markdown filenw ni u ka front matter, ani u ka jaw - ka .zip sugandi yan. Markdown filen kelen-kelen bɛɛ bɛ kɛ kari ye: sɛbɛnw minnu bɔra posts kɔnɔw la walima don bɛ filen tɔgɔ la, tɔw ye ɲɛw ye, sɛbɛn minnu ma ban bɛ lisi Draft kɔnɔ, ani a bɛ jaw minnu baara, olu i n'a fɔ a ka fara-ta-a-kanw.",
+  "import-board-instruction-htmlsite": "Siti dɔ ka filenw don .zip kɔnɔ - a ka .html ɲɛw ni a jaw, i n'a fɔ u marana ni wget walima HTTrack ye cogo min na, walima Medium ka bɔli - ka .zip sugandi yan. Ɲɛ kelen-kelen bɛɛ bɛ kɛ kari ye ni a sɛbɛn kunba ye, ani a bɛ jaw minnu baara, olu i n'a fɔ a ka fara-ta-a-kanw; script, menu ani formulaire tɛ ta.",
+  "import-board-instruction-substack": "Substack kɔnɔ, Settings, Exports, Create new export sugandi, ka .zip i ye min jigin, o sugandi yan. Sɛbɛn kelen-kelen bɛɛ bɛ kɛ kari ye ni a sɛbɛn ye, a bɔra walima a ma ban."
 }

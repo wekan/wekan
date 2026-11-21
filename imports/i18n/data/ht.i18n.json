@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesaj",
   "cloud-panel-chat-send": "Voye",
   "cloud-panel-chat-import": "Enpòte ansyen konvèsasyon yo",
-  "cloud-panel-chat-imported": "__count__ mesaj enpòte."
+  "cloud-panel-chat-imported": "__count__ mesaj enpòte.",
+  "board-view-website": "Sit entènèt",
+  "tool-group-website": "Sit entènèt yo",
+  "website-view-empty": "Pa gen anyen ki pibliye sou sit entènèt sa a ankò.",
+  "feature-views-website": "Vi sit entènèt",
+  "feature-views-website-desc": "Tablo a kòm yon sit entènèt: kat lis Published li a, kouloir Pages la kòm meni ak lòt kat yo kòm piblikasyon, depi pi nouvo a, ak pyès atache yo. Yon tablo piblik ka louvri ladan l, konsa vizitè yo wè sit entènèt la nan adrès tablo a.",
+  "import-board-instruction-wordpress": "Nan WordPress, chwazi Tools, Export, All content ak Download Export File, epi chwazi fichye .xml sa a isit la, oswa kole tèks li. Squarespace, Wix ak lòt sit ki ekspòte yon fichye WordPress mache menm jan an. Chak paj ak piblikasyon vin yon kat nan lis estati li, paj yo nan kouloir Pages ak piblikasyon yo nan Posts, ak kontni li, kategori li yo ak tag li yo kòm etikèt, ak kòmantè ki apwouve yo.",
+  "import-board-instruction-wordpressjson": "Sere piblikasyon ak paj REST API WordPress la (/wp-json/wp/v2/posts ak /wp-json/wp/v2/pages) kòm yon sèl fichye .json, epi chwazi l isit la oswa kole l. Chak paj ak piblikasyon vin yon kat nan lis estati li.",
+  "import-board-instruction-ghost": "Nan Ghost, chwazi Settings, Labs, Export your content, epi chwazi fichye .json la isit la oswa kole l. Chak paj ak piblikasyon vin yon kat nan lis estati li, ak tag li yo kòm etikèt.",
+  "import-board-instruction-blogger": "Nan Blogger, chwazi Settings, Back up content, epi chwazi fichye .xml la isit la oswa kole tèks li. Chak piblikasyon ak paj vin yon kat, yon bouyon nan lis Draft, ak etikèt li yo ak kòmantè li yo.",
+  "import-board-instruction-markdownsite": "Mete sous yon sit estatik Hugo, Jekyll, Eleventy, Astro oswa lòt nan yon .zip - fichye Markdown yo ak front matter yo, ak imaj yo - epi chwazi .zip la isit la. Chak fichye Markdown vin yon kat: piblikasyon pou sa ki nan dosye posts yo oswa ki gen yon dat nan non fichye a, paj pou rès yo, bouyon yo nan lis Draft, ak imaj li itilize yo kòm pyès atache li.",
+  "import-board-instruction-htmlsite": "Mete fichye yon sit entènèt nan yon .zip - paj .html li yo ak imaj yo, jan wget oswa HTTrack sere yo, oswa ekspòtasyon Medium - epi chwazi .zip la isit la. Chak paj vin yon kat ak tèks prensipal li, ak imaj li itilize yo kòm pyès atache li; script, meni ak fòmilè yo kite deyò.",
+  "import-board-instruction-substack": "Nan Substack, chwazi Settings, Exports, Create new export, epi chwazi .zip ou telechaje a isit la. Chak piblikasyon vin yon kat ak tèks li, pibliye oswa bouyon."
 }

@@ -25,6 +25,9 @@ const TOOL_GROUPS = [
   { group: 'spreadsheets', labelKey: 'tool-group-spreadsheets' },
   { group: 'text', labelKey: 'tool-group-text' },
   { group: 'messages', labelKey: 'tool-group-messages' },
+  // Websites and CMSes, read into a board and written from one
+  // (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md).
+  { group: 'website', labelKey: 'tool-group-website' },
   { group: 'api', labelKey: 'tool-group-api' },
 ];
 
@@ -43,6 +46,9 @@ const MEMBERS = {
   spreadsheets: ['csv'],
   text: ['markdown', 'leo', 'opml', 'orgmode'],
   messages: ['mail', 'mbox', 'ical', 'slack', 'mattermost', 'telegram', 'whatsapp', 'discord', 'rocketchat', 'evernote', 'enex'],
+  // Sandstorm's WordPress and Hacker CMS stay under Sandstorm, by the rule
+  // above: a platform's apps are listed under it.
+  website: ['wordpress', 'wordpressjson', 'ghost', 'blogger', 'markdownsite', 'htmlsite', 'substack'],
   api: ['planka', 'kanbanflow'],
 };
 const GROUP_OF = new Map(Object.entries(MEMBERS).flatMap(([group, keys]) => keys.map(key => [key, group])));

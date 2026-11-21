@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messàgiu",
   "cloud-panel-chat-send": "Imbia",
   "cloud-panel-chat-import": "Importa sas tzarradas de prima",
-  "cloud-panel-chat-imported": "__count__ messàgios importados."
+  "cloud-panel-chat-imported": "__count__ messàgios importados.",
+  "board-view-website": "Situ web",
+  "tool-group-website": "Situ web",
+  "website-view-empty": "In custu situ web no est istadu publicadu ancora nudda.",
+  "feature-views-website": "Vista de su situ web",
+  "feature-views-website-desc": "Sa tàula comente situ web: is cartas de sa lista sua Published, su caminu Pages comente menù e is àteras cartas comente artìculos, is prus noos in antis, cun is alligados issoro. Una tàula pùblica si podet abèrrere in custa vista, gasi chi is bisitadores bidant su situ web in s'indiritzu de sa tàula.",
+  "import-board-instruction-wordpress": "In WordPress sèbera 'Tools', 'Export', 'All content' e 'Download Export File', e sèbera cussu archìviu .xml inoghe, o incolla su testu suo. Squarespace, Wix e àteros sitos chi esportant un'archìviu WordPress funtzionant de sa matessi manera. Onni pàgina e onni artìculu diventat una carta in sa lista de s'istadu suo, is pàginas in su caminu Pages e is artìculos in Posts, cun su cuntenutu, is categorias e is tags comente etichetas, e is cummentos aprovados.",
+  "import-board-instruction-wordpressjson": "Sarva is artìculos e is pàginas de sa WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) comente un'archìviu .json isceti, e sèberalu inoghe o incollalu. Onni pàgina e onni artìculu diventat una carta in sa lista de s'istadu suo.",
+  "import-board-instruction-ghost": "In Ghost sèbera 'Settings', 'Labs', 'Export your content', e sèbera s'archìviu .json inoghe o incollalu. Onni pàgina e onni artìculu diventat una carta in sa lista de s'istadu suo, cun is tags suos comente etichetas.",
+  "import-board-instruction-blogger": "In Blogger sèbera 'Settings', 'Back up content', e sèbera s'archìviu .xml inoghe o incolla su testu suo. Onni artìculu e onni pàgina diventat una carta, una bòzza in sa lista Draft, cun is etichetas e is cummentos suos.",
+  "import-board-instruction-markdownsite": "Faghe unu .zip de is fontes de unu situ Hugo, Jekyll, Eleventy, Astro o de un'àteru situ istàticu - is archìvios Markdown cun su front matter issoro, e is immàgines issoro - e sèbera su .zip inoghe. Onni archìviu Markdown diventat una carta: artìculos dae is cartellas posts o cun una data in su nùmene de s'archìviu, su restu pàginas, is bòzzas in sa lista Draft, e is immàgines chi impreat comente alligados suos.",
+  "import-board-instruction-htmlsite": "Faghe unu .zip de is archìvios de unu situ web - is pàginas .html e is immàgines suas, comente sarvadas cun wget o HTTrack, o s'esportatzione de Medium - e sèbera su .zip inoghe. Onni pàgina diventat una carta cun su testu printzipale suo, e is immàgines chi impreat comente alligados suos; is scripts, is menùs e is mòdulos abarrant a foras.",
+  "import-board-instruction-substack": "In Substack sèbera 'Settings', 'Exports', 'Create new export', e sèbera su .zip iscarrigadu inoghe. Onni artìculu diventat una carta cun su testu suo, publicadu o bòzza."
 }

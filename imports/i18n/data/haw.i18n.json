@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Leka",
   "cloud-panel-chat-send": "Hoʻouna",
   "cloud-panel-chat-import": "Hoʻokomo i nā kamaʻilio mua",
-  "cloud-panel-chat-imported": "Ua hoʻokomo ʻia nā leka he __count__."
+  "cloud-panel-chat-imported": "Ua hoʻokomo ʻia nā leka he __count__.",
+  "board-view-website": "Kahua pūnaewele",
+  "tool-group-website": "Nā kahua pūnaewele",
+  "website-view-empty": "ʻAʻohe mea i paʻi ʻia ma kēia kahua pūnaewele i kēia manawa.",
+  "feature-views-website": "Hiʻohiʻona kahua pūnaewele",
+  "feature-views-website-desc": "Ka papa ma ke ʻano he kahua pūnaewele: nā kāleka o kāna papa inoa Published, ke ala Pages ma ke ʻano he papa koho a me nā kāleka ʻē aʻe ma ke ʻano he mau pou, ka mea hou loa ma mua, me ko lākou mau mea pili. Hiki i kekahi papa lehulehu ke wehe ʻia ma kēia hiʻohiʻona, i ʻike nā malihini i ke kahua pūnaewele ma ka helu wahi o ka papa.",
+  "import-board-instruction-wordpress": "Ma WordPress, koho iā Tools, Export, All content a me Download Export File, a koho i kēlā faila .xml ma ʻaneʻi a i ʻole e kāpili i kona kikokikona. Hana like ʻo Squarespace, Wix a me nā kahua ʻē aʻe e hoʻopuka ana i kekahi faila WordPress. Lilo kēlā me kēia ʻaoʻao a me ka pou i kāleka ma ka papa inoa o kona kūlana, nā ʻaoʻao ma ke ala Pages a me nā pou ma Posts, me kona ʻike, kona mau māhele a me nā tags ma ke ʻano he lepili, a me kona mau manaʻo i ʻāpono ʻia.",
+  "import-board-instruction-wordpressjson": "E mālama i nā pou a me nā ʻaoʻao o ka REST API o WordPress (/wp-json/wp/v2/posts a me /wp-json/wp/v2/pages) ma ke ʻano he faila .json hoʻokahi, a koho iā ia ma ʻaneʻi a i ʻole e kāpili. Lilo kēlā me kēia ʻaoʻao a me ka pou i kāleka ma ka papa inoa o kona kūlana.",
+  "import-board-instruction-ghost": "Ma Ghost, koho iā Settings, Labs, Export your content, a koho i ka faila .json ma ʻaneʻi a i ʻole e kāpili. Lilo kēlā me kēia ʻaoʻao a me ka pou i kāleka ma ka papa inoa o kona kūlana, me kona mau tags ma ke ʻano he lepili.",
+  "import-board-instruction-blogger": "Ma Blogger, koho iā Settings, Back up content, a koho i ka faila .xml ma ʻaneʻi a i ʻole e kāpili i kona kikokikona. Lilo kēlā me kēia pou a me ka ʻaoʻao i kāleka, he kāmua ma ka papa inoa Draft, me kona mau lepili a me nā manaʻo.",
+  "import-board-instruction-markdownsite": "E hoʻopili i nā kumu o kekahi kahua paʻa Hugo, Jekyll, Eleventy, Astro a i ʻole kekahi ʻē aʻe i .zip - nā faila Markdown me ko lākou front matter, a me ko lākou mau kiʻi - a koho i ka .zip ma ʻaneʻi. Lilo kēlā me kēia faila Markdown i kāleka: nā pou mai nā waihona posts a i ʻole me ka lā ma ka inoa faila, ʻo ke koena nā ʻaoʻao, nā kāmua ma ka papa inoa Draft, a me nā kiʻi āna e hoʻohana ai ma ke ʻano he mau mea pili.",
+  "import-board-instruction-htmlsite": "E hoʻopili i nā faila o kekahi kahua pūnaewele i .zip - kona mau ʻaoʻao .html a me nā kiʻi, e like me ka mālama ʻia e wget a i ʻole HTTrack, a i ʻole ka hoʻopuka a Medium - a koho i ka .zip ma ʻaneʻi. Lilo kēlā me kēia ʻaoʻao i kāleka me kona kikokikona nui, a me nā kiʻi āna e hoʻohana ai ma ke ʻano he mau mea pili; waiho ʻia nā script, nā papa koho a me nā palapala.",
+  "import-board-instruction-substack": "Ma Substack, koho iā Settings, Exports, Create new export, a koho i ka .zip i hoʻoiho ʻia ma ʻaneʻi. Lilo kēlā me kēia pou i kāleka me kona kikokikona, i paʻi ʻia a i ʻole he kāmua."
 }

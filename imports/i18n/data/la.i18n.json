@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Nuntium",
   "cloud-panel-chat-send": "Mitte",
   "cloud-panel-chat-import": "Colloquia priora importa",
-  "cloud-panel-chat-imported": "__count__ nuntia importata."
+  "cloud-panel-chat-imported": "__count__ nuntia importata.",
+  "board-view-website": "Situs interretialis",
+  "tool-group-website": "Situs interretialis",
+  "website-view-empty": "Nihil adhuc in hoc situ interretiali editum est.",
+  "feature-views-website": "Conspectus situs interretialis",
+  "feature-views-website-desc": "Tabula ut situs interretialis: chartae indicis Published, semita Pages ut tabula optionum, ceterae chartae ut nuntii, recentissimae primae, cum adiunctis suis. Tabula publica in eo aperiri potest, ut visitatores situm interretialem in inscriptione tabulae videant.",
+  "import-board-instruction-wordpress": "In WordPress elige 'Tools', 'Export', 'All content' et 'Download Export File', et illum fasciculum .xml hic elige, aut textum eius insere. Squarespace, Wix et alii situs qui fasciculum WordPress exportant eodem modo operantur. Quaeque pagina et quisque nuntius fit charta in indice status sui, paginae in semita Pages et nuntii in Posts, cum contento suo, categoriis et notis ut titellis, et commentariis approbatis.",
+  "import-board-instruction-wordpressjson": "Nuntios et paginas WordPress REST API (/wp-json/wp/v2/posts et /wp-json/wp/v2/pages) ut unum fasciculum .json serva, et eum hic elige aut insere. Quaeque pagina et quisque nuntius fit charta in indice status sui.",
+  "import-board-instruction-ghost": "In Ghost elige 'Settings', 'Labs', 'Export your content', et fasciculum .json hic elige aut insere. Quaeque pagina et quisque nuntius fit charta in indice status sui, cum notis suis ut titellis.",
+  "import-board-instruction-blogger": "In Blogger elige 'Settings', 'Back up content', et fasciculum .xml hic elige aut textum eius insere. Quisque nuntius et quaeque pagina fit charta, adumbratio in indice Draft, cum titellis et commentariis suis.",
+  "import-board-instruction-markdownsite": "Fontes situs Hugo, Jekyll, Eleventy, Astro aliusve situs statici in fasciculum .zip comprime - fasciculos Markdown cum front matter suo, et imagines eorum - et .zip hic elige. Quisque fasciculus Markdown fit charta: nuntii ex plicis posts aut cum dato in nomine fasciculi, cetera paginae, adumbrationes in indice Draft, et imagines quibus utitur ut adiuncta eius.",
+  "import-board-instruction-htmlsite": "Fasciculos situs interretialis in .zip comprime - paginas .html et imagines eius, ut cum wget aut HTTrack servatae sunt, aut exportationem Medium - et .zip hic elige. Quaeque pagina fit charta cum textu suo principali, et imagines quibus utitur ut adiuncta eius; scripta, tabulae optionum et formulae omittuntur.",
+  "import-board-instruction-substack": "In Substack elige 'Settings', 'Exports', 'Create new export', et .zip demissum hic elige. Quisque nuntius fit charta cum textu suo, editus aut adumbratio."
 }

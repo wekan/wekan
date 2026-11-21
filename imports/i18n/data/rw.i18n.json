@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ubutumwa",
   "cloud-panel-chat-send": "Ohereza",
   "cloud-panel-chat-import": "Injiza ibiganiro byabanje",
-  "cloud-panel-chat-imported": "Ubutumwa __count__ bwinjijwe."
+  "cloud-panel-chat-imported": "Ubutumwa __count__ bwinjijwe.",
+  "board-view-website": "Urubuga",
+  "tool-group-website": "Urubuga",
+  "website-view-empty": "Nta kintu na kimwe kirashyirwa ahagaragara kuri uru rubuga.",
+  "feature-views-website": "Imigaragarire y'urubuga",
+  "feature-views-website-desc": "Ikibaho nk'urubuga: amakarita y'urutonde rwacyo Published, umurongo Pages nk'ibikubiyemo n'andi makarita nk'inyandiko, inshya mbere, hamwe n'imigereka yazo. Ikibaho rusange gishobora gufungukira muri iyi migaragarire, kugira ngo abashyitsi babone urubuga kuri aderesi y'ikibaho.",
+  "import-board-instruction-wordpress": "Muri WordPress, hitamo 'Tools', 'Export', 'All content' na 'Download Export File', uhitemo iyo dosiye ya .xml hano, cyangwa ushyiremo inyandiko yayo. Squarespace, Wix n'izindi mbuga zohereza dosiye ya WordPress zikora kimwe. Buri paji na buri nyandiko bihinduka ikarita mu rutonde rw'imimerere yabyo, paji mu murongo Pages n'inyandiko muri Posts, hamwe n'ibirimo, ibyiciro na tags nk'ibirango, n'ibitekerezo byemejwe.",
+  "import-board-instruction-wordpressjson": "Bika inyandiko na paji bya WordPress REST API (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) nka dosiye imwe ya .json, uyihitemo hano cyangwa uyishyiremo. Buri paji na buri nyandiko bihinduka ikarita mu rutonde rw'imimerere yabyo.",
+  "import-board-instruction-ghost": "Muri Ghost, hitamo 'Settings', 'Labs', 'Export your content', uhitemo dosiye ya .json hano cyangwa uyishyiremo. Buri paji na buri nyandiko bihinduka ikarita mu rutonde rw'imimerere yabyo, na tags zabyo nk'ibirango.",
+  "import-board-instruction-blogger": "Muri Blogger, hitamo 'Settings', 'Back up content', uhitemo dosiye ya .xml hano cyangwa ushyiremo inyandiko yayo. Buri nyandiko na buri paji bihinduka ikarita, igitarangira mu rutonde Draft, hamwe n'ibirango n'ibitekerezo byabyo.",
+  "import-board-instruction-markdownsite": "Kusanya muri .zip inkomoko z'urubuga rwa Hugo, Jekyll, Eleventy, Astro cyangwa urundi rubuga rudahinduka - dosiye za Markdown na front matter yazo, n'amashusho yazo - uhitemo .zip hano. Buri dosiye ya Markdown ihinduka ikarita: inyandiko zo mu bubiko bwa posts cyangwa zifite itariki mu izina rya dosiye, izisigaye ni paji, ibitarangira mu rutonde Draft, n'amashusho ikoresha nk'imigereka yayo.",
+  "import-board-instruction-htmlsite": "Kusanya muri .zip dosiye z'urubuga - paji zarwo za .html n'amashusho, nk'uko byabitswe na wget cyangwa HTTrack, cyangwa ibyoherejwe na Medium - uhitemo .zip hano. Buri paji ihinduka ikarita n'inyandiko yayo nyamukuru, n'amashusho ikoresha nk'imigereka; scripts, ibikubiyemo n'amafishi birasigara.",
+  "import-board-instruction-substack": "Muri Substack, hitamo 'Settings', 'Exports', 'Create new export', uhitemo .zip wakuruye hano. Buri nyandiko ihinduka ikarita n'inyandiko yayo, yashyizwe ahagaragara cyangwa itarangira."
 }

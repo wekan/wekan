@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Obubaka",
   "cloud-panel-chat-send": "Weereza",
   "cloud-panel-chat-import": "Yingiza emboozi ez'emabega",
-  "cloud-panel-chat-imported": "Obubaka __count__ buyingiziddwa."
+  "cloud-panel-chat-imported": "Obubaka __count__ buyingiziddwa.",
+  "board-view-website": "Omukutu",
+  "tool-group-website": "Omukutu",
+  "website-view-empty": "Tewali kifulumiziddwa ku mukutu guno n'okutuusa kati.",
+  "feature-views-website": "Endaba y'omukutu",
+  "feature-views-website-desc": "Olubaawo ng'omukutu: kaadi z'olukalala lwalwo Published, akakubo Pages nga menyu, ne kaadi endala ng'ebiwandiiko, ebipya okusooka, n'ebiyungiddwako byabyo. Olubaawo olwa bonna lusobola okuggulirwa mu ndaba eno, abagenyi ne balaba omukutu ku ndagiriro y'olubaawo.",
+  "import-board-instruction-wordpress": "Mu WordPress, londa 'Tools', 'Export', 'All content' ne 'Download Export File', olonde fayiro eyo eya .xml wano, oba ssaamu ebigambo byayo. Squarespace, Wix n'emikutu emirala egifulumya fayiro ya WordPress bikola mu ngeri y'emu. Buli lupapula na buli kiwandiiko kifuuka kaadi mu lukalala lw'embeera yaakyo, empapula mu kakubo Pages n'ebiwandiiko mu Posts, n'ebirimu byakyo, ebika n'obubonero (tags) ng'obubonero, n'endowooza ezikkiriziddwa.",
+  "import-board-instruction-wordpressjson": "Tereka ebiwandiiko n'empapula bya WordPress REST API (/wp-json/wp/v2/posts ne /wp-json/wp/v2/pages) nga fayiro emu eya .json, ogironde wano oba ogissaamu. Buli lupapula na buli kiwandiiko kifuuka kaadi mu lukalala lw'embeera yaakyo.",
+  "import-board-instruction-ghost": "Mu Ghost, londa 'Settings', 'Labs', 'Export your content', olonde fayiro ya .json wano oba ogissaamu. Buli lupapula na buli kiwandiiko kifuuka kaadi mu lukalala lw'embeera yaakyo, n'obubonero bwakyo.",
+  "import-board-instruction-blogger": "Mu Blogger, londa 'Settings', 'Back up content', olonde fayiro ya .xml wano oba ssaamu ebigambo byayo. Buli kiwandiiko na buli lupapula kifuuka kaadi, ekitannawedde mu lukalala Draft, n'obubonero bwakyo n'endowooza.",
+  "import-board-instruction-markdownsite": "Funza ensibuko z'omukutu gwa Hugo, Jekyll, Eleventy, Astro oba omulala ogutakyuka mu .zip - fayiro za Markdown ne front matter yaazo, n'ebifaananyi byazo - olonde .zip wano. Buli fayiro ya Markdown efuuka kaadi: ebiwandiiko okuva mu fooda za posts oba ezirina olunaku mu linnya lya fayiro, endala empapula, ebitannawedde mu lukalala Draft, n'ebifaananyi bye ekozesa ng'ebiyungiddwako byayo.",
+  "import-board-instruction-htmlsite": "Funza fayiro z'omukutu mu .zip - empapula zaagwo eza .html n'ebifaananyi, nga bwe byaterekebwa ne wget oba HTTrack, oba ebyafulumizibwa mu Medium - olonde .zip wano. Buli lupapula lufuuka kaadi n'ebigambo byalwo ebikulu, n'ebifaananyi bye lukozesa ng'ebiyungiddwako; sikulipu, menyu ne foomu birekebwa bweru.",
+  "import-board-instruction-substack": "Mu Substack, londa 'Settings', 'Exports', 'Create new export', olonde .zip ewanuddwa wano. Buli kiwandiiko kifuuka kaadi n'ebigambo byakyo, ekifulumiziddwa oba ekitannawedde."
 }

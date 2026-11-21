@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Wiadomość",
   "cloud-panel-chat-send": "Wyślij",
   "cloud-panel-chat-import": "Importuj wcześniejsze rozmowy",
-  "cloud-panel-chat-imported": "Zaimportowano wiadomości: __count__."
+  "cloud-panel-chat-imported": "Zaimportowano wiadomości: __count__.",
+  "board-view-website": "Strona internetowa",
+  "tool-group-website": "Strona internetowa",
+  "website-view-empty": "Na tej stronie internetowej nic jeszcze nie opublikowano.",
+  "feature-views-website": "Widok strony internetowej",
+  "feature-views-website-desc": "Tablica jako strona internetowa: karty z jej listy Published, ścieżka Pages jako menu, a pozostałe karty jako wpisy, od najnowszych, wraz z załącznikami. Publiczna tablica może się w nim otwierać, aby odwiedzający widzieli stronę internetową pod adresem tablicy.",
+  "import-board-instruction-wordpress": "W WordPressie wybierz „Narzędzia”, „Eksport”, „Cała zawartość” i „Pobierz plik eksportu”, a następnie wybierz tutaj ten plik .xml lub wklej jego tekst. Squarespace, Wix i inne serwisy eksportujące plik WordPress działają tak samo. Każda strona i każdy wpis staje się kartą na liście swojego statusu, strony w ścieżce Pages, a wpisy w Posts, wraz z treścią, kategoriami i tagami jako etykietami oraz zatwierdzonymi komentarzami.",
+  "import-board-instruction-wordpressjson": "Zapisz wpisy i strony z WordPress REST API (/wp-json/wp/v2/posts i /wp-json/wp/v2/pages) jako jeden plik .json i wybierz go tutaj lub wklej. Każda strona i każdy wpis staje się kartą na liście swojego statusu.",
+  "import-board-instruction-ghost": "W Ghost wybierz „Settings”, „Labs”, „Export your content”, a następnie wybierz tutaj plik .json lub go wklej. Każda strona i każdy wpis staje się kartą na liście swojego statusu, z tagami jako etykietami.",
+  "import-board-instruction-blogger": "W Bloggerze wybierz „Ustawienia”, „Utwórz kopię zapasową treści”, a następnie wybierz tutaj plik .xml lub wklej jego tekst. Każdy wpis i każda strona staje się kartą, wersja robocza na liście Draft, wraz z etykietami i komentarzami.",
+  "import-board-instruction-markdownsite": "Spakuj do .zip źródła strony Hugo, Jekyll, Eleventy, Astro lub innej strony statycznej - pliki Markdown z ich front matter oraz ich obrazy - i wybierz tutaj ten .zip. Każdy plik Markdown staje się kartą: wpisy z folderów posts lub z datą w nazwie pliku, pozostałe to strony, wersje robocze na liście Draft, a używane obrazy stają się jej załącznikami.",
+  "import-board-instruction-htmlsite": "Spakuj do .zip pliki strony internetowej - jej strony .html i obrazy, zapisane za pomocą wget lub HTTrack, albo eksport z Medium - i wybierz tutaj ten .zip. Każda strona staje się kartą z głównym tekstem, a używane obrazy jej załącznikami; skrypty, menu i formularze są pomijane.",
+  "import-board-instruction-substack": "W Substack wybierz „Settings”, „Exports”, „Create new export”, a następnie wybierz tutaj pobrany plik .zip. Każdy wpis staje się kartą z tekstem, opublikowaną lub roboczą."
 }

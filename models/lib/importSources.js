@@ -123,6 +123,16 @@ export const IMPORT_SOURCES = [
   { key: 'sandstormdavros', name: 'Sandstorm Davros', ...GRAIN },
   { key: 'sandstormhackercms', name: 'Sandstorm Hacker CMS', ...GRAIN },
   { key: 'sandstormgogs', name: 'Sandstorm Gogs', ...GRAIN },
+  // Websites and CMSes (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md):
+  // read on the server by server/lib/websiteImport.js into the pages and posts
+  // models/lib/websiteFormat.js makes a board of.
+  { key: 'wordpress', name: 'WordPress (.xml)', ...TEXT, files: ['.xml'] },
+  { key: 'wordpressjson', name: 'WordPress REST API (.json)', ...JSON_SOURCE },
+  { key: 'ghost', name: 'Ghost', ...JSON_SOURCE },
+  { key: 'blogger', name: 'Blogger (.xml)', ...TEXT, files: ['.xml', '.atom'] },
+  { key: 'markdownsite', name: 'Hugo, Jekyll, Eleventy, Astro (.zip)', paste: false, files: ['.zip'], send: 'zip', zipSend: 'zip', creator: 'generalized' },
+  { key: 'htmlsite', name: 'HTML website, Medium (.zip)', paste: false, files: ['.zip'], send: 'zip', zipSend: 'zip', creator: 'generalized' },
+  { key: 'substack', name: 'Substack (.zip)', paste: false, files: ['.zip'], send: 'zip', zipSend: 'zip', creator: 'generalized' },
   { key: 'sandstormwordpress', name: 'Sandstorm WordPress', ...GRAIN },
   // Fetched from the service's API with the member's credentials
   // (models/lib/apiImportServices.js, server/apiImport.js), or pasted as the

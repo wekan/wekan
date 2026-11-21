@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "संदेश",
   "cloud-panel-chat-send": "भेजीं",
   "cloud-panel-chat-import": "पहिले के बातचीत आयात करीं",
-  "cloud-panel-chat-imported": "__count__ संदेश आयात भइल।"
+  "cloud-panel-chat-imported": "__count__ संदेश आयात भइल।",
+  "board-view-website": "वेबसाइट",
+  "tool-group-website": "वेबसाइट",
+  "website-view-empty": "एह वेबसाइट पर अबहीं ले कुछुओ प्रकाशित ना भइल बा।",
+  "feature-views-website": "वेबसाइट दृश्य",
+  "feature-views-website-desc": "बोर्ड एगो वेबसाइट के रूप में: एकर Published सूची के कार्ड, स्विमलेन Pages मेनू के रूप में आ बाकी कार्ड पोस्ट के रूप में, नयका पहिले, ओह लोग के अटैचमेंट के साथे। एगो सार्वजनिक बोर्ड एह में खुल सकेला, जेसे आगंतुक बोर्ड के पता पर वेबसाइट देखेलें।",
+  "import-board-instruction-wordpress": "WordPress में Tools, Export, All content आ Download Export File चुनीं, आ ऊ .xml फाइल इहाँ चुनीं, या ओकर पाठ चिपकाईं। Squarespace, Wix आ दोसर साइट जवन WordPress फाइल निर्यात करेलीं, ओही तरे काम करेलीं। हर पन्ना आ पोस्ट अपना स्थिति के सूची में एगो कार्ड बन जाला, पन्ना स्विमलेन Pages में आ पोस्ट Posts में, ओकर सामग्री, श्रेणी आ टैग लेबल के रूप में, आ ओकर स्वीकृत टिप्पणी के साथे।",
+  "import-board-instruction-wordpressjson": "WordPress REST API के पोस्ट आ पन्ना (/wp-json/wp/v2/posts आ /wp-json/wp/v2/pages) के एगो .json फाइल के रूप में सहेजीं, आ ओकरा के इहाँ चुनीं या चिपकाईं। हर पन्ना आ पोस्ट अपना स्थिति के सूची में एगो कार्ड बन जाला।",
+  "import-board-instruction-ghost": "Ghost में Settings, Labs, Export your content चुनीं, आ .json फाइल इहाँ चुनीं या चिपकाईं। हर पन्ना आ पोस्ट अपना स्थिति के सूची में एगो कार्ड बन जाला, ओकर टैग लेबल के रूप में।",
+  "import-board-instruction-blogger": "Blogger में Settings, Back up content चुनीं, आ .xml फाइल इहाँ चुनीं या ओकर पाठ चिपकाईं। हर पोस्ट आ पन्ना एगो कार्ड बन जाला, ड्राफ्ट सूची Draft में, ओकर लेबल आ टिप्पणी के साथे।",
+  "import-board-instruction-markdownsite": "कवनो Hugo, Jekyll, Eleventy, Astro या दोसर स्टैटिक साइट के स्रोत के .zip करीं - Markdown फाइल ओह लोग के front matter के साथे, आ ओह लोग के फोटो - आ .zip इहाँ चुनीं। हर Markdown फाइल एगो कार्ड बन जाला: posts फोल्डर से या फाइल नाम में तारीख वाला पोस्ट, बाकी पन्ना, ड्राफ्ट सूची Draft में, आ ऊ जवन फोटो इस्तेमाल करेला ऊ ओकर अटैचमेंट के रूप में।",
+  "import-board-instruction-htmlsite": "कवनो वेबसाइट के फाइल के .zip करीं - ओकर .html पन्ना आ फोटो, wget या HTTrack से सहेजल, या Medium के निर्यात - आ .zip इहाँ चुनीं। हर पन्ना अपना मुख्य पाठ के साथे एगो कार्ड बन जाला, आ ऊ जवन फोटो इस्तेमाल करेला ऊ ओकर अटैचमेंट के रूप में; स्क्रिप्ट, मेनू आ फॉर्म छोड़ दिहल जालें।",
+  "import-board-instruction-substack": "Substack में Settings, Exports, Create new export चुनीं, आ डाउनलोड कइल .zip इहाँ चुनीं। हर पोस्ट अपना पाठ के साथे एगो कार्ड बन जाला, प्रकाशित या ड्राफ्ट।"
 }

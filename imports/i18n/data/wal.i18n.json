@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Kiitaa",
   "cloud-panel-chat-send": "Kiita",
   "cloud-panel-chat-import": "Kase haasaya gelissa",
-  "cloud-panel-chat-imported": "Kiitaa __count__ gelettiis."
+  "cloud-panel-chat-imported": "Kiitaa __count__ gelettiis.",
+  "board-view-website": "Websaytiyaa",
+  "tool-group-website": "Websaytiyaa",
+  "website-view-empty": "Ha websaytiyan ayyibaynne hanno gakkanaw attamettibeenna.",
+  "feature-views-website": "Websaytiyaa xeelliya",
+  "feature-views-website-desc": "Bookkiya websaytiyaa mala: Published mazgabaa kaardiyata, Pages ogiya doorettaa mala, harati kaardiyati xuufeta mala, ooratati koyro, eta gattidobatara. Asa ubbaassi bookkiya hagan doyettana danda'ees, hegaa gishshawu imattati websaytiyaa bookkiya teesuwan be'ana.",
+  "import-board-instruction-wordpress": "WordPress giddon, Tools, Export, All content-nne Download Export File doora, he .xml faayiliyaa hagan doora, woykko a xuufiyaa kaa. Squarespace, Wix-nne WordPress faayiliyaa kessiya hara saytati hegaa mala oottoosona. Issi issi qanxanne xuufee ba hanotaa mazgabaa giddon kaardiya gidees, qanxati Pages ogiyan, xuufeti Posts giddon, ba yiillaa, shaahotanne tagata malaatata mala, qassi ekettida qofatara.",
+  "import-board-instruction-wordpressjson": "WordPress REST API xuufetanne qanxata (/wp-json/wp/v2/posts-nne /wp-json/wp/v2/pages) issi .json faayiliyaa oothada naaga, hagan doora woykko kaa. Issi issi qanxanne xuufee ba hanotaa mazgabaa giddon kaardiya gidees.",
+  "import-board-instruction-ghost": "Ghost giddon, Settings, Labs, Export your content doora, .json faayiliyaa hagan doora woykko kaa. Issi issi qanxanne xuufee ba hanotaa mazgabaa giddon kaardiya gidees, ba tagata malaatata mala.",
+  "import-board-instruction-blogger": "Blogger giddon, Settings, Back up content doora, .xml faayiliyaa hagan doora woykko a xuufiyaa kaa. Issi issi xuufeenne qanxay kaardiya gidees, wurenna xuufee Draft mazgabaa giddon, ba malaatatanne qofatara.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro woykko hara laamettenna saytaa xeeraa zip ootta - Markdown faayiletanne eta front matter, eta misileta - .zip hagan doora. Issi issi Markdown faayiliyay kaardiya gidees: posts kifiliyaappe woykko faayiliyaa sunttan gallassi de'iya xuufeta, attidaageeti qanxata, wurenna xuufeti Draft mazgabaa giddon, qassi i goˈettiya misileti a gattidobata mala.",
+  "import-board-instruction-htmlsite": "Websaytiyaa faayileta zip ootta - a .html qanxatanne misileta, wget woykko HTTrack-n naagettidayssada, woykko Medium kessuwaa - .zip hagan doora. Issi issi qanxay ba waannaa xuufiyaara kaardiya gidees, qassi i goˈettiya misileti a gattidobata mala; skiriipteti, doorettaynne foormeti aggettoosona.",
+  "import-board-instruction-substack": "Substack giddon, Settings, Exports, Create new export doora, ekkida .zip hagan doora. Issi issi xuufee ba xuufiyaara kaardiya gidees, attamettidaa woykko wurenna xuufiya."
 }

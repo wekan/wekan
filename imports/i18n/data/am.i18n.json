@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "መልእክት",
   "cloud-panel-chat-send": "ላክ",
   "cloud-panel-chat-import": "የቀድሞ ውይይቶችን አስመጣ",
-  "cloud-panel-chat-imported": "__count__ መልእክቶች ገብተዋል።"
+  "cloud-panel-chat-imported": "__count__ መልእክቶች ገብተዋል።",
+  "board-view-website": "ድረ ገጽ",
+  "tool-group-website": "ድረ ገጽ",
+  "website-view-empty": "በዚህ ድረ ገጽ ላይ እስካሁን ምንም አልታተመም።",
+  "feature-views-website": "የድረ ገጽ እይታ",
+  "feature-views-website-desc": "ሰሌዳው እንደ ድረ ገጽ፦ የ Published ዝርዝሩ ካርዶች፣ የ Pages መስመር እንደ ምናሌ እና ሌሎች ካርዶች እንደ ልጥፎች፣ አዲሶቹ መጀመሪያ፣ ከአባሪዎቻቸው ጋር። ይፋዊ ሰሌዳ በዚህ ሊከፈት ይችላል፣ ጎብኚዎች ድረ ገጹን በሰሌዳው አድራሻ እንዲያዩ።",
+  "import-board-instruction-wordpress": "በ WordPress ውስጥ Tools፣ Export፣ All content እና Download Export File ይምረጡ፣ እና ያንን .xml ፋይል እዚህ ይምረጡ፣ ወይም ጽሑፉን ይለጥፉ። Squarespace፣ Wix እና የ WordPress ፋይል የሚልኩ ሌሎች ጣቢያዎች በተመሳሳይ መንገድ ይሰራሉ። እያንዳንዱ ገጽ እና ልጥፍ በሁኔታው ዝርዝር ውስጥ ካርድ ይሆናል፣ ገጾች በ Pages መስመር እና ልጥፎች በ Posts፣ ከይዘቱ፣ ምድቦቹ እና መለያዎቹ እንደ ስያሜዎች፣ እና ከጸደቁ አስተያየቶቹ ጋር።",
+  "import-board-instruction-wordpressjson": "የ WordPress REST API ልጥፎችን እና ገጾችን (/wp-json/wp/v2/posts እና /wp-json/wp/v2/pages) እንደ አንድ .json ፋይል ያስቀምጡ፣ እና እዚህ ይምረጡት ወይም ይለጥፉት። እያንዳንዱ ገጽ እና ልጥፍ በሁኔታው ዝርዝር ውስጥ ካርድ ይሆናል።",
+  "import-board-instruction-ghost": "በ Ghost ውስጥ Settings፣ Labs፣ Export your content ይምረጡ፣ እና የ .json ፋይሉን እዚህ ይምረጡ ወይም ይለጥፉት። እያንዳንዱ ገጽ እና ልጥፍ በሁኔታው ዝርዝር ውስጥ ካርድ ይሆናል፣ ከመለያዎቹ ጋር እንደ ስያሜዎች።",
+  "import-board-instruction-blogger": "በ Blogger ውስጥ Settings፣ Back up content ይምረጡ፣ እና የ .xml ፋይሉን እዚህ ይምረጡ ወይም ጽሑፉን ይለጥፉ። እያንዳንዱ ልጥፍ እና ገጽ ካርድ ይሆናል፣ ረቂቅ በ Draft ዝርዝር ውስጥ፣ ከስያሜዎቹ እና አስተያየቶቹ ጋር።",
+  "import-board-instruction-markdownsite": "የ Hugo፣ Jekyll፣ Eleventy፣ Astro ወይም ሌላ ቋሚ ጣቢያ ምንጮችን በ .zip ይጭመቁ - የ Markdown ፋይሎችን ከ front matter ጋር፣ እና ምስሎቻቸውን - እና .zip ን እዚህ ይምረጡ። እያንዳንዱ የ Markdown ፋይል ካርድ ይሆናል፦ ልጥፎች ከ posts አቃፊዎች ወይም በፋይል ስሙ ቀን ያላቸው፣ ቀሪዎቹ ገጾች፣ ረቂቆች በ Draft ዝርዝር ውስጥ፣ እና የሚጠቀማቸው ምስሎች እንደ አባሪዎቹ።",
+  "import-board-instruction-htmlsite": "የድረ ገጽ ፋይሎችን በ .zip ይጭመቁ - የ .html ገጾቹን እና ምስሎቹን፣ በ wget ወይም HTTrack እንደተቀመጡ፣ ወይም የ Medium ኤክስፖርት - እና .zip ን እዚህ ይምረጡ። እያንዳንዱ ገጽ ከዋና ጽሑፉ ጋር ካርድ ይሆናል፣ የሚጠቀማቸው ምስሎች እንደ አባሪዎቹ፤ ስክሪፕቶች፣ ምናሌዎች እና ቅጾች ይቀራሉ።",
+  "import-board-instruction-substack": "በ Substack ውስጥ Settings፣ Exports፣ Create new export ይምረጡ፣ እና የወረደውን .zip እዚህ ይምረጡ። እያንዳንዱ ልጥፍ ከጽሑፉ ጋር ካርድ ይሆናል፣ የታተመ ወይም ረቂቅ።"
 }

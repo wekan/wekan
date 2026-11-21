@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Noriicht",
   "cloud-panel-chat-send": "Schécken",
   "cloud-panel-chat-import": "Fréier Gespréicher importéieren",
-  "cloud-panel-chat-imported": "__count__ Messagen importéiert."
+  "cloud-panel-chat-imported": "__count__ Messagen importéiert.",
+  "board-view-website": "Websäit",
+  "tool-group-website": "Websäit",
+  "website-view-empty": "Op dëser Websäit ass nach näischt publizéiert.",
+  "feature-views-website": "Websäit-Usiicht",
+  "feature-views-website-desc": "D'Tafel als Websäit: d'Kaarte vun hirer Lëscht Published, d'Bunn Pages als Menü an déi aner Kaarten als Artikelen, déi neiste fir d'éischt, mat hiren Unhäng. Eng ëffentlech Tafel kann domat opgoen, sou datt Besucher d'Websäit op der Adress vun der Tafel gesinn.",
+  "import-board-instruction-wordpress": "Wielt am WordPress 'Tools', 'Export', 'All content' an 'Download Export File', a wielt dee .xml-Fichier hei, oder fügt säin Text an. Squarespace, Wix an aner Säiten, déi e WordPress-Fichier exportéieren, funktionéieren d'selwecht. All Säit an all Artikel gëtt eng Kaart an der Lëscht vu sengem Status, Säiten an der Bunn Pages an Artikelen a Posts, mat sengem Inhalt, Kategorien an Tags als Etiketten, a senge genehmegte Kommentaren.",
+  "import-board-instruction-wordpressjson": "Späichert d'Artikelen an d'Säite vun der WordPress REST API (/wp-json/wp/v2/posts an /wp-json/wp/v2/pages) als ee .json-Fichier, a wielt en hei oder fügt en an. All Säit an all Artikel gëtt eng Kaart an der Lëscht vu sengem Status.",
+  "import-board-instruction-ghost": "Wielt am Ghost 'Settings', 'Labs', 'Export your content', a wielt den .json-Fichier hei oder fügt en an. All Säit an all Artikel gëtt eng Kaart an der Lëscht vu sengem Status, mat sengen Tags als Etiketten.",
+  "import-board-instruction-blogger": "Wielt am Blogger 'Settings', 'Back up content', a wielt den .xml-Fichier hei oder fügt säin Text an. All Artikel an all Säit gëtt eng Kaart, en Entworf an der Lëscht Draft, mat sengen Etiketten a Kommentaren.",
+  "import-board-instruction-markdownsite": "Pakt d'Quelle vun enger Hugo-, Jekyll-, Eleventy-, Astro- oder anerer statescher Säit an en .zip - d'Markdown-Fichieren mat hirem Front Matter, an hir Biller - a wielt den .zip hei. All Markdown-Fichier gëtt eng Kaart: Artikelen aus den Dossieren posts oder mat engem Datum am Fichiersnumm, de Rescht Säiten, Entwërf an der Lëscht Draft, an d'Biller, déi e benotzt, als seng Unhäng.",
+  "import-board-instruction-htmlsite": "Pakt d'Fichiere vun enger Websäit an en .zip - hir .html-Säiten a Biller, wéi mat wget oder HTTrack gespäichert, oder den Export vu Medium - a wielt den .zip hei. All Säit gëtt eng Kaart mat hirem Haapttext, an d'Biller, déi se benotzt, als hir Unhäng; Scripten, Menüen a Formulairen ginn ausgelooss.",
+  "import-board-instruction-substack": "Wielt am Substack 'Settings', 'Exports', 'Create new export', a wielt den erofgeluedenen .zip hei. All Artikel gëtt eng Kaart mat sengem Text, publizéiert oder als Entworf."
 }

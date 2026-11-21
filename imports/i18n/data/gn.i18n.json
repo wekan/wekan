@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Marandu",
   "cloud-panel-chat-send": "Mondo",
   "cloud-panel-chat-import": "Mboguahẽ ñomongeta yma guare",
-  "cloud-panel-chat-imported": "__count__ marandu oguahẽma."
+  "cloud-panel-chat-imported": "__count__ marandu oguahẽma.",
+  "board-view-website": "Ñanduti renda",
+  "tool-group-website": "Ñanduti rendakuéra",
+  "website-view-empty": "Ko ñanduti rendápe ndojehechaukái gueteri mba'eve.",
+  "feature-views-website": "Techauka ñanduti renda ramo",
+  "feature-views-website-desc": "Tembiapo renda ñanduti renda ramo: kuatia'ikuéra ysaja Published-pegua, tape Pages poravorã ramo ha ambue kuatia'ikuéra jehai ramo, ipyahuvéva ypy, mba'e ojejokuáva reheve. Tembiapo renda opavavépe ĝuarã ikatu ojeike ko techaukápe, ohecha hag̃ua umi ou ñanduti renda tembiapo renda kundaharape.",
+  "import-board-instruction-wordpress": "WordPress-pe, eiporavo Tools, Export, All content ha Download Export File, ha eiporavo upe .xml marandurenda ko'ápe térã emboja hemiandu. Squarespace, Wix ha ambue tenda omosẽva WordPress marandurenda omba'apo péicha avei. Opaite rogue ha jehai oiko kuatia'i ijysaja tekotee-pe, rogue tape Pages-pe ha jehai Posts-pe, hetepy, hendaguéra ha itags techaukaha ramo, ha ije'ekuéra oñemoneĩva reheve.",
+  "import-board-instruction-wordpressjson": "Eñongatu WordPress REST API jehai ha roguekuéra (/wp-json/wp/v2/posts ha /wp-json/wp/v2/pages) peteĩ .json marandurenda ramo, ha eiporavo ko'ápe térã emboja. Opaite rogue ha jehai oiko kuatia'i ijysaja tekotee-pe.",
+  "import-board-instruction-ghost": "Ghost-pe, eiporavo Settings, Labs, Export your content, ha eiporavo .json marandurenda ko'ápe térã emboja. Opaite rogue ha jehai oiko kuatia'i ijysaja tekotee-pe, itags techaukaha ramo.",
+  "import-board-instruction-blogger": "Blogger-pe, eiporavo Settings, Back up content, ha eiporavo .xml marandurenda ko'ápe térã emboja hemiandu. Opaite jehai ha rogue oiko kuatia'i, jehai ñepyrũ ysaja Draft-pe, itechaukaha ha ije'ekuéra reheve.",
+  "import-board-instruction-markdownsite": "Embotyryru .zip-pe peteĩ tenda Hugo, Jekyll, Eleventy, Astro térã ambue ñepyrũha - Markdown marandurenda ifront matter reheve, ha ita'anga - ha eiporavo .zip ko'ápe. Opaite Markdown marandurenda oiko kuatia'i: jehai posts ñongatuhágui térã ára oguerekóva marandurenda rérape, hembýva rogue, jehai ñepyrũ ysaja Draft-pe, ha ta'anga oiporúva mba'e ojejokuáva ramo.",
+  "import-board-instruction-htmlsite": "Embotyryru .zip-pe peteĩ ñanduti renda marandurenda - irogue .html ha ta'anga, wget térã HTTrack oñongatu haguéicha, térã Medium ñemosẽ - ha eiporavo .zip ko'ápe. Opaite rogue oiko kuatia'i hemiandu tenondegua reheve, ha ta'anga oiporúva mba'e ojejokuáva ramo; script, poravorã ha formulario ojeheja okápe.",
+  "import-board-instruction-substack": "Substack-pe, eiporavo Settings, Exports, Create new export, ha eiporavo .zip oñemboguejýva ko'ápe. Opaite jehai oiko kuatia'i hemiandu reheve, oñemyasãiva térã jehai ñepyrũ."
 }

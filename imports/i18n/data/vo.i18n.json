@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Nun",
   "cloud-panel-chat-send": "Sedön",
   "cloud-panel-chat-import": "Nüveigön bespikis büik",
-  "cloud-panel-chat-imported": "Nuns __count__ penüveigons."
+  "cloud-panel-chat-imported": "Nuns __count__ penüveigons.",
+  "board-view-website": "Vebipag",
+  "tool-group-website": "Vebipag",
+  "website-view-empty": "Nos nog pepübon su vebipag at.",
+  "feature-views-website": "Logam vebipaga",
+  "feature-views-website-desc": "Tab as vebipag: kads lisedas onik: Published, dil horitätik Pages as lised välas e kads votik as penäds, nulikün balido, ko fimükots onsik. Tab notidik kanon pamaifükön in on, dat visitans logons vebipagi su ladet taba.",
+  "import-board-instruction-wordpress": "In WordPress, välolös Tools, Export, All content e Download Export File, e välolös ragivi .xml at is, u pladolös vödemi ona. Squarespace, Wix e topäds votik kels seveigons ragivi WordPress vobons ot. Pad e penäd alik vedon kad in lised stada okik, pads in dil horitätik Pages e penäds in Posts, ko ninäd onik, klads e tags as ninädapenäds, e küpets pezepöl onik.",
+  "import-board-instruction-wordpressjson": "Dakipolös penädis e padis WordPress REST API (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) as ragiv .json bal, e välolös oni is u pladolös oni. Pad e penäd alik vedon kad in lised stada okik.",
+  "import-board-instruction-ghost": "In Ghost, välolös Settings, Labs, Export your content, e välolös ragivi .json is u pladolös oni. Pad e penäd alik vedon kad in lised stada okik, ko tags onik as ninädapenäds.",
+  "import-board-instruction-blogger": "In Blogger, välolös Settings, Back up content, e välolös ragivi .xml is u pladolös vödemi ona. Penäd e pad alik vedon kad, mobapenäd in lised: Draft, ko ninädapenäds e küpets onik.",
+  "import-board-instruction-markdownsite": "Zipolös fonätis topäda nevotiköl Hugo, Jekyll, Eleventy, Astro u votik - ragivis Markdown ko front matter onsik, e magodis onsik - e välolös .zip is. Ragiv Markdown alik vedon kad: penäds se ragivars posts u ko dät in nem ragiva, retikos pads, mobapenäds in lised: Draft, e magods, kelis gebon, as fimükots onik.",
+  "import-board-instruction-htmlsite": "Zipolös ragivis vebipaga - padis .html e magodis ona, äs pedakipons me wget u HTTrack, u seveig se Medium - e välolös .zip is. Pad alik vedon kad ko vödem cifik okik, e magods, kelis gebon, as fimükots onik; skripots, lised välas e fomets pamoükons.",
+  "import-board-instruction-substack": "In Substack, välolös Settings, Exports, Create new export, e välolös .zip pedonükömöl is. Penäd alik vedon kad ko vödem okik, pepüböl u mobapenäd."
 }

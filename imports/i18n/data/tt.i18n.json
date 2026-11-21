@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Хәбәр",
   "cloud-panel-chat-send": "Җибәрү",
   "cloud-panel-chat-import": "Элеккеге сөйләшүләрне импортлау",
-  "cloud-panel-chat-imported": "__count__ хәбәр импортланды."
+  "cloud-panel-chat-imported": "__count__ хәбәр импортланды.",
+  "board-view-website": "Веб-сайт",
+  "tool-group-website": "Веб-сайт",
+  "website-view-empty": "Бу веб-сайтта әлегә бернәрсә дә бастырылмаган.",
+  "feature-views-website": "Веб-сайт күренеше",
+  "feature-views-website-desc": "Такта веб-сайт буларак: аның Published исемлегенең карточкалары, меню буларак Pages юлы һәм язмалар буларак башка карточкалар, иң яңалары башта, кушымталары белән. Ачык такта аңарда ачыла ала, шулай итеп килүчеләр веб-сайтны такта адресында күрәләр.",
+  "import-board-instruction-wordpress": "WordPress'та Tools, Export, All content һәм Download Export File сайлагыз, һәм шул .xml файлны монда сайлагыз яки аның текстын куегыз. WordPress файлын экспортлаучы Squarespace, Wix һәм башка сайтлар да шулай ук эшли. Һәр бит һәм язма үз халәте исемлегендә карточка була, битләр Pages юлында, язмалар Posts'та, эчтәлеге, категорияләре һәм тэглары билгеләр буларак, һәм расланган аңлатмалары белән.",
+  "import-board-instruction-wordpressjson": "WordPress REST API язмаларын һәм битләрен (/wp-json/wp/v2/posts һәм /wp-json/wp/v2/pages) бер .json файл итеп саклагыз, һәм аны монда сайлагыз яки куегыз. Һәр бит һәм язма үз халәте исемлегендә карточка була.",
+  "import-board-instruction-ghost": "Ghost'та Settings, Labs, Export your content сайлагыз, һәм .json файлны монда сайлагыз яки куегыз. Һәр бит һәм язма үз халәте исемлегендә карточка була, тэглары билгеләр буларак.",
+  "import-board-instruction-blogger": "Blogger'да Settings, Back up content сайлагыз, һәм .xml файлны монда сайлагыз яки аның текстын куегыз. Һәр язма һәм бит карточка була, караламалар Draft исемлегендә, билгеләре һәм аңлатмалары белән.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro яки башка статик сайтның чыганакларын - front matter белән Markdown файлларын һәм аларның рәсемнәрен - zip итеп кысыгыз һәм .zip'ны монда сайлагыз. Һәр Markdown файл карточка була: posts папкаларыннан яки файл исемендә датасы булганнар язмалар, калганнары битләр, караламалар Draft исемлегендә, ә ул кулланган рәсемнәр аның кушымталары буларак.",
+  "import-board-instruction-htmlsite": "Веб-сайт файлларын - wget яки HTTrack белән сакланган .html битләрен һәм рәсемнәрен, яки Medium экспортын - zip итеп кысыгыз һәм .zip'ны монда сайлагыз. Һәр бит үзенең төп тексты белән карточка була, ә ул кулланган рәсемнәр аның кушымталары буларак; скриптлар, менюлар һәм формалар кертелми.",
+  "import-board-instruction-substack": "Substack'та Settings, Exports, Create new export сайлагыз, һәм йөкләнгән .zip'ны монда сайлагыз. Һәр язма тексты белән карточка була, бастырылган яки каралама."
 }

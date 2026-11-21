@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Peusan",
   "cloud-panel-chat-send": "Kirém",
   "cloud-panel-chat-import": "Impor haba nyang ka lheuh",
-  "cloud-panel-chat-imported": "__count__ peusan ka geuimpor."
+  "cloud-panel-chat-imported": "__count__ peusan ka geuimpor.",
+  "board-view-website": "Situs web",
+  "tool-group-website": "Situs web",
+  "website-view-empty": "Goh na sapeue pih nyang ka geupeuteubiet bak situs web nyoe.",
+  "feature-views-website": "Eu situs web",
+  "feature-views-website-desc": "Papeuen sibagoe situs web: kartu-kartu bak daftar Published, lintasan Pages sibagoe menu, ngon kartu laen sibagoe tulisan, nyang barô phôn, ngon lampiran jih. Papeuen umum jeut geupeuhah lam nyoe, mangat ureueng teuka jikalon situs web bak alamat papeuen.",
+  "import-board-instruction-wordpress": "Lam WordPress, piléh Tools, Export, All content ngon Download Export File, laju piléh file .xml nyan sinoe, atawa tamplak teks jih. Squarespace, Wix ngon situs laen nyang geuekspor file WordPress jibuet kreuja lagée nyan cit. Tiep halaman ngon tulisan jeuet keu kartu lam daftar status jih, halaman lam lintasan Pages ngon tulisan lam Posts, ngon isi, kategori ngon tag jih sibagoe label, ngon komentar nyang ka geuteurimong.",
+  "import-board-instruction-wordpressjson": "Keubah tulisan ngon halaman nibak WordPress REST API (/wp-json/wp/v2/posts ngon /wp-json/wp/v2/pages) sibagoe sa file .json, laju piléh sinoe atawa tamplak. Tiep halaman ngon tulisan jeuet keu kartu lam daftar status jih.",
+  "import-board-instruction-ghost": "Lam Ghost, piléh Settings, Labs, Export your content, laju piléh file .json sinoe atawa tamplak. Tiep halaman ngon tulisan jeuet keu kartu lam daftar status jih, ngon tag jih sibagoe label.",
+  "import-board-instruction-blogger": "Lam Blogger, piléh Settings, Back up content, laju piléh file .xml sinoe atawa tamplak teks jih. Tiep tulisan ngon halaman jeuet keu kartu, draf lam daftar Draft, ngon label ngon komentar jih.",
+  "import-board-instruction-markdownsite": "Zip sumber situs statis Hugo, Jekyll, Eleventy, Astro atawa nyang laen - file Markdown ngon front matter jih, ngon gamba jih - laju piléh .zip sinoe. Tiep file Markdown jeuet keu kartu: tulisan nibak folder posts atawa nyang na tanggai lam nan file, nyang laen halaman, draf lam daftar Draft, ngon gamba nyang jingui sibagoe lampiran jih.",
+  "import-board-instruction-htmlsite": "Zip file situs web - halaman .html ngon gamba jih, nyang geukeubah ngon wget atawa HTTrack, atawa ekspor Medium - laju piléh .zip sinoe. Tiep halaman jeuet keu kartu ngon teks utama jih, ngon gamba nyang jingui sibagoe lampiran jih; skrip, menu ngon formulir hana geupeuroeh.",
+  "import-board-instruction-substack": "Lam Substack, piléh Settings, Exports, Create new export, laju piléh .zip nyang ka geuunduh sinoe. Tiep tulisan jeuet keu kartu ngon teks jih, ka geupeuteubiet atawa draf."
 }

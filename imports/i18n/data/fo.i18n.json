@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Boð",
   "cloud-panel-chat-send": "Senda",
   "cloud-panel-chat-import": "Innflyt eldri samrøður",
-  "cloud-panel-chat-imported": "__count__ boð innflutt."
+  "cloud-panel-chat-imported": "__count__ boð innflutt.",
+  "board-view-website": "Heimasíða",
+  "tool-group-website": "Heimasíður",
+  "website-view-empty": "Einki er enn útgivið á hesi heimasíðuni.",
+  "feature-views-website": "Heimasíðusýni",
+  "feature-views-website-desc": "Talvan sum heimasíða: kortini á listanum Published, beinurin Pages sum valmynd og hini kortini sum greinir, tey nýggjastu fyrst, við teirra viðheftum. Ein almenn talva kann opnast í hesum sýni, so vitjandi síggja heimasíðuna á adressuni hjá talvuni.",
+  "import-board-instruction-wordpress": "Í WordPress, vel Tools, Export, All content og Download Export File, og vel ta .xml-fíluna her ella set tekstin inn. Squarespace, Wix og aðrar síður, sum útflyta eina WordPress-fílu, virka á sama hátt. Hvør síða og grein verður eitt kort á listanum fyri sína støðu, síður á beininum Pages og greinir í Posts, við innihaldi, bólkum og frámerkjum sum merki, og góðkendum viðmerkingum.",
+  "import-board-instruction-wordpressjson": "Goym greinirnar og síðurnar úr WordPress REST API (/wp-json/wp/v2/posts og /wp-json/wp/v2/pages) sum eina .json-fílu, og vel hana her ella set hana inn. Hvør síða og grein verður eitt kort á listanum fyri sína støðu.",
+  "import-board-instruction-ghost": "Í Ghost, vel Settings, Labs, Export your content, og vel .json-fíluna her ella set hana inn. Hvør síða og grein verður eitt kort á listanum fyri sína støðu, við frámerkjum sum merki.",
+  "import-board-instruction-blogger": "Í Blogger, vel Settings, Back up content, og vel .xml-fíluna her ella set tekstin inn. Hvør grein og síða verður eitt kort, ein kladda á listanum Draft, við merkjum og viðmerkingum.",
+  "import-board-instruction-markdownsite": "Pakka keldufílurnar hjá eini Hugo, Jekyll, Eleventy, Astro ella aðrari statiskari síðu í eina .zip - Markdown-fílurnar við front matter og myndum teirra - og vel .zip-fíluna her. Hvør Markdown-fíla verður eitt kort: greinir úr posts-mappunum ella við dato í fílunavninum, hinar síður, kladdur á listanum Draft, og myndirnar hon brúkar sum viðheft.",
+  "import-board-instruction-htmlsite": "Pakka fílurnar hjá eini heimasíðu í eina .zip - .html-síðurnar og myndirnar, sum goymdar við wget ella HTTrack, ella útflutningin úr Medium - og vel .zip-fíluna her. Hvør síða verður eitt kort við høvuðstekstinum, og myndirnar hon brúkar sum viðheft; skript, valmyndir og formar verða ikki tikin við.",
+  "import-board-instruction-substack": "Í Substack, vel Settings, Exports, Create new export, og vel tað niðurtikna .zip her. Hvør grein verður eitt kort við tekstinum, útgivin ella kladda."
 }

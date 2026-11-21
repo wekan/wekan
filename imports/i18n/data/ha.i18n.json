@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Saƙo",
   "cloud-panel-chat-send": "Aika",
   "cloud-panel-chat-import": "Shigo da tattaunawar da ta gabata",
-  "cloud-panel-chat-imported": "An shigo da saƙonni __count__."
+  "cloud-panel-chat-imported": "An shigo da saƙonni __count__.",
+  "board-view-website": "Shafin yanar gizo",
+  "tool-group-website": "Shafukan yanar gizo",
+  "website-view-empty": "Har yanzu ba a wallafa komai a wannan shafin yanar gizo ba.",
+  "feature-views-website": "Duban shafin yanar gizo",
+  "feature-views-website-desc": "Allon a matsayin shafin yanar gizo: katunan jerin Published nasa, layin Pages a matsayin menu da sauran katunan a matsayin rubuce-rubuce, sabon farko, tare da abubuwan haɗawarsu. Allon jama'a zai iya buɗewa a wannan duba, don baƙi su ga shafin yanar gizon a adireshin allon.",
+  "import-board-instruction-wordpress": "A WordPress, zaɓi Tools, Export, All content da Download Export File, sannan ka zaɓi wannan fayil ɗin .xml a nan ko ka liƙa rubutunsa. Squarespace, Wix da sauran shafuka da ke fitar da fayil na WordPress suna aiki haka. Kowane shafi da rubutu ya zama kati a jerin matsayinsa, shafuka a layin Pages kuma rubuce-rubuce a Posts, tare da abin da ke ciki, rukunoninsa da alamunsa a matsayin alamomi, da sharhunansa da aka amince da su.",
+  "import-board-instruction-wordpressjson": "Ajiye rubuce-rubuce da shafukan REST API na WordPress (/wp-json/wp/v2/posts da /wp-json/wp/v2/pages) a matsayin fayil ɗaya na .json, sannan ka zaɓe shi a nan ko ka liƙa shi. Kowane shafi da rubutu ya zama kati a jerin matsayinsa.",
+  "import-board-instruction-ghost": "A Ghost, zaɓi Settings, Labs, Export your content, sannan ka zaɓi fayil ɗin .json a nan ko ka liƙa shi. Kowane shafi da rubutu ya zama kati a jerin matsayinsa, tare da tags nasa a matsayin alamomi.",
+  "import-board-instruction-blogger": "A Blogger, zaɓi Settings, Back up content, sannan ka zaɓi fayil ɗin .xml a nan ko ka liƙa rubutunsa. Kowane rubutu da shafi ya zama kati, daftari a jerin Draft, tare da alamominsa da sharhunansa.",
+  "import-board-instruction-markdownsite": "Matse tushen shafin tsayayye na Hugo, Jekyll, Eleventy, Astro ko wani zuwa .zip - fayilolin Markdown tare da front matter nasu, da hotunansu - sannan ka zaɓi .zip a nan. Kowane fayil na Markdown ya zama kati: rubuce-rubuce daga manyan fayilolin posts ko masu kwanan wata a sunan fayil, sauran shafuka, daftarori a jerin Draft, da hotunan da yake amfani da su a matsayin abubuwan haɗawarsa.",
+  "import-board-instruction-htmlsite": "Matse fayilolin shafin yanar gizo zuwa .zip - shafukansa na .html da hotuna, kamar yadda wget ko HTTrack ke ajiye su, ko fitarwar Medium - sannan ka zaɓi .zip a nan. Kowane shafi ya zama kati tare da babban rubutunsa, da hotunan da yake amfani da su a matsayin abubuwan haɗawarsa; ana barin rubutun shiri, menu da fom.",
+  "import-board-instruction-substack": "A Substack, zaɓi Settings, Exports, Create new export, sannan ka zaɓi .zip da aka sauke a nan. Kowane rubutu ya zama kati tare da rubutunsa, an wallafa ko daftari."
 }

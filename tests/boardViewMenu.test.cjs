@@ -87,6 +87,8 @@ const VIEWS = [
   { view: 'board-view-distribution', jsClass: 'js-open-distribution-view', icon: 'fa-pie-chart', template: 'distributionView', helper: 'isViewDistribution', chart: true },
   { view: 'board-view-dependency-map', jsClass: 'js-open-dependency-map-view', icon: 'fa-share-alt', template: 'dependencyMapView', helper: 'isViewDependencyMap', chart: true },
   { view: 'board-view-activity-heatmap', jsClass: 'js-open-activity-heatmap-view', icon: 'fa-th', template: 'activityHeatmapView', helper: 'isViewActivityHeatmap', chart: true },
+  // Appended after Activity Heatmap: the board as its website (models/lib/websiteView.js).
+  { view: 'board-view-website', jsClass: 'js-open-website-view', icon: 'fa-globe', template: 'websiteView', helper: 'isViewWebsite' },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between

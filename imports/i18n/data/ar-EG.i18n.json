@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "رسالة",
   "cloud-panel-chat-send": "إرسال",
   "cloud-panel-chat-import": "استيراد المحادثات السابقة",
-  "cloud-panel-chat-imported": "تم استيراد __count__ رسالة."
+  "cloud-panel-chat-imported": "تم استيراد __count__ رسالة.",
+  "board-view-website": "موقع ويب",
+  "tool-group-website": "موقع ويب",
+  "website-view-empty": "لم يُنشر شيء على هذا الموقع بعد.",
+  "feature-views-website": "عرض موقع الويب",
+  "feature-views-website-desc": "اللوحة كموقع ويب: بطاقات قائمتها Published، والمسار Pages كقائمة التنقل، وباقي البطاقات كتدوينات، الأحدث أولاً، مع مرفقاتها. يمكن أن تُفتح فيه لوحة عامة، فيرى الزوار الموقع على عنوان اللوحة.",
+  "import-board-instruction-wordpress": "في WordPress، اختر أدوات، تصدير، كل المحتوى وتنزيل ملف التصدير، ثم اختر ملف .xml ذاك هنا أو الصق نصه. تعمل Squarespace وWix والمواقع الأخرى التي تصدّر ملف WordPress بالطريقة نفسها. تصبح كل صفحة وتدوينة بطاقة في قائمة حالتها، الصفحات في المسار Pages والتدوينات في Posts، مع محتواها وتصنيفاتها ووسومها كتسميات، وتعليقاتها المعتمدة.",
+  "import-board-instruction-wordpressjson": "احفظ التدوينات والصفحات من WordPress REST API (/wp-json/wp/v2/posts و /wp-json/wp/v2/pages) كملف .json واحد، واختره هنا أو الصقه. تصبح كل صفحة وتدوينة بطاقة في قائمة حالتها.",
+  "import-board-instruction-ghost": "في Ghost، اختر Settings، Labs، Export your content، ثم اختر ملف .json هنا أو الصقه. تصبح كل صفحة وتدوينة بطاقة في قائمة حالتها، مع وسومها كتسميات.",
+  "import-board-instruction-blogger": "في Blogger، اختر الإعدادات، الاحتفاظ بنسخة احتياطية من المحتوى، ثم اختر ملف .xml هنا أو الصق نصه. تصبح كل تدوينة وصفحة بطاقة، والمسودة في القائمة Draft، مع تسمياتها وتعليقاتها.",
+  "import-board-instruction-markdownsite": "اضغط في ملف .zip مصادر موقع ثابت مبني بـ Hugo أو Jekyll أو Eleventy أو Astro أو غيرها - ملفات Markdown مع ترويستها (front matter) وصورها - واختر ملف .zip هنا. يصبح كل ملف Markdown بطاقة: التدوينات من مجلدات posts أو التي في اسم ملفها تاريخ، والباقي صفحات، والمسودات في القائمة Draft، والصور التي يستخدمها كمرفقات له.",
+  "import-board-instruction-htmlsite": "اضغط في ملف .zip ملفات موقع ويب - صفحاته .html وصوره، كما حُفظت بـ wget أو HTTrack، أو تصدير Medium - واختر ملف .zip هنا. تصبح كل صفحة بطاقة بنصها الرئيسي، والصور التي تستخدمها كمرفقات لها؛ وتُستبعد السكربتات والقوائم والنماذج.",
+  "import-board-instruction-substack": "في Substack، اختر Settings، Exports، Create new export، ثم اختر ملف .zip الذي نزّلته هنا. تصبح كل تدوينة بطاقة بنصها، منشورة أو مسودة."
 }

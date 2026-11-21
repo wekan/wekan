@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "বার্তা",
   "cloud-panel-chat-send": "পাঠান",
   "cloud-panel-chat-import": "আগের কথোপকথন আমদানি করুন",
-  "cloud-panel-chat-imported": "__count__টি বার্তা আমদানি করা হয়েছে।"
+  "cloud-panel-chat-imported": "__count__টি বার্তা আমদানি করা হয়েছে।",
+  "board-view-website": "ওয়েবসাইট",
+  "tool-group-website": "ওয়েবসাইট",
+  "website-view-empty": "এই ওয়েবসাইটে এখনো কিছু প্রকাশিত হয়নি।",
+  "feature-views-website": "ওয়েবসাইট ভিউ",
+  "feature-views-website-desc": "বোর্ডটি একটি ওয়েবসাইট হিসেবে: এর Published তালিকার কার্ডগুলো, সুইমলেন Pages মেনু হিসেবে এবং অন্যান্য কার্ড পোস্ট হিসেবে, নতুনগুলো আগে, তাদের সংযুক্তিসহ। একটি পাবলিক বোর্ড এতে খুলতে পারে, যাতে দর্শকরা বোর্ডের ঠিকানায় ওয়েবসাইটটি দেখেন।",
+  "import-board-instruction-wordpress": "WordPress-এ Tools, Export, All content এবং Download Export File বেছে নিন, এবং সেই .xml ফাইলটি এখানে বেছে নিন, অথবা এর লেখা পেস্ট করুন। Squarespace, Wix এবং অন্যান্য সাইট যেগুলো WordPress ফাইল রপ্তানি করে একইভাবে কাজ করে। প্রতিটি পৃষ্ঠা এবং পোস্ট তার অবস্থার তালিকায় একটি কার্ড হয়, পৃষ্ঠাগুলো সুইমলেন Pages-এ এবং পোস্টগুলো Posts-এ, এর বিষয়বস্তু, বিভাগ ও ট্যাগ লেবেল হিসেবে, এবং অনুমোদিত মন্তব্যসহ।",
+  "import-board-instruction-wordpressjson": "WordPress REST API-এর পোস্ট ও পৃষ্ঠাগুলো (/wp-json/wp/v2/posts এবং /wp-json/wp/v2/pages) একটি .json ফাইল হিসেবে সংরক্ষণ করুন, এবং এখানে বেছে নিন বা পেস্ট করুন। প্রতিটি পৃষ্ঠা এবং পোস্ট তার অবস্থার তালিকায় একটি কার্ড হয়।",
+  "import-board-instruction-ghost": "Ghost-এ Settings, Labs, Export your content বেছে নিন, এবং .json ফাইলটি এখানে বেছে নিন বা পেস্ট করুন। প্রতিটি পৃষ্ঠা এবং পোস্ট তার অবস্থার তালিকায় একটি কার্ড হয়, এর ট্যাগগুলো লেবেল হিসেবে।",
+  "import-board-instruction-blogger": "Blogger-এ Settings, Back up content বেছে নিন, এবং .xml ফাইলটি এখানে বেছে নিন বা এর লেখা পেস্ট করুন। প্রতিটি পোস্ট ও পৃষ্ঠা একটি কার্ড হয়, খসড়া Draft তালিকায়, এর লেবেল ও মন্তব্যসহ।",
+  "import-board-instruction-markdownsite": "একটি Hugo, Jekyll, Eleventy, Astro বা অন্য স্ট্যাটিক সাইটের উৎস ফাইলগুলো .zip করুন - Markdown ফাইলগুলো তাদের front matter সহ, এবং তাদের ছবি - এবং .zip-টি এখানে বেছে নিন। প্রতিটি Markdown ফাইল একটি কার্ড হয়: posts ফোল্ডার থেকে বা ফাইলের নামে তারিখসহ পোস্ট, বাকিগুলো পৃষ্ঠা, খসড়াগুলো Draft তালিকায়, এবং এটি যে ছবিগুলো ব্যবহার করে সেগুলো এর সংযুক্তি হিসেবে।",
+  "import-board-instruction-htmlsite": "একটি ওয়েবসাইটের ফাইলগুলো .zip করুন - এর .html পৃষ্ঠা ও ছবি, wget বা HTTrack দিয়ে সংরক্ষিত, অথবা Medium-এর রপ্তানি - এবং .zip-টি এখানে বেছে নিন। প্রতিটি পৃষ্ঠা তার মূল লেখাসহ একটি কার্ড হয়, এবং এটি যে ছবিগুলো ব্যবহার করে সেগুলো এর সংযুক্তি হিসেবে; স্ক্রিপ্ট, মেনু ও ফর্ম বাদ দেওয়া হয়।",
+  "import-board-instruction-substack": "Substack-এ Settings, Exports, Create new export বেছে নিন, এবং ডাউনলোড করা .zip-টি এখানে বেছে নিন। প্রতিটি পোস্ট তার লেখাসহ একটি কার্ড হয়, প্রকাশিত বা খসড়া।"
 }

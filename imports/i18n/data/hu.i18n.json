@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Üzenet",
   "cloud-panel-chat-send": "Küldés",
   "cloud-panel-chat-import": "Korábbi beszélgetések importálása",
-  "cloud-panel-chat-imported": "__count__ üzenet importálva."
+  "cloud-panel-chat-imported": "__count__ üzenet importálva.",
+  "board-view-website": "Weboldal",
+  "tool-group-website": "Weboldalak",
+  "website-view-empty": "Ezen a weboldalon még nincs semmi közzétéve.",
+  "feature-views-website": "Weboldal nézet",
+  "feature-views-website-desc": "A tábla weboldalként: a Published listájának kártyái, a Pages úszósáv menüként, a többi kártya pedig bejegyzésként, a legújabbal kezdve, a mellékleteikkel. Egy nyilvános tábla ebben a nézetben is megnyílhat, így a látogatók a tábla címén látják a weboldalt.",
+  "import-board-instruction-wordpress": "A WordPressben válassza az Eszközök, Exportálás, Minden tartalom és Exportfájl letöltése lehetőséget, majd válassza ki itt azt az .xml fájlt, vagy illessze be a szövegét. A Squarespace, a Wix és más oldalak, amelyek WordPress fájlt exportálnak, ugyanígy működnek. Minden oldal és bejegyzés kártya lesz az állapotának listájában, az oldalak a Pages úszósávban, a bejegyzések a Posts sávban, a tartalmukkal, a kategóriáik és címkéik címkeként, és a jóváhagyott hozzászólásaikkal.",
+  "import-board-instruction-wordpressjson": "Mentse a WordPress REST API bejegyzéseit és oldalait (/wp-json/wp/v2/posts és /wp-json/wp/v2/pages) egyetlen .json fájlba, majd válassza ki itt, vagy illessze be. Minden oldal és bejegyzés kártya lesz az állapotának listájában.",
+  "import-board-instruction-ghost": "A Ghostban válassza a Settings, Labs, Export your content lehetőséget, majd válassza ki itt a .json fájlt, vagy illessze be. Minden oldal és bejegyzés kártya lesz az állapotának listájában, a címkéi címkeként.",
+  "import-board-instruction-blogger": "A Bloggerben válassza a Beállítások, Tartalom biztonsági mentése lehetőséget, majd válassza ki itt az .xml fájlt, vagy illessze be a szövegét. Minden bejegyzés és oldal kártya lesz, a piszkozatok a Draft listában, a címkéikkel és hozzászólásaikkal.",
+  "import-board-instruction-markdownsite": "Tömörítse .zip fájlba egy Hugo, Jekyll, Eleventy, Astro vagy más statikus oldal forrásait - a Markdown fájlokat a front matterükkel és a képeikkel -, majd válassza ki itt a .zip fájlt. Minden Markdown fájl kártya lesz: bejegyzés, ha a posts mappákból való vagy dátum van a fájlnevében, a többi oldal, a piszkozatok a Draft listába kerülnek, a használt képek pedig mellékletek lesznek.",
+  "import-board-instruction-htmlsite": "Tömörítse .zip fájlba egy weboldal fájljait - a .html oldalait és képeit, ahogy a wget vagy a HTTrack menti, vagy a Medium exportját -, majd válassza ki itt a .zip fájlt. Minden oldal kártya lesz a fő szövegével, a használt képek pedig mellékletek; a szkriptek, menük és űrlapok kimaradnak.",
+  "import-board-instruction-substack": "A Substackben válassza a Settings, Exports, Create new export lehetőséget, majd válassza ki itt a letöltött .zip fájlt. Minden bejegyzés kártya lesz a szövegével, közzétéve vagy piszkozatként."
 }

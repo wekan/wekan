@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Molaetša",
   "cloud-panel-chat-send": "Romela",
   "cloud-panel-chat-import": "Tsenya dipoledišano tša pele",
-  "cloud-panel-chat-imported": "Melaetša ye __count__ e tsentšwe."
+  "cloud-panel-chat-imported": "Melaetša ye __count__ e tsentšwe.",
+  "board-view-website": "Weposaete",
+  "tool-group-website": "Weposaete",
+  "website-view-empty": "Ga go se seo se phatlaladitšwego weposaeteng ye go fihla bjale.",
+  "feature-views-website": "Ponagalo ya weposaete",
+  "feature-views-website-desc": "Poto bjalo ka weposaete: dikarata tša lelokelelo la yona la Published, tsela ya Pages bjalo ka lenaneotirišo le dikarata tše dingwe bjalo ka dipoledišano, tše mpsha pele, le ditlaleletšo tša tšona. Poto ya setšhaba e ka bulega ka ponagalo ye, gore baeti ba bone weposaete atreseng ya poto.",
+  "import-board-instruction-wordpress": "Go WordPress, kgetha 'Tools', 'Export', 'All content' le 'Download Export File', gomme o kgethe faele yeo ya .xml mo, goba o kgomaretše sengwalwa sa yona. Squarespace, Wix le diweposaete tše dingwe tšeo di romelago faele ya WordPress ka ntle di šoma ka tsela ye e swanago. Letlakala le lengwe le le lengwe le poledišano ye nngwe le ye nngwe di fetoga karata lelokelelong la boemo bja yona, matlakala tseleng ya Pages le dipoledišano go Posts, le diteng tša yona, magoro le ditag bjalo ka diswayo, le ditshwaotshwao tše di dumeletšwego.",
+  "import-board-instruction-wordpressjson": "Boloka dipoledišano le matlakala a WordPress REST API (/wp-json/wp/v2/posts le /wp-json/wp/v2/pages) bjalo ka faele e tee ya .json, gomme o e kgethe mo goba o e kgomaretše. Letlakala le lengwe le le lengwe le poledišano ye nngwe le ye nngwe di fetoga karata lelokelelong la boemo bja yona.",
+  "import-board-instruction-ghost": "Go Ghost, kgetha 'Settings', 'Labs', 'Export your content', gomme o kgethe faele ya .json mo goba o e kgomaretše. Letlakala le lengwe le le lengwe le poledišano ye nngwe le ye nngwe di fetoga karata lelokelelong la boemo bja yona, le ditag tša yona bjalo ka diswayo.",
+  "import-board-instruction-blogger": "Go Blogger, kgetha 'Settings', 'Back up content', gomme o kgethe faele ya .xml mo goba o kgomaretše sengwalwa sa yona. Poledišano ye nngwe le ye nngwe le letlakala le lengwe le le lengwe di fetoga karata, mongwalwa wa pele lelokelelong la Draft, le diswayo le ditshwaotshwao tša yona.",
+  "import-board-instruction-markdownsite": "Pakela ka .zip methopo ya saete ya Hugo, Jekyll, Eleventy, Astro goba saete ye nngwe ye e sa fetogego - difaele tša Markdown le front matter ya tšona, le diswantšho tša tšona - gomme o kgethe .zip mo. Faele ye nngwe le ye nngwe ya Markdown e fetoga karata: dipoledišano go tšwa dipoeng tša posts goba tšeo di nago le letšatšikgwedi leineng la faele, tše dingwe ke matlakala, mengwalwa ya pele lelokelelong la Draft, le diswantšho tšeo e di šomišago bjalo ka ditlaleletšo tša yona.",
+  "import-board-instruction-htmlsite": "Pakela ka .zip difaele tša weposaete - matlakala a yona a .html le diswantšho, bjalo ka ge di bolokilwe ka wget goba HTTrack, goba tšeo di romilwego ka ntle ke Medium - gomme o kgethe .zip mo. Letlakala le lengwe le le lengwe le fetoga karata le sengwalwa sa lona se segolo, le diswantšho tšeo le di šomišago bjalo ka ditlaleletšo; disekripte, mananeotirišo le diforomo di tlogelwa ka ntle.",
+  "import-board-instruction-substack": "Go Substack, kgetha 'Settings', 'Exports', 'Create new export', gomme o kgethe .zip yeo o e laolotšego mo. Poledišano ye nngwe le ye nngwe e fetoga karata le sengwalwa sa yona, ye e phatlaladitšwego goba mongwalwa wa pele."
 }

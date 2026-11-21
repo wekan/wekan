@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesej",
   "cloud-panel-chat-send": "Hantar",
   "cloud-panel-chat-import": "Import perbualan terdahulu",
-  "cloud-panel-chat-imported": "__count__ mesej diimport."
+  "cloud-panel-chat-imported": "__count__ mesej diimport.",
+  "board-view-website": "Laman web",
+  "tool-group-website": "Laman web",
+  "website-view-empty": "Belum ada apa-apa yang diterbitkan di laman web ini.",
+  "feature-views-website": "Paparan laman web",
+  "feature-views-website-desc": "Papan sebagai laman web: kad dalam senarai Published, aliran renang Pages sebagai menu dan kad lain sebagai catatan, yang terbaru dahulu, bersama lampirannya. Papan umum boleh dibuka dalam paparan ini, supaya pelawat melihat laman web di alamat papan.",
+  "import-board-instruction-wordpress": "Dalam WordPress, pilih 'Tools', 'Export', 'All content' dan 'Download Export File', dan pilih fail .xml itu di sini, atau tampal teksnya. Squarespace, Wix dan laman lain yang mengeksport fail WordPress berfungsi dengan cara yang sama. Setiap halaman dan catatan menjadi kad dalam senarai statusnya, halaman dalam aliran renang Pages dan catatan dalam Posts, dengan kandungannya, kategori dan tag sebagai label, dan komen yang diluluskan.",
+  "import-board-instruction-wordpressjson": "Simpan catatan dan halaman WordPress REST API (/wp-json/wp/v2/posts dan /wp-json/wp/v2/pages) sebagai satu fail .json, dan pilih di sini atau tampalnya. Setiap halaman dan catatan menjadi kad dalam senarai statusnya.",
+  "import-board-instruction-ghost": "Dalam Ghost, pilih 'Settings', 'Labs', 'Export your content', dan pilih fail .json di sini atau tampalnya. Setiap halaman dan catatan menjadi kad dalam senarai statusnya, dengan tagnya sebagai label.",
+  "import-board-instruction-blogger": "Dalam Blogger, pilih 'Settings', 'Back up content', dan pilih fail .xml di sini atau tampal teksnya. Setiap catatan dan halaman menjadi kad, draf dalam senarai Draft, dengan label dan komennya.",
+  "import-board-instruction-markdownsite": "Zip sumber laman Hugo, Jekyll, Eleventy, Astro atau laman statik lain - fail Markdown dengan front matter, dan imejnya - dan pilih .zip di sini. Setiap fail Markdown menjadi kad: catatan daripada folder posts atau dengan tarikh dalam nama fail, selebihnya halaman, draf dalam senarai Draft, dan imej yang digunakannya sebagai lampiran.",
+  "import-board-instruction-htmlsite": "Zip fail laman web - halaman .html dan imejnya, seperti yang disimpan dengan wget atau HTTrack, atau eksport Medium - dan pilih .zip di sini. Setiap halaman menjadi kad dengan teks utamanya, dan imej yang digunakannya sebagai lampiran; skrip, menu dan borang ditinggalkan.",
+  "import-board-instruction-substack": "Dalam Substack, pilih 'Settings', 'Exports', 'Create new export', dan pilih .zip yang dimuat turun di sini. Setiap catatan menjadi kad dengan teksnya, diterbitkan atau draf."
 }

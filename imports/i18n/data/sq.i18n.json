@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesazh",
   "cloud-panel-chat-send": "Dërgo",
   "cloud-panel-chat-import": "Importo bisedat e mëparshme",
-  "cloud-panel-chat-imported": "U importuan __count__ mesazhe."
+  "cloud-panel-chat-imported": "U importuan __count__ mesazhe.",
+  "board-view-website": "Faqe interneti",
+  "tool-group-website": "Faqe interneti",
+  "website-view-empty": "Ende nuk është publikuar asgjë në këtë faqe interneti.",
+  "feature-views-website": "Pamje faqe interneti",
+  "feature-views-website-desc": "Tabela si faqe interneti: kartat e listës së saj Published, korsia Pages si meny dhe kartat e tjera si postime, më të rejat në fillim, me bashkëngjitjet e tyre. Një tabelë publike mund të hapet në këtë pamje, që vizitorët të shohin faqen e internetit në adresën e tabelës.",
+  "import-board-instruction-wordpress": "Në WordPress, zgjidhni 'Tools', 'Export', 'All content' dhe 'Download Export File', dhe zgjidhni atë skedar .xml këtu, ose ngjitni tekstin e tij. Squarespace, Wix dhe faqe të tjera që eksportojnë një skedar WordPress funksionojnë njësoj. Çdo faqe dhe çdo postim bëhet një kartë në listën e gjendjes së vet, faqet në korsinë Pages dhe postimet në Posts, me përmbajtjen, kategoritë dhe etiketat si etiketa, dhe komentet e miratuara.",
+  "import-board-instruction-wordpressjson": "Ruani postimet dhe faqet e WordPress REST API (/wp-json/wp/v2/posts dhe /wp-json/wp/v2/pages) si një skedar të vetëm .json, dhe zgjidheni këtu ose ngjiteni. Çdo faqe dhe çdo postim bëhet një kartë në listën e gjendjes së vet.",
+  "import-board-instruction-ghost": "Në Ghost, zgjidhni 'Settings', 'Labs', 'Export your content', dhe zgjidhni skedarin .json këtu ose ngjiteni. Çdo faqe dhe çdo postim bëhet një kartë në listën e gjendjes së vet, me etiketat e veta.",
+  "import-board-instruction-blogger": "Në Blogger, zgjidhni 'Settings', 'Back up content', dhe zgjidhni skedarin .xml këtu ose ngjitni tekstin e tij. Çdo postim dhe çdo faqe bëhet një kartë, një skicë në listën Draft, me etiketat dhe komentet e veta.",
+  "import-board-instruction-markdownsite": "Ngjeshni në .zip burimet e një faqeje Hugo, Jekyll, Eleventy, Astro ose faqeje tjetër statike - skedarët Markdown me front matter-in e tyre, dhe imazhet e tyre - dhe zgjidhni .zip-in këtu. Çdo skedar Markdown bëhet një kartë: postime nga dosjet posts ose me një datë në emrin e skedarit, të tjerat faqe, skicat në listën Draft, dhe imazhet që përdor si bashkëngjitjet e saj.",
+  "import-board-instruction-htmlsite": "Ngjeshni në .zip skedarët e një faqeje interneti - faqet e saj .html dhe imazhet, të ruajtura me wget ose HTTrack, ose eksportin e Medium - dhe zgjidhni .zip-in këtu. Çdo faqe bëhet një kartë me tekstin e saj kryesor, dhe imazhet që përdor si bashkëngjitjet e saj; skriptet, menytë dhe formularët lihen jashtë.",
+  "import-board-instruction-substack": "Në Substack, zgjidhni 'Settings', 'Exports', 'Create new export', dhe zgjidhni .zip-in e shkarkuar këtu. Çdo postim bëhet një kartë me tekstin e vet, i publikuar ose skicë."
 }

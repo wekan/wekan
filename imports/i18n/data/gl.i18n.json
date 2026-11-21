@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensaxe",
   "cloud-panel-chat-send": "Enviar",
   "cloud-panel-chat-import": "Importar conversas anteriores",
-  "cloud-panel-chat-imported": "__count__ mensaxes importadas."
+  "cloud-panel-chat-imported": "__count__ mensaxes importadas.",
+  "board-view-website": "Sitio web",
+  "tool-group-website": "Sitios web",
+  "website-view-empty": "Aínda non hai nada publicado neste sitio web.",
+  "feature-views-website": "Vista de sitio web",
+  "feature-views-website-desc": "O taboleiro como sitio web: as tarxetas da súa lista Published, o carril Pages como menú e as demais tarxetas como entradas, da máis recente á máis antiga, cos seus anexos. Un taboleiro público pode abrirse nesta vista, de xeito que os visitantes ven o sitio web no enderezo do taboleiro.",
+  "import-board-instruction-wordpress": "En WordPress, escolla Ferramentas, Exportar, Todo o contido e Descargar o ficheiro de exportación, e escolla aquí ese ficheiro .xml ou pegue o seu texto. Squarespace, Wix e outros sitios que exportan un ficheiro de WordPress funcionan igual. Cada páxina e entrada convértese nunha tarxeta na lista do seu estado, as páxinas no carril Pages e as entradas en Posts, co seu contido, as súas categorías e etiquetas como etiquetas, e os seus comentarios aprobados.",
+  "import-board-instruction-wordpressjson": "Garde as entradas e páxinas da REST API de WordPress (/wp-json/wp/v2/posts e /wp-json/wp/v2/pages) como un único ficheiro .json, e escólleo aquí ou pégueo. Cada páxina e entrada convértese nunha tarxeta na lista do seu estado.",
+  "import-board-instruction-ghost": "En Ghost, escolla Settings, Labs, Export your content, e escolla aquí o ficheiro .json ou pégueo. Cada páxina e entrada convértese nunha tarxeta na lista do seu estado, cos seus tags como etiquetas.",
+  "import-board-instruction-blogger": "En Blogger, escolla Configuración, Facer copia de seguranza do contido, e escolla aquí o ficheiro .xml ou pegue o seu texto. Cada entrada e páxina convértese nunha tarxeta, os borradores na lista Draft, coas súas etiquetas e comentarios.",
+  "import-board-instruction-markdownsite": "Comprima nun .zip as fontes dun sitio estático de Hugo, Jekyll, Eleventy, Astro ou outro (os ficheiros Markdown co seu front matter, e as súas imaxes) e escolla aquí o .zip. Cada ficheiro Markdown convértese nunha tarxeta: entradas os dos cartafoles posts ou cunha data no nome do ficheiro, páxinas o resto, os borradores na lista Draft, e as imaxes que usa como os seus anexos.",
+  "import-board-instruction-htmlsite": "Comprima nun .zip os ficheiros dun sitio web (as súas páxinas .html e imaxes, tal como se gardan con wget ou HTTrack, ou a exportación de Medium) e escolla aquí o .zip. Cada páxina convértese nunha tarxeta co seu texto principal, e as imaxes que usa como os seus anexos; os scripts, menús e formularios omítense.",
+  "import-board-instruction-substack": "En Substack, escolla Settings, Exports, Create new export, e escolla aquí o .zip descargado. Cada entrada convértese nunha tarxeta co seu texto, publicada ou en borrador."
 }

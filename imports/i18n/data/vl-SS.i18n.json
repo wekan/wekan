@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Bericht",
   "cloud-panel-chat-send": "Versturen",
   "cloud-panel-chat-import": "Vroegere gesprekken importeren",
-  "cloud-panel-chat-imported": "__count__ berichten geïmporteerd."
+  "cloud-panel-chat-imported": "__count__ berichten geïmporteerd.",
+  "board-view-website": "Webstek",
+  "tool-group-website": "Webstek",
+  "website-view-empty": "Er is op deze webstek nog niets gepubliceerd.",
+  "feature-views-website": "Webstekweergave",
+  "feature-views-website-desc": "Het bord als webstek: de kaarten van zijn lijst Published, de werkbaan Pages als menu en de andere kaarten als berichten, nieuwste eerst, met hun bijlagen. Een openbaar bord kan erin openen, zodat bezoekers de webstek op het adres van het bord zien.",
+  "import-board-instruction-wordpress": "Kies in WordPress Gereedschap, Exporteren, Alle inhoud en Exportbestand downloaden, en kies dat .xml-bestand hier, of plak de tekst ervan. Squarespace, Wix en andere sites die een WordPress-bestand exporteren, werken op dezelfde manier. Elke pagina en elk bericht wordt een kaart in de lijst van zijn status, pagina's in de werkbaan Pages en berichten in Posts, met de inhoud, categorieën en tags als etiketten, en de goedgekeurde reacties.",
+  "import-board-instruction-wordpressjson": "Bewaar de berichten en pagina's van de WordPress REST API (/wp-json/wp/v2/posts en /wp-json/wp/v2/pages) als één .json-bestand, en kies het hier of plak het. Elke pagina en elk bericht wordt een kaart in de lijst van zijn status.",
+  "import-board-instruction-ghost": "Kies in Ghost Settings, Labs, Export your content, en kies het .json-bestand hier of plak het. Elke pagina en elk bericht wordt een kaart in de lijst van zijn status, met de tags als etiketten.",
+  "import-board-instruction-blogger": "Kies in Blogger Instellingen, Back-up maken van content, en kies het .xml-bestand hier of plak de tekst ervan. Elk bericht en elke pagina wordt een kaart, een concept in de lijst Draft, met de etiketten en reacties.",
+  "import-board-instruction-markdownsite": "Zip de bronnen van een Hugo-, Jekyll-, Eleventy-, Astro- of andere statische site - de Markdown-bestanden met hun front matter, en hun afbeeldingen - en kies de .zip hier. Elk Markdown-bestand wordt een kaart: berichten uit de posts-mappen of met een datum in de bestandsnaam, de rest pagina's, concepten in de lijst Draft, en de afbeeldingen die het gebruikt als bijlagen.",
+  "import-board-instruction-htmlsite": "Zip de bestanden van een webstek - de .html-pagina's en afbeeldingen, zoals bewaard met wget of HTTrack, of de export van Medium - en kies de .zip hier. Elke pagina wordt een kaart met de hoofdtekst, en de afbeeldingen die ze gebruikt als bijlagen; scripts, menu's en formulieren worden weggelaten.",
+  "import-board-instruction-substack": "Kies in Substack Settings, Exports, Create new export, en kies de gedownloade .zip hier. Elk bericht wordt een kaart met zijn tekst, gepubliceerd of concept."
 }

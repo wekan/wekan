@@ -110,6 +110,7 @@ page or a format in the export menu has no page here.
 | [Discord](./Discord/Discord.md) | yes | — |
 | [Rocket.Chat](./Rocket-Chat/Rocket-Chat.md) | yes | yes |
 | [Evernote](./Evernote/Evernote.md) | yes | yes |
+| [Website](./Website/Website.md) | yes | yes |
 
 The [overview](./External-Tools.md) groups them by kind.
 

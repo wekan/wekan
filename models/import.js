@@ -631,6 +631,26 @@ Meteor.methods({
         importedBoard = sanitizeImported(importedBoard, importSource, this);
         creator = new KanboardCreator(data, importSource);
         break;
+      case 'wordpress':
+      case 'wordpressjson':
+      case 'ghost':
+      case 'blogger':
+      case 'markdownsite':
+      case 'htmlsite':
+      case 'substack':
+        // Websites and CMSes: read on the server (server/lib/websiteImport.js)
+        // into pages and posts, a card each (models/lib/websiteFormat.js); a
+        // site's .zip is opened there, with openZip's size limits.
+        check(board, Match.OneOf(Object, Array, String));
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/websiteImport').parseWebsiteImport(importSource, importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, importSource, this);
+        creator = new KanboardCreator(data, importSource);
+        break;
       case 'leo':
         // The Leo literate editor's outline - see models/lib/leoOutline.js.
         check(board, String);

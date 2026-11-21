@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "訊息",
   "cloud-panel-chat-send": "傳送",
   "cloud-panel-chat-import": "匯入以前嘅對話",
-  "cloud-panel-chat-imported": "匯入咗 __count__ 條訊息。"
+  "cloud-panel-chat-imported": "匯入咗 __count__ 條訊息。",
+  "board-view-website": "網站",
+  "tool-group-website": "網站",
+  "website-view-empty": "呢個網站暫時未發佈任何嘢。",
+  "feature-views-website": "網站檢視",
+  "feature-views-website-desc": "將看板當網站：佢 Published 清單入面嘅卡片、做選單嘅 Pages 泳道，同埋做文章嘅其他卡片，最新嘅排先，連埋佢哋嘅附件。公開看板可以喺呢個檢視度打開，噉訪客就可以喺看板嘅地址睇到個網站。",
+  "import-board-instruction-wordpress": "喺 WordPress 度，揀「工具」、「匯出」、「所有內容」同「下載匯出檔案」，然後喺呢度揀嗰個 .xml 檔案，或者貼上佢嘅文字。Squarespace、Wix 同其他匯出 WordPress 檔案嘅網站都係一樣。每個頁面同文章都會變成佢狀態清單入面嘅一張卡片，頁面喺 Pages 泳道，文章喺 Posts，連埋佢嘅內容、做標籤嘅分類同標籤，同埋已批准嘅評論。",
+  "import-board-instruction-wordpressjson": "將 WordPress REST API 嘅文章同頁面（/wp-json/wp/v2/posts 同 /wp-json/wp/v2/pages）儲存做一個 .json 檔案，然後喺呢度揀或者貼上。每個頁面同文章都會變成佢狀態清單入面嘅一張卡片。",
+  "import-board-instruction-ghost": "喺 Ghost 度，揀 Settings、Labs、Export your content，然後喺呢度揀個 .json 檔案或者貼上。每個頁面同文章都會變成佢狀態清單入面嘅一張卡片，佢嘅標籤做卡片標籤。",
+  "import-board-instruction-blogger": "喺 Blogger 度，揀「設定」、「備份內容」，然後喺呢度揀個 .xml 檔案或者貼上佢嘅文字。每篇文章同頁面都會變成一張卡片，草稿喺 Draft 清單，連埋佢嘅標籤同評論。",
+  "import-board-instruction-markdownsite": "將 Hugo、Jekyll、Eleventy、Astro 或者其他靜態網站嘅原始檔（帶 front matter 嘅 Markdown 檔案同佢哋嘅圖片）壓縮做 zip，然後喺呢度揀個 .zip。每個 Markdown 檔案都會變成一張卡片：嚟自 posts 資料夾或者檔名有日期嘅係文章，其餘係頁面，草稿喺 Draft 清單，佢用到嘅圖片做附件。",
+  "import-board-instruction-htmlsite": "將網站嘅檔案（用 wget 或者 HTTrack 儲存嘅 .html 頁面同圖片，或者 Medium 嘅匯出）壓縮做 zip，然後喺呢度揀個 .zip。每個頁面都會變成一張有佢主要文字嘅卡片，佢用到嘅圖片做附件；腳本、選單同表單會被略過。",
+  "import-board-instruction-substack": "喺 Substack 度，揀 Settings、Exports、Create new export，然後喺呢度揀下載咗嘅 .zip。每篇文章都會變成一張有佢文字嘅卡片，已發佈或者草稿。"
 }

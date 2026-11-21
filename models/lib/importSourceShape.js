@@ -90,6 +90,13 @@ export function validateImportSourceShape(source, value) {
     case 'slack': case 'googletakeout': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
       || typeof value?.zipFile === 'string'; break;
     case 'opml': valid = typeof value === 'string' && /<opml[\s>]/.test(value); break;
+    // Websites (server/lib/websiteImport.js reads them, and says what is wrong).
+    case 'wordpress': valid = typeof value === 'string' && /<rss[\s>]/.test(value); break;
+    case 'blogger': valid = typeof value === 'string' && /<feed[\s>]/.test(value); break;
+    case 'wordpressjson': valid = Array.isArray(value) || arrayAt(value, 'posts') || arrayAt(value, 'pages'); break;
+    case 'ghost': valid = arrayAt(value, 'db') || arrayAt(value?.data, 'posts') || arrayAt(value, 'posts'); break;
+    case 'markdownsite': case 'htmlsite': case 'substack': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0)
+      || typeof value?.zipFile === 'string'; break;
   }
   if (!valid) throw new Error(`Invalid ${source} import document shape`);
 }

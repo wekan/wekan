@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Votre message",
   "cloud-panel-chat-send": "Envoyer",
   "cloud-panel-chat-import": "Importer les conversations précédentes",
-  "cloud-panel-chat-imported": "__count__ messages importés."
+  "cloud-panel-chat-imported": "__count__ messages importés.",
+  "board-view-website": "Site web",
+  "tool-group-website": "Sites web",
+  "website-view-empty": "Rien n'est encore publié sur ce site web.",
+  "feature-views-website": "Vue Site web",
+  "feature-views-website-desc": "Le tableau en tant que site web : les cartes de sa liste Published, le couloir Pages comme menu et les autres cartes comme articles, du plus récent au plus ancien, avec leurs pièces jointes. Un tableau public peut s'ouvrir dans cette vue, afin que les visiteurs voient le site web à l'adresse du tableau.",
+  "import-board-instruction-wordpress": "Dans WordPress, choisissez Outils, Exporter, Tout le contenu et Télécharger le fichier d'export, puis choisissez ici ce fichier .xml ou collez son texte. Squarespace, Wix et les autres sites qui exportent un fichier WordPress fonctionnent de la même façon. Chaque page et chaque article devient une carte dans la liste de son statut, les pages dans le couloir Pages et les articles dans Posts, avec son contenu, ses catégories et ses étiquettes comme étiquettes, et ses commentaires approuvés.",
+  "import-board-instruction-wordpressjson": "Enregistrez les articles et les pages de la REST API de WordPress (/wp-json/wp/v2/posts et /wp-json/wp/v2/pages) dans un seul fichier .json, puis choisissez-le ici ou collez-le. Chaque page et chaque article devient une carte dans la liste de son statut.",
+  "import-board-instruction-ghost": "Dans Ghost, choisissez Settings, Labs, Export your content, puis choisissez ici le fichier .json ou collez-le. Chaque page et chaque article devient une carte dans la liste de son statut, avec ses tags comme étiquettes.",
+  "import-board-instruction-blogger": "Dans Blogger, choisissez Paramètres, Sauvegarder le contenu, puis choisissez ici le fichier .xml ou collez son texte. Chaque article et chaque page devient une carte, un brouillon dans la liste Draft, avec ses libellés et ses commentaires.",
+  "import-board-instruction-markdownsite": "Compressez en .zip les sources d'un site statique Hugo, Jekyll, Eleventy, Astro ou autre (les fichiers Markdown avec leur front matter, et leurs images) et choisissez ici le .zip. Chaque fichier Markdown devient une carte : des articles pour ceux des dossiers posts ou avec une date dans le nom du fichier, des pages pour les autres, les brouillons dans la liste Draft, et les images qu'il utilise comme pièces jointes.",
+  "import-board-instruction-htmlsite": "Compressez en .zip les fichiers d'un site web (ses pages .html et ses images, enregistrées avec wget ou HTTrack, ou l'export de Medium) et choisissez ici le .zip. Chaque page devient une carte avec son texte principal, et les images qu'elle utilise comme pièces jointes ; les scripts, les menus et les formulaires sont ignorés.",
+  "import-board-instruction-substack": "Dans Substack, choisissez Settings, Exports, Create new export, puis choisissez ici le .zip téléchargé. Chaque article devient une carte avec son texte, publié ou brouillon."
 }

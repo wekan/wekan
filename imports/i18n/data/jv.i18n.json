@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Pesen",
   "cloud-panel-chat-send": "Kirim",
   "cloud-panel-chat-import": "Impor obrolan sadurungé",
-  "cloud-panel-chat-imported": "__count__ pesen diimpor."
+  "cloud-panel-chat-imported": "__count__ pesen diimpor.",
+  "board-view-website": "Situs web",
+  "tool-group-website": "Situs web",
+  "website-view-empty": "Durung ana sing diterbitaké ing situs web iki.",
+  "feature-views-website": "Tampilan situs web",
+  "feature-views-website-desc": "Papan minangka situs web: kertu-kertu saka dhaptar Published, lajur Pages minangka menu lan kertu liyane minangka tulisan, sing paling anyar dhisik, karo lampirané. Papan umum bisa kabuka ing tampilan iki, saéngga pengunjung ndeleng situs web ing alamat papan.",
+  "import-board-instruction-wordpress": "Ing WordPress, pilih Tools, Export, All content lan Download Export File, banjur pilih berkas .xml kuwi ing kéné utawa tempelaké tèksé. Squarespace, Wix lan situs liyané sing ngekspor berkas WordPress makarya kanthi cara sing padha. Saben kaca lan tulisan dadi kertu ing dhaptar statusé, kaca ing lajur Pages lan tulisan ing Posts, karo isiné, kategori lan tag minangka label, lan komentar sing disetujoni.",
+  "import-board-instruction-wordpressjson": "Simpen tulisan lan kaca saka REST API WordPress (/wp-json/wp/v2/posts lan /wp-json/wp/v2/pages) minangka siji berkas .json, banjur pilih ing kéné utawa tempelaké. Saben kaca lan tulisan dadi kertu ing dhaptar statusé.",
+  "import-board-instruction-ghost": "Ing Ghost, pilih Settings, Labs, Export your content, banjur pilih berkas .json ing kéné utawa tempelaké. Saben kaca lan tulisan dadi kertu ing dhaptar statusé, karo tag minangka label.",
+  "import-board-instruction-blogger": "Ing Blogger, pilih Settings, Back up content, banjur pilih berkas .xml ing kéné utawa tempelaké tèksé. Saben tulisan lan kaca dadi kertu, draf ing dhaptar Draft, karo label lan komentaré.",
+  "import-board-instruction-markdownsite": "Kompres sumber situs statis Hugo, Jekyll, Eleventy, Astro utawa liyané dadi .zip - berkas Markdown karo front matter-é, lan gambar-gambaré - banjur pilih .zip ing kéné. Saben berkas Markdown dadi kertu: tulisan saka folder posts utawa sing ana tanggal ing jeneng berkasé, liyané kaca, draf ing dhaptar Draft, lan gambar sing dienggo minangka lampirané.",
+  "import-board-instruction-htmlsite": "Kompres berkas situs web dadi .zip - kaca .html lan gambaré, kaya sing disimpen nganggo wget utawa HTTrack, utawa ekspor Medium - banjur pilih .zip ing kéné. Saben kaca dadi kertu karo tèks utamané, lan gambar sing dienggo minangka lampirané; skrip, menu lan formulir ora dilebokaké.",
+  "import-board-instruction-substack": "Ing Substack, pilih Settings, Exports, Create new export, banjur pilih .zip sing diundhuh ing kéné. Saben tulisan dadi kertu karo tèksé, wis terbit utawa draf."
 }

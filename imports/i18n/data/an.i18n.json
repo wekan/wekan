@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mensache",
   "cloud-panel-chat-send": "Ninviar",
   "cloud-panel-chat-import": "Importar conversacions anteriors",
-  "cloud-panel-chat-imported": "__count__ mensaches importaus."
+  "cloud-panel-chat-imported": "__count__ mensaches importaus.",
+  "board-view-website": "Puesto web",
+  "tool-group-website": "Puesto web",
+  "website-view-empty": "Encara no s'ha publicau cosa en este puesto web.",
+  "feature-views-website": "Vista de puesto web",
+  "feature-views-website-desc": "O tablero como puesto web: as tarchetas d'a suya lista Published, o carril Pages como menú y as atras tarchetas como entradas, as mas nuevas primero, con os suyos adchuntos. Un tablero publico puede ubrir-se en ella, asinas que os visitants veyen o puesto web en l'adreza d'o tablero.",
+  "import-board-instruction-wordpress": "En WordPress, trigue Tools, Export, All content y Download Export File, y trigue ixe fichero .xml aquí, u apegue o suyo texto. Squarespace, Wix y atros puestos que exportan un fichero de WordPress funcionan d'a mesma traza. Cada pachina y entrada se fa una tarcheta en a lista d'o suyo estau, as pachinas en o carril Pages y as entradas en Posts, con o suyo conteniu, categorías y etiquetas como etiquetas, y os suyos comentarios aprebaus.",
+  "import-board-instruction-wordpressjson": "Alce as entradas y pachinas d'a REST API de WordPress (/wp-json/wp/v2/posts y /wp-json/wp/v2/pages) como un solo fichero .json, y trigue-lo aquí u apegue-lo. Cada pachina y entrada se fa una tarcheta en a lista d'o suyo estau.",
+  "import-board-instruction-ghost": "En Ghost, trigue Settings, Labs, Export your content, y trigue o fichero .json aquí u apegue-lo. Cada pachina y entrada se fa una tarcheta en a lista d'o suyo estau, con as suyas etiquetas como etiquetas.",
+  "import-board-instruction-blogger": "En Blogger, trigue Settings, Back up content, y trigue o fichero .xml aquí u apegue o suyo texto. Cada entrada y pachina se fa una tarcheta, un borrador en a lista Draft, con as suyas etiquetas y comentarios.",
+  "import-board-instruction-markdownsite": "Comprima en .zip as fuents d'un puesto estatico Hugo, Jekyll, Eleventy, Astro u atro - os fichers Markdown con a suya capitera (front matter), y as suyas imachens - y trigue o .zip aquí. Cada fichero Markdown se fa una tarcheta: entradas d'as carpetas posts u con una calendata en o nombre d'o fichero, a resta pachinas, borradors en a lista Draft, y as imachens que fa servir como os suyos adchuntos.",
+  "import-board-instruction-htmlsite": "Comprima en .zip os fichers d'un puesto web - as suyas pachinas .html y imachens, alzadas con wget u HTTrack, u a exportación de Medium - y trigue o .zip aquí. Cada pachina se fa una tarcheta con o suyo texto principal, y as imachens que fa servir como os suyos adchuntos; os scripts, menús y formularios se deixan fuera.",
+  "import-board-instruction-substack": "En Substack, trigue Settings, Exports, Create new export, y trigue o .zip descargau aquí. Cada entrada se fa una tarcheta con o suyo texto, publicada u borrador."
 }

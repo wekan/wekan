@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "संदेश",
   "cloud-panel-chat-send": "पठाउ",
   "cloud-panel-chat-import": "पहिलुक गपशप आयात करू",
-  "cloud-panel-chat-imported": "__count__ संदेश आयात कएल गेल।"
+  "cloud-panel-chat-imported": "__count__ संदेश आयात कएल गेल।",
+  "board-view-website": "वेबसाइट",
+  "tool-group-website": "वेबसाइट",
+  "website-view-empty": "एहि वेबसाइट पर एखन धरि किछु प्रकाशित नहि भेल अछि।",
+  "feature-views-website": "वेबसाइट दृश्य",
+  "feature-views-website-desc": "पट्ट वेबसाइटक रूपमे: एकर Published सूचीक कार्ड, मार्ग Pages मेनूक रूपमे आ आन कार्ड लेखक रूपमे, नवीनतम पहिने, अपन संलग्नकक संग। सार्वजनिक पट्ट एहिमे खुजि सकैत अछि, जाहिसँ आगन्तुक पट्टक पता पर वेबसाइट देखैत छथि।",
+  "import-board-instruction-wordpress": "WordPress मे 'Tools', 'Export', 'All content' आ 'Download Export File' चुनू, आ ओहि .xml फाइलकेँ एतय चुनू, वा ओकर पाठ चिपकाउ। Squarespace, Wix आ आन साइट जे WordPress फाइल निर्यात करैत अछि, ओहो एहिना काज करैत अछि। प्रत्येक पृष्ठ आ लेख अपन स्थितिक सूचीमे एकटा कार्ड बनैत अछि, पृष्ठ मार्ग Pages मे आ लेख Posts मे, अपन सामग्री, श्रेणी आ टैगकेँ लेबलक रूपमे, आ स्वीकृत टिप्पणीक संग।",
+  "import-board-instruction-wordpressjson": "WordPress REST API (/wp-json/wp/v2/posts आ /wp-json/wp/v2/pages) क लेख आ पृष्ठकेँ एकटा .json फाइलक रूपमे सहेजू, आ ओकरा एतय चुनू वा चिपकाउ। प्रत्येक पृष्ठ आ लेख अपन स्थितिक सूचीमे एकटा कार्ड बनैत अछि।",
+  "import-board-instruction-ghost": "Ghost मे 'Settings', 'Labs', 'Export your content' चुनू, आ .json फाइल एतय चुनू वा चिपकाउ। प्रत्येक पृष्ठ आ लेख अपन स्थितिक सूचीमे एकटा कार्ड बनैत अछि, अपन टैगकेँ लेबलक रूपमे।",
+  "import-board-instruction-blogger": "Blogger मे 'Settings', 'Back up content' चुनू, आ .xml फाइल एतय चुनू वा ओकर पाठ चिपकाउ। प्रत्येक लेख आ पृष्ठ एकटा कार्ड बनैत अछि, मसौदा Draft सूचीमे, अपन लेबल आ टिप्पणीक संग।",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro वा आन स्थिर साइटक स्रोतकेँ .zip मे बान्हू - Markdown फाइल अपन front matter संग, आ ओकर चित्र - आ .zip एतय चुनू। प्रत्येक Markdown फाइल एकटा कार्ड बनैत अछि: posts फोल्डरसँ वा फाइल नाममे तिथि बला लेख, बाँकी पृष्ठ, मसौदा Draft सूचीमे, आ जे चित्र ओ उपयोग करैत अछि से ओकर संलग्नक।",
+  "import-board-instruction-htmlsite": "वेबसाइटक फाइलकेँ .zip मे बान्हू - ओकर .html पृष्ठ आ चित्र, जेना wget वा HTTrack सँ सहेजल गेल, वा Medium क निर्यात - आ .zip एतय चुनू। प्रत्येक पृष्ठ अपन मुख्य पाठक संग एकटा कार्ड बनैत अछि, आ जे चित्र ओ उपयोग करैत अछि से ओकर संलग्नक; स्क्रिप्ट, मेनू आ फॉर्म छोड़ि देल जाइत अछि।",
+  "import-board-instruction-substack": "Substack मे 'Settings', 'Exports', 'Create new export' चुनू, आ डाउनलोड कएल .zip एतय चुनू। प्रत्येक लेख अपन पाठक संग एकटा कार्ड बनैत अछि, प्रकाशित वा मसौदा।"
 }

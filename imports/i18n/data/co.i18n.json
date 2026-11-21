@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messaghju",
   "cloud-panel-chat-send": "Mandà",
   "cloud-panel-chat-import": "Impurtà e cunversazione precedente",
-  "cloud-panel-chat-imported": "__count__ messaghji impurtati."
+  "cloud-panel-chat-imported": "__count__ messaghji impurtati.",
+  "board-view-website": "Situ web",
+  "tool-group-website": "Situ web",
+  "website-view-empty": "Ùn hè ancu publicatu nunda nantu à stu situ web.",
+  "feature-views-website": "Vista situ web",
+  "feature-views-website-desc": "U tavulone cum'è situ web: e carte di a so lista Published, a corsia Pages cum'è menù è l'altre carte cum'è articuli, i più novi prima, cù i so ligami. Un tavulone publicu si pò apre ind'è ella, cusì i visitatori vedenu u situ web à l'indirizzu di u tavulone.",
+  "import-board-instruction-wordpress": "In WordPress, sceglite Tools, Export, All content è Download Export File, è sceglite quì quellu schedariu .xml, o incollate u so testu. Squarespace, Wix è altri siti chì esportanu un schedariu WordPress funziunanu listessu. Ogni pagina è articulu diventa una carta in a lista di u so statu, e pagine in a corsia Pages è l'articuli in Posts, cù u so cuntenutu, categurie è tag cum'è etichette, è i so cummenti appruvati.",
+  "import-board-instruction-wordpressjson": "Salvate l'articuli è e pagine di a REST API di WordPress (/wp-json/wp/v2/posts è /wp-json/wp/v2/pages) cum'è un solu schedariu .json, è sceglitelu quì o incullatelu. Ogni pagina è articulu diventa una carta in a lista di u so statu.",
+  "import-board-instruction-ghost": "In Ghost, sceglite Settings, Labs, Export your content, è sceglite quì u schedariu .json o incullatelu. Ogni pagina è articulu diventa una carta in a lista di u so statu, cù i so tag cum'è etichette.",
+  "import-board-instruction-blogger": "In Blogger, sceglite Settings, Back up content, è sceglite quì u schedariu .xml o incollate u so testu. Ogni articulu è pagina diventa una carta, una bozza in a lista Draft, cù e so etichette è cummenti.",
+  "import-board-instruction-markdownsite": "Cumprimite in .zip e fonte d'un situ staticu Hugo, Jekyll, Eleventy, Astro o altru - i schedarii Markdown cù u so capitulu (front matter), è e so imagine - è sceglite quì u .zip. Ogni schedariu Markdown diventa una carta: articuli da i cartulari posts o cù una data in u nome di u schedariu, u restu pagine, bozze in a lista Draft, è l'imagine ch'ellu usa cum'è i so ligami.",
+  "import-board-instruction-htmlsite": "Cumprimite in .zip i schedarii d'un situ web - e so pagine .html è imagine, salvate cù wget o HTTrack, o l'esportu di Medium - è sceglite quì u .zip. Ogni pagina diventa una carta cù u so testu principale, è l'imagine ch'ella usa cum'è i so ligami; i script, i menù è i furmulari sò lasciati fora.",
+  "import-board-instruction-substack": "In Substack, sceglite Settings, Exports, Create new export, è sceglite quì u .zip scaricatu. Ogni articulu diventa una carta cù u so testu, publicatu o bozza."
 }

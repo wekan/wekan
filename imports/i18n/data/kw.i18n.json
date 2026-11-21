@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Messach",
   "cloud-panel-chat-send": "Danvon",
   "cloud-panel-chat-import": "Ynperthi keskowsow a-dhiwoes",
-  "cloud-panel-chat-imported": "__count__ messach ynperthys."
+  "cloud-panel-chat-imported": "__count__ messach ynperthys.",
+  "board-view-website": "Gwiasva",
+  "tool-group-website": "Gwiasvaow",
+  "website-view-empty": "Nyns yw travydh dyllys y'n wiasva ma hwath.",
+  "feature-views-website": "Gwel gwiasva",
+  "feature-views-website-desc": "An estyllen avel gwiasva: kartennow hy rol Published, an hyns Pages avel rol dewis ha'n kartennow erel avel postow, an diwettha kyns, gans aga stagellow. Estyllen boblek a yll ygeri y'n wel ma, may hwel an vysytyoryon an wiasva orth trigva an estyllen.",
+  "import-board-instruction-wordpress": "Yn WordPress, dewis Tools, Export, All content ha Download Export File, ha dewis an restren .xml na omma po glenys hy thekst. Squarespace, Wix ha gwiasvaow erel a esperth restren WordPress a ober y'n keth fordh. Pub folen ha post a dheu ha bos karten y'n rol a'y studh, folennow y'n hyns Pages ha postow yn Posts, gans y dhalgh, y rennow ha'y dagow avel labellow, ha'y gampoellyansow aprevys.",
+  "import-board-instruction-wordpressjson": "Gwith postow ha folennow REST API WordPress (/wp-json/wp/v2/posts ha /wp-json/wp/v2/pages) avel unn restren .json, ha dewis hi omma po glenys hi. Pub folen ha post a dheu ha bos karten y'n rol a'y studh.",
+  "import-board-instruction-ghost": "Yn Ghost, dewis Settings, Labs, Export your content, ha dewis an restren .json omma po glenys hi. Pub folen ha post a dheu ha bos karten y'n rol a'y studh, gans y dagow avel labellow.",
+  "import-board-instruction-blogger": "Yn Blogger, dewis Settings, Back up content, ha dewis an restren .xml omma po glenys hy thekst. Pub post ha folen a dheu ha bos karten, kensskrif y'n rol Draft, gans y labellow ha'y gampoellyansow.",
+  "import-board-instruction-markdownsite": "Gwra .zip a fentennow gwiasva stagel Hugo, Jekyll, Eleventy, Astro po aral - an restrennow Markdown gans aga front matter, ha'ga imajys - ha dewis an .zip omma. Pub restren Markdown a dheu ha bos karten: postow a'n plegellow posts po gans dedhyas yn hanow an restren, folennow an remenant, kensskrifow y'n rol Draft, ha'n imajys a usyas avel y stagellow.",
+  "import-board-instruction-htmlsite": "Gwra .zip a restrennow gwiasva - hy folennow .html ha'y imajys, dell vons gwithys gans wget po HTTrack, po esperthyans Medium - ha dewis an .zip omma. Pub folen a dheu ha bos karten gans hy fennskrif, ha'n imajys a usyas avel hy stagellow; skriptow, rolyow dewis ha furvlennow a vydh gesys yn-mes.",
+  "import-board-instruction-substack": "Yn Substack, dewis Settings, Exports, Create new export, ha dewis an .zip iskargys omma. Pub post a dheu ha bos karten gans y dekst, dyllys po kensskrif."
 }

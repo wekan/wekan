@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Skilaboð",
   "cloud-panel-chat-send": "Senda",
   "cloud-panel-chat-import": "Flytja inn eldri samtöl",
-  "cloud-panel-chat-imported": "__count__ skilaboð flutt inn."
+  "cloud-panel-chat-imported": "__count__ skilaboð flutt inn.",
+  "board-view-website": "Vefsvæði",
+  "tool-group-website": "Vefsvæði",
+  "website-view-empty": "Ekkert hefur enn verið birt á þessu vefsvæði.",
+  "feature-views-website": "Vefsvæðisyfirlit",
+  "feature-views-website-desc": "Taflan sem vefsvæði: spjöldin á listanum Published, sundbrautin Pages sem valmynd og hin spjöldin sem færslur, nýjustu fyrst, með viðhengjum sínum. Opinber tafla getur opnast í þessu yfirliti, svo gestir sjá vefsvæðið á slóð töflunnar.",
+  "import-board-instruction-wordpress": "Í WordPress, veldu Verkfæri, Flytja út, Allt efni og Sækja útflutningsskrá, og veldu þá .xml-skrá hér eða límdu textann hennar. Squarespace, Wix og aðrir vefir sem flytja út WordPress-skrá virka á sama hátt. Hver síða og færsla verður spjald á lista síns stöðu, síður á sundbrautinni Pages og færslur í Posts, með efni sínu, flokkum og efnisorðum sem merkjum, og samþykktum athugasemdum.",
+  "import-board-instruction-wordpressjson": "Vistaðu færslur og síður WordPress REST API (/wp-json/wp/v2/posts og /wp-json/wp/v2/pages) sem eina .json-skrá, og veldu hana hér eða límdu hana. Hver síða og færsla verður spjald á lista síns stöðu.",
+  "import-board-instruction-ghost": "Í Ghost, veldu Settings, Labs, Export your content, og veldu .json-skrána hér eða límdu hana. Hver síða og færsla verður spjald á lista síns stöðu, með efnisorðum sínum sem merkjum.",
+  "import-board-instruction-blogger": "Í Blogger, veldu Stillingar, Taka afrit af efni, og veldu .xml-skrána hér eða límdu textann hennar. Hver færsla og síða verður spjald, drög á listanum Draft, með merkjum sínum og athugasemdum.",
+  "import-board-instruction-markdownsite": "Þjappaðu frumskrám Hugo-, Jekyll-, Eleventy-, Astro- eða annars kyrrstæðs vefs í .zip - Markdown-skránum með front matter og myndum þeirra - og veldu .zip-skrána hér. Hver Markdown-skrá verður spjald: færslur úr posts-möppunum eða með dagsetningu í skráarheitinu, hinar síður, drög á listanum Draft, og myndirnar sem hún notar sem viðhengi.",
+  "import-board-instruction-htmlsite": "Þjappaðu skrám vefsvæðis í .zip - .html-síðum þess og myndum, eins og wget eða HTTrack vista þær, eða útflutningi Medium - og veldu .zip-skrána hér. Hver síða verður spjald með meginmáli sínu, og myndirnar sem hún notar sem viðhengi; skriftum, valmyndum og eyðublöðum er sleppt.",
+  "import-board-instruction-substack": "Í Substack, veldu Settings, Exports, Create new export, og veldu niðurhalaða .zip-skrána hér. Hver færsla verður spjald með texta sínum, birt eða sem drög."
 }

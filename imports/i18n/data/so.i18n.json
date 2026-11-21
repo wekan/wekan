@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Fariin",
   "cloud-panel-chat-send": "Dir",
   "cloud-panel-chat-import": "Soo geli wada sheekeysiyadii hore",
-  "cloud-panel-chat-imported": "__count__ fariimood ayaa la soo geliyay."
+  "cloud-panel-chat-imported": "__count__ fariimood ayaa la soo geliyay.",
+  "board-view-website": "Shabakad",
+  "tool-group-website": "Shabakad",
+  "website-view-empty": "Weli waxba laguma daabicin shabakaddan.",
+  "feature-views-website": "Muuqaalka shabakadda",
+  "feature-views-website-desc": "Sabuuradda oo ah shabakad: kaarka liiskeeda Published, waddada Pages oo ah liiska ikhtiyaarka iyo kaararka kale oo ah qoraallo, kuwa ugu cusub marka hore, oo wata lifaaqyadooda. Sabuurad dadweyne ayaa ku furmi karta muuqaalkan, si booqdayaashu u arkaan shabakadda ciwaanka sabuuradda.",
+  "import-board-instruction-wordpress": "WordPress gudahiisa, dooro 'Tools', 'Export', 'All content' iyo 'Download Export File', oo halkan ku dooro faylkaas .xml, ama ku dheji qoraalkiisa. Squarespace, Wix iyo goobaha kale ee dhoofiya fayl WordPress sidaas oo kale ayay u shaqeeyaan. Bog kasta iyo qoraal kasta wuxuu noqdaa kaar ku jira liiska xaaladdiisa, bogagga waddada Pages iyo qoraallada Posts, oo wata waxa ku jira, qaybaha iyo tags-ka oo ah calaamado, iyo faallooyinkiisa la ansixiyay.",
+  "import-board-instruction-wordpressjson": "Ku kaydi qoraallada iyo bogagga WordPress REST API (/wp-json/wp/v2/posts iyo /wp-json/wp/v2/pages) hal fayl .json ah, oo halkan ku dooro ama ku dheji. Bog kasta iyo qoraal kasta wuxuu noqdaa kaar ku jira liiska xaaladdiisa.",
+  "import-board-instruction-ghost": "Ghost gudahiisa, dooro 'Settings', 'Labs', 'Export your content', oo halkan ku dooro faylka .json ama ku dheji. Bog kasta iyo qoraal kasta wuxuu noqdaa kaar ku jira liiska xaaladdiisa, oo tags-kiisa ay yihiin calaamado.",
+  "import-board-instruction-blogger": "Blogger gudahiisa, dooro 'Settings', 'Back up content', oo halkan ku dooro faylka .xml ama ku dheji qoraalkiisa. Qoraal kasta iyo bog kasta wuxuu noqdaa kaar, qabyo-qoraal ku jira liiska Draft, oo wata calaamadihiisa iyo faallooyinkiisa.",
+  "import-board-instruction-markdownsite": "Ku duub .zip ilaha goob Hugo, Jekyll, Eleventy, Astro ama goob kale oo taagan - faylasha Markdown oo wata front matter-kooda, iyo sawiradooda - oo halkan ku dooro .zip-ka. Fayl kasta oo Markdown ah wuxuu noqdaa kaar: qoraallo ka yimid galalka posts ama leh taariikh magaca faylka, inta kale bogag, qabyo-qoraallada liiska Draft, iyo sawirada uu isticmaalo oo ah lifaaqyadiisa.",
+  "import-board-instruction-htmlsite": "Ku duub .zip faylasha shabakad - bogagga .html iyo sawirada, sida loogu kaydiyay wget ama HTTrack, ama dhoofinta Medium - oo halkan ku dooro .zip-ka. Bog kasta wuxuu noqdaa kaar wata qoraalkiisa ugu muhiimsan, iyo sawirada uu isticmaalo oo ah lifaaqyadiisa; qoraallada script-ka, liisaska ikhtiyaarka iyo foomamka waa laga reebaa.",
+  "import-board-instruction-substack": "Substack gudahiisa, dooro 'Settings', 'Exports', 'Create new export', oo halkan ku dooro .zip-ka la soo dejiyay. Qoraal kasta wuxuu noqdaa kaar wata qoraalkiisa, la daabacay ama qabyo-qoraal."
 }

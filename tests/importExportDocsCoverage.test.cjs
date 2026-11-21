@@ -62,6 +62,8 @@ const DIRECTORY = {
   mail: 'Mail', mbox: 'Mail', googletakeout: 'Google-Takeout', slack: 'Slack', mattermost: 'Mattermost',
   telegram: 'Telegram', whatsapp: 'WhatsApp', discord: 'Discord', evernote: 'Evernote', enex: 'Evernote',
   rocketchat: 'Rocket-Chat', fizzy: 'Fizzy',
+  wordpress: 'Website', wordpressjson: 'Website', ghost: 'Website', blogger: 'Website', markdownsite: 'Website',
+  htmlsite: 'Website', substack: 'Website',
   azuredevops: 'Azure-DevOps', mslists: 'Microsoft-Lists', msproject: 'Microsoft-Project', outlook: 'Microsoft-Outlook',
   teams: 'Microsoft-Teams', onenote: 'Microsoft-OneNote',
   sandstormwekan: 'Sandstorm', sandstormprioritize: 'Sandstorm', sandstormyatl: 'Sandstorm', sandstormmutodo: 'Sandstorm', sandstormsandchat: 'Sandstorm', sandstormethercalc: 'Sandstorm', sandstormradicalecalendar: 'Sandstorm', sandstormradicalecontacts: 'Sandstorm', sandstormdavros: 'Sandstorm', sandstormhackercms: 'Sandstorm', sandstormgogs: 'Sandstorm', sandstormwordpress: 'Sandstorm',

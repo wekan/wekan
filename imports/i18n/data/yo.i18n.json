@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Ìfiránṣẹ́",
   "cloud-panel-chat-send": "Fi ránṣẹ́",
   "cloud-panel-chat-import": "Gbé àwọn ìjíròrò àtẹ̀yìnwá wọlé",
-  "cloud-panel-chat-imported": "A ti gbé ìfiránṣẹ́ __count__ wọlé."
+  "cloud-panel-chat-imported": "A ti gbé ìfiránṣẹ́ __count__ wọlé.",
+  "board-view-website": "Ojú òpó wẹ́ẹ̀bù",
+  "tool-group-website": "Ojú òpó wẹ́ẹ̀bù",
+  "website-view-empty": "Kò sí ohunkóhun tí a tíì tẹ̀jáde lórí ojú òpó wẹ́ẹ̀bù yìí.",
+  "feature-views-website": "Ìwò ojú òpó wẹ́ẹ̀bù",
+  "feature-views-website-desc": "Pátákó gẹ́gẹ́ bí ojú òpó wẹ́ẹ̀bù: àwọn káàdì àkójọ Published rẹ̀, ọ̀nà Pages gẹ́gẹ́ bí àkójọ àṣàyàn àti àwọn káàdì mìíràn gẹ́gẹ́ bí àwọn àròkọ, tuntun jùlọ ní àkọ́kọ́, pẹ̀lú àwọn àsomọ́ wọn. Pátákó gbangba lè ṣí nínú rẹ̀, kí àwọn àlejò lè rí ojú òpó wẹ́ẹ̀bù náà ní àdírẹ́sì pátákó náà.",
+  "import-board-instruction-wordpress": "Nínú WordPress, yan Tools, Export, All content àti Download Export File, kí o sì yan fáìlì .xml náà níbí, tàbí lẹ ọ̀rọ̀ rẹ̀ mọ́. Squarespace, Wix àti àwọn ojú òpó mìíràn tí ń gbé fáìlì WordPress jáde ń ṣiṣẹ́ ní ọ̀nà kan náà. Ojú ewé kọ̀ọ̀kan àti àròkọ kọ̀ọ̀kan di káàdì nínú àkójọ ipò rẹ̀, àwọn ojú ewé nínú ọ̀nà Pages àti àwọn àròkọ nínú Posts, pẹ̀lú àkóónú rẹ̀, àwọn ẹ̀ka àti àwọn tag gẹ́gẹ́ bí àwọn àkọlé, àti àwọn ọ̀rọ̀ìwòye rẹ̀ tí a fọwọ́sí.",
+  "import-board-instruction-wordpressjson": "Fi àwọn àròkọ àti ojú ewé WordPress REST API (/wp-json/wp/v2/posts àti /wp-json/wp/v2/pages) pamọ́ gẹ́gẹ́ bí fáìlì .json kan, kí o sì yàn án níbí tàbí lẹ̀ ẹ́ mọ́. Ojú ewé kọ̀ọ̀kan àti àròkọ kọ̀ọ̀kan di káàdì nínú àkójọ ipò rẹ̀.",
+  "import-board-instruction-ghost": "Nínú Ghost, yan Settings, Labs, Export your content, kí o sì yan fáìlì .json náà níbí tàbí lẹ̀ ẹ́ mọ́. Ojú ewé kọ̀ọ̀kan àti àròkọ kọ̀ọ̀kan di káàdì nínú àkójọ ipò rẹ̀, pẹ̀lú àwọn tag rẹ̀ gẹ́gẹ́ bí àwọn àkọlé.",
+  "import-board-instruction-blogger": "Nínú Blogger, yan Settings, Back up content, kí o sì yan fáìlì .xml náà níbí tàbí lẹ ọ̀rọ̀ rẹ̀ mọ́. Àròkọ kọ̀ọ̀kan àti ojú ewé kọ̀ọ̀kan di káàdì, ìkọ̀sílẹ̀ àkọ́kọ́ nínú àkójọ Draft, pẹ̀lú àwọn àkọlé àti ọ̀rọ̀ìwòye rẹ̀.",
+  "import-board-instruction-markdownsite": "Ṣe zip àwọn orísun ojú òpó aláìyípadà Hugo, Jekyll, Eleventy, Astro tàbí òmíràn - àwọn fáìlì Markdown pẹ̀lú front matter wọn, àti àwọn àwòrán wọn - kí o sì yan .zip náà níbí. Fáìlì Markdown kọ̀ọ̀kan di káàdì: àwọn àròkọ láti inú àwọn fódà posts tàbí tí ó ní ọjọ́ nínú orúkọ fáìlì, ìyókù jẹ́ ojú ewé, àwọn ìkọ̀sílẹ̀ àkọ́kọ́ nínú àkójọ Draft, àti àwọn àwòrán tí ó ń lò gẹ́gẹ́ bí àwọn àsomọ́ rẹ̀.",
+  "import-board-instruction-htmlsite": "Ṣe zip àwọn fáìlì ojú òpó wẹ́ẹ̀bù kan - àwọn ojú ewé .html àti àwòrán rẹ̀, bí a ṣe fi wget tàbí HTTrack pamọ́ wọn, tàbí ìgbéjáde Medium - kí o sì yan .zip náà níbí. Ojú ewé kọ̀ọ̀kan di káàdì pẹ̀lú ọ̀rọ̀ pàtàkì rẹ̀, àti àwọn àwòrán tí ó ń lò gẹ́gẹ́ bí àwọn àsomọ́ rẹ̀; àwọn script, àkójọ àṣàyàn àti fọ́ọ̀mù ni a fi sílẹ̀.",
+  "import-board-instruction-substack": "Nínú Substack, yan Settings, Exports, Create new export, kí o sì yan .zip tí o gbà sílẹ̀ níbí. Àròkọ kọ̀ọ̀kan di káàdì pẹ̀lú ọ̀rọ̀ rẹ̀, tí a tẹ̀jáde tàbí ìkọ̀sílẹ̀ àkọ́kọ́."
 }

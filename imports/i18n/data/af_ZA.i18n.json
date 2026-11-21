@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Boodskap",
   "cloud-panel-chat-send": "Stuur",
   "cloud-panel-chat-import": "Voer vroeëre gesprekke in",
-  "cloud-panel-chat-imported": "__count__ boodskappe ingevoer."
+  "cloud-panel-chat-imported": "__count__ boodskappe ingevoer.",
+  "board-view-website": "Webwerf",
+  "tool-group-website": "Webwerf",
+  "website-view-empty": "Niks is nog op hierdie webwerf gepubliseer nie.",
+  "feature-views-website": "Webwerf-aansig",
+  "feature-views-website-desc": "Die bord as 'n webwerf: die kaarte van sy lys Published, die baan Pages as die kieslys en die ander kaarte as plasings, nuutste eerste, met hul aanhegsels. 'n Openbare bord kan daarin oopmaak, sodat besoekers die webwerf by die bord se adres sien.",
+  "import-board-instruction-wordpress": "Kies in WordPress Tools, Export, All content en Download Export File, en kies daardie .xml-lêer hier, of plak die teks. Squarespace, Wix en ander werwe wat 'n WordPress-lêer uitvoer werk op dieselfde manier. Elke bladsy en plasing word 'n kaart in die lys van sy status, bladsye in die baan Pages en plasings in Posts, met sy inhoud, kategorieë en etikette as etikette, en sy goedgekeurde kommentaar.",
+  "import-board-instruction-wordpressjson": "Stoor die plasings en bladsye van die WordPress REST API (/wp-json/wp/v2/posts en /wp-json/wp/v2/pages) as een .json-lêer, en kies dit hier of plak dit. Elke bladsy en plasing word 'n kaart in die lys van sy status.",
+  "import-board-instruction-ghost": "Kies in Ghost Settings, Labs, Export your content, en kies die .json-lêer hier of plak dit. Elke bladsy en plasing word 'n kaart in die lys van sy status, met sy etikette as etikette.",
+  "import-board-instruction-blogger": "Kies in Blogger Settings, Back up content, en kies die .xml-lêer hier of plak die teks. Elke plasing en bladsy word 'n kaart, 'n konsep in die lys Draft, met sy etikette en kommentaar.",
+  "import-board-instruction-markdownsite": "Zip die bronne van 'n Hugo-, Jekyll-, Eleventy-, Astro- of ander statiese werf - die Markdown-lêers met hul voorwerk, en hul beelde - en kies die .zip hier. Elke Markdown-lêer word 'n kaart: plasings uit die posts-vouers of met 'n datum in die lêernaam, die res bladsye, konsepte in die lys Draft, en die beelde wat dit gebruik as sy aanhegsels.",
+  "import-board-instruction-htmlsite": "Zip 'n webwerf se lêers - sy .html-bladsye en beelde, soos gestoor met wget of HTTrack, of Medium se uitvoer - en kies die .zip hier. Elke bladsy word 'n kaart met sy hoofteks, en die beelde wat dit gebruik as sy aanhegsels; skripte, kieslyste en vorms word uitgelaat.",
+  "import-board-instruction-substack": "Kies in Substack Settings, Exports, Create new export, en kies die afgelaaide .zip hier. Elke plasing word 'n kaart met sy teks, gepubliseer of konsep."
 }

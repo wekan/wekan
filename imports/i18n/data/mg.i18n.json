@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Hafatra",
   "cloud-panel-chat-send": "Alefaso",
   "cloud-panel-chat-import": "Ampidiro ireo resaka teo aloha",
-  "cloud-panel-chat-imported": "Hafatra __count__ voaampiditra."
+  "cloud-panel-chat-imported": "Hafatra __count__ voaampiditra.",
+  "board-view-website": "Tranonkala",
+  "tool-group-website": "Tranonkala",
+  "website-view-empty": "Mbola tsy misy navoaka amin'ity tranonkala ity.",
+  "feature-views-website": "Fijery tranonkala",
+  "feature-views-website-desc": "Ny solaitra ho tranonkala: ny karatra ao amin'ny lisitra Published, ny lalana Pages ho menio ary ny karatra hafa ho lahatsoratra, ny vaovao indrindra aloha, miaraka amin'ny rakitra miaraka aminy. Ny solaitra ho an'ny besinimaro dia afaka misokatra amin'ity fijery ity, mba hahitan'ny mpitsidika ny tranonkala amin'ny adiresin'ny solaitra.",
+  "import-board-instruction-wordpress": "Ao amin'ny WordPress, safidio 'Tools', 'Export', 'All content' sy 'Download Export File', ary safidio eto io rakitra .xml io, na apetaho ny lahatsorany. Squarespace, Wix sy tranonkala hafa manondrana rakitra WordPress dia miasa toy izany koa. Ny pejy sy lahatsoratra tsirairay dia lasa karatra ao amin'ny lisitry ny satany, ny pejy ao amin'ny lalana Pages ary ny lahatsoratra ao amin'ny Posts, miaraka amin'ny votoatiny, ny sokajy sy tags ho marika, ary ny fanamarihana nankatoavina.",
+  "import-board-instruction-wordpressjson": "Tehirizo ho rakitra .json iray ny lahatsoratra sy pejy avy amin'ny WordPress REST API (/wp-json/wp/v2/posts sy /wp-json/wp/v2/pages), ary safidio eto na apetaho. Ny pejy sy lahatsoratra tsirairay dia lasa karatra ao amin'ny lisitry ny satany.",
+  "import-board-instruction-ghost": "Ao amin'ny Ghost, safidio 'Settings', 'Labs', 'Export your content', ary safidio eto ny rakitra .json na apetaho. Ny pejy sy lahatsoratra tsirairay dia lasa karatra ao amin'ny lisitry ny satany, miaraka amin'ny tags ho marika.",
+  "import-board-instruction-blogger": "Ao amin'ny Blogger, safidio 'Settings', 'Back up content', ary safidio eto ny rakitra .xml na apetaho ny lahatsorany. Ny lahatsoratra sy pejy tsirairay dia lasa karatra, ny drafitra ao amin'ny lisitra Draft, miaraka amin'ny marika sy fanamarihana.",
+  "import-board-instruction-markdownsite": "Fonosy ho .zip ny loharanon'ny tranonkala Hugo, Jekyll, Eleventy, Astro na tranonkala statika hafa - ny rakitra Markdown miaraka amin'ny front matter, sy ny sariny - ary safidio eto ny .zip. Ny rakitra Markdown tsirairay dia lasa karatra: lahatsoratra avy amin'ny lahatahiry posts na misy daty ao amin'ny anaran'ny rakitra, ny sisa pejy, ny drafitra ao amin'ny lisitra Draft, ary ny sary ampiasainy ho rakitra miaraka aminy.",
+  "import-board-instruction-htmlsite": "Fonosy ho .zip ny rakitry ny tranonkala - ny pejy .html sy sary, araka ny voatahiry tamin'ny wget na HTTrack, na ny fanondranana avy amin'ny Medium - ary safidio eto ny .zip. Ny pejy tsirairay dia lasa karatra miaraka amin'ny lahatsorany fototra, ary ny sary ampiasainy ho rakitra miaraka aminy; ny script, menio ary taratasy fenoina dia tsy raisina.",
+  "import-board-instruction-substack": "Ao amin'ny Substack, safidio 'Settings', 'Exports', 'Create new export', ary safidio eto ny .zip nalaina. Ny lahatsoratra tsirairay dia lasa karatra miaraka amin'ny lahatsorany, navoaka na drafitra."
 }

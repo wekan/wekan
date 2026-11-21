@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Tlahtolli",
   "cloud-panel-chat-send": "Xictitlani",
   "cloud-panel-chat-import": "Xiccalaqui achtopa nenotzaliztli",
-  "cloud-panel-chat-imported": "__count__ tlahtolli omocalaquih."
+  "cloud-panel-chat-imported": "__count__ tlahtolli omocalaquih.",
+  "board-view-website": "Tlamachiyotlatlapalli",
+  "tool-group-website": "Tlamachiyotlatlapalli",
+  "website-view-empty": "Ayamo itla moteittitia ipan inin tlamachiyotlatlapalli.",
+  "feature-views-website": "Tlamachiyotlatlapalli tlachiyaliztli",
+  "feature-views-website-desc": "In huapalli quemeh tlamachiyotlatlapalli: in amatlapalli ipan itocatlahtol Published, in ohtli Pages quemeh tlaahxitiliztli ihuan occequintin amatlapalli quemeh tlahcuilolli, in yancuic achtopa, ica intlanamictil. Ce tepan huapalli huel motlapoa ipan inin, inic in tecalcoanih quittazqueh in tlamachiyotlatlapalli ipan ichan in huapalli.",
+  "import-board-instruction-wordpress": "Ipan WordPress, xicpepena 'Tools', 'Export', 'All content' ihuan 'Download Export File', ihuan nican xicpepena inon amatl .xml, nozo xiquipiqui itlahcuilol. Squarespace, Wix ihuan occequintin tlamachiyotlatlapalli tlen quiquixtiah ce amatl WordPress zan no iuhqui tequitih. Cecen amaixtli ihuan cecen tlahcuilolli mochihua ce amatlapalli ipan itocatlahtol in quenin cah, in amaixtli ipan ohtli Pages ihuan in tlahcuilolli ipan Posts, ica itlapiyaliz, itlamantli ihuan itags quemeh machiotl, ihuan itlahtolpehualiz tlen omoceliqueh.",
+  "import-board-instruction-wordpressjson": "Xicpiya in tlahcuilolli ihuan in amaixtli in WordPress REST API (/wp-json/wp/v2/posts ihuan /wp-json/wp/v2/pages) quemeh ce amatl .json, ihuan nican xicpepena nozo xiquipiqui. Cecen amaixtli ihuan cecen tlahcuilolli mochihua ce amatlapalli ipan itocatlahtol in quenin cah.",
+  "import-board-instruction-ghost": "Ipan Ghost, xicpepena 'Settings', 'Labs', 'Export your content', ihuan nican xicpepena in amatl .json nozo xiquipiqui. Cecen amaixtli ihuan cecen tlahcuilolli mochihua ce amatlapalli ipan itocatlahtol in quenin cah, ica itags quemeh machiotl.",
+  "import-board-instruction-blogger": "Ipan Blogger, xicpepena 'Settings', 'Back up content', ihuan nican xicpepena in amatl .xml nozo xiquipiqui itlahcuilol. Cecen tlahcuilolli ihuan cecen amaixtli mochihua ce amatlapalli, in ayamo tlami ipan tocatlahtolli Draft, ica imachiouh ihuan itlahtolpehualiz.",
+  "import-board-instruction-markdownsite": "Xictzacua ipan ce .zip in itzinpeuhca ce tlamachiyotlatlapalli Hugo, Jekyll, Eleventy, Astro nozo occe tlen amo mopatla - in amatl Markdown ica infront matter, ihuan imixiptla - ihuan nican xicpepena in .zip. Cecen amatl Markdown mochihua ce amatlapalli: tlahcuilolli itech in posts nozo ica ce tonalli ipan itoca in amatl, in occequintin amaixtli, in ayamo tlami ipan tocatlahtolli Draft, ihuan in ixiptla tlen quitequitiltia quemeh itlanamictil.",
+  "import-board-instruction-htmlsite": "Xictzacua ipan ce .zip in iamauh ce tlamachiyotlatlapalli - iamaix .html ihuan imixiptla, quemeh omopiyaqueh ica wget nozo HTTrack, nozo tlen Medium quiquixtia - ihuan nican xicpepena in .zip. Cecen amaixtli mochihua ce amatlapalli ica itlahcuilol, ihuan in ixiptla tlen quitequitiltia quemeh itlanamictil; in scripts, tlaahxitiliztli ihuan amatlahtlaniliztli moquixtiah.",
+  "import-board-instruction-substack": "Ipan Substack, xicpepena 'Settings', 'Exports', 'Create new export', ihuan nican xicpepena in .zip tlen otictemouh. Cecen tlahcuilolli mochihua ce amatlapalli ica itlahcuilol, moteittitia nozo ayamo tlami."
 }

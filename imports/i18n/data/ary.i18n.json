@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "رسالة",
   "cloud-panel-chat-send": "إرسال",
   "cloud-panel-chat-import": "استيراد المحادثات السابقة",
-  "cloud-panel-chat-imported": "تم استيراد __count__ رسالة."
+  "cloud-panel-chat-imported": "تم استيراد __count__ رسالة.",
+  "board-view-website": "سيت ويب",
+  "tool-group-website": "سيت ويب",
+  "website-view-empty": "باقي ما تّنشر والو ف هاد السيت.",
+  "feature-views-website": "عرض السيت",
+  "feature-views-website-desc": "اللوحة بحال سيت ويب: البطاقات ديال اللائحة ديالها Published، والممر Pages بحال المينو، والبطاقات لخرين بحال تدوينات، الجداد هوما اللولين، مع المرفقات ديالهم. لوحة عمومية تقدر تتحل فيه، باش الزوار يشوفو السيت ف العنوان ديال اللوحة.",
+  "import-board-instruction-wordpress": "ف WordPress، ختار أدوات، تصدير، كل المحتوى وتنزيل ملف التصدير، ومن بعد ختار داك الملف .xml هنا ولا لصق النص ديالو. Squarespace وWix وسيتات خرين كيصدرو ملف WordPress خدامين بنفس الطريقة. كل صفحة وتدوينة كتولي بطاقة ف اللائحة ديال الحالة ديالها، الصفحات ف الممر Pages والتدوينات ف Posts، مع المحتوى ديالها والتصنيفات والوسوم بحال تسميات، والتعليقات المقبولة ديالها.",
+  "import-board-instruction-wordpressjson": "سجل التدوينات والصفحات ديال WordPress REST API (/wp-json/wp/v2/posts و /wp-json/wp/v2/pages) ف ملف .json واحد، وختارو هنا ولا لصقو. كل صفحة وتدوينة كتولي بطاقة ف اللائحة ديال الحالة ديالها.",
+  "import-board-instruction-ghost": "ف Ghost، ختار Settings، Labs، Export your content، ومن بعد ختار الملف .json هنا ولا لصقو. كل صفحة وتدوينة كتولي بطاقة ف اللائحة ديال الحالة ديالها، مع الوسوم ديالها بحال تسميات.",
+  "import-board-instruction-blogger": "ف Blogger، ختار الإعدادات، نسخة احتياطية ديال المحتوى، ومن بعد ختار الملف .xml هنا ولا لصق النص ديالو. كل تدوينة وصفحة كتولي بطاقة، والمسودة ف اللائحة Draft، مع التسميات والتعليقات ديالها.",
+  "import-board-instruction-markdownsite": "ضغط ف .zip المصادر ديال سيت ثابت ديال Hugo ولا Jekyll ولا Eleventy ولا Astro ولا خر - ملفات Markdown مع front matter ديالهم والتصاور ديالهم - وختار .zip هنا. كل ملف Markdown كيولي بطاقة: التدوينات من الدوسيات posts ولا اللي فيهم تاريخ ف سمية الملف، والباقي صفحات، والمسودات ف اللائحة Draft، والتصاور اللي كيستعمل بحال المرفقات ديالو.",
+  "import-board-instruction-htmlsite": "ضغط ف .zip الملفات ديال سيت ويب - الصفحات .html والتصاور ديالو، اللي تسجلو ب wget ولا HTTrack، ولا التصدير ديال Medium - وختار .zip هنا. كل صفحة كتولي بطاقة بالنص الرئيسي ديالها، والتصاور اللي كتستعمل بحال المرفقات ديالها؛ السكريبتات والمينوات والفورمات كيتحيدو.",
+  "import-board-instruction-substack": "ف Substack، ختار Settings، Exports، Create new export، ومن بعد ختار .zip اللي نزلتي هنا. كل تدوينة كتولي بطاقة بالنص ديالها، منشورة ولا مسودة."
 }

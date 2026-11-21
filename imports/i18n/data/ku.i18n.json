@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Peyam",
   "cloud-panel-chat-send": "Bişîne",
   "cloud-panel-chat-import": "Axaftinên berê bîne hundir",
-  "cloud-panel-chat-imported": "__count__ peyam hatin anîn."
+  "cloud-panel-chat-imported": "__count__ peyam hatin anîn.",
+  "board-view-website": "Malper",
+  "tool-group-website": "Malper",
+  "website-view-empty": "Hê tiştek li ser vê malperê nehatiye weşandin.",
+  "feature-views-website": "Dîtina malperê",
+  "feature-views-website-desc": "Pano wek malper: kartên lîsteya wê ya Published, rêça Pages wek pêşek û kartên din wek nivîs, ji yên herî nû dest pê dike, bi pêvekên wan. Panoyeke giştî dikare di vê dîtinê de vebe, da ku mêvan malperê li navnîşana panoyê bibînin.",
+  "import-board-instruction-wordpress": "Di WordPressê de Tools, Export, All content û Download Export File hilbijêre, û wê pelê .xml li vir hilbijêre an nivîsa wê pê ve bike. Squarespace, Wix û malperên din ên ku pelekî WordPressê derdixin bi heman awayî dixebitin. Her rûpel û nivîs dibe kartek di lîsteya rewşa xwe de, rûpel di rêça Pages de û nivîs di Posts de, bi naveroka xwe, kategorî û tagên xwe wek etîket, û şîroveyên xwe yên pejirandî.",
+  "import-board-instruction-wordpressjson": "Nivîs û rûpelên REST API ya WordPressê (/wp-json/wp/v2/posts û /wp-json/wp/v2/pages) wek yek pelê .json tomar bike, û wê li vir hilbijêre an pê ve bike. Her rûpel û nivîs dibe kartek di lîsteya rewşa xwe de.",
+  "import-board-instruction-ghost": "Di Ghostê de Settings, Labs, Export your content hilbijêre, û pelê .json li vir hilbijêre an pê ve bike. Her rûpel û nivîs dibe kartek di lîsteya rewşa xwe de, bi tagên xwe wek etîket.",
+  "import-board-instruction-blogger": "Di Bloggerê de Settings, Back up content hilbijêre, û pelê .xml li vir hilbijêre an nivîsa wê pê ve bike. Her nivîs û rûpel dibe kartek, reşnivîs di lîsteya Draft de, bi etîket û şîroveyên xwe.",
+  "import-board-instruction-markdownsite": "Çavkaniyên malpereke statîk a Hugo, Jekyll, Eleventy, Astro an yeke din bike .zip - pelên Markdown bi front matter û wêneyên wan - û .zip li vir hilbijêre. Her pelê Markdown dibe kartek: nivîs ji peldankên posts an bi dîrokek di navê pelê de, yên mayî rûpel, reşnivîs di lîsteya Draft de, û wêneyên ku bikar tîne wek pêvekên wî.",
+  "import-board-instruction-htmlsite": "Pelên malperekê bike .zip - rûpelên wê yên .html û wêne, wek ku wget an HTTrack tomar dikin, an derxistina Mediumê - û .zip li vir hilbijêre. Her rûpel dibe kartek bi nivîsa xwe ya sereke, û wêneyên ku bikar tîne wek pêvekên wê; skrîpt, pêşek û form têne derxistin.",
+  "import-board-instruction-substack": "Di Substackê de Settings, Exports, Create new export hilbijêre, û .zip a daxistî li vir hilbijêre. Her nivîs dibe kartek bi nivîsa xwe, weşandî an reşnivîs."
 }

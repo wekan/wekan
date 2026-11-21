@@ -15,7 +15,9 @@ const TEXT_TYPES = { markdown: 'text/markdown', leo: 'application/xml', todotxt:
   pivotal: 'text/csv', redmine: 'text/csv', notion: 'text/csv', superproductivity: 'application/json', quire: 'text/csv',
   opml: 'text/x-opml', orgmode: 'text/x-org',
   mbox: 'application/mbox', enex: 'application/enex+xml', mattermost: 'application/x-ndjson',
-  azuredevops: 'text/csv', mslists: 'text/csv', msproject: 'application/xml' };
+  azuredevops: 'text/csv', mslists: 'text/csv', msproject: 'application/xml',
+  // Websites (models/lib/websiteFormat.js): WordPress WXR and Blogger's Atom.
+  wordpress: 'application/rss+xml', blogger: 'application/atom+xml' };
 // The tools whose import file is an Excel workbook, and the function writing
 // it. Each require names its module literally: the bundler (rspack) resolves
 // only a literal path, and the [path, name] pairs this used to hold were
@@ -64,6 +66,21 @@ async function renderExternalExport(boardId, format, fields) {
   if (/^sandstorm[a-z]+$/.test(format)) {
     const { sandstormGrainFiles } = require('/models/lib/sandstorm/grainApps');
     return { contentType: 'application/zip', body: await require('/server/lib/sandstormGrain').writeSandstormGrain(sandstormGrainFiles(built)) };
+  }
+  // A website as a .zip: a Markdown site (Hugo, Jekyll, Eleventy, Astro) or
+  // the HTML pages themselves, each page's attachments beside it
+  // (models/lib/websiteFormat.js).
+  if (format === 'markdownsite' || format === 'htmlsite') {
+    const { files, attachments } = built;
+    const { zipSync, strToU8 } = require('fflate');
+    const { attachmentBytes, MAX_EXPORT_ATTACHMENT_BYTES } = require('/server/lib/sandstormGrain');
+    const entries = {};
+    for (const [name, text] of Object.entries(files || {})) entries[name] = strToU8(String(text));
+    for (const a of attachments || []) {
+      const bytes = await attachmentBytes(a.id, MAX_EXPORT_ATTACHMENT_BYTES);
+      if (bytes) entries[a.path] = new Uint8Array(bytes);
+    }
+    return { contentType: 'application/zip', body: Buffer.from(zipSync(entries, { level: 6 })) };
   }
   if (format === 'onenote') {
     const { onenoteArchiveFiles } = require('/models/lib/onenoteApiFormat');

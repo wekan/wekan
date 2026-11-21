@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Toksave",
   "cloud-panel-chat-send": "Salim",
   "cloud-panel-chat-import": "Bringim i kam ol toktok bipo",
-  "cloud-panel-chat-imported": "__count__ toksave i kam insait pinis."
+  "cloud-panel-chat-imported": "__count__ toksave i kam insait pinis.",
+  "board-view-website": "Websait",
+  "tool-group-website": "Websait",
+  "website-view-empty": "I no gat wanpela samting i kamap long dispela websait yet.",
+  "feature-views-website": "Lukluk bilong websait",
+  "feature-views-website-desc": "Bot olsem websait: ol kat bilong lis Published bilong en, rot Pages olsem menu na ol arapela kat olsem ol stori, ol nupela pastaim, wantaim ol samting i pas long ol. Pablik bot inap op long en, olsem na ol visita i lukim websait long adres bilong bot.",
+  "import-board-instruction-wordpress": "Long WordPress, makim Tools, Export, All content na Download Export File, na makim dispela .xml fail long hia, o pestim tok bilong en. Squarespace, Wix na ol arapela sait i save salim WordPress fail i wok wankain. Olgeta pes na stori i kamap kat long lis bilong stetas bilong en, ol pes long rot Pages na ol stori long Posts, wantaim ol samting insait, ol kain na ol tag olsem ol mak, na ol tok ol i orait long en.",
+  "import-board-instruction-wordpressjson": "Seivim ol stori na ol pes bilong WordPress REST API (/wp-json/wp/v2/posts na /wp-json/wp/v2/pages) olsem wanpela .json fail, na makim long hia o pestim. Olgeta pes na stori i kamap kat long lis bilong stetas bilong en.",
+  "import-board-instruction-ghost": "Long Ghost, makim Settings, Labs, Export your content, na makim .json fail long hia o pestim. Olgeta pes na stori i kamap kat long lis bilong stetas bilong en, wantaim ol tag bilong en olsem ol mak.",
+  "import-board-instruction-blogger": "Long Blogger, makim Settings, Back up content, na makim .xml fail long hia o pestim tok bilong en. Olgeta stori na pes i kamap kat, ol draft long lis Draft, wantaim ol mak na ol tok bilong en.",
+  "import-board-instruction-markdownsite": "Zipim ol sos bilong Hugo, Jekyll, Eleventy, Astro o narapela static sait - ol Markdown fail wantaim front matter bilong ol, na ol piksa bilong ol - na makim .zip long hia. Olgeta Markdown fail i kamap kat: ol stori long ol posts folda o i gat de long nem bilong fail, ol arapela i pes, ol draft long lis Draft, na ol piksa em i usim olsem ol samting i pas long en.",
+  "import-board-instruction-htmlsite": "Zipim ol fail bilong wanpela websait - ol .html pes na piksa bilong en, olsem ol i seivim long wget o HTTrack, o export bilong Medium - na makim .zip long hia. Olgeta pes i kamap kat wantaim bikpela tok bilong en, na ol piksa em i usim olsem ol samting i pas long en; ol skrip, menu na fom i no kam insait.",
+  "import-board-instruction-substack": "Long Substack, makim Settings, Exports, Create new export, na makim .zip yu daunlodim long hia. Olgeta stori i kamap kat wantaim tok bilong en, i kamap pinis o draft."
 }

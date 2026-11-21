@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Mesej",
   "cloud-panel-chat-send": "Sendem",
   "cloud-panel-chat-import": "Tekem ol storian bifo i kam",
-  "cloud-panel-chat-imported": "__count__ mesej oli tekem i kam."
+  "cloud-panel-chat-imported": "__count__ mesej oli tekem i kam.",
+  "board-view-website": "Websaet",
+  "tool-group-website": "Websaet",
+  "website-view-empty": "I no gat wan samting we oli putum long websaet ia yet.",
+  "feature-views-website": "Lukluk olsem websaet",
+  "feature-views-website-desc": "Bod olsem wan websaet: ol kad blong lis Published blong hem, rod Pages olsem menu mo ol narafala kad olsem ol post, ol niu wan fastaem, wetem ol fael blong olgeta. Wan pablik bod i save open long hem, blong ol visita oli luk websaet long adres blong bod.",
+  "import-board-instruction-wordpress": "Long WordPress, jusum Tools, Export, All content mo Download Export File, mo jusum fael .xml ia long ples ia, o pestem tekis blong hem. Squarespace, Wix mo ol narafala saet we oli eksportem wan fael blong WordPress oli wok long sem fasin. Evri pej mo post i kam wan kad long lis blong stejes blong hem, ol pej long rod Pages mo ol post long Posts, wetem samting we i stap insaed, ol kategori mo tag olsem leibel, mo ol koment we oli agri long hem.",
+  "import-board-instruction-wordpressjson": "Sevem ol post mo pej blong WordPress REST API (/wp-json/wp/v2/posts mo /wp-json/wp/v2/pages) olsem wan fael .json, mo jusum long ples ia o pestem. Evri pej mo post i kam wan kad long lis blong stejes blong hem.",
+  "import-board-instruction-ghost": "Long Ghost, jusum Settings, Labs, Export your content, mo jusum fael .json long ples ia o pestem. Evri pej mo post i kam wan kad long lis blong stejes blong hem, wetem ol tag blong hem olsem leibel.",
+  "import-board-instruction-blogger": "Long Blogger, jusum Settings, Back up content, mo jusum fael .xml long ples ia o pestem tekis blong hem. Evri post mo pej i kam wan kad, wan drafen long lis Draft, wetem ol leibel mo koment blong hem.",
+  "import-board-instruction-markdownsite": "Zipim ol sos blong wan Hugo, Jekyll, Eleventy, Astro o narafala statik saet - ol fael Markdown wetem front matter blong olgeta, mo ol pikja blong olgeta - mo jusum .zip long ples ia. Evri fael Markdown i kam wan kad: ol post long ol folda posts o wetem wan deit long nem blong fael, ol narafala oli pej, ol drafen long lis Draft, mo ol pikja we hem i yusum olsem ol fael blong hem.",
+  "import-board-instruction-htmlsite": "Zipim ol fael blong wan websaet - ol pej .html mo pikja blong hem, olsem we oli sevem wetem wget o HTTrack, o eksport blong Medium - mo jusum .zip long ples ia. Evri pej i kam wan kad wetem tekis blong hem, mo ol pikja we hem i yusum olsem ol fael blong hem; ol skript, menu mo fom oli no tekem.",
+  "import-board-instruction-substack": "Long Substack, jusum Settings, Exports, Create new export, mo jusum .zip we yu daonlodem long ples ia. Evri post i kam wan kad wetem tekis blong hem, we oli putum aot o drafen."
 }

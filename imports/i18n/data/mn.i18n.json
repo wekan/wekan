@@ -5205,5 +5205,17 @@
   "cloud-panel-chat-message": "Мессеж",
   "cloud-panel-chat-send": "Илгээх",
   "cloud-panel-chat-import": "Өмнөх яриануудыг импортлох",
-  "cloud-panel-chat-imported": "__count__ мессеж импортлогдлоо."
+  "cloud-panel-chat-imported": "__count__ мессеж импортлогдлоо.",
+  "board-view-website": "Вэбсайт",
+  "tool-group-website": "Вэбсайт",
+  "website-view-empty": "Энэ вэбсайтад одоогоор юу ч нийтлэгдээгүй байна.",
+  "feature-views-website": "Вэбсайтын харагдац",
+  "feature-views-website-desc": "Самбарыг вэбсайт болгон: түүний Published жагсаалтын картууд, Pages усан замыг цэс болгон, бусад картуудыг нийтлэл болгон, хамгийн шинэ нь эхэнд, хавсралтуудтай нь. Нийтийн самбар энэ харагдацаар нээгдэж болох тул зочид самбарын хаяг дээр вэбсайтыг хардаг.",
+  "import-board-instruction-wordpress": "WordPress дээр 'Tools', 'Export', 'All content' болон 'Download Export File'-ийг сонгоод, тэр .xml файлыг энд сонгох эсвэл текстийг нь буулгана уу. WordPress файл экспортлодог Squarespace, Wix болон бусад сайтууд мөн адил ажиллана. Хуудас, нийтлэл бүр өөрийн төлвийн жагсаалтад карт болж, хуудсууд Pages усан замд, нийтлэлүүд Posts-д, агуулга, ангилал, таг-уудыг шошго болгон, зөвшөөрөгдсөн сэтгэгдлүүдийн хамт орно.",
+  "import-board-instruction-wordpressjson": "WordPress REST API-ийн нийтлэл, хуудсуудыг (/wp-json/wp/v2/posts болон /wp-json/wp/v2/pages) нэг .json файл болгон хадгалаад, энд сонгох эсвэл буулгана уу. Хуудас, нийтлэл бүр өөрийн төлвийн жагсаалтад карт болно.",
+  "import-board-instruction-ghost": "Ghost дээр 'Settings', 'Labs', 'Export your content'-ийг сонгоод, .json файлыг энд сонгох эсвэл буулгана уу. Хуудас, нийтлэл бүр өөрийн төлвийн жагсаалтад карт болж, таг-ууд нь шошго болно.",
+  "import-board-instruction-blogger": "Blogger дээр 'Settings', 'Back up content'-ийг сонгоод, .xml файлыг энд сонгох эсвэл текстийг нь буулгана уу. Нийтлэл, хуудас бүр карт болж, ноорог нь Draft жагсаалтад, шошго, сэтгэгдлүүдийнхээ хамт орно.",
+  "import-board-instruction-markdownsite": "Hugo, Jekyll, Eleventy, Astro эсвэл бусад статик сайтын эх файлуудыг .zip болгон шахаарай - front matter-тэй Markdown файлууд болон тэдгээрийн зургууд - тэгээд .zip-ийг энд сонгоно уу. Markdown файл бүр карт болно: posts хавтаснаас эсвэл файлын нэрэндээ огноотой бол нийтлэл, бусад нь хуудас, ноорогууд Draft жагсаалтад, ашигласан зургууд нь хавсралт болно.",
+  "import-board-instruction-htmlsite": "Вэбсайтын файлуудыг .zip болгон шахаарай - wget эсвэл HTTrack-ээр хадгалсан .html хуудас, зургууд, эсвэл Medium-ийн экспорт - тэгээд .zip-ийг энд сонгоно уу. Хуудас бүр үндсэн текстийнхээ хамт карт болж, ашигласан зургууд нь хавсралт болно; скрипт, цэс, маягтуудыг оруулахгүй.",
+  "import-board-instruction-substack": "Substack дээр 'Settings', 'Exports', 'Create new export'-ийг сонгоод, татаж авсан .zip-ийг энд сонгоно уу. Нийтлэл бүр текстийнхээ хамт карт болно, нийтлэгдсэн эсвэл ноорог."
 }
