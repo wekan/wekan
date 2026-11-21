@@ -22,7 +22,8 @@
 // (POST /me/onenote/sections/{id}/pages) takes it - <title>, <meta
 // name="created">, paragraphs and to-do boxes - under
 // <notebook>/<section>/, with onenote.json beside them: the same pages in
-// the shape above, which the import reads back.
+// the shape above, which the import reads back. The XHTML is written after
+// the export boundary (onenoteArchiveFiles).
 
 import { vikunjaHtmlToText } from './vikunjaFormat.js';
 
@@ -169,23 +170,24 @@ export function onenotePageHtml(item) {
   ].join('\n');
 }
 
-// The board as OneNote: { files: { path: text } }, a page per card under
-// <board>/<list>/, and onenote.json - a notebook named after the board, a
-// section per list, each subtask a subpage under its parent.
+// The board as OneNote, in two steps. formatOnenote makes the notebook of
+// plain values - a section per list, a page per card in order, each subtask a
+// subpage under its parent - which passes the export boundary like every
+// other format's document. onenoteArchiveFiles then writes the pages' XHTML
+// from those checked values, after the boundary: written before it, the
+// boundary's HTML sanitizer took the pages' <html>, <head>, <title> and <meta>
+// apart, as Vikunja's archive HTML is made after it for the same reason.
 export function formatOnenote(collected = {}) {
   const items = list(collected.items);
   const board = String((collected.board && collected.board.title) || 'WeKan board');
-  const sections = [];
+  const names = [];
   const byList = new Map();
   for (const item of items) {
     const name = String(item.listTitle || 'Section');
-    if (!byList.has(name)) { byList.set(name, []); sections.push(name); }
+    if (!byList.has(name)) { byList.set(name, []); names.push(name); }
     byList.get(name).push(item);
   }
-  const files = {};
-  const notebook = { id: 'wekan', displayName: board, sections: [] };
-  const book = slug(board, 'notebook');
-  sections.forEach((name, s) => {
+  const sections = names.map(name => {
     const cards = byList.get(name);
     const ids = new Set(cards.map(c => c.cardId));
     const kids = new Map();
@@ -196,36 +198,51 @@ export function formatOnenote(collected = {}) {
         kids.get(card.parentCardId).push(card);
       } else roots.push(card);
     }
-    const ordered = [];
+    const pages = [];
     const seen = new Set();
     const walk = (card, level) => {
       if (seen.has(card.cardId)) return;
       seen.add(card.cardId);
-      ordered.push({ card, level: Math.min(level, 2) });
+      pages.push({
+        title: String(card.title || '').trim() || 'Untitled page',
+        description: String(card.description || ''),
+        level: Math.min(level, 2),
+        ...(card.createdAt ? { createdAt: card.createdAt } : {}),
+        todos: list(card.checklists).flatMap(c => list(c && c.items))
+          .map(entry => ({ title: String((entry && entry.title) || '').trim(), done: Boolean(entry && entry.done) })),
+      });
       for (const kid of kids.get(card.cardId) || []) walk(kid, level + 1);
     };
     roots.forEach(card => walk(card, 0));
     cards.forEach(card => walk(card, 0));
-    const section = { id: `section-${s + 1}`, displayName: name, pages: [] };
-    const folder = `${book}/${String(s + 1).padStart(2, '0')}-${slug(name, 'section')}`;
-    ordered.forEach(({ card, level }, p) => {
-      const html = onenotePageHtml(card);
-      files[`${folder}/${String(p + 1).padStart(4, '0')}-${slug(card.title, 'page')}.html`] = html;
-      section.pages.push({ id: `page-${s + 1}-${p + 1}`, title: String(card.title || '').trim() || 'Untitled page',
-        level, order: p, ...(card.createdAt ? { createdDateTime: card.createdAt } : {}), content: html });
-    });
-    notebook.sections.push(section);
+    return { name, pages };
   });
-  files['onenote.json'] = JSON.stringify({ onenote: true, notebooks: [notebook] });
-  return { files };
+  return { onenote: true, title: board, sections };
 }
 
-// formatOnenote's files as the zip's: only the paths it writes.
+// formatOnenote's notebook as the .zip's files: a page per card under
+// <board>/<list>/ and onenote.json - the same pages in the shape the import
+// reads. Only these paths are written.
 export function onenoteArchiveFiles(built = {}) {
-  const out = {};
-  for (const [path, text] of Object.entries(isObject(built.files) ? built.files : {})) {
-    if (typeof text !== 'string') continue;
-    if (path === 'onenote.json' || /^[\w-]+\/\d{2}-[\w-]+\/\d{4}-[\w-]+\.html$/.test(path)) out[path] = text;
-  }
-  return out;
+  const files = {};
+  if (!isObject(built) || built.onenote !== true) return files;
+  const board = String(built.title || 'WeKan board');
+  const notebook = { id: 'wekan', displayName: board, sections: [] };
+  const book = slug(board, 'notebook');
+  list(built.sections).filter(isObject).forEach((section, s) => {
+    const name = String(section.name || 'Section');
+    const out = { id: `section-${s + 1}`, displayName: name, pages: [] };
+    const folder = `${book}/${String(s + 1).padStart(2, '0')}-${slug(name, 'section')}`;
+    list(section.pages).filter(isObject).forEach((page, p) => {
+      const html = onenotePageHtml({ title: page.title, description: page.description, createdAt: page.createdAt,
+        checklists: [{ items: list(page.todos) }] });
+      files[`${folder}/${String(p + 1).padStart(4, '0')}-${slug(page.title, 'page')}.html`] = html;
+      out.pages.push({ id: `page-${s + 1}-${p + 1}`, title: String(page.title || '').trim() || 'Untitled page',
+        level: Math.max(0, Math.min(2, Number(page.level) || 0)), order: p,
+        ...(page.createdAt ? { createdDateTime: page.createdAt } : {}), content: html });
+    });
+    notebook.sections.push(out);
+  });
+  files['onenote.json'] = JSON.stringify({ onenote: true, notebooks: [notebook] });
+  return files;
 }

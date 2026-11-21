@@ -78,6 +78,16 @@ test('round trip: the exported pages read back - lists, titles, text, checklist 
   assert.strictEqual(c.description, 'Later');
 });
 
+test('negative: the export boundary cannot take the pages apart - they are written after it', async () => {
+  const { sanitizeTransferValue } = await import('../models/lib/importExportBoundary.js');
+  const built = one.formatOnenote({ board: { title: 'Notes' }, items: [{ cardId: 'a', title: 'Kickoff', listTitle: 'Meetings',
+    description: 'Agenda', checklists: [{ items: [{ title: 'Book', done: true }] }] }] });
+  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: v => v.replace(/<[^>]*>/g, '') });
+  assert.deepStrictEqual(checked.warnings, [], 'nothing in the document is markup');
+  const page = Object.entries(one.onenoteArchiveFiles(checked.value)).find(([path]) => path.endsWith('.html'))[1];
+  assert.ok(page.startsWith('<!DOCTYPE html>') && page.includes('<title>Kickoff</title>') && page.includes('<p data-tag="to-do:completed">Book</p>'));
+});
+
 test('the zip WeKan exports is read back through onenote.json', async () => {
   const { readOnenoteExport } = require('../server/lib/microsoftArchives');
   const zipBase64 = Buffer.from(zipSync({ 'onenote.json': strToU8(JSON.stringify(notebook)), 'Team/01-A/0001-x.html': strToU8('<html/>') })).toString('base64');
@@ -108,7 +118,9 @@ test('negative: not what the import fetched, no such notebook, a next link off G
   assert.throws(() => one.parseOnenoteApi({ onenote: true, notebooks: [] }), /no sections/);
   await assert.rejects(client.fetch({ token: 'T' }, 'missing', async () => ({ value: [] })), /no such notebook/);
   await assert.rejects(client.list({ token: 'T' }, async () => ({ value: [], '@odata.nextLink': 'http://graph.microsoft.com/x' })), /another host/);
-  assert.deepStrictEqual(Object.keys(one.onenoteArchiveFiles({ files: { '../x.html': 'a', 'onenote.json': '{}' } })), ['onenote.json']);
+  assert.deepStrictEqual(one.onenoteArchiveFiles({ files: { '../x.html': 'a', 'onenote.json': '{}' } }), {});
+  assert.ok(Object.keys(one.onenoteArchiveFiles({ onenote: true, title: '../..', sections: [{ name: '../x', pages: [{ title: '../y' }] }] }))
+    .every(path => !path.includes('..')));
   // A to-do box with markup inside is its text only.
   assert.deepStrictEqual(one.onenotePage('<p data-tag="to-do"><b>Bold</b> <script>x</script>task</p>').todos, [{ title: 'Bold task', done: false }]);
 });

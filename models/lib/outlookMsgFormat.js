@@ -274,24 +274,27 @@ const fileName = (title, n) => {
 // The board as .eml files, a card and each of its comments a message (the
 // .mbox export's messages, models/lib/mailFormat.js, without the "From "
 // line): Outlook opens an .eml, and it can be dragged into a folder there.
-// { files: { 'name.eml': text } }, written as a .zip.
+// Two steps, as for Vikunja's archive HTML: formatOutlookEml keeps the cards'
+// plain values, which pass the export boundary; outlookArchiveFiles writes
+// the messages from them after it. Written before it, the boundary's HTML
+// sanitizer read "Message-ID: <c1@wekan.invalid>" as a tag and removed it.
+const MAIL_FIELDS = ['cardId', 'title', 'description', 'creator', 'createdAt', 'dueAt', 'labels', 'comments', 'email'];
 export function formatOutlookEml(collected = {}) {
+  return { outlook: true, items: (collected.items || []).map(item => Object.fromEntries(MAIL_FIELDS
+    .filter(key => item && item[key] !== undefined).map(key => [key, item[key]]))) };
+}
+
+// formatOutlookEml's cards as the .zip's .eml files: { 'NNNN-title.eml': text }.
+export function outlookArchiveFiles(built = {}) {
   const files = {};
+  if (!built || built.outlook !== true || !Array.isArray(built.items)) return files;
   let n = 0;
-  for (const item of collected.items || []) {
+  for (const item of built.items) {
+    if (!item || typeof item !== 'object') continue;
     for (const message of mailMessagesOf([item])) {
       n += 1;
       files[fileName(item.title, n)] = message.replace(/^From [^\n]*\n/, '').replace(/\n/g, '\r\n');
     }
   }
-  return { files };
-}
-
-// formatOutlookEml's files as the zip's: only the names it writes.
-export function outlookArchiveFiles(built = {}) {
-  const out = {};
-  for (const [path, text] of Object.entries(built && built.files && typeof built.files === 'object' ? built.files : {})) {
-    if (/^\d{4}-[\w-]*\.eml$/.test(path) && typeof text === 'string') out[path] = text;
-  }
-  return out;
+  return files;
 }

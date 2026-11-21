@@ -183,16 +183,30 @@ test('export: a card and its comments as .eml files Outlook opens, which the imp
   const built = msg.formatOutlookEml({ items: [{ cardId: 'c1', title: 'Quarterly plan', description: 'Here is the plan.',
     creator: 'megan', createdAt: '2026-11-20T09:30:00.000Z', labels: [],
     comments: [{ text: 'Looks good.', author: 'alex', date: '2026-11-20T10:00:00.000Z' }] }] });
-  const names = Object.keys(msg.outlookArchiveFiles(built));
+  const files = msg.outlookArchiveFiles(built);
+  const names = Object.keys(files);
   assert.deepStrictEqual(names, ['0001-Quarterly-plan.eml', '0002-Quarterly-plan.eml']);
-  const first = built.files[names[0]];
+  const first = files[names[0]];
   assert.ok(!/^From /.test(first), 'an .eml has no mbox "From " line');
   assert.match(first, /\r\nSubject: Quarterly plan\r\n/);
   const { decodeMail } = require('../server/lib/mailImport');
-  const back = mail.parseMailMessages([...await decodeMail(first), ...await decodeMail(built.files[names[1]])]);
+  const back = mail.parseMailMessages([...await decodeMail(first), ...await decodeMail(files[names[1]])]);
   assert.strictEqual(back.tasks.length, 1);
   assert.strictEqual(back.tasks[0].title, 'Quarterly plan');
   assert.strictEqual(back.tasks[0].comments[0].text, 'Looks good.');
+});
+
+test('negative: the export boundary cannot take the messages apart - they are written after it', async () => {
+  // The boundary passes every string that looks like markup through the HTML
+  // sanitizer; a sanitizer that removes every tag stands in for it here.
+  const { sanitizeTransferValue } = await import('../models/lib/importExportBoundary.js');
+  const built = msg.formatOutlookEml({ items: [{ cardId: 'c1', title: 'Plan', description: 'Text', creator: 'megan',
+    createdAt: '2026-11-20T09:30:00.000Z', labels: [], comments: [{ text: 'Reply', author: 'alex' }] }] });
+  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: v => v.replace(/<[^>]*>/g, '') });
+  assert.deepStrictEqual(checked.warnings, [], 'nothing in the document is markup');
+  const files = Object.values(msg.outlookArchiveFiles(checked.value));
+  assert.match(files[0], /\r\nMessage-ID: <c1@wekan\.invalid>\r\n/);
+  assert.match(files[1], /\r\nIn-Reply-To: <c1@wekan\.invalid>\r\n/);
 });
 
 test('negative: what is not a Compound File, or whose sector chain loops, is refused', () => {
@@ -204,7 +218,9 @@ test('negative: what is not a Compound File, or whose sector chain loops, is ref
   assert.throws(() => msg.readOutlookMsg(new Uint8Array(looped)), /loops/);
   assert.strictEqual(msg.isMsg(new Uint8Array(10)), false);
   // Only the names formatOutlookEml writes reach the zip.
-  assert.deepStrictEqual(msg.outlookArchiveFiles({ files: { '../evil.eml': 'x', '0001-a.eml': 'y' } }), { '0001-a.eml': 'y' });
+  // Only formatOutlookEml's cards are written, under names it makes.
+  assert.deepStrictEqual(msg.outlookArchiveFiles({ files: { '../evil.eml': 'x' } }), {});
+  assert.deepStrictEqual(Object.keys(msg.outlookArchiveFiles({ outlook: true, items: [{ title: '../../evil', cardId: 'x' }] })), ['0001-evil.eml']);
 });
 
 test('the import reads .msg as bytes and the source is wired end to end', () => {
