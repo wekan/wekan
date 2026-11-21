@@ -256,6 +256,8 @@ reaches a card, and none of a card reaches an exported site.
 
 </details>
 
+- [The comment-stripping loop and the script checks as the code guards read them](https://github.com/wekan/wekan/commit/fcc8f19fe41a3b73e6d6ce8290e3450338bf7d14). Thanks to xet7.
+
 and fixes the following bugs:
 
 **Budget and billing** - two faults found while adding the above.
@@ -382,7 +384,20 @@ and improves the following translations:
 
 **Translations** - each locale in its own language.
 
-**Languages updated:** Venda, Klingon.
+**Languages updated:** Venda, Klingon, Aymara, Setswana, Luxembourgish, Sindhi,
+Northern Sami, Hawaiian, Sardinian, Sinhala.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c039243a12508ab9a4e16ec8734349b7464c70e0">English behind a label replaced by translations in eight languages</a>. Thanks to xet7.</summary>
+
+646 values were the English source with a word of the language in front of
+it - "Aymar aruna: Actions" 480 times in Aymara, "Tshedimosetso: ..." 116
+times in Setswana, a few in Luxembourgish, Sindhi, Northern Sami, Hawaiian,
+Sardinian and Sinhala. Each is now translated into the language of its
+file. `tests/prefixedEnglishValues.test.cjs` reads every value of every
+locale and fails on that shape.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae081a430c317f49c7ca3a22e4d06ffa12864a2a">Venda and Klingon translations hold only Venda and Klingon</a>. Thanks to xet7.</summary>
