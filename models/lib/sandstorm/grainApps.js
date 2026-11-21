@@ -282,7 +282,10 @@ function sandchatBoard(data, info) {
 // the sheet part's "cell:<coord>:<type>:<value>..." lines; in a value "\c"
 // is ':', "\n" a line break and "\b" a backslash.
 const scDecode = text => str(text).replace(/\\(c|n|b)/g, (m, ch) => ({ c: ':', n: '\n', b: '\\' })[ch]);
-const scEncode = text => str(text).replace(/\\/g, '\\b').replace(/:/g, '\\c').replace(/\r?\n/g, '\\n');
+const SC_ESCAPES = { '\\': '\\b', ':': '\\c', '\n': '\\n' };
+// One pass, the backslash among the characters escaped, so no "\" already in
+// the text can cancel an escape (tests/incompleteEscaping.test.cjs).
+const scEncode = text => str(text).replace(/\r\n?/g, '\n').replace(/[\\:\n]/g, ch => SC_ESCAPES[ch]);
 const colIndex = letters => letters.split('').reduce((n, ch) => n * 26 + (ch.charCodeAt(0) - 64), 0);
 const colName = index => { let s = ''; for (let n = index; n > 0; n = Math.floor((n - 1) / 26)) s = String.fromCharCode(65 + ((n - 1) % 26)) + s; return s; };
 
@@ -444,7 +447,7 @@ function hackercmsBoard(data, info) {
       const { meta, body } = frontMatter(page.text);
       if (meta.wekan === 'index') return null; // the list of pages WeKan's export writes
       const html = /\.html?$/i.test(page.path);
-      const title = meta.title || (html && (/<title>([^<]*)<\/title>/i.exec(body) || [])[1]) || page.path.replace(/\.[^.]+$/, '');
+      const title = meta.title || (html && (/<title\b[^>]*>([^<]*)<\/title\b[^>]*>/i.exec(body) || [])[1]) || page.path.replace(/\.[^.]+$/, '');
       // The page's text, without its <head> and without the heading that
       // only repeats its title.
       let source = body;
