@@ -69,13 +69,17 @@ function interceptBodies(text) {
 
 const bodies = interceptBodies(src);
 
-test('every storage strategy implements interceptDownload', () => {
-  // Four: the abstract base and the three concrete strategies. The base counts
-  // because an empty body returns undefined, which Meteor-Files reads exactly
-  // as it reads false - so a strategy that forgot to override it failed open
-  // too, and the safe default has to live there as well.
-  assert.equal(bodies.length, 4,
-    'the base plus three strategies - a new one needs this treatment too');
+test('one interceptDownload serves every storage strategy', () => {
+  // There used to be four: a refusing base and three concrete strategies with
+  // the same body, copied. The base now holds that body and the strategies
+  // supply only getReadStream(), whose base version returns nothing - so a
+  // strategy that forgets to implement it still answers 404 rather than fail
+  // open. A strategy that overrides interceptDownload again is held to every
+  // rule below.
+  assert.ok(bodies.length >= 1, 'the base implements interceptDownload');
+  const base = src.slice(src.indexOf('class FileStoreStrategy {'), src.indexOf('export class FileStoreStrategyGridFs'));
+  assert.equal(interceptBodies(base).length, 1, 'the base class holds it');
+  assert.match(base, /\n  getReadStream\(\) \{\n  \}\n/, 'and its getReadStream returns nothing');
 });
 
 // THE regression, and stated so it cannot come back in any of them.
@@ -107,7 +111,7 @@ test('a served file still goes through the one policy choke point', () => {
   // strategy writing to the response itself would skip the headers exactly as
   // returning false did.
   const serving = bodies.filter(b => /getReadStream\(\)/.test(b));
-  assert.equal(serving.length, 3, 'the three concrete strategies');
+  assert.equal(serving.length, bodies.length, 'every interceptDownload serves only what getReadStream() gives it');
   serving.forEach((body, n) => {
     assert.match(body, /httpStreamOutput\(/,
       `serving strategy #${n + 1} must stream through httpStreamOutput`);

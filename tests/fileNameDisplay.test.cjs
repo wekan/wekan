@@ -166,8 +166,15 @@ check('global filename helpers registered and used across the UI', () => {
 });
 
 check('download routes sanitize the Content-Disposition filename', () => {
+  // Both routes take the header from server/lib/contentDisposition.js, which
+  // each used to define for itself.
+  assert.ok(/sanitizeDownloadFileName\(filename\)/.test(read('server/lib/contentDisposition.js')),
+    'the shared Content-Disposition helper sanitizes the download name');
   for (const f of ['server/routes/universalFileServer.js', 'server/routes/legacyAttachments.js']) {
-    assert.ok(/sanitizeDownloadFileName/.test(read(f)), `${f} must sanitize the download name`);
+    const src = read(f);
+    assert.ok(/import \{ sanitizeFilenameForHeader, buildContentDispositionHeader \} from '\/server\/lib\/contentDisposition';/.test(src),
+      `${f} must use the shared, sanitizing header helper`);
+    assert.ok(!/function sanitizeFilenameForHeader\(/.test(src), `${f} must not define its own copy`);
   }
 });
 

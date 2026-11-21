@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random';
-const { safeUploadFileId } = require('/models/lib/uploadFileId');
+const { safeUploadFileId, uploadNameParts } = require('/models/lib/uploadFileId');
 const { isFilesRoot } = require('/models/lib/filesRoot');
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
@@ -41,31 +41,7 @@ const Avatars = new FilesCollection({
   allowClientCode: true,
   storagePath: storagePath,
   namingFunction(opts) {
-    let filenameWithoutExtension = "";
-    let fileId = "";
-    if (opts?.name) {
-      // Client
-      filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
-      fileId = opts.meta.fileId;
-      delete opts.meta.fileId;
-    } else if (opts?.file?.name) {
-      // Server
-      if (opts.file.extension) {
-        // A literal suffix, never a RegExp built from the uploaded name.
-        const name = opts.file.name;
-        const suffix = opts.file.extensionWithDot;
-        filenameWithoutExtension = name.endsWith(suffix) ? name.slice(0, -suffix.length) : name;
-      } else {
-        // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
-        filenameWithoutExtension = opts.file.name;
-      }
-      fileId = opts.fileId;
-    }
-    else {
-      // should never reach here
-      filenameWithoutExtension = Math.random().toString(36).slice(2);
-      fileId = Math.random().toString(36).slice(2);
-    }
+    let { fileId, filenameWithoutExtension } = uploadNameParts(opts);
     // UploadPathBleed, avatar sibling (2026-10-02): the id is client-supplied
     // and starts the on-disk name, so "../../x" wrote outside the store.
     fileId = safeUploadFileId(fileId, { source: 'Avatars.namingFunction', fresh: () => Random.id(), isServer: Meteor.isServer });

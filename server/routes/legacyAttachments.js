@@ -5,56 +5,12 @@ import { mayReadBoardAttachment } from '/server/lib/assignedOnlyAttachments';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
-const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 const { fileResponsePolicy, fileNameIsBrowserExecutable } = require('/models/lib/fileResponseSafety');
+import { sanitizeFilenameForHeader, buildContentDispositionHeader } from '/server/lib/contentDisposition';
 
 // Ensure this file is loaded
 if (process.env.DEBUG === 'true') {
   console.log('Legacy attachments route loaded');
-}
-
-/**
- * Helper function to properly encode a filename for the Content-Disposition header
- * Removes invalid characters (control chars, newlines, etc.) that would break HTTP headers.
- * For non-ASCII filenames, uses RFC 5987 encoding to preserve the original filename.
- * This prevents ERR_INVALID_CHAR errors when filenames contain control characters.
- */
-function sanitizeFilenameForHeader(filename) {
-  if (!filename || typeof filename !== 'string') {
-    return 'download';
-  }
-
-  // Decode a URL-encoded name and REMOVE all invisible/format characters (incl.
-  // control chars, zero-width, bidi, BOM) so the downloaded file gets a clean,
-  // unambiguous name — matching how filenames are shown in the UI.
-  let sanitized = sanitizeDownloadFileName(filename);
-
-  // If the filename is all ASCII printable characters (0x20-0x7E), use it directly
-  if (/^[\x20-\x7E]*$/.test(sanitized)) {
-    // Escape any quotes and backslashes in the filename
-    sanitized = sanitized.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-    return sanitized;
-  }
-
-  // For non-ASCII filenames, provide a fallback and RFC 5987 encoded version
-  const fallback = sanitized.replace(/[^\x20-\x7E]/g, '_').slice(0, 100) || 'download';
-  const encoded = encodeURIComponent(sanitized);
-
-  // Return special marker format that will be handled by buildContentDispositionHeader
-  // Format: "fallback|RFC5987:encoded"
-  return `${fallback}|RFC5987:${encoded}`;
-}
-
-/**
- * Helper function to build a complete Content-Disposition header value with RFC 5987 support
- * Handles the special format returned by sanitizeFilenameForHeader for non-ASCII filenames
- */
-function buildContentDispositionHeader(disposition, sanitizedFilename) {
-  if (sanitizedFilename.includes('|RFC5987:')) {
-    const [fallback, encoded] = sanitizedFilename.split('|RFC5987:');
-    return `${disposition}; filename="${fallback}"; filename*=UTF-8''${encoded}`;
-  }
-  return `${disposition}; filename="${sanitizedFilename}"`;
 }
 
 /**

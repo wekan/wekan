@@ -6,102 +6,14 @@ import { fileStoreStrategyFactory } from '/models/attachments.server';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { ObjectId } from 'bson';
-import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
-import { tripCanary } from '/server/lib/canary';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { softDeleteAttachment } from '/server/attachmentSoftDelete';
+import {
+  userHasBoardWriteAccess,
+  maxBase64LengthForBytes,
+  getApiTransferLimits,
+} from '/server/lib/attachmentApiAccess';
 import { assignedOnlyAttachmentScope, mayReadBoardAttachment, mayWriteCardAttachment, mayWriteInCardList } from '/server/lib/assignedOnlyAttachments';
-
-const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
-
-// Returns true if the user may *write* to the board (add/change/remove
-// attachments): the canonical board write capability, or a global site admin.
-// Read operations keep using board.hasMember().
-async function userHasBoardWriteAccess(board, userId) {
-  if (!board || !userId) {
-    return false;
-  }
-  if (allowIsBoardMemberWithWriteAccess(userId, board)) {
-    return true;
-  }
-  const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
-  if (admin !== undefined) {
-    return true;
-  }
-  tripCanary('board.write-without-capability', { userId });
-  return false;
-}
-
-function normalizeConfiguredLimit(configuredValue, fallbackValue = 0) {
-  if (Number.isFinite(configuredValue) && configuredValue >= 0) {
-    return configuredValue;
-  }
-  return Number.isFinite(fallbackValue) && fallbackValue >= 0 ? fallbackValue : 0;
-}
-
-function getEffectiveApiFileLimit(maxBytes) {
-  if (Number.isFinite(maxBytes) && maxBytes > 0) {
-    return Math.min(maxBytes, HARD_MAX_API_FILE_BYTES);
-  }
-  // Unlimited in settings still uses a hard in-memory safety cap.
-  return HARD_MAX_API_FILE_BYTES;
-}
-
-function maxBase64LengthForBytes(maxBytes) {
-  const safeBytes = Number.isFinite(maxBytes) && maxBytes > 0 ? maxBytes : HARD_MAX_API_FILE_BYTES;
-  return Math.ceil((safeBytes * 4) / 3) + 4;
-}
-
-function parseNonNegativeInt(value, fallback = 0) {
-  const parsed = Number.parseInt(value, 10);
-  if (!Number.isFinite(parsed) || parsed < 0) {
-    return fallback;
-  }
-  return parsed;
-}
-
-async function getApiTransferLimits() {
-  const envUploadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_UPLOAD_BYTES, 0);
-  const envDownloadFallback = parseNonNegativeInt(process.env.ATTACHMENT_API_MAX_DOWNLOAD_BYTES, 0);
-
-  const fallback = {
-    apiUploadMaxBytes: envUploadFallback,
-    apiDownloadMaxBytes: envDownloadFallback,
-    apiUploadBlocked: false,
-    apiDownloadBlocked: false,
-  };
-
-  try {
-    const settings = await AttachmentStorageSettings.findOneAsync({});
-    const limitSettings = settings?.limitSettings || {};
-
-    const apiUploadMaxBytes = normalizeConfiguredLimit(limitSettings.apiUploadMaxBytes, fallback.apiUploadMaxBytes);
-    const apiDownloadMaxBytes = normalizeConfiguredLimit(limitSettings.apiDownloadMaxBytes, fallback.apiDownloadMaxBytes);
-    const apiUploadBlocked = limitSettings.apiUploadBlocked === true;
-    const apiDownloadBlocked = limitSettings.apiDownloadBlocked === true;
-
-    return {
-      apiUploadMaxBytes,
-      apiDownloadMaxBytes,
-      apiUploadBlocked,
-      apiDownloadBlocked,
-      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
-      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
-    };
-  } catch (error) {
-    const apiUploadMaxBytes = normalizeConfiguredLimit(null, fallback.apiUploadMaxBytes);
-    const apiDownloadMaxBytes = normalizeConfiguredLimit(null, fallback.apiDownloadMaxBytes);
-
-    return {
-      apiUploadMaxBytes,
-      apiDownloadMaxBytes,
-      apiUploadBlocked: false,
-      apiDownloadBlocked: false,
-      effectiveApiUploadMaxBytes: getEffectiveApiFileLimit(apiUploadMaxBytes),
-      effectiveApiDownloadMaxBytes: getEffectiveApiFileLimit(apiDownloadMaxBytes),
-    };
-  }
-}
 
 // Attachment API methods
 // A card, list and swimlane named as an attachment's destination belong to the

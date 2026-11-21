@@ -211,17 +211,38 @@ class FileStoreStrategy {
    * @param http the current http request
    * @param cacheControl cacheControl of FilesCollection
    *
-   * The BASE implementation refuses, and that is deliberate. An empty body
-   * returns undefined, which Meteor-Files reads as "not handled" and answers by
-   * serving the file itself - from the stored path, with the stored
-   * Content-Type, and none of the policy httpStreamOutput applies. Every
-   * concrete strategy below overrides this, so the default is only ever reached
-   * by one that forgot to; a strategy that forgets should serve nothing rather
-   * than serve it unfiltered.
+   * One implementation for every strategy: each supplies getReadStream(), and
+   * every byte served goes through httpStreamOutput, the one place WeKan's
+   * response policy (models/lib/fileResponseSafety.js) is applied.
+   *
+   * FAIL CLOSED when there is nothing to serve. Returning false (or undefined)
+   * here means "not handled", and Meteor-Files then serves the file ITSELF -
+   * from the stored path, with the stored Content-Type, and none of the policy
+   * httpStreamOutput applies. A stored attachment of type text/html came back
+   * as text/html, status 200, inline: precisely the stored XSS that policy
+   * exists to stop.
+   *
+   * What makes that a bypass rather than a fallback is WHY a strategy has no
+   * stream. getReadStream() returns nothing when the file cannot be resolved
+   * INSIDE the storage root - the containment check of GHSA-4mxf-m8pq-xc9p - so
+   * "nothing" means "this is not a file WeKan may serve", and handing it to a
+   * server with no containment check answers the refusal with the file. A
+   * strategy that does not implement getReadStream() gets the base one, which
+   * returns nothing, so it serves nothing rather than serve it unfiltered.
+   *
+   * A file that is genuinely absent gets the same 404 it would have got anyway.
    */
   interceptDownload(http, cacheControl) {
-    http.response.statusCode = 404;
-    http.response.end('not found');
+    const readStream = this.getReadStream();
+    const downloadFlag = http?.params?.query?.download;
+
+    if (!readStream) {
+      http.response.statusCode = 404;
+      http.response.end('not found');
+      return true;
+    }
+
+    httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
     return true;
   }
 
@@ -291,41 +312,6 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
   constructor(gridFsBucket, fileObj, versionName, collection) {
     super(fileObj, versionName, collection);
     this.gridFsBucket = gridFsBucket;
-  }
-
-  /** download the file
-   * @param http the current http request
-   * @param cacheControl cacheControl of FilesCollection
-   */
-  /*
-   * FAIL CLOSED when the strategy will not serve the file.
-   *
-   * Returning false here means "not handled", and Meteor-Files then serves the
-   * file ITSELF - from the stored path, with the stored Content-Type, and none
-   * of the policy httpStreamOutput applies. A stored attachment of type
-   * text/html came back as text/html, status 200, inline: precisely the stored
-   * XSS that policy exists to stop.
-   *
-   * What makes that a bypass rather than a fallback is WHY the strategy
-   * declines. getReadStream() returns nothing when the file cannot be resolved
-   * INSIDE the storage root - the containment check of GHSA-4mxf-m8pq-xc9p - so
-   * "false" means "this is not a file WeKan may serve", and handing it to a
-   * server with no containment check answers the refusal with the file.
-   *
-   * A file that is genuinely absent gets the same 404 it would have got anyway.
-   */
-  interceptDownload(http, cacheControl) {
-    const readStream = this.getReadStream();
-    const downloadFlag = http?.params?.query?.download;
-
-    if (!readStream) {
-      http.response.statusCode = 404;
-      http.response.end('not found');
-      return true;
-    }
-
-    httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
-    return true;
   }
 
   /** after file remove */
@@ -468,30 +454,6 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    */
   constructor(fileObj, versionName, collection) {
     super(fileObj, versionName, collection);
-  }
-
-  /** Serve filesystem files through WeKan's response backstop instead of
-   * falling through to Meteor-Files, which trusts the stored MIME type and
-   * defaults to inline disposition. */
-  interceptDownload(http, cacheControl) {
-    const readStream = this.getReadStream();
-    // Fail closed, for the reason given above the filesystem strategy's
-    // interceptDownload: `false` hands the file to Meteor-Files unfiltered.
-    if (!readStream) {
-      http.response.statusCode = 404;
-      http.response.end('not found');
-      return true;
-    }
-    const downloadFlag = http?.params?.query?.download;
-    httpStreamOutput(
-      readStream,
-      this.fileObj.name,
-      http,
-      downloadFlag,
-      cacheControl,
-      this.fileObj,
-    );
-    return true;
   }
 
   /** returns a read stream
@@ -692,7 +654,6 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
   }
 }
 
-
 /**
  * Strategy to store attachments on a cloud backend (S3-compatible, Azure Blob,
  * Google Cloud Storage) through @tweedegolf/storage-abstraction.
@@ -741,41 +702,6 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
     this.provider = provider;
     this._uploadPromise = null;
     this._key = null;
-  }
-
-  /** download the file
-   * @param http the current http request
-   * @param cacheControl cacheControl of FilesCollection
-   */
-  /*
-   * FAIL CLOSED when the strategy will not serve the file.
-   *
-   * Returning false here means "not handled", and Meteor-Files then serves the
-   * file ITSELF - from the stored path, with the stored Content-Type, and none
-   * of the policy httpStreamOutput applies. A stored attachment of type
-   * text/html came back as text/html, status 200, inline: precisely the stored
-   * XSS that policy exists to stop.
-   *
-   * What makes that a bypass rather than a fallback is WHY the strategy
-   * declines. getReadStream() returns nothing when the file cannot be resolved
-   * INSIDE the storage root - the containment check of GHSA-4mxf-m8pq-xc9p - so
-   * "false" means "this is not a file WeKan may serve", and handing it to a
-   * server with no containment check answers the refusal with the file.
-   *
-   * A file that is genuinely absent gets the same 404 it would have got anyway.
-   */
-  interceptDownload(http, cacheControl) {
-    const readStream = this.getReadStream();
-    const downloadFlag = http?.params?.query?.download;
-
-    if (!readStream) {
-      http.response.statusCode = 404;
-      http.response.end('not found');
-      return true;
-    }
-
-    httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
-    return true;
   }
 
   /** after file remove */
@@ -988,7 +914,6 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
     return this.provider;
   }
 }
-
 
 /** move the fileObj to another storage
  * @param fileObj move this fileObj to another storage

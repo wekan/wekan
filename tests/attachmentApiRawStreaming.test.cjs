@@ -55,7 +55,8 @@ check('raw downloads stream after the checks, as downloads that cannot run here'
   assert.ok(route('/api/attachment/download/:attachmentId').indexOf('mayReadBoardAttachment') < route('/api/attachment/download/:attachmentId').indexOf("req.query.raw === '1'"));
   assert.ok(route('/api/attachment/download-background/:boardId').indexOf('isOwnBoardBackground') < route('/api/attachment/download-background/:boardId').indexOf("req.query.raw === '1'"),
     'the BackgroundBleed check comes first');
-  const send = api.slice(api.indexOf('function sendRawFile'), api.indexOf('async function userHasBoardWriteAccess'));
+  const send = api.slice(api.indexOf('function sendRawFile'), api.indexOf('\n}\n', api.indexOf('function sendRawFile')) + 2);
+  assert.ok(send.length > 40, 'sendRawFile exists');
   assert.match(send, /'X-Content-Type-Options': 'nosniff'/);
   assert.match(send, /'Content-Security-Policy': "default-src 'none'; sandbox"/);
   assert.match(send, /attachmentDisposition\(file\.name \|\| 'attachment'\)/);

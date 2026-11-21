@@ -5,7 +5,8 @@ const vm = require('node:vm');
 const { test } = require('node:test');
 const source = fs.readFileSync('server/routes/universalFileServer.js', 'utf8');
 const resolver = source.slice(source.indexOf('  async function getUserFromToken('), source.indexOf('  /**\n   * Authorization helper'));
-const guard = source.slice(source.indexOf('  async function isAuthorizedForBoard('), source.indexOf('  /**\n   * Helper function to properly encode'));
+const guardAt = source.indexOf('  async function isAuthorizedForBoard(');
+const guard = source.slice(guardAt, source.indexOf('\n  }\n', guardAt) + 4);
 const board = { isVisibleBy: user => user?._id === 'member' };
 function policy(user) {
   return vm.runInNewContext(`${resolver}\n${guard}\nisAuthorizedForBoard`, {

@@ -16,6 +16,8 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const authentication = read('server/authentication.js');
 const attachmentMethod = read('server/attachmentApi.js');
 const attachmentRest = read('server/routes/attachmentApi.js');
+// Both attachment APIs take their write check from this one module.
+const attachmentAccess = read('server/lib/attachmentApiAccess.js');
 const cards = read('server/models/cards.js');
 
 let passed = 0;
@@ -55,17 +57,19 @@ test('all card mutation routes continue through the repaired shared check', () =
 });
 
 test('both attachment APIs use the canonical capability too', () => {
+  const helper = attachmentAccess.slice(
+    attachmentAccess.indexOf('export async function userHasBoardWriteAccess('),
+    attachmentAccess.indexOf('\n}\n', attachmentAccess.indexOf('export async function userHasBoardWriteAccess(')) + 2,
+  );
+  assert.match(helper, /allowIsBoardMemberWithWriteAccess\(userId, board\)/);
+  assert.ok(!helper.includes('isCommentAssignedOnly'));
   for (const [name, source] of [
     ['Meteor attachment methods', attachmentMethod],
     ['REST attachment routes', attachmentRest],
   ]) {
-    const helper = source.slice(
-      source.indexOf('async function userHasBoardWriteAccess('),
-      source.indexOf('\n}\n', source.indexOf('async function userHasBoardWriteAccess(')) + 2,
-    );
-    assert.match(helper, /allowIsBoardMemberWithWriteAccess\(userId, board\)/,
-      name);
-    assert.ok(!helper.includes('isCommentAssignedOnly'), name);
+    assert.match(source, /import \{[^}]*\buserHasBoardWriteAccess\b[^}]*\} from '\/server\/lib\/attachmentApiAccess';/, name);
+    // Negative: no API defines its own write check beside the shared one.
+    assert.doesNotMatch(source, /function userHasBoardWriteAccess\(/, name);
   }
 });
 
@@ -75,10 +79,8 @@ test('denied shared and attachment writes trip the AssignedBleed canary', () => 
   assert.match(writeCheck, /tripCanary\(writeRefusalCanary\(board, userId\), \{ userId \}\)/);
   assert.match(authentication,
     /return member && member\.isReadOnly \? 'board\.readonly-write' : 'board\.write-without-capability';/);
-  for (const source of [attachmentMethod, attachmentRest]) {
-    assert.match(source,
-      /tripCanary\('board\.write-without-capability', \{ userId \}\)/);
-  }
+  assert.match(attachmentAccess,
+    /tripCanary\('board\.write-without-capability', \{ userId \}\)/);
 });
 
 test('all non-writing roles are denied by the shared decision', () => {

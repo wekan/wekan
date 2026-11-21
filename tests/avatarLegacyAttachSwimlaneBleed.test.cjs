@@ -116,15 +116,21 @@ test('every Meteor-Files storage strategy uses the shared response backstop', ()
   const stream = read('models/lib/httpStream.js');
   const server = read('models/attachments.server.js');
 
+  // The base class serves every strategy's download (models/lib/fileStoreStrategy.js);
+  // a strategy that overrides it is held to the same two rules.
   for (const className of [
+    'FileStoreStrategy',
     'FileStoreStrategyGridFs',
     'FileStoreStrategyFilesystem',
     'FileStoreStrategyCloud',
   ]) {
-    const start = strategies.indexOf(`class ${className}`);
+    const start = strategies.indexOf(`class ${className} `);
     assert.notEqual(start, -1, className);
     const next = strategies.indexOf('\nexport class ', start + 1);
     const body = strategies.slice(start, next === -1 ? undefined : next);
+    const intercepts = /\n  interceptDownload\(/.test(body);
+    if (className === 'FileStoreStrategy') assert.ok(intercepts, 'the base class intercepts downloads');
+    if (!intercepts) continue;
     assert.match(body, /httpStreamOutput\(/, `${className} must intercept downloads`);
     assert.match(
       body,

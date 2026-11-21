@@ -40,8 +40,10 @@ test('the id is generated once and stamped into meta', () => {
   assert.ok(/fileId,\n\s*fileName/.test(lib), 'the config carries it');
   assert.ok(/meta: \{ \.\.\.meta, fileId \}/.test(lib),
     'and meta carries the SAME one - which is where the naming function reads it');
-  const naming = read('models/attachments.js');
-  assert.ok(/fileId = opts\.meta\.fileId;\n\s*delete opts\.meta\.fileId;/.test(naming),
+  // The naming function reads it with uploadNameParts(), shared with avatars.
+  assert.ok(/uploadNameParts\(opts\)/.test(read('models/attachments.js')),
+    'the naming function reads the upload with uploadNameParts');
+  assert.ok(/const fileId = opts\.meta && opts\.meta\.fileId;\n\s*if \(opts\.meta\) delete opts\.meta\.fileId;/.test(read('models/lib/uploadFileId.js')),
     'because that is what the naming function does with it');
 });
 

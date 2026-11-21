@@ -27,4 +27,32 @@ function safeUploadFileId(fileId, { source, fresh, isServer }) {
   return fresh();
 }
 
-module.exports = { SAFE_FILE_ID, isSafeUploadFileId, safeUploadFileId };
+// What a Meteor-Files namingFunction is given, read the same way for every
+// collection (attachments, avatars): the file id the upload brought and the
+// file's name without its extension. On the client both come from `opts.name`
+// and `opts.meta.fileId`, and the id is taken out of `meta` - it was put there
+// only for the namingFunction. On the server they are `opts.fileId` and
+// `opts.file`. The id still has to go through safeUploadFileId.
+function uploadNameParts(opts) {
+  if (opts && opts.name) {
+    const fileId = opts.meta && opts.meta.fileId;
+    if (opts.meta) delete opts.meta.fileId;
+    return { fileId, filenameWithoutExtension: opts.name.replace(/(.+)\..+/, '$1') };
+  }
+  if (opts && opts.file && opts.file.name) {
+    const name = opts.file.name;
+    // A literal suffix, never a RegExp built from the uploaded name. A file
+    // with no extension keeps its whole name (extensionWithDot is then '.',
+    // and removing it would cut the last character).
+    const suffix = opts.file.extensionWithDot;
+    const filenameWithoutExtension = opts.file.extension && name.endsWith(suffix) ? name.slice(0, -suffix.length) : name;
+    return { fileId: opts.fileId, filenameWithoutExtension };
+  }
+  // Should never be reached.
+  return {
+    fileId: Math.random().toString(36).slice(2),
+    filenameWithoutExtension: Math.random().toString(36).slice(2),
+  };
+}
+
+module.exports = { SAFE_FILE_ID, isSafeUploadFileId, safeUploadFileId, uploadNameParts };
