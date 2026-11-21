@@ -97,14 +97,14 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** New **Workload and capacity** and **Budget and billing** pages
-show each person's hours against their working time across boards, and each
-board's cost, forecast and margin against its budget, with **expenses**, **fixed
-fees**, **time approval**, **quotes**, **utilization** and **skills**. Invoices
-of a period download as **PDF**, **SVG**, **Excel** and **e-invoice** with the
-payment **QR codes** of many countries. The **Venda** and **Klingon**
+**In short:** New **Workload and capacity**, **Budget and billing** and **Cloud
+Panel** pages: hours against working time, each board's cost and margin with
+**expenses**, **fees**, **quotes** and **invoices** in **PDF**, **Excel** and
+**e-invoice**, and many customer domains merged into one WeKan. WordPress,
+Ghost, Blogger and static sites import and export under **Website**, and a
+public board can show itself as a **website**. The **Venda** and **Klingon**
 translations hold only their own language, the move and copy pickers show names
-without numbers (#6135), and unused or copied code is removed or shared.
+without numbers (#6135), and unused code is removed.
 
 This release adds the following new features:
 
@@ -214,6 +214,45 @@ had, red under their own target. Skills with levels 1 to 5 are part of a
 person's working time; a placeholder that needs a skill lists the people
 with it at that level or better, the most free hours first.
 `tests/workload.test.cjs` and `tests/workloadAccess.test.cjs` pin it.
+
+</details>
+
+**Cloud Panel** - hosting many WeKan customer domains from one place.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/240f0dad935cba56618346fa0781ac1e72159af6">Customer domains, their databases, CloudFlare, Caddy, invoices and chat, and many WeKans merged into one</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Cloud names the Cloud Panel Domain and its
+SuperAdmin, as Weddy's Cloud Panel does. At that domain, `/cloud` keeps the
+customer domains in a table: each has its own WeKan container and MongoDB
+database, or shares this WeKan as an Organization claiming the domain.
+Import into this WeKan merges a domain's own database into this one, its
+accounts matched by e-mail address, so ten containers and ten databases
+become one of each. The SuperAdmin records the hosting invoices, which each
+customer sees with whether and when they were paid; a chat per domain takes
+earlier Rocket.Chat and SandChat conversations. CloudFlare DNS records and
+Caddy routes are written from the table. The panel answers only at its own
+domain; passwords and the CloudFlare token never reach a browser.
+`tests/cloudPanel.test.cjs` and `tests/cloudPanelAccess.test.cjs` pin it.
+See [Cloud Panel](docs/Features/Admin-Panel/Cloud-Panel.md).
+
+</details>
+
+**Website** - websites as boards, and boards as websites.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e8549032ea4b44e90a96eb53a4e1941f53a5261">Import and export WordPress, Ghost, Blogger, static and HTML sites; the board as a website</a>. Thanks to xet7.</summary>
+
+A new Website group in Import and Export reads and writes WordPress's WXR
+and REST JSON, Ghost, Blogger, a Markdown site of Hugo, Jekyll, Eleventy or
+Astro, a plain HTML site or Medium's export, and reads Substack's. Pages
+and posts become cards by status, with their content as Markdown, labels,
+comments and images. Board View / Website shows the board as that website,
+built from its own cards and attachments, and a public board can open in
+it, so visitors see the site at the board's address. No script of a site
+reaches a card, and none of a card reaches an exported site.
+`tests/websiteFormat.test.cjs` and a Playwright spec pin it. See
+[Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md).
 
 </details>
 
@@ -8482,85 +8521,5 @@ language.
   into Odia's "no results", and Telugu's literal `null` that the importer
   had replaced. The commit lists the languages translated with low
   confidence, for a speaker to correct. Thanks to translators and xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.60 2026-10-22 WeKan ® release
-
-**In short:** **sanitize-html 2.18.1** fixes a stack overflow that nested
-`<iframe>` tags caused in WeKan's import and export sanitizer, and a failed
-import or export no longer **disables the account** of whoever ran it unless it
-was an attempt. The forked Meteor **dynamic-import** and **meteor shell** keys
-come from the crypto RNG.
-
-This release fixes the following CRITICAL SECURITY ISSUES:
-
-**Imports and exports** - what nested `<iframe>` did to the sanitizer, and who
-a failure is blamed on.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/96ed9ad202">sanitize-html 2.18.1: nested iframes no longer crash imports and exports, or lock out who ran them</a>. Thanks to xet7.</summary>
-
-sanitize-html 2.18.0 re-sanitized the fallback of a discarded `<iframe>` with
-no recursion limit
-([GHSA-c9rx-x947-fp3h](https://github.com/advisories/GHSA-c9rx-x947-fp3h),
-CWE-674). WeKan's server sanitizer (`server/lib/inputSanitizer.js`) discards
-every tag, so it took that path: a few kilobytes of nested `<iframe>` threw
-`RangeError: Maximum call stack size exceeded` in `secureTransfer`, which
-sanitizes every import and export. `secureTransfer` records a throw as a high
-"blocked" event naming the user, and that disables the account, so a card
-planted with the payload locked out the next member who exported the board.
-2.18.1 bounds the recursion and keeps `nestingLimit` across it; it also drops
-the `deepmerge` dependency.
-
-[The tests](https://github.com/wekan/wekan/commit/d89bcab8e0):
-`tests/sanitizeHtmlNestedIframe.test.cjs` runs WeKan's own `sanitizeInput`
-options on three nested-iframe payloads and checks the installed and locked
-versions; with 2.18.0 it fails with the same `RangeError`. Its negative test
-fails if anything else imports sanitize-html. The Playwright spec exports and
-imports a board holding the payload and checks that nobody is locked out.
-Nothing is refused, so there is no Admin Panel → Problems key.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/567f99227b">A failed import or export disables an account only when it was an attempt</a>. Thanks to xet7.</summary>
-
-`secureTransfer` recorded every throw as a high "blocked" event naming the
-user, and that disables the account - so sanitize-html 2.18.0's crash, or any
-other library fault, locked out whoever happened to run the import or export.
-The transfer boundary now marks its own refusals (a cycle, a non-plain object,
-a size limit), and only those are recorded as blocked: high, and medium for a
-size limit, as before. Anything else shows in Admin Panel → Problems as
-ImportExportFailure: detected, still naming whose import or export it was, and
-never blocking an account.
-
-`tests/transferFailure.test.cjs` drives real boundary refusals and a sanitizer
-that throws through the account-blocking decision itself, and fails with the
-old `secureTransfer`. It also fails if the boundary throws a plain `Error` or
-anything other than `secureTransfer` calls it.
-
-</details>
-
-and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6efd39a70e">The dynamic-import and meteor shell keys come from the crypto RNG</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-Alert 591 (js/insecure-randomness, CWE-338), in WeKan's fork of Meteor's
-`dynamic-import`: the key that lets a request read the SERVER's dynamic modules
-(`?key=` on `/__meteor__/dynamic-import/fetch`) came from `Math.random()`,
-whose state can be recovered from earlier outputs, and was compared with
-`===`. `meteor shell`'s connection key, which runs code in the server process,
-was made and compared the same way. Meteor 3.5.3 and 3.6-rc.0 both have this.
-
-Both now come from `crypto.randomBytes` (160 and 128 bits) and are compared
-with `crypto.timingSafeEqual`. `tests/meteorForkRandomKeys.test.cjs` runs both,
-and fails on any `Math.random()` in the forks and on a key, secret, token,
-nonce, salt, password or code made from `Math.random()` anywhere in the tree. A
-wrong key is not recorded in Admin Panel → Problems: another WeKan instance
-behind the same load balancer legitimately sends its own.
-
-</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
