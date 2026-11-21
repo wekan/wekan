@@ -3379,6 +3379,210 @@
     {
       "key": "import-board-instruction-sandstorm",
       "since": "2026-11-21"
+    },
+    {
+      "key": "workload-title",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-intro",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-from",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-weeks",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-show",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-story-points",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-all-boards",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-truncated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-legend-ok",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-legend-under",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-legend-over",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-week-short",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-unscheduled",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-capacity-label",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-allocated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absent-days",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-holiday-days",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-unestimated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-unassigned",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-no-cards",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-hours-short",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-points-short",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-overloaded",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-my-capacity",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-hours-per-week",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-work-percent",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-working-days",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-my-absences",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-type",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-vacation",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-sick",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-holiday",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-training",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-absence-other",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-note",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-add-absence",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-allocations",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-allocations-intro",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-role-placeholder",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-role",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-role-example",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-headcount",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-allocation-percent",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-add-allocation",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-holidays",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-no-holidays",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-holiday-name",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-add-holiday",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-estimated-hours",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "workload-invalid-estimate",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "feature-workload-desc",
+      "since": "2026-11-21"
     }
   ]
 }

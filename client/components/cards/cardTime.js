@@ -36,9 +36,21 @@ Template.editCardSpentTimePopup.events({
 
     const spentTime = parseFloat(evt.target.time.value);
     const isOvertime = tpl.overtime.get();
+    const estimateText = evt.target.estimatedHours ? String(evt.target.estimatedHours.value).trim() : '';
+    const estimatedHours = estimateText === '' ? null : parseFloat(estimateText);
+    if (estimatedHours !== null && !(estimatedHours >= 0 && estimatedHours <= 10000)) {
+      tpl.error.set('workload-invalid-estimate');
+      evt.target.estimatedHours.focus();
+      return;
+    }
     if (spentTime >= 0) {
       card.setSpentTime(spentTime);
       card.setIsOvertime(isOvertime);
+      const currentEstimate = typeof card.getEstimatedHours === 'function' ? card.getEstimatedHours() : null;
+      if (typeof card.setEstimatedHours === 'function'
+        && estimatedHours !== (typeof currentEstimate === 'number' ? currentEstimate : null)) {
+        card.setEstimatedHours(estimatedHours);
+      }
       backIfOwnPopup(evt, 'editCardSpentTimePopup');
     } else {
       tpl.error.set('invalid-time');
@@ -76,6 +88,12 @@ Template.cardSpentTime.helpers({
   showTime() {
     const card = Cards.findOne(this._id) || this;
     return card.getSpentTime ? formatSpentTime(card.getSpentTime()) : '';
+  },
+  // Workload: the estimate beside the time spent, "1h 30m / 4h".
+  showEstimate() {
+    const card = Cards.findOne(this._id) || this;
+    const hours = card.getEstimatedHours ? card.getEstimatedHours() : null;
+    return typeof hours === 'number' && hours > 0 ? formatSpentTime(hours) : '';
   },
   getIsOvertime() {
     const card = Cards.findOne(this._id) || this;

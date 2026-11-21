@@ -1,0 +1,79 @@
+# Workload and capacity
+
+User menu → **Workload and capacity** (`/workload`) shows, week by week, how
+much work each person has against the hours they have, across every board you
+work on. It answers the questions a board's Swimlanes per member and the
+board's own *Workload* chart (a count of open cards per person) cannot: who has
+too much in a given week, who could take more, and what a coming project needs
+before anybody is named.
+
+## What is counted
+
+- **Hours.** Each card can have **Estimated hours**, set in the card's *Time*
+  section beside the time spent (the same popup). What is still to do is the
+  estimate less the time spent, never below zero. A board whose Scrum estimate
+  unit is hours (`h`, `hours`, `tunti`, ...) counts its Scrum estimates as hours
+  for cards that have no estimate of their own.
+- **Story points.** On a board with Scrum on, the board's estimate (Planning
+  Poker or the numeric custom field chosen in Scrum settings) is summed as
+  points. *Show* switches the table between hours and points.
+- **Who carries a card.** Its assignees, shared equally; a card with no
+  assignee is carried by its members. A card nobody carries is shown once, on
+  the *Not assigned to anybody* row.
+- **When.** A card's work is spread from its start (or received) date to its
+  due (or end) date, over the days the person works, in proportion to their
+  hours on each day. Work whose dates are past is due now and is counted
+  today, and the card is counted as overdue. A card with no dates is shown
+  under *No dates*; a card with no estimate is counted under *Cards without an
+  estimate*. Finished (due complete) and archived cards count nothing.
+
+## Capacity
+
+- **My working time**: hours per week (default 37.5), work time percent (a
+  part-time 60 % of 37.5 h is 22.5 h) and the working days. A day's hours are
+  the week's hours shared over the working days.
+- **My absences**: vacation, sick leave, day off, training or other, from one
+  day to another. An absent day has no hours, and work spread over a period is
+  moved to the days the person is there.
+- **Public holidays**: set by an administrator on the same page; a day off for
+  everybody.
+
+A week is **red** when its work is more than its hours (over 100 %), when the
+person's allocations add up to more than 100 %, or when there is work and no
+hours at all (an absence). It is **grey-blue** when it is under half full. Click
+a week to see the cards in it.
+
+## Allocations and placeholders
+
+A board's admins can allocate a share of a person's time to the board for a
+period - "A works on board X 50 % of their time in April" - shown in each week
+as a percent beside the load. Without a person, an allocation is a
+**placeholder** for a role: "Developer × 1, 100 %, next month" is drawn as its
+own row with the hours it will need, so a project can be planned before the
+people are chosen. A person allocated must be an active member of that board.
+
+## Who sees what
+
+- A report covers the boards you are an active member of, except boards where
+  you only see the cards assigned to you, and the active members of those
+  boards. Public boards are not included: somebody's workload is not public
+  because one of their boards is. An administrator may choose *All boards*.
+- Only the cards of those boards are counted, and the cards themselves never
+  reach the browser: the server computes the report and sends the numbers.
+- Somebody else's absence is shown only as days absent. Its type and note -
+  whether somebody is sick, and why - are shown only to that person and to
+  administrators.
+- Your working time and absences are yours to change; an administrator can
+  change anybody's. Allocations are changed by the board's admins, holidays by
+  administrators.
+
+## Code
+
+| | |
+| --- | --- |
+| `models/lib/workload.js` | the rules, as pure functions: capacity, spreading, allocations, placeholders |
+| `models/lib/workloadView.js` | how a week is drawn: colour, bar, text |
+| `models/workload.js` | the collections `workloadCapacities`, `workloadAbsences`, `workloadHolidays`, `workloadAllocations` - no client writes, no publications |
+| `server/workload.js` | the methods, with who may call them |
+| `client/components/main/workload.*` | the page |
+| `tests/workload.test.cjs` | the rules; `tests/workloadAccess.test.cjs` who may do what |

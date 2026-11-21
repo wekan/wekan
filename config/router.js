@@ -684,6 +684,25 @@ FlowRouter.route('/due-cards', {
   },
 });
 
+// Workload and capacity (docs/Features/Workload/Workload.md): the people of the
+// signed-in user's boards, week by week, against the hours they have.
+FlowRouter.route('/workload', {
+  name: 'workload',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'workload',
+    });
+  },
+});
+
 FlowRouter.route('/my-attachments', {
   name: 'my-attachments',
   triggersEnter: [ensureSignedInUnlessSandstorm],

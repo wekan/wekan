@@ -1,0 +1,234 @@
+//- Workload (docs/Features/Workload/Workload.md): week by week, how much work
+  the people of the viewer's boards have against the hours they have, with
+  their absences, the public holidays, allocations to boards and the roles a
+  board will need before anybody is named. The numbers come from the server
+  (server/workload.js, models/lib/workload.js); this page only draws them.
+
+template(name="workloadControls")
+  //- The controls of this page, a view of the shared page sidebar
+    (models/lib/pageSidebar.js), like the Due Cards controls.
+  .workload-controls
+    label(for="workload-from") {{_ 'workload-from'}}
+    input.js-workload-from#workload-from(type="date" value=fromDay)
+    label(for="workload-weeks") {{_ 'workload-weeks'}}
+    select.js-workload-weeks#workload-weeks
+      each weekChoice in weekChoices
+        option(value=weekChoice selected="{{#if $eq weekChoice weeks}}selected{{/if}}") {{weekChoice}}
+    label(for="workload-unit") {{_ 'workload-show'}}
+    select.js-workload-unit#workload-unit
+      option(value="hours" selected="{{#if $eq unit 'hours'}}selected{{/if}}") {{_ 'hours'}}
+      option(value="points" selected="{{#if $eq unit 'points'}}selected{{/if}}") {{_ 'workload-story-points'}}
+    if reportIsAdmin
+      label.workload-all-boards
+        input.js-workload-all-boards(type="checkbox" checked=allBoards)
+        | {{_ 'workload-all-boards'}}
+
+template(name="workload")
+  if currentUser
+    .workload-page
+      h1 {{_ 'workload-title'}}
+      p.workload-intro {{_ 'workload-intro'}}
+      if loading
+        +spinner
+      else if error
+        .warning {{error}}
+      else
+        if truncated
+          p.warning {{_ 'workload-truncated'}}
+        .workload-legend
+          span.workload-swatch.is-ok
+          | {{_ 'workload-legend-ok'}}
+          span.workload-swatch.is-under
+          | {{_ 'workload-legend-under'}}
+          span.workload-swatch.is-over
+          | {{_ 'workload-legend-over'}}
+        .workload-table-wrapper
+          table.workload-table
+            thead
+              tr
+                th {{_ 'person'}}
+                each week in weekHeaders
+                  th.workload-week-header
+                    span.workload-week-number {{_ 'workload-week-short' number=week.number}}
+                    span.workload-week-date {{week.label}}
+                th {{_ 'workload-unscheduled'}}
+            tbody
+              each person in people
+                tr.workload-row
+                  th.workload-person(scope="row")
+                    span.workload-person-name {{person.name}}
+                    span.workload-person-capacity {{capacityLabel person}}
+                  each cell in cells person
+                    td.workload-cell(class="{{cell.state}}")
+                      a.js-workload-cell(data-user=person.userId data-week=cell.index title=cell.title)
+                        .workload-bar
+                          .workload-bar-fill(style="width: {{cell.barWidth}}%")
+                        span.workload-cell-value {{cell.value}}
+                        if cell.percentLabel
+                          span.workload-cell-percent {{cell.percentLabel}}
+                        if cell.allocationPercent
+                          span.workload-cell-allocation(title="{{_ 'workload-allocated'}}")
+                            i.fa.fa-thumb-tack
+                            |  {{cell.allocationPercent}} %
+                        if cell.absentDays
+                          span.workload-cell-absent(title="{{_ 'workload-absent-days'}}")
+                            i.fa.fa-plane
+                            |  {{cell.absentDays}}
+                        if cell.holidayDays
+                          span.workload-cell-holiday(title="{{_ 'workload-holiday-days'}}")
+                            i.fa.fa-flag
+                            |  {{cell.holidayDays}}
+                  td.workload-unscheduled-cell
+                    if person.unscheduledHours
+                      span {{hoursLabel person.unscheduledHours}}
+                    if person.unestimatedCards
+                      span.workload-unestimated(title="{{_ 'workload-unestimated'}}")
+                        i.fa.fa-question-circle
+                        |  {{person.unestimatedCards}}
+                    if person.overdueCards
+                      span.workload-overdue(title="{{_ 'filter-overdue'}}")
+                        i.fa.fa-exclamation-triangle
+                        |  {{person.overdueCards}}
+                if isOpen person.userId
+                  tr.workload-details-row
+                    td(colspan=columnCount)
+                      +workloadCellCards(cards=openCards)
+              if hasUnassigned
+                tr.workload-row.workload-unassigned
+                  th(scope="row") {{_ 'workload-unassigned'}}
+                  each cell in unassignedCells
+                    td.workload-cell
+                      span.workload-cell-value {{cell.value}}
+                  td.workload-unscheduled-cell
+                    if unassignedUnscheduled
+                      span {{unassignedUnscheduled}}
+              each holder in placeholders
+                tr.workload-row.workload-placeholder
+                  th(scope="row")
+                    span.workload-person-name
+                      i.fa.fa-user-o
+                      |  {{holder.roleName}} × {{holder.headcount}}
+                    span.workload-person-capacity {{holder.boardTitle}}
+                  each week in holder.weeks
+                    td.workload-cell.is-placeholder
+                      if week.allocationPercent
+                        span.workload-cell-value {{hoursLabel week.demandHours}}
+                        span.workload-cell-percent {{week.allocationPercent}} %
+                  td
+
+        +workloadPlanning(report=report)
+
+template(name="workloadCellCards")
+  if cards.length
+    ul.workload-card-list
+      each card in cards
+        li
+          a(href=card.url) {{card.title}}
+          span.workload-card-hours {{card.label}}
+          if card.overdue
+            span.workload-overdue
+              i.fa.fa-exclamation-triangle
+  else
+    p {{_ 'workload-no-cards'}}
+
+template(name="workloadPlanning")
+  .workload-planning
+    section.workload-section
+      h2 {{_ 'workload-my-capacity'}}
+      form.js-workload-capacity
+        label(for="workload-hours") {{_ 'workload-hours-per-week'}}
+        input#workload-hours(type="number" name="hoursPerWeek" min="0" max="168" step="0.5" value=capacity.hoursPerWeek)
+        label(for="workload-percent") {{_ 'workload-work-percent'}}
+        input#workload-percent(type="number" name="workPercent" min="0" max="100" step="1" value=capacity.workPercent)
+        fieldset.workload-days
+          legend {{_ 'workload-working-days'}}
+          each day in weekdays
+            label
+              input(type="checkbox" name="workingDays" value=day.value checked=day.checked)
+              | {{day.label}}
+        button.primary(type="submit") {{_ 'save'}}
+        if capacitySaved
+          span.workload-saved {{_ 'feature-saved'}}
+
+    section.workload-section
+      h2 {{_ 'workload-my-absences'}}
+      if myAbsences.length
+        ul.workload-list
+          each absence in myAbsences
+            li
+              | {{absence.start}} – {{absence.end}} · {{absenceTypeLabel absence.type}}
+              if absence.note
+                |  · {{absence.note}}
+              a.js-workload-remove-absence(data-id=absence._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                i.fa.fa-trash
+      form.js-workload-absence
+        label(for="workload-absence-start") {{_ 'start'}}
+        input#workload-absence-start(type="date" name="start" required)
+        label(for="workload-absence-end") {{_ 'card-end'}}
+        input#workload-absence-end(type="date" name="end" required)
+        label(for="workload-absence-type") {{_ 'workload-absence-type'}}
+        select#workload-absence-type(name="type")
+          each type in absenceTypes
+            option(value=type.value) {{type.label}}
+        label(for="workload-absence-note") {{_ 'workload-note'}}
+        input#workload-absence-note(type="text" name="note" maxlength="200")
+        button.primary(type="submit") {{_ 'workload-add-absence'}}
+
+    if managedBoards.length
+      section.workload-section
+        h2 {{_ 'workload-allocations'}}
+        p {{_ 'workload-allocations-intro'}}
+        if allocations.length
+          ul.workload-list
+            each allocation in allocations
+              li
+                | {{allocation.boardTitle}} · {{allocationWho allocation}} · {{allocation.percent}} % · {{allocation.start}} – {{allocation.end}}
+                if allocation.mayRemove
+                  a.js-workload-remove-allocation(data-id=allocation._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                    i.fa.fa-trash
+        form.js-workload-allocation
+          label(for="workload-allocation-board") {{_ 'board'}}
+          select#workload-allocation-board.js-workload-allocation-board(name="boardId")
+            each board in managedBoards
+              option(value=board._id) {{board.title}}
+          label(for="workload-allocation-person") {{_ 'person'}}
+          select#workload-allocation-person(name="userId")
+            option(value="") {{_ 'workload-role-placeholder'}}
+            each member in allocationMembers
+              option(value=member.userId) {{member.name}}
+          label(for="workload-allocation-role") {{_ 'workload-role'}}
+          input#workload-allocation-role(type="text" name="roleName" maxlength="100" placeholder="{{_ 'workload-role-example'}}")
+          label(for="workload-allocation-headcount") {{_ 'workload-headcount'}}
+          input#workload-allocation-headcount(type="number" name="headcount" min="1" max="100" value="1")
+          label(for="workload-allocation-percent") {{_ 'workload-allocation-percent'}}
+          input#workload-allocation-percent(type="number" name="percent" min="1" max="100" value="50" required)
+          label(for="workload-allocation-start") {{_ 'start'}}
+          input#workload-allocation-start(type="date" name="start" required)
+          label(for="workload-allocation-end") {{_ 'card-end'}}
+          input#workload-allocation-end(type="date" name="end" required)
+          button.primary(type="submit") {{_ 'workload-add-allocation'}}
+
+    section.workload-section
+      h2 {{_ 'workload-holidays'}}
+      if holidays.length
+        ul.workload-list
+          each holiday in holidays
+            li
+              | {{holiday.date}}
+              if holiday.name
+                |  · {{holiday.name}}
+              if isAdmin
+                a.js-workload-remove-holiday(data-id=holiday._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                  i.fa.fa-trash
+      else
+        p {{_ 'workload-no-holidays'}}
+      if isAdmin
+        form.js-workload-holiday
+          label(for="workload-holiday-date") {{_ 'date'}}
+          input#workload-holiday-date(type="date" name="date" required)
+          label(for="workload-holiday-name") {{_ 'workload-holiday-name'}}
+          input#workload-holiday-name(type="text" name="name" maxlength="100")
+          button.primary(type="submit") {{_ 'workload-add-holiday'}}
+
+    if planningError
+      .warning {{planningError}}

@@ -32,6 +32,11 @@ template(name="memberMenuPopup")
         a.js-due-cards(href="{{pathFor 'due-cards'}}")
           i.fa.fa-calendar
           | {{_ 'dueCards-title'}}
+      if allowFeature 'workload'
+        li
+          a.js-workload(href="{{pathFor 'workload'}}")
+            i.fa.fa-tachometer
+            | {{_ 'workload-title'}}
       li
         a.js-my-attachments(href="{{pathFor 'my-attachments'}}")
           i.fa.fa-paperclip

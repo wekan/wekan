@@ -19,6 +19,7 @@
 const PAGE_SIDEBAR_TEMPLATES = {
   'my-cards': 'myCardsControls',
   'due-cards': 'dueCardsControls',
+  workload: 'workloadControls',
   'global-search': 'globalSearchControls',
 };
 

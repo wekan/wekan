@@ -89,6 +89,9 @@ Template.memberMenuPopup.events({
   'click .js-due-cards'() {
     Popup.back();
   },
+  'click .js-workload'() {
+    Popup.back();
+  },
   'click .js-my-attachments'() {
     Popup.back();
   },

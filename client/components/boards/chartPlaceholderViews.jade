@@ -81,6 +81,13 @@ template(name="epicProgressView")
 
 template(name="workloadView")
   +boardChartView(chartKey="workload" titleKey="board-view-workload")
+  //- This board's open cards per person; the hours against each person's
+    capacity, across all their boards, are on the Workload and capacity page.
+  if allowFeature 'workload'
+    p.workload-cross-board-link
+      a(href="{{pathFor 'workload'}}")
+        i.fa.fa-tachometer
+        |  {{_ 'workload-title'}}
 
 template(name="distributionView")
   +boardChartView(chartKey="distribution" titleKey="board-view-distribution")

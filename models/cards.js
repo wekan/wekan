@@ -687,6 +687,17 @@ Cards.attachSchema(
       optional: true,
       defaultValue: 0,
     },
+    estimatedHours: {
+      /**
+       * How many hours the card is estimated to take (Workload,
+       * docs/Features/Workload/Workload.md). What is still to do is this
+       * less spentTime.
+       */
+      type: Number,
+      optional: true,
+      min: 0,
+      max: 10000,
+    },
     isOvertime: {
       /**
        * is the card over time?
@@ -2279,6 +2290,30 @@ Cards.helpers({
     } else {
       return this.spentTime;
     }
+  },
+
+  getEstimatedHours() {
+    if (this.isLinkedCard()) {
+      const card = ReactiveCache.getCard(this.linkedId);
+      return card === undefined ? null : card.estimatedHours;
+    }
+    return this.estimatedHours;
+  },
+
+  // The Time section shows the badge when there is time spent or an estimate.
+  hasSpentOrEstimatedTime() {
+    const estimate = this.getEstimatedHours();
+    return !!this.getSpentTime() || (typeof estimate === 'number' && estimate > 0);
+  },
+
+  // Workload: the card's estimate in hours, or null to clear it. A linked card
+  // keeps the estimate of the card it links to.
+  setEstimatedHours(hours) {
+    const id = this.isLinkedCard() ? this.linkedId : this.getRealId();
+    if (hours === null || hours === undefined || hours === '') {
+      return Cards.updateAsync({ _id: id }, { $unset: { estimatedHours: '' } });
+    }
+    return Cards.updateAsync({ _id: id }, { $set: { estimatedHours: Number(hours) } });
   },
 
   setSpentTime(spentTime) {

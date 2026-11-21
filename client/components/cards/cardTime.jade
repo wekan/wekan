@@ -4,6 +4,10 @@ template(name="editCardSpentTimePopup")
       .fields
         label(for="time") {{_ 'time'}}
         input.js-time-field#time(type="number" step="0.01" name="time" value="{{card.getSpentTime}}" placeholder=timeFormat autofocus)
+        //- Workload (docs/Features/Workload/Workload.md): what the card is
+          estimated to take; what is left is this less the time spent.
+        label(for="estimated-hours") {{_ 'workload-estimated-hours'}}
+        input.js-estimated-hours-field#estimated-hours(type="number" min="0" max="10000" step="0.25" name="estimatedHours" value="{{card.getEstimatedHours}}")
         label(for="overtime") {{_ 'overtime'}}
         a.js-toggle-overtime
           .materialCheckBox#overtime(class="{{#if getIsOvertime}}is-checked{{/if}}" name="overtime")
@@ -18,6 +22,9 @@ template(name="cardSpentTime")
     a.js-edit-time.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
       i.fa.fa-clock-o
       |  {{showTime}}
+    if showEstimate
+      span.card-time-estimate(title="{{_ 'workload-estimated-hours'}}")
+        |  / {{showEstimate}}
   else
     a.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
       i.fa.fa-clock-o

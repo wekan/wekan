@@ -531,6 +531,8 @@ import '/server/methods/instrumentationReport';
 import '/server/moveBoardObjects';
 
 import '/server/scrum';
+// Workload and capacity (docs/Features/Workload/Workload.md).
+import '/server/workload';
 import '/server/publications/scrum';
 import '/server/methods/syncRuleEmailRecovery';
 

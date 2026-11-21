@@ -92,6 +92,8 @@ const sharedTerms = {
   'event-bleed': 'Nimi',
   // #794: an IMAP mailbox's name, the same word as `name`.
   'email-to-card-account-label': 'Nimi',
+  // Workload: a public holiday's name, the same word as `name`.
+  'workload-holiday-name': 'Nimi',
   // The Blockly image field: Veps uses kuva for a picture, as in add-cover
   // ("koren kuva") and every avatar string ("kävutajan kuva").
   'blockly-ARIA_TYPE_FIELD_IMAGE': 'kuva',

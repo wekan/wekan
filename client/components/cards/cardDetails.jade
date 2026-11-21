@@ -639,7 +639,7 @@ template(name="cardFieldSectionTime")
                 h3.card-details-item-title
                   | {{_ 'spent-time-hours'}}
                   +cardSpentTimeMenu
-              if getSpentTime
+              if hasSpentOrEstimatedTime
                 +cardSpentTime
 
           //- #6688: the two timers each have a Board Settings / Card toggle,

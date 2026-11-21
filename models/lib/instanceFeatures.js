@@ -99,6 +99,10 @@ const FEATURES = [
     views: [] },
   { key: 'retrospective-board', labelKey: 'feature-retrospective-board', descKey: 'feature-retrospective-board-desc',
     views: [] },
+  // Workload and capacity (docs/Features/Workload/Workload.md): the user menu's
+  // page, and every workload* method behind it (server/workload.js).
+  { key: 'workload', labelKey: 'workload-title', descKey: 'feature-workload-desc',
+    views: [] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

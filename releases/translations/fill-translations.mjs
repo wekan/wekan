@@ -1181,6 +1181,8 @@ const SHORT_TECHNICAL_VALUES = {
   "operator-list-abbrev": "l",
   "operator-member-abbrev": "m",
   "operator-assignee-abbrev": "a",
+  // The SI symbol of the hour (Workload, "37.5 h").
+  "workload-hours-short": "h",
   "blockly-MATH_CONSTANT_E_ARIA": "e",
   "blockly-MATH_CONSTANT_PI_ARIA": "pi"
 };
