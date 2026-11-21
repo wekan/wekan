@@ -211,6 +211,10 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // #687: WebDAV attachment storage, to the endpoint a SITE ADMIN set in
     // Admin Panel / Attachments - like an S3 endpoint - without redirects.
     'server/lib/webdavAdapter.js': 'only the WebDAV endpoint a site administrator configured',
+    // The Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): CloudFlare's
+    // API at its fixed host, and the Caddy admin API the SuperAdmin - an
+    // administrator - set, both without redirects.
+    'server/cloudPanel.js': 'only https://api.cloudflare.com/client/v4/ and the Caddy admin API an administrator set',
     // PASSWORD_CHECK_PWNED: Have I Been Pwned's range API, a constant URL plus
     // a 5-hex-digit prefix checked by PWNED_PREFIX (models/lib/passwordPolicy.js).
     'server/lib/passwordPolicy.js': 'only https://api.pwnedpasswords.com/range/<5 hex digits>',
@@ -243,8 +247,14 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
   assert.match(bounces, /if \(!snsUrlAllowed\(msg\.SubscribeURL\)\) \{ refuse\(/);
   // One call each - the SNS file has two, the certificate and the subscribe
   // URL, both behind snsUrlAllowed (pinned above), and List Sync two, its read
-  // and its GitLab write-back (#2698), both behind operatorAllowedHost.
-  const TWO = new Set(['server/emailBounces.js', 'server/lib/listSyncFetch.js']);
+  // and its GitLab write-back (#2698), both behind operatorAllowedHost; the
+  // Cloud Panel two, CloudFlare's fixed API and the administrator's Caddy,
+  // neither following a redirect (pinned below).
+  const TWO = new Set(['server/emailBounces.js', 'server/lib/listSyncFetch.js', 'server/cloudPanel.js']);
+  const cloud = fs.readFileSync(path.join(ROOT, 'server/cloudPanel.js'), 'utf8');
+  assert.match(cloud, /fetch\(`https:\/\/api\.cloudflare\.com\/client\/v4\/zones\/\$\{cf\.zoneId\}/, 'CloudFlare at its own host');
+  assert.equal((cloud.match(/redirect: 'error'/g) || []).length, 2, 'no Cloud Panel request follows a redirect');
+  assert.doesNotMatch(cloud.slice(cloud.indexOf('async cloudPanelPushCaddy(')), /^[^\n]*\.text\(\)/m, 'Caddy\'s answer is not passed on');
   for (const [file, count] of Object.entries(found)) assert.equal(count, TWO.has(file) ? 2 : 1, file);
   const listSync = fs.readFileSync(path.join(ROOT, 'server/lib/listSyncFetch.js'), 'utf8');
   assert.equal((listSync.match(/operatorAllowedHost\(url\)\s*\n?\s*\?\s*await fetch\(|operatorAllowedHost\(url\) \? await fetchOperatorHost/g) || []).length, 2,

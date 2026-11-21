@@ -17,6 +17,11 @@ it did before. (A), (B), (C) and (E) remain designs — (A) is still the support
 topology when customers must not share a process. What each option would cost is
 kept below, because choosing (D) is only honest next to what it is *not*.
 
+The [Cloud Panel](../../Features/Admin-Panel/Cloud-Panel.md) manages both at
+once: a customer domain either has its own container and database (A), or
+shares this WeKan as an Organization (D), and its **Import** merges an (A)
+domain's database into this one and makes it (D).
+
 ## Related files
 
 Everything the question touches. Paths are from the repository root.

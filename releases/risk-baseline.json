@@ -34,6 +34,14 @@
     "models/lib/paymentCodes.js": [
       "https://paypal\\.me/?.*"
     ],
+    "client/components/cloud/cloudPanel.jade": [
+      "http://caddy(:2019)?",
+      "https://\\{\\{settings\\.domain.*"
+    ],
+    "server/cloudPanel.js": [
+      "https://api\\.cloudflare\\.com.*",
+      "https://\\$\\{domain\\.domain.*"
+    ],
     "models/lib/taskwarriorFormat.js": [
       "https://taskwarrior\\.org/docs/design/task/"
     ],

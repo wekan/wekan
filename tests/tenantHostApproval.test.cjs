@@ -48,7 +48,16 @@ test('negative: nothing else writes orgDomains', () => {
   const writers = ['server', 'models', 'client', 'imports'].flatMap(walk)
     .filter(f => /\$set\.orgDomains =|['"]?orgDomains['"]?\s*:\s*(?!1\b)[^,}\n]+,?\s*$/m.test(read(f)) && /updateAsync|insertAsync|\$set/.test(read(f)))
     .filter(f => !['models/org.js', 'server/publications/org.js', 'server/lib/tenantResolver.js', 'models/lib/tenants.js'].includes(f));
-  assert.deepEqual(writers, ['server/methods/tenant.js']);
+  // The Cloud Panel's SuperAdmin - a site administrator - gives a shared
+  // domain's Organization its domain, after the same two refusals: not the
+  // instance's own host, not another Organization's.
+  assert.deepEqual(writers, ['server/cloudPanel.js', 'server/methods/tenant.js']);
+  const cloud = read('server/cloudPanel.js');
+  assert.match(cloud, /const instanceHost = tenants\.normalizeHost\(Meteor\.absoluteUrl\(\)\);\n\s*if \(instanceHost && host === instanceHost\) invalid/);
+  assert.match(cloud, /others\.some\(o => tenants\.parseHostList\(o\.orgDomains \|\| ''\)\.includes\(host\)\)/);
+  for (const write of cloud.match(/orgDomains: [^\n]*/g).filter(w => !/\$exists|orgDomains: 1/.test(w))) assert.ok(write, write);
+  assert.equal((cloud.match(/await claimableHost\(/g) || []).length, 3, 'both writes are behind the check, and the save checks first');
+  assert.match(cloud, /async function cloudAdmin\(self\)[\s\S]{0,200}isCloudAdmin\) denied\(\)/);
   // Org's client allow rules do not let anybody write it either.
   const perms = fs.existsSync(path.join(ROOT, 'server/permissions/org.js')) ? read('server/permissions/org.js') : '';
   assert.doesNotMatch(perms, /orgDomains/);

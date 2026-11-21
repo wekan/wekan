@@ -40,6 +40,9 @@ import '/client/components/main/workload.css';
 // Budget and billing (docs/Features/Billing/Billing.md).
 import '/client/components/main/billing.jade';
 import '/client/components/main/billing.css';
+// Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md).
+import '/client/components/cloud/cloudPanel.jade';
+import '/client/components/cloud/cloudPanel.css';
 
 import '/client/lib/keyboard';
 import '/client/lib/popup';
@@ -70,6 +73,7 @@ import '/client/components/main/shareTarget.js';
 import '/client/components/main/activityFeed.js';
 import '/client/components/main/workload.js';
 import '/client/components/main/billing.js';
+import '/client/components/cloud/cloudPanel.js';
 
 import '/client/components/main/mapProvider.css';
 import '/client/components/main/accessibility.css';

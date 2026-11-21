@@ -4351,6 +4351,178 @@
     {
       "key": "workload-no-candidates",
       "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-settings-intro",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-cloudflare-zone",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-cloudflare-target",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-cloudflare-proxied",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-dns-check",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-dns-apply",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-dns-conflict",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-intro",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-admin",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-upstream",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-show",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-push",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-caddy-pushed",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-domain-new",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-mode",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-mode-own",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-mode-shared",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-upstream",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-uri",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-host",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-port",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-name",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-auth-source",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-database-replica-set",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-customers",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-domain-cloudflare",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-test",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-test-ok",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-import",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-import-report",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-import-users",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-import-files",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-import-now",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-invoice-open",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-paid-on",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-invoice-link",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-add-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-chat-empty",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-chat-message",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-chat-send",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-chat-import",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "cloud-panel-chat-imported",
+      "since": "2026-11-21"
     }
   ]
 }

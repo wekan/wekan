@@ -39,9 +39,10 @@ table beside it.
 | Menu name | Menu path | Description |
 | --- | --- | --- |
 | Settings | Admin Panel / Settings | **Version** (first, and the pane that opens with the Admin Panel), Appearance, Features, Feature profiles, Security, Activities and notifications, Delete, Announcement, Accessibility, Translation, PWA, Global Webhooks, Shared labels. |
-| People | Admin Panel / People | E-mail, Notifications, Domains, Organizations, Teams, People, Locked users, Audit log, Roles, Shared templates, Login, then the sign-in providers (SAML, LDAP, OAuth2, CAS, Header login, OAuth login providers, Passwordless login). |
+| People | Admin Panel / People | E-mail, Notifications, Domains, Cloud, Organizations, Teams, People, Locked users, Audit log, Roles, Shared templates, Login, then the sign-in providers (SAML, LDAP, OAuth2, CAS, Header login, OAuth login providers, Passwordless login). |
 | Attachments | Admin Panel / Attachments | The storage backends and the attachment/avatar tools. |
 | Problems | Admin Panel / Problems | Summary, Backup, then a **Reports** heading over the reports — see [Table](../General/Table.md). |
+| Cloud Panel | `/cloud`, at the Cloud Panel Domain | The SuperAdmin's Domains, Invoices, Chat, Cloudflare and Caddy; a customer's Invoices and Chat — see [Cloud Panel](../Admin-Panel/Cloud-Panel.md). |
 
 Four pages, not seven: **Translation** and **Version** became panes of Settings,
 and so did **Features**. Security, Activities and notifications and Delete, which

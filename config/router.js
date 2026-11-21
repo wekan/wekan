@@ -206,6 +206,16 @@ function startSandstormAutoOpen() {
   });
 }
 
+// Once a page load: is this the Cloud Panel's domain? Then / opens the panel.
+let cloudPanelChecked = false;
+function maybeOpenCloudPanel() {
+  if (cloudPanelChecked || !Meteor.userId()) return;
+  cloudPanelChecked = true;
+  Meteor.callAsync('cloudPanelWhoAmI').then(info => {
+    if (info && info.onCloudHost && FlowRouter.current().path === '/') FlowRouter.go('/cloud');
+  }).catch(() => {});
+}
+
 FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [ensureSignedInUnlessSandstorm],
@@ -218,6 +228,10 @@ FlowRouter.route('/', {
       return;
     }
     if (maybeRedirectToDefaultBoard()) return;
+    // On the Cloud Panel's own domain the front page is the panel
+    // (docs/Features/Admin-Panel/Cloud-Panel.md); the server says whether this
+    // host is it.
+    maybeOpenCloudPanel();
     // `null`, not 'starred': `/` names no section, so which one to open is the
     // PAGE's to decide - Starred when the user has starred boards, Remaining
     // when they have none. The router runs before the user document has
@@ -718,6 +732,21 @@ FlowRouter.route('/billing', {
 
     this.render('defaultLayout', {
       content: 'billing',
+    });
+  },
+});
+
+// Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): answers only on the
+// panel's own domain; elsewhere the page says so.
+FlowRouter.route('/cloud', {
+  name: 'cloud',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Filter.reset();
+    EscapeActions.executeUpTo('popup-close');
+    Utils.manageCustomUI();
+    this.render('defaultLayout', {
+      content: 'cloudPanel',
     });
   },
 });

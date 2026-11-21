@@ -1,0 +1,287 @@
+//- Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): on the panel's own
+  domain, the Cloud Admins' Cloudflare, Caddy, Domains, Invoices and Chat, and a
+  customer's own Invoices and Chat. The server decides who sees what
+  (server/cloudPanel.js); this page draws what it is given.
+
+template(name="cloudPanel")
+  .setting-content.cloud-panel
+    if loading
+      +spinner
+    else if notAllowed
+      p.quiet {{_ 'cloud-panel-not-allowed'}}
+    else
+      .content-body
+        +leftMenu(menuItems)
+        .main-body
+          +paneTitle(paneTitleData)
+          if actionError
+            .warning {{actionError}}
+          if $eq pane 'cloudflare'
+            +cloudPanelCloudflare(config=config reload=reload done=done)
+          else if $eq pane 'caddy'
+            +cloudPanelCaddy(config=config reload=reload done=done)
+          else if $eq pane 'domains'
+            +cloudPanelDomains(done=done)
+          else if $eq pane 'invoices'
+            +cloudPanelInvoices(domains=info.domains isCloudAdmin=info.isCloudAdmin done=done)
+          else if $eq pane 'chat'
+            +cloudPanelChat(domains=info.domains isCloudAdmin=info.isCloudAdmin done=done)
+
+template(name="cloudPanelCloudflare")
+  form.js-cloud-cloudflare.cloud-form
+    p.quiet {{_ 'cloudflare-api-key-desc'}}
+    label(for="cloud-cf-token") {{_ 'cloudflare-api-key'}}
+    input#cloud-cf-token(type="password" name="apiToken" autocomplete="off")
+    if config.cloudflare.hasToken
+      p.quiet {{_ 'cloudflare-api-key-set'}}
+    else
+      p.quiet {{_ 'cloudflare-api-key-not-set'}}
+    label(for="cloud-cf-zone") {{_ 'cloud-panel-cloudflare-zone'}}
+    input#cloud-cf-zone(type="text" name="zoneId" maxlength="32" value=config.cloudflare.zoneId)
+    label(for="cloud-cf-target") {{_ 'cloud-panel-cloudflare-target'}}
+    input#cloud-cf-target(type="text" name="target" maxlength="253" value=config.cloudflare.target placeholder="203.0.113.10")
+    label.billing-checkbox
+      input(type="checkbox" name="proxied" checked=config.cloudflare.proxied)
+      | {{_ 'cloud-panel-cloudflare-proxied'}}
+    button.primary(type="submit") {{_ 'save'}}
+  .cloud-actions
+    button.js-cloud-dns-plan(type="button") {{_ 'cloud-panel-dns-check'}}
+    if plan
+      button.primary.js-cloud-dns-apply(type="button") {{_ 'cloud-panel-dns-apply'}}
+  if plan
+    ul.cloud-plan
+      each record in plan.create
+        li.cloud-plan-create + {{record.type}} {{record.name}} → {{record.content}}
+      each record in plan.update
+        li.cloud-plan-update ~ {{record.type}} {{record.name}} → {{record.content}}
+      each record in plan.conflicts
+        li.warning {{_ 'cloud-panel-dns-conflict' name=record.name type=record.type}}
+      each name in plan.unchanged
+        li.quiet {{name}}
+
+template(name="cloudPanelCaddy")
+  form.js-cloud-caddy.cloud-form
+    p.quiet {{_ 'cloud-panel-caddy-intro'}}
+    label(for="cloud-caddy-admin") {{_ 'cloud-panel-caddy-admin'}}
+    input#cloud-caddy-admin(type="text" name="adminUrl" maxlength="200" value=config.caddy.adminUrl placeholder="http://caddy:2019")
+    label(for="cloud-caddy-upstream") {{_ 'cloud-panel-caddy-upstream'}}
+    input#cloud-caddy-upstream(type="text" name="sharedUpstream" maxlength="260" value=config.caddy.sharedUpstream placeholder="wekan:8080")
+    label(for="cloud-caddy-email") {{_ 'email'}}
+    input#cloud-caddy-email(type="text" name="email" maxlength="200" value=config.caddy.email)
+    button.primary(type="submit") {{_ 'save'}}
+  .cloud-actions
+    button.js-cloud-caddyfile(type="button") {{_ 'cloud-panel-caddy-show'}}
+    button.primary.js-cloud-caddy-push(type="button") {{_ 'cloud-panel-caddy-push'}}
+    if pushed
+      span.quiet {{_ 'cloud-panel-caddy-pushed'}}
+  if caddyfile
+    pre.cloud-caddyfile {{caddyfile}}
+
+template(name="cloudPanelDomains")
+  +tablePage(tablePageData)
+  if editing
+    +cloudPanelDomainForm(domain=editing close=close done=done)
+  if report
+    .cloud-report
+      h3 {{_ 'cloud-panel-import-report'}}
+      p {{_ 'cloud-panel-import-users' created=report.users.created matched=report.users.matched}}
+      ul
+        each item in reportCollections
+          li {{item.name}}: {{item.copied}} (+{{item.skipped}})
+      if report.files
+        p.warning {{_ 'cloud-panel-import-files' count=report.files}}
+      if reportIsDryRun
+        button.primary.js-cloud-import-now(type="button" data-id=reportDomainId) {{_ 'cloud-panel-import-now'}}
+
+template(name="cloudPanelDomainNew")
+  a.js-cloud-domain-new(title="{{_ 'cloud-panel-domain-new'}}")
+    i.fa.fa-plus
+    |  {{_ 'domain'}}
+
+template(name="cloudPanelDomainRow")
+  tr(class="cloud-domain-{{domain.mode}}")
+    td {{domain.domain}}
+    td {{domain.customerName}}
+    td {{domain.customerEmail}}
+    td {{domain.startDate}}
+    td {{domain.endDate}}
+    td
+      if $eq domain.mode 'shared'
+        | {{_ 'cloud-panel-mode-shared'}}
+      else
+        | {{_ 'cloud-panel-mode-own'}}
+    td {{databaseLabel domain.database}}
+    td
+      button.js-cloud-domain-edit(type="button" data-id=domain._id) {{_ 'edit'}}
+      if domain.database
+        button.js-cloud-domain-test(type="button" data-id=domain._id) {{_ 'cloud-panel-test'}}
+        if $eq domain.mode 'own'
+          button.js-cloud-domain-import(type="button" data-id=domain._id) {{_ 'cloud-panel-import'}}
+      if tested
+        span.quiet {{tested}}
+
+template(name="cloudPanelDomainForm")
+  form.js-cloud-domain.cloud-form
+    label(for="cloud-domain-domain") {{_ 'domain'}}
+    input#cloud-domain-domain(type="text" name="domain" maxlength="253" value=domain.domain placeholder="customer1.example.com" required)
+    label(for="cloud-domain-customer") {{_ 'cloud-customer-name'}}
+    input#cloud-domain-customer(type="text" name="customerName" maxlength="200" value=domain.customerName)
+    label(for="cloud-domain-email") {{_ 'cloud-customer-email'}}
+    input#cloud-domain-email(type="email" name="customerEmail" maxlength="254" value=domain.customerEmail)
+    label(for="cloud-domain-billing") {{_ 'cloud-billing-email'}}
+    input#cloud-domain-billing(type="email" name="billingEmail" maxlength="254" value=domain.billingEmail)
+    label(for="cloud-domain-start") {{_ 'cloud-start-date'}}
+    input#cloud-domain-start(type="date" name="startDate" value=domain.startDate)
+    label(for="cloud-domain-end") {{_ 'cloud-end-date'}}
+    input#cloud-domain-end(type="date" name="endDate" value=domain.endDate)
+    label(for="cloud-domain-mode") {{_ 'cloud-panel-mode'}}
+    select#cloud-domain-mode(name="mode")
+      option(value="own" selected="{{#if $eq domain.mode 'own'}}selected{{/if}}") {{_ 'cloud-panel-mode-own'}}
+      option(value="shared" selected="{{#if $eq domain.mode 'shared'}}selected{{/if}}") {{_ 'cloud-panel-mode-shared'}}
+    label(for="cloud-domain-upstream") {{_ 'cloud-panel-upstream'}}
+    input#cloud-domain-upstream(type="text" name="upstream" maxlength="260" value=domain.upstream placeholder="wekan-customer1:8080")
+    fieldset.cloud-database
+      legend {{_ 'cloud-panel-database'}}
+      label(for="cloud-db-uri") {{_ 'cloud-panel-database-uri'}}
+      input#cloud-db-uri(type="text" name="uri" maxlength="2000" value=domain.database.uri placeholder="mongodb://…")
+      label(for="cloud-db-host") {{_ 'cloud-panel-database-host'}}
+      input#cloud-db-host(type="text" name="host" maxlength="253" value=domain.database.host placeholder="mongodb")
+      label(for="cloud-db-port") {{_ 'cloud-panel-database-port'}}
+      input#cloud-db-port(type="number" name="port" min="1" max="65535" value=domain.database.port placeholder="27017")
+      label(for="cloud-db-name") {{_ 'cloud-panel-database-name'}}
+      input#cloud-db-name(type="text" name="database" maxlength="64" value=domain.database.database placeholder="wekan")
+      label(for="cloud-db-user") {{_ 'username'}}
+      input#cloud-db-user(type="text" name="username" maxlength="200" value=domain.database.username autocomplete="off")
+      label(for="cloud-db-password") {{_ 'password'}}
+      input#cloud-db-password(type="password" name="password" maxlength="500" autocomplete="new-password" placeholder="{{#if domain.database.hasPassword}}••••••••{{/if}}")
+      label(for="cloud-db-authsource") {{_ 'cloud-panel-database-auth-source'}}
+      input#cloud-db-authsource(type="text" name="authSource" maxlength="64" value=domain.database.authSource placeholder="admin")
+      label(for="cloud-db-replicaset") {{_ 'cloud-panel-database-replica-set'}}
+      input#cloud-db-replicaset(type="text" name="replicaSet" maxlength="64" value=domain.database.replicaSet placeholder="rs0")
+      label.billing-checkbox
+        input(type="checkbox" name="tls" checked=domain.database.tls)
+        | TLS
+    label(for="cloud-domain-customers") {{_ 'cloud-panel-customers'}}
+    input#cloud-domain-customers(type="text" name="customerUsernames" maxlength="2000" value=customers placeholder="customer1, customer2")
+    label.billing-checkbox
+      input(type="checkbox" name="cloudflare" checked=cloudflareOn)
+      | {{_ 'cloud-panel-domain-cloudflare'}}
+    label(for="cloud-domain-notes") {{_ 'workload-note'}}
+    textarea#cloud-domain-notes(name="notes" maxlength="2000" rows="2") {{domain.notes}}
+    button.primary(type="submit") {{_ 'save'}}
+    button.js-cloud-domain-close(type="button") {{_ 'close'}}
+    if domain._id
+      button.js-cloud-domain-remove(type="button" data-id=domain._id) {{_ 'delete'}}
+
+template(name="cloudPanelInvoices")
+  .cloud-invoices
+    if isCloudAdmin
+      form.js-cloud-invoice.cloud-form
+        label(for="cloud-invoice-domain") {{_ 'domain'}}
+        select#cloud-invoice-domain(name="domainId" required)
+          each domain in allDomains
+            option(value=domain._id) {{domain.domain}}
+        label(for="cloud-invoice-number") {{_ 'billing-number'}}
+        input#cloud-invoice-number(type="text" name="number" maxlength="50" required)
+        label(for="cloud-invoice-issue") {{_ 'billing-issue-date'}}
+        input#cloud-invoice-issue(type="date" name="issueDate" required)
+        label(for="cloud-invoice-due") {{_ 'billing-due-date'}}
+        input#cloud-invoice-due(type="date" name="dueDate")
+        label(for="cloud-invoice-amount") {{_ 'billing-total'}}
+        input#cloud-invoice-amount(type="number" name="amount" min="0" step="0.01" required)
+        label(for="cloud-invoice-currency") {{_ 'billing-currency'}}
+        input#cloud-invoice-currency(type="text" name="currency" maxlength="3" value="EUR" required)
+        label(for="cloud-invoice-status") {{_ 'billing-status'}}
+        select#cloud-invoice-status(name="status")
+          option(value="open") {{_ 'cloud-panel-invoice-open'}}
+          option(value="paid") {{_ 'billing-status-paid'}}
+          option(value="void") {{_ 'billing-status-void'}}
+        label(for="cloud-invoice-paid") {{_ 'cloud-panel-paid-on'}}
+        input#cloud-invoice-paid(type="date" name="paidDate")
+        label(for="cloud-invoice-description") {{_ 'description'}}
+        input#cloud-invoice-description(type="text" name="description" maxlength="1000")
+        label(for="cloud-invoice-link") {{_ 'cloud-panel-invoice-link'}}
+        input#cloud-invoice-link(type="url" name="link" maxlength="500" placeholder="https://")
+        button.primary(type="submit") {{_ 'cloud-panel-add-invoice'}}
+    if invoices.length
+      .billing-table-wrapper
+        table.cloud-invoice-table
+          thead
+            tr
+              th {{_ 'domain'}}
+              th {{_ 'billing-number'}}
+              th {{_ 'billing-issue-date'}}
+              th {{_ 'billing-due-date'}}
+              th {{_ 'billing-total'}}
+              th {{_ 'billing-status'}}
+              th {{_ 'cloud-panel-paid-on'}}
+              th
+          tbody
+            each invoice in invoices
+              tr(class="cloud-invoice-{{invoice.status}}")
+                td {{invoice.domain}}
+                td
+                  if invoice.link
+                    a(href=invoice.link target="_blank" rel="noopener noreferrer") {{invoice.number}}
+                  else
+                    | {{invoice.number}}
+                  if invoice.description
+                    .quiet {{invoice.description}}
+                td {{invoice.issueDate}}
+                td {{invoice.dueDate}}
+                td {{money invoice.amountMinor invoice.currency}}
+                td {{statusLabel invoice.status}}
+                td {{invoice.paidDate}}
+                td
+                  if isCloudAdmin
+                    a.js-cloud-invoice-remove(data-id=invoice._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                      i.fa.fa-trash
+    else
+      p {{_ 'billing-no-invoices'}}
+
+template(name="cloudPanelChat")
+  .cloud-chat
+    label(for="cloud-chat-domain") {{_ 'domain'}}
+    select#cloud-chat-domain.js-cloud-chat-domain
+      each domain in chatDomains
+        option(value=domain._id selected="{{#if $eq domain._id domainId}}selected{{/if}}") {{domain.domain}}
+    if domainId
+      ul.cloud-chat-messages
+        each message in messages
+          li(class="{{#if message.mine}}is-mine{{/if}}")
+            span.cloud-chat-who {{message.authorName}}
+            if message.room
+              span.quiet  · {{message.room}}
+            span.quiet  · {{when message.at}}
+            .cloud-chat-text {{message.text}}
+        unless messages.length
+          li.quiet {{_ 'cloud-panel-chat-empty'}}
+      form.js-cloud-chat-send
+        textarea(name="text" maxlength="20000" rows="2" aria-label="{{_ 'cloud-panel-chat-message'}}" required)
+        button.primary(type="submit") {{_ 'cloud-panel-chat-send'}}
+      if isCloudAdmin
+        form.js-cloud-chat-import.cloud-form
+          label(for="cloud-chat-source") {{_ 'cloud-panel-chat-import'}}
+          select#cloud-chat-source(name="source")
+            option(value="rocketchat") Rocket.Chat (.zip)
+            option(value="sandchat") Sandstorm SandChat (.zip)
+          input(type="file" name="file" accept=".zip" aria-label="{{_ 'cloud-panel-chat-import'}}" required)
+          button(type="submit") {{_ 'import'}}
+          if imported
+            span.quiet {{_ 'cloud-panel-chat-imported' count=imported}}
+
+template(name="cloudPanelSettings")
+  form.js-cloud-panel-settings.cloud-form
+    p.quiet {{_ 'cloud-panel-settings-intro'}}
+    label(for="cloud-settings-domain") {{_ 'cloud-panel-domain'}}
+    input#cloud-settings-domain(type="text" name="domain" maxlength="253" value=settings.domain placeholder="cloud.example.com")
+    label(for="cloud-settings-admin") {{_ 'cloud-superadmin-username'}}
+    input#cloud-settings-admin(type="text" name="superAdminUsername" maxlength="254" value=settings.superAdminUsername)
+    button.primary(type="submit") {{_ 'save'}}
+    if saved
+      span.quiet {{_ 'cloud-saved'}}
+    if error
+      .warning {{error}}
+    if settings.domain
+      p
+        a(href="https://{{settings.domain}}/cloud" target="_blank" rel="noopener noreferrer") https://{{settings.domain}}/cloud

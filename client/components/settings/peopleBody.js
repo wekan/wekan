@@ -148,6 +148,7 @@ Template.people.onCreated(function () {
   // #5850: Admin Panel > People > Domains tab. The domains table itself
   // (domainGeneral) now owns its data via getDomainsWithUserCountsPage.
   this.domainSetting = new ReactiveVar(false);
+  this.cloudSetting = new ReactiveVar(false);
   this.subscribe('inviteToBoardRolesSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
@@ -439,6 +440,7 @@ Template.people.onCreated(function () {
       this.rolesSetting.set('roles-setting' === targetID);
       this.templatesSetting.set('templates-setting' === targetID);
       this.domainSetting.set('domains-setting' === targetID);
+      this.cloudSetting.set('cloud-setting' === targetID);
 
       // The Domains table (domainGeneral) now fetches its own single page from
       // getDomainsWithUserCountsPage (server-side search / sort / pagination), so
@@ -549,6 +551,9 @@ function peopleMenu(user) {
     // with, so it belongs beside the e-mail settings rather than at the end of
     // the menu, after the roles and template checkbox lists.
     { id: 'domains-setting', icon: 'fa-at', labelKey: 'domains' },
+    // The Cloud Panel's domain and SuperAdmin, as Weddy has them at the same
+    // place (docs/Features/Admin-Panel/Cloud-Panel.md). Site admins only.
+    { id: 'cloud-setting', icon: 'fa-cloud', labelKey: 'cloud' },
     { id: 'org-setting', icon: 'fa-globe', labelKey: 'organizations' },
     { id: 'team-setting', icon: 'fa-users', labelKey: 'teams' },
     { id: 'people-setting', icon: 'fa-user', labelKey: 'people' },
@@ -965,6 +970,9 @@ Template.people.helpers({
   },
   domainSetting() {
     return Template.instance().domainSetting;
+  },
+  cloudSetting() {
+    return Template.instance().cloudSetting;
   },
   orgList() {
     const tpl = Template.instance();

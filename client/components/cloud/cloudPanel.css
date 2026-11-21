@@ -1,0 +1,60 @@
+/* Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md). The layout is the
+   Admin Panel's (.setting-content, the left menu, the table page); only the
+   panel's own forms, the plan, the Caddyfile and the chat are styled here. */
+.cloud-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 40em;
+  gap: 0.3em;
+}
+.cloud-form .billing-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.cloud-database {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+.cloud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-block: 0.8em;
+}
+.cloud-caddyfile {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f5f5f5;
+  padding: 0.8em;
+}
+.cloud-plan .cloud-plan-create {
+  color: #2e7d32;
+}
+.cloud-plan .cloud-plan-update {
+  color: #8a6d00;
+}
+.cloud-chat-messages {
+  list-style: none;
+  padding-inline-start: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.cloud-chat-messages li {
+  margin-block-end: 0.6em;
+}
+.cloud-chat-messages li.is-mine {
+  text-align: end;
+}
+.cloud-chat-who {
+  font-weight: bold;
+}
+.cloud-chat-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.cloud-invoice-void td {
+  text-decoration: line-through;
+  color: #777;
+}

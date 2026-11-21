@@ -80,6 +80,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | E-mail (`email`) | [settings.js](../../../server/models/settings.js) | Mail service settings, secret masking and test-email method; delivery needs a configured SMTP/provider account. |
 | Notifications (`notifications`) | [settings.js](../../../server/models/settings.js) | Site defaults through setAdminNotifyDefault; used by notification resolution. |
 | Domains (`domains`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | Server-backed domain membership counts, search and pagination. |
+| Cloud (`cloud`) | [cloudPanel.js](../../../server/cloudPanel.js) | The Cloud Panel Domain and its SuperAdmin, site administrators only; the panel itself answers only on that domain, to the SuperAdmin and a domain's customers ([Cloud Panel](Cloud-Panel.md)). Real methods in [cloudPanelAccess.test.cjs](../../../tests/cloudPanelAccess.test.cjs). |
 | Organizations (`organizations`) | [tenant.js](../../../server/methods/tenant.js) | Organization membership, tenant fields and administrator scope. |
 | Teams (`teams`) | [team.js](../../../models/team.js) | Team records and membership operations; scoped server permissions. |
 | People (`people`) | [users.js](../../../server/models/users.js) | Create/edit, roles, password/email operations, impersonation and removal. |

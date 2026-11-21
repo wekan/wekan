@@ -20,6 +20,8 @@ const AREAS = [
   { id: 'workload', labelKey: 'board-view-workload', pattern: /^workload/i },
   // Budget and billing (server/billing.js), before Settings' "set".
   { id: 'billing', labelKey: 'billing-title', pattern: /^billing|^timeEntr/i },
+  // The Cloud Panel (server/cloudPanel.js), before People's "domain".
+  { id: 'cloud', labelKey: 'cloud', pattern: /^cloudPanel/i },
   { id: 'problems', labelKey: 'problems', pattern: /eventlog|problem|instrumentation|cpu|statistic|selfcheck|report|repair|recovery|integrity|filestatus|brokencard|systemstatus|checknewest|progress|status$/i },
   { id: 'rules', labelKey: 'rules', pattern: /rule|trigger|action|^bot|bots?run/i },
   { id: 'history', labelKey: 'history', pattern: /history|activities|activityfeed|position|timeline|undo|redo/i },
