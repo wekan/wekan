@@ -42,16 +42,25 @@ that by providing one-click installation on various platforms.
     - Board icons at Remaining, (Sub)Workspaces, Archive
     - Shared Templates: Boards, Lists, Cards
     - Add Board / Import ([all import and export formats](docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md)):
-      - WeKan JSON/.zip, CSV/TSV, Excel, Markdown, Obsidian Kanban, Leo, OPML, Org mode, todo.txt
-      - Trello, Jira, Asana, Zenkit, Focalboard, Todoist, Microsoft Planner, MeisterTask, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
-        Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion, Fizzy, Plane
-      - Kanboard, Nextcloud Deck, OpenProject, Taskwarrior, Planka, KanbanFlow, Basecamp, Microsoft To Do, Google Tasks
-      - Microsoft: Lists, Project (XML), Outlook (.msg), Teams, OneNote, Azure DevOps Boards
-      - Sandstorm grain backups: WeKan, Prioritize, Yet Another TODO list, μTodo, SandChat, EtherCalc, Radicale, Davros, Hacker CMS, Gogs, WordPress
-      - Mail (.eml/mbox), Calendars (iCalendar), Google Takeout, Google Keep, Evernote,
-        Chats: Slack, Mattermost, Rocket.Chat, Telegram, WhatsApp, Discord - each into the view it fits
+      the tools are under the same headings as on the import page, a company's or a platform's products under its name
+      - WeKan JSON and .zip
+      - 37signals: Fizzy, Basecamp
+      - Atlassian: Trello (JSON, and a .zip of many boards with their files), Jira
+      - Google: Takeout (Tasks, Keep, Mail, Calendar, Chat), Tasks, Keep
+      - Microsoft: Excel, GitHub, Planner, Azure DevOps Boards, Lists, Project (XML), Outlook (.msg), To Do, OneNote, Teams
+      - Sandstorm grain backups: WeKan, Prioritize, Yet Another TODO list, μTodo, SandChat, EtherCalc,
+        Radicale calendar and address book, Davros, Hacker CMS, Gogs, WordPress
+      - Kanban and project tools: Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit, Focalboard, MeisterTask, Obsidian Kanban,
+        ClickUp, Nullboard, Kanri, monday.com, Taiga, Wrike, Teamwork.com, Businessmap, Quire, Notion, Plane
+      - Issue trackers and version control: GitLab, Gitea, Forgejo, Linear, Pivotal Tracker, Redmine
+      - Task and to-do apps: todo.txt, Taskwarrior, Todoist, TickTick, Tasks.org, Super Productivity, Vikunja
+      - Spreadsheets and tables: CSV / TSV
+      - Text and outlines: Markdown, Leo, OPML, Org mode
+      - Mail, calendars, chats and notes, each into the view it fits: Mail (mbox, .eml), iCalendar, Slack, Mattermost,
+        Telegram, WhatsApp, Discord, Rocket.Chat, Evernote
+      - Fetched from the service's API with your credentials: Planka, KanbanFlow, Basecamp, Microsoft To Do, OneNote and Teams,
+        Google Tasks and Keep
       - Large files are streamed to disk, within its free space or the Admin Panel limit
-      - GitHub, GitLab, Gitea, Forgejo
       - Import many boards at once: several export files, or a .zip of them, each its own board;
         One board per project splits an export of a whole app into a board per project
   - Change Color: Board theme and background image, Swimlane, List, Card
@@ -65,13 +74,13 @@ that by providing one-click installation on various platforms.
      - Show My Dependencies, Show Board Dependencies, Import/Export JSON/SVG
        - Dependencies are for SAFe PI Plannings, drawing colored lines between cards, like Kendis or Scaled Agile Framework. Import Export as JSON and SVG.
      - My Cards, Due Cards, My Attachments, Search All Boards, Date Settings,
-       Change color - override theme, Nofications Settings (Tray, Email, etc),
+       Change color - override theme, Notifications Settings (Tray, Email, etc),
        Font change and Font size change, Change Avatar,
-       Change Language (250+ languages)
+       Change Language (234 locale catalogs)
      - Change Settings: Show desktop drag handles, Submit editors with Enter,
        Open many cards at once, Play a sound when a checklist item is completed,
        Show cards count if list contains more than ... cards,
-       Show rescue dialoque before closing for unsaved card descriptions
+       Show rescue dialogue before closing for unsaved card descriptions
    - Board Views:
     - Swimlanes, Lists
       - Minicard: At list there is card, that has not been not opened yet
@@ -82,17 +91,18 @@ that by providing one-click installation on various platforms.
         lists split into Doing and Done
       - Drag drop reorder one or Multi-Selection: Swimlanes, Lists, Minicards, Checklists, Checklist Items
       - Collapse/Uncollapse: Menus, Swimlanes, Lists, Cards
-    - Table, Calendar, Multi Board Calendar, Time, Timeline
-    - Statistics, Group by Assignee
-    - Gantt, Frappe Gantt, DHTMLX Gantt
-    - Scrum: Product Backlog, Sprints, Sprint Report, Velocity, Roadmap, Dashboard, Bigboard
-    - Burndown, Burnup, Cumulative Flow, Control, Cycle Time, Flow Efficiency,
-      Lead Time, Throughtput Histogram, WIP Run, Pulse, Aging WIP,
-      Blocker Analysis, Monte Carlo Forecasts, Process Behavior (XmR),
-      Work Item Size vs Cycle Time, Map
-    - Reports: Created vs. Resolved, Net Flow, Time in List, Average Age,
-      Throughput Run Chart, Due Date Performance, Release Burndown, Epic Progress,
-      Workload, Distribution, Dependency Map, Activity Heatmap - each with PDF and Excel export
+    - The Board View menu, under its headings; each view shown, hidden and ordered per board:
+      - Board: Swimlanes, Lists, Table, Group by Assignee, Bigboard, Map, Column sets
+      - Calendar and time: Calendar, Calendar Mode, Multi Board Calendar, Time, Timeline,
+        Gantt, Frappe Gantt, DHTMLX Gantt, Roadmap
+      - Scrum: Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup, Release Burndown, Epic Progress
+      - Kanban flow: Cumulative Flow, Control, Cycle Time, Flow Efficiency, Lead Time, Throughput Histogram,
+        WIP Run, Aging WIP, Blocker Analysis, Monte Carlo Forecasts, Process Behavior (XmR),
+        Work Item Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age,
+        Throughput Run Chart, Due Date Performance
+      - Overview: Statistics, Dashboard, Pulse, Workload, Distribution, Dependency Map, Activity Heatmap
+      - Communication and code: Email, Chat, Version Control
+      - The charts and reports each have PDF and Excel export
    - Right Sidebar / Board Settings:
     - Rules: like IFTTT like Trello Butler
       - Lists view for Rules
@@ -100,23 +110,29 @@ that by providing one-click installation on various platforms.
       - Blocks: like Scratch or Jira AutoBlocks, shows same IFTTT Rules
       - Import / Export IFTTT Rules; import n8n, Node-RED and Trello Butler; import / export Wrike workflows
      - Export board :
-       - Select what to include: Card details, Board, Activities, Labels, People (Creator, Owner, Members, Assignees), Board Info (Board, List, Swimlane), Dates (Created, Received, Start, Due, End), Description, Custom Fields, Checklists, Subtasks, Comments, Attachments, Votin, Plannin Poker, Stickers, Location (link to map based on coordinates), Dependencies, Sort, Scrum Settings
-      - Export to ([all formats](docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md)): PDF, Excel, HTML, Calendar feed (iCal), Dependencies JSON/SVG,
-       CSV , ; TSV, JSON with/without attachmeents, .zip (Attachments),
-       Kanboard, Markdown, Leo, OPML, Org mode, todo.txt, Taskwarrior, Focalboard, Todoist,
-       Microsoft Planner, MeisterTask, Obsidian Kanban, Linear, TickTick, ClickUp, Nullboard, Kanri, Pivotal Tracker, Redmine, Tasks.org, monday.com,
-       Super Productivity, Taiga, Vikunja, Wrike (Excel and workflow), Quire, Teamwork.com, Businessmap, Notion,
-       Trello, Jira, NextCloud Deck, OpenProject, GitHub, GitLab,
-       Gitea, Forgejo, Asana, Zenkit, Trello .zip with attachments, mbox, Evernote, Mattermost, Rocket.Chat, Fizzy,
-       Azure DevOps Boards, Microsoft Lists, Microsoft Project (XML), Outlook (.eml), Teams, OneNote,
-       Sandstorm grain backups: Prioritize, Yet Another TODO list, μTodo, SandChat, EtherCalc, Radicale, Davros, Hacker CMS
+       - Select what to include: Card details, Board, Activities, Labels, People (Creator, Owner, Members, Assignees), Board Info (Board, List, Swimlane), Dates (Created, Received, Start, Due, End), Description, Custom Fields, Checklists, Subtasks, Comments, Attachments, Voting, Planning Poker, Stickers, Location (link to map based on coordinates), Dependencies, Sort, Scrum Settings
+      - Export to ([all formats](docs/Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md)):
+        under the same headings as Import
+       - WeKan: JSON with or without attachments, .zip with attachments; PDF, Excel, HTML, Calendar feed (iCal),
+         Dependencies JSON/SVG, CSV , ; TSV
+       - 37signals: Fizzy
+       - Atlassian: Trello (JSON, .zip with attachments, or straight into Trello through its API), Jira
+       - Microsoft: Planner, Azure DevOps Boards, Lists, Project (XML), Outlook (.eml), Teams, OneNote, GitHub
+       - Sandstorm grain backups that Sandstorm restores: Prioritize, Yet Another TODO list, μTodo, SandChat, EtherCalc,
+         Radicale calendar and address book, Davros, Hacker CMS
+       - Kanban and project tools: Kanboard, Focalboard, MeisterTask, Obsidian Kanban, ClickUp, Nullboard, Kanri, monday.com,
+         Wrike (Excel and workflow), Teamwork.com, Businessmap, Quire, Notion, Nextcloud Deck, OpenProject, Asana, Zenkit, Taiga
+       - Issue trackers and version control: Linear, Pivotal Tracker, Redmine, GitLab, Gitea, Forgejo
+       - Task and to-do apps: todo.txt, Taskwarrior, Todoist, TickTick, Tasks.org, Super Productivity, Vikunja
+       - Text and outlines: Markdown, Leo, OPML, Org mode
+       - Mail, chats and notes: mbox, Evernote, Mattermost, Rocket.Chat
        - Every export is written a page of cards at a time, so a large board exports without running out of memory
      - Export all boards at once (All Boards sidebar, or Multi-Selection): Excel as one workbook
        with a sheet per board, every other format as a .zip with a file per board
     - Scrum Settings: Definition of Ready and Done, Daily standup timer, Retrospective board
     - Change color theme, Change Background Image, Date settings
     - Settings:
-      - Board View: Show/Hide and drag drop reorder what is shown atat Public Board and Private Board
+      - Board View: Show/Hide and drag drop reorder what is shown at Public Board and Private Board
       - Swimlane: Scrum settings, Lock resize swimlane height, WIP Limit Groups
       - Board View: Show/Hide and drag drop reorder what is shown at Minicard and Card
   - Admin Panel
@@ -174,7 +190,7 @@ docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.ym
 
 ## Standards
 
-- [WeKan and Standard for Public Code](https://wekan.fi/standard-for-public-code/) assessment was made at 2023-11. At 2026 WeKan becameß full FLOSS with [FerretDB v1 Fork](https://github.com/wekan/FerretDB), also see 2026 talk WeKan 10 years at https://wekan.fi/docs for more details.
+- [WeKan and Standard for Public Code](https://wekan.fi/standard-for-public-code/) assessment was made at 2023-11. At 2026 WeKan became full FLOSS with [FerretDB v1 Fork](https://github.com/wekan/FerretDB), also see 2026 talk WeKan 10 years at https://wekan.fi/docs for more details.
   Currently Wekan meets 9 out of 16 criteria out of the box.
   Some others could be met with small changes.
 

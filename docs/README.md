@@ -81,6 +81,11 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [From Asana](./Features/Board-Sidebar/Board-Settings/Import-Export/Asana/Asana.md)
 * [From Zenkit](./Features/Board-Sidebar/Board-Settings/Import-Export/ZenKit/ZenKit.md)
 * [From old Wekan manually](./Features/Board-Sidebar/Board-Settings/Import-Export/WeKan/Migrating-from-old-Wekan-manually.md)
+* [From / To 78 other tools, under the same headings as the Import page](./Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md):
+  37signals, Atlassian, Google, Microsoft, Sandstorm, Kanban and project tools, issue trackers, task apps,
+  spreadsheets, outlines, mail, calendars, chats and notes
+* [From / To Microsoft: Azure DevOps Boards, Lists, Project, Outlook, Teams, OneNote](./Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md#project-and-task-tools)
+* [From / To a Sandstorm grain backup .zip, including an old Sandstorm WeKan grain](./Features/Board-Sidebar/Board-Settings/Import-Export/Sandstorm/Sandstorm.md)
 
 # Backup
 

@@ -1,7 +1,7 @@
 # Import / Export with other tools
 
-WeKan imports boards from, and exports boards to, more than fifty formats and
-tools. You use them from the existing menus:
+WeKan imports boards from 78 sources and exports boards to some sixty formats
+and tools. You use them from the existing menus:
 
 - **Import**: **All Boards → New → Import**, then pick the tool. The import
   page says where in that tool to get the file. Choose the file, or paste its
@@ -19,6 +19,8 @@ tools. You use them from the existing menus:
   Jira), **Google** (Takeout, Tasks, Keep) and **Microsoft** (Planner, To Do,
   Azure DevOps Boards, Lists, Project, Outlook, Teams, OneNote, Excel,
   GitHub). A company with one product stays under the heading of its kind.
+- **Sandstorm** is a heading of the same kind, after Microsoft: the apps whose
+  grain backups WeKan reads and writes (see [Sandstorm](./Sandstorm/Sandstorm.md)).
 - **Rules and workflows**: **Board Settings → Rules → Import / Export rules**
   (see [Rules](../../../Rules/Rules/Rules.md#import--export)).
 

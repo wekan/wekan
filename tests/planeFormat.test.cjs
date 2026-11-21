@@ -355,7 +355,9 @@ async function main() {
     assert.match(read('client/components/import/import.jade'), /input\.js-import-file\(id='import-file' type="file" accept="\{\{importAccept\}\}"\)/, 'the one file chooser');
     assert.doesNotMatch(read('client/components/boards/exportScope.js'), /key: 'plane'/);
     assert.doesNotMatch(read('models/export.js') + read('server/lib/renderExternalExport.js'), /'plane'/);
-    assert.match(read('README.md'), /Super Productivity, Taiga, Vikunja[^\n]*, Plane\n/);
+    // 2026-11-21: the README lists the import page's tools under its headings;
+    // Plane is in the Kanban and project tools group of the import list.
+    assert.match(read('README.md'), /- Kanban and project tools: [^\n]*\n[^\n]*\bPlane\n/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Plane/Plane.md');
     assert.match(docPage, /^## Format details$/m);

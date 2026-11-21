@@ -22,7 +22,7 @@ entries.
 | Swimlane | [Height resize lock and WIP Limit Groups](Swimlane.md) | Board admin |
 | List | [Width resize lock, same width for all lists, and the flow policies: list policies, split lists, commitment point, WIP limit per person](List.md) | Board admin |
 | Card | [Field visibility and order, including the flow fields Blocked, Class of service, MoSCoW and WSJF](Card.md) | Board admin; personal Labels text remains available to members |
-| Export | [Export board content](Import-Export.md), in WeKan's own formats and some sixty other tools' - every format written a page of cards at a time | Export must be enabled |
+| Export | [Export board content](Import-Export.md), in WeKan's own formats, some sixty other tools' and Sandstorm grain backups, under the same headings as Import - every format written a page of cards at a time | Export must be enabled |
 | Import | [Import into the board](Import-Export.md) | Write access; import must be enabled |
 | Notifications | [Board delivery defaults](Notifications.md) | Board admin |
 | Outgoing Webhooks | [Send events to integrations](Outgoing-Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Board admin |
