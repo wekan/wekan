@@ -65,6 +65,7 @@ page or a format in the export menu has no page here.
 | [Microsoft Outlook](./Microsoft-Outlook/Microsoft-Outlook.md) | yes | yes |
 | [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | yes | yes |
 | [Microsoft OneNote](./Microsoft-OneNote/Microsoft-OneNote.md) | yes | yes |
+| [Sandstorm grain backups](./Sandstorm/Sandstorm.md) | yes | yes (not WeKan, Gogs, WordPress) |
 | [monday.com](./monday-com/monday-com.md) | yes | yes |
 | [Wrike and Wrike workflow](./Wrike/Wrike.md) | yes | yes |
 | [Teamwork.com](./Teamwork/Teamwork.md) | yes | yes |

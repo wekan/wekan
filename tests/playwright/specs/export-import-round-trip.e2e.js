@@ -33,6 +33,13 @@ const ROUND_TRIPS = {
   // .zip, Teams' chats JSON.
   azuredevops: ['azuredevops', 'text'], mslists: ['mslists', 'text'], msproject: ['msproject', 'text'],
   outlook: ['outlook', 'zip'], teams: ['teams', 'json'], onenote: ['onenote', 'zip'],
+  // Sandstorm grain backups (2026-11-21). SandChat is not here: its one card is
+  // the room, named after the board, so "Alpha Card" does not come back by
+  // name - tests/sandstormGrain.test.cjs round-trips it.
+  sandstormprioritize: ['sandstormprioritize', 'zip'], sandstormyatl: ['sandstormyatl', 'zip'], sandstormmutodo: ['sandstormmutodo', 'zip'],
+  sandstormethercalc: ['sandstormethercalc', 'zip'], sandstormradicalecalendar: ['sandstormradicalecalendar', 'zip'],
+  sandstormradicalecontacts: ['sandstormradicalecontacts', 'zip'], sandstormdavros: ['sandstormdavros', 'zip'],
+  sandstormhackercms: ['sandstormhackercms', 'zip'],
   // Rocket.Chat is not here: its CSV importer has no display name for a
   // channel and takes only [0-9a-zA-Z-_.] in its name, so "Alpha Card" comes
   // back as "#alpha-card" - tests/chatExportFormats.test.cjs round-trips it.
@@ -98,6 +105,15 @@ const KEEPS = {
   outlook: ['description', 'comment', 'label'],
   teams: ['description', 'comment'],
   onenote: ['description', 'checklist'],
+  // The to-do apps keep only the title (and done); EtherCalc a row's columns;
+  // Radicale a calendar's dates or a contact's note and categories; Davros a
+  // card's Markdown file; Hacker CMS a page and its tags.
+  sandstormprioritize: [], sandstormyatl: [], sandstormmutodo: [],
+  sandstormethercalc: ['description', 'label', 'due'],
+  sandstormradicalecalendar: ['description', 'label', 'due'],
+  sandstormradicalecontacts: ['description', 'label'],
+  sandstormdavros: ['description'],
+  sandstormhackercms: ['description', 'label'],
 };
 const DESCRIPTION = 'Round trip description';
 const STEP = 'Round trip step';

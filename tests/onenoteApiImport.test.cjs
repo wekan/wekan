@@ -5,6 +5,17 @@
 // (models/lib/onenoteApiFormat.js, models/lib/apiImport/onenote.js).
 // Run: node --test tests/onenoteApiImport.test.cjs
 const test = require('node:test');
+// The export boundary's HTML sanitizer at its strictest: every tag removed,
+// to a fixed point (tests/tagStrippingFixedPoint.test.cjs).
+function stripEveryTag(value) {
+  let out = value;
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out;
+}
 const assert = require('node:assert');
 const { zipSync, strToU8 } = require('fflate');
 
@@ -82,7 +93,7 @@ test('negative: the export boundary cannot take the pages apart - they are writt
   const { sanitizeTransferValue } = await import('../models/lib/importExportBoundary.js');
   const built = one.formatOnenote({ board: { title: 'Notes' }, items: [{ cardId: 'a', title: 'Kickoff', listTitle: 'Meetings',
     description: 'Agenda', checklists: [{ items: [{ title: 'Book', done: true }] }] }] });
-  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: v => v.replace(/<[^>]*>/g, '') });
+  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: stripEveryTag });
   assert.deepStrictEqual(checked.warnings, [], 'nothing in the document is markup');
   const page = Object.entries(one.onenoteArchiveFiles(checked.value)).find(([path]) => path.endsWith('.html'))[1];
   assert.ok(page.startsWith('<!DOCTYPE html>') && page.includes('<title>Kickoff</title>') && page.includes('<p data-tag="to-do:completed">Book</p>'));

@@ -2030,7 +2030,9 @@ if arguments >= 3 and sys.argv[1] == 'exportboardpdf':
 # a CSV/TSV file as rows, a text format as its text, and the rest as JSON.
 EXCEL_IMPORT_SOURCES = {'excel', 'planner', 'monday', 'wrike', 'teamwork', 'businessmap'}
 ZIP_IMPORT_SOURCES = {'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy',
-                      'outlook', 'teams', 'onenote'}
+                      'outlook', 'teams', 'onenote',
+                      'sandstormwekan', 'sandstormprioritize', 'sandstormyatl', 'sandstormmutodo', 'sandstormsandchat', 'sandstormethercalc',
+                      'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormdavros', 'sandstormhackercms', 'sandstormgogs', 'sandstormwordpress'}
 # An Outlook .msg and the Teams export's .tar are sent as { binaryBase64 }.
 BINARY_IMPORT_EXTENSIONS = {'outlook': ('.msg',), 'teams': ('.tar',)}
 TEXT_IMPORT_SOURCES = {'markdown', 'todotxt', 'taskwarrior', 'focalboard', 'todoist', 'meistertask', 'obsidian',

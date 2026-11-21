@@ -17,6 +17,8 @@ const TOOL_GROUPS = [
   { group: 'atlassian', label: 'Atlassian' },
   { group: 'google', label: 'Google' },
   { group: 'microsoft', label: 'Microsoft' },
+  // Not a company, but the same: a platform whose apps are listed under it.
+  { group: 'sandstorm', label: 'Sandstorm' },
   { group: 'kanban', labelKey: 'tool-group-kanban' },
   { group: 'issues', labelKey: 'tool-group-issues' },
   { group: 'tasks', labelKey: 'tool-group-tasks' },
@@ -32,6 +34,7 @@ const MEMBERS = {
   atlassian: ['trello', 'trello-api', 'trellozip', 'jira'],
   google: ['googletakeout', 'googletasks', 'googlekeep'],
   microsoft: ['planner', 'mstodo', 'azuredevops', 'mslists', 'msproject', 'outlook', 'teams', 'onenote', 'excel', 'github'],
+  sandstorm: ['sandstormwekan', 'sandstormprioritize', 'sandstormyatl', 'sandstormmutodo', 'sandstormsandchat', 'sandstormethercalc', 'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormdavros', 'sandstormhackercms', 'sandstormgogs', 'sandstormwordpress'],
   kanban: ['kanboard', 'deck', 'openproject', 'asana', 'zenkit', 'monday', 'wrike',
     'wrikeworkflow', 'teamwork', 'businessmap', 'clickup', 'notion', 'plane', 'taiga', 'focalboard', 'nullboard', 'kanri',
     'obsidian', 'meistertask', 'quire'],

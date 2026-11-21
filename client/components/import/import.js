@@ -791,6 +791,11 @@ Template.importTextarea.helpers({
       });
     }
 
+    // Sandstorm's apps share one instruction, naming the app (models/lib/importSources.js).
+    const spec = importSourceSpec(importSource);
+    if (spec && spec.instruction === 'sandstorm') {
+      return TAPi18n.__('import-board-instruction-sandstorm', { app: spec.name.replace(/^Sandstorm /, '') });
+    }
     return TAPi18n.__(`import-board-instruction-${importSource}`);
   },
   importPlaceHolder() {

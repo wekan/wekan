@@ -3375,6 +3375,10 @@
     {
       "key": "import-board-instruction-teams",
       "since": "2026-11-20"
+    },
+    {
+      "key": "import-board-instruction-sandstorm",
+      "since": "2026-11-21"
     }
   ]
 }

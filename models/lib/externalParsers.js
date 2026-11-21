@@ -34,6 +34,7 @@ import { parseAzureDevOpsCsv } from './azureDevOpsCsvFormat.js';
 import { parseMsListsCsv } from './msListsCsvFormat.js';
 import { parseMsProjectXml } from './msProjectXmlFormat.js';
 import { parseOnenoteApi } from './onenoteApiFormat.js';
+import { SANDSTORM_APPS, sandstormParser } from './sandstorm/grainApps.js';
 import { parseKanbanflowApi } from './kanbanflowApiFormat.js';
 import { parseBasecampApi } from './basecampApiFormat.js';
 import { parseGoogleTasksApi } from './googletasksApiFormat.js';
@@ -1370,6 +1371,8 @@ export const EXTERNAL_PARSERS = {
   telegram: parseTelegramExport,
   whatsapp: parseWhatsAppChat,
   discord: parseDiscordExport,
+  // Sandstorm grains: what server/lib/sandstormGrain.js read from the .zip.
+  ...Object.fromEntries(SANDSTORM_APPS.map(app => [app.key, sandstormParser(app.key)])),
 };
 
 // Sync-capable sources: sources whose normalized tasks carry `externalId`, so

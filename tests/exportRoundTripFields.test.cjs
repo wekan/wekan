@@ -91,7 +91,9 @@ async function main() {
   // round-trips those through the server).
   // Fizzy's account export and Rocket.Chat's CSV importer zip are archives too;
   // tests/fizzyFormat.test.cjs and tests/chatExportFormats.test.cjs round-trip them.
-  const BINARY = ['planner', 'monday', 'businessmap', 'vikunja', 'wrike', 'teamwork', 'fizzy', 'rocketchat', 'outlook', 'onenote'];
+  const BINARY = ['planner', 'monday', 'businessmap', 'vikunja', 'wrike', 'teamwork', 'fizzy', 'rocketchat', 'outlook', 'onenote',
+    // Sandstorm grains: .zip files (tests/sandstormGrain.test.cjs round-trips each).
+    'sandstormprioritize', 'sandstormyatl', 'sandstormmutodo', 'sandstormsandchat', 'sandstormethercalc', 'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormdavros', 'sandstormhackercms'];
   const both = Object.keys(formatters).filter(name => typeof formatters[name] === 'function' && EXTERNAL_PARSERS[name]);
   assert.deepEqual(both.filter(name => !(name in KEEPS) && !BINARY.includes(name)), [], 'a format missing from KEEPS');
   console.log(`  ok - ${Object.keys(KEEPS).length} formats keep what KEEPS says`);

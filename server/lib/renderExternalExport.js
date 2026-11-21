@@ -58,6 +58,13 @@ async function renderExternalExport(boardId, format, fields) {
     const { outlookArchiveFiles } = require('/models/lib/outlookMsgFormat');
     return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(outlookArchiveFiles(built)) };
   }
+  // A Sandstorm grain backup (models/lib/sandstorm/grainApps.js): its files
+  // written from the checked values, its SQLite databases and attachments
+  // added by server/lib/sandstormGrain.js.
+  if (/^sandstorm[a-z]+$/.test(format)) {
+    const { sandstormGrainFiles } = require('/models/lib/sandstorm/grainApps');
+    return { contentType: 'application/zip', body: await require('/server/lib/sandstormGrain').writeSandstormGrain(sandstormGrainFiles(built)) };
+  }
   if (format === 'onenote') {
     const { onenoteArchiveFiles } = require('/models/lib/onenoteApiFormat');
     return { contentType: 'application/zip', body: require('/server/lib/vikunjaArchive').writeVikunjaArchive(onenoteArchiveFiles(built)) };

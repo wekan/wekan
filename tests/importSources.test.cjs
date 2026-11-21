@@ -24,11 +24,13 @@ async function main() {
     // (models/lib/apiImportServices.js), and the ten mail, calendar, chat and
     // note sources (mail ... evernote, Rocket.Chat among them); 2026-11-21 six
     // more of Microsoft's: Azure DevOps Boards, Lists, Project, Outlook, Teams
-    // and OneNote.
-    assert.equal(keys.length, 66, "every source the import page offers");
+    // and OneNote; and twelve Sandstorm apps' grain backups.
+    assert.equal(keys.length, 78, "every source the import page offers");
     for (const source of reg.IMPORT_SOURCES) {
       assert.ok(source.product || source.name, source.key);
-      assert.ok(['text', 'json', 'excel', 'rows', 'binary'].includes(source.send), `${source.key} send`);
+      assert.ok(['text', 'json', 'excel', 'rows', 'binary', 'zip'].includes(source.send), `${source.key} send`);
+      // Only ever a .zip: no text to paste, and read as one export of the tool.
+      if (source.send === 'zip') assert.ok(!source.paste && source.zipSend === 'zip' && source.files.join() === '.zip', `${source.key} zip`);
       // A binary source names the extensions it reads as bytes.
       if (source.send === 'binary') assert.ok((source.binaryFiles || []).length, `${source.key} binaryFiles`);
       assert.ok(source.paste || (source.files && source.files.length), `${source.key} can be given somehow`);
@@ -58,8 +60,8 @@ async function main() {
   test('the many-files lists are read from it', () => {
     assert.deepEqual(many.EXCEL_SOURCES, reg.IMPORT_SOURCES.filter(s => s.send === 'excel').map(s => s.key));
     // Telegram and Discord: the export folder zipped, with the message files beside the JSON.
-    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'fizzy', 'googletakeout', 'notion', 'onenote', 'outlook', 'plane', 'rocketchat', 'slack', 'teams', 'telegram', 'vikunja', 'wekan']);
-    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy',\s+'outlook', 'teams', 'onenote'\}/);
+    assert.deepEqual(many.ZIP_EXPORT_SOURCES.sort(), ['discord', 'fizzy', 'googletakeout', 'notion', 'onenote', 'outlook', 'plane', 'rocketchat', 'sandstormdavros', 'sandstormethercalc', 'sandstormgogs', 'sandstormhackercms', 'sandstormmutodo', 'sandstormprioritize', 'sandstormradicalecalendar', 'sandstormradicalecontacts', 'sandstormsandchat', 'sandstormwekan', 'sandstormwordpress', 'sandstormyatl', 'slack', 'teams', 'telegram', 'vikunja', 'wekan']);
+    assert.match(read('api.py'), /ZIP_IMPORT_SOURCES = \{'vikunja', 'notion', 'plane', 'slack', 'googletakeout', 'telegram', 'discord', 'rocketchat', 'fizzy',\s+'outlook', 'teams', 'onenote',\s+'sandstormwekan', [^}]*'sandstormwordpress'\}/);
     assert.deepEqual(many.OWN_CREATOR_SOURCES.sort(), ['csv', 'excel', 'jira', 'trello', 'wekan']);
     // api.py cannot import JavaScript; its lists must agree by hand.
     const api = read('api.py');

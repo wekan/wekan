@@ -64,6 +64,7 @@ const DIRECTORY = {
   rocketchat: 'Rocket-Chat', fizzy: 'Fizzy',
   azuredevops: 'Azure-DevOps', mslists: 'Microsoft-Lists', msproject: 'Microsoft-Project', outlook: 'Microsoft-Outlook',
   teams: 'Microsoft-Teams', onenote: 'Microsoft-OneNote',
+  sandstormwekan: 'Sandstorm', sandstormprioritize: 'Sandstorm', sandstormyatl: 'Sandstorm', sandstormmutodo: 'Sandstorm', sandstormsandchat: 'Sandstorm', sandstormethercalc: 'Sandstorm', sandstormradicalecalendar: 'Sandstorm', sandstormradicalecontacts: 'Sandstorm', sandstormdavros: 'Sandstorm', sandstormhackercms: 'Sandstorm', sandstormgogs: 'Sandstorm', sandstormwordpress: 'Sandstorm',
 };
 const HEADINGS = ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
   'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources'];

@@ -154,8 +154,8 @@ Meteor.methods({
     // iCalendar, chat and note text, and the Slack and Google Takeout zips:
     // each is parsed first, and what was parsed is sanitized. So are Microsoft's:
     // Azure DevOps' "Name <address>" people, Project's XML, Outlook's and Teams'
-    // bytes, Teams' and OneNote's HTML.
-    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'rocketchat' || importSource === 'azuredevops' || importSource === 'msproject' || importSource === 'outlook' || importSource === 'teams' || importSource === 'onenote' || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'fizzy' || importSource === 'notion' || importSource === 'plane' ? board
+    // bytes, Teams' and OneNote's HTML; and a Sandstorm grain, a .zip.
+    let importedBoard = importSource === 'mail' || importSource === 'ical' || importSource === 'googletakeout' || importSource === 'slack' || importSource === 'mattermost' || importSource === 'rocketchat' || importSource === 'azuredevops' || importSource === 'msproject' || importSource === 'outlook' || importSource === 'teams' || importSource === 'onenote' || /^sandstorm[a-z]+$/.test(importSource) || importSource === 'whatsapp' || importSource === 'evernote' || importSource === 'leo' || importSource === 'opml' || importSource === 'vikunja' || importSource === 'fizzy' || importSource === 'notion' || importSource === 'plane' ? board
       : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
@@ -435,6 +435,31 @@ Meteor.methods({
           throw new Meteor.Error('invalid-import-format', error.message);
         }
         if (importSource !== 'mslists') importedBoard = sanitizeImported(importedBoard, importSource, this);
+        creator = new KanboardCreator(data, importSource);
+        break;
+      case 'sandstormwekan':
+      case 'sandstormprioritize':
+      case 'sandstormyatl':
+      case 'sandstormmutodo':
+      case 'sandstormsandchat':
+      case 'sandstormethercalc':
+      case 'sandstormradicalecalendar':
+      case 'sandstormradicalecontacts':
+      case 'sandstormdavros':
+      case 'sandstormhackercms':
+      case 'sandstormgogs':
+      case 'sandstormwordpress':
+        // A Sandstorm grain backup (.zip) - server/lib/sandstormGrain.js reads
+        // the app's data from it, models/lib/sandstorm/grainApps.js the board.
+        check(board, Object);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = await require('/server/lib/sandstormGrain').readSandstormGrainData(importedBoard, importSource);
+          importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, importSource, this);
         creator = new KanboardCreator(data, importSource);
         break;
       case 'onenote':

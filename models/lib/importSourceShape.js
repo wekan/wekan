@@ -70,6 +70,19 @@ export function validateImportSourceShape(source, value) {
     case 'onenote': valid = (value && typeof value === 'object' && (value.onenote === true
       || typeof value.zipBase64 === 'string' || typeof value.zipFile === 'string'))
       || (typeof value === 'string' && value.trim().length > 0); break;
+    // A Sandstorm grain backup: a .zip, read on the server.
+    case 'sandstormwekan':
+    case 'sandstormprioritize':
+    case 'sandstormyatl':
+    case 'sandstormmutodo':
+    case 'sandstormsandchat':
+    case 'sandstormethercalc':
+    case 'sandstormradicalecalendar':
+    case 'sandstormradicalecontacts':
+    case 'sandstormdavros':
+    case 'sandstormhackercms':
+    case 'sandstormgogs':
+    case 'sandstormwordpress': valid = (typeof value?.zipBase64 === 'string' && value.zipBase64.length > 0) || typeof value?.zipFile === 'string'; break;
     case 'evernote': valid = typeof value === 'string' && /<en-export[\s>]/.test(value); break;
     case 'telegram': valid = arrayAt(value, 'messages') || arrayAt(value?.chats, 'list'); break;
     case 'discord': valid = (Array.isArray(value) ? value : [value]).every(e => e && e.channel && Array.isArray(e.messages)); break;

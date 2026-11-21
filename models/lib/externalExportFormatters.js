@@ -40,6 +40,7 @@ import { formatMsListsCsv } from './msListsCsvFormat.js';
 import { formatMsProjectXml } from './msProjectXmlFormat.js';
 import { formatOutlookEml } from './outlookMsgFormat.js';
 import { formatOnenote } from './onenoteApiFormat.js';
+import { SANDSTORM_APPS, formatSandstormGrain } from './sandstorm/grainApps.js';
 import { formatWrikeRows } from './wrikeFormat.js';
 import { formatWrikeWorkflow } from './wrikeWorkflow.js';
 import { formatTeamworkSheet } from './teamworkFormat.js';
@@ -607,6 +608,9 @@ export const formatters = {
   outlook: data => formatOutlookEml(data),
   onenote: data => formatOnenote(data),
   teams: data => formatTeams(data),
+  // Sandstorm grains of the apps WeKan writes: plain values here, the .zip
+  // written after the export boundary (server/lib/renderExternalExport.js).
+  ...Object.fromEntries(SANDSTORM_APPS.filter(app => app.export).map(app => [app.key, data => formatSandstormGrain(app.key, data)])),
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

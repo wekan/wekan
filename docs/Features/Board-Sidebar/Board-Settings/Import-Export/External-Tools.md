@@ -120,6 +120,28 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 | [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | Fetched from Microsoft Graph, the personal export `.tar`, or Graph chat messages `.json` | Teams chats as Graph chat messages `.json` |
 | [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
 
+## Sandstorm
+
+[Sandstorm](https://sandstorm.org) apps' grain backups: under the heading
+**Sandstorm** on both the import page and the export menu. Rocket.Chat, Text
+Editor, SandForms and Piwik keep their data in MongoDB's or MySQL's own files
+and are not read.
+
+| App | Import | Export |
+| --- | --- | --- |
+| [Sandstorm WeKan](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
+| [Sandstorm Prioritize](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Prioritize grain backup `.zip` |
+| [Sandstorm Yet Another TODO list](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Yet Another TODO list grain backup `.zip` |
+| [Sandstorm μTodo](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm μTodo grain backup `.zip` |
+| [Sandstorm SandChat](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm SandChat grain backup `.zip` |
+| [Sandstorm EtherCalc](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm EtherCalc grain backup `.zip` |
+| [Sandstorm Radicale calendar](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale calendar grain backup `.zip` |
+| [Sandstorm Radicale address book](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale address book grain backup `.zip` |
+| [Sandstorm Davros](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Davros grain backup `.zip` |
+| [Sandstorm Hacker CMS](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Hacker CMS grain backup `.zip` |
+| [Sandstorm Gogs](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
+| [Sandstorm WordPress](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
+
 ## WeKan's own formats and documents
 
 | Format | Import | Export |

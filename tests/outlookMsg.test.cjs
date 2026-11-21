@@ -7,6 +7,17 @@
 // Outlook writes them.
 // Run: node --test tests/outlookMsg.test.cjs
 const test = require('node:test');
+// The export boundary's HTML sanitizer at its strictest: every tag removed,
+// to a fixed point (tests/tagStrippingFixedPoint.test.cjs).
+function stripEveryTag(value) {
+  let out = value;
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<[^>]*>/g, '');
+  } while (out !== prev);
+  return out;
+}
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -202,7 +213,7 @@ test('negative: the export boundary cannot take the messages apart - they are wr
   const { sanitizeTransferValue } = await import('../models/lib/importExportBoundary.js');
   const built = msg.formatOutlookEml({ items: [{ cardId: 'c1', title: 'Plan', description: 'Text', creator: 'megan',
     createdAt: '2026-11-20T09:30:00.000Z', labels: [], comments: [{ text: 'Reply', author: 'alex' }] }] });
-  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: v => v.replace(/<[^>]*>/g, '') });
+  const checked = sanitizeTransferValue(built, { direction: 'export', sanitizeHtml: stripEveryTag });
   assert.deepStrictEqual(checked.warnings, [], 'nothing in the document is markup');
   const files = Object.values(msg.outlookArchiveFiles(checked.value));
   assert.match(files[0], /\r\nMessage-ID: <c1@wekan\.invalid>\r\n/);
