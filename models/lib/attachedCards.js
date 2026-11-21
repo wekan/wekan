@@ -8,7 +8,7 @@
 //
 // Pure, isomorphic, dependency-free apart from the card-URL parser:
 // tests/attachedCards.test.cjs.
-const { findCardUrlMatches } = require('./cardUrlAutolink');
+const { findCardUrlMatches } = require('@wekanteam/autolink/cardUrlAutolink');
 
 const MAX_ATTACHED_CARDS = 100;
 const ID = /^[A-Za-z0-9_-]{1,64}$/;

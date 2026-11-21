@@ -19,7 +19,7 @@
 // uses: which fields match, what value each one gets, and when a chain of
 // links has to stop. Pure, isomorphic and dependency-free apart from the
 // card-URL parser: tests/customFieldLinks.test.cjs.
-const { findCardUrlMatches } = require('./cardUrlAutolink');
+const { findCardUrlMatches } = require('@wekanteam/autolink/cardUrlAutolink');
 
 // A card keeps at most this many field links. Every value change on a linked
 // card reads each linked card, so the cap bounds that work per change.

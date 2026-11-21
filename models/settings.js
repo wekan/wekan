@@ -55,7 +55,7 @@ Settings.attachSchema(
     // tracker. externalLinkPatternPrefix is the literal token prefix (commonly
     // "#"); externalLinkPatternUrl is the URL template containing "{number}",
     // which is replaced with the digits that followed the prefix. Either left
-    // empty disables the feature (no-op). See models/lib/externalLinkAutolink.js
+    // empty disables the feature (no-op). See npm-packages/autolink/externalLinkAutolink.js
     // for the pure matching/URL-building function this setting drives.
     externalLinkPatternPrefix: {
       type: String,
@@ -67,7 +67,7 @@ Settings.attachSchema(
     },
     // #1463: further autolink rules, one "<token> = <url>" per line with
     // {number} and {identifier}, and identifier abbreviations "TK=Task".
-    // See models/lib/externalLinkRules.js.
+    // See npm-packages/autolink/externalLinkRules.js.
     externalLinkRules: {
       type: String,
       optional: true,

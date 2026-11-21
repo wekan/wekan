@@ -5,7 +5,7 @@
 // Bugzilla, ...), similar to the Mattermost autolink plugin. Admin-configurable
 // via Admin Panel / Settings / Features (models/settings.js
 // externalLinkPatternPrefix / externalLinkPatternUrl), applied by the pure
-// function in models/lib/externalLinkAutolink.js.
+// function in npm-packages/autolink/externalLinkAutolink.js.
 //
 // Run: node tests/externalLinkAutolink.test.cjs
 //
@@ -28,7 +28,7 @@ const {
   findMatches,
   isInsideExistingLink,
   autolinkExternalIssueReferences,
-} = require('../models/lib/externalLinkAutolink.js');
+} = require('@wekanteam/autolink/externalLinkAutolink');
 
 let passed = 0;
 function test(name, fn) {
@@ -155,7 +155,7 @@ test('the two settings fields exist in the schema, both optional strings', () =>
     'externalLinkPatternUrl must be an optional String field');
 });
 
-// ── the markdown package applies it, and mirrors the pure algorithm ────────
+// ── the markdown package applies it ─────────────────────────────────────────
 test('the markdown package renders through a reactive externalLinkPattern bridge', () => {
   const pkg = read('packages/markdown/src/template-integration.js');
   assert.ok(/Markdown\.externalLinkPattern = new ReactiveVar/.test(pkg),
@@ -164,27 +164,19 @@ test('the markdown package renders through a reactive externalLinkPattern bridge
     'the markdown helper actually calls the autolink step before Markdown.render');
 });
 
-// CodeQL js/incomplete-sanitization (#533): the markdown package duplicates
-// autolinkWekanCardUrls' title-escaping from models/lib/cardUrlAutolink.js
-// (kept in sync per the comment there) because it cannot import app code.
-// The duplicate must escape the backslash BEFORE the ']', or a title ending
-// in a raw backslash escapes the literal ']' the function inserts and the
-// markdown link label is never terminated. Source-checked (not runtime,
-// since this package imports `meteor/...` modules unavailable to plain
-// node) so the two copies cannot silently diverge back to the incomplete
-// (]-only) escape.
-test('the markdown package escapes both "\\\\" and "]" in a card title, in that order, not just "]"', () => {
+// CodeQL js/incomplete-sanitization (#533) was in the markdown package's own
+// copy of autolinkWekanCardUrls' title escaping. The package now imports the
+// one copy from @wekanteam/autolink, whose backslash-then-']' escape
+// tests/cardUrlAutolink.test.cjs runs; this pins that no second copy - and no
+// ]-only escape - comes back into the package.
+test('the markdown package uses the shared autolinks and carries no copy of them', () => {
   const pkg = read('packages/markdown/src/template-integration.js');
-  const expected = "title.replace(/\\\\/g, '\\\\\\\\').replace(/]/g, '\\\\]')";
-  assert.ok(
-    pkg.includes(expected),
-    'safeTitle must escape backslashes before escaping "]", matching models/lib/cardUrlAutolink.js',
-  );
-  const oldIncomplete = "title.replace(/]/g, '\\\\]');";
-  assert.ok(
-    !pkg.includes(oldIncomplete),
-    'the old ]-only escape (no backslash handling) must not be present anymore',
-  );
+  assert.match(pkg, /import \{[^}]*\bautolinkExternalIssueReferences\b[^}]*\bautolinkWekanCardUrls\b[^}]*\} from '@wekanteam\/autolink';/);
+  assert.doesNotMatch(pkg, /function (autolinkExternalIssueReferences|autolinkWekanCardUrls|findCardUrlMatches|isInsideExistingLink\w*)\b/);
+  assert.doesNotMatch(pkg, /title\.replace\(\/\]\/g/, 'no ]-only escape of a card title');
+  for (const gone of ['models/lib/externalLinkAutolink.js', 'models/lib/cardUrlAutolink.js', 'models/lib/externalLinkRules.js']) {
+    assert.ok(!fs.existsSync(path.join(repoRoot, gone)), `${gone} is not back`);
+  }
 });
 
 test('editor.js keeps the bridge in sync with the setting, like alwaysShowCodeAsText', () => {

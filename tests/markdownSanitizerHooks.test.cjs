@@ -111,9 +111,13 @@ async function main() {
 
   // No sanitizer config may carry a dead HOOKS key again, and the markdown
   // package never calls DOMPurify.sanitize without its hooks.
-  for (const file of ['packages/markdown/src/secureDOMPurify.js', 'imports/lib/secureDOMPurify.js', 'client/lib/secureDOMPurify.js']) {
+  for (const file of ['packages/markdown/src/secureDOMPurify.js', 'imports/lib/secureDOMPurify.js']) {
     assert.doesNotMatch(read(file), /^\s*HOOKS:\s*\{/m, file);
   }
+  // client/lib/secureDOMPurify.js was a third, older copy - without the
+  // administrator's URL schemes - that client/imports.js loaded and nothing
+  // imported from. The app sanitizes with imports/lib/secureDOMPurify.js.
+  assert.ok(!fs.existsSync(path.join(__dirname, '..', 'client/lib/secureDOMPurify.js')), 'the unused client copy is not back');
   const integration = read('packages/markdown/src/template-integration.js');
   assert.doesNotMatch(integration, /DOMPurify\.sanitize\(/);
   assert.match(integration, /secureSanitize\(DOMPurify, renderedMarkdown, getSecureDOMPurifyConfig\(urlSchemes\)\)/);

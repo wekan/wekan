@@ -5,6 +5,14 @@ import markdownItMath from 'markdown-it-math/no-default-renderer';
 import temml from 'temml';
 import hljs from 'highlight.js/lib/common';
 import { secureSanitize, getSecureDOMPurifyConfig, linkableSchemes } from './secureDOMPurify';
+// The same autolinks the app uses, from the one copy in npm-packages/autolink
+// (a Meteor package cannot import app code, but it can import an npm package).
+import {
+  autolinkExternalIssueReferences,
+  parseExternalLinkRules,
+  applyExternalLinkRules,
+  autolinkWekanCardUrls,
+} from '@wekanteam/autolink';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
@@ -43,100 +51,14 @@ Markdown.alwaysShowCodeAsText = new ReactiveVar(false);
 // wekan/wekan#3069: Admin Panel / Features bridge for the external issue-tracker
 // autolink setting (externalLinkPatternPrefix / externalLinkPatternUrl), kept in
 // sync the same way as alwaysShowCodeAsText above - this package cannot import
-// app code (models/settings.js, models/lib/externalLinkAutolink.js), so
+// app code (models/settings.js), so
 // client/components/main/editor.js writes the two configured strings here.
-// Empty prefix or a template with no "{number}" placeholder means "off": see
-// externalLinkAutolinkAndaSummary below, which mirrors the pure, unit-tested
-// algorithm in models/lib/externalLinkAutolink.js (keep the two in sync).
+// Empty prefix or a template with no "{number}" placeholder means "off" (see
+// npm-packages/autolink/externalLinkAutolink.js).
 Markdown.externalLinkPattern = new ReactiveVar({ prefix: '', urlTemplate: '' });
 // #1463: the further rules and abbreviations (externalLinkRules /
 // externalLinkIdentifierAliases), written by client/components/main/editor.js.
 Markdown.externalLinkRules = new ReactiveVar({ rules: '', aliases: '' });
-
-// #1463: a copy of models/lib/externalLinkRules.js between the markers, kept
-// identical by tests/externalLinkRules.test.cjs.
-// BEGIN externalLinkRules
-const EXTERNAL_LINK_RULES_MAX = 50;
-const EXTERNAL_LINK_IDENTIFIER = '([A-Za-z][A-Za-z0-9_-]{0,31})';
-
-function externalLinkRuleEscape(text) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function parseExternalLinkAliases(text) {
-  const aliases = {};
-  for (const part of String(text || '').split(/[,\n]/)) {
-    const match = /^\s*([A-Za-z][A-Za-z0-9_-]{0,31})\s*=\s*([A-Za-z][A-Za-z0-9_-]{0,31})\s*$/.exec(part);
-    if (match) aliases[match[1]] = match[2];
-  }
-  return aliases;
-}
-
-function parseExternalLinkRules(rulesText, aliasesText) {
-  const aliases = parseExternalLinkAliases(aliasesText);
-  const rules = [];
-  for (const line of String(rulesText || '').split(/\r?\n/)) {
-    const split = /\s=\s/.exec(line);
-    if (!split) continue;
-    const token = line.slice(0, split.index).trim();
-    const url = line.slice(split.index + split[0].length).trim();
-    const numbers = token.split('{number}').length - 1;
-    const identifiers = token.split('{identifier}').length - 1;
-    if (numbers !== 1 || identifiers > 1 || !/^https?:\/\/[^\s]+$/i.test(url)) continue;
-    if (/\{identifier\}/.test(url) && !identifiers) continue;
-    const source = token.split(/(\{number\}|\{identifier\})/).map(part => (part === '{number}' ? '(\\d+)'
-      : part === '{identifier}' ? EXTERNAL_LINK_IDENTIFIER : externalLinkRuleEscape(part))).join('');
-    const order = [...token.matchAll(/\{(number|identifier)\}/g)].map(m => m[1]);
-    rules.push({ source, order, url, aliases });
-    if (rules.length >= EXTERNAL_LINK_RULES_MAX) break;
-  }
-  return rules;
-}
-
-// The spans of existing markdown links and href values, never rewritten.
-function externalLinkProtectedSpans(text) {
-  const spans = [];
-  for (const re of [/\[[^\]\n]*\]\([^)\n]*\)/g, /href\s*=\s*("[^"]*"|'[^']*')/gi]) {
-    let match;
-    while ((match = re.exec(text)) !== null) spans.push([match.index, match.index + match[0].length]);
-  }
-  return spans;
-}
-
-function applyExternalLinkRules(text, rules) {
-  if (typeof text !== 'string' || !text || !Array.isArray(rules) || !rules.length) return text;
-  const spans = externalLinkProtectedSpans(text);
-  const found = [];
-  for (const rule of rules) {
-    const re = new RegExp(rule.source, 'g');
-    let match;
-    while ((match = re.exec(text)) !== null) {
-      if (!match[0]) { re.lastIndex += 1; continue; }
-      const start = match.index, end = start + match[0].length;
-      if (spans.some(([a, b]) => start < b && end > a)) continue;
-      const values = {};
-      rule.order.forEach((name, i) => { values[name] = match[i + 1]; });
-      if (values.identifier !== undefined && Object.prototype.hasOwnProperty.call(rule.aliases, values.identifier)) {
-        values.identifier = rule.aliases[values.identifier];
-      }
-      const url = rule.url.replace(/\{(number|identifier)\}/g, (all, name) =>
-        (values[name] === undefined ? all : encodeURIComponent(values[name])));
-      const label = /^\[.*\]$/.test(match[0]) ? match[0].slice(1, -1) : match[0];
-      found.push({ start, end, link: `[${label}](${url})` });
-    }
-  }
-  if (!found.length) return text;
-  found.sort((a, b) => a.start - b.start || b.end - a.end);
-  let result = '';
-  let last = 0;
-  for (const item of found) {
-    if (item.start < last) continue;
-    result += text.slice(last, item.start) + item.link;
-    last = item.end;
-  }
-  return result + text.slice(last);
-}
-// END externalLinkRules
 
 // wekan/wekan#2453: same app/package bridge as externalLinkPattern above, for
 // resolving a pasted WeKan card URL's cardId to its CURRENT title. This
@@ -151,121 +73,6 @@ function applyExternalLinkRules(text, rules) {
 // autolinkWekanCardUrls) for a card this client's Minimongo subscription does
 // not have - a deleted card, or one on a board this viewer cannot see.
 Markdown.resolveCardTitle = null;
-
-const EXTERNAL_LINK_NUMBER_PLACEHOLDER = '{number}';
-
-function externalLinkPatternIsConfigured(prefix, urlTemplate) {
-  return (
-    typeof prefix === 'string' &&
-    prefix.length > 0 &&
-    typeof urlTemplate === 'string' &&
-    urlTemplate.includes(EXTERNAL_LINK_NUMBER_PLACEHOLDER)
-  );
-}
-
-function escapeRegExpForExternalLink(text) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function isInsideExistingLinkForExternalLink(text, index) {
-  const before = text.slice(0, index);
-  const openParen = before.lastIndexOf('](');
-  const closeParen = before.lastIndexOf(')');
-  if (openParen !== -1 && openParen > closeParen) return true;
-  const hrefIdx = before.lastIndexOf('href="');
-  const hrefIdx2 = before.lastIndexOf("href='");
-  const lastHref = Math.max(hrefIdx, hrefIdx2);
-  if (lastHref !== -1) {
-    const quote = lastHref === hrefIdx ? '"' : "'";
-    const closingQuote = before.indexOf(quote, lastHref + 6);
-    if (closingQuote === -1 || closingQuote > before.length) return true;
-  }
-  return false;
-}
-
-// Replaces bare "<prefix><digits>" tokens (e.g. "#1234") with markdown links to
-// the configured external tracker, skipping tokens already inside a link. A
-// no-op when the setting is not configured, or when text has no match.
-function autolinkExternalIssueReferences(text, prefix, urlTemplate) {
-  if (!externalLinkPatternIsConfigured(prefix, urlTemplate)) return text;
-  if (typeof text !== 'string' || !text) return text;
-
-  const pattern = new RegExp(`${escapeRegExpForExternalLink(prefix)}(\\d+)`, 'g');
-  let result = '';
-  let lastEnd = 0;
-  let match;
-  let changed = false;
-  while ((match = pattern.exec(text)) !== null) {
-    const index = match.index;
-    if (isInsideExistingLinkForExternalLink(text, index)) continue;
-    result += text.slice(lastEnd, index);
-    const url = urlTemplate.split(EXTERNAL_LINK_NUMBER_PLACEHOLDER).join(match[1]);
-    result += `[${match[0]}](${url})`;
-    lastEnd = index + match[0].length;
-    changed = true;
-  }
-  result += text.slice(lastEnd);
-  return changed ? result : text;
-}
-
-// wekan/wekan#2453: mirrors the pure, unit-tested algorithm in
-// models/lib/cardUrlAutolink.js (keep the two in sync) - duplicated here for
-// the same reason autolinkExternalIssueReferences is duplicated above: this
-// package cannot import app/model code, only Meteor packages.
-const CARD_URL_RE =
-  /(?:https?:\/\/[^\s/]+)?\/b\/([^/\s#]+)\/([^/\s#]+)\/([^/\s#?]+)(#(comment|activity)-([^\s"'<>)]+))?/g;
-
-function findCardUrlMatches(text) {
-  if (typeof text !== 'string' || !text) return [];
-  const pattern = new RegExp(CARD_URL_RE.source, 'g');
-  const results = [];
-  let match;
-  while ((match = pattern.exec(text)) !== null) {
-    results.push({ match: match[0], index: match.index, cardId: match[3] });
-    if (match.index === pattern.lastIndex) pattern.lastIndex += 1;
-  }
-  return results;
-}
-
-// Replaces every matching, not-already-linked WeKan card URL in `text` with a
-// markdown link "[<title>](<match>)", using `resolveTitle(cardId)`. Falls
-// back to leaving the URL untouched when resolveTitle is missing, throws, or
-// returns nothing - a deleted card, a card on a board this viewer cannot see
-// (Minimongo simply does not have it), or the bridge not wired up yet.
-function autolinkWekanCardUrls(text, resolveTitle) {
-  if (typeof text !== 'string' || !text) return text;
-  if (typeof resolveTitle !== 'function') return text;
-
-  const matches = findCardUrlMatches(text);
-  if (!matches.length) return text;
-
-  let result = '';
-  let lastEnd = 0;
-  let changed = false;
-  matches.forEach(({ match, index, cardId }) => {
-    if (isInsideExistingLinkForExternalLink(text, index)) return;
-    let title;
-    try {
-      title = resolveTitle(cardId);
-    } catch (e) {
-      title = undefined;
-    }
-    if (!title || typeof title !== 'string') return;
-    result += text.slice(lastEnd, index);
-    // '\' MUST be escaped before ']' - see models/lib/cardUrlAutolink.js
-    // (kept in sync with this copy) for why: a title ending in a raw
-    // backslash would otherwise escape the literal ']' inserted below,
-    // leaving the markdown link label unterminated
-    // (CodeQL js/incomplete-sanitization).
-    const safeTitle = title.replace(/\\/g, '\\\\').replace(/]/g, '\\]');
-    result += `[${safeTitle}](${match})`;
-    lastEnd = index + match.length;
-    changed = true;
-  });
-  result += text.slice(lastEnd);
-
-  return changed ? result : text;
-}
 
 // Escape every HTML-significant character so the raw source is shown literally.
 // DOMPurify alone is not enough here: it would strip tags like <script> rather

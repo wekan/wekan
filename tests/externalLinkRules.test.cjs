@@ -2,13 +2,13 @@
 // #1463: "[Task:3384] => https://spirateam.com/SpiraTeam/Task/3384.aspx ...
 // Even better if some custom abbreviations for the identifier could be used:
 // TK => Task". Further autolink rules with {number} and {identifier}, and
-// abbreviations, beside the single #3069 pattern (models/lib/externalLinkRules.js).
+// abbreviations, beside the single #3069 pattern (npm-packages/autolink/externalLinkRules.js).
 //
 // Run: node tests/externalLinkRules.test.cjs
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { parseExternalLinkRules, applyExternalLinkRules, EXTERNAL_LINK_RULES_MAX } = require('../models/lib/externalLinkRules');
+const { parseExternalLinkRules, applyExternalLinkRules, EXTERNAL_LINK_RULES_MAX } = require('@wekanteam/autolink');
 
 const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 let passed = 0;
@@ -50,10 +50,12 @@ test('values are URL-encoded and cannot break out of the address', () => {
   assert.equal(applyExternalLinkRules('[X:1]', r), '[X:1](https://a.example/X/1)', 'an abbreviation that is not a word is ignored');
 });
 
-test('the markdown package carries an identical copy and applies it after the #3069 pattern', () => {
-  const block = src => src.slice(src.indexOf('// BEGIN externalLinkRules'), src.indexOf('// END externalLinkRules'));
+test('the markdown package imports the one copy and applies it after the #3069 pattern', () => {
   const pkg = read('packages/markdown/src/template-integration.js');
-  assert.equal(block(pkg), block(read('models/lib/externalLinkRules.js')));
+  // It used to carry a copy between BEGIN/END markers that this test compared
+  // with models/lib/externalLinkRules.js; both now load @wekanteam/autolink.
+  assert.match(pkg, /import \{[^}]*\bparseExternalLinkRules\b[^}]*\bapplyExternalLinkRules\b[^}]*\} from '@wekanteam\/autolink';/);
+  assert.doesNotMatch(pkg, /BEGIN externalLinkRules|function (parseExternalLinkRules|applyExternalLinkRules)\b/);
   assert.match(pkg, /applyExternalLinkRules\(autolinkExternalIssueReferences\(/);
   assert.match(read('client/components/main/editor.js'), /Markdown\.externalLinkRules\.set\(\{ rules, aliases \}\)/);
   assert.match(read('server/publications/settings.js'), /externalLinkRules: 1,\s*externalLinkIdentifierAliases: 1,/);

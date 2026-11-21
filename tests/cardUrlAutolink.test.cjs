@@ -2,7 +2,7 @@
 
 // wekan/wekan#2453: when a card description/comment contains a pasted URL
 // pointing at ANOTHER WeKan card, it should render with that card's TITLE as
-// the link text instead of the raw URL. models/lib/cardUrlAutolink.js is the
+// the link text instead of the raw URL. npm-packages/autolink/cardUrlAutolink.js is the
 // pure URL-detection/parsing and text-rewriting helper; this test pins its
 // behaviour directly, without a browser or a database.
 //
@@ -14,7 +14,7 @@ const {
   findCardUrlMatches,
   isInsideExistingLink,
   autolinkWekanCardUrls,
-} = require('../models/lib/cardUrlAutolink.js');
+} = require('@wekanteam/autolink/cardUrlAutolink');
 
 let passed = 0;
 function test(name, fn) {

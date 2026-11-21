@@ -66,7 +66,6 @@ import '/client/lib/localStorageValidator';
 import '/client/lib/modal';
 import '/client/lib/multiSelection';
 import '/client/lib/pasteImage';
-import '/client/lib/secureDOMPurify';
 import '/client/lib/spinner';
 import '/client/lib/textComplete';
 import '/client/lib/unsavedEdits';

@@ -37,12 +37,11 @@ const REVIEWED = {
   'imports/lib/advancedFilter.js': "the Advanced Filter's /regex/ syntax is the viewer's own pattern, run in their browser",
   'imports/lib/dateUtils.js': 'key is a key of the constant formatMap',
   'imports/lib/fileNameDisplay.js': 'INVISIBLE_CHARS_SOURCE is a constant',
-  'models/lib/cardUrlAutolink.js': 'CARD_URL_RE.source is a constant regex',
+  'npm-packages/autolink/cardUrlAutolink.js': 'CARD_URL_RE.source is a constant regex',
   'models/lib/databaseErrors.js': 'CONNECTION_LOST.source is a constant regex of the file (#6799)',
   'models/lib/customFieldStringTemplate.js': 'a user pattern by design; capped, and the server runs it under a time limit (templateRegexDos)',
-  'models/lib/externalLinkRules.js': 'rule.source is built with externalLinkRuleEscape',
+  'npm-packages/autolink/externalLinkRules.js': 'rule.source is built with externalLinkRuleEscape',
   'models/usersessiondata.js': 'unpickles a RegExp the server itself pickled (server/publications/cards.js)',
-  'packages/markdown/src/template-integration.js': 'CARD_URL_RE.source is a constant; rule.source is escaped when built',
   'packages/wekan-ldap/server/groupAllowlist.js': 'every character escaped by escapeRegExpChar; only * and ? become .* and .',
   'server/models/activities.js': 'BIGEVENTS_PATTERN is an operator-supplied regex by design',
   'models/lib/obsidianKanbanFormat.js': 'pattern is built from escapeRegExp(format); emoji is a key of the constant TASK_DATES',
@@ -52,7 +51,9 @@ const REVIEWED = {
   'models/lib/titleDueDate.js': "the words come from the engine's Intl tables and are each passed through escapeRe when the vocabulary is built; the typed title is only the text matched, never the pattern",
 };
 
-const SOURCE_DIRS = /^(?:client|models|server|imports|config|releases|tools|snap-src|packages)\//;
+// npm-packages/autolink is WeKan's own code (the autolinks the app and the
+// markdown package share); the rest of npm-packages/ is vendored.
+const SOURCE_DIRS = /^(?:client|models|server|imports|config|releases|tools|snap-src|packages|npm-packages\/autolink)\//;
 // Third-party code vendored as-is is not ours to rewrite.
 const VENDORED = /^packages\/(?:wekan-fontawesome|wekan-fullcalendar)\/|\.min\.js$|\/node_modules\/|\/tests\//;
 

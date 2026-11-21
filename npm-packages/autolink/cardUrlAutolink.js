@@ -69,25 +69,8 @@ function findCardUrlMatches(text) {
   return results;
 }
 
-// Same "already inside a link" guard used by models/lib/externalLinkAutolink.js
-// - kept as a separate, duplicated small function (not imported) so this
-// module stays standalone and dependency-free like its sibling.
-function isInsideExistingLink(text, index) {
-  const before = text.slice(0, index);
-  const openParen = before.lastIndexOf('](');
-  const closeParen = before.lastIndexOf(')');
-  if (openParen !== -1 && openParen > closeParen) return true;
-
-  const hrefIdx = before.lastIndexOf('href="');
-  const hrefIdx2 = before.lastIndexOf("href='");
-  const lastHref = Math.max(hrefIdx, hrefIdx2);
-  if (lastHref !== -1) {
-    const quote = lastHref === hrefIdx ? '"' : "'";
-    const closingQuote = before.indexOf(quote, lastHref + 6);
-    if (closingQuote === -1 || closingQuote > before.length) return true;
-  }
-  return false;
-}
+// The "already inside a link" guard is the one externalLinkAutolink.js uses.
+const { isInsideExistingLink } = require('./externalLinkAutolink');
 
 // Replaces every matching, not-already-linked WeKan card URL in `text` with a
 // markdown link "[<title>](<match>)", where `resolveTitle(cardId)` returns

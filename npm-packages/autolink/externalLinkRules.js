@@ -19,10 +19,9 @@
 // http(s) URL makes a rule; a malformed line is skipped. The link text is the
 // token, without its outer brackets when it has them.
 //
-// Pure, and mirrored in packages/markdown/src/template-integration.js (a
-// package cannot import app code) between the BEGIN/END markers below;
-// tests/externalLinkRules.test.cjs keeps the two copies identical.
-// BEGIN externalLinkRules
+// Pure. The markdown package (packages/markdown/src/template-integration.js)
+// and the app both load this file from @wekanteam/autolink, so there is one
+// copy; tests/externalLinkRules.test.cjs drives it.
 const EXTERNAL_LINK_RULES_MAX = 50;
 const EXTERNAL_LINK_IDENTIFIER = '([A-Za-z][A-Za-z0-9_-]{0,31})';
 
@@ -103,6 +102,5 @@ function applyExternalLinkRules(text, rules) {
   }
   return result + text.slice(last);
 }
-// END externalLinkRules
 
 module.exports = { parseExternalLinkRules, parseExternalLinkAliases, applyExternalLinkRules, EXTERNAL_LINK_RULES_MAX };

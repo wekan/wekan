@@ -16,8 +16,7 @@ const { buildHtmlNotificationLine } = require(
 // value containing one of them produces a broken (or, worse, subtly
 // mismatching) pattern instead of a literal match. Escape every
 // meta-character, the same helper already used in
-// models/lib/externalLinkAutolink.js and packages/markdown/src/
-// template-integration.js.
+// npm-packages/autolink/externalLinkAutolink.js.
 function escapeRegExp(text) {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

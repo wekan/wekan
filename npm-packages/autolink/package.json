@@ -1,0 +1,12 @@
+{
+  "name": "@wekanteam/autolink",
+  "description": "WeKan's text autolinks: external issue-tracker references (#3069), further link rules (#1463) and pasted WeKan card URLs (#2453)",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
