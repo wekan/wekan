@@ -102,7 +102,7 @@
     "htmlparser2": "^12.0.0",
     "i18next": "^27.1.1",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "imapflow": "2.9.1",
+    "imapflow": "2.12.1",
     "isomorphic-git": "1.44.10",
     "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
