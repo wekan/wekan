@@ -9,11 +9,13 @@ make changes there.
 
 New **Workload and capacity** and **Budget and billing** pages
 show each person's hours against their working time across boards, and each
-board's cost and forecast against its budget, with invoices of the hours
-spent. The **Venda** and **Klingon** translations now hold only their own
-language, the move and copy pickers show names without numbers (#6135), the
-brute-force lockout starts again when Meteor.settings configures it, and unused
-or copied code is removed or shared.
+board's cost and forecast against its budget. Time is kept by day, and
+invoices of a period download as **PDF**, **SVG**, **Excel** and **e-invoice**
+with the payment **QR codes** and bank barcodes of many countries, in each
+currency's own decimals. The **Venda** and **Klingon** translations hold only
+their own language, the move and copy pickers show names without numbers
+(#6135), the brute-force lockout starts again when Meteor.settings configures
+it, and unused or copied code is removed or shared.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

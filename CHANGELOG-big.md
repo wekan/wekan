@@ -99,11 +99,13 @@ Which databases WeKan supports
 
 **In short:** New **Workload and capacity** and **Budget and billing** pages
 show each person's hours against their working time across boards, and each
-board's cost and forecast against its budget, with invoices of the hours
-spent. The **Venda** and **Klingon** translations now hold only their own
-language, the move and copy pickers show names without numbers (#6135), the
-brute-force lockout starts again when Meteor.settings configures it, and unused
-or copied code is removed or shared.
+board's cost and forecast against its budget. Time is kept by day, and
+invoices of a period download as **PDF**, **SVG**, **Excel** and **e-invoice**
+with the payment **QR codes** and bank barcodes of many countries, in each
+currency's own decimals. The **Venda** and **Klingon** translations hold only
+their own language, the move and copy pickers show names without numbers
+(#6135), the brute-force lockout starts again when Meteor.settings configures
+it, and unused or copied code is removed or shared.
 
 This release adds the following new features:
 
@@ -142,6 +144,47 @@ sent, paid and void; they print alone and download as CSV. Money is integer
 cents; only board admins and site administrators see it; nothing is
 published. `tests/billing.test.cjs`, `tests/billingAccess.test.cjs` and a
 Playwright spec pin it. See [Billing](docs/Features/Billing/Billing.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13b0d5fe37d5ff73e109e06a4fdc21418497e273">Time by day, invoices of a period, payment codes, PDF, SVG, Excel and e-invoice</a>. Thanks to xet7.</summary>
+
+A card's Time popup lists its time by day - the day, the hours, who logged
+them, a note - and Log time adds an entry on a day. The card's total stays
+what the timers, the REST API, the imports and the reports read; whenever it
+changes the server records the difference as an entry of that day. An
+invoice covers a period: the billable entries of it that are on no invoice
+yet, per card and person, at that person's rate, so nothing is billed twice;
+voiding or crediting frees them. Payment codes follow their published
+standards and are checked against the standards' own examples: SEPA EPC QR,
+the Finnish bank barcode (Code 128 C), Finnish and ISO 11649 RF references,
+the Swiss QR-bill, Swish, Pix, UPI, Bitcoin BIP 21, PayPal.me and payment
+links. An invoice downloads as PDF, SVG, Excel, CSV and a UBL 2.1 Peppol BIS
+Billing 3.0 e-invoice, with QR codes and barcode as vectors. Also: the
+invoicer's details, VAT and reverse charge, due dates and penalty interest,
+payments, partial payment and overdue, and credit notes. Nothing is sent to
+any payment service. `tests/timeEntries.test.cjs`,
+`tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`,
+`tests/invoiceFiles.test.cjs` and the billing suites pin it, and the
+Playwright spec invoices a period and downloads the PDF and SVG.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37bc16e1e5f4c5f248e7aca9a779e4fc5cc5d8d2">Amounts in each currency's own decimals, and payment codes of more countries</a>. Thanks to xet7.</summary>
+
+Money had been kept in cents for every currency, so 1000 JPY was 100000 and
+1.500 KWD could not be written. `models/lib/currencies.js` now holds the ISO
+4217 minor unit of each currency - none for JPY, KRW, VND, CLP and ISK,
+three for KWD, BHD, JOD, OMR, TND, IQD and LYD - and rates, budgets,
+payments and every invoice file use it. New payment methods, each from its
+published specification: PromptPay, PayNow, VietQR and FPS as EMVCo QR codes,
+Czech SPAYD, Polish ZBP, Hungarian MNB, Serbian NBS IPS, Danish FI +71, and
+Ethereum and Litecoin; each requires the currency it is for. References add
+the Belgian structured +++ reference, the Norwegian KID and the Swedish OCR.
+`tests/regionalPaymentCodes.test.cjs` checks them against the standards'
+examples and billing in JPY and KWD.
 
 </details>
 
