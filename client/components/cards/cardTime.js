@@ -13,6 +13,7 @@ Template.editCardSpentTimePopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.card = Cards.findOne(getCardId());
   this.overtime = new ReactiveVar(this.card?.getIsOvertime() || false);
+  this.billable = new ReactiveVar(!this.card || typeof this.card.isBillable !== 'function' || this.card.isBillable());
 });
 
 Template.editCardSpentTimePopup.helpers({
@@ -24,6 +25,9 @@ Template.editCardSpentTimePopup.helpers({
   },
   getIsOvertime() {
     return Template.instance().overtime.get();
+  },
+  billable() {
+    return Template.instance().billable.get();
   },
 });
 
@@ -47,6 +51,10 @@ Template.editCardSpentTimePopup.events({
       card.setSpentTime(spentTime);
       card.setIsOvertime(isOvertime);
       const currentEstimate = typeof card.getEstimatedHours === 'function' ? card.getEstimatedHours() : null;
+      if (typeof card.setBillable === 'function' && tpl.billable
+        && tpl.billable.get() !== (typeof card.isBillable === 'function' ? card.isBillable() : true)) {
+        card.setBillable(tpl.billable.get());
+      }
       if (typeof card.setEstimatedHours === 'function'
         && estimatedHours !== (typeof currentEstimate === 'number' ? currentEstimate : null)) {
         card.setEstimatedHours(estimatedHours);
@@ -68,6 +76,10 @@ Template.editCardSpentTimePopup.events({
   'click a.js-toggle-overtime'(evt, tpl) {
     evt.preventDefault();
     tpl.overtime.set(!tpl.overtime.get());
+  },
+  'click a.js-toggle-billable'(evt, tpl) {
+    evt.preventDefault();
+    tpl.billable.set(!tpl.billable.get());
   },
 });
 

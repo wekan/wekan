@@ -1,0 +1,234 @@
+//- Budget and billing (docs/Features/Billing/Billing.md): the boards the user
+  is an admin of, each with its budget, what its work has cost and will cost,
+  the hourly rates, and the invoices of the hours spent. The numbers come from
+  the server (server/billing.js, models/lib/billing.js); this page draws them.
+
+template(name="billing")
+  if currentUser
+    .billing-page
+      h1 {{_ 'billing-title'}}
+      p.billing-intro {{_ 'billing-intro'}}
+      if loading
+        +spinner
+      else if error
+        .warning {{error}}
+      else
+        if isAdmin
+          label.billing-all-boards
+            input.js-billing-all-boards(type="checkbox" checked=allBoards)
+            | {{_ 'workload-all-boards'}}
+        if boards.length
+          table.billing-boards
+            thead
+              tr
+                th {{_ 'board'}}
+                th {{_ 'billing-budget'}}
+                th {{_ 'billing-spent'}}
+                th {{_ 'billing-forecast'}}
+                th {{_ 'billing-invoiced'}}
+            tbody
+              each board in boards
+                tr.billing-board-row(class="{{#if board.finance.overBudget}}is-over{{/if}} {{#if $eq board._id selectedBoardId}}is-selected{{/if}}")
+                  td
+                    a.js-billing-board(data-id=board._id) {{board.title}}
+                  td {{budgetLabel board}}
+                  td
+                    .billing-bar
+                      .billing-bar-fill(style="width: {{barWidth board.finance.usedPercent}}%")
+                    span {{money board.finance.spentMinor board.finance.currency}}
+                    if board.finance.usedPercent
+                      |  · {{board.finance.usedPercent}} %
+                  td
+                    span {{money board.finance.forecastMinor board.finance.currency}}
+                    if board.finance.forecastPercent
+                      |  · {{board.finance.forecastPercent}} %
+                    if board.finance.overBudget
+                      span.billing-over
+                        i.fa.fa-exclamation-triangle
+                        |  {{_ 'billing-over-budget'}}
+                  td {{money board.finance.invoicedMinor board.finance.currency}}
+        else
+          p {{_ 'billing-no-boards'}}
+
+        if detail
+          +billingBoard(detail=detail reload=reload)
+
+template(name="billingBoard")
+  .billing-board
+    h2 {{detail.board.title}}
+    .billing-summary
+      dl
+        dt {{_ 'billing-spent'}}
+        dd {{money detail.finance.spentMinor detail.finance.currency}} ({{hours detail.finance.spentHours}})
+        dt {{_ 'billing-remaining'}}
+        dd {{money detail.finance.remainingMinor detail.finance.currency}} ({{hours detail.finance.remainingHours}})
+        dt {{_ 'billing-forecast'}}
+        dd(class="{{#if detail.finance.overBudget}}billing-over{{/if}}") {{money detail.finance.forecastMinor detail.finance.currency}} ({{hours detail.finance.forecastHours}})
+        if hasBudget
+          dt {{_ 'billing-left'}}
+          dd
+            if detail.finance.leftMinor
+              | {{money detail.finance.leftMinor detail.finance.currency}}
+            if detail.finance.leftHours
+              |  {{hours detail.finance.leftHours}}
+        dt {{_ 'billing-invoiced'}}
+        dd {{money detail.finance.invoicedMinor detail.finance.currency}}
+        dt {{_ 'billing-paid'}}
+        dd {{money detail.finance.paidMinor detail.finance.currency}}
+      if detail.finance.unratedHours
+        p.warning {{_ 'billing-unrated' hours=detail.finance.unratedHours}}
+
+    .billing-sections
+      section.billing-section
+        h3 {{_ 'billing-budget'}}
+        form.js-billing-budget
+          label(for="billing-budget-amount") {{_ 'billing-amount'}}
+          input#billing-budget-amount(type="number" name="amount" min="0" step="0.01" value=budgetAmount)
+          label(for="billing-budget-currency") {{_ 'billing-currency'}}
+          input#billing-budget-currency(type="text" name="currency" maxlength="3" value=budgetCurrency placeholder="EUR")
+          label(for="billing-budget-hours") {{_ 'billing-budget-hours'}}
+          input#billing-budget-hours(type="number" name="hours" min="0" step="0.5" value=detail.budget.hours)
+          label(for="billing-budget-start") {{_ 'start'}}
+          input#billing-budget-start(type="date" name="start" value=detail.budget.start)
+          label(for="billing-budget-end") {{_ 'card-end'}}
+          input#billing-budget-end(type="date" name="end" value=detail.budget.end)
+          button.primary(type="submit") {{_ 'save'}}
+          if detail.budget
+            button.js-billing-remove-budget(type="button") {{_ 'delete'}}
+
+      section.billing-section
+        h3 {{_ 'billing-rates'}}
+        if detail.rates.length
+          ul.billing-list
+            each rate in detail.rates
+              li
+                if rate.userId
+                  | {{rate.name}}
+                else
+                  | {{_ 'billing-default-rate'}}
+                |  · {{money rate.hourlyRateMinor rate.currency}} / {{_ 'workload-hours-short'}}
+                a.js-billing-remove-rate(data-id=rate._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                  i.fa.fa-trash
+        form.js-billing-rate
+          label(for="billing-rate-person") {{_ 'person'}}
+          select#billing-rate-person(name="userId")
+            option(value="") {{_ 'billing-default-rate'}}
+            each member in detail.members
+              option(value=member.userId) {{member.name}}
+          label(for="billing-rate-amount") {{_ 'billing-hourly-rate'}}
+          input#billing-rate-amount(type="number" name="hourlyRate" min="0" step="0.01" required)
+          label(for="billing-rate-currency") {{_ 'billing-currency'}}
+          input#billing-rate-currency(type="text" name="currency" maxlength="3" value=budgetCurrency placeholder="EUR" required)
+          button.primary(type="submit") {{_ 'save'}}
+
+      section.billing-section
+        h3 {{_ 'billing-new-invoice'}}
+        if detail.draft
+          if detail.draft.lines.length
+            p {{_ 'billing-draft-summary' hours=detail.draft.totalHours amount=draftTotal}}
+          else
+            p {{_ 'billing-nothing-to-invoice'}}
+          if detail.draft.unratedHours
+            p.warning {{_ 'billing-unrated' hours=detail.draft.unratedHours}}
+        else
+          p {{_ 'billing-set-rate-first'}}
+        form.js-billing-invoice
+          label(for="billing-invoice-customer") {{_ 'billing-customer'}}
+          textarea#billing-invoice-customer(name="customer" maxlength="500" rows="3")
+          label(for="billing-invoice-reference") {{_ 'billing-reference'}}
+          input#billing-invoice-reference(type="text" name="reference" maxlength="100")
+          label(for="billing-invoice-issue") {{_ 'billing-issue-date'}}
+          input#billing-invoice-issue(type="date" name="issueDate" value=today)
+          label(for="billing-invoice-due") {{_ 'billing-due-date'}}
+          input#billing-invoice-due(type="date" name="dueDate")
+          label(for="billing-invoice-notes") {{_ 'workload-note'}}
+          textarea#billing-invoice-notes(name="notes" maxlength="2000" rows="2")
+          button.primary(type="submit" disabled=cannotInvoice) {{_ 'billing-create-invoice'}}
+
+    section.billing-section.billing-invoices
+      h3 {{_ 'billing-invoices'}}
+      if detail.invoices.length
+        table.billing-invoice-table
+          thead
+            tr
+              th {{_ 'billing-number'}}
+              th {{_ 'billing-issue-date'}}
+              th {{_ 'billing-customer'}}
+              th {{_ 'hours'}}
+              th {{_ 'billing-amount'}}
+              th {{_ 'billing-status'}}
+              th
+          tbody
+            each invoice in detail.invoices
+              tr(class="billing-status-{{invoice.status}}")
+                td {{invoice.number}}
+                td {{invoice.issueDate}}
+                td {{invoice.customer}}
+                td {{invoice.totalHours}}
+                td {{money invoice.totalMinor invoice.currency}}
+                td {{statusLabel invoice.status}}
+                td.billing-invoice-actions
+                  each next in nextStatuses invoice.status
+                    button.js-billing-status(type="button" data-id=invoice._id data-status=next.value) {{next.label}}
+                  button.js-billing-print(type="button" data-id=invoice._id)
+                    i.fa.fa-print
+                    |  {{_ 'billing-print'}}
+                  button.js-billing-csv(type="button" data-id=invoice._id)
+                    i.fa.fa-download
+                    |  CSV
+      else
+        p {{_ 'billing-no-invoices'}}
+
+    if printed
+      +billingInvoicePrint(invoice=printed)
+
+    if actionError
+      .warning {{actionError}}
+
+template(name="billingInvoicePrint")
+  .billing-print
+    .billing-print-header
+      h2 {{_ 'billing-invoice'}} {{invoice.number}}
+      p {{invoice.boardTitle}}
+    .billing-print-meta
+      if invoice.customer
+        pre.billing-print-customer {{invoice.customer}}
+      dl
+        dt {{_ 'billing-issue-date'}}
+        dd {{invoice.issueDate}}
+        if invoice.dueDate
+          dt {{_ 'billing-due-date'}}
+          dd {{invoice.dueDate}}
+        if invoice.reference
+          dt {{_ 'billing-reference'}}
+          dd {{invoice.reference}}
+        dt {{_ 'billing-status'}}
+        dd {{statusLabel invoice.status}}
+    table.billing-print-lines
+      thead
+        tr
+          th {{_ 'card'}}
+          th {{_ 'person'}}
+          th {{_ 'hours'}}
+          th {{_ 'billing-hourly-rate'}}
+          th {{_ 'billing-amount'}}
+      tbody
+        each line in invoice.lines
+          tr
+            td {{line.title}}
+            td {{line.name}}
+            td {{line.hours}}
+            td {{money line.rateMinor invoice.currency}}
+            td {{money line.amountMinor invoice.currency}}
+      tfoot
+        tr
+          th(colspan="2") {{_ 'billing-total'}}
+          th {{invoice.totalHours}}
+          th
+          th {{money invoice.totalMinor invoice.currency}}
+    if invoice.notes
+      p.billing-print-notes {{invoice.notes}}
+    button.js-billing-print-now(type="button")
+      i.fa.fa-print
+      |  {{_ 'billing-print'}}
+    button.js-billing-print-close(type="button") {{_ 'close'}}

@@ -37,6 +37,11 @@ template(name="memberMenuPopup")
           a.js-workload(href="{{pathFor 'workload'}}")
             i.fa.fa-tachometer
             | {{_ 'workload-title'}}
+      if allowFeature 'billing'
+        li
+          a.js-billing(href="{{pathFor 'billing'}}")
+            i.fa.fa-money
+            | {{_ 'billing-title'}}
       li
         a.js-my-attachments(href="{{pathFor 'my-attachments'}}")
           i.fa.fa-paperclip

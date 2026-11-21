@@ -22,6 +22,8 @@ export const COPIED = [
   'columnSetValues',
   // Workload (docs/Features/Workload/Workload.md): the card's estimate in hours.
   'estimatedHours',
+  // Budget and billing: false when the card's time is not invoiced.
+  'billable',
 ];
 
 // Written by models/wekanCreator.js createSubtasks, by the new parents' ids

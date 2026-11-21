@@ -3583,6 +3583,182 @@
     {
       "key": "feature-workload-desc",
       "since": "2026-11-21"
+    },
+    {
+      "key": "billing-title",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-intro",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-no-boards",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-budget",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-spent",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-remaining",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-forecast",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-left",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-invoiced",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-paid",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-over-budget",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-unrated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-amount",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-currency",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-budget-hours",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-rates",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-default-rate",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-hourly-rate",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-new-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-draft-summary",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-nothing-to-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-set-rate-first",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-customer",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-issue-date",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-due-date",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-create-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-invoices",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-no-invoices",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-number",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-draft",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-sent",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-paid",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-void",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-mark-sent",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-mark-paid",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-void",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-back-to-draft",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-print",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-total",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-billable",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "feature-billing-desc",
+      "since": "2026-11-21"
     }
   ]
 }

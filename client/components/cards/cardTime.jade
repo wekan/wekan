@@ -8,6 +8,10 @@ template(name="editCardSpentTimePopup")
           estimated to take; what is left is this less the time spent.
         label(for="estimated-hours") {{_ 'workload-estimated-hours'}}
         input.js-estimated-hours-field#estimated-hours(type="number" min="0" max="10000" step="0.25" name="estimatedHours" value="{{card.getEstimatedHours}}")
+        //- Budget and billing: whether this card's time goes on invoices.
+        label(for="billable") {{_ 'billing-billable'}}
+        a.js-toggle-billable
+          .materialCheckBox#billable(class="{{#if billable}}is-checked{{/if}}" name="billable")
         label(for="overtime") {{_ 'overtime'}}
         a.js-toggle-overtime
           .materialCheckBox#overtime(class="{{#if getIsOvertime}}is-checked{{/if}}" name="overtime")

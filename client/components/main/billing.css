@@ -1,0 +1,146 @@
+/* Budget and billing page (docs/Features/Billing/Billing.md). */
+.billing-page {
+  padding: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.billing-intro {
+  max-width: 70ch;
+  opacity: 0.85;
+}
+.billing-boards,
+.billing-invoice-table,
+.billing-print-lines {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+}
+.billing-boards th,
+.billing-boards td,
+.billing-invoice-table th,
+.billing-invoice-table td,
+.billing-print-lines th,
+.billing-print-lines td {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.35rem 0.5rem;
+  text-align: start;
+  vertical-align: top;
+}
+.billing-boards a {
+  cursor: pointer;
+}
+.billing-board-row.is-selected {
+  background: rgba(0, 121, 191, 0.08);
+}
+.billing-board-row.is-over,
+.billing-over {
+  color: #c62828;
+}
+.billing-bar {
+  height: 0.5rem;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+  max-width: 12rem;
+}
+.billing-bar-fill {
+  height: 100%;
+  background: #3cb500;
+}
+.billing-board-row.is-over .billing-bar-fill {
+  background: #e53935;
+}
+.billing-summary dl,
+.billing-print-meta dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.2rem 1rem;
+}
+.billing-summary dt,
+.billing-print-meta dt {
+  font-weight: bold;
+}
+.billing-summary dd,
+.billing-print-meta dd {
+  margin: 0;
+}
+.billing-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.billing-section {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-top: 1rem;
+}
+.billing-sections .billing-section {
+  margin-top: 0;
+}
+.billing-section h3 {
+  margin-top: 0;
+}
+.billing-section label {
+  display: block;
+  margin-top: 0.4rem;
+}
+.billing-list {
+  padding-inline-start: 1.2rem;
+}
+.billing-list a {
+  margin-inline-start: 0.5rem;
+  cursor: pointer;
+}
+.billing-invoice-table-wrapper,
+.billing-invoices {
+  overflow-x: auto;
+}
+.billing-invoice-actions button {
+  margin: 0 0.25rem 0.25rem 0;
+}
+.billing-status-void td {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+.billing-status-paid td:nth-child(6) {
+  color: #2e7d32;
+  font-weight: bold;
+}
+.billing-print {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+}
+.billing-print-customer {
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+.billing-print-lines tfoot th {
+  border-top: 2px solid #000;
+}
+/* Printing: only the invoice. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .billing-print,
+  .billing-print * {
+    visibility: visible;
+  }
+  .billing-print {
+    position: absolute;
+    inset: 0;
+    border: none;
+  }
+  .billing-print button {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  .billing-page { padding: 0.5rem; }
+}

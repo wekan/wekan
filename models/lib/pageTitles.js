@@ -34,6 +34,7 @@ const PAGE_TITLE_KEYS = {
   'global-search': 'globalSearch-title',
   'due-cards': 'dueCards-title',
   workload: 'workload-title',
+  billing: 'billing-title',
   'my-attachments': 'my-attachments',
   'starred-items': 'allboards.starred',
   'broken-cards': 'broken-cards',

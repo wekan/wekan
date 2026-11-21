@@ -103,6 +103,10 @@ const FEATURES = [
   // page, and every workload* method behind it (server/workload.js).
   { key: 'workload', labelKey: 'workload-title', descKey: 'feature-workload-desc',
     views: [] },
+  // Budget and billing (docs/Features/Billing/Billing.md): the user menu's
+  // page, and every billing* method behind it (server/billing.js).
+  { key: 'billing', labelKey: 'billing-title', descKey: 'feature-billing-desc',
+    views: [] },
 ];
 
 const FEATURE_KEYS = FEATURES.map(feature => feature.key);

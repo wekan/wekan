@@ -703,6 +703,25 @@ FlowRouter.route('/workload', {
   },
 });
 
+// Budget and billing (docs/Features/Billing/Billing.md): the money of the
+// boards the signed-in user is an admin of.
+FlowRouter.route('/billing', {
+  name: 'billing',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'billing',
+    });
+  },
+});
+
 FlowRouter.route('/my-attachments', {
   name: 'my-attachments',
   triggersEnter: [ensureSignedInUnlessSandstorm],

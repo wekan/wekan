@@ -533,6 +533,8 @@ import '/server/moveBoardObjects';
 import '/server/scrum';
 // Workload and capacity (docs/Features/Workload/Workload.md).
 import '/server/workload';
+// Budget and billing (docs/Features/Billing/Billing.md).
+import '/server/billing';
 import '/server/publications/scrum';
 import '/server/methods/syncRuleEmailRecovery';
 

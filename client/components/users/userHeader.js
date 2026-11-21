@@ -92,6 +92,9 @@ Template.memberMenuPopup.events({
   'click .js-workload'() {
     Popup.back();
   },
+  'click .js-billing'() {
+    Popup.back();
+  },
   'click .js-my-attachments'() {
     Popup.back();
   },

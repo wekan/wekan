@@ -698,6 +698,14 @@ Cards.attachSchema(
       min: 0,
       max: 10000,
     },
+    billable: {
+      /**
+       * Budget and billing (docs/Features/Billing/Billing.md): false when the
+       * card's time is not invoiced. Absent means billable.
+       */
+      type: Boolean,
+      optional: true,
+    },
     isOvertime: {
       /**
        * is the card over time?
@@ -2298,6 +2306,17 @@ Cards.helpers({
       return card === undefined ? null : card.estimatedHours;
     }
     return this.estimatedHours;
+  },
+
+  // Budget and billing: whether this card's time is invoiced (default yes).
+  isBillable() {
+    const card = this.isLinkedCard() ? ReactiveCache.getCard(this.linkedId) : this;
+    return !card || card.billable !== false;
+  },
+
+  setBillable(billable) {
+    return Cards.updateAsync({ _id: this.getRealId() }, billable
+      ? { $unset: { billable: '' } } : { $set: { billable: false } });
   },
 
   // The Time section shows the badge when there is time spent or an estimate.
