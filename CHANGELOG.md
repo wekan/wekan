@@ -7,12 +7,13 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-A new **Workload and capacity** page shows each person's
-estimated hours and story points, week by week across their boards, against
-their working time, absences and public holidays, with **allocations** and
-placeholder roles. The **move and copy pickers** show names without a number
-in front (#6135), the **brute-force lockout** starts again when Meteor.settings
-configures it, and code nothing loaded is removed or shared.
+New **Workload and capacity** and **Budget and billing** pages
+show each person's hours against their working time across boards, and each
+board's cost and forecast against its budget, with invoices of the hours
+spent. The **Venda** and **Klingon** translations now hold only their own
+language, the move and copy pickers show names without numbers (#6135), the
+brute-force lockout starts again when Meteor.settings configures it, and unused
+or copied code is removed or shared.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
