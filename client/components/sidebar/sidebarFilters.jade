@@ -386,22 +386,22 @@ template(name="selectionDestinationPicker")
   label {{_ 'boards'}}:
   select.js-select-boards
     each boards
-      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
     each cards
-      option(value="{{_id}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}") {{title}}
 
   div
     input(type="radio" name="position" value="above" checked id="position-above-{{idSuffix}}" style="display: inline")

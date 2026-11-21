@@ -155,7 +155,7 @@ function allFiles(dir, match) {
   return out;
 }
 
-// A file that only EXPORTS helpers (say boardLabelHelpers.js) needs no import of
+// A file that only EXPORTS helpers (say a pure helpers module) needs no import of
 // its own - whoever uses it pulls it in, and if nobody does, nothing is lost.
 // A file that REGISTERS something is different: its whole purpose is the side
 // effect of being loaded, so it has to be reached.

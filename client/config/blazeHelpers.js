@@ -177,10 +177,6 @@ Blaze.registerHelper('canCheckChecklistItem', function canCheckChecklistItem() {
 
 Blaze.registerHelper('canModifyBoard', () => Utils.canModifyBoard());
 
-Blaze.registerHelper('add', (a, b) => a + b);
-
-Blaze.registerHelper('increment', (n) => (n || 0) + 1);
-
 // Operator helpers (replacement for raix:handlebar-helpers)
 Blaze.registerHelper('$eq', (a, b) => a === b);
 Blaze.registerHelper('$neq', (a, b) => a !== b);

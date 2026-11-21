@@ -642,15 +642,15 @@ template(name="listDestinationPicker")
   label {{_ 'boards'}}:
   select.js-select-boards
     each boards
-      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{title}}
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{title}}
   div
     input(type="radio" name="list-position" value="left" checked id="list-position-left" style="display: inline")
     label(for="list-position-left") {{_ 'left-of-list'}}
@@ -679,13 +679,13 @@ template(name="addListPopup")
         label {{_ 'add-after-list'}}
         select.list-position-input.full-line
           each swimlaneLists
-            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{increment @index}} {{title}}
+            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{title}}
     else
       if currentBoard.lists.length
         label {{_ 'add-after-list'}}
         select.list-position-input.full-line
           each currentBoard.lists
-            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{increment @index}} {{title}}
+            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{title}}
     .edit-controls.clearfix
       button.primary.confirm.js-submit-add-list(type="submit") {{_ 'save'}}
       unless currentBoard.isTemplatesBoard
