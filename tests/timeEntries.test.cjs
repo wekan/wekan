@@ -63,6 +63,10 @@ test('the server keeps entries in step with every write of spentTime, and the me
   }
   const remove = src.slice(src.indexOf('async timeEntryRemove('));
   assert.match(remove, /if \(entry\.invoiceId\) invalid\(new Error\('This time is on an invoice'\)\)/, 'negative: invoiced time is a record');
+  assert.match(remove.slice(0, remove.indexOf('\n  },')), /if \(entry\.approval === 'approved'\) invalid\(new Error\('This time is approved'\)\)/,
+    'negative: approved time is what the board bills, and stays');
+  // The card's popup shows the decision; only a rejection carries its note.
+  assert.match(src, /approval: e\.approval \|\| null, approvalNote: e\.approval === 'rejected' \? e\.approvalNote \|\| '' : ''/);
   assert.match(src, /async timeEntriesOfCard[\s\S]*?mayRead\(userId, card\)/);
   assert.match(fs.readFileSync(path.join(__dirname, '..', 'models/timeEntries.js'), 'utf8'),
     /TimeEntries\.deny\(\{ insert: \(\) => true, update: \(\) => true, remove: \(\) => true \}\)/);

@@ -175,3 +175,15 @@
   .workload-person { min-width: 7rem; }
   .workload-cell { min-width: 5.5rem; }
 }
+
+/* Utilization and skills (docs/Features/Workload/Workload.md). */
+.workload-person-utilization,
+.workload-placeholder-skill,
+.workload-candidates {
+  display: block;
+  font-size: 0.8em;
+  color: #555;
+}
+.workload-person-utilization.is-below {
+  color: #b71c1c;
+}

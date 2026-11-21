@@ -82,10 +82,112 @@ function addDays(value, n) {
 // An hourly rate on a board: a member's, or - with no person - the board's
 // default for everybody without one of their own.
 function normalizeRate(value) {
-  const v = plainObject(value, ['userId', 'hourlyRate', 'currency']);
+  const v = plainObject(value, ['userId', 'hourlyRate', 'currency', 'costRate']);
   const userId = v.userId === undefined || v.userId === null || v.userId === '' ? null : text(v.userId, 100, 'Invalid person');
   const cur = currency(v.currency);
-  return { userId, hourlyRateMinor: toMinor(v.hourlyRate, cur), currency: cur };
+  const out = { userId, hourlyRateMinor: toMinor(v.hourlyRate, cur), currency: cur };
+  // What an hour of this person costs the company (salary and overheads), for
+  // the margin; never on an invoice.
+  if (v.costRate !== undefined && v.costRate !== null && v.costRate !== '') out.costRateMinor = toMinor(v.costRate, cur);
+  return out;
+}
+
+// Expenses: what was spent on a board's work besides time - travel, a hotel,
+// materials, a subcontractor - in money, on a day.
+const EXPENSE_CATEGORIES = Object.freeze(['travel', 'accommodation', 'meals', 'materials', 'subcontracting', 'software', 'other']);
+
+function optionalId(value) {
+  return value === undefined || value === null || value === '' ? null : text(value, 100, 'Invalid id');
+}
+
+function normalizeExpense(value) {
+  const v = plainObject(value, ['date', 'amount', 'currency', 'category', 'description', 'billable', 'markupPercent', 'cardId', 'userId']);
+  const date = day(v.date);
+  if (!date) fail('An expense has a date');
+  const cur = currency(v.currency);
+  const amountMinor = toMinor(v.amount, cur);
+  if (amountMinor < 1) fail('An expense is more than 0');
+  const category = v.category === undefined || v.category === '' ? 'other' : v.category;
+  if (!EXPENSE_CATEGORIES.includes(category)) fail('Invalid expense category');
+  return {
+    date, amountMinor, currency: cur, category,
+    description: text(v.description, 200, 'The description is too long'),
+    billable: v.billable !== false,
+    markupPercent: percent(v.markupPercent, 'Markup is 0 to 100 %') || 0,
+    cardId: optionalId(v.cardId),
+    userId: optionalId(v.userId),
+  };
+}
+
+// What an expense is billed at: its amount and the markup.
+function expenseCharge(expense) {
+  return Math.round((expense.amountMinor || 0) * (100 + (expense.markupPercent || 0)) / 100);
+}
+
+// A fixed fee: a milestone or a fixed price, billed once on its day, or a
+// retainer, billed every month from its day until its end.
+function normalizeFee(value) {
+  const v = plainObject(value, ['title', 'amount', 'currency', 'date', 'recurring', 'end']);
+  const title = text(v.title, 200, 'The title is too long');
+  if (!title) fail('A fee has a title');
+  const cur = currency(v.currency);
+  const amountMinor = toMinor(v.amount, cur);
+  if (amountMinor < 1) fail('A fee is more than 0');
+  const date = day(v.date);
+  if (!date) fail('A fee has a date');
+  const recurring = v.recurring === undefined || v.recurring === '' ? 'none' : v.recurring;
+  if (!['none', 'monthly'].includes(recurring)) fail('A fee is billed once or monthly');
+  const end = recurring === 'monthly' ? day(v.end) : null;
+  if (end && end < date) fail('The end must not be before the start');
+  return { title, amountMinor, currency: cur, date, recurring, end };
+}
+
+function lastDayOfMonth(year, month) {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate();
+}
+
+/**
+ * The days a fee is due on, up to `until`: once on its day, or monthly on the
+ * same day of each month (the last day of a shorter month). Each occurrence
+ * has a key, so an invoice can say which it billed.
+ */
+function feeOccurrences(fee, until) {
+  if (!fee || !fee.date) return [];
+  if (fee.recurring !== 'monthly') {
+    return until && fee.date > until ? [] : [{ key: String(fee._id || ''), date: fee.date }];
+  }
+  const out = [];
+  const [y0, m0, d0] = fee.date.split('-').map(Number);
+  const stop = [fee.end, until].filter(Boolean).sort()[0] || null;
+  if (!stop) return out; // a retainer with no end is billed up to a day, never forever
+  for (let i = 0; i < 1200; i += 1) {
+    const year = y0 + Math.floor((m0 - 1 + i) / 12);
+    const month = ((m0 - 1 + i) % 12) + 1;
+    const date = `${year}-${String(month).padStart(2, '0')}-${String(Math.min(d0, lastDayOfMonth(year, month))).padStart(2, '0')}`;
+    if (date > stop) break;
+    out.push({ key: `${fee._id || ''}:${date.slice(0, 7)}`, date });
+  }
+  return out;
+}
+
+// The fee occurrences already on an invoice that still stands: a voided or
+// credited invoice frees them.
+function invoicedFeeKeys(invoices) {
+  const keys = new Set();
+  for (const invoice of invoices || []) {
+    if (!invoice || invoice.kind === 'credit' || ['void', 'credited'].includes(invoice.status)) continue;
+    for (const line of invoice.lines || []) if (line && line.feeKey) keys.add(line.feeKey);
+  }
+  return keys;
+}
+
+// A board admin's decision on time logged: approved, or sent back.
+function normalizeApproval(value) {
+  const v = plainObject(value, ['entryIds', 'decision', 'note']);
+  if (!Array.isArray(v.entryIds) || !v.entryIds.length || v.entryIds.length > 500) fail('Choose 1 to 500 entries');
+  const entryIds = [...new Set(v.entryIds.map(id => text(id, 100, 'Invalid id')))];
+  if (!['approved', 'rejected', 'pending'].includes(v.decision)) fail('Invalid decision');
+  return { entryIds, decision: v.decision, note: text(v.note, 200, 'The note is too long') };
 }
 
 // A board's budget: money, hours or both, for an optional period.
@@ -118,7 +220,10 @@ function normalizeBudget(value) {
 // of payment reference the invoices carry.
 function normalizeProfile(value) {
   const v = plainObject(value, ['issuerName', 'issuerAddress', 'issuerCountry', 'businessId', 'vatId', 'email', 'phone', 'website',
-    'vatPercent', 'paymentTermsDays', 'penaltyInterestPercent', 'referenceType', 'footer', 'paymentMethods', 'reverseCharge']);
+    'vatPercent', 'paymentTermsDays', 'penaltyInterestPercent', 'referenceType', 'footer', 'paymentMethods', 'reverseCharge',
+    'billTime', 'approveTime', 'customer', 'customerCountry', 'customerVatId', 'quoteValidDays']);
+  const validDays = v.quoteValidDays === undefined || v.quoteValidDays === null || v.quoteValidDays === '' ? 30 : v.quoteValidDays;
+  if (!Number.isInteger(validDays) || validDays < 1 || validDays > 365) fail('A quote is valid 1 to 365 days');
   const terms = v.paymentTermsDays === undefined || v.paymentTermsDays === null || v.paymentTermsDays === '' ? 14 : v.paymentTermsDays;
   if (!Number.isInteger(terms) || terms < 0 || terms > 365) fail('Payment terms are 0 to 365 days');
   const referenceType = v.referenceType === undefined ? 'rf' : v.referenceType;
@@ -141,6 +246,33 @@ function normalizeProfile(value) {
     reverseCharge: v.reverseCharge === true,
     footer: text(v.footer, 1000, 'The footer is too long'),
     paymentMethods: methods.map(normalizePaymentMethod),
+    // Time is billed by the hour, unless the board is a fixed price - then
+    // only its fees and expenses are invoiced.
+    billTime: v.billTime !== false,
+    // Only time a board admin has approved is invoiced.
+    approveTime: v.approveTime === true,
+    // The board's customer, filled in on each new invoice and quote.
+    customer: text(v.customer, 500, 'The customer is too long'),
+    customerCountry: country(v.customerCountry),
+    customerVatId: text(v.customerVatId, 50, 'The VAT ID is too long'),
+    quoteValidDays: validDays,
+  };
+}
+
+function normalizeQuoteRequest(value) {
+  const v = plainObject(value, ['customer', 'customerCountry', 'customerVatId', 'reference', 'notes', 'issueDate', 'validUntil', 'vatPercent']);
+  const issueDate = day(v.issueDate);
+  const validUntil = day(v.validUntil);
+  if (issueDate && validUntil && validUntil < issueDate) fail('A quote must not expire before it is made');
+  return {
+    customer: text(v.customer, 500, 'The customer is too long'),
+    customerCountry: country(v.customerCountry),
+    customerVatId: text(v.customerVatId, 50, 'The VAT ID is too long'),
+    reference: text(v.reference, 100, 'The reference is too long'),
+    notes: text(v.notes, 2000, 'The notes are too long'),
+    issueDate,
+    validUntil,
+    vatPercent: percent(v.vatPercent, 'VAT is 0 to 100 %'),
   };
 }
 
@@ -246,7 +378,7 @@ function invoiceNet(invoice) {
  * @param {Object} input.budget   { amountMinor|null, currency|null, hours|null } or null
  * @param {Array}  input.invoices [{ status, kind, netMinor, totalMinor, currency, payments }]
  */
-function boardFinance({ cards = [], rates = [], budget = null, invoices = [] }) {
+function boardFinance({ cards = [], rates = [], budget = null, invoices = [], expenses = [], unbilledMinor = 0 }) {
   const cur = boardCurrency(rates, budget);
   let spentHours = 0;
   let remainingHours = 0;
@@ -254,6 +386,8 @@ function boardFinance({ cards = [], rates = [], budget = null, invoices = [] }) 
   let remainingMinor = 0;
   let billableHours = 0;
   let unratedHours = 0;
+  let laborCostMinor = 0;
+  let uncostedHours = 0;
   for (const card of cards) {
     const spent = hoursOf(card.spentTime);
     const estimate = hoursOf(card.estimatedHours);
@@ -264,15 +398,29 @@ function boardFinance({ cards = [], rates = [], budget = null, invoices = [] }) 
     for (const share of chargedShares(card, spent, rates, cur)) {
       if (share.rateMinor === null) unratedHours += share.hours;
       spentMinor += amountMinor(share.hours, share.rateMinor);
+      const rate = rateFor(rates, share.userId, cur);
+      if (rate && typeof rate.costRateMinor === 'number') laborCostMinor += Math.round(share.hours * rate.costRateMinor);
+      else uncostedHours += share.hours;
     }
     for (const share of chargedShares(card, remaining, rates, cur)) {
       remainingMinor += amountMinor(share.hours, share.rateMinor);
     }
   }
+  // Expenses spend the budget at what they cost; billed, they bring in their
+  // charge with the markup.
+  const ownExpenses = (expenses || []).filter(e => e && (!cur || e.currency === cur));
+  const expenseMinor = ownExpenses.reduce((s, e) => s + (e.amountMinor || 0), 0);
+  spentMinor += expenseMinor;
   const live = invoices.filter(i => !['void', 'draft'].includes(i.status) && (!cur || i.currency === cur));
   const invoicedMinor = live.reduce((s, i) => s + invoiceNet(i), 0);
   const paidMinor = live.filter(i => i.kind !== 'credit').reduce((s, i) => s + paidOf(i), 0);
   const forecastMinor = spentMinor + remainingMinor;
+  // Profitability: what the work brings in - invoiced, and billable but not
+  // invoiced yet (work in progress) - less what it cost: the hours at their
+  // cost rates and the expenses.
+  const revenueMinor = invoicedMinor + (unbilledMinor || 0);
+  const costMinor = laborCostMinor + expenseMinor;
+  const marginMinor = revenueMinor - costMinor;
   const forecastHours = spentHours + remainingHours;
   const round = n => Math.round(n * 100) / 100;
   const result = {
@@ -289,6 +437,15 @@ function boardFinance({ cards = [], rates = [], budget = null, invoices = [] }) 
     paidMinor,
     budgetMinor: budget && budget.amountMinor !== null && budget.amountMinor !== undefined ? budget.amountMinor : null,
     budgetHours: budget && typeof budget.hours === 'number' ? budget.hours : null,
+    expenseMinor,
+    unbilledMinor: unbilledMinor || 0,
+    laborCostMinor,
+    uncostedHours: round(uncostedHours),
+    hasCostRates: (rates || []).some(r => typeof r.costRateMinor === 'number'),
+    revenueMinor,
+    costMinor,
+    marginMinor,
+    marginPercent: revenueMinor > 0 ? Math.round(marginMinor / revenueMinor * 100) : null,
   };
   result.usedPercent = result.budgetMinor ? Math.round(spentMinor / result.budgetMinor * 100)
     : (result.budgetHours ? Math.round(spentHours / result.budgetHours * 100) : null);
@@ -312,12 +469,16 @@ function boardFinance({ cards = [], rates = [], budget = null, invoices = [] }) 
  * currency is reported as `unratedHours`, so nobody bills it at zero by
  * accident.
  */
-function draftInvoiceLines({ cards = [], entries = [], rates = [], budget = null, period = {} }) {
-  const cur = boardCurrency(rates, budget);
+function draftInvoiceLines({ cards = [], entries = [], rates = [], budget = null, period = {}, expenses = [], fees = [],
+  invoices = [], billTime = true, approveTime = false, today = null }) {
+  const cur = boardCurrency(rates, budget) || ((fees || [])[0] || {}).currency || ((expenses || [])[0] || {}).currency || null;
   if (!cur) fail('Set an hourly rate for this board first');
   const byCard = new Map(cards.map(c => [c._id, c]));
-  const open = entriesInPeriod(entries.filter(e => e && !e.invoiceId), period)
-    .filter(e => byCard.has(e.cardId) && isBillable(byCard.get(e.cardId)));
+  const billableOpen = billTime ? entriesInPeriod(entries.filter(e => e && !e.invoiceId), period)
+    .filter(e => byCard.has(e.cardId) && isBillable(byCard.get(e.cardId))) : [];
+  // With approval on, only approved time is billed; the rest waits.
+  const open = approveTime ? billableOpen.filter(e => e.approval === 'approved') : billableOpen;
+  const unapprovedHours = approveTime ? billableOpen.filter(e => e.approval !== 'approved').reduce((s, e) => s + e.hours, 0) : 0;
   const groups = new Map();
   let undatedHours = 0;
   for (const entry of open) {
@@ -351,10 +512,80 @@ function draftInvoiceLines({ cards = [], entries = [], rates = [], budget = null
       amountMinor: amountMinor(hours, rate.hourlyRateMinor), firstDate: g.first, lastDate: g.last });
   }
   lines.sort((a, b) => (a.title || '').localeCompare(b.title || '') || String(a.userId).localeCompare(String(b.userId)));
+  // Fixed fees due in the period that no standing invoice has billed.
+  const until = period.end || today;
+  const billed = invoicedFeeKeys(invoices);
+  for (const fee of fees || []) {
+    if (!fee || fee.currency !== cur) continue;
+    for (const o of feeOccurrences(fee, until)) {
+      if (billed.has(o.key) || (period.start && o.date < period.start)) continue;
+      lines.push({ kind: 'fee', feeId: fee._id, feeKey: o.key, title: String(fee.title || '').slice(0, 500), amountMinor: fee.amountMinor,
+        firstDate: o.date, lastDate: o.date });
+    }
+  }
+  // Billable expenses of the period not invoiced yet, at their charge.
+  const expenseIds = [];
+  let otherCurrencyExpenses = 0;
+  for (const e of entriesInPeriod((expenses || []).filter(x => x && !x.invoiceId && x.billable !== false), period)) {
+    if (e.currency !== cur) { otherCurrencyExpenses += 1; continue; }
+    expenseIds.push(e._id);
+    lines.push({ kind: 'expense', expenseId: e._id, category: e.category, title: String(e.description || e.category || '').slice(0, 500),
+      cardId: e.cardId || undefined, userId: e.userId || undefined, amountMinor: expenseCharge(e), firstDate: e.date, lastDate: e.date });
+  }
   const netMinor = lines.reduce((s, l) => s + l.amountMinor, 0);
-  const totalHours = Math.round(lines.reduce((s, l) => s + l.hours, 0) * 100) / 100;
-  return { currency: cur, lines, netMinor, totalHours, entryIds: [...used],
-    unratedHours: Math.round(unratedHours * 100) / 100, undatedHours: Math.round(undatedHours * 100) / 100 };
+  const totalHours = Math.round(lines.reduce((s, l) => s + (l.hours || 0), 0) * 100) / 100;
+  return { currency: cur, lines, netMinor, totalHours, entryIds: [...used], expenseIds, otherCurrencyExpenses,
+    unratedHours: Math.round(unratedHours * 100) / 100, undatedHours: Math.round(undatedHours * 100) / 100,
+    unapprovedHours: Math.round(unapprovedHours * 100) / 100 };
+}
+
+/**
+ * The lines of a quote: the work still to do on the board's open, billable
+ * cards - each card's estimate less the time spent - at its carriers' rates,
+ * and the fixed fees not invoiced yet (a retainer to its end).
+ */
+function draftQuoteLines({ cards = [], rates = [], budget = null, fees = [], invoices = [] }) {
+  const cur = boardCurrency(rates, budget) || ((fees || [])[0] || {}).currency || null;
+  if (!cur) fail('Set an hourly rate for this board first');
+  const lines = [];
+  let unratedHours = 0;
+  for (const card of cards) {
+    if (!card || card.dueComplete === true || card.archived === true || !isBillable(card)) continue;
+    const remaining = Math.max(hoursOf(card.estimatedHours) - hoursOf(card.spentTime), 0);
+    if (!(remaining > 1e-9)) continue;
+    for (const share of chargedShares(card, remaining, rates, cur)) {
+      const hours = Math.round(share.hours * 10000) / 10000;
+      if (share.rateMinor === null) { unratedHours += hours; continue; }
+      const line = { cardId: card._id, title: String(card.title || '').slice(0, 500), hours, rateMinor: share.rateMinor,
+        amountMinor: amountMinor(hours, share.rateMinor) };
+      if (share.userId) line.userId = share.userId;
+      lines.push(line);
+    }
+  }
+  lines.sort((a, b) => (a.title || '').localeCompare(b.title || '') || String(a.userId).localeCompare(String(b.userId)));
+  const billed = invoicedFeeKeys(invoices);
+  for (const fee of fees || []) {
+    if (!fee || fee.currency !== cur) continue;
+    for (const o of feeOccurrences(fee, fee.recurring === 'monthly' ? fee.end : null)) {
+      if (billed.has(o.key)) continue;
+      lines.push({ kind: 'fee', feeId: fee._id, title: String(fee.title || '').slice(0, 500), amountMinor: fee.amountMinor,
+        firstDate: o.date, lastDate: o.date });
+    }
+  }
+  const netMinor = lines.reduce((s, l) => s + l.amountMinor, 0);
+  const totalHours = Math.round(lines.reduce((s, l) => s + (l.hours || 0), 0) * 100) / 100;
+  return { currency: cur, lines, netMinor, totalHours, unratedHours: Math.round(unratedHours * 100) / 100 };
+}
+
+const QUOTE_STATUSES = Object.freeze(['draft', 'sent', 'accepted', 'declined']);
+const QUOTE_TRANSITIONS = Object.freeze({ draft: ['sent', 'declined'], sent: ['accepted', 'declined', 'draft'], accepted: [], declined: [] });
+function canChangeQuoteStatus(from, to) {
+  return (QUOTE_TRANSITIONS[from] || []).includes(to);
+}
+
+// "QUO-2027-0007": quotes have a sequence of their own.
+function quoteNumber(year, sequence) {
+  return `QUO-${year}-${String(sequence).padStart(4, '0')}`;
 }
 
 // VAT on a net amount: rounded once, on the total, as an invoice states it.
@@ -441,8 +672,9 @@ function csvField(value) {
 function invoiceCsv(invoice, nameOf = id => id || '') {
   const rows = [['number', 'card', 'person', 'from', 'to', 'hours', 'rate', 'amount', 'currency']];
   for (const line of invoice.lines || []) {
-    rows.push([invoice.number, line.title, nameOf(line.userId), line.firstDate || '', line.lastDate || '', line.hours,
-      minorToText(line.rateMinor, invoice.currency), minorToText(line.amountMinor, invoice.currency), invoice.currency]);
+    const hasRate = typeof line.rateMinor === 'number';
+    rows.push([invoice.number, line.title, nameOf(line.userId), line.firstDate || '', line.lastDate || '', hasRate ? line.hours : '',
+      hasRate ? minorToText(line.rateMinor, invoice.currency) : '', minorToText(line.amountMinor, invoice.currency), invoice.currency]);
   }
   const net = typeof invoice.netMinor === 'number' ? invoice.netMinor : invoice.totalMinor;
   const m = minor => minorToText(minor || 0, invoice.currency);
@@ -453,8 +685,10 @@ function invoiceCsv(invoice, nameOf = id => id || '') {
 }
 
 module.exports = {
-  INVOICE_STATUSES, MAX_MINOR,
+  INVOICE_STATUSES, QUOTE_STATUSES, EXPENSE_CATEGORIES, MAX_MINOR,
   toMinor, normalizeRate, normalizeBudget, normalizeProfile, normalizeInvoiceRequest, normalizeInvoiceStatus, normalizePayment,
+  normalizeExpense, normalizeFee, normalizeApproval, normalizeQuoteRequest, expenseCharge, feeOccurrences, invoicedFeeKeys,
+  draftQuoteLines, canChangeQuoteStatus, quoteNumber,
   rateFor, boardCurrency, boardFinance, draftInvoiceLines, invoiceTotals, invoiceState, paidOf,
   canChangeStatus, invoiceNumber, paymentReference, defaultDueDate, formatMoney, csvField, invoiceCsv,
 };

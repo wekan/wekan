@@ -16,8 +16,26 @@ const LABEL_KEYS = [
   'billing-reference', 'billing-payment-reference', 'billing-period', 'card', 'person', 'hours', 'billing-hourly-rate',
   'billing-amount', 'billing-net', 'billing-vat', 'billing-total', 'billing-paid', 'billing-amount-due', 'billing-business-id',
   'billing-vat-id', 'billing-payment-methods', 'billing-penalty-interest', 'billing-reverse-charge', 'billing-credit-of',
-  'billing-pay-by-scanning',
+  'billing-pay-by-scanning', 'billing-quote', 'billing-valid-until',
 ];
+
+// The title of the document: an invoice, a credit note or a quote.
+function titleKey(invoice) {
+  if (invoice.kind === 'credit') return 'billing-credit-note';
+  return invoice.kind === 'quote' ? 'billing-quote' : 'billing-invoice';
+}
+
+// The third line of the document's details: what a credit note credits, when
+// a quote is valid until, or when an invoice is due.
+function dueRow(invoice, labels) {
+  if (invoice.kind === 'credit') return [labels['billing-credit-of'], invoice.creditOfNumber];
+  return [labels[invoice.kind === 'quote' ? 'billing-valid-until' : 'billing-due-date'], invoice.dueDate];
+}
+
+// A fee or an expense has no hours or rate: those cells are empty.
+function hoursText(line) {
+  return typeof line.rateMinor === 'number' ? String(line.hours) : '';
+}
 
 export function invoiceLabels(language) {
   const out = {};
@@ -78,7 +96,7 @@ function money(minor, invoice, locale) {
  */
 export function invoicePdf(invoice, profile, instructions, labels, fonts, locale) {
   return new Promise((resolve, reject) => {
-    const pdf = new PDFDocument({ size: 'A4', margin: 50, info: { Title: `${labels[invoice.kind === 'credit' ? 'billing-credit-note' : 'billing-invoice']} ${invoice.number}` } });
+    const pdf = new PDFDocument({ size: 'A4', margin: 50, info: { Title: `${labels[titleKey(invoice)]} ${invoice.number}` } });
     const chunks = [];
     pdf.on('data', chunk => chunks.push(chunk));
     pdf.on('end', () => resolve(Buffer.concat(chunks)));
@@ -87,7 +105,7 @@ export function invoicePdf(invoice, profile, instructions, labels, fonts, locale
     pdf.font('main');
     const left = 50;
     const width = pdf.page.width - 100;
-    const title = labels[invoice.kind === 'credit' ? 'billing-credit-note' : 'billing-invoice'];
+    const title = labels[titleKey(invoice)];
 
     pdf.fontSize(20).text(title, left, 50);
     pdf.fontSize(10).text(profile.issuerName || '', left, 80);
@@ -101,7 +119,7 @@ export function invoicePdf(invoice, profile, instructions, labels, fonts, locale
     const meta = [
       [labels['billing-number'], invoice.number],
       [labels['billing-issue-date'], invoice.issueDate],
-      invoice.kind === 'credit' ? [labels['billing-credit-of'], invoice.creditOfNumber] : [labels['billing-due-date'], invoice.dueDate],
+      dueRow(invoice, labels),
       [labels['billing-payment-reference'], invoice.paymentReference ? formatReference(invoice.paymentReference) : ''],
       [labels['billing-reference'], invoice.reference],
       [labels['billing-period'], invoice.periodStart || invoice.periodEnd ? `${invoice.periodStart || ''} – ${invoice.periodEnd || ''}` : ''],
@@ -133,7 +151,7 @@ export function invoicePdf(invoice, profile, instructions, labels, fonts, locale
     for (const line of invoice.lines || []) {
       if (y > pdf.page.height - 150) { pdf.addPage(); y = 50; header(); }
       const cells = [line.title + (line.firstDate ? `\n${line.firstDate}${line.lastDate && line.lastDate !== line.firstDate ? ` – ${line.lastDate}` : ''}` : ''),
-        line.name || '', String(line.hours), money(line.rateMinor, { ...invoice, kind: '' }, locale), money(line.amountMinor, invoice, locale)];
+        line.name || '', hoursText(line), hoursText(line) ? money(line.rateMinor, { ...invoice, kind: '' }, locale) : '', money(line.amountMinor, invoice, locale)];
       let x = left;
       let h = 0;
       pdf.fontSize(9);
@@ -159,7 +177,7 @@ export function invoicePdf(invoice, profile, instructions, labels, fonts, locale
       y += 15;
     }
     if (invoice.reverseCharge) { pdf.fontSize(9).text(labels['billing-reverse-charge'], left, y); y += 14; }
-    if (profile.penaltyInterestPercent && invoice.kind !== 'credit') {
+    if (profile.penaltyInterestPercent && !['credit', 'quote'].includes(invoice.kind)) {
       pdf.fontSize(9).text(`${labels['billing-penalty-interest']}: ${profile.penaltyInterestPercent} %`, left, y); y += 14;
     }
     if (invoice.notes) { pdf.fontSize(9).text(invoice.notes, left, y + 4, { width }); y = pdf.y + 6; }
@@ -205,11 +223,11 @@ export async function invoiceXlsx(invoice, profile, labels) {
   const major = minor => fromMinorUnits(minor, invoice.currency);
   // Widths one by one: sheet.columns = [...] would add an empty header row.
   [40, 24, 10, 14, 16].forEach((width, i) => { sheet.getColumn(i + 1).width = width; });
-  sheet.addRow([labels[invoice.kind === 'credit' ? 'billing-credit-note' : 'billing-invoice'], invoice.number]).font = { bold: true, size: 14 };
+  sheet.addRow([labels[titleKey(invoice)], invoice.number]).font = { bold: true, size: 14 };
   for (const [k, v] of [
     [profile.issuerName, profile.businessId ? `${labels['billing-business-id']} ${profile.businessId}` : ''],
     [labels['billing-issue-date'], invoice.issueDate],
-    [labels['billing-due-date'], invoice.dueDate || ''],
+    dueRow(invoice, labels),
     [labels['billing-payment-reference'], invoice.paymentReference ? formatReference(invoice.paymentReference) : ''],
     [labels['billing-reference'], invoice.reference || ''],
     [labels['billing-customer'], String(invoice.customer || '').replace(/\r?\n/g, ', ')],
@@ -218,7 +236,8 @@ export async function invoiceXlsx(invoice, profile, labels) {
   const head = sheet.addRow([labels.card, labels.person, labels.hours, labels['billing-hourly-rate'], labels['billing-amount']]);
   head.font = { bold: true };
   for (const line of invoice.lines || []) {
-    const row = sheet.addRow([line.title, line.name || '', line.hours, major(line.rateMinor), sign * major(line.amountMinor)]);
+    const timed = typeof line.rateMinor === 'number';
+    const row = sheet.addRow([line.title, line.name || '', timed ? line.hours : '', timed ? major(line.rateMinor) : '', sign * major(line.amountMinor)]);
     row.getCell(4).numFmt = cur;
     row.getCell(5).numFmt = cur;
   }
@@ -270,7 +289,7 @@ export function invoiceSvg(invoice, profile, instructions, labels, locale) {
   const text = (x, value, { size = 9, bold = false, anchor = 'start', color = '#000' } = {}) => {
     els.push(`<text x="${x}" y="${y}" font-size="${size}"${bold ? ' font-weight="bold"' : ''}${anchor !== 'start' ? ` text-anchor="${anchor}"` : ''} fill="${color}">${svgText(value)}</text>`);
   };
-  const title = labels[invoice.kind === 'credit' ? 'billing-credit-note' : 'billing-invoice'];
+  const title = labels[titleKey(invoice)];
   text(L, title, { size: 20, bold: true });
   const metaTop = y;
   y += 24;
@@ -283,7 +302,7 @@ export function invoiceSvg(invoice, profile, instructions, labels, locale) {
   y = metaTop + 24;
   for (const [k, v] of [
     [labels['billing-number'], invoice.number], [labels['billing-issue-date'], invoice.issueDate],
-    invoice.kind === 'credit' ? [labels['billing-credit-of'], invoice.creditOfNumber] : [labels['billing-due-date'], invoice.dueDate],
+    dueRow(invoice, labels),
     [labels['billing-payment-reference'], invoice.paymentReference ? formatReference(invoice.paymentReference) : ''],
     [labels['billing-reference'], invoice.reference],
     [labels['billing-period'], invoice.periodStart || invoice.periodEnd ? `${invoice.periodStart || ''} – ${invoice.periodEnd || ''}` : ''],
@@ -309,8 +328,8 @@ export function invoiceSvg(invoice, profile, instructions, labels, locale) {
     const endY = y;
     y = startY;
     text(300, line.name || '');
-    text(420, String(line.hours), { anchor: 'end' });
-    text(490, money(line.rateMinor, { ...invoice, kind: '' }, locale), { anchor: 'end' });
+    text(420, hoursText(line), { anchor: 'end' });
+    if (hoursText(line)) text(490, money(line.rateMinor, { ...invoice, kind: '' }, locale), { anchor: 'end' });
     text(W - L, money(line.amountMinor, invoice, locale), { anchor: 'end' });
     y = endY + 3;
   }
@@ -324,7 +343,7 @@ export function invoiceSvg(invoice, profile, instructions, labels, locale) {
     text(420, k, { anchor: 'end', bold }); text(W - L, money(v, invoice, locale), { anchor: 'end', bold }); y += 14;
   }
   if (invoice.reverseCharge) { text(L, labels['billing-reverse-charge']); y += 13; }
-  if (profile.penaltyInterestPercent && invoice.kind !== 'credit') { text(L, `${labels['billing-penalty-interest']}: ${profile.penaltyInterestPercent} %`); y += 13; }
+  if (profile.penaltyInterestPercent && !['credit', 'quote'].includes(invoice.kind)) { text(L, `${labels['billing-penalty-interest']}: ${profile.penaltyInterestPercent} %`); y += 13; }
   for (const l of wrap(invoice.notes, 100)) { if (l) { text(L, l); y += 12; } }
 
   const usable = (instructions || []).filter(i => !i.error);

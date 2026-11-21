@@ -26,7 +26,8 @@ test('days: weeks start on Monday, weekdays are ISO', () => {
 test('capacity: 37.5 h a week by default, Monday to Friday', () => {
   const r = W.computeWorkload(base());
   assert.equal(week(r).capacityHours, 37.5);
-  assert.deepEqual(r.people[0].capacity, { hoursPerWeek: 37.5, workPercent: 100, workingDays: [1, 2, 3, 4, 5] });
+  // Skills and a utilization target are part of a capacity, empty by default.
+  assert.deepEqual(r.people[0].capacity, { hoursPerWeek: 37.5, workPercent: 100, workingDays: [1, 2, 3, 4, 5], skills: [], utilizationTarget: null });
 });
 
 test('capacity: part-time 60 % of 37.5 h is 22.5 h', () => {
@@ -225,6 +226,57 @@ test('view: ISO week numbers', () => {
   assert.equal(V.isoWeekNumber('2027-04-05'), 14);
   assert.equal(V.isoWeekNumber('2026-12-28'), 53);
   assert.equal(V.isoWeekNumber('2027-01-04'), 1);
+});
+
+test('utilization: billable hours logged against the hours a person has, and the target', () => {
+  const r = W.computeWorkload({
+    from: '2027-04-05', weeks: 2, today: '2027-04-05',
+    people: [{ userId: 'u', capacity: { hoursPerWeek: 40, utilizationTarget: 75 } }],
+    timeEntries: [
+      { userId: 'u', date: '2027-04-05', hours: 20, billable: true },
+      { userId: 'u', date: '2027-04-06', hours: 10, billable: false },
+      { userId: 'u', date: '2027-04-13', hours: 30 },
+      { userId: 'other', date: '2027-04-13', hours: 99 },
+      { userId: 'u', date: '2027-05-01', hours: 99 },
+    ],
+  });
+  const p = r.people[0];
+  assert.deepEqual(p.weeks.map(w => [w.loggedHours, w.billableHours, w.billablePercent]), [[30, 20, 50], [30, 30, 75]]);
+  assert.equal(p.billablePercent, 63, '50 of 80 hours');
+  assert.equal(p.belowTarget, true);
+  assert.equal(p.loggedHours, 60, 'not somebody else\'s, not outside the weeks');
+});
+
+test('skills: a placeholder lists the people with the skill, the most free hours first', () => {
+  const r = W.computeWorkload({
+    from: '2027-04-05', weeks: 1, today: '2027-04-05',
+    people: [
+      { userId: 'busy', capacity: { hoursPerWeek: 40, skills: [{ name: 'React', level: 5 }] } },
+      { userId: 'free', capacity: { hoursPerWeek: 40, skills: [{ name: 'react', level: 3 }] } },
+      { userId: 'junior', capacity: { hoursPerWeek: 40, skills: [{ name: 'React', level: 1 }] } },
+      { userId: 'none', capacity: { hoursPerWeek: 40 } },
+    ],
+    cards: [{ _id: 'c', assignees: ['busy'], estimatedHours: 30, startAt: '2027-04-05', dueAt: '2027-04-09' }],
+    allocations: [{ _id: 'a', boardId: 'b', roleName: 'Developer', skill: 'React', skillLevel: 2, start: '2027-04-05', end: '2027-04-09', percent: 50 }],
+  });
+  assert.deepEqual(r.placeholders[0].candidates, [{ userId: 'free', level: 3, freeHours: 40 }, { userId: 'busy', level: 5, freeHours: 10 }],
+    'case does not matter; a level below the one needed does not fit; somebody without the skill is not listed');
+  assert.deepEqual(W.normalizeAllocation({ roleName: 'x', start: '2027-01-01', end: '2027-01-02', percent: 10 }).skill, '');
+});
+
+test('negative: skills and the utilization target are validated', () => {
+  assert.deepEqual(W.parseSkills('React 4, Go,  Finnish 5 ,, C 9'), [{ name: 'React', level: 4 }, { name: 'Go', level: 3 },
+    { name: 'Finnish', level: 5 }, { name: 'C 9', level: 3 }], 'a level is 1 to 5; anything else is part of the name');
+  assert.equal(W.skillsText(W.parseSkills('React 4, Go')), 'React 4, Go 3');
+  assert.deepEqual(W.normalizeSkills([{ name: 'Go', level: 4 }, { name: 'go', level: 1 }]), [{ name: 'Go', level: 4 }], 'one of each');
+  assert.throws(() => W.normalizeSkills([{ name: '', level: 3 }]), /has a name/);
+  assert.throws(() => W.normalizeSkills([{ name: 'Go', level: 6 }]), /1 to 5/);
+  assert.throws(() => W.normalizeSkills([{ name: 'Go', years: 6 }]), /Unsupported/);
+  assert.throws(() => W.normalizeSkills(Array.from({ length: 31 }, (_, i) => ({ name: `s${i}` }))), /At most 30/);
+  assert.throws(() => W.normalizeCapacity({ utilizationTarget: 101 }), /utilization target/);
+  assert.throws(() => W.normalizeAllocation({ roleName: 'x', start: '2027-01-01', end: '2027-01-02', percent: 10, skillLevel: 0 }), /1 to 5/);
+  assert.deepEqual(W.capacityOf({ _id: 'x', userId: 'u', hoursPerWeek: 30, workPercent: 100, workingDays: [1] }).hoursPerWeek, 30,
+    'a stored document, with its own fields, still reads as a capacity');
 });
 
 console.log(`\nworkload: ${passed} tests passed`);

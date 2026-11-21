@@ -80,8 +80,24 @@ template(name="billingBoard")
         dd {{money detail.finance.invoicedMinor detail.finance.currency}}
         dt {{_ 'billing-paid'}}
         dd {{money detail.finance.paidMinor detail.finance.currency}}
+        dt {{_ 'billing-unbilled'}}
+        dd.billing-unbilled {{money detail.finance.unbilledMinor detail.finance.currency}}
+        if detail.finance.expenseMinor
+          dt {{_ 'billing-expenses'}}
+          dd {{money detail.finance.expenseMinor detail.finance.currency}}
+        if detail.finance.hasCostRates
+          dt {{_ 'billing-cost'}}
+          dd {{money detail.finance.costMinor detail.finance.currency}}
+          dt {{_ 'billing-margin'}}
+          dd.billing-margin(class="{{#if isNegative detail.finance.marginMinor}}billing-over{{/if}}")
+            | {{money detail.finance.marginMinor detail.finance.currency}}
+            if detail.finance.marginPercent
+              |  · {{detail.finance.marginPercent}} %
       if detail.finance.unratedHours
         p.warning {{_ 'billing-unrated' hours=detail.finance.unratedHours}}
+      if detail.finance.hasCostRates
+        if detail.finance.uncostedHours
+          p.warning {{_ 'billing-uncosted' hours=detail.finance.uncostedHours}}
 
     .billing-sections
       section.billing-section
@@ -112,6 +128,8 @@ template(name="billingBoard")
                 else
                   | {{_ 'billing-default-rate'}}
                 |  · {{money rate.hourlyRateMinor rate.currency}} / {{_ 'workload-hours-short'}}
+                if isNumber rate.costRateMinor
+                  |  · {{_ 'billing-cost-rate'}} {{money rate.costRateMinor rate.currency}}
                 a.js-billing-remove-rate(data-id=rate._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
                   i.fa.fa-trash
         form.js-billing-rate
@@ -124,6 +142,8 @@ template(name="billingBoard")
           input#billing-rate-amount(type="number" name="hourlyRate" min="0" step="0.01" required)
           label(for="billing-rate-currency") {{_ 'billing-currency'}}
           input#billing-rate-currency(type="text" name="currency" maxlength="3" value=budgetCurrency placeholder="EUR" required)
+          label(for="billing-rate-cost") {{_ 'billing-cost-rate'}}
+          input#billing-rate-cost(type="number" name="costRate" min="0" step="0.01")
           button.primary(type="submit") {{_ 'save'}}
 
       section.billing-section
@@ -160,6 +180,20 @@ template(name="billingBoard")
               option(value=type.value selected="{{#if $eq type.value detail.profile.referenceType}}selected{{/if}}") {{type.label}}
           label(for="billing-footer") {{_ 'billing-footer'}}
           textarea#billing-footer(name="footer" maxlength="1000" rows="2") {{detail.profile.footer}}
+          label.billing-checkbox
+            input(type="checkbox" name="billTime" checked=billsTime)
+            | {{_ 'billing-bill-time'}}
+          label.billing-checkbox
+            input(type="checkbox" name="approveTime" checked=detail.profile.approveTime)
+            | {{_ 'billing-approve-time'}}
+          label(for="billing-default-customer") {{_ 'billing-default-customer'}}
+          textarea#billing-default-customer(name="customer" maxlength="500" rows="3") {{detail.profile.customer}}
+          label(for="billing-default-country") {{_ 'billing-country'}}
+          input#billing-default-country(type="text" name="customerCountry" maxlength="2" value=detail.profile.customerCountry placeholder="FI")
+          label(for="billing-default-vatid") {{_ 'billing-vat-id'}}
+          input#billing-default-vatid(type="text" name="customerVatId" maxlength="50" value=detail.profile.customerVatId)
+          label(for="billing-quote-days") {{_ 'billing-quote-valid-days'}}
+          input#billing-quote-days(type="number" name="quoteValidDays" min="1" max="365" step="1" value=quoteValidDays)
           button.primary(type="submit") {{_ 'save'}}
 
       section.billing-section
@@ -186,6 +220,115 @@ template(name="billingBoard")
               input(id="billing-method-{{fieldName.name}}" type="text" name=fieldName.name maxlength="2000" placeholder=fieldName.placeholder)
           button.primary(type="submit") {{_ 'billing-add-method'}}
 
+      section.billing-section.billing-expenses
+        h3 {{_ 'billing-expenses'}}
+        if detail.expenses.length
+          ul.billing-list
+            each expense in detail.expenses
+              li(class="{{#if expense.invoiced}}is-invoiced{{/if}}")
+                | {{expense.date}} · {{expenseCategory expense.category}}
+                if expense.description
+                  |  · {{expense.description}}
+                |  · {{money expense.amountMinor expense.currency}}
+                if expense.markupPercent
+                  |  (+{{expense.markupPercent}} % = {{money expense.chargeMinor expense.currency}})
+                unless expense.billable
+                  |  · {{_ 'billing-not-billable'}}
+                if expense.cardTitle
+                  |  · {{expense.cardTitle}}
+                if expense.name
+                  |  · {{expense.name}}
+                if expense.invoiced
+                  i.fa.fa-file-text-o(title="{{_ 'time-entry-invoiced'}}")
+                else
+                  a.js-billing-remove-expense(data-id=expense._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                    i.fa.fa-trash
+        else
+          p {{_ 'billing-no-expenses'}}
+        form.js-billing-expense
+          label(for="billing-expense-date") {{_ 'date'}}
+          input#billing-expense-date(type="date" name="date" value=today required)
+          label(for="billing-expense-amount") {{_ 'billing-amount'}}
+          input#billing-expense-amount(type="number" name="amount" min="0.01" step="0.01" required)
+          label(for="billing-expense-currency") {{_ 'billing-currency'}}
+          input#billing-expense-currency(type="text" name="currency" maxlength="3" value=budgetCurrency placeholder="EUR" required)
+          label(for="billing-expense-category") {{_ 'billing-expense-category'}}
+          select#billing-expense-category(name="category")
+            each category in expenseCategories
+              option(value=category.value) {{category.label}}
+          label(for="billing-expense-description") {{_ 'description'}}
+          input#billing-expense-description(type="text" name="description" maxlength="200")
+          label(for="billing-expense-markup") {{_ 'billing-markup'}} %
+          input#billing-expense-markup(type="number" name="markupPercent" min="0" max="100" step="0.1")
+          label(for="billing-expense-card") {{_ 'card'}}
+          select#billing-expense-card(name="cardId")
+            option(value="") —
+            each card in detail.cards
+              option(value=card._id) {{card.title}}
+          label(for="billing-expense-person") {{_ 'person'}}
+          select#billing-expense-person(name="userId")
+            option(value="") —
+            each member in detail.members
+              option(value=member.userId) {{member.name}}
+          label.billing-checkbox
+            input(type="checkbox" name="billable" checked)
+            | {{_ 'billing-billable'}}
+          button.primary(type="submit") {{_ 'billing-add-expense'}}
+
+      section.billing-section.billing-fees
+        h3 {{_ 'billing-fees'}}
+        p.billing-hint {{_ 'billing-fees-intro'}}
+        if detail.fees.length
+          ul.billing-list
+            each fee in detail.fees
+              li
+                | {{fee.title}} · {{money fee.amountMinor fee.currency}} · {{fee.date}}
+                if $eq fee.recurring 'monthly'
+                  |  · {{_ 'billing-recurring-monthly'}}
+                  if fee.end
+                    |  – {{fee.end}}
+                |  · {{_ 'billing-fee-billed' billed=fee.billedCount due=fee.dueCount}}
+                a.js-billing-remove-fee(data-id=fee._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                  i.fa.fa-trash
+        else
+          p {{_ 'billing-no-fees'}}
+        form.js-billing-fee
+          label(for="billing-fee-title") {{_ 'title'}}
+          input#billing-fee-title(type="text" name="title" maxlength="200" required)
+          label(for="billing-fee-amount") {{_ 'billing-amount'}}
+          input#billing-fee-amount(type="number" name="amount" min="0.01" step="0.01" required)
+          label(for="billing-fee-currency") {{_ 'billing-currency'}}
+          input#billing-fee-currency(type="text" name="currency" maxlength="3" value=budgetCurrency placeholder="EUR" required)
+          label(for="billing-fee-date") {{_ 'date'}}
+          input#billing-fee-date(type="date" name="date" value=today required)
+          label(for="billing-fee-recurring") {{_ 'billing-recurring'}}
+          select#billing-fee-recurring(name="recurring")
+            option(value="none") {{_ 'billing-recurring-none'}}
+            option(value="monthly") {{_ 'billing-recurring-monthly'}}
+          label(for="billing-fee-end") {{_ 'card-end'}}
+          input#billing-fee-end(type="date" name="end")
+          button.primary(type="submit") {{_ 'billing-add-fee'}}
+
+      if detail.profile.approveTime
+        section.billing-section.billing-approval
+          h3 {{_ 'billing-time-to-approve'}}
+          if detail.pendingTime.length
+            form.js-billing-approval
+              ul.billing-list
+                each entry in detail.pendingTime
+                  li
+                    label.billing-checkbox
+                      input(type="checkbox" name="entry" value=entry._id checked)
+                      | {{entry.date}} · {{entry.title}} · {{entry.name}} · {{entry.hours}} {{_ 'workload-hours-short'}}
+                      if entry.note
+                        |  · {{entry.note}}
+              label(for="billing-approval-note") {{_ 'workload-note'}}
+              input#billing-approval-note(type="text" name="note" maxlength="200")
+              button.primary.js-billing-decide(type="button" data-decision="approved") {{_ 'billing-approve'}}
+              button.js-billing-decide(type="button" data-decision="rejected") {{_ 'billing-reject'}}
+          else
+            p {{_ 'billing-nothing-to-approve'}}
+
       section.billing-section
         h3 {{_ 'billing-new-invoice'}}
         form.js-billing-period
@@ -202,18 +345,24 @@ template(name="billingBoard")
             p {{_ 'billing-draft-summary' hours=detail.draft.totalHours amount=draftTotal}}
             ul.billing-draft-lines
               each line in detail.draft.lines
-                li {{line.title}} · {{line.name}} · {{line.hours}} {{_ 'workload-hours-short'}} · {{money line.amountMinor detail.draft.currency}}
+                li(class="billing-line-{{lineKind line}}")
+                  if line.kind
+                    | {{lineKindLabel line}}: {{line.title}} · {{line.firstDate}} · {{money line.amountMinor detail.draft.currency}}
+                  else
+                    | {{line.title}} · {{line.name}} · {{line.hours}} {{_ 'workload-hours-short'}} · {{money line.amountMinor detail.draft.currency}}
           else
             p {{_ 'billing-nothing-to-invoice'}}
           if detail.draft.undatedHours
             p {{_ 'billing-undated-included' hours=detail.draft.undatedHours}}
           if detail.draft.unratedHours
             p.warning {{_ 'billing-unrated' hours=detail.draft.unratedHours}}
+          if detail.draft.unapprovedHours
+            p.warning {{_ 'billing-unapproved' hours=detail.draft.unapprovedHours}}
         else
           p {{_ 'billing-set-rate-first'}}
         form.js-billing-invoice
           label(for="billing-invoice-customer") {{_ 'billing-customer'}}
-          textarea#billing-invoice-customer(name="customer" maxlength="500" rows="3")
+          textarea#billing-invoice-customer(name="customer" maxlength="500" rows="3" placeholder=detail.profile.customer)
           label(for="billing-invoice-country") {{_ 'billing-country'}}
           input#billing-invoice-country(type="text" name="customerCountry" maxlength="2" placeholder="FI")
           label(for="billing-invoice-vatid") {{_ 'billing-vat-id'}}
@@ -281,6 +430,62 @@ template(name="billingBoard")
       else
         p {{_ 'billing-no-invoices'}}
 
+    section.billing-section.billing-quotes
+      h3 {{_ 'billing-quotes'}}
+      p.billing-hint {{_ 'billing-quotes-intro'}}
+      form.js-billing-quote
+        label(for="billing-quote-customer") {{_ 'billing-customer'}}
+        textarea#billing-quote-customer(name="customer" maxlength="500" rows="2" placeholder=detail.profile.customer)
+        label(for="billing-quote-issue") {{_ 'billing-issue-date'}}
+        input#billing-quote-issue(type="date" name="issueDate" value=today)
+        label(for="billing-quote-valid") {{_ 'billing-valid-until'}}
+        input#billing-quote-valid(type="date" name="validUntil")
+        label(for="billing-quote-notes") {{_ 'workload-note'}}
+        textarea#billing-quote-notes(name="notes" maxlength="2000" rows="2")
+        button.primary(type="submit") {{_ 'billing-create-quote'}}
+      if detail.quotes.length
+        .billing-table-wrapper
+          table.billing-quote-table
+            thead
+              tr
+                th {{_ 'billing-number'}}
+                th {{_ 'billing-issue-date'}}
+                th {{_ 'billing-valid-until'}}
+                th {{_ 'billing-customer'}}
+                th {{_ 'hours'}}
+                th {{_ 'billing-total'}}
+                th {{_ 'billing-status'}}
+                th
+            tbody
+              each quote in detail.quotes
+                tr(class="billing-quote-{{quote.status}}")
+                  td {{quote.number}}
+                  td {{quote.issueDate}}
+                  td
+                    | {{quote.validUntil}}
+                    if quote.expired
+                      span.billing-over
+                        |  ({{_ 'billing-quote-expired'}})
+                  td {{quote.customer}}
+                  td {{quote.totalHours}}
+                  td {{money quote.totalMinor quote.currency}}
+                  td {{quoteStatusLabel quote.status}}
+                  td.billing-invoice-actions
+                    each next in nextQuoteStatuses quote
+                      button.js-billing-quote-status(type="button" data-id=quote._id data-status=next.value) {{next.label}}
+                    button.js-billing-quote-open(type="button" data-id=quote._id)
+                      i.fa.fa-eye
+                      |  {{_ 'billing-open'}}
+                    each format in quoteFormats
+                      button.js-billing-quote-file(type="button" data-id=quote._id data-format=format.value)
+                        i.fa(class=format.icon)
+                        |  {{format.label}}
+        label.billing-checkbox
+          input.js-billing-accept-budget(type="checkbox" checked)
+          | {{_ 'billing-accept-sets-budget'}}
+      else
+        p {{_ 'billing-no-quotes'}}
+
     if printed
       +billingInvoicePrint(invoice=printed reload=reload setPrinted=setPrinted)
 
@@ -293,6 +498,8 @@ template(name="billingInvoicePrint")
       h2
         if $eq invoice.kind 'credit'
           | {{_ 'billing-credit-note'}} {{invoice.number}}
+        else if $eq invoice.kind 'quote'
+          | {{_ 'billing-quote'}} {{invoice.number}}
         else
           | {{_ 'billing-invoice'}} {{invoice.number}}
       .billing-print-issuer
@@ -309,7 +516,10 @@ template(name="billingInvoicePrint")
         dt {{_ 'billing-issue-date'}}
         dd {{invoice.issueDate}}
         if invoice.dueDate
-          dt {{_ 'billing-due-date'}}
+          if $eq invoice.kind 'quote'
+            dt {{_ 'billing-valid-until'}}
+          else
+            dt {{_ 'billing-due-date'}}
           dd {{invoice.dueDate}}
         if invoice.creditOfNumber
           dt {{_ 'billing-credit-of'}}
@@ -324,7 +534,7 @@ template(name="billingInvoicePrint")
           dt {{_ 'billing-period'}}
           dd {{invoice.periodStart}} – {{invoice.periodEnd}}
         dt {{_ 'billing-status'}}
-        dd {{statusLabel invoice.state}}
+        dd {{statusLabel invoice.state invoice.kind}}
     .billing-table-wrapper
       table.billing-print-lines
         thead
@@ -342,8 +552,12 @@ template(name="billingInvoicePrint")
                 if line.firstDate
                   .billing-line-dates {{line.firstDate}} – {{line.lastDate}}
               td {{line.name}}
-              td {{line.hours}}
-              td {{money line.rateMinor invoice.currency}}
+              if line.kind
+                td
+                td
+              else
+                td {{line.hours}}
+                td {{money line.rateMinor invoice.currency}}
               td {{signedMoney invoice line.amountMinor}}
         tfoot
           tr
@@ -367,7 +581,7 @@ template(name="billingInvoicePrint")
     if invoice.notes
       p.billing-print-notes {{invoice.notes}}
 
-    unless $eq invoice.kind 'credit'
+    if isInvoice invoice
       if invoice.instructions.length
         h3 {{_ 'billing-payment-methods'}}
         .billing-pay

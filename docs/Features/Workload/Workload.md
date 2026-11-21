@@ -43,6 +43,25 @@ person's allocations add up to more than 100 %, or when there is work and no
 hours at all (an absence). It is **grey-blue** when it is under half full. Click
 a week to see the cards in it.
 
+## Utilization
+
+Under each person's name, the report shows their **billable utilization**:
+the hours they logged on billable cards in the report's weeks, against the
+hours they had. **Billable target** in *My working time* sets the share they
+aim for; under it, the figure is red. Time logged on a card marked not
+billable counts as logged, not as billable. Only the time on the boards of the
+report is counted.
+
+## Skills
+
+*My working time* also lists a person's **skills**, each with a level 1 to 5
+("React 4, Go, Finnish 5"; 3 when not given). A placeholder can name the
+**skill it needs** and the lowest level that will do; its row then shows who
+**could do it** - the people of the report with that skill at that level or
+better, the most free hours first over the weeks it needs them. Free hours
+are the hours a person has less the work they carry or the time promised to
+boards, whichever is more.
+
 ## Allocations and placeholders
 
 A board's admins can allocate a share of a person's time to the board for a

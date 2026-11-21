@@ -19,6 +19,12 @@ TimeEntries.attachSchema(new SimpleSchema({
   source: { type: String, allowedValues: ['manual', 'card', 'legacy'] },
   // The invoice the entry is on (server/billing.js); absent while not invoiced.
   invoiceId: { type: String, optional: true },
+  // A board admin's decision, when the board approves time before billing it
+  // (server/billing.js billingApproveTime): absent while waiting.
+  approval: { type: String, optional: true, allowedValues: ['approved', 'rejected'] },
+  approvalNote: { type: String, optional: true, max: 200 },
+  approvedBy: { type: String, optional: true },
+  approvedAt: { type: Date, optional: true },
   createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
   modifiedAt: { type: Date, optional: true, autoValue: modifiedAtAutoValue },
 }));

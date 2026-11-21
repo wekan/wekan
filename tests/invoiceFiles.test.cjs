@@ -96,5 +96,24 @@ const invoice = { number: 'INV-2027-0001', kind: 'invoice', issueDate: '2027-04-
   assert.ok([...doc.getElementsByTagName('text')].some(t => t.textContent === 'Lasku'), 'the title is text');
   assert.ok(doc.getElementsByTagName('path').length >= 2, 'the QR code and the barcode are paths');
   console.log('  ok - an SVG of the invoice: A4 wide, text as text, codes as paths, nothing a user wrote as markup');
-  console.log('\ninvoiceFiles: 4 tests passed');
+  // A quote: its own title and "valid until"; fee and expense lines have no
+  // hours or rate; no payment codes and no penalty interest.
+  const quote = { ...invoice, kind: 'quote', number: 'QUO-2027-0001', dueDate: '2027-05-30', paymentReference: '',
+    lines: [{ title: 'Build', name: 'Dee', hours: 2, rateMinor: 10000, amountMinor: 20000 }, { kind: 'fee', title: 'Launch', amountMinor: 50000 }] };
+  const qLabels = { ...labels, 'billing-quote': 'Tarjous', 'billing-valid-until': 'Voimassa' };
+  const qSvg = F.invoiceSvg(quote, profile, [], qLabels, 'fi');
+  const texts = [...new JSDOM(qSvg, { contentType: 'image/svg+xml' }).window.document.getElementsByTagName('text')].map(t => t.textContent);
+  assert.ok(texts.includes('Tarjous') && texts.includes('Voimassa'), 'a quote says so, and until when');
+  assert.ok(!texts.includes('Lasku') && !texts.some(t => /billing-penalty-interest/.test(t)), 'not an invoice, no penalty interest');
+  assert.ok(!texts.some(t => /NaN|undefined/.test(t)), 'a fee line has empty hours and rate');
+  const qPdf = await F.invoicePdf(quote, profile, [], qLabels, fonts, 'fi');
+  assert.match(qPdf.slice(0, 8).toString('latin1'), /^%PDF-/);
+  const qXlsx = await F.invoiceXlsx(quote, profile, qLabels);
+  const qBook = new ExcelJS.Workbook();
+  await qBook.xlsx.load(qXlsx);
+  const feeRow = qBook.worksheets[0].getRows(1, 30).find(r => r.getCell(1).value === 'Launch');
+  assert.ok(!feeRow.getCell(3).value, 'no hours');
+  assert.equal(feeRow.getCell(5).value, 500);
+  console.log('  ok - a quote: its own title and validity, fee lines without hours, no payment details');
+  console.log('\ninvoiceFiles: 5 tests passed');
 })().catch(e => { console.error(e); process.exitCode = 1; });

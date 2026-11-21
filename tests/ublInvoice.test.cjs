@@ -62,4 +62,11 @@ test('a credit note is a CreditNote (381) referring to the invoice; reverse char
   assert.equal(value(doc, 'cbc:TaxExemptionReasonCode'), 'VATEX-EU-AE');
 });
 
+test('a fee or an expense line is one unit (C62) at its amount', () => {
+  const xml = ublInvoiceXml({ ...invoice, lines: [{ kind: 'fee', title: 'Launch', amountMinor: 50000 }], netMinor: 50000, totalMinor: 50000, vatMinor: 0 }, profile);
+  assert.match(xml, /<cbc:InvoicedQuantity unitCode="C62">1<\/cbc:InvoicedQuantity>/);
+  assert.match(xml, /<cbc:PriceAmount currencyID="EUR">500.00<\/cbc:PriceAmount>/);
+  assert.doesNotMatch(xml, /undefined|NaN/);
+});
+
 console.log(`\nublInvoice: ${passed} tests passed`);

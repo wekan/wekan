@@ -6,7 +6,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import qrcode from 'qrcode-generator';
 import { TAPi18n } from '/imports/i18n';
-const { formatMoney } = require('/models/lib/billing');
+const { formatMoney, EXPENSE_CATEGORIES } = require('/models/lib/billing');
 const { minorToText } = require('/models/lib/currencies');
 const { PAYMENT_METHODS, code128CModules, formatReference, formatIban } = require('/models/lib/paymentCodes');
 
@@ -32,6 +32,10 @@ const STATE_KEYS = {
 };
 const NEXT = { draft: ['sent', 'void'], sent: ['paid', 'draft', 'void'], paid: [], void: [], credited: [] };
 const ACTION_KEYS = { sent: 'billing-mark-sent', paid: 'billing-mark-paid', void: 'billing-void', draft: 'billing-back-to-draft' };
+// A quote's statuses, and what each may become (models/lib/billing.js).
+const QUOTE_STATE_KEYS = { draft: 'billing-status-draft', sent: 'billing-status-sent', accepted: 'billing-quote-accepted', declined: 'billing-quote-declined' };
+const QUOTE_NEXT = { draft: ['sent', 'declined'], sent: ['accepted', 'declined', 'draft'], accepted: [], declined: [] };
+const QUOTE_ACTION_KEYS = { sent: 'billing-mark-sent', accepted: 'accept', declined: 'decline', draft: 'billing-back-to-draft' };
 const METHOD_KEYS = {
   sepa: 'billing-method-sepa', 'fi-bank': 'billing-method-fi-bank', 'swiss-qr': 'billing-method-swiss-qr',
   'bank-transfer': 'billing-method-bank-transfer', swish: 'billing-method-swish', pix: 'billing-method-pix',
@@ -215,6 +219,11 @@ function signedMoney(invoice, minor) {
   return money(invoice.kind === 'credit' ? -minor : minor, invoice.currency);
 }
 
+function stateLabel(state, kind) {
+  if (kind === 'quote') return t(QUOTE_STATE_KEYS[state] || state);
+  return t(STATE_KEYS[state] || state);
+}
+
 Template.billingBoard.helpers({
   money,
   signedMoney,
@@ -268,6 +277,20 @@ Template.billingBoard.helpers({
     return invoice => tpl.printed.set(invoice);
   },
   actionError: () => Template.instance().actionError.get(),
+  isNegative: value => typeof value === 'number' && value < 0,
+  isNumber: value => typeof value === 'number',
+  billsTime: () => detail().profile.billTime !== false,
+  quoteValidDays: () => detail().profile.quoteValidDays || 30,
+  expenseCategories: () => EXPENSE_CATEGORIES.map(value => ({ value, label: t(`billing-expense-${value}`) })),
+  expenseCategory: value => t(`billing-expense-${value}`),
+  lineKind: line => line.kind || 'time',
+  lineKindLabel: line => t(line.kind === 'fee' ? 'billing-line-fee' : 'billing-line-expense'),
+  quoteStatusLabel: status => stateLabel(status, 'quote'),
+  nextQuoteStatuses: quote => (QUOTE_NEXT[quote.status] || []).map(value => ({ value, label: t(QUOTE_ACTION_KEYS[value]) })),
+  quoteFormats: () => [
+    { value: 'pdf', label: 'PDF', icon: 'fa-file-pdf-o' }, { value: 'svg', label: 'SVG', icon: 'fa-file-image-o' },
+    { value: 'xlsx', label: 'Excel', icon: 'fa-file-excel-o' }, { value: 'csv', label: 'CSV', icon: 'fa-file-text-o' },
+  ],
 });
 
 function field(form, name) {
@@ -282,6 +305,12 @@ function numberOrUndefined(value) {
 function saveProfile(tpl, changes) {
   const current = detail().profile || {};
   return tpl.done(Meteor.callAsync('billingSetProfile', detail().board._id, { ...current, ...changes }));
+}
+
+function openQuote(tpl, id) {
+  return Meteor.callAsync('billingQuote', id)
+    .then(quote => tpl.printed.set(quote))
+    .catch(error => tpl.actionError.set(errorText(error)));
 }
 
 function openInvoice(tpl, id) {
@@ -313,6 +342,7 @@ Template.billingBoard.events({
     const form = evt.currentTarget;
     const rate = { hourlyRate: parseFloat(field(form, 'hourlyRate')), currency: field(form, 'currency') };
     if (field(form, 'userId')) rate.userId = field(form, 'userId');
+    if (field(form, 'costRate')) rate.costRate = parseFloat(field(form, 'costRate'));
     tpl.done(Meteor.callAsync('billingSetRate', detail().board._id, rate).then(() => form.reset()));
   },
   'click .js-billing-remove-rate'(evt, tpl) {
@@ -323,7 +353,8 @@ Template.billingBoard.events({
     evt.preventDefault();
     const form = evt.currentTarget;
     const changes = {};
-    for (const name of ['issuerName', 'issuerAddress', 'issuerCountry', 'businessId', 'vatId', 'email', 'phone', 'website', 'referenceType', 'footer']) {
+    for (const name of ['issuerName', 'issuerAddress', 'issuerCountry', 'businessId', 'vatId', 'email', 'phone', 'website', 'referenceType', 'footer',
+      'customer', 'customerCountry', 'customerVatId']) {
       changes[name] = field(form, name);
     }
     changes.vatPercent = numberOrUndefined(field(form, 'vatPercent')) || 0;
@@ -331,7 +362,71 @@ Template.billingBoard.events({
     if (!Number.isInteger(changes.paymentTermsDays)) changes.paymentTermsDays = 14;
     changes.penaltyInterestPercent = numberOrUndefined(field(form, 'penaltyInterestPercent')) || 0;
     changes.reverseCharge = form.elements.reverseCharge.checked === true;
+    changes.billTime = form.elements.billTime.checked === true;
+    changes.approveTime = form.elements.approveTime.checked === true;
+    changes.quoteValidDays = parseInt(field(form, 'quoteValidDays'), 10);
+    if (!Number.isInteger(changes.quoteValidDays)) changes.quoteValidDays = 30;
     saveProfile(tpl, changes);
+  },
+  'submit .js-billing-expense'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const expense = { date: field(form, 'date'), amount: parseFloat(field(form, 'amount')), currency: field(form, 'currency'),
+      category: field(form, 'category'), description: field(form, 'description'), billable: form.elements.billable.checked === true };
+    if (field(form, 'markupPercent')) expense.markupPercent = parseFloat(field(form, 'markupPercent'));
+    for (const name of ['cardId', 'userId']) if (field(form, name)) expense[name] = field(form, name);
+    tpl.done(Meteor.callAsync('billingAddExpense', detail().board._id, expense).then(() => form.reset()));
+  },
+  'click .js-billing-remove-expense'(evt, tpl) {
+    evt.preventDefault();
+    tpl.done(Meteor.callAsync('billingRemoveExpense', evt.currentTarget.getAttribute('data-id')));
+  },
+  'submit .js-billing-fee'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const fee = { title: field(form, 'title'), amount: parseFloat(field(form, 'amount')), currency: field(form, 'currency'),
+      date: field(form, 'date'), recurring: field(form, 'recurring') };
+    if (fee.recurring === 'monthly' && field(form, 'end')) fee.end = field(form, 'end');
+    tpl.done(Meteor.callAsync('billingAddFee', detail().board._id, fee).then(() => form.reset()));
+  },
+  'click .js-billing-remove-fee'(evt, tpl) {
+    evt.preventDefault();
+    tpl.done(Meteor.callAsync('billingRemoveFee', evt.currentTarget.getAttribute('data-id')));
+  },
+  'click .js-billing-decide'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget.closest('form');
+    const entryIds = [...form.querySelectorAll('input[name=entry]:checked')].map(el => el.value);
+    if (!entryIds.length) return;
+    const approval = { entryIds, decision: evt.currentTarget.getAttribute('data-decision') };
+    if (field(form, 'note')) approval.note = field(form, 'note');
+    tpl.done(Meteor.callAsync('billingApproveTime', detail().board._id, approval));
+  },
+  'submit .js-billing-quote'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const request = {};
+    for (const name of ['customer', 'issueDate', 'validUntil', 'notes']) if (field(form, name)) request[name] = field(form, name);
+    tpl.done(Meteor.callAsync('billingCreateQuote', detail().board._id, request).then(id => { form.reset(); return openQuote(tpl, id); }));
+  },
+  'click .js-billing-quote-status'(evt, tpl) {
+    evt.preventDefault();
+    const el = evt.currentTarget;
+    const status = el.getAttribute('data-status');
+    const box = tpl.find('.js-billing-accept-budget');
+    const options = status === 'accepted' && box && box.checked ? { setBudget: true } : undefined;
+    tpl.done(Meteor.callAsync('billingSetQuoteStatus', el.getAttribute('data-id'), status, options));
+  },
+  'click .js-billing-quote-open'(evt, tpl) {
+    evt.preventDefault();
+    openQuote(tpl, evt.currentTarget.getAttribute('data-id'));
+  },
+  'click .js-billing-quote-file'(evt, tpl) {
+    evt.preventDefault();
+    const el = evt.currentTarget;
+    Meteor.callAsync('billingQuoteFile', el.getAttribute('data-id'), el.getAttribute('data-format'))
+      .then(file => download(file.name, file.mime, file))
+      .catch(error => tpl.actionError.set(errorText(error)));
   },
   'change .js-billing-method-type'(evt, tpl) {
     tpl.methodType.set(evt.currentTarget.value);
@@ -396,7 +491,8 @@ Template.billingBoard.events({
 Template.billingInvoicePrint.helpers({
   money,
   signedMoney,
-  statusLabel: state => t(STATE_KEYS[state] || state),
+  statusLabel: (state, kind) => stateLabel(state, typeof kind === 'string' ? kind : ''),
+  isInvoice: invoice => (invoice.kind || 'invoice') === 'invoice',
   methodTitle: item => item.label || methodTitle(item.type),
   formattedReference() {
     return formatReference(Template.currentData().invoice.paymentReference);

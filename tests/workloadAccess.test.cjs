@@ -62,7 +62,10 @@ class Collection {
   async insertAsync(doc) { const _id = `id${nextId++}`; this.docs.push({ _id, ...doc }); return _id; }
   async upsertAsync(selector, modifier) {
     const doc = this.docs.find(d => matches(d, selector));
-    if (doc) Object.assign(doc, modifier.$set); else this.docs.push({ _id: `id${nextId++}`, ...modifier.$set });
+    if (doc) {
+      Object.assign(doc, modifier.$set);
+      for (const k of Object.keys(modifier.$unset || {})) delete doc[k];
+    } else this.docs.push({ _id: `id${nextId++}`, ...modifier.$set });
   }
   async removeAsync(selector) {
     const sel = typeof selector === 'string' ? { _id: selector } : selector;
@@ -101,7 +104,7 @@ function load({ featureOn = true } = {}) {
   ]);
   const cards = new Collection([
     { _id: 'c1', boardId: 'b1', title: 'Feature', type: 'cardType-card', archived: false, assignees: ['dev'], dueAt: today, estimatedHours: 10 },
-    { _id: 'c2', boardId: 'b2', title: 'Other', type: 'cardType-card', archived: false, assignees: ['dev'], dueAt: today, estimatedHours: 5 },
+    { _id: 'c2', boardId: 'b2', title: 'Other', type: 'cardType-card', archived: false, assignees: ['dev'], dueAt: today, estimatedHours: 5, billable: false },
     { _id: 'c3', boardId: 'pub', title: 'Secret', type: 'cardType-card', archived: false, assignees: ['stranger'], dueAt: today, estimatedHours: 99 },
   ]);
   const W = {
@@ -117,6 +120,13 @@ function load({ featureOn = true } = {}) {
     DDPRateLimiter: { addRule() {} },
     featureOnFor: async (userId, key) => featureOn && key === 'workload',
     Boards: boards, Cards: cards, ...W,
+    // Time logged today: dev on b1 (billable) and b2 (not), the stranger on
+    // the public board nobody else reports on.
+    TimeEntries: new Collection([
+      { _id: 't1', boardId: 'b1', cardId: 'c1', userId: 'dev', date: today, hours: 6 },
+      { _id: 't2', boardId: 'b2', cardId: 'c2', userId: 'dev', date: today, hours: 2 },
+      { _id: 't3', boardId: 'pub', cardId: 'c3', userId: 'stranger', date: today, hours: 9 },
+    ]),
     require: rel => (rel.startsWith('/') ? real(rel.slice(1)) : require(rel)),
     console,
   };
@@ -132,6 +142,28 @@ const tests = [];
 function test(name, fn) { tests.push([name, fn]); }
 
 const params = { from: today, weeks: 3 };
+
+test('utilization and skills: own working time, billable hours of the boards reported, and who could fill a placeholder', async () => {
+  const { as, W } = load();
+  await as('dev').workloadSetCapacity({ hoursPerWeek: 20, skills: [{ name: 'Rust', level: 4 }], utilizationTarget: 80 });
+  // The stored document has its _id and userId too; the report still reads it.
+  assert.ok(W.WorkloadCapacities.docs[0]._id && W.WorkloadCapacities.docs[0].userId === 'dev');
+  const mine = await as('dev').workloadMine();
+  assert.deepEqual(mine.capacity.skills, [{ name: 'Rust', level: 4 }]);
+  assert.equal(mine.capacity.utilizationTarget, 80);
+  await as('pm').workloadAddAllocation('b1', { roleName: 'Systems', skill: 'rust', skillLevel: 3, start: today, end: addDays(today, 6), percent: 50 });
+  const r = await as('dev').workloadReport({ from: today, weeks: 1 });
+  const dev = r.people.find(p => p.userId === 'dev');
+  assert.equal(dev.capacity.hoursPerWeek, 20, 'the person\'s own hours, not the default');
+  assert.equal(dev.loggedHours, 8, 'b1 and b2');
+  assert.equal(dev.billableHours, 6, 'b2\'s card is not billable');
+  assert.equal(r.people.some(p => p.userId === 'stranger'), false);
+  assert.deepEqual(r.placeholders[0].candidates.map(c => c.userId), ['dev']);
+  assert.equal(r.allocations[0].skill, 'rust');
+  await as('dev').workloadSetCapacity({ hoursPerWeek: 20 });
+  assert.equal('utilizationTarget' in W.WorkloadCapacities.docs[0], false, 'no target is no field');
+  await assert.rejects(as('dev').workloadSetCapacity({ skills: [{ name: 'Rust', level: 9 }] }), /1 to 5/);
+});
 
 test('a project manager sees the members of their boards, with their load from those boards', async () => {
   const { as } = load();

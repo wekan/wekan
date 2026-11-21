@@ -125,6 +125,8 @@ Meteor.methods({
     if (!card || !(await canEditCardOrLinkedCard(userId, card))) denied();
     if (entry.userId !== userId && !(await boardAdmin(userId, entry.boardId))) denied();
     if (entry.invoiceId) invalid(new Error('This time is on an invoice'));
+    // Approved time is what the board will bill: it stays as it was approved.
+    if (entry.approval === 'approved') invalid(new Error('This time is approved'));
     await TimeEntries.removeAsync(entryId);
     await Cards.updateAsync(card._id, { $inc: { spentTime: -entry.hours } });
     return true;
@@ -147,6 +149,8 @@ Meteor.methods({
         _id: e._id, date: e.date || null, hours: e.hours, note: e.note || '', source: e.source,
         userId: e.userId || null, name: e.userId ? name.get(e.userId) || '' : '',
         invoiced: !!e.invoiceId, mine: e.userId === userId,
+        // A board admin's decision, when the board approves time (server/billing.js).
+        approval: e.approval || null, approvalNote: e.approval === 'rejected' ? e.approvalNote || '' : '',
       })),
     };
   },

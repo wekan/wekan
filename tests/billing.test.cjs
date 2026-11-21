@@ -205,4 +205,88 @@ test('numbers, money and CSV', () => {
   assert.match(csv, /"total","","","","","","200\.80","EUR"\r\n$/);
 });
 
+test('fees: a milestone on its day; a retainer each month, on the last day of a shorter month', () => {
+  assert.deepEqual(B.feeOccurrences({ _id: 'f', date: '2027-04-01' }, '2027-03-31'), [], 'not before its day');
+  assert.deepEqual(B.feeOccurrences({ _id: 'f', date: '2027-04-01' }, '2027-04-01'), [{ key: 'f', date: '2027-04-01' }]);
+  const monthly = B.feeOccurrences({ _id: 'r', date: '2027-01-31', recurring: 'monthly', end: '2027-04-30' }, '2027-12-31');
+  assert.deepEqual(monthly.map(o => o.date), ['2027-01-31', '2027-02-28', '2027-03-31', '2027-04-30']);
+  assert.equal(monthly[1].key, 'r:2027-02');
+  assert.deepEqual(B.feeOccurrences({ _id: 'r', date: '2027-01-15', recurring: 'monthly' }, null), [], 'no end and no day: never forever');
+  const keys = B.invoicedFeeKeys([{ status: 'sent', lines: [{ feeKey: 'r:2027-02' }] }, { status: 'void', lines: [{ feeKey: 'r:2027-03' }] },
+    { status: 'sent', kind: 'credit', lines: [{ feeKey: 'r:2027-04' }] }]);
+  assert.deepEqual([...keys], ['r:2027-02'], 'a voided invoice and a credit note free their fees');
+});
+
+test('negative: a fee and an expense are validated', () => {
+  assert.throws(() => B.normalizeFee({ title: 'x', amount: 1, currency: 'EUR' }), /date/);
+  assert.throws(() => B.normalizeFee({ title: 'x', amount: 1, currency: 'EUR', date: '2027-01-01', recurring: 'yearly' }), /once or monthly/);
+  assert.equal(B.normalizeFee({ title: 'x', amount: 1, currency: 'EUR', date: '2027-01-01', end: '2027-02-01' }).end, null, 'a one-off fee has no end');
+  assert.throws(() => B.normalizeExpense({ amount: 1, currency: 'EUR' }), /date/);
+  assert.throws(() => B.normalizeExpense({ date: '2027-01-01', amount: 1, currency: 'EUR', markupPercent: 150 }), /Markup/);
+  assert.throws(() => B.normalizeExpense({ date: '2027-01-01', amount: 1, currency: 'EUR', receipt: 'x' }), /Unsupported/);
+  const e = B.normalizeExpense({ date: '2027-01-01', amount: 1000, currency: 'JPY', markupPercent: 15 });
+  assert.equal(e.amountMinor, 1000, 'yen have no decimals');
+  assert.equal(B.expenseCharge(e), 1150);
+  assert.equal(e.billable, true);
+  assert.equal(e.category, 'other');
+});
+
+test('profitability: revenue invoiced and unbilled, less hours at cost rates and expenses', () => {
+  const f = B.boardFinance({
+    rates: [{ userId: null, hourlyRateMinor: 10000, costRateMinor: 6000, currency: 'EUR' }],
+    cards: [{ _id: 'a', spentTime: 10, assignees: ['x'] }],
+    expenses: [{ amountMinor: 5000, currency: 'EUR' }, { amountMinor: 999, currency: 'USD' }],
+    invoices: [{ status: 'sent', currency: 'EUR', netMinor: 80000, totalMinor: 80000 }],
+    unbilledMinor: 20000,
+  });
+  assert.equal(f.spentMinor, 100000 + 5000, 'an expense in another currency is not mixed in');
+  assert.equal(f.laborCostMinor, 60000);
+  assert.equal(f.costMinor, 65000);
+  assert.equal(f.revenueMinor, 100000);
+  assert.equal(f.marginMinor, 35000);
+  assert.equal(f.marginPercent, 35);
+  assert.equal(B.boardFinance({ rates, cards: [{ _id: 'a', spentTime: 2 }] }).uncostedHours, 2, 'no cost rate: reported, not counted as free');
+  assert.equal(B.normalizeRate({ hourlyRate: 100, costRate: 55.5, currency: 'EUR' }).costRateMinor, 5550);
+});
+
+test('approval: only approved time is billed, and what waits is reported', () => {
+  const cards = [{ _id: 'c', title: 'Work', assignees: ['u'] }];
+  const entries = [{ _id: '1', cardId: 'c', userId: 'u', date: '2027-04-01', hours: 3, approval: 'approved' },
+    { _id: '2', cardId: 'c', userId: 'u', date: '2027-04-02', hours: 2 },
+    { _id: '3', cardId: 'c', userId: 'u', date: '2027-04-03', hours: 1, approval: 'rejected' }];
+  const d = B.draftInvoiceLines({ cards, entries, rates, approveTime: true });
+  assert.deepEqual(d.entryIds, ['1']);
+  assert.equal(d.unapprovedHours, 3);
+  assert.equal(B.draftInvoiceLines({ cards, entries, rates }).totalHours, 6, 'with approval off, all of it');
+  assert.equal(B.draftInvoiceLines({ cards, entries, rates, billTime: false }).lines.length, 0, 'a fixed price bills no time');
+});
+
+test('quote: the estimate still to do at the carriers\' rates, and the fees', () => {
+  const q = B.draftQuoteLines({
+    rates,
+    cards: [{ _id: 'a', title: 'Build', estimatedHours: 10, spentTime: 4, assignees: ['senior'] },
+      { _id: 'b', title: 'Done', estimatedHours: 10, dueComplete: true }, { _id: 'c', title: 'Internal', estimatedHours: 5, billable: false }],
+    fees: [{ _id: 'f', title: 'Launch', amountMinor: 50000, currency: 'EUR', date: '2028-01-01' },
+      { _id: 'r', title: 'Support', amountMinor: 10000, currency: 'EUR', date: '2027-01-01', recurring: 'monthly', end: '2027-03-31' }],
+    invoices: [{ status: 'sent', lines: [{ feeKey: 'r:2027-01' }] }],
+  });
+  assert.deepEqual(q.lines.map(l => l.title), ['Build', 'Launch', 'Support', 'Support']);
+  assert.equal(q.netMinor, 6 * 12000 + 50000 + 2 * 10000);
+  assert.equal(q.totalHours, 6);
+  assert.equal(B.quoteNumber(2027, 7), 'QUO-2027-0007');
+  assert.equal(B.canChangeQuoteStatus('draft', 'accepted'), false);
+  assert.equal(B.canChangeQuoteStatus('sent', 'accepted'), true);
+  assert.throws(() => B.normalizeQuoteRequest({ issueDate: '2027-02-01', validUntil: '2027-01-01' }), /expire/);
+  assert.equal(B.normalizeProfile({}).quoteValidDays, 30);
+  assert.equal(B.normalizeProfile({}).billTime, true);
+  assert.throws(() => B.normalizeProfile({ quoteValidDays: 0 }), /valid 1 to 365/);
+});
+
+test('CSV: a fee or an expense line has no hours or rate', () => {
+  const csv = B.invoiceCsv({ number: 'INV-1', currency: 'EUR', netMinor: 500, vatMinor: 0, totalMinor: 500,
+    lines: [{ kind: 'fee', title: 'Launch', amountMinor: 500 }] });
+  assert.match(csv, /"INV-1","Launch","","","","","","5.00","EUR"/);
+  assert.doesNotMatch(csv, /NaN|undefined/);
+});
+
 console.log(`\nbilling: ${passed} tests passed`);

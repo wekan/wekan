@@ -52,12 +52,22 @@ template(name="cardTimeEntries")
               span.time-entry-who {{entry.name}}
             if entry.note
               span.time-entry-note {{entry.note}}
+            if $eq entry.approval 'approved'
+              span.time-entry-approved(title="{{_ 'time-entry-approved'}}" aria-label="{{_ 'time-entry-approved'}}")
+                i.fa.fa-check
+            if $eq entry.approval 'rejected'
+              span.time-entry-rejected(title="{{_ 'time-entry-rejected'}}")
+                i.fa.fa-undo
+                |  {{_ 'time-entry-rejected'}}
+                if entry.approvalNote
+                  | : {{entry.approvalNote}}
             if entry.invoiced
               span.time-entry-invoiced(title="{{_ 'time-entry-invoiced'}}")
                 i.fa.fa-file-text-o
-            else if entry.mine
-              a.js-time-entry-remove(data-id=entry._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
-                i.fa.fa-trash
+            else unless $eq entry.approval 'approved'
+              if entry.mine
+                a.js-time-entry-remove(data-id=entry._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                  i.fa.fa-trash
 
 template(name="cardSpentTime")
   if canModifyCard

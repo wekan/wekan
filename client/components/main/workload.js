@@ -8,7 +8,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 const { workloadCell, hoursLabel, isoWeekNumber } = require('/models/lib/workloadView');
-const { weekStart, dayKey, ABSENCE_TYPES } = require('/models/lib/workload');
+const { weekStart, dayKey, ABSENCE_TYPES, parseSkills, skillsText } = require('/models/lib/workload');
 
 // The page state, shared by the sidebar controls and the page itself.
 const state = new ReactiveDict('workload');
@@ -118,6 +118,13 @@ Template.workload.helpers({
     const r = report();
     return r ? r.weeks.length + 2 : 2;
   },
+  isNumber: value => typeof value === 'number',
+  utilizationPercent: person => (typeof person.billablePercent === 'number' ? person.billablePercent : 0),
+  candidatesLabel(holder) {
+    const r = report();
+    const names = new Map((r ? r.people : []).map(p => [p.userId, p.name || p.username || p.userId]));
+    return holder.candidates.map(c => `${names.get(c.userId) || c.userId} (${c.level}, ${hoursLabel(c.freeHours, t('workload-hours-short'))})`).join(', ');
+  },
   capacityLabel(person) {
     const c = person.capacity;
     return t('workload-capacity-label', { hours: c.hoursPerWeek, percent: c.workPercent });
@@ -203,6 +210,7 @@ function mine() {
 
 Template.workloadPlanning.helpers({
   capacity: () => (mine() ? mine().capacity : { hoursPerWeek: 37.5, workPercent: 100, workingDays: [1, 2, 3, 4, 5] }),
+  skillsText: () => skillsText(mine() ? mine().capacity.skills : []),
   capacitySaved: () => Template.instance().saved.get(),
   weekdays() {
     const days = mine() ? mine().capacity.workingDays : [1, 2, 3, 4, 5];
@@ -259,11 +267,14 @@ Template.workloadPlanning.events({
     const form = evt.currentTarget;
     const workingDays = [...form.querySelectorAll('input[name="workingDays"]:checked')].map(i => parseInt(i.value, 10));
     tpl.saved.set(false);
-    tpl.done(Meteor.callAsync('workloadSetCapacity', {
+    const capacity = {
       hoursPerWeek: parseFloat(formValue(form, 'hoursPerWeek')),
       workPercent: parseFloat(formValue(form, 'workPercent')),
       workingDays,
-    }).then(() => tpl.saved.set(true)));
+      skills: parseSkills(formValue(form, 'skills')),
+    };
+    if (formValue(form, 'utilizationTarget')) capacity.utilizationTarget = parseFloat(formValue(form, 'utilizationTarget'));
+    tpl.done(Meteor.callAsync('workloadSetCapacity', capacity).then(() => tpl.saved.set(true)));
   },
   'submit .js-workload-absence'(evt, tpl) {
     evt.preventDefault();
@@ -295,6 +306,10 @@ Template.workloadPlanning.events({
     else {
       allocation.roleName = formValue(form, 'roleName');
       allocation.headcount = parseInt(formValue(form, 'headcount'), 10) || 1;
+    }
+    if (formValue(form, 'skill')) {
+      allocation.skill = formValue(form, 'skill');
+      allocation.skillLevel = parseInt(formValue(form, 'skillLevel'), 10) || 1;
     }
     tpl.done(Meteor.callAsync('workloadAddAllocation', formValue(form, 'boardId'), allocation));
   },

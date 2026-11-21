@@ -26,6 +26,62 @@ optional period. The page shows for each board:
 - **Forecast**: spent plus still to do, in red when it is over the budget;
 - **Left of budget**, **Invoiced** and **Paid**.
 
+## Expenses
+
+Besides time, a board's work costs money: travel, a hotel, meals, materials,
+a subcontractor, software. **Expenses** records each with its day, amount,
+currency, category and description, optionally the card and the person, a
+**markup** % and whether it is **billable**. An expense spends the budget at
+what it cost; a billable one goes on the next invoice of its period at its
+amount plus the markup, and like time it is billed once. An expense on an
+invoice is a record and cannot be removed; voiding or crediting the invoice
+frees it.
+
+## Fixed fees and retainers
+
+Not all work is billed by the hour. A **fixed fee** is billed once, from its
+day on - a milestone, a deposit, a fixed price. A **retainer** is a fee billed
+every month from its day until its end (on the same day of the month, or the
+last day of a shorter month). The draft of an invoice takes the fees due in
+its period that no standing invoice has billed; which months are billed is
+read from the invoices themselves, so voiding or crediting one frees its
+fees. A board whose price is fixed unticks **Bill time by the hour**: its
+invoices then carry only its fees and expenses, while the time is still
+tracked for the budget and the margin.
+
+## Approving time
+
+With **Approve time before it is invoiced** on, the board's admins see the
+billable time waiting for them under **Time to approve**, and approve it or
+send it back with a note. Only approved time is invoiced; the draft says how
+many hours are still waiting. The person who logged the time sees the
+decision in the card's Time popup. Approved time cannot be removed by the
+person who logged it; time sent back can, and is logged again.
+
+## Profitability
+
+A rate can also have a **cost per hour** - what an hour of that person costs
+(salary and overheads), never shown on an invoice. The board then shows its
+**cost** (the hours at their cost rates and the expenses) and its **margin**:
+the revenue - invoiced, and **unbilled work** (billable time, fees and
+expenses not invoiced yet) - less the cost. Hours of somebody with no cost
+rate are reported, never counted as free.
+
+## Quotes
+
+**Create quote** prices the work still to do - each open, billable card's
+estimate less the time spent, at its people's rates - and the fees not
+invoiced yet (a retainer to its end). A quote is numbered `QUO-2027-0007`,
+valid for the days set on the invoicer (30 by default), and goes from draft
+to sent to accepted or declined. **Accepting** it can make it the board's
+budget. It downloads as PDF, SVG, Excel and CSV, without payment details.
+
+## The board's customer
+
+The invoicer also keeps the board's **customer** - name and address,
+country, VAT ID - filled in on each invoice and quote that does not name
+another.
+
 ## Time by day
 
 A card's **Time** popup now lists its time by day - the day, the hours, who
@@ -131,8 +187,33 @@ board. Everything goes through server methods; nothing is published to the
 browser, and the collections take no client writes. Admin Panel → Features →
 Budget and billing turns the page and its methods off.
 
-Amounts are kept in minor units (cents) as integers, so an invoice adds up
-exactly.
+Amounts are kept as integers of their currency's minor unit, so an invoice
+adds up exactly.
+
+## Professional services automation
+
+Together with [Workload](../Workload/Workload.md), these pages cover what a
+professional services automation (PSA) system does:
+
+| PSA | In WeKan |
+| --- | --- |
+| Projects and tasks | boards, cards, checklists, dependencies, Gantt |
+| Time tracking | time by day, timers, approval |
+| Resource management | Workload: capacity, absences, holidays, allocations, placeholders |
+| Skills | skills and levels, and who could fill a placeholder |
+| Utilization | billable hours against working time, and a target |
+| Budgets and forecasts | Budget and billing: budget, spent, still to do, forecast |
+| Expenses | expenses, with markup, billable or not |
+| Billing models | time and material, fixed fees, milestones, retainers |
+| Quotes | quotes of the work still to do |
+| Invoicing | invoices, credit notes, payments, e-invoices, payment codes |
+| Profitability | cost rates, cost, margin, unbilled work |
+
+Left to other software, on purpose: a sales pipeline and CRM (a WeKan board
+works as one, but leads and contacts are not modelled), a customer portal
+(share a board with the customer as a member instead), and accounting -
+revenue recognition, the general ledger and payroll - which belong to the
+accounting system the invoices go to as e-invoices.
 
 ## Code
 
@@ -143,7 +224,7 @@ exactly.
 | `models/lib/paymentCodes.js` | IBAN, references, EPC QR, Finnish barcode, Swiss QR, Swish, Pix, UPI, BIP 21, links |
 | `models/lib/ublInvoice.js` | the Peppol BIS 3.0 e-invoice |
 | `server/lib/invoiceFiles.js` | PDF, SVG and Excel |
-| `models/billing.js`, `models/timeEntries.js` | the collections `billingBudgets`, `billingRates`, `billingProfiles`, `billingInvoices`, `timeEntries` |
+| `models/billing.js`, `models/timeEntries.js` | the collections `billingBudgets`, `billingRates`, `billingProfiles`, `billingInvoices`, `billingExpenses`, `billingFees`, `billingQuotes`, `timeEntries` |
 | `server/billing.js` | the methods, with who may call them |
 | `client/components/main/billing.*` | the page |
 | `tests/billing.test.cjs`, `tests/timeEntries.test.cjs`, `tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`, `tests/invoiceFiles.test.cjs` | the rules and the files; `tests/billingAccess.test.cjs` who may do what |

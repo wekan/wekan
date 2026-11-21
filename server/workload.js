@@ -23,11 +23,12 @@ import { check, Match } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+import TimeEntries from '/models/timeEntries';
 import {
   WorkloadCapacities, WorkloadAbsences, WorkloadHolidays, WorkloadAllocations,
 } from '/models/workload';
 const {
-  computeWorkload, normalizeCapacity, normalizeAbsence, normalizeHoliday, normalizeAllocation,
+  computeWorkload, normalizeCapacity, normalizeAbsence, normalizeHoliday, normalizeAllocation, capacityOf,
   parseDay, addDays, dayKey, weekStart, MAX_WEEKS,
 } = require('/models/lib/workload');
 const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
@@ -37,6 +38,7 @@ import { featureOnFor } from '/server/lib/assistGate';
 const MAX_BOARDS = 500;
 const MAX_PEOPLE = 500;
 const MAX_CARDS = 20000;
+const MAX_TIME_ENTRIES = 100000;
 
 function denied() {
   throw new Meteor.Error('not-authorized', 'You may not do that');
@@ -169,6 +171,14 @@ Meteor.methods({
       return { ...card, estimatedHours, points, customFields: undefined, poker: undefined };
     });
 
+    // The time logged in the weeks, on these boards, for utilization; billable
+    // unless its card is marked not billable.
+    const logged = await TimeEntries.find({ boardId: { $in: boardIds }, userId: { $in: ids }, date: { $gte: from, $lte: to } },
+      { fields: { userId: 1, cardId: 1, date: 1, hours: 1 }, limit: MAX_TIME_ENTRIES }).fetchAsync();
+    const notBillable = new Set((await Cards.find({ _id: { $in: [...new Set(logged.map(e => e.cardId))] }, billable: false },
+      { fields: { _id: 1 } }).fetchAsync()).map(c => c._id));
+    const timeEntries = logged.map(e => ({ userId: e.userId, date: e.date, hours: e.hours, billable: !notBillable.has(e.cardId) }));
+
     const report = validated(() => computeWorkload({
       from,
       weeks: params.weeks,
@@ -178,6 +188,7 @@ Meteor.methods({
       absences,
       holidays,
       allocations,
+      timeEntries,
     }));
 
     const byId = new Map(users.map(u => [u._id, u]));
@@ -194,7 +205,7 @@ Meteor.methods({
       allocations: allocations.map(a => ({
         _id: a._id, boardId: a.boardId, boardTitle: boardTitles.get(a.boardId) || '', userId: a.userId || null,
         roleName: a.roleName || '', start: a.start, end: a.end, percent: a.percent, headcount: a.headcount || 1,
-        mayRemove: mayManage.has(a.boardId),
+        skill: a.skill || '', skillLevel: a.skillLevel || 1, mayRemove: mayManage.has(a.boardId),
       })),
       // Dates only, unless the absence is the viewer's own or the viewer is an administrator.
       absences: absences.map(a => (a.userId === userId || isAdmin
@@ -213,8 +224,7 @@ Meteor.methods({
     const capacity = await WorkloadCapacities.findOneAsync({ userId });
     const today = dayKey(new Date());
     return {
-      capacity: capacity ? normalizeCapacity({ hoursPerWeek: capacity.hoursPerWeek, workPercent: capacity.workPercent, workingDays: capacity.workingDays })
-        : normalizeCapacity({}),
+      capacity: capacityOf(capacity),
       absences: (await WorkloadAbsences.find({ userId, end: { $gte: today } }, { sort: { start: 1 }, limit: 200 }).fetchAsync())
         .map(a => ({ _id: a._id, start: a.start, end: a.end, type: a.type, note: a.note || '' })),
       holidays: (await WorkloadHolidays.find({ date: { $gte: addDays(today, -366) } }, { sort: { date: 1 }, limit: 400 }).fetchAsync())
@@ -230,7 +240,12 @@ Meteor.methods({
     const target = forUserId || userId;
     if (target !== userId && !(await siteAdmin(userId))) denied();
     const value = validated(() => normalizeCapacity(capacity));
-    await WorkloadCapacities.upsertAsync({ userId: target }, { $set: { userId: target, ...value } });
+    const { utilizationTarget, ...rest } = value;
+    const modifier = { $set: { userId: target, ...rest } };
+    // No target is no field: the schema stores a number or nothing.
+    if (utilizationTarget === null) modifier.$unset = { utilizationTarget: '' };
+    else modifier.$set.utilizationTarget = utilizationTarget;
+    await WorkloadCapacities.upsertAsync({ userId: target }, modifier);
     return value;
   },
 

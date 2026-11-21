@@ -62,8 +62,42 @@ function text(value, max, message) {
 }
 
 // A person's own working time: 37.5 h a week, part-time 60 %, Monday to Friday.
+// A person's skills: "React 4", "Finnish 5" - a name and a level 1 to 5.
+const MAX_SKILLS = 30;
+function normalizeSkills(value) {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value) || value.length > MAX_SKILLS) fail(`At most ${MAX_SKILLS} skills`);
+  const seen = new Set();
+  const out = [];
+  for (const item of value) {
+    const v = plainObject(item, ['name', 'level']);
+    const name = text(v.name, 50, 'A skill is at most 50 characters');
+    if (!name) fail('A skill has a name');
+    const level = v.level === undefined ? 3 : v.level;
+    if (!Number.isInteger(level) || level < 1 || level > 5) fail('A skill level is 1 to 5');
+    const key = name.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ name, level });
+  }
+  return out;
+}
+
+// Skills as a person writes them: "React 4, Go, Finnish 5" - a name and an
+// optional level 1 to 5 (3 when not given). And back.
+function parseSkills(value) {
+  return String(value || '').split(',').map(part => part.trim()).filter(Boolean).map(part => {
+    const m = part.match(/^(.*?)\s+([1-5])$/);
+    return m ? { name: m[1].trim(), level: parseInt(m[2], 10) } : { name: part, level: 3 };
+  }).filter(s => s.name);
+}
+
+function skillsText(skills) {
+  return (skills || []).map(s => `${s.name} ${s.level}`).join(', ');
+}
+
 function normalizeCapacity(value) {
-  const v = plainObject(value, ['hoursPerWeek', 'workPercent', 'workingDays']);
+  const v = plainObject(value, ['hoursPerWeek', 'workPercent', 'workingDays', 'skills', 'utilizationTarget']);
   const workingDays = v.workingDays === undefined ? [...DEFAULT_CAPACITY.workingDays] : v.workingDays;
   if (!Array.isArray(workingDays) || workingDays.length > 7) fail('Invalid working days');
   const days = [...new Set(workingDays.map(d => (Number.isInteger(d) && d >= 1 && d <= 7 ? d : fail('Invalid working days'))))].sort();
@@ -73,12 +107,24 @@ function normalizeCapacity(value) {
     workPercent: v.workPercent === undefined ? DEFAULT_CAPACITY.workPercent
       : number(v.workPercent, 0, 100, 'Work percent must be between 0 and 100'),
     workingDays: days,
+    skills: normalizeSkills(v.skills),
+    // The share of the working time meant to be billable, for utilization.
+    utilizationTarget: v.utilizationTarget === undefined || v.utilizationTarget === null ? null
+      : number(v.utilizationTarget, 0, 100, 'The utilization target must be between 0 and 100'),
   };
 }
 
+function defaultCapacity() {
+  return { ...DEFAULT_CAPACITY, workingDays: [...DEFAULT_CAPACITY.workingDays], skills: [], utilizationTarget: null };
+}
+
 function capacityOf(value) {
-  try { return value ? normalizeCapacity(value) : { ...DEFAULT_CAPACITY, workingDays: [...DEFAULT_CAPACITY.workingDays] }; } catch (e) {
-    return { ...DEFAULT_CAPACITY, workingDays: [...DEFAULT_CAPACITY.workingDays] };
+  if (!value) return defaultCapacity();
+  const { hoursPerWeek, workPercent, workingDays, skills, utilizationTarget } = value;
+  const given = { hoursPerWeek, workPercent, workingDays, skills, utilizationTarget };
+  for (const key of Object.keys(given)) if (given[key] === undefined) delete given[key];
+  try { return normalizeCapacity(given); } catch (e) {
+    return defaultCapacity();
   }
 }
 
@@ -107,7 +153,7 @@ function normalizeHoliday(value) {
 // "Person A works on board X 50 % of their time in April", or, with no person
 // yet, "board X needs 1 developer and 1 designer next month" (a placeholder).
 function normalizeAllocation(value) {
-  const v = plainObject(value, ['userId', 'roleName', 'start', 'end', 'percent', 'headcount']);
+  const v = plainObject(value, ['userId', 'roleName', 'start', 'end', 'percent', 'headcount', 'skill', 'skillLevel']);
   const userId = v.userId === undefined || v.userId === null || v.userId === '' ? null
     : text(v.userId, 100, 'Invalid person');
   const roleName = v.roleName === undefined ? '' : text(v.roleName, 100, 'The role is too long');
@@ -118,6 +164,9 @@ function normalizeAllocation(value) {
     ...dateRange(v),
     percent: number(v.percent, 1, 100, 'Allocation must be between 1 and 100 %'),
     headcount: userId ? 1 : (v.headcount === undefined ? 1 : number(v.headcount, 1, 100, 'Headcount must be between 1 and 100')),
+    // The skill a placeholder needs, and the lowest level that will do.
+    skill: v.skill === undefined || v.skill === null ? '' : text(v.skill, 50, 'A skill is at most 50 characters'),
+    skillLevel: v.skillLevel === undefined || v.skillLevel === null ? 1 : number(v.skillLevel, 1, 5, 'A skill level is 1 to 5'),
   };
 }
 
@@ -186,6 +235,7 @@ function emptyWeek(start) {
   return {
     start, capacityHours: 0, loadHours: 0, loadPoints: 0, allocationPercent: 0, allocatedHours: 0,
     absentDays: 0, holidayDays: 0, utilization: 0, overloaded: false, underloaded: false, cards: [],
+    loggedHours: 0, billableHours: 0, billablePercent: null,
   };
 }
 
@@ -198,6 +248,11 @@ function finishWeek(week) {
   week.allocationPercent = Math.round(week.allocationPercent);
   week.utilization = week.capacityHours > 0 ? Math.round(week.loadHours / week.capacityHours * 100)
     : (week.loadHours > 0 ? null : 0);
+  // Utilization as a services business counts it: the hours logged on
+  // billable work against the hours the person has.
+  week.loggedHours = round(week.loggedHours);
+  week.billableHours = round(week.billableHours);
+  week.billablePercent = week.capacityHours > 0 ? Math.round(week.billableHours / week.capacityHours * 100) : null;
   // Over 100 %: more hours than the person has, or more of them promised to
   // boards than they work. A week with work and no hours at all is over too.
   week.overloaded = week.loadHours > week.capacityHours + EPSILON || week.allocationPercent > 100
@@ -256,6 +311,16 @@ function computeWorkload(input) {
   }
 
   const unassigned = { weeks: weekStarts.map(emptyWeek), unscheduledHours: 0, unscheduledPoints: 0 };
+
+  // The time logged, for utilization: billable unless its card is not.
+  for (const e of input.timeEntries || []) {
+    if (!e || !e.date || !inWindow(e.date) || typeof e.hours !== 'number' || !Number.isFinite(e.hours)) continue;
+    const row = people.get(e.userId);
+    if (!row) continue;
+    const week = row.weeks[weekIndex(e.date)];
+    week.loggedHours += e.hours;
+    if (e.billable !== false) week.billableHours += e.hours;
+  }
 
   for (const card of input.cards || []) {
     if (!card || isCardDone(card)) continue;
@@ -323,6 +388,7 @@ function computeWorkload(input) {
     const capacity = row ? row.capacity : capacityOf(null);
     const holder = row ? null : {
       allocationId: a._id || null, boardId: a.boardId, roleName: a.roleName, headcount: a.headcount || 1,
+      skill: a.skill || '', skillLevel: a.skillLevel || 1,
       weeks: weekStarts.map(start => ({ start, allocationPercent: 0, demandHours: 0 })),
     };
     for (let w = 0; w < weeks; w += 1) {
@@ -358,31 +424,66 @@ function computeWorkload(input) {
   }
 
   const round = n => Math.round(n * 100) / 100;
-  return {
-    from: first,
-    to: last,
-    weeks: weekStarts,
-    people: [...people.values()].map(row => ({
+  const rows = [...people.values()].map(row => {
+    const finished = row.weeks.map(finishWeek);
+    const sum = key => round(finished.reduce((s, w) => s + w[key], 0));
+    const capacityHours = sum('capacityHours');
+    const billableHours = sum('billableHours');
+    const billablePercent = capacityHours > 0 ? Math.round(billableHours / capacityHours * 100) : null;
+    const target = row.capacity.utilizationTarget;
+    return {
       userId: row.userId,
       capacity: row.capacity,
-      weeks: row.weeks.map(finishWeek),
+      weeks: finished,
       unscheduledHours: round(row.unscheduledHours),
       unscheduledPoints: round(row.unscheduledPoints),
       unestimatedCards: row.unestimatedCards,
       overdueCards: row.overdueCards,
-    })),
+      capacityHours,
+      loggedHours: sum('loggedHours'),
+      billableHours,
+      billablePercent,
+      belowTarget: typeof target === 'number' && billablePercent !== null && billablePercent < target,
+    };
+  });
+  return {
+    from: first,
+    to: last,
+    weeks: weekStarts,
+    people: rows,
     unassigned: {
       weeks: unassigned.weeks.map(w => ({ start: w.start, loadHours: round(w.loadHours), loadPoints: round(w.loadPoints) })),
       unscheduledHours: round(unassigned.unscheduledHours),
       unscheduledPoints: round(unassigned.unscheduledPoints),
     },
-    placeholders,
+    placeholders: placeholders.map(holder => ({ ...holder, candidates: skillCandidates(holder, rows) })),
   };
+}
+
+/**
+ * Who could fill a placeholder: the people with its skill at its level or
+ * better, the most free hours first over the weeks the placeholder needs.
+ * Free is the hours a person has less the work they carry and the time
+ * promised to boards - never below zero.
+ */
+function skillCandidates(holder, rows, limit = 5) {
+  const skill = String(holder.skill || '').trim().toLowerCase();
+  if (!skill) return [];
+  const needed = new Set(holder.weeks.filter(w => w.demandHours > 0).map(w => w.start));
+  const out = [];
+  for (const row of rows) {
+    const own = (row.capacity.skills || []).find(s => s.name.toLowerCase() === skill);
+    if (!own || own.level < (holder.skillLevel || 1)) continue;
+    const freeHours = row.weeks.filter(w => needed.has(w.start))
+      .reduce((s, w) => s + Math.max(w.capacityHours - Math.max(w.loadHours, w.allocatedHours), 0), 0);
+    out.push({ userId: row.userId, level: own.level, freeHours: Math.round(freeHours * 100) / 100 });
+  }
+  return out.sort((a, b) => b.freeHours - a.freeHours || b.level - a.level).slice(0, limit);
 }
 
 module.exports = {
   DEFAULT_CAPACITY, ABSENCE_TYPES, MAX_WEEKS, MAX_HOURS,
   dayKey, parseDay, addDays, isoWeekday, weekStart,
-  normalizeCapacity, normalizeAbsence, normalizeHoliday, normalizeAllocation, capacityOf,
+  normalizeCapacity, normalizeAbsence, normalizeHoliday, normalizeAllocation, normalizeSkills, parseSkills, skillsText, capacityOf, skillCandidates,
   remainingHours, cardPeople, cardSpan, computeWorkload,
 };

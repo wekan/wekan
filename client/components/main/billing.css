@@ -144,3 +144,31 @@
 @media screen and (max-width: 800px) {
   .billing-page { padding: 0.5rem; }
 }
+
+/* Expenses, fees, time to approve and quotes (docs/Features/Billing/Billing.md). */
+.billing-hint {
+  color: #555;
+  font-size: 0.9em;
+}
+.billing-list li.is-invoiced {
+  color: #555;
+}
+.billing-draft-lines li.billing-line-fee,
+.billing-draft-lines li.billing-line-expense {
+  font-style: italic;
+}
+.billing-quote-accepted td:first-child {
+  font-weight: bold;
+}
+.billing-quote-declined {
+  color: #777;
+  text-decoration: line-through;
+}
+.time-entry-approved {
+  color: #2e7d32;
+  margin-inline-start: 0.3em;
+}
+.time-entry-rejected {
+  color: #b71c1c;
+  margin-inline-start: 0.3em;
+}

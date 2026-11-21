@@ -78,3 +78,62 @@ test('Budget and billing: cost against budget, and one invoice of the billable h
     db.cleanup({ boardIds: [board.boardId] });
   }
 });
+
+// Professional services: an expense and a fixed fee go on the invoice with
+// the time; with approval on only approved time is billed; a quote prices
+// the work still to do. tests/billingAccess.test.cjs pins the rules.
+test('Budget and billing: expenses, fees, approving time and a quote', async ({ page, user, user2 }) => {
+  const stamp = Date.now();
+  const board = db.seedBoard({ ownerId: user.id, title: `PSA ${stamp}`, listCount: 1, cardTitlesPerList: [[`Build ${stamp}`]] });
+  try {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    const card = db.findCardIdByTitle({ boardId: board.boardId, title: `Build ${stamp}` });
+    db.updateOne('cards', { _id: card }, { $set: { assignees: [user2.id], spentTime: 3, estimatedHours: 10 } });
+    const day = new Date().toISOString().slice(0, 10);
+    db.insertMany('timeEntries', [{ _id: `pe1-${stamp}`, cardId: card, boardId: board.boardId, userId: user2.id, date: day, hours: 3, source: 'manual' }]);
+
+    await loginWithToken(page, user.id, user.token);
+    await navigateInApp(page, '/billing');
+    await page.locator('a.js-billing-board', { hasText: `PSA ${stamp}` }).click();
+    await page.locator('form.js-billing-rate #billing-rate-amount').fill('100');
+    await page.locator('form.js-billing-rate #billing-rate-currency').fill('EUR');
+    await page.locator('form.js-billing-rate #billing-rate-cost').fill('60');
+    await page.locator('form.js-billing-rate button[type="submit"]').click();
+    await expect(page.locator('.billing-margin')).toBeVisible({ timeout: 20_000 });
+
+    const expense = page.locator('form.js-billing-expense');
+    await expense.locator('[name="amount"]').fill('50');
+    await expense.locator('[name="description"]').fill(`Train ${stamp}`);
+    await expense.locator('[name="category"]').selectOption('travel');
+    await expense.locator('button[type="submit"]').click();
+    const fee = page.locator('form.js-billing-fee');
+    await fee.locator('[name="title"]').fill(`Kick-off ${stamp}`);
+    await fee.locator('[name="amount"]').fill('500');
+    await fee.locator('button[type="submit"]').click();
+    await expect(page.locator('.billing-draft-lines li')).toHaveCount(3, { timeout: 20_000 });
+
+    // Approval on: the time waits, the fee and the expense do not.
+    await page.locator('form.js-billing-profile [name="approveTime"]').check();
+    await page.locator('form.js-billing-profile button[type="submit"]').click();
+    await expect(page.locator('.billing-approval li')).toHaveCount(1, { timeout: 20_000 });
+    await expect(page.locator('.billing-draft-lines li')).toHaveCount(2);
+    await page.locator('.billing-approval button[data-decision="approved"]').click();
+    await expect(page.locator('.billing-draft-lines li')).toHaveCount(3, { timeout: 20_000 });
+
+    // A quote of the 7 h still to do; it opens on the page.
+    await page.locator('form.js-billing-quote button[type="submit"]').click();
+    await expect(page.locator('.billing-print h2')).toContainText('QUO-', { timeout: 20_000 });
+    await expect(page.locator('.billing-quote-table tbody tr')).toHaveCount(1);
+
+    // Negative: the member sees neither the board nor its money.
+    await loginWithToken(page, user2.id, user2.token);
+    await navigateInApp(page, '/billing');
+    await expect(page.locator('.billing-page')).toBeVisible();
+    await expect(page.locator('a.js-billing-board', { hasText: `PSA ${stamp}` })).toHaveCount(0);
+  } finally {
+    for (const c of ['billingRates', 'billingBudgets', 'billingInvoices', 'billingProfiles', 'billingExpenses', 'billingFees', 'billingQuotes', 'timeEntries']) {
+      db.deleteMany(c, { boardId: board.boardId });
+    }
+    db.cleanup({ boardIds: [board.boardId] });
+  }
+});

@@ -58,6 +58,10 @@ template(name="workload")
                   th.workload-person(scope="row")
                     span.workload-person-name {{person.name}}
                     span.workload-person-capacity {{capacityLabel person}}
+                    span.workload-person-utilization(class="{{#if person.belowTarget}}is-below{{/if}}" title="{{_ 'workload-utilization-title'}}")
+                      | {{_ 'workload-utilization' percent=(utilizationPercent person) hours=person.billableHours}}
+                      if isNumber person.capacity.utilizationTarget
+                        |  / {{person.capacity.utilizationTarget}} %
                   each cell in cells person
                     td.workload-cell(class="{{cell.state}}")
                       a.js-workload-cell(data-user=person.userId data-week=cell.index title=cell.title)
@@ -109,6 +113,14 @@ template(name="workload")
                       i.fa.fa-user-o
                       |  {{holder.roleName}} × {{holder.headcount}}
                     span.workload-person-capacity {{holder.boardTitle}}
+                    if holder.skill
+                      span.workload-placeholder-skill
+                        i.fa.fa-graduation-cap
+                        |  {{holder.skill}} ≥ {{holder.skillLevel}}
+                      if holder.candidates.length
+                        span.workload-candidates {{_ 'workload-candidates'}}: {{candidatesLabel holder}}
+                      else
+                        span.workload-candidates {{_ 'workload-no-candidates'}}
                   each week in holder.weeks
                     td.workload-cell.is-placeholder
                       if week.allocationPercent
@@ -146,6 +158,10 @@ template(name="workloadPlanning")
             label
               input(type="checkbox" name="workingDays" value=day.value checked=day.checked)
               | {{day.label}}
+        label(for="workload-skills") {{_ 'workload-skills'}}
+        input#workload-skills(type="text" name="skills" maxlength="2000" value=skillsText placeholder="{{_ 'workload-skills-example'}}")
+        label(for="workload-target") {{_ 'workload-utilization-target'}} %
+        input#workload-target(type="number" name="utilizationTarget" min="0" max="100" step="1" value=capacity.utilizationTarget)
         button.primary(type="submit") {{_ 'save'}}
         if capacitySaved
           span.workload-saved {{_ 'feature-saved'}}
@@ -200,6 +216,10 @@ template(name="workloadPlanning")
           input#workload-allocation-role(type="text" name="roleName" maxlength="100" placeholder="{{_ 'workload-role-example'}}")
           label(for="workload-allocation-headcount") {{_ 'workload-headcount'}}
           input#workload-allocation-headcount(type="number" name="headcount" min="1" max="100" value="1")
+          label(for="workload-allocation-skill") {{_ 'workload-skill'}}
+          input#workload-allocation-skill(type="text" name="skill" maxlength="50")
+          label(for="workload-allocation-level") {{_ 'workload-skill-level'}}
+          input#workload-allocation-level(type="number" name="skillLevel" min="1" max="5" value="1")
           label(for="workload-allocation-percent") {{_ 'workload-allocation-percent'}}
           input#workload-allocation-percent(type="number" name="percent" min="1" max="100" value="50" required)
           label(for="workload-allocation-start") {{_ 'start'}}

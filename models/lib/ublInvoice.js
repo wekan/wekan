@@ -86,10 +86,12 @@ function ublInvoiceXml(invoice, profile) {
       + `${money('TaxInclusiveAmount', invoice.totalMinor)}${money('PrepaidAmount', invoice.paidMinor || 0)}`
       + `${money('PayableAmount', Math.max((invoice.totalMinor || 0) - (invoice.paidMinor || 0), 0))}</cac:LegalMonetaryTotal>`,
     ...(invoice.lines || []).map((line, i) => `<cac:${lineTag}>${tag('cbc:ID', i + 1)}`
-      + `<${qtyTag} unitCode="HUR">${line.hours}</${qtyTag}>${money('LineExtensionAmount', line.amountMinor)}`
+      // Hours (HUR) at the hourly rate; a fee or an expense is one unit (C62).
+      + (typeof line.rateMinor === 'number' ? `<${qtyTag} unitCode="HUR">${line.hours}</${qtyTag}>` : `<${qtyTag} unitCode="C62">1</${qtyTag}>`)
+      + money('LineExtensionAmount', line.amountMinor)
       + `<cac:Item>${tag('cbc:Name', line.title || '-')}<cac:ClassifiedTaxCategory><cbc:ID>${category}</cbc:ID><cbc:Percent>${percent}</cbc:Percent>`
       + '<cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item>'
-      + `<cac:Price>${money('PriceAmount', line.rateMinor)}</cac:Price></cac:${lineTag}>`),
+      + `<cac:Price>${money('PriceAmount', typeof line.rateMinor === 'number' ? line.rateMinor : line.amountMinor)}</cac:Price></cac:${lineTag}>`),
     `</${root}>`,
   ];
   return parts.filter(Boolean).join('\n');
