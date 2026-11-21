@@ -4,8 +4,12 @@ const data = require('../imports/i18n/data/tlh.i18n.json');
 const english = require('../imports/i18n/data/en.i18n.json');
 const records = require('../releases/translations/audited-corrections.json').filter(row => row.locale === 'tlh');
 const tokens = value => (value.match(/__[A-Za-z0-9_]+__|%(?:[0-9]+\$)?[A-Za-z]|%\{[^}]+\}/g) || []).sort();
+// A later correction of the same key supersedes the earlier one: the file holds
+// the latest (2026-11-21: the French, German and English left in it were
+// replaced with Klingon, each recorded as a correction of the value before).
+const latest = new Map(records.map(row => [row.key, row.after]));
 for (const row of records) {
-  assert.equal(data[row.key], row.after);
+  assert.equal(data[row.key], latest.get(row.key), row.key);
   assert.deepEqual(tokens(row.after), tokens(english[row.key]), row.key);
 }
 for (const key of ['board-delete-notice', 'card-delete-pop', 'custom-field-delete-pop', 'delete-board-confirm-popup']) {

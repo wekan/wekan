@@ -217026,5 +217026,789 @@
     "before": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ",
     "after": "ⵜⵉⵎⵏⵥⵉⵜ",
     "reason": "Search keyword is one word of letters, as the query parser reads it."
+  },
+  {
+    "locale": "ve",
+    "key": "copyManyCardsPopup-format",
+    "before": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"Incazelo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibili\",\"description\": \"Incazelo yekhadi lesibili\"},{\"title\": \"Isihloko sekhadi lokugcina\",\"description\": \"Incazelo yekhadi lokugcina\"}]",
+    "after": "[ {\"title\": \"Ṱhoho ya khadi ya u thoma\", \"description\":\"Ṱhaluso ya khadi ya u thoma\"}, {\"title\":\"Ṱhoho ya khadi ya vhuvhili\",\"description\":\"Ṱhaluso ya khadi ya vhuvhili\"},{\"title\":\"Ṱhoho ya khadi ya u fhedza\",\"description\":\"Ṱhaluso ya khadi ya u fhedza\"} ]",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteAttachment",
+    "before": "o susa ṱumetshedzo __attachment__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa ṱumetshedzo __attachment__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteComment",
+    "before": "o susa muhumbulo kha khadi __card__: __comment__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa muhumbulo kha khadi __card__: __comment__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteCustomField",
+    "before": "o susa fhethu ha data ho dzudzanywaho __customField__ kha bodo ya Kanban __board__",
+    "after": "o bvisa fhethu ha data ho dzudzanywaho __customField__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-removeBoardMember",
+    "before": "o susa muraḓo __member__ kha bodo ya Kanban __board__",
+    "after": "o bvisa muraḓo __member__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-removeChecklist",
+    "before": "o susa mutevhe wa u sedza __checklist__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa mutevhe wa u sedza __checklist__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-removeChecklistItem",
+    "before": "o susa tshithu __checklistItem__ kha mutevhe wa u sedza __checkList__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa tshithu __checklistItem__ kha mutevhe wa u sedza __checkList__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-removeLabel",
+    "before": "o susa ḽeibuḽu __label__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa ḽeibuḽu __label__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-removedLabel",
+    "before": "o susa ḽeibuḽu __label__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa ḽeibuḽu __label__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "act-unjoinMember",
+    "before": "o susa muraḓo __member__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "after": "o bvisa muraḓo __member__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-delete-attach",
+    "before": "o susa ṱumetshedzo kha %s",
+    "after": "o bvisa tsho namaṱheliswaho kha %s",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-delete-attach-card",
+    "before": "o susa ṱumetshedzo",
+    "after": "o bvisa tsho namaṱheliswaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-desc",
+    "before": "A nga vhona na u khwinisa makhadi, u susa miraḓo na u shandula nzudzanyo dza bodo ya Kanban. A nga vhona nyito.",
+    "after": "A nga vhona na u khwinisa makhadi, u bvisa miraḓo na u shandula nzudzanyo dza bodo ya Kanban. A nga vhona nyito.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-delete-pop",
+    "before": "U susa ṱumetshedzo ndi ha tshoṱhe. A zwi koni u humiselwa murahu.",
+    "after": "U bvisa ṱumetshedzo ndi ha tshoṱhe. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "board-delete-notice",
+    "before": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga mitevhe yoṱhe, makhadi na nyito dzi elanaho na bodo iyi ya Kanban.",
+    "after": "U bvisa ndi ha tshoṱhe. Ni ḓo xelelwa nga mitevhe yoṱhe, makhadi na nyito dzi elanaho na bodo iyi ya Kanban.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "card-delete-pop",
+    "before": "Nyito dzoṱhe dzi ḓo suswa kha mutevhe wa nyito, nahone a ni tsha ḓo kona u vula khadi hafhu. A zwi koni u humiselwa murahu.",
+    "after": "Nyito dzoṱhe dzi ḓo bviswa kha mutevhe wa nyito, nahone a ni tsha ḓo kona u vula khadi hafhu. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "card-members-title",
+    "before": "Engedzani kana ni suse miraḓo ya bodo ya Kanban kha khadi.",
+    "after": "Engedzani kana ni bvise miraḓo ya bodo ya Kanban kha khadi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "close-board-pop",
+    "before": "Ni ḓo kona u vhuyedzedza bodo nga u kiḽika gunubu ya “Fhethu ha u vhulunga” kha ṱhoho ya siaṱari ḽa hayani.",
+    "after": "Ni nga vhuyedzedza bodo u bva kha “Fhethu ha u vhulunga” kha siaṱari ḽa Bodo dzoṱhe.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "conversion-info-text",
+    "before": "Tshanduko iyi i itwa luthihi kha bodo iṅwe na iṅwe ya Kanban nahone i khwinisa kushumele. Ni nga bvela phanḓa ni tshi shumisa bodo nga nḓila ya nga misi.",
+    "after": "Tshanduko iyi i itwa luthihi kha bodo iṅwe na iṅwe ya Kanban nahone i khwinisa mashumele. Ni nga bvela phanḓa ni tshi shumisa bodo nga nḓila ya nga misi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-board-confirm-popup",
+    "before": "Mitevhe yoṱhe, makhadi, dziḽeibuḽu na nyito zwi ḓo suswa, nahone a ni tsha ḓo kona u vhuyedzedza data ya bodo ya Kanban. A zwi koni u humiselwa murahu.",
+    "after": "Mitevhe yoṱhe, makhadi, dziḽeibuḽu na nyito zwi ḓo bviswa, nahone a ni tsha ḓo kona u vhuyedzedza data ya bodo ya Kanban. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "I susa mitevhe yo dovhololwaho i si na tshithu nga nḓila yo tsireledzeaho. I bvisa fhedzi mitevhe i si na makhadi NA ine ya vha na muṅwe mutevhe wa dzina ḽithihi une wa vha na makhadi.",
+    "after": "I bvisa mitevhe yo dovhololwaho i si na tshithu nga nḓila yo tsireledzeaho. I bvisa fhedzi mitevhe i si na makhadi NA ine ya vha na muṅwe mutevhe wa dzina ḽithihi une wa vha na makhadi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Ni na vhuṱanzi? Izwi zwi ḓo susa mitevhe yoṱhe yo dovhololwaho ya dzina ḽithihi i si na makhadi.",
+    "after": "Ni na vhuṱanzi? Izwi zwi ḓo bvisa mitevhe yoṱhe yo dovhololwaho ya dzina ḽithihi i si na makhadi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-linked-card-before-this-card",
+    "before": "A ni koni u susa khadi iḽi ni sa athu susa khadi ḽo ṱumanywaho ḽine ḽa vha na",
+    "after": "A ni koni u bvisa khadi iḽi ni sa athu bvisa khadi ḽo ṱumanywaho ḽine ḽa vha na",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "A ni koni u susa mutevhe uyu ni sa athu susa makhadi o ṱumanywaho a sumba kha makhadi a mutevhe uyu",
+    "after": "A ni koni u bvisa mutevhe uyu ni sa athu bvisa makhadi o ṱumanywaho a sumbaho kha makhadi a mutevhe uyu",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - makhadi kha bodo dza Kanban dza phuraivethe fhedzi",
+    "after": "`__predicate_private__` - makhadi kha bodo dza Kanban dza tshiphiri fhedzi",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "home-board-remove-confirm",
+    "before": "Bvisani bodo iyi ya Kanban kha Hayani? Bodo yone a i suswi.",
+    "after": "Bvisani bodo iyi ya Kanban kha Hayani? Bodo yone a i bviswi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Izwi zwi ḓo thoma zwa shandula mitevhe yo kovhiwaho ya vha mitevhe ya ḽaini iṅwe na iṅwe, zwa kona u susa mitevhe i si na tshithu ine ya vha na muṅwe mutevhe wa dzina ḽithihi u re na makhadi. Hu ḓo bviswa fhedzi mitevhe i si na tshithu i sa ṱoḓei zwa vhukuma. Bvela phanḓa?",
+    "after": "Izwi zwi ḓo thoma zwa shandula mitevhe yo kovhiwaho ya vha mitevhe ya ḽaini iṅwe na iṅwe, zwa kona u bvisa mitevhe i si na tshithu ine ya vha na muṅwe mutevhe wa dzina ḽithihi u re na makhadi. Hu ḓo bviswa fhedzi mitevhe i si na tshithu i sa ṱoḓei zwa vhukuma. Bvela phanḓa?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "account-created",
+    "before": "Akhaunthu yo sikiwa! Zwino ni nga dzhena.",
+    "after": "Akhaunthi yo sikiwa! Zwino ni nga dzhena.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "account-creation-failed",
+    "before": "U sika akhaunthu zwo kundelwa",
+    "after": "U sika akhaunthi zwo kundelwa",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "account-locked",
+    "before": "Akhaunthu yo valelwa lwa tshifhinganyana nga u kundelwa u dzhena lunzhi. Lingedzani hafhu nga murahu.",
+    "after": "Akhaunthi yo valelwa lwa tshifhinganyana nga u kundelwa u dzhena lunzhi. Lingedzani hafhu nga murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-allowUserDelete",
+    "before": "U ḓisusela akhaunthu ya mushumisi",
+    "after": "U ḓibvisela akhaunthu ya mushumisi",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-item-removed",
+    "before": "o susa tshithu kha mutevhe wa u sedza '%s' kha %s",
+    "after": "o bvisa tshithu kha mutevhe wa u sedza '%s' kha %s",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-removed",
+    "before": "o susa mutevhe wa u sedza kha %s",
+    "after": "o bvisa mutevhe wa u sedza kha %s",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-removed-label",
+    "before": "o susa ḽeibuḽu '%s' kha %s",
+    "after": "o bvisa ḽeibuḽu '%s' kha %s",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa fhethu uhu ha mushumo?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa fhethu uhu ha mushumo?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Khwaṱhisedza u susa fhethu ha mushumo",
+    "after": "Khwaṱhisedza u bvisa fhethu ha mushumo",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "already-account",
+    "before": "No no vha na akhaunthu? Dzhenani",
+    "after": "No no vha na akhaunthi? Dzhenani",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Engedza vhashumisi vha dzina ḽa domeni nga yoṱhe",
+    "after": "Engedza vhashumisi vha dzina ḽa domeini nga u ḓiita",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "automatic-migration",
+    "before": "U pfulusa nga yoṱhe",
+    "after": "U pfulusa nga u ḓiitela",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "boardCardTitlePopup-title",
+    "before": "Tsha u ṱalula dzina ḽa khadi",
+    "after": "Tshiṱaluli tsha dzina ḽa khadi",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "card-delete-notice",
+    "before": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na khadi iḽi.",
+    "after": "U bvisa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na khadi iḽi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Susa tshithu tsha mutevhe wa u sedza?",
+    "after": "Bvisa tshithu tsha mutevhe wa u sedza?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "comment-delete",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa muhumbulo?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa muhumbulo?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mutevhe wa u sedza?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa mutevhe wa u sedza?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshithu tsha mutevhe wa u sedza?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa tshithu tsha mutevhe wa u sedza?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mushumo muṱuku?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa mushumo muṱuku?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "converting-board-description",
+    "before": "I khou shandula nzudzanyo ya bodo ya Kanban u khwinisa kushumele. Izwi zwi nga dzhia tshifhinganyana.",
+    "after": "I khou shandula nzudzanyo ya bodo ya Kanban u khwinisa mashumele. Izwi zwi nga dzhia tshifhinganyana.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "created-at-newest-first",
+    "before": "Yo sikiwa nga (zwiswa u thoma)",
+    "after": "Yo sikwa nga (zwiswa u thoma)",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "created-at-oldest-first",
+    "before": "Yo sikiwa nga (zwa kale u thoma)",
+    "after": "Yo sikwa nga (zwa kale u thoma)",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-delete-confirm",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mushumo uyu wo dzudzanywaho?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa mushumo uyu wo dzudzanywaho?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-delete-failed",
+    "before": "U susa mushumo wo dzudzanywaho zwo kundelwa",
+    "after": "U bvisa mushumo wo dzudzanywaho zwo kundelwa",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-deleted",
+    "before": "Mushumo wo dzudzanywaho wo suswa nga nḓila yo bvelelaho",
+    "after": "Mushumo wo dzudzanywaho wo bviswa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-head-manifest-content",
+    "before": "Mafhungo a web manifest o dzudzanywaho (JSON)",
+    "after": "Mafhungo a manifesto ya webu o dzudzanywaho (JSON)",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-manifest-enabled",
+    "before": "Tendela web manifest yo dzudzanywaho",
+    "after": "Tendela manifesto ya webu yo dzudzanywaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-all-notifications-confirm",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa nḓivhadzo dzoṱhe? Nyito iyi a i koni u humiselwa murahu.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa nḓivhadzo dzoṱhe? Nyito iyi a i koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-avatar-confirm",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshifanyiso itshi tsha mushumisi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa tshifanyiso itshi tsha mushumisi?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Susa mitevhe yo dovhololwaho i si na tshithu",
+    "after": "Bvisa mitevhe yo dovhololwaho i si na tshithu",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-org-confirm-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa dzangano iḽi? A zwi koni u humiselwa murahu.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa dzangano iḽi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-org-warning-message",
+    "before": "A zwi koni u susa dzangano iḽi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khaḽo",
+    "after": "A zwi koni u bvisa dzangano iḽi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khaḽo",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-team-confirm-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshigwada itshi? A zwi koni u humiselwa murahu.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa tshigwada itshi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-team-warning-message",
+    "before": "A zwi koni u susa tshigwada itshi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khatsho",
+    "after": "A zwi koni u bvisa tshigwada itshi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khatsho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-translation-confirm-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa maipfi aya a ṱhalutshedzo ya luambo yo dzudzanywaho? A zwi koni u humiselwa murahu.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa maipfi aya a ṱhalutshedzo ya luambo yo dzudzanywaho? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-user-confirm-popup",
+    "before": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa akhaunthu iyi? A zwi koni u humiselwa murahu.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa akhaunthu iyi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Susa fhethu ha data ho dzudzanywaho?",
+    "after": "Bvisa fhethu ha data ho dzudzanywaho?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "left-of-list",
+    "before": "Tsha monde ha mutevhe wo nangwaho",
+    "after": "Kha tsha monde ha mutevhe wo nangwaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "loading",
+    "before": "I khou ḽouda, lindelani.",
+    "after": "Zwi khou dzheniswa, ri humbela ni lindele.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-info-text",
+    "before": "U pfulusa database hu itwa luthihi nahone hu khwinisa kushumele kwa sisiteme. Mushumo u bvela phanḓa murahu naho no vala burauza yaṋu.",
+    "after": "U pfulusa database hu itwa luthihi nahone hu khwinisa mashumele a sisiteme. Mushumo u bvela phanḓa murahu naho no vala burauza yaṋu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "poker-delete-pop",
+    "before": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na Planning Poker iyi.",
+    "after": "U bvisa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na Planning Poker iyi.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "right-of-list",
+    "before": "Tsha u ḽa ha mutevhe wo nangwaho",
+    "after": "Kha tsha u ḽa ha mutevhe wo nangwaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-access-key-description",
+    "before": "Khiḽi ya u dzhena ya AWS S3 ya u khwaṱhisedza mushumisi",
+    "after": "Khii ya u dzhena ya AWS S3 ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-access-key-placeholder",
+    "before": "Ṅwalani khiḽi ya u dzhena ya S3",
+    "after": "Ṅwalani khii ya u dzhena ya S3",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-secret-key-description",
+    "before": "Khiḽi ya tshiphiri ya AWS S3 ya u khwaṱhisedza mushumisi",
+    "after": "Khii ya tshiphiri ya AWS S3 ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-secret-key-placeholder",
+    "before": "Ṅwalani khiḽi ya tshiphiri ya S3",
+    "after": "Ṅwalani khii ya tshiphiri ya S3",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-secret-key-required",
+    "before": "Hu ṱoḓea khiḽi ya tshiphiri ya S3",
+    "after": "Hu ṱoḓea khii ya tshiphiri ya S3",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "settingsTranslationPopup-title",
+    "before": "Susa maipfi aya a ṱhalutshedzo ya luambo yo dzudzanywaho?",
+    "after": "Bvisa maipfi aya a ṱhalutshedzo ya luambo yo dzudzanywaho?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Susani mitevhe i si na tshithu yo dovhololwaho",
+    "after": "Bvisani mitevhe i si na tshithu yo dovhololwaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "subtaskDeletePopup-title",
+    "before": "U susa mushumo muṱuku?",
+    "after": "U bvisa mushumo muṱuku?",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-delete-pop",
+    "before": "Nyito dzoṱhe dzi ḓo suswa kha mutevhe wa nyito nahone a ni nga koni u vhuyedzedza ḽaini. A zwi koni u humiselwa murahu.",
+    "after": "Nyito dzoṱhe dzi ḓo bviswa kha mutevhe wa nyito nahone a ni nga koni u vhuyedzedza ḽaini. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "vote-delete-pop",
+    "before": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na iyi vouthu.",
+    "after": "U bvisa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na iyi vouthu.",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-assignee",
+    "before": "mushumi o avhelwaho",
+    "after": "o-avhelwaho",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "ve",
+    "key": "color-green",
+    "before": "dala",
+    "after": "tala",
+    "reason": "Replace Zulu/Xhosa, English or mixed text with Venda (Tshivenda)."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts-allowUserDelete",
+    "before": "accountDaj Qaw' lo'wI' 'e' yIchaw'",
+    "after": "lo'wI' qonDaj Qaw' lo'wI' 'e' yIchaw'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts",
+    "before": "accountmey",
+    "after": "lo'wI' qonmey",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "if-you-already-have-an-account",
+    "before": "account DaghajtaHchugh",
+    "after": "lo'wI' Daq DaghajtaHchugh",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "create-account",
+    "before": "account yIchenmoH",
+    "after": "lo'wI' Daq yIchenmoH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "already-account",
+    "before": "account DaghajtaH'a'? yI'el",
+    "after": "lo'wI' Daq DaghajtaH'a'? yI'el",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "account-created",
+    "before": "account chenmoHlu'pu'! DaH bI'ellaH.",
+    "after": "lo'wI' Daq chenmoHlu'pu'! DaH bI'ellaH.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "account-creation-failed",
+    "before": "account chenmoHmeH Qu' lujpu'",
+    "after": "lo'wI' Daq chenmoHmeH Qu' lujpu'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-move-storage-fs",
+    "before": "filesystem-vaD rarDoch yIvIHmoH",
+    "after": "ghItlh patvaD rarDoch yIvIHmoH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "filesystem-vaD raSDaq Hoch rarDochmey tIvIHmoH",
+    "after": "ghItlh patvaD 'echletDaq Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-to-fs",
+    "before": "filesystem-vaD Hoch rarDochmey tIvIHmoH",
+    "after": "ghItlh patvaD Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-user-confirm-popup",
+    "before": "accountvam DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "after": "lo'wI' qonvam DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-enrollAccount-subject",
+    "before": "__siteName__-Daq SoHvaD account chenmoHlu'pu'",
+    "after": "__siteName__-Daq SoHvaD mab chenmoHlu'pu'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-verifyEmail-text",
+    "before": "nuqneH __user__,\n\naccountlIj QIn pat Quv Da'olmeH, bIngDaq rarwI' yIqIp.\n\n__url__\n\nqatlho'.",
+    "after": "nuqneH __user__,\n\nmablIj QIn pat Quv Da'olmeH, bIngDaq rarwI' yIqIp.\n\n__url__\n\nqatlho'.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-host-description",
+    "before": "QInmeylIj vu'bogh SMTP server Quv.",
+    "after": "QInmeylIj vu'bogh SMTP turwI' Quv.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-port-description",
+    "before": "QInmey ngeHmeH SMTP serverlIj rarmeH mI'.",
+    "after": "QInmey ngeHmeH SMTP turwI'lIj rarmeH mI'.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-tls-description",
+    "before": "SMTP servervaD TLS yIchu'.",
+    "after": "SMTP turwI'vaD TLS yIchu'.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-host",
+    "before": "SMTP server",
+    "after": "SMTP turwI'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-user-notCreated",
+    "before": "lo'wI'vam account chenmoHlu'be'",
+    "after": "lo'wI'vam chenmoHlu'be'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "admin-people-user-active",
+    "before": "lo'wI' account chu'lu'pu'. accountvam Dachu'Ha'meH yIqIp.",
+    "after": "lo'wI' vang - vangbe'moHmeH yIqIp",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "admin-people-user-inactive",
+    "before": "lo'wI' account chu'Ha'lu'pu'. accountvam Dachu'meH yIqIp.",
+    "after": "lo'wI' vangbe' - vangmoHmeH yIqIp",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "autoAddUsersWithDomainName",
+    "before": "domain pong ghajbogh lo'wI'pu' chel'egh",
+    "after": "Sep pong ghajbogh lo'wI'pu' chel'egh",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-archive-cards-pop",
+    "before": "raSvo' tetlhvam Hoch 'echletHommey teqlu'. polmeH DaqDaq 'echletHommey DabejmeH 'ej raSDaq DachelmeH, 'Menu' > 'Archive' yI'uy.",
+    "after": "raSvo' tetlhvam Hoch 'echletHommey teqlu'. polmeH DaqDaq 'echletHommey DabejmeH 'ej raSDaq DacheghmoHmeH, “raS DuHmey” > “polmeH Daq” yI'uy.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-info-text",
+    "before": "De' pat wa'logh choHlu'; nom QapchoH pat. browser DaSoQmoHchugh je, leS De' vIHmoHtaH pat.",
+    "after": "De' pat wa'logh choHlu'; nom QapchoH pat. De'wI' leghwI' DaSoQmoHchugh je, leS De' vIHmoHtaH pat.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-warning-text",
+    "before": "De' vIHmoHlu'taHvIS browser yISoQmoHQo'. leS QaptaH mIw, 'ach poH nI' poQlaH.",
+    "after": "De' vIHmoHlu'taHvIS De'wI' leghwI' yISoQmoHQo'. leS QaptaH mIw, 'ach poH nI' poQlaH.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "restore-lost-cards-migration-description",
+    "before": "swimlaneId listId ghap Hutlhbogh 'echletHommey tetlhmey je nej 'ej chelqa'. 'Lost Cards' He chenmoH; chIllu'bogh De' 'anglu'qa'.",
+    "after": "swimlaneId listId ghap Hutlhbogh 'echletHommey tetlhmey je nej 'ej chenqa'moH. Hoch chIllu'bogh Doch 'anglu'qa'meH \"chIllu'pu'bogh 'echletHommey\" He chenmoH.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node qawHaq: Hoch qawHaq tak tIq",
+    "after": "Node qawHaq: Hoch Hap qawHaq tIq",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "close-board-pop",
+    "before": "ghIq juH nav nachDaq 'Archive' leQ Da'uylu'chugh, raS DachellaHqa'.",
+    "after": "Hoch raSmey navDaq “polmeH Daq”vo' raS DacheghmoHlaH.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "import-board-instruction-wekan",
+    "before": "raSlIjDaq 'Menu', 'Export board' je yI'uy; ghIq lI'lu'bogh teywI' ghItlh velqa' yIchenmoH.",
+    "after": "raSlIjDaq 'raS DuHmey', 'raS yIngeH' je yI'uy; ghIq lI'lu'bogh teywI' ghItlh velqa' yIchenmoH.",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-coptic",
+    "before": "Coptic 'ISjaH",
+    "after": "Copt 'ISjaH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew 'ISjaH",
+    "after": "'Ivrit 'ISjaH",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-port-description",
+    "before": "S3 rarmeH Daq port mI'",
+    "after": "S3 rarmeH Daq lojmIt mI'",
+    "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
   }
 ]
