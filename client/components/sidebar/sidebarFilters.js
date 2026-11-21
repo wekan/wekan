@@ -5,6 +5,7 @@ import { SavedCardFilters } from '/client/lib/savedCardFilters';
 import { captureFilterPreset, applyFilterPreset } from '/client/lib/filterPresetState';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { displayDefaultTitle } from '/imports/lib/defaultTitle';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
@@ -617,23 +618,7 @@ Template.selectionDestinationPicker.helpers({
     return Template.instance().dialog.selectedListId.get() === listId;
   },
   isTitleDefault(title) {
-    if (
-      title.startsWith("key 'default") &&
-      title.endsWith('returned an object instead of string.')
-    ) {
-      const translated = `${TAPi18n.__('defaultdefault')}`;
-      if (
-        translated.startsWith("key 'default") &&
-        translated.endsWith('returned an object instead of string.')
-      ) {
-        return 'Default';
-      }
-      return translated;
-    }
-    if (title === 'Default') {
-      return `${TAPi18n.__('defaultdefault')}`;
-    }
-    return title;
+    return displayDefaultTitle(title, key => TAPi18n.__(key));
   },
 });
 

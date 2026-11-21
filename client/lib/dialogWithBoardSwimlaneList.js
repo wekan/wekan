@@ -1,6 +1,7 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { displayDefaultTitle } from '/imports/lib/defaultTitle';
 import { Utils } from '/client/lib/utils';
 import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
@@ -224,25 +225,7 @@ export class BoardSwimlaneListDialog {
 
   /** Fix swimlane title translation issue for "Default" swimlane */
   isTitleDefault(title) {
-    if (
-      title.startsWith("key 'default") &&
-      title.endsWith('returned an object instead of string.')
-    ) {
-      if (
-        `${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") &&
-        `${TAPi18n.__('defaultdefault')}`.endsWith(
-          'returned an object instead of string.',
-        )
-      ) {
-        return 'Default';
-      } else {
-        return `${TAPi18n.__('defaultdefault')}`;
-      }
-    } else if (title === 'Default') {
-      return `${TAPi18n.__('defaultdefault')}`;
-    } else {
-      return title;
-    }
+    return displayDefaultTitle(title, key => TAPi18n.__(key));
   }
 
   /** get the board data from the server */

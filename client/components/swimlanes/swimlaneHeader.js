@@ -1,6 +1,7 @@
 import { titleSortIndexes } from '/models/lib/multilineTitles';
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { TAPi18n } from '/imports/i18n';
+import { displayDefaultTitle } from '/imports/lib/defaultTitle';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { SWIMLANE_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
@@ -51,51 +52,13 @@ Template.swimlaneFixedHeader.helpers({
     return Utils.getSwimlaneCollapseState(swimlane);
   },
   isTitleDefault(title) {
-    // https://github.com/wekan/wekan/issues/4763
-    // https://github.com/wekan/wekan/issues/4742
-    // Translation text for "default" does not work, it returns an object.
-    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
-    // This can happen, if swimlane does not have name.
-    // Yes, this is fixing the symptom (Swimlane title does not have title)
-    // instead of fixing the problem (Add Swimlane title when creating swimlane)
-    // because there could be thousands of swimlanes, adding name Default to all of them
-    // would be very slow.
-    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
-      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
-        return 'Default';
-      } else  {
-        return `${TAPi18n.__('defaultdefault')}`;
-      }
-    } else if (title === 'Default') {
-      return `${TAPi18n.__('defaultdefault')}`;
-    } else  {
-      return title;
-    }
+    return displayDefaultTitle(title, key => TAPi18n.__(key));
   },
 });
 
 Template.editSwimlaneTitleForm.helpers({
   isTitleDefault(title) {
-    // https://github.com/wekan/wekan/issues/4763
-    // https://github.com/wekan/wekan/issues/4742
-    // Translation text for "default" does not work, it returns an object.
-    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
-    // This can happen, if swimlane does not have name.
-    // Yes, this is fixing the symptom (Swimlane title does not have title)
-    // instead of fixing the problem (Add Swimlane title when creating swimlane)
-    // because there could be thousands of swimlanes, adding name Default to all of them
-    // would be very slow.
-    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
-      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
-        return 'Default';
-      } else  {
-        return `${TAPi18n.__('defaultdefault')}`;
-      }
-    } else if (title === 'Default') {
-      return `${TAPi18n.__('defaultdefault')}`;
-    } else  {
-      return title;
-    }
+    return displayDefaultTitle(title, key => TAPi18n.__(key));
   },
 });
 
