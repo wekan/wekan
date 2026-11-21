@@ -26,21 +26,72 @@ optional period. The page shows for each board:
 - **Forecast**: spent plus still to do, in red when it is over the budget;
 - **Left of budget**, **Invoiced** and **Paid**.
 
+## Time by day
+
+A card's **Time** popup now lists its time by day - the day, the hours, who
+logged them and a note - and **Log time** adds an entry on a day. A card's
+spent time stays its total, so the timers, the REST API, the imports and every
+report work as before: whenever the total changes, however it was written, the
+server records the difference as an entry of that day by that user (a
+correction when it went down). Time spent before entries were kept becomes one
+undated entry, once. An entry on an invoice is a record and cannot be removed.
+
 ## Invoices
 
-**Create invoice** bills the billable hours not invoiced yet: per card and
-person, at the rates of that moment. A card is billable unless *Billable* is
-unticked in its Time popup (beside spent time and estimated hours). WeKan
-keeps a card's spent time as a total, so what is not invoiced yet is that total
-less the hours of the card already on invoices that are not void.
+**Create invoice** bills the billable time entries of a **period** (both days
+inclusive; leave it empty for all open time) that are on no invoice yet: per
+card and per person who logged them, at that person's rate, with the first and
+last day of each line. Time from before dates were kept is included only when
+*Include time logged before dates were kept* is ticked, and is charged as the
+card's assignees. A card is billable unless *Billable* is unticked in its Time
+popup. The entries of an invoice are marked with it, so no hour is billed
+twice; voiding an invoice frees them.
 
-An invoice gets the next number of its year (`INV-2027-0042`) and a status:
-**Draft** → **Sent** → **Paid**, or **Void**. A sent invoice can go back to
-draft; paid and void are final, and voiding an invoice frees its hours for a
-new one. The lines of an invoice are a record: they stay as they were when it
-was made. **Print** shows the invoice alone for printing (or saving as PDF),
-and **CSV** downloads its lines; a cell that begins like a formula is written as
-text, so a spreadsheet does not run it.
+- **Invoicer**: name, address, country, business ID, VAT ID, email, phone and
+  website, VAT %, reverse charge, payment terms in days (the due date), penalty
+  interest % and a footer. An invoice keeps the invoicer as it was when it was
+  made.
+- **Numbers and references**: `INV-2027-0042`, credit notes `CRN-2027-0043`,
+  one sequence a year. The payment reference is a Finnish reference number
+  (7-3-1 check digit), the same digits as an ISO 11649 RF creditor reference, or
+  none.
+- **VAT**: the net, the VAT (rounded once, on the net) and the total. With
+  reverse charge the VAT is 0 and the invoice says so.
+- **Status**: Draft → Sent → Paid, or Void; a sent or paid invoice is credited
+  with a **credit note**, which credits it in full and frees its time. Shown as
+  *Partially paid* while payments are short of the total, and *Overdue* after
+  the due date, with the days overdue and the penalty interest so far.
+- **Payments**: record a payment (day, amount, method) on a sent invoice; when
+  the payments reach the total it becomes Paid.
+- **Files**: **PDF** (A4, paged), **SVG** (A4 wide, one page as long as the
+  invoice, text as text), **Excel**, **CSV** (a cell that begins like a formula
+  is written as text), and an **e-invoice**: UBL 2.1, Peppol BIS Billing 3.0
+  (EN 16931), a credit note as a UBL CreditNote. **Open** shows the invoice on
+  the page, to print.
+
+## Payment methods
+
+The invoicer lists the ways to pay; each invoice shows them with their codes,
+made by their published standards (models/lib/paymentCodes.js, checked against
+the standards' own examples):
+
+| Method | On the invoice |
+| --- | --- |
+| SEPA credit transfer | QR code, EPC069-12 version 002 ("GiroCode"), EUR |
+| Finnish bank barcode | the 54-digit *pankkiviivakoodi* (version 4, or 5 with an RF reference) as a Code 128 barcode, EUR |
+| Swiss QR-bill | the SPC 0200 QR code with the Swiss cross, CHF or EUR (the QR code only, not the payment part layout) |
+| Swish | the prefilled Swish QR code, SEK |
+| Pix | the static BR Code (EMV, CRC16), BRL |
+| UPI | the `upi://pay` link and QR code, INR |
+| Bitcoin | the BIP 21 URI and QR code (an amount only on a BTC invoice) |
+| PayPal | the PayPal.me link with the amount, and its QR code |
+| Payment link | any https payment page - Stripe Payment Links, Mollie, Square, MobilePay, Vipps, Revolut, ... - with `{amount}`, `{currency}`, `{reference}` and `{number}` filled in, and its QR code |
+| Bank transfer, cash, cheque, other | the instructions, as text |
+
+A method that does not fit an invoice - Swish on a EUR invoice, say - is left
+out of it, and the invoice page says why. Nothing is sent to any payment
+service: the codes are drawn on the invoice, and the payer's bank or app reads
+them.
 
 ## Who sees what
 
@@ -58,8 +109,12 @@ exactly.
 
 | | |
 | --- | --- |
-| `models/lib/billing.js` | the rules, as pure functions: rates, cost, forecast, budget, invoice lines, status, CSV |
-| `models/billing.js` | the collections `billingBudgets`, `billingRates`, `billingInvoices` |
+| `models/lib/billing.js` | the rules, as pure functions: rates, cost, forecast, budget, invoice lines, VAT, state, references, CSV |
+| `models/lib/timeEntries.js`, `server/timeEntries.js` | time by day, kept in step with a card's total |
+| `models/lib/paymentCodes.js` | IBAN, references, EPC QR, Finnish barcode, Swiss QR, Swish, Pix, UPI, BIP 21, links |
+| `models/lib/ublInvoice.js` | the Peppol BIS 3.0 e-invoice |
+| `server/lib/invoiceFiles.js` | PDF, SVG and Excel |
+| `models/billing.js`, `models/timeEntries.js` | the collections `billingBudgets`, `billingRates`, `billingProfiles`, `billingInvoices`, `timeEntries` |
 | `server/billing.js` | the methods, with who may call them |
 | `client/components/main/billing.*` | the page |
-| `tests/billing.test.cjs` | the rules; `tests/billingAccess.test.cjs` who may do what |
+| `tests/billing.test.cjs`, `tests/timeEntries.test.cjs`, `tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`, `tests/invoiceFiles.test.cjs` | the rules and the files; `tests/billingAccess.test.cjs` who may do what |

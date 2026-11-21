@@ -21,6 +21,44 @@ template(name="editCardSpentTimePopup")
       button.primary.wide.left.js-submit-time(type="submit") {{_ 'save'}}
       button.js-delete-time.negate.wide.right {{_ 'delete'}}
 
+    +cardTimeEntries(cardId=card._id)
+
+//- The card's time by day (server/timeEntries.js): log time on a day, and see
+  who logged what. Changing the total above is recorded as an entry too.
+template(name="cardTimeEntries")
+  .card-time-entries
+    h4 {{_ 'time-entries'}}
+    form.js-time-entry-add
+      label(for="time-entry-date") {{_ 'date'}}
+      input#time-entry-date(type="date" name="date" value=today required)
+      label(for="time-entry-hours") {{_ 'hours'}}
+      input#time-entry-hours(type="number" name="hours" min="0.01" max="1000" step="0.25" required)
+      label(for="time-entry-note") {{_ 'workload-note'}}
+      input#time-entry-note(type="text" name="note" maxlength="500")
+      button.primary(type="submit") {{_ 'time-entry-log'}}
+    if entryError
+      .warning {{entryError}}
+    if entries.length
+      ul.time-entry-list
+        each entry in entries
+          li(class="{{#if entry.invoiced}}is-invoiced{{/if}}")
+            span.time-entry-date
+              if entry.date
+                | {{entry.date}}
+              else
+                | {{_ 'time-entry-undated'}}
+            span.time-entry-hours {{entry.hours}} {{_ 'workload-hours-short'}}
+            if entry.name
+              span.time-entry-who {{entry.name}}
+            if entry.note
+              span.time-entry-note {{entry.note}}
+            if entry.invoiced
+              span.time-entry-invoiced(title="{{_ 'time-entry-invoiced'}}")
+                i.fa.fa-file-text-o
+            else if entry.mine
+              a.js-time-entry-remove(data-id=entry._id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                i.fa.fa-trash
+
 template(name="cardSpentTime")
   if canModifyCard
     a.js-edit-time.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")

@@ -535,6 +535,8 @@ import '/server/scrum';
 import '/server/workload';
 // Budget and billing (docs/Features/Billing/Billing.md).
 import '/server/billing';
+// Time entries: a card's time by day (server/timeEntries.js).
+import '/server/timeEntries';
 import '/server/publications/scrum';
 import '/server/methods/syncRuleEmailRecovery';
 

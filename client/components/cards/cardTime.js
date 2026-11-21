@@ -116,3 +116,46 @@ Template.cardSpentTime.helpers({
 Template.cardSpentTime.events({
   'click .js-edit-time': Popup.open('editCardSpentTime'),
 });
+
+// The card's time by day (server/timeEntries.js).
+Template.cardTimeEntries.onCreated(function () {
+  this.entries = new ReactiveVar([]);
+  this.error = new ReactiveVar('');
+  this.load = () => {
+    const { cardId } = Template.currentData() || {};
+    if (!cardId) return Promise.resolve();
+    return Meteor.callAsync('timeEntriesOfCard', cardId)
+      .then(result => { this.entries.set(result.entries); this.error.set(''); })
+      .catch(error => this.error.set((error && (error.reason || error.message)) || String(error)));
+  };
+  this.autorun(() => {
+    const card = Cards.findOne((Template.currentData() || {}).cardId);
+    // Reload when the card's total changes (a timer, the field above).
+    if (card) card.spentTime; // eslint-disable-line no-unused-expressions
+    this.load();
+  });
+});
+
+Template.cardTimeEntries.helpers({
+  entries: () => Template.instance().entries.get(),
+  entryError: () => Template.instance().error.get(),
+  today: () => new Date().toISOString().slice(0, 10),
+});
+
+Template.cardTimeEntries.events({
+  'submit .js-time-entry-add'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const entry = { date: form.elements.date.value, hours: parseFloat(form.elements.hours.value) };
+    if (form.elements.note.value.trim()) entry.note = form.elements.note.value.trim();
+    Meteor.callAsync('timeEntryAdd', Template.currentData().cardId, entry)
+      .then(() => { form.elements.hours.value = ''; form.elements.note.value = ''; return tpl.load(); })
+      .catch(error => tpl.error.set((error && (error.reason || error.message)) || String(error)));
+  },
+  'click .js-time-entry-remove'(evt, tpl) {
+    evt.preventDefault();
+    Meteor.callAsync('timeEntryRemove', evt.currentTarget.getAttribute('data-id'))
+      .then(() => tpl.load())
+      .catch(error => tpl.error.set((error && (error.reason || error.message)) || String(error)));
+  },
+});

@@ -18,6 +18,15 @@ test('Budget and billing: cost against budget, and one invoice of the billable h
     const internal = db.findCardIdByTitle({ boardId: board.boardId, title: `Internal ${stamp}` });
     db.updateOne('cards', { _id: billed }, { $set: { assignees: [user2.id], spentTime: 10, estimatedHours: 15 } });
     db.updateOne('cards', { _id: internal }, { $set: { assignees: [user2.id], spentTime: 4, billable: false } });
+    // The time by day (server/timeEntries.js): 10 h of the billed card, 8 of
+    // them this month and 2 last month; the internal card's 4 h.
+    const month = new Date().toISOString().slice(0, 7);
+    const lastMonth = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth() - 1, 15)).toISOString().slice(0, 10);
+    db.insertMany('timeEntries', [
+      { _id: `te1-${stamp}`, cardId: billed, boardId: board.boardId, userId: user2.id, date: `${month}-01`, hours: 8, source: 'manual' },
+      { _id: `te2-${stamp}`, cardId: billed, boardId: board.boardId, userId: user2.id, date: lastMonth, hours: 2, source: 'manual' },
+      { _id: `te3-${stamp}`, cardId: internal, boardId: board.boardId, userId: user2.id, date: `${month}-02`, hours: 4, source: 'manual' },
+    ]);
 
     await loginWithToken(page, user.id, user.token);
     await navigateInApp(page, '/billing');
@@ -35,12 +44,25 @@ test('Budget and billing: cost against budget, and one invoice of the billable h
     await expect(row).toHaveClass(/is-over/, { timeout: 20_000 });
     await expect(row.locator('.billing-over')).toBeVisible();
 
+    // This month only: 8 h of the billable card.
+    await page.locator('#billing-period-start').fill(`${month}-01`);
+    await page.locator('#billing-period-start').dispatchEvent('change');
+    await expect(page.locator('.billing-draft-lines li')).toHaveCount(1);
     await page.locator('form.js-billing-invoice button[type="submit"]').click();
     const invoiceRow = page.locator('.billing-invoice-table tbody tr').first();
     await expect(invoiceRow).toContainText('INV-');
-    // Only the billable card: 10 h.
-    await expect(invoiceRow.locator('td').nth(3)).toHaveText('10');
-    await expect(page.locator('form.js-billing-invoice button[type="submit"]')).toBeDisabled();
+    await expect(invoiceRow.locator('td').nth(4)).toHaveText('8');
+    // The invoice opens on the page; a PDF and an SVG download.
+    await expect(page.locator('.billing-print')).toBeVisible();
+    for (const format of ['pdf', 'svg']) {
+      const [file] = await Promise.all([page.waitForEvent('download'), invoiceRow.locator(`button.js-billing-file[data-format="${format}"]`).click()]);
+      expect(file.suggestedFilename()).toMatch(new RegExp(`^INV-\\d{4}-\\d{4}\\.${format}$`));
+    }
+    // Last month's 2 h are still open.
+    await page.locator('#billing-period-start').fill('');
+    await page.locator('#billing-period-start').dispatchEvent('change');
+    await expect(page.locator('.billing-draft-lines li')).toHaveCount(1);
+    await expect(page.locator('.billing-draft-lines li')).toContainText('2');
 
     // Negative: a member who is not a board admin does not see the board.
     await loginWithToken(page, user2.id, user2.token);
@@ -51,6 +73,8 @@ test('Budget and billing: cost against budget, and one invoice of the billable h
     db.deleteMany('billingRates', { boardId: board.boardId });
     db.deleteMany('billingBudgets', { boardId: board.boardId });
     db.deleteMany('billingInvoices', { boardId: board.boardId });
+    db.deleteMany('billingProfiles', { boardId: board.boardId });
+    db.deleteMany('timeEntries', { boardId: board.boardId });
     db.cleanup({ boardIds: [board.boardId] });
   }
 });

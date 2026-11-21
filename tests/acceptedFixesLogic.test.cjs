@@ -165,7 +165,9 @@ const i18n = { __: key => key };
   const card = { getIsOvertime: () => false, setSpentTime: v => writes.push(['time', v]), setIsOvertime: v => writes.push(['overtime', v]) };
   vm.runInNewContext(script('client/components/cards/cardTime.js'), {
     ReactiveVar, Cards: { findOne: () => card }, getCurrentCardIdFromContext: () => 'card',
-    Template: { editCardSpentTimePopup: { onCreated(fn) { created = fn; }, helpers() {}, events(value) { timeEvents = value; } }, cardSpentTime: { helpers() {}, events() {} } },
+    Template: { editCardSpentTimePopup: { onCreated(fn) { created = fn; }, helpers() {}, events(value) { timeEvents = value; } }, cardSpentTime: { helpers() {}, events() {} },
+      // The card's time entries (server/timeEntries.js), not exercised here.
+      cardTimeEntries: { onCreated() {}, helpers() {}, events() {} } },
     Popup: { back() {}, open() {} }, TAPi18n: i18n,
     // client/lib/popupBack.js (an import, stripped here): steps back only in its own popup.
     backIfOwnPopup() {},

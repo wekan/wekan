@@ -3759,6 +3759,286 @@
     {
       "key": "feature-billing-desc",
       "since": "2026-11-21"
+    },
+    {
+      "key": "billing-add-method",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-add-payment",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-address",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-amount-due",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-business-id",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-country",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-credit",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-credit-note",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-credit-of",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-days-overdue",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-e-invoice",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-bic",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-bitcoin-address",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-building",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-details",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-iban",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-label",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-name",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-payee",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-paypal-user",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-pix-key",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-postcode",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-street",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-town",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-url",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-vpa",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-footer",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-include-undated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-issuer",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-issuer-name",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-bank-transfer",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-bitcoin",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-cash",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-cheque",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-fi-bank",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-link",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-other",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-paypal",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-pix",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-sepa",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-swish",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-swiss-qr",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-upi",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-net",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-open",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-overdue-count",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-pay-by-scanning",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-payment-methods",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-payment-reference",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-payment-terms",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-payments",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-penalty-interest",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-period",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-phone",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-fi",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-none",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-rf",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reverse-charge",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-credited",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-overdue",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-status-partial",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-undated-included",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-vat",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-vat-id",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-website",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "time-entries",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "time-entry-invoiced",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "time-entry-log",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "time-entry-undated",
+      "since": "2026-11-21"
     }
   ]
 }

@@ -56,17 +56,55 @@ BillingInvoices.attachSchema(new SimpleSchema({
   'lines.$.hours': { type: Number, min: 0 },
   'lines.$.rateMinor': { type: Number, min: 0 },
   'lines.$.amountMinor': { type: Number, min: 0 },
+  'lines.$.firstDate': { type: String, optional: true },
+  'lines.$.lastDate': { type: String, optional: true },
+  // An invoice, or a credit note of one (creditOf / creditOfNumber).
+  kind: { type: String, optional: true, allowedValues: ['invoice', 'credit'] },
+  creditOf: { type: String, optional: true },
+  creditOfNumber: { type: String, optional: true },
+  creditedBy: { type: String, optional: true },
+  customerCountry: { type: String, optional: true },
+  customerVatId: { type: String, optional: true, max: 50 },
+  periodStart: { type: String, optional: true },
+  periodEnd: { type: String, optional: true },
+  includeUndated: { type: Boolean, optional: true },
+  paymentReference: { type: String, optional: true },
+  reverseCharge: { type: Boolean, optional: true },
+  netMinor: { type: Number, min: 0 },
+  vatPercent: { type: Number, min: 0, max: 100 },
+  vatMinor: { type: Number, min: 0 },
   totalMinor: { type: Number, min: 0 },
   totalHours: { type: Number, min: 0 },
+  // Payments received.
+  payments: { type: Array, optional: true },
+  'payments.$': { type: Object },
+  'payments.$.id': { type: String },
+  'payments.$.date': { type: String },
+  'payments.$.amountMinor': { type: Number, min: 1 },
+  'payments.$.method': { type: String, optional: true },
+  'payments.$.note': { type: String, optional: true },
+  // The issuer as it was when the invoice was made: an invoice is a record.
+  issuer: { type: Object, optional: true, blackbox: true },
   createdBy: { type: String, optional: true },
   statusChangedAt: { type: Date, optional: true },
   createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
   modifiedAt: { type: Date, optional: true, autoValue: modifiedAtAutoValue },
 }));
 
+// Who sends a board's invoices and how they are paid (models/lib/billing.js
+// normalizeProfile): issuer details, VAT, payment terms, payment methods.
+export const BillingProfiles = new Mongo.Collection('billingProfiles');
+BillingProfiles.attachSchema(new SimpleSchema({
+  boardId: { type: String },
+  profile: { type: Object, blackbox: true },
+  createdBy: { type: String, optional: true },
+  createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
+  modifiedAt: { type: Date, optional: true, autoValue: modifiedAtAutoValue },
+}));
+
 // No client writes, to any of them: the methods are the only way in.
 if (Meteor.isServer) {
-  for (const collection of [BillingBudgets, BillingRates, BillingInvoices]) {
+  for (const collection of [BillingBudgets, BillingRates, BillingInvoices, BillingProfiles]) {
     collection.deny({ insert: () => true, update: () => true, remove: () => true });
   }
 }

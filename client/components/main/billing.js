@@ -4,8 +4,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import qrcode from 'qrcode-generator';
 import { TAPi18n } from '/imports/i18n';
 const { formatMoney } = require('/models/lib/billing');
+const { PAYMENT_METHODS, code128CModules, formatReference, formatIban } = require('/models/lib/paymentCodes');
 
 function t(key, options) {
   return TAPi18n.__(key, options);
@@ -23,9 +25,83 @@ function money(minor, currency) {
   return formatMoney(minor, currency, language());
 }
 
-const STATUS_KEYS = { draft: 'billing-status-draft', sent: 'billing-status-sent', paid: 'billing-status-paid', void: 'billing-status-void' };
-const NEXT = { draft: ['sent', 'void'], sent: ['paid', 'draft', 'void'], paid: [], void: [] };
+const STATE_KEYS = {
+  draft: 'billing-status-draft', sent: 'billing-status-sent', paid: 'billing-status-paid', void: 'billing-status-void',
+  credited: 'billing-status-credited', partial: 'billing-status-partial', overdue: 'billing-status-overdue',
+};
+const NEXT = { draft: ['sent', 'void'], sent: ['paid', 'draft', 'void'], paid: [], void: [], credited: [] };
 const ACTION_KEYS = { sent: 'billing-mark-sent', paid: 'billing-mark-paid', void: 'billing-void', draft: 'billing-back-to-draft' };
+const METHOD_KEYS = {
+  sepa: 'billing-method-sepa', 'fi-bank': 'billing-method-fi-bank', 'swiss-qr': 'billing-method-swiss-qr',
+  'bank-transfer': 'billing-method-bank-transfer', swish: 'billing-method-swish', pix: 'billing-method-pix',
+  upi: 'billing-method-upi', bitcoin: 'billing-method-bitcoin', paypal: 'billing-method-paypal', link: 'billing-method-link',
+  cash: 'billing-method-cash', cheque: 'billing-method-cheque', other: 'billing-method-other',
+};
+const FIELD_KEYS = {
+  name: 'billing-field-name', iban: 'billing-field-iban', bic: 'billing-field-bic', street: 'billing-field-street',
+  building: 'billing-field-building', postcode: 'billing-field-postcode', town: 'billing-field-town', country: 'billing-country',
+  details: 'billing-field-details', payee: 'billing-field-payee', key: 'billing-field-pix-key', city: 'billing-field-town',
+  vpa: 'billing-field-vpa', address: 'billing-field-bitcoin-address', user: 'billing-field-paypal-user', label: 'billing-field-label',
+  url: 'billing-field-url',
+};
+const PLACEHOLDERS = { iban: 'FI21 1234 5600 0007 85', bic: 'NDEAFIHH', country: 'CH', url: '…?amount={amount}&reference={reference}', vpa: 'shop@bank' };
+
+// ---------------------------------------------------------------- codes as SVG
+
+// The QR code of a payment, drawn from its matrix: the SVG carries modules
+// only, never the payload's text.
+function qrSvg(payload, swissCross) {
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+  const qr = qrcode(0, 'M');
+  qr.addData(payload, 'Byte');
+  qr.make();
+  const n = qr.getModuleCount();
+  const m = 4;
+  let path = '';
+  for (let r = 0; r < n; r += 1) for (let c = 0; c < n; c += 1) if (qr.isDark(r, c)) path += `M${c + m} ${r + m}h1v1h-1z`;
+  const size = n + 2 * m;
+  let cross = '';
+  if (swissCross) {
+    const s = n * 7 / 46;
+    const x = m + n / 2 - s / 2;
+    cross = `<rect x="${x}" y="${x}" width="${s}" height="${s}" fill="#fff"/><rect x="${x + s * 0.06}" y="${x + s * 0.06}" width="${s * 0.88}" height="${s * 0.88}" fill="#000"/>`
+      + `<rect x="${x + s * 0.4}" y="${x + s * 0.2}" width="${s * 0.2}" height="${s * 0.6}" fill="#fff"/><rect x="${x + s * 0.2}" y="${x + s * 0.4}" width="${s * 0.6}" height="${s * 0.2}" fill="#fff"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="160" height="160" shape-rendering="crispEdges" role="img">`
+    + `<rect width="${size}" height="${size}" fill="#fff"/><path d="${path}" fill="#000"/>${cross}</svg>`;
+}
+
+// The Finnish bank barcode: digits only, as bars.
+function barcodeSvg(digits) {
+  if (!/^\d{54}$/.test(String(digits))) return '';
+  const modules = code128CModules(digits, 10);
+  let path = '';
+  for (let i = 0; i < modules.length; i += 1) if (modules[i] === '1') path += `M${i} 0h1v40h-1z`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${modules.length} 40" width="100%" height="60" preserveAspectRatio="none" shape-rendering="crispEdges" role="img">`
+    + `<rect width="${modules.length}" height="40" fill="#fff"/><path d="${path}" fill="#000"/></svg>`;
+}
+
+function download(name, mime, { text, base64 }) {
+  let blob;
+  if (base64) {
+    const bin = atob(base64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i += 1) bytes[i] = bin.charCodeAt(i);
+    blob = new Blob([bytes], { type: mime });
+  } else {
+    blob = new Blob([text], { type: mime });
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ---------------------------------------------------------------- the page
 
 Template.billing.onCreated(function () {
   this.loading = new ReactiveVar(true);
@@ -35,6 +111,7 @@ Template.billing.onCreated(function () {
   this.allBoards = new ReactiveVar(false);
   this.selected = new ReactiveVar(null);
   this.detail = new ReactiveVar(null);
+  this.period = new ReactiveVar({ periodStart: '', periodEnd: '', includeUndated: false });
   this.loadBoards = () => {
     this.loading.set(true);
     return Meteor.callAsync('billingBoards', { allBoards: this.allBoards.get() })
@@ -49,7 +126,12 @@ Template.billing.onCreated(function () {
   this.loadDetail = () => {
     const boardId = this.selected.get();
     if (!boardId) { this.detail.set(null); return Promise.resolve(); }
-    return Meteor.callAsync('billingBoard', boardId).then(detail => this.detail.set(detail))
+    const p = this.period.get();
+    const period = {};
+    if (p.periodStart) period.periodStart = p.periodStart;
+    if (p.periodEnd) period.periodEnd = p.periodEnd;
+    if (p.includeUndated) period.includeUndated = true;
+    return Meteor.callAsync('billingBoard', boardId, period).then(detail => this.detail.set(detail))
       .catch(error => this.error.set(errorText(error)));
   };
   this.reload = () => Promise.all([this.loadBoards(), this.loadDetail()]);
@@ -64,9 +146,14 @@ Template.billing.helpers({
   allBoards: () => Template.instance().allBoards.get(),
   selectedBoardId: () => Template.instance().selected.get(),
   detail: () => Template.instance().detail.get(),
+  period: () => Template.instance().period.get(),
   reload() {
     const tpl = Template.instance();
     return () => tpl.reload();
+  },
+  setPeriod() {
+    const tpl = Template.instance();
+    return period => { tpl.period.set(period); tpl.loadDetail(); };
   },
   money,
   budgetLabel(board) {
@@ -99,6 +186,7 @@ Template.billing.events({
 Template.billingBoard.onCreated(function () {
   this.printed = new ReactiveVar(null);
   this.actionError = new ReactiveVar('');
+  this.methodType = new ReactiveVar('sepa');
   this.done = promise => promise.then(result => {
     this.actionError.set('');
     const { reload } = Template.currentData() || {};
@@ -111,8 +199,17 @@ function detail() {
   return Template.currentData().detail;
 }
 
+function methodTitle(type) {
+  return t(METHOD_KEYS[type] || type);
+}
+
+function signedMoney(invoice, minor) {
+  return money(invoice.kind === 'credit' ? -minor : minor, invoice.currency);
+}
+
 Template.billingBoard.helpers({
   money,
+  signedMoney,
   hours: value => `${Math.round((Number(value) || 0) * 100) / 100} ${t('workload-hours-short')}`,
   hasBudget: () => !!detail().budget,
   budgetAmount() {
@@ -125,16 +222,42 @@ Template.billingBoard.helpers({
   },
   draftTotal() {
     const d = detail();
-    return d.draft ? money(d.draft.totalMinor, d.draft.currency) : '';
+    return d.draft ? money(d.draft.netMinor, d.draft.currency) : '';
   },
   cannotInvoice() {
     const d = detail();
     return !(d.draft && d.draft.lines.length);
   },
   today: () => new Date().toISOString().slice(0, 10),
-  statusLabel: status => t(STATUS_KEYS[status] || status),
-  nextStatuses: status => (NEXT[status] || []).map(value => ({ value, label: t(ACTION_KEYS[value]) })),
+  referenceTypes: () => [
+    { value: 'rf', label: t('billing-reference-rf') }, { value: 'fi', label: t('billing-reference-fi') },
+    { value: 'none', label: t('billing-reference-none') },
+  ],
+  methodTypes: () => Object.keys(PAYMENT_METHODS).map(value => ({ value, label: methodTitle(value) })),
+  methodType: () => Template.instance().methodType.get(),
+  methodFields() {
+    const spec = PAYMENT_METHODS[Template.instance().methodType.get()];
+    return (spec ? spec.fields : []).map(name => ({ name, label: t(FIELD_KEYS[name] || name), placeholder: PLACEHOLDERS[name] || '' }));
+  },
+  paymentMethods() {
+    return (detail().profile.paymentMethods || []).map((m, index) => ({
+      index, title: m.label || methodTitle(m.type),
+      summary: m.iban ? formatIban(m.iban) : (m.payee || m.key || m.vpa || m.address || m.user || m.url || m.details || ''),
+    }));
+  },
+  statusLabel: state => t(STATE_KEYS[state] || state),
+  nextStatuses: invoice => (invoice.kind === 'credit' ? [] : (NEXT[invoice.status] || [])).map(value => ({ value, label: t(ACTION_KEYS[value]) })),
+  canCredit: invoice => invoice.kind !== 'credit' && ['sent', 'paid'].includes(invoice.status),
+  fileFormats: () => [
+    { value: 'pdf', label: 'PDF', icon: 'fa-file-pdf-o' }, { value: 'svg', label: 'SVG', icon: 'fa-file-image-o' },
+    { value: 'xlsx', label: 'Excel', icon: 'fa-file-excel-o' },
+    { value: 'csv', label: 'CSV', icon: 'fa-file-text-o' }, { value: 'ubl', label: t('billing-e-invoice'), icon: 'fa-file-code-o' },
+  ],
   printed: () => Template.instance().printed.get(),
+  setPrinted() {
+    const tpl = Template.instance();
+    return invoice => tpl.printed.set(invoice);
+  },
   actionError: () => Template.instance().actionError.get(),
 });
 
@@ -147,16 +270,15 @@ function numberOrUndefined(value) {
   return value === '' ? undefined : parseFloat(value);
 }
 
-function download(name, text, type) {
-  const blob = new Blob([text], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+function saveProfile(tpl, changes) {
+  const current = detail().profile || {};
+  return tpl.done(Meteor.callAsync('billingSetProfile', detail().board._id, { ...current, ...changes }));
+}
+
+function openInvoice(tpl, id) {
+  return Meteor.callAsync('billingInvoice', id)
+    .then(invoice => tpl.printed.set(invoice))
+    .catch(error => tpl.actionError.set(errorText(error)));
 }
 
 Template.billingBoard.events({
@@ -188,45 +310,123 @@ Template.billingBoard.events({
     evt.preventDefault();
     tpl.done(Meteor.callAsync('billingRemoveRate', evt.currentTarget.getAttribute('data-id')));
   },
+  'submit .js-billing-profile'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const changes = {};
+    for (const name of ['issuerName', 'issuerAddress', 'issuerCountry', 'businessId', 'vatId', 'email', 'phone', 'website', 'referenceType', 'footer']) {
+      changes[name] = field(form, name);
+    }
+    changes.vatPercent = numberOrUndefined(field(form, 'vatPercent')) || 0;
+    changes.paymentTermsDays = parseInt(field(form, 'paymentTermsDays'), 10);
+    if (!Number.isInteger(changes.paymentTermsDays)) changes.paymentTermsDays = 14;
+    changes.penaltyInterestPercent = numberOrUndefined(field(form, 'penaltyInterestPercent')) || 0;
+    changes.reverseCharge = form.elements.reverseCharge.checked === true;
+    saveProfile(tpl, changes);
+  },
+  'change .js-billing-method-type'(evt, tpl) {
+    tpl.methodType.set(evt.currentTarget.value);
+  },
+  'submit .js-billing-method'(evt, tpl) {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const type = field(form, 'type');
+    const method = { type };
+    for (const name of PAYMENT_METHODS[type].fields) method[name] = field(form, name);
+    const methods = [...(detail().profile.paymentMethods || []), method];
+    saveProfile(tpl, { paymentMethods: methods }).then(() => form.reset());
+  },
+  'click .js-billing-remove-method'(evt, tpl) {
+    evt.preventDefault();
+    const index = parseInt(evt.currentTarget.getAttribute('data-index'), 10);
+    saveProfile(tpl, { paymentMethods: (detail().profile.paymentMethods || []).filter((m, i) => i !== index) });
+  },
+  'change .js-billing-period'(evt) {
+    const form = evt.currentTarget;
+    const { setPeriod } = Template.currentData();
+    setPeriod({ periodStart: field(form, 'periodStart'), periodEnd: field(form, 'periodEnd'), includeUndated: form.elements.includeUndated.checked === true });
+  },
   'submit .js-billing-invoice'(evt, tpl) {
     evt.preventDefault();
     const form = evt.currentTarget;
     const request = {};
-    for (const name of ['customer', 'reference', 'notes', 'issueDate', 'dueDate']) {
+    for (const name of ['customer', 'customerCountry', 'customerVatId', 'reference', 'notes', 'issueDate', 'dueDate']) {
       if (field(form, name)) request[name] = field(form, name);
     }
-    tpl.done(Meteor.callAsync('billingCreateInvoice', detail().board._id, request).then(() => form.reset()));
+    if (field(form, 'vatPercent')) request.vatPercent = parseFloat(field(form, 'vatPercent'));
+    const p = Template.currentData().period || {};
+    if (p.periodStart) request.periodStart = p.periodStart;
+    if (p.periodEnd) request.periodEnd = p.periodEnd;
+    if (p.includeUndated) request.includeUndated = true;
+    tpl.done(Meteor.callAsync('billingCreateInvoice', detail().board._id, request).then(id => { form.reset(); return openInvoice(tpl, id); }));
   },
   'click .js-billing-status'(evt, tpl) {
     evt.preventDefault();
     const el = evt.currentTarget;
     tpl.done(Meteor.callAsync('billingSetInvoiceStatus', el.getAttribute('data-id'), el.getAttribute('data-status')));
   },
-  'click .js-billing-print'(evt, tpl) {
+  'click .js-billing-credit'(evt, tpl) {
     evt.preventDefault();
-    Meteor.callAsync('billingInvoice', evt.currentTarget.getAttribute('data-id'))
-      .then(invoice => tpl.printed.set(invoice))
+    tpl.done(Meteor.callAsync('billingCreditInvoice', evt.currentTarget.getAttribute('data-id'), {}).then(id => openInvoice(tpl, id)));
+  },
+  'click .js-billing-open'(evt, tpl) {
+    evt.preventDefault();
+    openInvoice(tpl, evt.currentTarget.getAttribute('data-id'));
+  },
+  'click .js-billing-file'(evt, tpl) {
+    evt.preventDefault();
+    const el = evt.currentTarget;
+    Meteor.callAsync('billingInvoiceFile', el.getAttribute('data-id'), el.getAttribute('data-format'))
+      .then(file => download(file.name, file.mime, file))
       .catch(error => tpl.actionError.set(errorText(error)));
   },
-  'click .js-billing-csv'(evt, tpl) {
+});
+
+// ---------------------------------------------------------------- the invoice
+
+Template.billingInvoicePrint.helpers({
+  money,
+  signedMoney,
+  statusLabel: state => t(STATE_KEYS[state] || state),
+  methodTitle: item => item.label || methodTitle(item.type),
+  formattedReference() {
+    return formatReference(Template.currentData().invoice.paymentReference);
+  },
+  qrSvg: item => qrSvg(item.qr, item.swissCross),
+  barcodeSvg,
+  today: () => new Date().toISOString().slice(0, 10),
+  dueAmount() {
+    const inv = Template.currentData().invoice;
+    return (inv.dueMinor / 100).toFixed(2);
+  },
+});
+
+// The board template keeps the open invoice; it hands down setPrinted.
+function reloadInvoice() {
+  const data = Template.currentData();
+  if (typeof data.reload === 'function') data.reload();
+  return Meteor.callAsync('billingInvoice', data.invoice._id).then(invoice => data.setPrinted(invoice));
+}
+
+Template.billingInvoicePrint.events({
+  'submit .js-billing-payment'(evt, tpl) {
     evt.preventDefault();
-    const id = evt.currentTarget.getAttribute('data-id');
-    const invoice = detail().invoices.find(i => i._id === id);
-    Meteor.callAsync('billingInvoiceCsv', id)
-      .then(csv => download(`${(invoice && invoice.number) || 'invoice'}.csv`, csv, 'text/csv;charset=utf-8'))
-      .catch(error => tpl.actionError.set(errorText(error)));
+    const form = evt.currentTarget;
+    const payment = { date: form.elements.date.value, amount: parseFloat(form.elements.amount.value) };
+    if (form.elements.method.value.trim()) payment.method = form.elements.method.value.trim();
+    Meteor.callAsync('billingAddPayment', Template.currentData().invoice._id, payment).then(() => reloadInvoice())
+      .catch(error => { form.querySelector('[name=amount]').setCustomValidity(errorText(error)); form.reportValidity(); });
+  },
+  'click .js-billing-remove-payment'(evt, tpl) {
+    evt.preventDefault();
+    Meteor.callAsync('billingRemovePayment', Template.currentData().invoice._id, evt.currentTarget.getAttribute('data-id')).then(() => reloadInvoice());
   },
   'click .js-billing-print-now'(evt) {
     evt.preventDefault();
     window.print();
   },
-  'click .js-billing-print-close'(evt, tpl) {
+  'click .js-billing-print-close'(evt) {
     evt.preventDefault();
-    tpl.printed.set(null);
+    Template.currentData().setPrinted(null);
   },
-});
-
-Template.billingInvoicePrint.helpers({
-  money,
-  statusLabel: status => t(STATUS_KEYS[status] || status),
 });
