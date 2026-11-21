@@ -5,14 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.25 2026-11-21 WeKan ® release
 
 **CodeQL** alerts #605-#610 in the **OneNote** and **Sandstorm
 grain** formats are fixed: comments in imported HTML are removed to a fixed
 point, SandChat user ids come from a cryptographic generator, and the guards
 that missed these shapes now find them anywhere in the tree.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.25](CHANGELOG-big.md#v1325-2026-11-21-wekan--release)
 
 # v13.24 2026-11-21 WeKan ® release
 
@@ -61,12 +61,3 @@ is **written a page at a time**, and **InviteBleed** is closed for the old
 invitation codes too.
 
 [All changes in v13.21](CHANGELOG-big.md#v1321-2026-11-20-wekan--release)
-
-# v13.20 2026-11-19 WeKan ® release
-
-The **REST API** card lists of a list and of a swimlane now carry
-what a syncing client needs - when a card changed, its labels, members and
-custom field values - so syncing a board needs no request per card. **build.sh**
-and **build.bat** can run a single **Playwright** spec.
-
-[All changes in v13.20](CHANGELOG-big.md#v1320-2026-11-19-wekan--release)
