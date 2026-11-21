@@ -1,13 +1,35 @@
 'use strict';
 
-// Vendored copy of models/lib/oauth2ClientSecretJwt.js. A Meteor local
-// package is its own isolated build unit and cannot import app-tree modules:
-// an import of an app-tree path inside packages/ resolves at runtime, not at
-// build time, and fails with "Cannot find module" when the app boots - while
-// node test suites, which run these files directly, never notice. This file is pure (Node's crypto/fs only, no other
-// app dependency), so it is vendored rather than injected. Keep both copies
-// in sync; models/lib/oauth2ClientSecretJwt.js stays canonical, tested by
-// tests/oauth2ClientSecretJwt.test.cjs.
+// A generic-OAuth2 client secret, for providers whose "secret" is not a
+// static string at all but a short-lived JWT the CLIENT must mint itself.
+//
+// Every generic-OAuth2 provider WeKan already talks to (Keycloak, Authelia,
+// Nextcloud, Openshift, ADFS, Azure B2C, ...) hands out a static
+// OAUTH2_SECRET string that is sent to the token endpoint as-is
+// (packages/wekan-oidc/oidc_server.js: `OAuth.openSecret(config.secret)`).
+// Sign in with Apple (#2458) is OIDC-shaped in every other respect, but its
+// "client secret" is instead a JWT that:
+//   - is signed with ES256, using the PRIVATE KEY downloaded once from
+//     Apple's developer portal (never sent to Apple itself);
+//   - carries iss (the Apple Team ID), sub (the Services ID / client_id),
+//     aud (https://appleid.apple.com) and the key id (kid) of that private
+//     key, plus iat/exp;
+//   - is short-lived (Apple allows up to ~6 months, but there is no reason
+//     not to mint a fresh one per token-exchange request, which is what
+//     this module is for) - unlike a static secret, so it cannot be reused
+//     once it has expired even if leaked.
+// See docs/Features/Login-Page/Apple.md for the operator-facing setup.
+//
+// This is plain Node `crypto` - no new dependency. Node has supported ES256
+// (ECDSA P-256 + SHA-256) signing since 8.x, and the IEEE-P1363 (raw r||s)
+// signature encoding JWT requires (rather than crypto's DER default) since
+// 12.x via the `dsaEncoding` option.
+
+// This module is the only copy. It lives in the package because a Meteor
+// local package is its own isolated build unit and cannot import an app-tree
+// module (tests/packageAppImportBoundary.test.cjs); the app has no use for it
+// outside wekan-oidc, and tests/oauth2ClientSecretJwt.test.cjs requires this
+// file directly.
 
 const crypto = require('crypto');
 const fs = require('fs');
@@ -20,6 +42,9 @@ function base64url(input) {
     .replace(/=+$/, '');
 }
 
+// Pure: given the private key PEM and the claims, returns a signed ES256 JWT
+// client secret. No filesystem or environment access, so this is the
+// function the unit test drives directly.
 function generateClientSecretJwt({
   privateKeyPem,
   keyId,
@@ -55,6 +80,11 @@ function generateClientSecretJwt({
   return signingInput + '.' + base64url(signature);
 }
 
+// Reads the operator's configuration from the environment and, only when
+// OAUTH2_SECRET_JWT_KEY_PATH is set, mints a fresh client-secret JWT. Returns
+// null when unset, so every existing OAuth2 provider (Keycloak, Authelia,
+// ...) is completely unaffected - the caller then falls back to the static
+// OAUTH2_SECRET exactly as before.
 function maybeGenerateOauth2ClientSecretJwt(env, clientId) {
   const keyPath = env.OAUTH2_SECRET_JWT_KEY_PATH;
   if (!keyPath) return null;
@@ -62,6 +92,9 @@ function maybeGenerateOauth2ClientSecretJwt(env, clientId) {
   const privateKeyPem = fs.readFileSync(keyPath, 'utf8');
   const issuer = env.OAUTH2_SECRET_JWT_ISSUER;
   const keyId = env.OAUTH2_SECRET_JWT_KEY_ID;
+  // Apple's token endpoint is the default audience since this feature exists
+  // for #2458; a generic-OIDC provider that also needs this quirk can point
+  // it elsewhere.
   const audience = env.OAUTH2_SECRET_JWT_AUDIENCE || 'https://appleid.apple.com';
   const subject = env.OAUTH2_SECRET_JWT_SUBJECT || clientId;
   const expiresInSeconds = env.OAUTH2_SECRET_JWT_EXPIRES_IN

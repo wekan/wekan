@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { formatNumberValue } from '../customNumberFormat';
+import { formatNumberValue } from '/imports/lib/customNumberFormat';
 
 /**
  * Unit tests for custom-field number formatting (#2091).

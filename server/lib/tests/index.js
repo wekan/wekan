@@ -28,8 +28,6 @@ import './jiraCreator.dependencies.tests';
 import './attachmentActivity.tests';
 import './comments.permissions.tests';
 import './announcementDismiss.tests';
-import './boardSearch.comments.tests';
-import './dueDateEdits.tests';
 import './icsImport.tests';
 import './orgTeamRestriction.tests';
 import './cardsCopyDueFixes.tests';

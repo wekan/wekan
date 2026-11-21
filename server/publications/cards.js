@@ -983,10 +983,8 @@ async function buildSelector(queryParams, userId) {
       // #5910: free-text search must match text inside card comments, for BOTH
       // global and board-level (board:) search. Board scoping is preserved by the
       // surrounding `selector.boardId` / `$and` constraints, so a comment match on
-      // a card outside the searched board is naturally excluded. This mirrors the
-      // pure `cardMatchesQuery({title, description, commentTexts}, query)` helper
-      // in server/lib/cardMatch.js, which is the single source of truth for the
-      // (title OR description OR comment) matching rule and is unit-tested.
+      // a card outside the searched board is naturally excluded.
+      // tests/boardSearchComments.test.cjs pins the comment alternative below.
       const comments = await ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },

@@ -13,6 +13,7 @@ import {
   firstAppendSort,
 } from '/models/lib/checklistTemplateCopy';
 import { CHECKLIST_RESET_INTERVALS } from '/models/lib/checklistResetSchedule';
+import { checklistHideState, isItemHidden as itemHiddenBy } from '/models/lib/checklistHide';
 import { selectBulkCheckItemIds } from '/models/lib/checklistBulkCheck';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
@@ -242,16 +243,16 @@ Checklists.helpers({
   },
   /** Per-checklist "hide checked items" state, read from THIS checklist only
    * (issue #5408). Never falls back to a card/global flag, so toggling one
-   * checklist never affects the others. Kept in sync with the pure helper
-   * checklistHideState() in server/lib/checklistHide.js (unit-tested there). */
+   * checklist never affects the others. The rule is models/lib/checklistHide.js,
+   * which server/lib/tests/checklistHideToggle.tests.js drives. */
   hideCheckedState() {
-    return this.hideCheckedChecklistItems === true;
+    return checklistHideState(this);
   },
   /** Should the given (checked/unchecked) item be hidden for THIS checklist?
    * An item is hidden only when it is checked and this checklist's toggle is
-   * on. Mirrors the pure helper isItemHidden() in server/lib/checklistHide.js. */
+   * on. */
   isItemHidden(isChecked) {
-    return isChecked === true && this.hideCheckedState() === true;
+    return itemHiddenBy({ isChecked: isChecked === true, hideChecked: this.hideCheckedState() });
   },
   showChecklist(hideFinishedChecklistIfItemsAreHidden) {
     let ret = true;

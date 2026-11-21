@@ -102,44 +102,21 @@ test('wekan-oidc/oidc_server.js no longer imports the app oauth2ClientSecretJwt 
     'it must use the vendored package-local copy instead');
 });
 
-test('the vendored packages/wekan-oidc/oauth2ClientSecretJwt.js behaves identically to '
-  + 'models/lib/oauth2ClientSecretJwt.js', () => {
-  const app = require(path.join(ROOT, 'models', 'lib', 'oauth2ClientSecretJwt.js'));
-  const pkg = require(path.join(PACKAGES_DIR, 'wekan-oidc', 'oauth2ClientSecretJwt.js'));
-
-  const crypto = require('crypto');
-  const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' });
-  const claims = {
-    privateKeyPem: privateKey.export({ type: 'pkcs8', format: 'pem' }),
-    keyId: 'kid-1',
-    issuer: 'TEAM123',
-    subject: 'com.example.service',
-    audience: 'https://appleid.apple.com',
-    now: 1700000000,
-    expiresInSeconds: 300,
-  };
-  // ES256 signing is randomized (a fresh nonce each call), so the two JWTs
-  // are never byte-identical even for identical input; compare the header.
-  // payload they each committed to, and confirm each copy produced a
-  // signature that actually verifies against the same public key.
-  const appJwt = app.generateClientSecretJwt(claims);
-  const pkgJwt = pkg.generateClientSecretJwt(claims);
-  const [appHeaderPayload] = [appJwt.split('.').slice(0, 2).join('.')];
-  const [pkgHeaderPayload] = [pkgJwt.split('.').slice(0, 2).join('.')];
-  assert.strictEqual(pkgHeaderPayload, appHeaderPayload,
-    'both copies must commit to the same header+claims for identical input - keep both edits together');
-  for (const jwt of [appJwt, pkgJwt]) {
-    const [headerPayload, sig] = [jwt.split('.').slice(0, 2).join('.'), jwt.split('.')[2]];
-    const signature = Buffer.from(sig.replace(/-/g, '+').replace(/_/g, '/'), 'base64');
-    assert.ok(crypto.verify('sha256', Buffer.from(headerPayload), {
-      key: publicKey, dsaEncoding: 'ieee-p1363',
-    }, signature), 'the signature must verify against the public key');
-  }
-
-  assert.strictEqual(
-    pkg.maybeGenerateOauth2ClientSecretJwt({}, 'client-id'),
-    app.maybeGenerateOauth2ClientSecretJwt({}, 'client-id'),
-    'both return null the same way when unconfigured');
+test('packages/wekan-oidc/oauth2ClientSecretJwt.js is the only copy', () => {
+  // It used to be vendored from models/lib/oauth2ClientSecretJwt.js, which
+  // nothing in the app loaded: production ran the package copy while the unit
+  // test drove the app one, and a test that compared the two had to keep them
+  // in step. The app copy is gone and tests/oauth2ClientSecretJwt.test.cjs
+  // drives the package file. Negative: no copy comes back anywhere in the tree.
+  const { execFileSync } = require('child_process');
+  const copies = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { cwd: ROOT })
+    .toString().split('\n')
+    .filter(f => /(^|\/)oauth2ClientSecretJwt\.(js|cjs|mjs)$/.test(f) && !f.startsWith('_build')
+      && fs.existsSync(path.join(ROOT, f)));
+  assert.deepStrictEqual(copies, ['packages/wekan-oidc/oauth2ClientSecretJwt.js']);
+  const test = fs.readFileSync(path.join(ROOT, 'tests', 'oauth2ClientSecretJwt.test.cjs'), 'utf8');
+  assert.ok(test.includes("require('../packages/wekan-oidc/oauth2ClientSecretJwt')"),
+    'the unit test drives the file production runs');
 });
 
 console.log(`\npackageAppImportBoundary: ${passed} tests passed`);

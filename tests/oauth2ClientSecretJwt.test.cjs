@@ -28,7 +28,7 @@ const path = require('path');
 const {
   generateClientSecretJwt,
   maybeGenerateOauth2ClientSecretJwt,
-} = require('../models/lib/oauth2ClientSecretJwt');
+} = require('../packages/wekan-oidc/oauth2ClientSecretJwt');
 
 let passed = 0;
 function test(name, fn) {

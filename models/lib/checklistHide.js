@@ -8,8 +8,9 @@
 //   2. hide a checklist-item exactly when that item is checked AND the
 //      owning checklist's toggle is on (correct, non-inverted direction).
 //
-// These helpers are framework-free so they can be unit tested in isolation
-// and reused by the client template logic.
+// These helpers are framework-free so they can be unit tested in isolation;
+// the Checklists helpers hideCheckedState() and isItemHidden() in
+// models/checklists.js call them, so the rule tested is the rule rendered.
 
 // Read the per-checklist "hide checked items" state from the given checklist
 // document. Returns a strict boolean; a missing/undefined field means "off".

@@ -50,9 +50,9 @@ Announcements.attachSchema(
 );
 
 // Pure, dependency-free helpers for per-user announcement dismissal (#6051).
-// Re-exported from server/lib/announcementVisibility.js so they can be unit
-// tested in isolation. Defined here (an isomorphic model file) so both client
-// and server share the exact same logic.
+// Defined here (an isomorphic model file) so both client and server share the
+// exact same logic; server/lib/tests/announcementDismiss.tests.js imports them
+// from this file.
 
 // Produce a stable "version" identity for the current announcement.
 // The version changes whenever the admin edits the announcement title/body,

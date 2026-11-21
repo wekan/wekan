@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import {
   wouldCreateCycle,
   subtaskCustomFields,
-} from '../subtaskHelpers';
+} from '/imports/lib/subtaskHelpers';
 
 /**
- * Unit tests for the pure subtask-creation helpers (server/lib/subtaskHelpers.js).
+ * Unit tests for the pure subtask-creation helpers (imports/lib/subtaskHelpers.js).
  *
  * These cover three distinct subtask CREATION bugs whose pure logic was
  * extracted out of models/cards.js so it can be tested Meteor-free:

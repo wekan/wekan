@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { isItemHidden, checklistHideState } from '../checklistHide';
+import { isItemHidden, checklistHideState } from '/models/lib/checklistHide';
 
 // Issue #5408: the per-checklist "Hide checked items" toggle was reported to
 // (1) behave inverted and (2) be applied to ALL checklists in the card.

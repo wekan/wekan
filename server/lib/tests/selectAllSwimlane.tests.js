@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { filterCardsByListAndSwimlane } from '../cardScope';
+import { filterCardsByListAndSwimlane } from '/models/lists';
 
 /**
  * Unit tests for swimlane-scoped "select all cards" (#5623).

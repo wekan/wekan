@@ -1,10 +1,9 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 import {
-  resolveSubtaskLanding,
   isSelectedSubtaskList,
   isSelectedSubtaskBoard,
-} from '../subtaskSettings';
+} from '/models/lib/subtaskSettings';
 
 /**
  * Unit tests for the board "Subtasks" landing settings helpers
@@ -15,77 +14,12 @@ import {
  *    save / showed the wrong selected list, because the selected-option helper
  *    compared the list against subtasksDefaultBoardId instead of
  *    subtasksDefaultListId.
- *  - When no landing target is configured, a fallback must be used (the parent
- *    board's default board/list), and a configured value must never be
- *    overridden by that fallback.
+ *
+ * Where a new subtask lands is Boards.getDefaultSubtasksBoardAsync() and
+ * getDefaultSubtasksListAsync() in models/boards.js; a resolveSubtaskLanding()
+ * helper tested here was never called by them and is removed.
  */
 describe('subtask landing settings (#3414/#3876/#4849/#4947)', function() {
-  const fallback = {
-    boardId: 'fbBoard',
-    listId: 'fbList',
-    swimlaneId: 'fbSwim',
-  };
-
-  describe('resolveSubtaskLanding', function() {
-    it('returns the configured board/list/swimlane when set', function() {
-      const board = {
-        subtasksDefaultBoardId: 'B1',
-        subtasksDefaultListId: 'L1',
-        subtasksDefaultSwimlaneId: 'S1',
-      };
-      expect(resolveSubtaskLanding(board, fallback)).to.deep.equal({
-        boardId: 'B1',
-        listId: 'L1',
-        swimlaneId: 'S1',
-      });
-    });
-
-    it('falls back when nothing is configured', function() {
-      const board = {
-        subtasksDefaultBoardId: null,
-        subtasksDefaultListId: null,
-      };
-      expect(resolveSubtaskLanding(board, fallback)).to.deep.equal({
-        boardId: 'fbBoard',
-        listId: 'fbList',
-        swimlaneId: 'fbSwim',
-      });
-    });
-
-    it('falls back on undefined / empty / "null" string values', function() {
-      const board = {
-        subtasksDefaultBoardId: undefined,
-        subtasksDefaultListId: '',
-        subtasksDefaultSwimlaneId: 'null',
-      };
-      expect(resolveSubtaskLanding(board, fallback)).to.deep.equal(fallback);
-    });
-
-    it('does NOT override a configured value with the fallback (#4849)', function() {
-      const board = {
-        subtasksDefaultBoardId: 'keepBoard',
-        subtasksDefaultListId: 'keepList',
-      };
-      const resolved = resolveSubtaskLanding(board, fallback);
-      expect(resolved.boardId).to.equal('keepBoard');
-      expect(resolved.listId).to.equal('keepList');
-    });
-
-    it('resolves each field independently', function() {
-      const board = {
-        subtasksDefaultBoardId: 'B2',
-        subtasksDefaultListId: null,
-      };
-      const resolved = resolveSubtaskLanding(board, fallback);
-      expect(resolved.boardId).to.equal('B2');
-      expect(resolved.listId).to.equal('fbList');
-    });
-
-    it('handles a null board', function() {
-      expect(resolveSubtaskLanding(null, fallback)).to.deep.equal(fallback);
-    });
-  });
-
   describe('isSelectedSubtaskList', function() {
     it('matches the stored subtasksDefaultListId (#3876/#4947)', function() {
       const board = { subtasksDefaultBoardId: 'B1', subtasksDefaultListId: 'L1' };

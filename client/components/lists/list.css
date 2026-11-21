@@ -745,8 +745,7 @@ form.inlined-form .list-composer {
   display: flex;
   /* #5439: always show a scrollbar on the list body across desktop and mobile
      browsers (overlay scrollbars on macOS/iOS/Android/Firefox otherwise auto-
-     hide it). Keep these declarations in sync with models/lib/scrollbarCss.js
-     (alwaysVisibleScrollbarCss), which is unit tested. */
+     hide it). tests/scrollbarCss.test.cjs reads these rules. */
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.08);

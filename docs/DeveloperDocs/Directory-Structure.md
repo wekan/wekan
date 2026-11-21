@@ -12,7 +12,6 @@ for years this page described four directories out of twenty and did not say so.
 | [imports/](../../imports) | shared code that is neither a model nor a component: i18n, the reactive cache, the shared SimpleSchema, startup |
 | [packages/](../../packages) | the Meteor packages WeKan maintains itself - the accounts integrations (CAS, LDAP, OIDC, Sandstorm), the lockout, markdown |
 | [config/](../../config) | the router and the accounts configuration |
-| [migrations/](../../migrations) | one file per database migration, run in order at startup |
 | [public/](../../public) | files served as-is: icons, fonts, the web app manifest |
 | [private/](../../private) | files the SERVER can read and the client cannot |
 | [tests/](../../tests) | the suites - `*.test.cjs` run by `tests/run-node-suites.cjs`, plus the Playwright and e2e directories |
@@ -166,7 +165,7 @@ The four directories that hold most of it:
   the database, the retry-on-busy wrapper, the error handlers.
 
 * **[statistics.js](../../server/statistics.js)** implements a Meteor server-only [method](https://guide.meteor.com/methods.html) for general-purpose information such as OS, memory, CPUs, PID of the process and so on.
-* **[migrations.js](../../migrations)** is where code that update sold databases to new schema is located. Anytime the schema of one of the collection changes in a non-backward compatible way a migration needs to be written in this file.
+* **[migrations/](../../server/migrations)** is where code that updates old databases to a new schema is located: one file per migration, run at startup. Anytime the schema of one of the collections changes in a non-backward compatible way, a migration needs to be written there.
 * **[authentication.js](../../server/authentication.js)** add the `Authentication`object to Meteor that provides methods for checking access rights.
 * **[lib/utils.js](../../server/lib/utils.js)** defines some checks used by [checklists.js](../../models/checklists.js)** model. <span style="color:red">*XXX: these methods are defined in server-only code by are used in models, which are visible by the client (in Checklists.allow)?*</span>
 * **[notifications](../../server/notifications)**

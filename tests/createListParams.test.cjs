@@ -12,7 +12,45 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { validateCreateListParams } = require('../models/lib/createListParams.js');
+// The pattern the server checks, read from server/models/lists.js and run by
+// the rules of Meteor's `check` that it uses: an object pattern rejects a key
+// it does not name, and a MISSING key passes only when its sub-pattern is
+// Match.Optional. This used to be models/lib/createListParams.js, a hand-made
+// copy of the pattern that the server never loaded, so the copy could pass
+// while the real check changed.
+const OPTIONAL = Symbol('Optional');
+const ONE_OF = Symbol('OneOf');
+const Match = {
+  Optional: pattern => ({ [OPTIONAL]: pattern }),
+  OneOf: (...patterns) => ({ [ONE_OF]: patterns }),
+};
+
+function matches(value, pattern) {
+  if (pattern === String) return typeof value === 'string';
+  if (pattern === null) return value === null;
+  if (pattern && pattern[OPTIONAL] !== undefined) return value === undefined || matches(value, pattern[OPTIONAL]);
+  if (pattern && pattern[ONE_OF]) return pattern[ONE_OF].some(p => matches(value, p));
+  if (pattern && typeof pattern === 'object') {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+    for (const key of Object.keys(value)) if (!(key in pattern)) return false;
+    return Object.entries(pattern).every(([key, sub]) =>
+      (key in value ? matches(value[key], sub) : sub && sub[OPTIONAL] !== undefined));
+  }
+  throw new Error(`pattern not modelled here: ${String(pattern)}`);
+}
+
+function serverPattern(src) {
+  const at = src.indexOf('async createListAfter(params)');
+  assert.ok(at !== -1, 'createListAfter exists');
+  const open = src.indexOf('check(params, {', at);
+  assert.ok(open !== -1 && open - at < 600, 'createListAfter checks its params first');
+  const close = src.indexOf('\n    });', open);
+  // eslint-disable-next-line no-new-func
+  return new Function('Match', `return ${src.slice(open + 'check(params, '.length, close + 6)};`)(Match);
+}
+
+const PATTERN = serverPattern(fs.readFileSync(path.join(__dirname, '..', 'server/models/lists.js'), 'utf8'));
+const validateCreateListParams = params => matches(params, PATTERN);
 
 let passed = 0;
 function test(name, fn) {
@@ -97,6 +135,16 @@ test('server createListAfter uses Match.Optional for omittable keys', () => {
     assert.ok(new RegExp(`${key}:\\s*Match\\.Optional\\(`).test(block),
       `${key} must be Match.Optional (missing key allowed)`);
   }
+});
+
+test('the rules above reproduce the original bug: a bare Match.OneOf rejects a missing key', () => {
+  const old = { title: String, boardId: String, nextListId: Match.OneOf(String, null) };
+  assert.strictEqual(matches({ title: 'x', boardId: 'b' }, old), false);
+  assert.strictEqual(matches({ title: 'x', boardId: 'b', nextListId: null }, old), true);
+});
+
+test('the copy of the pattern that the server never loaded is gone', () => {
+  assert.ok(!fs.existsSync(path.join(__dirname, '..', 'models/lib/createListParams.js')));
 });
 
 console.log(`\nAll ${passed} createListAfter param tests passed`);

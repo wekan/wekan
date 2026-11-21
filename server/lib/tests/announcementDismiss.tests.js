@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {
   announcementVersion,
   shouldShowAnnouncement,
-} from '../announcementVisibility';
+} from '/models/announcements';
 
 /**
  * Unit tests for per-user announcement dismissal logic (#6051).

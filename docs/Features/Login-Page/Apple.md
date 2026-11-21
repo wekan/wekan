@@ -36,7 +36,7 @@ token response instead of calling a userinfo endpoint.
    - `iat`/`exp`: issued-at and expiry (Apple allows up to ~6 months; Wekan
      mints a short-lived one fresh on every token-exchange request instead)
 
-   Wekan generates this JWT itself (`models/lib/oauth2ClientSecretJwt.js`,
+   Wekan generates this JWT itself (`packages/wekan-oidc/oauth2ClientSecretJwt.js`,
    using only Node's built-in `crypto` module - no external dependency) when
    `OAUTH2_SECRET_JWT_KEY_PATH` is set, and falls back to the plain
    `OAUTH2_SECRET` exactly as before when it is not. **This is opt-in and

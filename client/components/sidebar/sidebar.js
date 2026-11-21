@@ -5,6 +5,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { isSelectedSubtaskBoard, isSelectedSubtaskList } from '/models/lib/subtaskSettings';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -1906,7 +1907,7 @@ Template.boardSubtaskSettingsBody.helpers({
   },
   isBoardSelected() {
     const tpl = Template.instance();
-    return tpl.currentBoard.subtasksDefaultBoardId === Template.currentData()._id;
+    return isSelectedSubtaskBoard(tpl.currentBoard, Template.currentData()._id);
   },
   isNullBoardSelected() {
     const tpl = Template.instance();
@@ -1981,7 +1982,7 @@ Template.boardSubtaskSettingsBody.helpers({
     // #3876 / #4947: the selected landing list must be compared against
     // subtasksDefaultListId (the stored list id), NOT subtasksDefaultBoardId.
     const tpl = Template.instance();
-    return tpl.currentBoard.subtasksDefaultListId === Template.currentData()._id;
+    return isSelectedSubtaskList(tpl.currentBoard, Template.currentData()._id);
   },
   presentParentTask() {
     // Get the current board reactively using board ID from Session

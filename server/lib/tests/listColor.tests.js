@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {
   ALLOWED_LIST_COLORS,
   normalizeListColor,
-} from '../listColors';
+} from '/models/lists';
 
 /**
  * Unit tests for list / swimlane color normalization (#5382).
