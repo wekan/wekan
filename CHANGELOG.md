@@ -7,12 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **move and copy pickers** show board, swimlane and list names
-without a number in front, as #6135 asked, and the **brute-force lockout**
-starts again when Meteor.settings configures it. Beneath that, code nothing
-loaded is removed and copied code is shared: **schema timestamps**, the
-**autolinks** of the markdown package, the **attachment** APIs and file
-routes, and tests that drove copies now drive the code the app runs.
+A new **Workload and capacity** page shows each person's
+estimated hours and story points, week by week across their boards, against
+their working time, absences and public holidays, with **allocations** and
+placeholder roles. The **move and copy pickers** show names without a number
+in front (#6135), the **brute-force lockout** starts again when Meteor.settings
+configures it, and code nothing loaded is removed or shared.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

@@ -97,14 +97,37 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **move and copy pickers** show board, swimlane and list names
-without a number in front, as #6135 asked, and the **brute-force lockout**
-starts again when Meteor.settings configures it. Beneath that, code nothing
-loaded is removed and copied code is shared: **schema timestamps**, the
-**autolinks** of the markdown package, the **attachment** APIs and file
-routes, and tests that drove copies now drive the code the app runs.
+**In short:** A new **Workload and capacity** page shows each person's
+estimated hours and story points, week by week across their boards, against
+their working time, absences and public holidays, with **allocations** and
+placeholder roles. The **move and copy pickers** show names without a number
+in front (#6135), the **brute-force lockout** starts again when Meteor.settings
+configures it, and code nothing loaded is removed or shared.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Workload and capacity** - hours against each person's working time, across
+boards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/165dfa3c1676f6069d456ead021fa0db69f92e22">Workload and capacity page: load per person and week, with absences, holidays and allocations</a>. Thanks to xet7.</summary>
+
+User menu → Workload and capacity (`/workload`) shows, week by week, the
+estimated hours (a new card field, set beside the time spent) and Scrum story
+points of the cards assigned to each person, across every board the viewer is
+an active member of, against that person's working time: hours per week, work
+percent and working days, less absences and public holidays. A week over
+100 % is red. A board's admins allocate a share of a member's time to the
+board for a period, or a role before anybody is named (a placeholder row).
+The server computes the report; public boards and assigned-only boards are
+left out, and somebody else's absence is dates only. Admin Panel → Features
+turns it off. `tests/workload.test.cjs` and `tests/workloadAccess.test.cjs`
+pin the rules and who may do what, and a Playwright spec drives the page. See
+[Workload](docs/Features/Workload/Workload.md).
+
+</details>
+
+and fixes the following bugs:
 
 **Move and copy pickers** - how boards, swimlanes and lists are named in them.
 
