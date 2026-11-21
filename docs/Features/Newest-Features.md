@@ -9,6 +9,12 @@ before expecting the newest UI. For all menus, use [Features](Features.md).
 
 | Feature | Where to find it | Instructions |
 | --- | --- | --- |
+| Workload and capacity: hours against working time across boards, absences, holidays, allocations, placeholders, billable utilization and skills | User menu / Workload and capacity | [Workload](Workload/Workload.md) |
+| Budget and billing: rates, cost rates, budget against cost, forecast and margin; time by day and its approval; expenses, fixed fees, retainers, quotes and invoices | User menu / Budget and billing | [Budget and billing](Billing/Billing.md) |
+| Invoices as PDF, SVG, Excel, CSV and Peppol e-invoice, with the payment QR codes and bank barcodes of many countries | User menu / Budget and billing, an invoice's buttons | [Budget and billing](Billing/Billing.md) |
+| Cloud Panel: customer domains with their own WeKan and database or sharing this one, many WeKans merged into one, CloudFlare, Caddy, invoices and chat | Admin Panel / People / Cloud; the Cloud Panel Domain's /cloud | [Cloud Panel](Admin-Panel/Cloud-Panel.md) |
+| Websites imported and exported: WordPress, Ghost, Blogger, Hugo / Jekyll / Eleventy / Astro, HTML sites, Medium, Substack | Add Board / Import, Website; Board Settings / Export, Website | [Website](Board-Sidebar/Board-Settings/Import-Export/Website/Website.md) |
+| The board as a website, at a public board's own address | Board header / Board View / Website; Board Settings / Board View | [Board View](Board-Sidebar/Board-Settings/Board-View.md) and [Website](Board-Sidebar/Board-Settings/Import-Export/Website/Website.md) |
 | Twelve more reports: Created vs. Resolved, Net Flow, Time in List and the rest, each with its export bar | Board header / Board View, Reports group | [Board reports](Board-Header/Board-Views/Charts/Board-Reports.md) and [report charts](Board-Header/Board-Views/Charts/Board-Report-Charts.md) |
 | Menus grouped under headings | Board View menu; list, card and swimlane menus; Import and Export | [Board View](Board-Sidebar/Board-Settings/Board-View.md) and [formats](Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md) |
 | Kanban and Scrum flow fields: Blocked, Class of service, MoSCoW priority, WSJF score | Board Settings / Card; Admin Panel / Settings / Features / Card fields | [Flow fields](Cards/Flow-Fields.md) |

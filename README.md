@@ -58,6 +58,8 @@ that by providing one-click installation on various platforms.
       - Text and outlines: Markdown, Leo, OPML, Org mode
       - Mail, calendars, chats and notes, each into the view it fits: Mail (mbox, .eml), iCalendar, Slack, Mattermost,
         Telegram, WhatsApp, Discord, Rocket.Chat, Evernote
+      - [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): WordPress (.xml, and Squarespace, Wix and others that write it),
+        WordPress REST API, Ghost, Blogger, Hugo / Jekyll / Eleventy / Astro (.zip of Markdown), HTML website and Medium (.zip), Substack
       - Fetched from the service's API with your credentials: Planka, KanbanFlow, Basecamp, Microsoft To Do, OneNote and Teams,
         Google Tasks and Keep
       - Large files are streamed to disk, within its free space or the Admin Panel limit
@@ -65,6 +67,13 @@ that by providing one-click installation on various platforms.
         One board per project splits an export of a whole app into a board per project
   - Change Color: Board theme and background image, Swimlane, List, Card
     - Overrides: 1 Admin Panel, 2 Board Settings, 3 Member Settings
+  - Professional services (PSA), from the user menu:
+    - [Workload and capacity](docs/Features/Workload/Workload.md): each person's hours against their working time across boards,
+      absences, public holidays, allocations, placeholders for roles, billable utilization against a target, skills and who could do the work
+    - [Budget and billing](docs/Features/Billing/Billing.md): rates and cost rates, budget against cost and forecast, margin and unbilled work,
+      time by day and its approval, expenses, fixed fees and monthly retainers, quotes, invoices of a period
+      with VAT, payments and credit notes, as PDF, SVG, Excel, CSV and Peppol e-invoice, with the payment QR codes and
+      bank barcodes of many countries, in each currency's own decimals
   - Drag drop reorder with one or Multi-Selection:
     - Board icons to Workspaces at All Boards page
     - Swimlane, List, Minicard
@@ -101,7 +110,8 @@ that by providing one-click installation on various platforms.
         Work Item Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age,
         Throughput Run Chart, Due Date Performance
       - Overview: Statistics, Dashboard, Pulse, Workload, Distribution, Dependency Map, Activity Heatmap
-      - Communication and code: Email, Chat, Version Control
+      - Communication and code: Email, Chat, Version Control,
+        [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): the board as a website, which a public board can show at its own address instead of the kanban
       - The charts and reports each have PDF and Excel export
    - Right Sidebar / Board Settings:
     - Rules: like IFTTT like Trello Butler
@@ -126,6 +136,8 @@ that by providing one-click installation on various platforms.
        - Task and to-do apps: todo.txt, Taskwarrior, Todoist, TickTick, Tasks.org, Super Productivity, Vikunja
        - Text and outlines: Markdown, Leo, OPML, Org mode
        - Mail, chats and notes: mbox, Evernote, Mattermost, Rocket.Chat
+       - Website: WordPress (.xml and REST API .json), Ghost, Blogger, Hugo / Jekyll / Eleventy / Astro (.zip of Markdown),
+         HTML website (.zip, the published site ready for any web server)
        - Every export is written a page of cards at a time, so a large board exports without running out of memory
      - Export all boards at once (All Boards sidebar, or Multi-Selection): Excel as one workbook
        with a sheet per board, every other format as a .zip with a file per board
@@ -147,6 +159,9 @@ that by providing one-click installation on various platforms.
       - Global Webhooks
   - People
     - Email, Notifications, Domains, Organizations, Teams, People
+    - Cloud: the [Cloud Panel](docs/Features/Admin-Panel/Cloud-Panel.md) Domain and its SuperAdmin. At that domain the Cloud Panel keeps
+      the customer domains - each with its own WeKan and MongoDB, or sharing this WeKan - and merges many WeKans into one,
+      with CloudFlare DNS, Caddy routes, each customer's invoices, and a chat with earlier Rocket.Chat and SandChat conversations
     - Locked Users, Roles, Shared Templates
     - Login, SAML, LDAP, OAuth2 login providers, Passwordless login
   - Attachments

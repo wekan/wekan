@@ -9,6 +9,8 @@ visibility depends on your role, the board and the site's settings.
 | All Boards | [All Boards](All-Boards/README.md): boards, workspaces, public and starred items |
 | Personal pages | [Pages](Pages/README.md): My Cards, Due Cards, My Attachments, Starred |
 | Top-right username / Member Settings | [Member Settings](Member-Settings/README.md): personal pages, Date, appearance, notifications and account settings |
+| User menu / Workload and capacity, Budget and billing | Professional services: [Workload](Workload/Workload.md) and [Budget and billing](Billing/Billing.md) |
+| Cloud Panel Domain / Cloud Panel | [Cloud Panel](Admin-Panel/Cloud-Panel.md): customer domains, their databases, CloudFlare, Caddy, invoices and chat |
 | Board header / Board View | [Board header](Board-Header/README.md): search and every Board View, with the template that draws it |
 | Right sidebar | [Right Sidebar](Board-Sidebar/README.md): members, labels, filter, archive and shortcuts |
 | Right sidebar / Board Settings | [Board Settings](Board-Sidebar/Board-Settings/README.md): board appearance, views, dates, lists, cards, import/export and archive |
