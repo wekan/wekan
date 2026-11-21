@@ -100,7 +100,8 @@ Which databases WeKan supports
 **In short:** Six more of **Microsoft**'s tools are imported and exported under
 the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
 **Microsoft Project** (XML), **Outlook** (.msg in, .eml out), **Teams** and
-**OneNote**, the last two also fetched from Microsoft Graph.
+**OneNote**, the last two also fetched from Microsoft Graph, and **Vietnamese**
+no longer shows Malay text.
 
 This release adds the following new features:
 
@@ -171,6 +172,20 @@ a checklist and subpages as subtasks. The export is a `.zip` of pages in the
 XHTML Graph's create page takes, with `onenote.json` that WeKan reads back.
 Both Graph clients refuse a next link that leaves graph.microsoft.com, and
 have live tests in `releases/live-tests/`.
+
+</details>
+
+and fixes the following translation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02b101ad88f7f845212b280d037b6a12e7a88c37">Vietnamese: comments and 282 other strings are Vietnamese, not Malay</a>. Thanks to xet7.</summary>
+
+vi and vi-VN were partly seeded with Malay and Indonesian - "Komen" for
+Comments, "Hapus komen?", the colours, Planning Poker, the minicard settings,
+the Node heap statistics, the e-mail templates and more. They are Vietnamese
+now, with the words the files already use. `tests/vietnameseNotMalay.test.cjs`
+fails on a Malay or Indonesian word in either file and on a placeholder that
+differs from English.
 
 </details>
 

@@ -10,7 +10,8 @@ make changes there.
 Six more of **Microsoft**'s tools are imported and exported under
 the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
 **Microsoft Project** (XML), **Outlook** (.msg in, .eml out), **Teams** and
-**OneNote**, the last two also fetched from Microsoft Graph.
+**OneNote**, the last two also fetched from Microsoft Graph, and **Vietnamese**
+no longer shows Malay text.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
