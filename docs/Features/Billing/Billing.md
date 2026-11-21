@@ -86,12 +86,41 @@ the standards' own examples):
 | Bitcoin | the BIP 21 URI and QR code (an amount only on a BTC invoice) |
 | PayPal | the PayPal.me link with the amount, and its QR code |
 | Payment link | any https payment page - Stripe Payment Links, Mollie, Square, MobilePay, Vipps, Revolut, ... - with `{amount}`, `{currency}`, `{reference}` and `{number}` filled in, and its QR code |
+| PromptPay (Thailand) | EMVCo QR to a mobile number, national ID or e-wallet, THB |
+| PayNow (Singapore) | SGQR (EMVCo) to a mobile number or UEN, SGD |
+| VietQR (Vietnam) | NAPAS EMVCo QR to a bank account by BIN, VND |
+| FPS (Hong Kong) | EMVCo QR to an FPS ID, mobile number or email, HKD |
+| QR Platba (Czechia) | Short Payment Descriptor (SPAYD), CZK, with the variable symbol |
+| Polish bank QR | the ZBP 2D code, PLN (up to 9 999.99) |
+| Hungary | the MNB instant transfer QR code, HUF |
+| Serbia | the NBS IPS QR code, RSD |
+| Denmark | the FI card +71 line, DKK |
+| Ethereum, Litecoin | EIP-681 and BIP 21-style URIs and QR codes |
 | Bank transfer, cash, cheque, other | the instructions, as text |
 
 A method that does not fit an invoice - Swish on a EUR invoice, say - is left
 out of it, and the invoice page says why. Nothing is sent to any payment
 service: the codes are drawn on the invoice, and the payer's bank or app reads
 them.
+
+Payment references: a Finnish reference number, an ISO 11649 RF creditor
+reference, a Belgian structured communication (`+++123/4567/89002+++`, put in
+the text of a SEPA QR code as Belgian banks read it), a Norwegian KID or a
+Swedish OCR reference.
+
+Not included, as they need a merchant agreement or registration with the
+scheme, or a contract with the service: Indonesia's QRIS, Japan's JPQR,
+Nigeria's NQR, Mexico's CoDi, the Philippines' QR Ph, Alipay, WeChat Pay,
+Zelle, Interac, M-Pesa. Slovenia's UPN QR, Slovakia's PAY by square,
+Croatia's HUB3 and Brazil's boleto are not drawn yet. For these, a payment link
+or the instructions as text work.
+
+## Currencies
+
+Amounts are kept in the minor unit of their currency, as ISO 4217 gives it
+(models/lib/currencies.js): two decimals for most, none for JPY, KRW, VND, CLP,
+ISK and the others without, three for BHD, KWD, JOD, OMR, TND and IQD. Bitcoin,
+Litecoin and Ether are kept to 8 decimals.
 
 ## Who sees what
 

@@ -7,6 +7,7 @@ import qrcode from 'qrcode-generator';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from '/models/server/createWorkbook';
 const { formatMoney } = require('/models/lib/billing');
+const { fromMinorUnits, minorToText, minorUnits } = require('/models/lib/currencies');
 const { code128CModules, formatReference, formatIban } = require('/models/lib/paymentCodes');
 const { ublInvoiceXml } = require('/models/lib/ublInvoice');
 
@@ -68,7 +69,7 @@ function drawBarcode(pdf, digits, x, y, width, height) {
 
 function money(minor, invoice, locale) {
   const sign = invoice.kind === 'credit' && minor ? -1 : 1;
-  return formatMoney(sign * minor, invoice.currency, locale) || `${((sign * minor) / 100).toFixed(2)} ${invoice.currency}`;
+  return formatMoney(sign * minor, invoice.currency, locale) || `${minorToText(sign * minor, invoice.currency)} ${invoice.currency}`;
 }
 
 /**
@@ -199,7 +200,9 @@ export async function invoiceXlsx(invoice, profile, labels) {
   const workbook = createWorkbook();
   const sheet = workbook.addWorksheet(invoice.number.slice(0, 31));
   const sign = invoice.kind === 'credit' ? -1 : 1;
-  const cur = `#,##0.00 "${invoice.currency}"`;
+  const digits = minorUnits(invoice.currency);
+  const cur = `#,##0${digits ? `.${'0'.repeat(digits)}` : ''} "${invoice.currency}"`;
+  const major = minor => fromMinorUnits(minor, invoice.currency);
   // Widths one by one: sheet.columns = [...] would add an empty header row.
   [40, 24, 10, 14, 16].forEach((width, i) => { sheet.getColumn(i + 1).width = width; });
   sheet.addRow([labels[invoice.kind === 'credit' ? 'billing-credit-note' : 'billing-invoice'], invoice.number]).font = { bold: true, size: 14 };
@@ -215,14 +218,14 @@ export async function invoiceXlsx(invoice, profile, labels) {
   const head = sheet.addRow([labels.card, labels.person, labels.hours, labels['billing-hourly-rate'], labels['billing-amount']]);
   head.font = { bold: true };
   for (const line of invoice.lines || []) {
-    const row = sheet.addRow([line.title, line.name || '', line.hours, line.rateMinor / 100, sign * line.amountMinor / 100]);
+    const row = sheet.addRow([line.title, line.name || '', line.hours, major(line.rateMinor), sign * major(line.amountMinor)]);
     row.getCell(4).numFmt = cur;
     row.getCell(5).numFmt = cur;
   }
   sheet.addRow([]);
   for (const [k, v] of [[labels['billing-net'], invoice.netMinor], [`${labels['billing-vat']} ${invoice.vatPercent || 0} %`, invoice.vatMinor || 0],
     [labels['billing-total'], invoice.totalMinor], [labels['billing-paid'], invoice.paidMinor || 0], [labels['billing-amount-due'], invoice.amountDueMinor]]) {
-    const row = sheet.addRow(['', '', '', k, sign * v / 100]);
+    const row = sheet.addRow(['', '', '', k, sign * major(v)]);
     row.getCell(5).numFmt = cur;
     row.font = { bold: k === labels['billing-total'] };
   }

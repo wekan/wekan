@@ -12,9 +12,7 @@ function xml(value) {
     .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f￾￿]/g, '');
 }
 
-function amount(minor) {
-  return (minor / 100).toFixed(2);
-}
+const { minorToText } = require('./currencies');
 
 function tag(name, value, attrs = '') {
   if (value === null || value === undefined || value === '') return '';
@@ -51,7 +49,7 @@ function ublInvoiceXml(invoice, profile) {
   const lineTag = credit ? 'CreditNoteLine' : 'InvoiceLine';
   const qtyTag = credit ? 'cbc:CreditedQuantity' : 'cbc:InvoicedQuantity';
   const cur = invoice.currency;
-  const money = (name, minor) => `<cbc:${name} currencyID="${xml(cur)}">${amount(minor)}</cbc:${name}>`;
+  const money = (name, minor) => `<cbc:${name} currencyID="${xml(cur)}">${minorToText(minor, cur)}</cbc:${name}>`;
   const category = taxCategory(invoice);
   const percent = category === 'S' ? invoice.vatPercent : 0;
   const customerLines = String(invoice.customer || '').split(/\r?\n/);

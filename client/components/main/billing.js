@@ -7,6 +7,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import qrcode from 'qrcode-generator';
 import { TAPi18n } from '/imports/i18n';
 const { formatMoney } = require('/models/lib/billing');
+const { minorToText } = require('/models/lib/currencies');
 const { PAYMENT_METHODS, code128CModules, formatReference, formatIban } = require('/models/lib/paymentCodes');
 
 function t(key, options) {
@@ -36,15 +37,22 @@ const METHOD_KEYS = {
   'bank-transfer': 'billing-method-bank-transfer', swish: 'billing-method-swish', pix: 'billing-method-pix',
   upi: 'billing-method-upi', bitcoin: 'billing-method-bitcoin', paypal: 'billing-method-paypal', link: 'billing-method-link',
   cash: 'billing-method-cash', cheque: 'billing-method-cheque', other: 'billing-method-other',
+  promptpay: 'billing-method-promptpay', paynow: 'billing-method-paynow', vietqr: 'billing-method-vietqr', fps: 'billing-method-fps',
+  spayd: 'billing-method-spayd', zbp: 'billing-method-zbp', mnb: 'billing-method-mnb', ips: 'billing-method-ips',
+  'dk-fik': 'billing-method-dk-fik', ethereum: 'billing-method-ethereum', litecoin: 'billing-method-litecoin',
 };
 const FIELD_KEYS = {
   name: 'billing-field-name', iban: 'billing-field-iban', bic: 'billing-field-bic', street: 'billing-field-street',
   building: 'billing-field-building', postcode: 'billing-field-postcode', town: 'billing-field-town', country: 'billing-country',
   details: 'billing-field-details', payee: 'billing-field-payee', key: 'billing-field-pix-key', city: 'billing-field-town',
-  vpa: 'billing-field-vpa', address: 'billing-field-bitcoin-address', user: 'billing-field-paypal-user', label: 'billing-field-label',
-  url: 'billing-field-url',
+  vpa: 'billing-field-vpa', address: 'billing-field-crypto-address', user: 'billing-field-paypal-user', label: 'billing-field-label',
+  url: 'billing-field-url', target: 'billing-field-promptpay-target', proxy: 'billing-field-proxy', bin: 'billing-field-bank-bin',
+  account: 'billing-field-account', nip: 'billing-field-nip', creditor: 'billing-field-creditor',
 };
-const PLACEHOLDERS = { iban: 'FI21 1234 5600 0007 85', bic: 'NDEAFIHH', country: 'CH', url: '…?amount={amount}&reference={reference}', vpa: 'shop@bank' };
+const PLACEHOLDERS = {
+  iban: 'FI21 1234 5600 0007 85', bic: 'NDEAFIHH', country: 'CH', url: '…?amount={amount}&reference={reference}', vpa: 'shop@bank',
+  target: '081 234 5678', proxy: '+65 9123 4567', bin: '970436', creditor: '12345678', nip: '5260250274',
+};
 
 // ---------------------------------------------------------------- codes as SVG
 
@@ -214,7 +222,7 @@ Template.billingBoard.helpers({
   hasBudget: () => !!detail().budget,
   budgetAmount() {
     const b = detail().budget;
-    return b && typeof b.amountMinor === 'number' ? (b.amountMinor / 100).toFixed(2) : '';
+    return b && typeof b.amountMinor === 'number' ? minorToText(b.amountMinor, b.currency) : '';
   },
   budgetCurrency() {
     const d = detail();
@@ -231,7 +239,8 @@ Template.billingBoard.helpers({
   today: () => new Date().toISOString().slice(0, 10),
   referenceTypes: () => [
     { value: 'rf', label: t('billing-reference-rf') }, { value: 'fi', label: t('billing-reference-fi') },
-    { value: 'none', label: t('billing-reference-none') },
+    { value: 'be', label: t('billing-reference-be') }, { value: 'no', label: t('billing-reference-no') },
+    { value: 'se', label: t('billing-reference-se') }, { value: 'none', label: t('billing-reference-none') },
   ],
   methodTypes: () => Object.keys(PAYMENT_METHODS).map(value => ({ value, label: methodTitle(value) })),
   methodType: () => Template.instance().methodType.get(),
@@ -397,7 +406,7 @@ Template.billingInvoicePrint.helpers({
   today: () => new Date().toISOString().slice(0, 10),
   dueAmount() {
     const inv = Template.currentData().invoice;
-    return (inv.dueMinor / 100).toFixed(2);
+    return minorToText(inv.dueMinor, inv.currency);
   },
 });
 

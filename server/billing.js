@@ -365,7 +365,7 @@ Meteor.methods({
     const userId = await signedIn(this.userId);
     const { invoice } = await managedInvoice(userId, invoiceId);
     if (invoice.kind === 'credit' || !['sent', 'paid'].includes(invoice.status)) invalid(new Error('Payments are recorded on a sent invoice'));
-    const value = validated(() => normalizePayment(payment));
+    const value = validated(() => normalizePayment(payment, invoice.currency));
     const payments = [...(invoice.payments || []), { id: Random.id(), ...value, method: value.method || undefined, note: value.note || undefined }];
     const paid = payments.reduce((s, p) => s + p.amountMinor, 0);
     const $set = { payments };

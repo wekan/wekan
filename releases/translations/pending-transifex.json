@@ -3809,10 +3809,6 @@
       "since": "2026-11-21"
     },
     {
-      "key": "billing-field-bitcoin-address",
-      "since": "2026-11-21"
-    },
-    {
       "key": "billing-field-building",
       "since": "2026-11-21"
     },
@@ -4038,6 +4034,90 @@
     },
     {
       "key": "time-entry-undated",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-promptpay",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-paynow",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-vietqr",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-fps",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-spayd",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-zbp",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-mnb",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-ips",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-dk-fik",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-ethereum",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-method-litecoin",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-crypto-address",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-promptpay-target",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-proxy",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-bank-bin",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-account",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-nip",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-field-creditor",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-be",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-no",
+      "since": "2026-11-21"
+    },
+    {
+      "key": "billing-reference-se",
       "since": "2026-11-21"
     }
   ]

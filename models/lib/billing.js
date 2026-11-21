@@ -15,6 +15,7 @@
 
 const { finnishReference, rfReference, normalizePaymentMethod } = require('./paymentCodes');
 const { entriesInPeriod } = require('./timeEntries');
+const { toMinorUnits, fromMinorUnits, minorToText, minorUnits } = require('./currencies');
 
 const MAX_MINOR = 1e13; // 100 000 000 000.00 of any currency
 const MAX_HOURS = 1e6;
@@ -41,10 +42,11 @@ function currency(value) {
   return code;
 }
 
-// A money amount given in major units (12.5 = 12.50) to integer minor units.
-function toMinor(amount) {
+// A money amount given in major units (12.5 EUR, 1000 JPY) to the integer of
+// its currency's minor unit (models/lib/currencies.js): 1250, 1000.
+function toMinor(amount, cur = 'EUR') {
   if (typeof amount !== 'number' || !Number.isFinite(amount) || amount < 0) fail('An amount is a number of at least 0');
-  const minor = Math.round(amount * 100);
+  const minor = toMinorUnits(amount, cur);
   if (minor > MAX_MINOR) fail('The amount is too large');
   return minor;
 }
@@ -82,7 +84,8 @@ function addDays(value, n) {
 function normalizeRate(value) {
   const v = plainObject(value, ['userId', 'hourlyRate', 'currency']);
   const userId = v.userId === undefined || v.userId === null || v.userId === '' ? null : text(v.userId, 100, 'Invalid person');
-  return { userId, hourlyRateMinor: toMinor(v.hourlyRate), currency: currency(v.currency) };
+  const cur = currency(v.currency);
+  return { userId, hourlyRateMinor: toMinor(v.hourlyRate, cur), currency: cur };
 }
 
 // A board's budget: money, hours or both, for an optional period.
@@ -99,10 +102,11 @@ function normalizeBudget(value) {
     if (typeof v.hours !== 'number' || !Number.isFinite(v.hours) || v.hours < 0 || v.hours > MAX_HOURS) fail('Hours must be between 0 and 1000000');
     hours = v.hours;
   }
+  const cur = hasAmount ? currency(v.currency) : (v.currency ? currency(v.currency) : null);
   return {
     name: text(v.name, 100, 'The name is too long'),
-    amountMinor: hasAmount ? toMinor(v.amount) : null,
-    currency: hasAmount ? currency(v.currency) : (v.currency ? currency(v.currency) : null),
+    amountMinor: hasAmount ? toMinor(v.amount, cur) : null,
+    currency: cur,
     hours,
     start,
     end,
@@ -118,7 +122,7 @@ function normalizeProfile(value) {
   const terms = v.paymentTermsDays === undefined || v.paymentTermsDays === null || v.paymentTermsDays === '' ? 14 : v.paymentTermsDays;
   if (!Number.isInteger(terms) || terms < 0 || terms > 365) fail('Payment terms are 0 to 365 days');
   const referenceType = v.referenceType === undefined ? 'rf' : v.referenceType;
-  if (!['fi', 'rf', 'none'].includes(referenceType)) fail('Invalid reference type');
+  if (!['fi', 'rf', 'be', 'no', 'se', 'none'].includes(referenceType)) fail('Invalid reference type');
   const methods = v.paymentMethods === undefined ? [] : v.paymentMethods;
   if (!Array.isArray(methods) || methods.length > 20) fail('At most 20 payment methods');
   return {
@@ -169,12 +173,12 @@ function normalizeInvoiceStatus(value) {
   return value;
 }
 
-// A payment received against an invoice.
-function normalizePayment(value) {
+// A payment received against an invoice, in the invoice's currency.
+function normalizePayment(value, cur = 'EUR') {
   const v = plainObject(value, ['date', 'amount', 'method', 'note']);
   const date = day(v.date);
   if (!date) fail('A payment has a date');
-  const amountMinor = toMinor(v.amount);
+  const amountMinor = toMinor(v.amount, cur);
   if (amountMinor < 1) fail('A payment is more than 0');
   return { date, amountMinor, method: text(v.method, 50, 'Invalid method'), note: text(v.note, 200, 'The note is too long') };
 }
@@ -403,6 +407,10 @@ function invoiceNumber(year, sequence, kind = 'invoice') {
 function paymentReference(year, sequence, type) {
   if (type === 'none') return '';
   const base = `${year}${String(sequence).padStart(5, '0')}`;
+  const R = require('./regionalPaymentCodes');
+  if (type === 'be') return R.belgianStructuredReference(base);
+  if (type === 'no') return R.norwegianKid(base);
+  if (type === 'se') return R.swedishOcr(base);
   const fi = finnishReference(base);
   return type === 'fi' ? fi : rfReference(fi);
 }
@@ -415,9 +423,11 @@ function defaultDueDate(issueDate, days) {
 function formatMoney(minor, cur, locale) {
   if (minor === null || minor === undefined || !cur) return '';
   try {
-    return new Intl.NumberFormat(locale || undefined, { style: 'currency', currency: cur }).format(minor / 100);
+    const digits = minorUnits(cur);
+    return new Intl.NumberFormat(locale || undefined, { style: 'currency', currency: cur, minimumFractionDigits: digits,
+      maximumFractionDigits: digits }).format(fromMinorUnits(minor, cur));
   } catch (e) {
-    return `${(minor / 100).toFixed(2)} ${cur}`;
+    return `${minorToText(minor, cur)} ${cur}`;
   }
 }
 
@@ -432,12 +442,13 @@ function invoiceCsv(invoice, nameOf = id => id || '') {
   const rows = [['number', 'card', 'person', 'from', 'to', 'hours', 'rate', 'amount', 'currency']];
   for (const line of invoice.lines || []) {
     rows.push([invoice.number, line.title, nameOf(line.userId), line.firstDate || '', line.lastDate || '', line.hours,
-      (line.rateMinor / 100).toFixed(2), (line.amountMinor / 100).toFixed(2), invoice.currency]);
+      minorToText(line.rateMinor, invoice.currency), minorToText(line.amountMinor, invoice.currency), invoice.currency]);
   }
   const net = typeof invoice.netMinor === 'number' ? invoice.netMinor : invoice.totalMinor;
-  rows.push([invoice.number, 'net', '', '', '', invoice.totalHours, '', (net / 100).toFixed(2), invoice.currency]);
-  rows.push([invoice.number, `VAT ${invoice.vatPercent || 0} %`, '', '', '', '', '', ((invoice.vatMinor || 0) / 100).toFixed(2), invoice.currency]);
-  rows.push([invoice.number, 'total', '', '', '', '', '', ((invoice.totalMinor || 0) / 100).toFixed(2), invoice.currency]);
+  const m = minor => minorToText(minor || 0, invoice.currency);
+  rows.push([invoice.number, 'net', '', '', '', invoice.totalHours, '', m(net), invoice.currency]);
+  rows.push([invoice.number, `VAT ${invoice.vatPercent || 0} %`, '', '', '', '', '', m(invoice.vatMinor), invoice.currency]);
+  rows.push([invoice.number, 'total', '', '', '', '', '', m(invoice.totalMinor), invoice.currency]);
   return `${rows.map(r => r.map(csvField).join(',')).join('\r\n')}\r\n`;
 }
 

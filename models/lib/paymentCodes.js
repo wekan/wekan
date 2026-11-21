@@ -93,9 +93,10 @@ function formatReference(value) {
 
 // ---------------------------------------------------------------- amounts
 
-function amountText(minor, { decimals = 2 } = {}) {
+// An amount as a code writes it, in its currency's decimals (models/lib/currencies.js).
+function amountText(minor, currency = 'EUR') {
   if (!Number.isSafeInteger(minor) || minor < 0) fail('Invalid amount');
-  return (minor / 100).toFixed(decimals);
+  return require('./currencies').minorToText(minor, currency);
 }
 
 // ---------------------------------------------------------------- SEPA EPC QR
@@ -116,7 +117,7 @@ function epcQrPayload({ name, iban, bic = '', amountMinor = null, reference = ''
   if (ref && text) fail('Use a reference or a text, not both');
   const lines = [
     'BCD', '002', '1', 'SCT', cleanCode(bic), n, cleanCode(iban),
-    amountMinor === null ? '' : `EUR${amountText(amountMinor)}`,
+    amountMinor === null ? '' : `EUR${amountText(amountMinor, 'EUR')}`,
     String(purpose || '').slice(0, 4), ref, ref ? '' : String(text || ''), String(information || '').slice(0, 70),
   ];
   while (lines.length > 10 && lines[lines.length - 1] === '') lines.pop();
@@ -227,7 +228,7 @@ function swissQrPayload({ iban, creditor, amountMinor = null, currency = 'CHF', 
     'SPC', '0200', '1', account,
     ...swissAddress(creditor, 'creditor'),
     ...empty,
-    amountMinor === null ? '' : amountText(amountMinor), currency,
+    amountMinor === null ? '' : amountText(amountMinor, currency), currency,
     ...(debtor ? swissAddress(debtor, 'debtor') : empty),
     refType, refType === 'NON' ? '' : ref,
     String(message || ''), 'EPD', String(billInformation || ''),
@@ -245,7 +246,7 @@ function swishQrPayload({ payee, amountMinor = null, message = '', editable = 0 
   if (String(message).length > 50) fail('A Swish message is at most 50 characters');
   if (/;/.test(message)) fail('A Swish message cannot contain ;');
   if (!Number.isInteger(editable) || editable < 0 || editable > 7) fail('Invalid Swish editable flags');
-  return `C${number};${amountMinor === null ? '' : amountText(amountMinor)};${message};${editable}`;
+  return `C${number};${amountMinor === null ? '' : amountText(amountMinor, 'SEK')};${message};${editable}`;
 }
 
 // ---------------------------------------------------------------- Pix (BR Code)
@@ -281,7 +282,7 @@ function pixPayload({ key, name, city, amountMinor = null, txid = '***' }) {
   const body = emv('00', '01')
     + emv('26', emv('00', 'br.gov.bcb.pix') + emv('01', k))
     + emv('52', '0000') + emv('53', '986')
-    + (amountMinor === null ? '' : emv('54', amountText(amountMinor)))
+    + (amountMinor === null ? '' : emv('54', amountText(amountMinor, 'BRL')))
     + emv('58', 'BR') + emv('59', n) + emv('60', c)
     + emv('62', emv('05', id))
     + '6304';
@@ -298,7 +299,7 @@ function query(params) {
 // UPI (India): the payee's virtual payment address, an amount in INR.
 function upiUri({ vpa, name, amountMinor = null, note = '', reference = '' }) {
   if (!/^[A-Za-z0-9._-]{2,256}@[A-Za-z][A-Za-z0-9.-]{1,63}$/.test(String(vpa || ''))) fail('Invalid UPI address');
-  return `upi://pay?${query({ pa: vpa, pn: String(name || '').slice(0, 99), am: amountMinor === null ? '' : amountText(amountMinor),
+  return `upi://pay?${query({ pa: vpa, pn: String(name || '').slice(0, 99), am: amountMinor === null ? '' : amountText(amountMinor, 'INR'),
     cu: 'INR', tn: String(note || '').slice(0, 80), tr: String(reference || '').slice(0, 35) })}`;
 }
 
@@ -306,7 +307,7 @@ function upiUri({ vpa, name, amountMinor = null, note = '', reference = '' }) {
 function bitcoinUri({ address, amountMinor = null, currency = '', label = '', message = '' }) {
   const a = String(address || '').trim();
   if (!/^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(a)) fail('Invalid bitcoin address');
-  const amount = currency === 'BTC' && amountMinor !== null ? (amountMinor / 100).toFixed(2) : '';
+  const amount = currency === 'BTC' && amountMinor !== null ? amountText(amountMinor, 'BTC') : '';
   const q = query({ amount, label, message });
   return `bitcoin:${a}${q ? `?${q}` : ''}`;
 }
@@ -314,7 +315,7 @@ function bitcoinUri({ address, amountMinor = null, currency = '', label = '', me
 function paypalMeUrl({ user, amountMinor = null, currency = '' }) {
   const u = String(user || '').trim();
   if (!/^[A-Za-z0-9]{1,20}$/.test(u)) fail('Invalid PayPal.me name');
-  const amount = amountMinor === null ? '' : `/${amountText(amountMinor)}${/^[A-Z]{3}$/.test(currency) ? currency : ''}`;
+  const amount = amountMinor === null ? '' : `/${amountText(amountMinor, currency)}${/^[A-Z]{3}$/.test(currency) ? currency : ''}`;
   return `https://paypal.me/${u}${amount}`;
 }
 
@@ -324,7 +325,7 @@ function paypalMeUrl({ user, amountMinor = null, currency = '' }) {
 function paymentLink(template, { amountMinor = null, currency = '', reference = '', number = '' } = {}) {
   const t = String(template || '').trim();
   if (!/^https:\/\/[^\s<>"']+$/.test(t) || t.length > 2000) fail('A payment link is an https address');
-  const values = { amount: amountMinor === null ? '' : amountText(amountMinor), currency, reference: cleanCode(reference), number };
+  const values = { amount: amountMinor === null ? '' : amountText(amountMinor, currency), currency, reference: cleanCode(reference), number };
   return t.replace(/\{(amount|currency|reference|number)\}/g, (m, key) => encodeURIComponent(values[key]));
 }
 
@@ -343,6 +344,17 @@ const PAYMENT_METHODS = Object.freeze({
   bitcoin: { fields: ['address'], qr: true },
   paypal: { fields: ['user'], qr: true },
   link: { fields: ['label', 'url'], qr: true },
+  promptpay: { fields: ['target'], qr: true },
+  paynow: { fields: ['proxy', 'name'], qr: true },
+  vietqr: { fields: ['bin', 'account'], qr: true },
+  fps: { fields: ['proxy', 'name'], qr: true },
+  spayd: { fields: ['iban', 'bic'], qr: true },
+  zbp: { fields: ['account', 'name', 'nip'], qr: true },
+  mnb: { fields: ['name', 'iban', 'bic'], qr: true },
+  ips: { fields: ['account', 'name'], qr: true },
+  'dk-fik': { fields: ['creditor'], qr: false },
+  ethereum: { fields: ['address'], qr: true },
+  litecoin: { fields: ['address'], qr: true },
   cash: { fields: ['details'], qr: false },
   cheque: { fields: ['details'], qr: false },
   other: { fields: ['label', 'details'], qr: false },
@@ -359,7 +371,7 @@ function normalizePaymentMethod(value) {
     if (typeof v !== 'string' || v.length > 2000 || v.includes('\0')) fail(`Invalid ${key}`);
     out[key] = v.trim();
   }
-  if (['sepa', 'fi-bank', 'swiss-qr'].includes(out.type)) {
+  if (['sepa', 'fi-bank', 'swiss-qr', 'spayd', 'mnb'].includes(out.type)) {
     if (!isValidIban(out.iban)) fail('Invalid IBAN');
     out.iban = cleanCode(out.iban);
     if (out.bic && !isValidBic(out.bic)) fail('Invalid BIC');
@@ -367,6 +379,22 @@ function normalizePaymentMethod(value) {
   }
   if (out.type === 'fi-bank' && !out.iban.startsWith('FI')) fail('The Finnish bank barcode needs a Finnish IBAN');
   if (out.type === 'link') paymentLink(out.url);
+  // The regional codes check their own fields: try one with no amount.
+  const R = require('./regionalPaymentCodes');
+  const sample = {
+    promptpay: () => R.promptPayPayload({ target: out.target }),
+    paynow: () => R.payNowPayload({ proxy: out.proxy, name: out.name }),
+    vietqr: () => R.vietQrPayload({ bin: out.bin, account: out.account }),
+    fps: () => R.fpsPayload({ proxy: out.proxy, name: out.name }),
+    spayd: () => R.spaydPayload({ iban: out.iban, bic: out.bic }),
+    zbp: () => R.zbpPayload({ account: out.account, name: out.name, nip: out.nip, amountMinor: 1 }),
+    mnb: () => R.mnbPayload({ name: out.name, iban: out.iban, bic: out.bic, dueDate: '2000-01-01' }),
+    ips: () => R.ipsPayload({ account: out.account, name: out.name }),
+    'dk-fik': () => R.danishFik({ creditor: out.creditor, base: '1' }),
+    ethereum: () => R.ethereumUri({ address: out.address }),
+    litecoin: () => R.litecoinUri({ address: out.address }),
+  }[out.type];
+  if (sample) sample();
   return out;
 }
 
@@ -386,7 +414,9 @@ function paymentInstructions(method, invoice) {
     switch (method.type) {
       case 'sepa': {
         if (currency !== 'EUR') return { method, error: 'SEPA QR codes are in EUR' };
-        return { method, qr: epcQrPayload({ name: method.name, iban: method.iban, bic: method.bic, amountMinor, reference: rf, text: rf ? '' : text }),
+        // A Belgian structured reference goes in the text, as Belgian banks read it.
+        const remittance = rf ? '' : (reference.startsWith('+++') ? reference : text);
+        return { method, qr: epcQrPayload({ name: method.name, iban: method.iban, bic: method.bic, amountMinor, reference: rf, text: remittance }),
           lines: [method.name, formatIban(method.iban), method.bic].filter(Boolean) };
       }
       case 'fi-bank': {
@@ -424,11 +454,55 @@ function paymentInstructions(method, invoice) {
         const url = paymentLink(method.url, { amountMinor, currency, reference, number: invoice.number });
         return { method, qr: url, link: url, lines: [method.label || url] };
       }
+      case 'promptpay': case 'paynow': case 'vietqr': case 'fps': case 'spayd': case 'zbp': case 'mnb': case 'ips':
+      case 'dk-fik': case 'ethereum': case 'litecoin':
+        return regionalInstructions(method, invoice);
       default:
         return { method, lines: [method.label, method.name, method.details].filter(Boolean) };
     }
   } catch (e) {
     return { method, error: e.message };
+  }
+}
+
+// The regional methods (models/lib/regionalPaymentCodes.js), each in the
+// currency its scheme carries.
+const REGIONAL_CURRENCY = { promptpay: 'THB', paynow: 'SGD', vietqr: 'VND', fps: 'HKD', spayd: 'CZK', zbp: 'PLN', mnb: 'HUF', ips: 'RSD', 'dk-fik': 'DKK' };
+
+function regionalInstructions(method, invoice) {
+  const R = require('./regionalPaymentCodes');
+  const { amountDueMinor: amountMinor, currency } = invoice;
+  const need = REGIONAL_CURRENCY[method.type];
+  if (need && currency !== need) return { method, error: `${method.type} is in ${need}` };
+  const ref = invoice.paymentReference || '';
+  const text = invoice.number;
+  switch (method.type) {
+    case 'promptpay': return { method, qr: R.promptPayPayload({ target: method.target, amountMinor }), lines: [method.target] };
+    case 'paynow': return { method, qr: R.payNowPayload({ proxy: method.proxy, name: method.name, amountMinor, reference: text }), lines: [method.name, method.proxy] };
+    case 'vietqr': return { method, qr: R.vietQrPayload({ bin: method.bin, account: method.account, amountMinor, message: text }), lines: [method.account] };
+    case 'fps': return { method, qr: R.fpsPayload({ proxy: method.proxy, name: method.name, amountMinor, reference: text }), lines: [method.name, method.proxy] };
+    case 'spayd': {
+      const vs = /^\d+$/.test(ref) ? ref.slice(-10) : '';
+      return { method, qr: R.spaydPayload({ iban: method.iban, bic: method.bic, amountMinor, currency, message: text, variableSymbol: vs }),
+        lines: [formatIban(method.iban), method.bic, vs ? `VS ${vs}` : ''].filter(Boolean) };
+    }
+    case 'zbp': {
+      if (amountMinor > 999999) return { method, error: 'The Polish QR code is for up to 9999.99 PLN' };
+      return { method, qr: R.zbpPayload({ account: method.account, name: method.name, nip: method.nip, title: text, amountMinor }), lines: [method.name, method.account] };
+    }
+    case 'mnb': {
+      if (!invoice.dueDate) return { method, error: 'The Hungarian QR code needs a due date' };
+      return { method, qr: R.mnbPayload({ bic: method.bic, name: method.name, iban: method.iban, amountMinor, dueDate: invoice.dueDate, message: text }),
+        lines: [method.name, formatIban(method.iban)] };
+    }
+    case 'ips': return { method, qr: R.ipsPayload({ account: method.account, name: method.name, amountMinor, purpose: text, reference: ref }), lines: [method.name, method.account] };
+    case 'dk-fik': {
+      const base = (String(ref).replace(/\D/g, '') || String(text).replace(/\D/g, '')).slice(-14);
+      return { method, lines: [R.danishFik({ creditor: method.creditor, base })] };
+    }
+    case 'ethereum': { const uri = R.ethereumUri({ address: method.address, amountMinor, currency }); return { method, qr: uri, link: uri, lines: [method.address] }; }
+    case 'litecoin': { const uri = R.litecoinUri({ address: method.address, amountMinor, currency, message: text }); return { method, qr: uri, link: uri, lines: [method.address] }; }
+    default: return { method, lines: [] };
   }
 }
 
