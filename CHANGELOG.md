@@ -5,6 +5,17 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **move and copy pickers** show board, swimlane and list names
+without a number in front, as #6135 asked, and the **brute-force lockout**
+starts again when Meteor.settings configures it. Beneath that, code nothing
+loaded is removed and copied code is shared: **schema timestamps**, the
+**autolinks** of the markdown package, the **attachment** APIs and file
+routes, and tests that drove copies now drive the code the app runs.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.25 2026-11-21 WeKan ® release
 
 **CodeQL** alerts #605-#610 in the **OneNote** and **Sandstorm

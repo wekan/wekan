@@ -95,6 +95,117 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **move and copy pickers** show board, swimlane and list names
+without a number in front, as #6135 asked, and the **brute-force lockout**
+starts again when Meteor.settings configures it. Beneath that, code nothing
+loaded is removed and copied code is shared: **schema timestamps**, the
+**autolinks** of the markdown package, the **attachment** APIs and file
+routes, and tests that drove copies now drive the code the app runs.
+
+This release fixes the following bugs:
+
+**Move and copy pickers** - how boards, swimlanes and lists are named in them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc5bf3c25edef7063f5bbf706611944719e06473">Board, swimlane and list options show the name without a number in front</a>. Thanks to mimZD and xet7.</summary>
+
+Issue [#6135](https://github.com/wekan/wekan/issues/6135) was closed by
+[an earlier fix](https://github.com/wekan/wekan/commit/fe4d2a56f2ab1f147faa683980bdbbe3b7593268),
+which took the "3. " prefix out of the card move/copy popups and added a
+`boardOptionLabel()` helper that nothing called. The list move/copy picker, the
+multi-selection move/copy picker, the
+add-list position select and the restore-from-archive pickers kept
+`{{add @index 1}}. {{title}}`, so a board whose name starts with a digit was
+still hard to read there and typing a name's first letter did not jump to it.
+They now show the name alone; the unused helper and the Blaze helpers `add`
+and `increment`, which only those numbers used, are removed.
+`tests/optionLabelsStartWithName.test.cjs` pins the pickers to their names and
+fails on any option in the tree whose label starts with an index number.
+
+</details>
+
+**Brute-force lockout** - when it is configured in Meteor.settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f9fc2e9573b0854eec90b37147861a8293a1566">The lockout starts when Meteor.settings configures it</a>. Thanks to xet7.</summary>
+
+The wekan-accounts-lockout README documents
+`Meteor.settings['accounts-lockout'].knownUsers` and `.unknownUsers` as objects
+that override the configured values. Both counters applied them with
+`settings.forEach(function ...)`: an object has no `forEach`, and in a function
+callback `this` is undefined, so with either shape `startup()` threw before it
+hooked into Accounts, and nothing awaited it to notice. The two counters now
+share `src/lockoutSettings.js`, which merges a plain-object override and
+checks the values once; `tests/lockoutSettings.test.cjs` runs the README's
+settings. This is a configuration that never worked rather than an attempt
+anyone made, so there is nothing to record in Admin Panel → Problems.
+
+</details>
+
+and removes code nothing used, and shares code that was copied:
+
+**Code nothing loads** - files, helpers and copies outside the app's import
+graph.
+
+- [popup.jade at the repository root and migrations/009_fix_v795_due_dates.js, which nothing loaded, are removed](https://github.com/wekan/wekan/commit/b8734a8630742aad33633d0e24320c993a3a3976). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/23c81e0b6c0a5c4a2ce0ddd846936b304fb24ec1">Tests drive the code the app runs, not copies of it that nothing loads</a>. Thanks to xet7.</summary>
+
+Ten modules were reached only from tests. The copies are gone and their
+tests read what runs: the OAuth2 client-secret JWT is the wekan-oidc package
+file, the #5439 scrollbar rules are read from `list.css`, the
+`createListAfter` check pattern is read from `server/models/lists.js` and run
+by Meteor's `check` rules, the #5910 comment search is read from the
+publication, and the #6081 counter's unused helper is removed. The checklist
+hide helpers and the subtask picker checks are now called by the app, and five
+re-export files only tests imported are removed.
+
+</details>
+
+**Shared code** - one copy of what several files had written out.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb4a01393987107dd656edfd6bc104372a31a493">Collection schemas share one createdAt and one modifiedAt autoValue</a>. Thanks to xet7.</summary>
+
+34 schema files wrote the same two functions 65 times in five spellings. They
+are `createdAtAutoValue` and `modifiedAtAutoValue` in
+`models/lib/schemaTimestamps.js`; `tests/schemaTimestamps.test.cjs` runs both in
+SimpleSchema's insert, upsert, update and validation contexts and fails when a
+schema writes one out by hand again.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb0df61e7f9681379491dc45431b7373271e7614">The autolinks are one package, shared by the app and the markdown package</a>. Thanks to xet7.</summary>
+
+The markdown package cannot import app code, so it carried its own copies of
+the #3069, #1463 and #2453 autolinks, kept in step by tests that compared the
+source text. They are now `@wekanteam/autolink` in `npm-packages/autolink`, a
+`file:` dependency both load. An older, unused third sanitizer config,
+`client/lib/secureDOMPurify.js`, is removed as well.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27c3716f3d150fb63ab07b2c476cc8c7279196ed">Attachment APIs, file routes and storage strategies share what they had copied</a>. Thanks to xet7.</summary>
+
+The size limits and board write check of the attachment methods and REST
+routes are `server/lib/attachmentApiAccess.js`; the Content-Disposition
+functions of the file routes are `server/lib/contentDisposition.js`; the three
+storage strategies' download handler is the base class's, still failing closed
+with a 404; and Attachments and Avatars read an upload's id and name with
+`uploadNameParts()`. The AssignedBleed and fail-closed tests now read the
+shared code and fail if an API or a strategy brings its own copy back.
+
+</details>
+
+- [A swimlane titled Default is shown by one function instead of five copies](https://github.com/wekan/wekan/commit/c1a89b98fdaf115204f245b89fd665f498969357). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.25 2026-11-21 WeKan ® release
 
 **In short:** **CodeQL** alerts #605-#610 in the **OneNote** and **Sandstorm
