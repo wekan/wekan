@@ -95,6 +95,76 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **CodeQL** alerts #605-#608 in the **OneNote** and **Sandstorm
+grain** formats are fixed: comments in imported HTML are removed to a fixed
+point, SandChat user ids come from a cryptographic generator, and the guards
+that missed these shapes now find them anywhere in the tree.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Imported HTML** - how the OneNote and WordPress readers remove what is not
+text.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #606: a OneNote page's comments cannot splice a script back together</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`models/lib/onenoteApiFormat.js` removed `<head>`, `<style>` and `<script>`
+in a loop, and only then comments, declarations and processing instructions,
+once each. So `<scr<!---->ipt>alert(1)</scr<!---->ipt>` became a script after
+the element loop had finished, and `alert(1)` reached the card as text
+(CWE-116).
+All four removals are now one loop to a fixed point.
+`tests/onenoteApiImport.test.cjs` imports that page and a comment spliced from
+two halves and gets only the page's text. The negative case is an ordinary page
+with an escaped `&lt;!--`, which keeps all of its text.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #607: a WordPress post's comments are removed until none is left</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The WordPress grain reader in `models/lib/sandstorm/grainApps.js` removed
+`<!-- ... -->` once, so `<!-<!-- x -->- y -->` was a comment again. It now
+loops to a fixed point, and `tests/sandstormGrain.test.cjs` imports a post
+that opens with that comment. `tests/tagStrippingFixedPoint.test.cjs` now
+refuses a one-pass comment or `<!...>` strip in any tracked file, and its
+detector fixtures show a one-pass strip caught and a loop accepted. Both alerts
+are about import parsing, where no attempt can be told apart from an odd
+document, so neither is recorded in Admin Panel → Problems.
+
+</details>
+
+**Sandstorm grain export** - what WeKan writes into the grains it exports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #605: SandChat user ids come from Web Crypto, not Math.random</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+A SandChat grain's `users.uid` identifies a user, and it was 32 hex digits
+from `Math.random()`, whose output predicts the rest of it (CWE-338). It now
+comes from `crypto.getRandomValues` in `models/lib/sandstorm/randomHex.js`,
+two hex digits per byte, so there is no modulo bias. The test reads the uids
+back from two exports: 32 hex digits each, none repeated. The negative test
+refuses `Math.random` anywhere in the Sandstorm grain code. Admin Panel →
+Problems has nothing to record: this changes what an export contains.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #608: the EtherCalc header has no replace of a newline with itself</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The SocialCalc save header ended with `.replace(/\n$/, '\n')`, which does
+nothing (CWE-116). It is removed, and the test pins the exact header with its
+one newline before the first part. `tests/noIdentityReplacement.test.cjs`
+missed this shape because it did not accept `\n`-style escapes in a pattern.
+It now compares them as the characters they are, and its negative samples
+check that removing a newline, or turning CRLF into LF, is not reported.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.24 2026-11-21 WeKan ® release
 
 **In short:** Six more of **Microsoft**'s tools are imported and exported under

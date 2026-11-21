@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**CodeQL** alerts #605-#608 in the **OneNote** and **Sandstorm
+grain** formats are fixed: comments in imported HTML are removed to a fixed
+point, SandChat user ids come from a cryptographic generator, and the guards
+that missed these shapes now find them anywhere in the tree.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.24 2026-11-21 WeKan ® release
 
 Six more of **Microsoft**'s tools are imported and exported under
