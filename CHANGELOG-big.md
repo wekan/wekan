@@ -97,7 +97,7 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** **CodeQL** alerts #605-#608 in the **OneNote** and **Sandstorm
+**In short:** **CodeQL** alerts #605-#610 in the **OneNote** and **Sandstorm
 grain** formats are fixed: comments in imported HTML are removed to a fixed
 point, SandChat user ids come from a cryptographic generator, and the guards
 that missed these shapes now find them anywhere in the tree.
@@ -108,7 +108,7 @@ This release fixes the following SECURITY ISSUES found by GitHub CodeQL code sca
 text.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #606: a OneNote page's comments cannot splice a script back together</a>. Thanks to GitHub CodeQL and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3f5e4f3f14adb42af5eb486fb393ec143833e392">Alert #606: a OneNote page's comments cannot splice a script back together</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
 `models/lib/onenoteApiFormat.js` removed `<head>`, `<style>` and `<script>`
 in a loop, and only then comments, declarations and processing instructions,
@@ -123,7 +123,25 @@ with an escaped `&lt;!--`, which keeps all of its text.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #607: a WordPress post's comments are removed until none is left</a>. Thanks to GitHub CodeQL and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cc4a494185bcb947a4195830887c2bf72a0a98e0">Alerts #609 and #610: a OneNote page's removals are one replace, as CodeQL needs</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The fix for #606 above looped the four removals to a fixed point, but as a
+chain, `x = x.replace(A).replace(B)`. CodeQL exempts a removal only when its
+own result flows back into it, so the value between two removals still
+counted as unsanitized ("may still contain `<!--`", "`<script`"); four
+assignments in a row were no better, checked with CodeQL 2.27.5. The patterns
+are now one regex of alternatives in the loop, which CodeQL reports nothing
+for. A declaration is `<![^<>]*>`, so it cannot swallow the start of a comment
+after a stray `<!-` - the splice test caught that. The guard
+`tests/tagStrippingFixedPoint.test.cjs` had accepted the chain; it now accepts
+only `prev = x;` and one `x = x.replace(...);` in the loop, flags the old
+OneNote lines exactly, and has fixtures for a chain, several assignments and
+one replace of alternatives.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f5e4f3f14adb42af5eb486fb393ec143833e392">Alert #607: a WordPress post's comments are removed until none is left</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
 The WordPress grain reader in `models/lib/sandstorm/grainApps.js` removed
 `<!-- ... -->` once, so `<!-<!-- x -->- y -->` was a comment again. It now
@@ -139,7 +157,7 @@ document, so neither is recorded in Admin Panel → Problems.
 **Sandstorm grain export** - what WeKan writes into the grains it exports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #605: SandChat user ids come from Web Crypto, not Math.random</a>. Thanks to GitHub CodeQL and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3f5e4f3f14adb42af5eb486fb393ec143833e392">Alert #605: SandChat user ids come from Web Crypto, not Math.random</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
 A SandChat grain's `users.uid` identifies a user, and it was 32 hex digits
 from `Math.random()`, whose output predicts the rest of it (CWE-338). It now
@@ -152,7 +170,7 @@ Problems has nothing to record: this changes what an export contains.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c38ab0e4482aa39141dd29acecf732bc5de9443">Alert #608: the EtherCalc header has no replace of a newline with itself</a>. Thanks to GitHub CodeQL and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3f5e4f3f14adb42af5eb486fb393ec143833e392">Alert #608: the EtherCalc header has no replace of a newline with itself</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
 The SocialCalc save header ended with `.replace(/\n$/, '\n')`, which does
 nothing (CWE-116). It is removed, and the test pins the exact header with its

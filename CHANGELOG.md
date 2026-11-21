@@ -7,7 +7,7 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**CodeQL** alerts #605-#608 in the **OneNote** and **Sandstorm
+**CodeQL** alerts #605-#610 in the **OneNote** and **Sandstorm
 grain** formats are fixed: comments in imported HTML are removed to a fixed
 point, SandChat user ids come from a cryptographic generator, and the guards
 that missed these shapes now find them anywhere in the tree.
