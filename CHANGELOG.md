@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.24 2026-11-21 WeKan ® release
 
 Six more of **Microsoft**'s tools are imported and exported under
 the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
@@ -14,7 +14,7 @@ the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
 backups of twelve apps are imported and nine exported, and **Vietnamese** no
 longer shows Malay text.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.24](CHANGELOG-big.md#v1324-2026-11-21-wekan--release)
 
 # v13.23 2026-11-20 WeKan ® release
 
@@ -61,11 +61,3 @@ custom field values - so syncing a board needs no request per card. **build.sh**
 and **build.bat** can run a single **Playwright** spec.
 
 [All changes in v13.20](CHANGELOG-big.md#v1320-2026-11-19-wekan--release)
-
-# v13.19 2026-11-19 WeKan ® release
-
-**Release builds** no longer fail when the **Snap Store** is slow
-to process an upload, or when a **Termux** or **BSD** package mirror has a bad
-minute.
-
-[All changes in v13.19](CHANGELOG-big.md#v1319-2026-11-19-wekan--release)

@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.24 2026-11-21 WeKan ® release
 
 **In short:** Six more of **Microsoft**'s tools are imported and exported under
 the Microsoft heading: **Azure DevOps Boards**, **Microsoft Lists**,
