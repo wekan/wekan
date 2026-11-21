@@ -46,9 +46,25 @@ function inFixedPointLoop(lines, index) {
   // does not follow one, and alerts #581/#582 were raised on exactly that in
   // models/lib/emailToCard.js, which now strips tags with a one-pass scanner.
   // The loop has to be written around the replace itself.
-  const before = lines.slice(Math.max(0, index - 3), index).join('\n');
-  const after = lines.slice(index + 1, index + 3).join('\n');
-  return /\bdo \{\s*$/m.test(before) && /\} while \(\s*\w+ !== \w+\s*\);/.test(after);
+  //
+  // And it has to be the shape CodeQL exempts: the replace's OWN result flows
+  // back into it (`replace.flowsTo(replace.getReceiver+())` in its query). So
+  // the loop body is `prev = x;` and ONE `x = x.replace(...);` - alerts
+  // #609/#610 were a fixed-point loop around a chain,
+  // `x = x.replace(A).replace(B)`, and around four assignments in a row: the
+  // value between two removals never comes back to the first, and CodeQL
+  // counted it as unsanitized. Several patterns go in one regex, as
+  // alternatives, instead.
+  let start = index;
+  while (start >= Math.max(0, index - 3) && !/\bdo \{\s*$/.test(lines[start])) start -= 1;
+  let end = index;
+  while (end <= index + 2 && end < lines.length && !/^\s*\} while \(\s*\w+ !== \w+\s*\);/.test(lines[end])) end += 1;
+  if (start < Math.max(0, index - 3) || end > index + 2 || end >= lines.length) return false;
+  const [, x, prev] = /\} while \(\s*(\w+) !== (\w+)\s*\);/.exec(lines[end]);
+  const body = lines.slice(start + 1, end).map(l => l.trim()).filter(l => l && !l.startsWith('//'));
+  const one = new RegExp(`^${x} = ${x}\\.replace\\(.*\\);$`);
+  return body.length === 2 && body[0] === `${prev} = ${x};` && body[1] === lines[index].trim()
+    && one.test(body[1]) && body[1].split('.replace(').length === 2;
 }
 
 function findings(files) {
@@ -113,6 +129,18 @@ try {
   assert.equal(findings([rel('comment-once.js')]).length, 1, 'a one-pass comment strip is caught (#607)');
   assert.equal(findings([rel('comment-loop.js')]).length, 0, 'and passes in a fixed-point loop');
   assert.equal(findings([rel('decl-once.js')]).length, 1, 'a one-pass declaration strip is caught (#606)');
+  // Alerts #609/#610: a fixed-point loop around a chain of removals, or around
+  // several assignments in a row, is not the shape CodeQL exempts; one
+  // replace with the patterns as alternatives is.
+  fs.writeFileSync(path.join(tmp, 'chain-loop.js'),
+    "let prev;\ndo {\n  prev = s;\n  s = s.replace(/<(script|style)\\b[\\s\\S]*?<\\/\\1\\s*>/gi, '')\n    .replace(/<!--[\\s\\S]*?-->/g, '');\n} while (s !== prev);\n");
+  fs.writeFileSync(path.join(tmp, 'steps-loop.js'),
+    "let prev;\ndo {\n  prev = s;\n  s = s.replace(/<(script|style)\\b[\\s\\S]*?<\\/\\1\\s*>/gi, '');\n  s = s.replace(/<!--[\\s\\S]*?-->/g, '');\n} while (s !== prev);\n");
+  fs.writeFileSync(path.join(tmp, 'alternation-loop.js'),
+    "let prev;\ndo {\n  prev = s;\n  s = s.replace(/<(script|style)\\b[\\s\\S]*?<\\/\\1\\s*>|<!--[\\s\\S]*?-->/gi, '');\n} while (s !== prev);\n");
+  assert.equal(findings([rel('chain-loop.js')]).length, 2, 'a chain inside the loop is caught, both removals (#609/#610)');
+  assert.equal(findings([rel('steps-loop.js')]).length, 2, 'several assignments inside the loop are caught');
+  assert.equal(findings([rel('alternation-loop.js')]).length, 0, 'one replace of alternatives in the loop passes');
   fs.writeFileSync(path.join(tmp, 'fake.js'), "function untilStable(text, step) { return step(text); }\ntext = untilStable(text, s => s.replace(/<[^>]*>/g, ''));\n");
   assert.equal(findings([rel('fake.js')]).length, 1, 'an untilStable that does not loop is not accepted');
 } finally {
