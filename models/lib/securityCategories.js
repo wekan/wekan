@@ -320,6 +320,29 @@ const CATALOG = {
   // to the address it names. Logged: no real mail provider's bounce comes that
   // way once the secret is set, and until it is, the row says to set it.
   'authn.inbound-bounce': { category: 'authn', bleed: 'BounceBleed', severity: 'medium', cwe: 'CWE-306' },
+  // The Cloud Panel (server/cloudPanel.js) connects to MongoDB servers with
+  // credentials it is given, so it exists only where the server's environment
+  // says CLOUD=<its domain>. Before 2026-11-22 any site administrator of any
+  // WeKan - a customer is the administrator of their own container - could
+  // turn it on from the browser and make the server connect to internal
+  // MongoDB servers. Every cloud method called on a WeKan without CLOUD, and
+  // every attempt to set the old browser setting, is this key. blocksAccount:
+  // false - a page left open from before the upgrade still asks, and the
+  // administrator of a self-hosted WeKan is often its only one; the call is
+  // refused whatever happens to the account.
+  'authz.cloud-panel-off': { category: 'authz', bleed: 'CloudPanelBleed', severity: 'critical', cwe: 'CWE-918', blocksAccount: false },
+  // A Cloud Admin method called, at the CLOUD address, by somebody who is not
+  // a Cloud Admin there: a customer, or a Cloud Admin away from the allowed
+  // addresses. No page offers them one. blocksAccount: false for the same
+  // reason as above - a tab open since the allowed addresses changed.
+  'authz.cloud-panel-access': { category: 'authz', bleed: 'CloudPanelBleed', severity: 'high', cwe: 'CWE-863', blocksAccount: false },
+  // Admin Panel / Cloud / Allowed addresses: a Cloud Admin login from any
+  // other address. The account is the Cloud Admin's own, so it is the login
+  // that is refused, not the account that is disabled.
+  'authn.cloud-admin-address': { category: 'authn', bleed: 'CloudPanelBleed', severity: 'high', cwe: 'CWE-284', blocksAccount: false },
+  // The REST API at the CLOUD address, without a login: POST /users/login,
+  // /users/register and /api/ are not there at all (server/apiMiddleware.js).
+  'authn.cloud-rest-off': { category: 'authn', bleed: 'CloudPanelBleed', severity: 'medium', cwe: 'CWE-306', blocksAccount: false },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };

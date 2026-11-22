@@ -66,7 +66,9 @@ test('negative: every externally supplied REST comment insert is preceded by the
   });
   const paths = walk(path.join(root, 'server')).filter(file => /CardComments\.(?:direct\.)?insertAsync\(/.test(fs.readFileSync(file, 'utf8')));
   assert.deepEqual(paths.map(file => path.relative(root, file)).sort(),
-    ['server/bots.js', 'server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js',
+    // server/cloudPanel.js: the support chat of a Cloud Panel domain, into
+    // that domain's own chat card, after readableDomain.
+    ['server/bots.js', 'server/cloudPanel.js', 'server/emailToCard.js', 'server/lib/listSyncIssueDetails.js', 'server/models/cardComments.js', 'server/routes/inboundEmail.js',
       'server/rulesHelper.js']);
   // A reply or an answer to a bot is a comment on the run's own card, by a
   // board admin who may comment in that list, with the card's own board id.

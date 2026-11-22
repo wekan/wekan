@@ -19,8 +19,10 @@ address of its own, `/admin/people/<slug>`; a bare `/admin/people` opens
 
 The table lists the panes in the order `models/lib/adminUrls.js` declares them.
 The left menu draws them in a different order: E-mail, Notifications, Domains,
-Cloud, Organizations, Teams, People, Locked Users, Audit log, Roles, Shared
-templates, and then the login panes from Login to Passwordless login.
+Organizations, Teams, People, Locked Users, Audit log, Roles, Shared templates,
+and then the login panes from Login to Passwordless login. There is no Cloud
+pane here: the [Cloud Panel](../Cloud-Panel.md) is turned on only by the
+server's `CLOUD` environment variable, and is Admin Panel / Cloud there.
 
 | Menu path | URL slug | Page | What it is |
 | --- | --- | --- | --- |
@@ -35,7 +37,6 @@ templates, and then the login panes from Login to Passwordless login.
 | People / E-mail | `email` | [E-mail.md](E-mail.md) | SMTP, the invite domain, and whether users may change their address. |
 | People / Notifications | `notifications` | [Notifications.md](Notifications.md) | The site-wide notification default, overridable per board and per member. |
 | People / Domains | `domains` | [Domains.md](Domains.md) | The e-mail domains in use, with a user count each. |
-| People / Cloud | `cloud` | [Cloud Panel](../Cloud-Panel.md) | The Cloud Panel Domain and its SuperAdmin. |
 | People / Organizations | `organizations` | [Organizations.md](Organizations.md) | Organizations, their per-organization switches, and the same-Organization board restriction. |
 | People / Teams | `teams` | [Teams.md](Teams.md) | Teams, their per-team switches, and the same-Team board restriction. |
 | People / People | `people` | [People.md](People.md) | Every user: e-mail, admin flag, active state, lockout, created date. |

@@ -1,14 +1,16 @@
-//- Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): on the panel's own
-  domain, the Cloud Admins' Cloudflare, Caddy, Domains, Invoices and Chat, and a
-  customer's own Invoices and Chat. The server decides who sees what
-  (server/cloudPanel.js); this page draws what it is given.
+//- Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): only where the server
+  has the CLOUD environment variable, at that address. Admin Panel / Cloud is the
+  Cloud Admins' Domains, Invoices, Tickets, Chat, Cloudflare, Caddy and Allowed
+  addresses; /cloud is a customer's own domain, Invoices, Tickets and Chat. The
+  server decides who sees what (server/cloudPanel.js); this page draws what it
+  is given.
 
 template(name="cloudPanel")
   .setting-content.cloud-panel
     if loading
       +spinner
     else if notAllowed
-      p.quiet {{_ 'cloud-panel-not-allowed'}}
+      p.quiet {{_ 'cloud-admin-not-allowed'}}
     else
       .content-body
         +leftMenu(menuItems)
@@ -20,10 +22,16 @@ template(name="cloudPanel")
             +cloudPanelCloudflare(config=config reload=reload)
           else if $eq pane 'caddy'
             +cloudPanelCaddy(config=config reload=reload)
+          else if $eq pane 'allowed-addresses'
+            +cloudPanelAllowedAddresses(config=config reload=reload)
           else if $eq pane 'domains'
             +cloudPanelDomains
+          else if $eq pane 'info'
+            +cloudPanelInfo(domains=info.domains)
           else if $eq pane 'invoices'
             +cloudPanelInvoices(domains=info.domains isCloudAdmin=info.isCloudAdmin)
+          else if $eq pane 'tickets'
+            +cloudPanelTickets(domains=info.domains isCloudAdmin=info.isCloudAdmin)
           else if $eq pane 'chat'
             +cloudPanelChat(domains=info.domains isCloudAdmin=info.isCloudAdmin)
 
@@ -259,6 +267,9 @@ template(name="cloudPanelChat")
       form.js-cloud-chat-send
         textarea(name="text" maxlength="20000" rows="2" aria-label="{{_ 'cloud-panel-chat-message'}}" required)
         button.primary(type="submit") {{_ 'cloud-panel-chat-send'}}
+      if boardPath
+        p
+          a.js-cloud-support-board(href=boardPath) {{_ 'cloud-support-board-open'}}
       if isCloudAdmin
         form.js-cloud-chat-import.cloud-form
           label(for="cloud-chat-source") {{_ 'cloud-panel-chat-import'}}
@@ -270,18 +281,74 @@ template(name="cloudPanelChat")
           if imported
             span.quiet {{_ 'cloud-panel-chat-imported' count=imported}}
 
-template(name="cloudPanelSettings")
-  form.js-cloud-panel-settings.cloud-form
-    p.quiet {{_ 'cloud-panel-settings-intro'}}
-    label(for="cloud-settings-domain") {{_ 'cloud-panel-domain'}}
-    input#cloud-settings-domain(type="text" name="domain" maxlength="253" value=settings.domain placeholder="cloud.example.com")
-    label(for="cloud-settings-admin") {{_ 'cloud-superadmin-username'}}
-    input#cloud-settings-admin(type="text" name="superAdminUsername" maxlength="254" value=settings.superAdminUsername)
+//- Admin Panel / Cloud / Allowed addresses (models/lib/cloudAddresses.js): the
+  server refuses a list without the Cloud Admin's own address, and the page
+  says so before it is sent.
+template(name="cloudPanelAllowedAddresses")
+  form.js-cloud-addresses.cloud-form
+    p.quiet {{_ 'cloud-allowed-addresses-desc'}}
+    label(for="cloud-addresses") {{_ 'cloud-allowed-addresses'}}
+    textarea#cloud-addresses.js-cloud-addresses-text(name="addresses" rows="6" maxlength="12000" placeholder="203.0.113.0/24, 2001:db8::/32") {{addressesText}}
+    p.quiet.js-cloud-your-address {{_ 'cloud-allowed-addresses-yours' address=config.yourAddress}}
+    if lockout
+      .warning.js-cloud-addresses-lockout {{_ 'cloud-allowed-addresses-lockout' address=config.yourAddress}}
     button.primary(type="submit") {{_ 'save'}}
     if saved
       span.quiet {{_ 'cloud-saved'}}
-    if error
-      .warning {{error}}
-    if settings.domain
+
+//- A customer's own domain: what the hosting is.
+template(name="cloudPanelInfo")
+  each domain in domains
+    table.cloud-info
+      tbody
+        tr
+          th {{_ 'domain'}}
+          td {{domain.domain}}
+        tr
+          th {{_ 'cloud-customer-name'}}
+          td {{domain.customerName}}
+        tr
+          th {{_ 'cloud-start-date'}}
+          td {{domain.startDate}}
+        tr
+          th {{_ 'cloud-end-date'}}
+          td {{domain.endDate}}
+        tr
+          th {{_ 'cloud-panel-mode'}}
+          td
+            if $eq domain.mode 'shared'
+              | {{_ 'cloud-panel-mode-shared'}}
+            else
+              | {{_ 'cloud-panel-mode-own'}}
+
+//- Support tickets: the cards of the domain's support board, in its Open, In
+  progress and Done lists, drawn the way Board View / Lists draws a board.
+template(name="cloudPanelTickets")
+  .cloud-tickets
+    label(for="cloud-tickets-domain") {{_ 'domain'}}
+    select#cloud-tickets-domain.js-cloud-tickets-domain
+      each domain in ticketDomains
+        option(value=domain._id selected="{{#if $eq domain._id domainId}}selected{{/if}}") {{domain.domain}}
+    if board
+      .cloud-ticket-columns
+        each column in board.columns
+          .cloud-ticket-column(class="cloud-ticket-{{column.key}}" data-state=column.key)
+            h3.cloud-ticket-column-title {{columnTitle column.key}}
+            each card in column.cards
+              .cloud-ticket
+                .cloud-ticket-title {{card.title}}
+                if card.description
+                  .cloud-ticket-description {{card.description}}
+                .quiet {{card.author}} · {{when card.createdAt}}
+                if isCloudAdmin
+                  select.js-cloud-ticket-move(data-id=card._id aria-label="{{_ 'tickets'}}")
+                    each state in states
+                      option(value=state selected="{{#if $eq state column.key}}selected{{/if}}") {{columnTitle state}}
+      form.js-cloud-ticket-add.cloud-form
+        label(for="cloud-ticket-title") {{_ 'title'}}
+        input#cloud-ticket-title(type="text" name="title" maxlength="500" required)
+        label(for="cloud-ticket-description") {{_ 'description'}}
+        textarea#cloud-ticket-description(name="description" maxlength="20000" rows="3")
+        button.primary(type="submit") {{_ 'cloud-ticket-add'}}
       p
-        a(href="https://{{settings.domain}}/cloud" target="_blank" rel="noopener noreferrer") https://{{settings.domain}}/cloud
+        a.js-cloud-support-board(href=boardPath) {{_ 'cloud-support-board-open'}}

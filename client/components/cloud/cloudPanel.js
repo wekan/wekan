@@ -4,10 +4,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 const { formatMoney } = require('/models/lib/billing');
+const { TICKET_STATES, SUPPORT_LISTS } = require('/models/lib/cloudPanel');
+const { normalizeAllowedAddresses, addressAllowed } = require('/models/lib/cloudAddresses');
 
 function errorText(error) {
   return error ? (error.reason || error.message || String(error)) : '';
@@ -38,18 +42,48 @@ function report(promise) {
 
 // ---------------------------------------------------------------- the page
 
+// Admin Panel / Cloud, for a Cloud Admin; /cloud shows a customer their own.
 const ADMIN_MENU = [
   { id: 'domains', icon: 'fa-globe', labelKey: 'domains' },
   { id: 'invoices', icon: 'fa-file-text-o', labelKey: 'billing-invoices' },
+  { id: 'tickets', icon: 'fa-ticket', labelKey: 'tickets' },
   { id: 'chat', icon: 'fa-comments', labelKey: 'board-view-chat' },
   { id: 'cloudflare', icon: 'fa-cloud', label: 'Cloudflare' },
   { id: 'caddy', icon: 'fa-server', label: 'Caddy' },
+  { id: 'allowed-addresses', icon: 'fa-shield', labelKey: 'cloud-allowed-addresses' },
 ];
-const CUSTOMER_MENU = ADMIN_MENU.filter(item => ['invoices', 'chat'].includes(item.id));
+const CUSTOMER_MENU = [
+  { id: 'info', icon: 'fa-info-circle', labelKey: 'info' },
+  ...ADMIN_MENU.filter(item => ['invoices', 'tickets', 'chat'].includes(item.id)),
+];
+
+function menu(info) {
+  return info.isCloudAdmin ? ADMIN_MENU : CUSTOMER_MENU;
+}
+
+// The pane to show: on Admin Panel / Cloud the one its address names, on
+// /cloud the one last clicked; one the menu does not have opens the first.
+function currentPane(tpl) {
+  const items = menu(tpl.info.get());
+  const wanted = FlowRouter.getRouteName() === 'cloud-admin' ? Session.get('cloudOpenPane') : tpl.pane.get();
+  return items.some(item => item.id === wanted) ? wanted : items[0].id;
+}
+
+// Every domain, for a Cloud Admin's pickers: the table's pages, one by one.
+function allDomains() {
+  return Meteor.callAsync('cloudPanelDomainsCount', '')
+    .then(total => Promise.all(Array.from({ length: Math.ceil(total / TABLE_PAGE_ROWS_PER_PAGE) }, (_, i) =>
+      Meteor.callAsync('cloudPanelDomainsPage', { page: i + 1 }))))
+    .then(pages => pages.flat());
+}
+
+function boardPathOf(board) {
+  return board && board.boardId ? `/b/${board.boardId}/${board.boardSlug || 'board'}` : '';
+}
 
 Template.cloudPanel.onCreated(function () {
   this.loading = new ReactiveVar(true);
-  this.info = new ReactiveVar({ onCloudHost: false, isCloudAdmin: false, domains: [] });
+  this.info = new ReactiveVar({ enabled: false, onCloudHost: false, isCloudAdmin: false, domains: [] });
   this.config = new ReactiveVar(null);
   this.pane = new ReactiveVar('');
   panelError.set('');
@@ -57,35 +91,31 @@ Template.cloudPanel.onCreated(function () {
   Meteor.callAsync('cloudPanelWhoAmI')
     .then(info => {
       this.info.set(info);
-      this.pane.set(info.isCloudAdmin ? 'domains' : 'invoices');
       return info.isCloudAdmin ? this.loadConfig() : null;
     })
     .catch(error => panelError.set(errorText(error)))
     .finally(() => this.loading.set(false));
 });
 
-function menu(info) {
-  return info.isCloudAdmin ? ADMIN_MENU : CUSTOMER_MENU;
-}
-
 Template.cloudPanel.helpers({
   loading: () => Template.instance().loading.get(),
   info: () => Template.instance().info.get(),
   config: () => Template.instance().config.get(),
-  pane: () => Template.instance().pane.get(),
+  pane: () => currentPane(Template.instance()),
   actionError: () => panelError.get(),
-  // Not at the Cloud Panel Domain, or neither the SuperAdmin nor a customer.
+  // No CLOUD on this server, not at its address, or neither a Cloud Admin
+  // nor a customer here.
   notAllowed() {
     const info = Template.instance().info.get();
-    return !info.onCloudHost || !(info.isCloudAdmin || info.domains.length > 0);
+    return !info.enabled || !info.onCloudHost || !(info.isCloudAdmin || info.domains.length > 0);
   },
   menuItems() {
     const tpl = Template.instance();
-    return leftMenuData(menu(tpl.info.get()), tpl.pane.get(), 'js-cloud-menu');
+    return leftMenuData(menu(tpl.info.get()), currentPane(tpl), 'js-cloud-menu');
   },
   paneTitleData() {
     const tpl = Template.instance();
-    return paneTitle(menu(tpl.info.get()), tpl.pane.get());
+    return paneTitle(menu(tpl.info.get()), currentPane(tpl));
   },
   reload() {
     const tpl = Template.instance();
@@ -97,7 +127,9 @@ Template.cloudPanel.events({
   'click a.js-cloud-menu'(event, tpl) {
     event.preventDefault();
     panelError.set('');
-    tpl.pane.set(event.currentTarget.getAttribute('data-id'));
+    const id = event.currentTarget.getAttribute('data-id');
+    if (FlowRouter.getRouteName() === 'cloud-admin') FlowRouter.go(`/admin/cloud/${id}`);
+    else tpl.pane.set(id);
   },
 });
 
@@ -350,12 +382,7 @@ Template.cloudPanelInvoices.onCreated(function () {
   this.allDomains = new ReactiveVar([]);
   this.load = () => Meteor.callAsync('cloudPanelInvoices').then(invoices => this.invoices.set(invoices));
   this.load();
-  if (Template.currentData().isCloudAdmin) {
-    Meteor.callAsync('cloudPanelDomainsCount', '')
-      .then(total => Promise.all(Array.from({ length: Math.ceil(total / TABLE_PAGE_ROWS_PER_PAGE) }, (_, i) =>
-        Meteor.callAsync('cloudPanelDomainsPage', { page: i + 1 }))))
-      .then(pages => this.allDomains.set(pages.flat()));
-  }
+  if (Template.currentData().isCloudAdmin) allDomains().then(domains => this.allDomains.set(domains));
 });
 
 Template.cloudPanelInvoices.helpers({
@@ -387,20 +414,24 @@ Template.cloudPanelChat.onCreated(function () {
   this.domainId = new ReactiveVar((this.domains.get()[0] || {})._id || '');
   this.messages = new ReactiveVar([]);
   this.imported = new ReactiveVar(0);
+  this.boardPath = new ReactiveVar('');
   this.load = () => {
     const id = this.domainId.get();
     if (!id) return Promise.resolve();
     return Meteor.callAsync('cloudPanelChat', id).then(messages => this.messages.set(messages));
   };
+  // The support board itself, to open in Board View / Chat.
+  this.autorun(() => {
+    const id = this.domainId.get();
+    if (!id) return;
+    Meteor.callAsync('cloudPanelTickets', id).then(board => this.boardPath.set(boardPathOf(board))).catch(() => this.boardPath.set(''));
+  });
   if (Template.currentData().isCloudAdmin) {
-    Meteor.callAsync('cloudPanelDomainsCount', '')
-      .then(total => Promise.all(Array.from({ length: Math.ceil(total / TABLE_PAGE_ROWS_PER_PAGE) }, (_, i) =>
-        Meteor.callAsync('cloudPanelDomainsPage', { page: i + 1 }))))
-      .then(pages => {
-        this.domains.set(pages.flat());
-        if (!this.domainId.get() && pages.flat()[0]) this.domainId.set(pages.flat()[0]._id);
-        return this.load();
-      });
+    allDomains().then(domains => {
+      this.domains.set(domains);
+      if (!this.domainId.get() && domains[0]) this.domainId.set(domains[0]._id);
+      return this.load();
+    });
   } else {
     this.load();
   }
@@ -417,6 +448,7 @@ Template.cloudPanelChat.helpers({
   domainId: () => Template.instance().domainId.get(),
   messages: () => Template.instance().messages.get(),
   imported: () => Template.instance().imported.get(),
+  boardPath: () => Template.instance().boardPath.get(),
   when: at => (at ? new Date(at).toLocaleString(language()) : ''),
 });
 
@@ -446,29 +478,103 @@ Template.cloudPanelChat.events({
   },
 });
 
-// ---------------------------------------------------------------- Admin Panel
+// ---------------------------------------------------------------- Tickets
 
-// Admin Panel / People / Cloud: the Cloud Panel Domain and its SuperAdmin.
-Template.cloudPanelSettings.onCreated(function () {
-  this.settings = new ReactiveVar({ domain: '', superAdminUsername: '' });
-  this.saved = new ReactiveVar(false);
-  this.error = new ReactiveVar('');
-  Meteor.callAsync('cloudPanelGetSettings').then(s => this.settings.set(s)).catch(e => this.error.set(errorText(e)));
+Template.cloudPanelTickets.onCreated(function () {
+  this.domains = new ReactiveVar(Template.currentData().domains || []);
+  this.domainId = new ReactiveVar((this.domains.get()[0] || {})._id || '');
+  this.board = new ReactiveVar(null);
+  this.load = () => {
+    const id = this.domainId.get();
+    if (!id) return Promise.resolve();
+    return report(Meteor.callAsync('cloudPanelTickets', id).then(board => this.board.set(board)));
+  };
+  if (Template.currentData().isCloudAdmin) {
+    allDomains().then(domains => {
+      this.domains.set(domains);
+      if (!this.domainId.get() && domains[0]) this.domainId.set(domains[0]._id);
+      return this.load();
+    });
+  } else {
+    this.load();
+  }
+  this.poll = Meteor.setInterval(() => this.load(), 30000);
 });
 
-Template.cloudPanelSettings.helpers({
-  settings: () => Template.instance().settings.get(),
-  saved: () => Template.instance().saved.get(),
-  error: () => Template.instance().error.get(),
+Template.cloudPanelTickets.onDestroyed(function () {
+  Meteor.clearInterval(this.poll);
 });
 
-Template.cloudPanelSettings.events({
-  'submit .js-cloud-panel-settings'(event, tpl) {
+const COLUMN_KEYS = Object.fromEntries(SUPPORT_LISTS.map(list => [list.key, list.titleKey]));
+
+Template.cloudPanelTickets.helpers({
+  ticketDomains: () => Template.instance().domains.get(),
+  domainId: () => Template.instance().domainId.get(),
+  board: () => Template.instance().board.get(),
+  states: () => TICKET_STATES,
+  columnTitle: key => TAPi18n.__(COLUMN_KEYS[key] || key),
+  boardPath: () => boardPathOf(Template.instance().board.get()),
+  when: at => (at ? new Date(at).toLocaleString(language()) : ''),
+});
+
+Template.cloudPanelTickets.events({
+  'change .js-cloud-tickets-domain'(event, tpl) {
+    tpl.domainId.set(event.currentTarget.value);
+    tpl.board.set(null);
+    tpl.load();
+  },
+  'submit .js-cloud-ticket-add'(event, tpl) {
     event.preventDefault();
     const form = event.currentTarget;
+    report(Meteor.callAsync('cloudPanelAddTicket', tpl.domainId.get(), { title: field(form, 'title'), description: field(form, 'description') })
+      .then(() => { form.reset(); return tpl.load(); }));
+  },
+  'change .js-cloud-ticket-move'(event, tpl) {
+    report(Meteor.callAsync('cloudPanelMoveTicket', tpl.domainId.get(), event.currentTarget.getAttribute('data-id'), event.currentTarget.value)
+      .then(() => tpl.load()));
+  },
+});
+
+// ---------------------------------------------------------------- Allowed addresses
+
+Template.cloudPanelAllowedAddresses.onCreated(function () {
+  this.text = new ReactiveVar(null);
+  this.saved = new ReactiveVar(false);
+});
+
+// Would this list lock the Cloud Admin out? The same rule the server applies
+// when it refuses to save it.
+function locksOut(text, yourAddress) {
+  let list;
+  try { list = normalizeAllowedAddresses(text); } catch (e) { return false; }
+  return list.length > 0 && !addressAllowed(yourAddress, list);
+}
+
+Template.cloudPanelAllowedAddresses.helpers({
+  addressesText() {
+    const config = Template.currentData().config;
+    return ((config && config.allowedAddresses) || []).join('\n');
+  },
+  lockout() {
+    const tpl = Template.instance();
+    const config = Template.currentData().config || {};
+    const text = tpl.text.get();
+    return text !== null && locksOut(text, config.yourAddress);
+  },
+  saved: () => Template.instance().saved.get(),
+});
+
+Template.cloudPanelAllowedAddresses.events({
+  'input .js-cloud-addresses-text'(event, tpl) {
     tpl.saved.set(false);
-    Meteor.callAsync('cloudPanelSetSettings', { domain: field(form, 'domain'), superAdminUsername: field(form, 'superAdminUsername') })
-      .then(s => { tpl.settings.set(s); tpl.saved.set(true); tpl.error.set(''); })
-      .catch(e => tpl.error.set(errorText(e)));
+    tpl.text.set(event.currentTarget.value);
+  },
+  'submit .js-cloud-addresses'(event, tpl) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const { reload } = Template.currentData();
+    tpl.saved.set(false);
+    report(Meteor.callAsync('cloudPanelSetAllowedAddresses', form.elements.addresses.value)
+      .then(() => { tpl.saved.set(true); tpl.text.set(null); return reload(); }));
   },
 });

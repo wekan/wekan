@@ -160,3 +160,5 @@ import './passwordLoginDisabled.tests';
 import './selfAccountRemoval.tests';
 // Admin Panel / Settings / Features refused on the server while off.
 import './featureServerGates.tests';
+// CloudPanelBleed: the Cloud Panel without the CLOUD environment variable.
+import './cloudPanel.security.tests';

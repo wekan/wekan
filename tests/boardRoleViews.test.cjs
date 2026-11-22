@@ -158,6 +158,7 @@ test('negative: every server path that returns card data applies the board role,
     'server/tableViewCards.js': 'creates a card; returns only its id',
     'server/trelloApiImport.js': 'imports into a board; returns no other card',
     'server/methods/ruleSuggestions.js': 'board admins only; returns list, label and member names, no card content',
+    'server/cloudPanel.js': 'a Cloud Panel support board: its Cloud Admins (board admins) and its customers (Comment only, who see every card), checked by readableDomain',
   };
   const files = [];
   const walk = dir => {

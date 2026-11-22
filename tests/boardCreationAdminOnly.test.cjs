@@ -100,9 +100,13 @@ test('negative: no unexpected Meteor board-insert path exists', () => {
   // board rather than creating one from nothing. A new, unlisted call site
   // is worth a second look, so this pins the exact set rather than growing
   // silently.
+  // server/cloudPanel.js makes each customer domain's support board, only
+  // where the server has CLOUD - a board the panel owns, not one a user asks
+  // for (docs/Features/Admin-Panel/Cloud-Panel.md).
   const KNOWN_EXCEPTIONS = new Set([
     'server/models/users.js',
     'server/models/cards.js',
+    'server/cloudPanel.js',
   ]);
   const serverDir = path.join(ROOT, 'server');
   const found = [];

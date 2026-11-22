@@ -126,6 +126,28 @@ pane and the *report*. `security` is the settings one, in Settings beside
 | `/admin/attachments/webdav` | WebDAV (Nextcloud Files) | `webdav` |
 | `/admin/attachments/database-migration` | Database migration | `database-migration` |
 
+## Cloud — `/admin/cloud`
+
+Only where the server has the `CLOUD` environment variable, at that address,
+for its Cloud Admins ([Cloud Panel](Cloud-Panel.md)). It is not one of the four
+pages of `models/lib/adminUrls.js`: its route, `cloud-admin`, is in
+`config/router.js`, and the tab shows only when the server says this user is a
+Cloud Admin here. A bare `/admin/cloud` opens Domains; `/cloud` is the same
+page for customers.
+
+| URL | Pane |
+| --- | --- |
+| `/admin/cloud/domains` | Domains |
+| `/admin/cloud/invoices` | Invoices |
+| `/admin/cloud/tickets` | Tickets |
+| `/admin/cloud/chat` | Chat |
+| `/admin/cloud/cloudflare` | Cloudflare |
+| `/admin/cloud/caddy` | Caddy |
+| `/admin/cloud/allowed-addresses` | Allowed addresses |
+
+The People pane `/admin/people/cloud` that set the Cloud Panel's domain from
+the browser is gone: the domain is the `CLOUD` environment variable.
+
 ## The slug is not derived from the pane id
 
 The pane ids are internal and read like it — `tableVisibilityMode-setting`,

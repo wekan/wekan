@@ -10,12 +10,16 @@ const { SimpleSchema } = require('/imports/simpleSchema');
 
 const day = /^\d{4}-\d\d-\d\d$/;
 
-// One document, _id 'cloud': the panel's domain and Cloud Admins, Cloudflare
-// and Caddy (models/lib/cloudPanel.js normalizeCloudSettings, normalizeCloudflare,
-// normalizeCaddy).
+// One document, _id 'cloud': Cloudflare, Caddy and the addresses a Cloud Admin
+// may sign in from (models/lib/cloudPanel.js normalizeCloudflare,
+// normalizeCaddy; models/lib/cloudAddresses.js). The panel's domain is NOT
+// here: it is the CLOUD environment variable. `settings` is where an earlier
+// version kept a domain and SuperAdmin set from the browser; nothing reads it.
 export const CloudSettings = new Mongo.Collection('cloudSettings');
 CloudSettings.attachSchema(new SimpleSchema({
   settings: { type: Object, optional: true, blackbox: true },
+  allowedAddresses: { type: Array, optional: true, maxCount: 200 },
+  'allowedAddresses.$': { type: String, max: 60 },
   cloudflare: { type: Object, optional: true, blackbox: true },
   caddy: { type: Object, optional: true, blackbox: true },
   createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
@@ -45,6 +49,9 @@ CloudDomains.attachSchema(new SimpleSchema({
   orgId: { type: String, optional: true },
   importedAt: { type: Date, optional: true },
   importReport: { type: Object, optional: true, blackbox: true },
+  // Its support board (server/cloudPanel.js ensureSupportBoard):
+  // { boardId, swimlaneId, lists: { open, progress, done, chat }, chatCardId }.
+  support: { type: Object, optional: true, blackbox: true },
   createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
   modifiedAt: { type: Date, optional: true, autoValue: modifiedAtAutoValue },
 }));
@@ -69,7 +76,9 @@ CloudInvoices.attachSchema(new SimpleSchema({
 }));
 
 // The chat of a domain's customer with the Cloud Admins, and the Rocket.Chat
-// and SandChat conversations imported into it.
+// and SandChat conversations imported into it, as the panel kept it before the
+// chat became the support board's chat card. Each message is copied there once
+// and marked `migratedAt`; nothing new is written here.
 export const CloudChatMessages = new Mongo.Collection('cloudChatMessages');
 CloudChatMessages.attachSchema(new SimpleSchema({
   domainId: { type: String },
@@ -80,6 +89,7 @@ CloudChatMessages.attachSchema(new SimpleSchema({
   source: { type: String, optional: true, allowedValues: ['rocketchat', 'sandchat'] },
   room: { type: String, optional: true, max: 200 },
   at: { type: Date },
+  migratedAt: { type: Date, optional: true },
   createdAt: { type: Date, optional: true, autoValue: createdAtAutoValue },
 }));
 

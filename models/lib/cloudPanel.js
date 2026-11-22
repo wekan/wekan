@@ -70,17 +70,34 @@ function usernames(value, max, message) {
   return out;
 }
 
-// ---------------------------------------------------------------- settings
+// ---------------------------------------------------------------- the gate
 
-// Admin Panel / People / Cloud: the panel's own domain (the Cloud Panel
-// Domain) and its SuperAdmin - an existing WeKan administrator, by username
-// or e-mail address - as Weddy's Cloud Panel has them
-// (caddy-wekan-plugin web/cloudpanel.go).
-function normalizeCloudSettings(value) {
-  const v = plainObject(value, ['domain', 'superAdminUsername']);
-  const domain = v.domain === undefined || v.domain === null || v.domain === '' ? '' : hostname(v.domain);
-  const superAdminUsername = text(v.superAdminUsername, 254, 'The SuperAdmin Username is at most 254 characters').toLowerCase();
-  return { domain, superAdminUsername };
+/**
+ * The Cloud Panel's own domain - and whether there is a Cloud Panel at all.
+ *
+ * It is the server's environment variable CLOUD, e.g. CLOUD=cloud.wekan.fi,
+ * and nothing else: not a setting in the database, not a field in the
+ * browser, not the REST API. The panel holds the database passwords of the
+ * customers' WeKan containers and connects to those databases, so the
+ * operator of the machine decides that this container is the panel, and a
+ * site administrator of any other WeKan - a customer is the administrator of
+ * their own container - cannot make theirs one. Before 2026-11-22 the domain
+ * was a setting any site administrator could change from Admin Panel /
+ * People / Cloud, and with it reach any MongoDB server the WeKan server could
+ * reach; a domain stored there then is read by nothing now.
+ *
+ * Empty (and so: no panel) when CLOUD is unset or is not a host name.
+ */
+// A one-label name - `localhost`, or a container's name on a private
+// network - is a host too, but a switch someone meant as "on" is not.
+const NOT_A_HOST = Object.freeze(['true', 'false', 'yes', 'no', 'on', 'off', '0', '1']);
+function cloudDomainFromEnv(env) {
+  const raw = env && typeof env.CLOUD === 'string' ? env.CLOUD : '';
+  if (!raw.trim()) return '';
+  try { return hostname(raw); } catch (e) { /* maybe one label */ }
+  const host = normalizeHost(raw);
+  if (NOT_A_HOST.includes(host) || !/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(host) || /^\d+$/.test(host)) return '';
+  return host;
 }
 
 // Cloudflare: an API token with Zone.DNS edit on the zone, the zone id, the
@@ -253,12 +270,13 @@ function redactDomain(doc) {
 // ---------------------------------------------------------------- who
 
 /**
- * Is this request for the Cloud Panel? Only on the panel's own domain, so a
- * customer domain never shows it - and a panel with no domain set is off.
+ * Is this request for the Cloud Panel? Only on the panel's own domain - the
+ * CLOUD environment variable, as cloudDomainFromEnv reads it - so a customer
+ * domain never shows it. Anything but that string, such as the settings
+ * object an earlier version stored in the database, is no panel.
  */
-function isCloudHost(host, settings) {
-  const domain = settings && settings.domain;
-  return !!domain && normalizeHost(host || '') === domain;
+function isCloudHost(host, cloudDomain) {
+  return typeof cloudDomain === 'string' && !!cloudDomain && normalizeHost(host || '') === cloudDomain;
 }
 
 // The names a user goes by: their username and their e-mail addresses.
@@ -267,22 +285,197 @@ function namesOf(user) {
   return [user.username, ...(user.emails || []).map(e => e && e.address)].filter(Boolean).map(n => String(n).trim().toLowerCase());
 }
 
-// The SuperAdmin: the WeKan administrator whose username, or one of whose
-// e-mail addresses, is the SuperAdmin Username, without case. Nobody when it
-// is empty.
-function isCloudAdmin(user, settings) {
-  const want = String((settings && settings.superAdminUsername) || '').trim().toLowerCase();
-  if (!want || !user || user.isAdmin !== true || user.loginDisabled === true) return false;
-  return namesOf(user).includes(want);
+/**
+ * A customer who signed in at the panel with the password of their OWN WeKan
+ * (server/cloudPanel.js, the customer login): a local account with no
+ * password of its own, marked services.cloudCustomer { domainId,
+ * foreignUserId, username, emails, verifiedAt }.
+ */
+function isCloudCustomer(user) {
+  const cc = user && user.services && user.services.cloudCustomer;
+  return !!(cc && typeof cc.domainId === 'string' && cc.domainId);
 }
 
-// The domains a customer may see: those whose Customer or Billing e-mail
-// address is theirs, or that name them among the customers.
+/**
+ * The Cloud Admins: on the panel's container, its site administrators - the
+ * first account registered there is one, as in every WeKan - who are not
+ * disabled. Never a customer's account, whatever it says about itself, and
+ * nobody at all when there is no panel.
+ */
+function isCloudAdmin(user, cloudDomain) {
+  if (typeof cloudDomain !== 'string' || !cloudDomain) return false;
+  if (!user || user.isAdmin !== true || user.loginDisabled === true) return false;
+  return !isCloudCustomer(user);
+}
+
+// Does this domain name this person among its customers - by a username of
+// customerUsernames or by its customerEmail?
+function listsCustomer(domain, name) {
+  const want = String(name || '').trim().toLowerCase();
+  if (!want || !domain) return false;
+  return [domain.customerEmail, ...(domain.customerUsernames || [])].some(n => n && String(n).toLowerCase() === want);
+}
+
+/**
+ * The domains a customer may see. A customer who signed in with their own
+ * WeKan's password sees exactly the one domain they signed in to, and only
+ * while that domain still lists them - never another domain that happens to
+ * list a name like theirs. Any other account: the domains whose Customer or
+ * Billing e-mail address is theirs, or that name them among the customers.
+ */
 function customerDomains(user, domains) {
+  if (isCloudCustomer(user)) {
+    const cc = user.services.cloudCustomer;
+    const names = [cc.username, ...(cc.emails || [])].filter(Boolean);
+    return (domains || []).filter(d => d && d._id === cc.domainId && names.some(n => listsCustomer(d, n)));
+  }
   const names = new Set(namesOf(user));
   if (!names.size) return [];
   return (domains || []).filter(d => [d.customerEmail, d.billingEmail, ...(d.customerUsernames || [])]
     .some(n => n && names.has(String(n).toLowerCase())));
+}
+
+// ---------------------------------------------------------------- customer login
+
+// The name a password login asks for: Meteor's { username } / { email } or a
+// bare string. An { id } login is not a customer's.
+function loginName(userQuery) {
+  if (typeof userQuery === 'string') return { name: userQuery.trim().toLowerCase(), byEmail: userQuery.includes('@') };
+  if (!userQuery || typeof userQuery !== 'object') return { name: '', byEmail: false };
+  if (typeof userQuery.username === 'string') return { name: userQuery.username.trim().toLowerCase(), byEmail: false };
+  if (typeof userQuery.email === 'string') return { name: userQuery.email.trim().toLowerCase(), byEmail: true };
+  return { name: '', byEmail: false };
+}
+
+/**
+ * Whether the customer login takes this password login, and for which
+ * domain. It takes it only
+ *   - when there is a Cloud Panel (CLOUD) and the login is at its address,
+ *   - when no account HERE has that name - an account of the panel's own,
+ *     a Cloud Admin's above all, signs in with its own password, and no
+ *     customer database can stand in for it,
+ *   - for a name that exactly one domain lists, and that domain has its own
+ *     database to ask. A name no domain lists is not looked up anywhere: no
+ *     customer's database is ever searched for a stranger.
+ * Returns { handle: false } (the ordinary password login decides) or
+ * { handle: true, domain, name, byEmail } or { handle: true, refuse }.
+ */
+function customerLoginPlan({ cloudDomain, host, userQuery, localUser, domains }) {
+  if (!isCloudHost(host, cloudDomain)) return { handle: false, reason: 'not-cloud' };
+  const { name, byEmail } = loginName(userQuery);
+  if (!name || name.length > 254) return { handle: false, reason: 'no-name' };
+  if (localUser && !isCloudCustomer(localUser)) return { handle: false, reason: 'local-account' };
+  const listing = (domains || []).filter(d => d && d.mode === 'own' && d.database && listsCustomer(d, name));
+  if (!listing.length) return { handle: false, reason: 'unlisted' };
+  if (listing.length > 1) return { handle: true, refuse: 'ambiguous' };
+  return { handle: true, domain: listing[0], name, byEmail };
+}
+
+// The password hash of an account in a customer's own WeKan, as
+// accounts-password keeps it.
+function passwordHashOf(user) {
+  const p = user && user.services && user.services.password;
+  return (p && (p.argon2 || p.bcrypt)) || '';
+}
+
+/**
+ * The account the customer's own database answered with, judged before any
+ * password is compared: exactly one, not disabled there, with a password.
+ */
+function foreignAccountDecision(users) {
+  const list = Array.isArray(users) ? users.filter(Boolean) : [];
+  if (list.length !== 1) return { ok: false, reason: list.length ? 'ambiguous' : 'not-found' };
+  const user = list[0];
+  if (user.loginDisabled === true) return { ok: false, reason: 'disabled' };
+  if (!passwordHashOf(user)) return { ok: false, reason: 'no-password' };
+  return { ok: true, user };
+}
+
+// The local username of a customer's account here: theirs, with the domain,
+// so two customers both called anna are two accounts.
+function shadowUsername(username, domain) {
+  const base = String(username || 'customer').toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'customer';
+  return `${base}-${String(domain || '').toLowerCase()}`.slice(0, 200);
+}
+
+// ---------------------------------------------------------------- REST API
+
+/**
+ * Does a plain HTTP request at the CLOUD address reach the REST API? Not
+ * without a login: there is no POST /users/login nor /users/register there
+ * at all - signed in or not, since both are ways of getting a login - and
+ * no /api/ for a request that does not carry one. So the panel, which holds
+ * every customer's database password, has no sign-in but its own page, with
+ * its brute-force brakes and its allowed addresses. Every other host - and
+ * every WeKan without CLOUD - is unchanged.
+ *
+ * The inbound email and bounce webhooks are /api/ too, and are not there
+ * either: the panel turns no email into cards and sends nothing that bounces.
+ * A provider that must post to this container posts to another host name of
+ * it, which is not the CLOUD address.
+ * Returns 'pass' or 'refuse'.
+ */
+function cloudRestDecision({ cloudDomain, host, url, signedIn }) {
+  if (!isCloudHost(host, cloudDomain)) return 'pass';
+  let pathname = String(url || '').split('?')[0];
+  try { pathname = decodeURIComponent(pathname); } catch (e) { return 'refuse'; }
+  pathname = pathname.toLowerCase().replace(/\/{2,}/g, '/');
+  if (/^\/users\/(login|register)(\/|$)/.test(pathname)) return 'refuse';
+  if (/^\/(api|users)(\/|$)/.test(pathname)) return signedIn ? 'pass' : 'refuse';
+  return 'pass';
+}
+
+// ---------------------------------------------------------------- support boards
+
+// Each customer domain has a WeKan board for its support: the tickets are
+// its cards in Open / In progress / Done, and the support chat is the
+// comments of one card in the Chat list - which Board View / Chat shows as a
+// chat (client/components/boards/chatView.js: a card is a channel, its
+// comments the messages).
+const SUPPORT_LISTS = Object.freeze([
+  { key: 'open', titleKey: 'open', title: 'Open' },
+  { key: 'progress', titleKey: 'scrum-category-doing', title: 'In progress' },
+  { key: 'done', titleKey: 'done', title: 'Done' },
+  { key: 'chat', titleKey: 'board-view-chat', title: 'Chat' },
+]);
+const TICKET_STATES = Object.freeze(['open', 'progress', 'done']);
+
+function supportBoardTitle(domain) {
+  return `Support: ${domain}`;
+}
+
+/**
+ * Who is on a domain's support board, and as what. The Cloud Admins are its
+ * board admins: everything. The domain's customers are Comment only
+ * (models/lib/boardRoleCapabilities.js): they read every card and comment,
+ * and cannot create, edit, move, archive or delete a card, nor manage the
+ * board - 'normal' would let them archive and move the tickets, a Worker
+ * would let them move them. Adding a ticket is the one write they are given,
+ * and the panel's own method does it for them (one card, into Open).
+ */
+function supportMembers(adminIds, customerIds) {
+  const flags = { isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false,
+    isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false };
+  const out = [];
+  const seen = new Set();
+  for (const userId of adminIds || []) {
+    if (!userId || seen.has(userId)) continue;
+    seen.add(userId);
+    out.push({ userId, isAdmin: true, isActive: true, ...flags });
+  }
+  for (const userId of customerIds || []) {
+    if (!userId || seen.has(userId)) continue;
+    seen.add(userId);
+    out.push({ userId, isAdmin: false, isActive: true, ...flags, isCommentOnly: true });
+  }
+  return out;
+}
+
+function normalizeTicket(value) {
+  const v = plainObject(value, ['title', 'description']);
+  const title = text(v.title, 500, 'A title is at most 500 characters');
+  if (!title) fail('A ticket has a title');
+  return { title, description: text(v.description, 20000, 'A description is at most 20000 characters') };
 }
 
 // ---------------------------------------------------------------- Caddy
@@ -291,11 +484,11 @@ function customerDomains(user, domains) {
  * The Caddyfile of the panel and every domain: the panel and each shared
  * domain to this WeKan, each own domain to its container.
  */
-function caddyfile(domains, { settings = {}, caddy = {} } = {}, today = null) {
+function caddyfile(domains, { cloudDomain = '', caddy = {} } = {}, today = null) {
   const blocks = [];
   if (caddy.email) blocks.push(`{\n\temail ${caddy.email}\n}`);
   const shared = caddy.sharedUpstream || 'wekan:8080';
-  if (settings.domain) blocks.push(`${settings.domain} {\n\treverse_proxy ${shared}\n}`);
+  if (cloudDomain) blocks.push(`${cloudDomain} {\n\treverse_proxy ${shared}\n}`);
   for (const d of [...(domains || [])].sort((a, b) => a.domain.localeCompare(b.domain))) {
     const to = d.mode === 'shared' ? shared : d.upstream;
     if (!to || (today && !isActiveOn(d, today))) continue;
@@ -312,11 +505,11 @@ function caddyfile(domains, { settings = {}, caddy = {} } = {}, today = null) {
  * the same name - an MX, a TXT - is never touched; a CNAME where an A is
  * wanted, or the other way round, is reported as a conflict, not replaced.
  */
-function dnsPlan(domains, existing, { settings = {}, cloudflare = {} } = {}) {
+function dnsPlan(domains, existing, { cloudDomain = '', cloudflare = {} } = {}) {
   const target = cloudflare.target;
   if (!target) fail('Set the target the domains point at');
   const type = isIpv4(target) ? 'A' : (isIpv6(target) ? 'AAAA' : 'CNAME');
-  const names = [...new Set([settings.domain, ...(domains || []).filter(d => d.cloudflare !== false).map(d => d.domain)].filter(Boolean))];
+  const names = [...new Set([cloudDomain, ...(domains || []).filter(d => d.cloudflare !== false).map(d => d.domain)].filter(Boolean))];
   const create = [];
   const update = [];
   const conflicts = [];
@@ -450,7 +643,9 @@ function remapIds(value, map) {
 
 module.exports = {
   DOMAIN_MODES, INVOICE_STATUSES, IMPORT_COLLECTIONS,
-  normalizeCloudSettings, normalizeCloudflare, normalizeCaddy, normalizeDatabase, normalizeDomain,
-  mongoUrlOf, redactDatabase, redactDomain, isCloudHost, isCloudAdmin, customerDomains, isActiveOn,
+  cloudDomainFromEnv, normalizeCloudflare, normalizeCaddy, normalizeDatabase, normalizeDomain,
+  mongoUrlOf, redactDatabase, redactDomain, isCloudHost, isCloudAdmin, isCloudCustomer, listsCustomer, customerDomains, isActiveOn,
+  loginName, customerLoginPlan, passwordHashOf, foreignAccountDecision, shadowUsername,
+  cloudRestDecision, SUPPORT_LISTS, TICKET_STATES, supportBoardTitle, supportMembers, normalizeTicket,
   caddyfile, dnsPlan, normalizeCloudInvoice, normalizeChatMessage, importedChatMessages, accountPlan, remapIds,
 };

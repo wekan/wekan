@@ -27,6 +27,9 @@ const PAGE_TITLE_KEYS = {
   people: 'admin-panel',
   'problems': 'admin-panel',
   attachments: 'admin-panel',
+  // Admin Panel / Cloud, where the server has CLOUD (server/cloudPanel.js).
+  'cloud-admin': 'admin-panel',
+  cloud: 'cloud',
   support: 'support',
   shortcuts: 'keyboard-shortcuts',
   'board-rules': 'r-board-rules',
@@ -63,6 +66,7 @@ const PAGE_TITLE_SUBKEYS = {
   people: 'people',
   attachments: 'attachments',
   'problems': 'problems',
+  'cloud-admin': 'cloud',
 };
 
 // The route names that ARE a board. On those the title is the board's own, so

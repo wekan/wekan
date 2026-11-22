@@ -137,6 +137,16 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Filesystem integrity (`integrity`) | [fileIntegrityScan.js](../../../server/lib/fileIntegrityScan.js) | Integrity scans/baselines plus file-status audit; scans report their coverage limits. |
 | Email (`mail`) | [mailProblems.js](../../../models/lib/mailProblems.js) | Sends the mail server refused, IMAP mailboxes that cannot be read, unreadable email and email for a board that no longer takes it - one folded row per kind; runtime-tested against local SMTP and IMAP servers. |
 
+## Cloud
+
+Admin Panel / Cloud exists only where the server has `CLOUD`; it is not one
+of the four pages this audit follows. [cloudPanel.js](../../../server/cloudPanel.js)
+refuses every method without `CLOUD` and records the attempt; the real methods,
+the customer login, the support boards and the allowed addresses are in
+[cloudPanelAccess.test.cjs](../../../tests/cloudPanelAccess.test.cjs), the gate
+in [cloudPanelGate.test.cjs](../../../tests/cloudPanelGate.test.cjs)
+([Cloud Panel](Cloud-Panel.md)).
+
 ## Reproduce the checks
 
 Run the focused Node suites with `node tests/run-node-suites.cjs` and the

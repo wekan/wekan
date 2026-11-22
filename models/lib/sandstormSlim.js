@@ -29,7 +29,6 @@ const SANDSTORM_HIDDEN_PEOPLE_PANES = Object.freeze([
   'oidc-setting',           // wekan-oidc / wekan-accounts-oidc (OAuth2)
   'cas-setting',            // wekan-accounts-cas
   'header-login-setting',   // reverse-proxy header login
-  'cloud-setting',          // Cloud Panel: hosting many domains, not a grain's
   'oauth-setting',          // accounts-google, -github, -facebook, ...
   'passwordless-setting',   // accounts-passwordless
 ]);

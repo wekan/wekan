@@ -174,7 +174,10 @@ test('the Admin Panel tabs are icons, in the first bar, left of the bell', () =>
   // logo, the starred boards and the user menu.
   const block = tabs.slice(tabs.indexOf('template(name="adminPanelTabs")'));
   const buttons = [...block.matchAll(/^\s+a\.board-header-btn\.[\w-]+\(([^)]*)\)$/gm)];
-  assert.strictEqual(buttons.length, 4, `four tabs, found ${buttons.length}`);
+  // Four, and a fifth - Admin Panel / Cloud - drawn only where the server has
+  // the CLOUD environment variable, for its Cloud Admins (server/cloudPanel.js).
+  assert.strictEqual(buttons.length, 5, `four tabs and Cloud, found ${buttons.length}`);
+  assert.ok(/if isCloudAdmin\n\s+a\.board-header-btn\.cloud\(/.test(block), 'Cloud only for a Cloud Admin');
   for (const b of buttons) {
     assert.ok(/title="\{\{_ '[\w-]+'\}\}"/.test(b[1]), 'each is named by a translated tooltip');
     assert.ok(/href="\{\{pathFor '[\w-]+'\}\}"/.test(b[1]), 'and links by route name');

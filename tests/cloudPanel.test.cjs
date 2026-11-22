@@ -9,25 +9,40 @@ const C = require('../models/lib/cloudPanel.js');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-test('settings: the Cloud Panel Domain and one SuperAdmin, by username or e-mail', () => {
-  assert.deepEqual(C.normalizeCloudSettings({ domain: 'HTTPS://Cloud.Example.com:443/', superAdminUsername: ' Boss ' }),
-    { domain: 'cloud.example.com', superAdminUsername: 'boss' });
-  assert.deepEqual(C.normalizeCloudSettings({}), { domain: '', superAdminUsername: '' }, 'empty: the panel is off');
-  assert.throws(() => C.normalizeCloudSettings({ domain: 'not a domain' }), /domain name/);
-  assert.throws(() => C.normalizeCloudSettings({ adminUsernames: ['a'] }), /Unsupported/);
+test('the gate: the Cloud Panel is the CLOUD environment variable, and nothing else', () => {
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: 'HTTPS://Cloud.Example.com:443/' }), 'cloud.example.com');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: ' cloud.wekan.fi ' }), 'cloud.wekan.fi');
+  assert.equal(C.cloudDomainFromEnv({}), '', 'negative: CLOUD unset, no panel');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: '' }), '', 'negative: empty, no panel');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: 'not a domain' }), '', 'negative: not a host name, no panel');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: 'true' }), '', 'negative: a switch is not a domain');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: '1' }), '', 'negative: nor is a number');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: 'localhost' }), 'localhost', 'one label is a host: a test server, a private network');
+  assert.equal(C.cloudDomainFromEnv({ CLOUD: 'cloud.example.com; rm -rf /' }), '', 'negative: nothing but a host');
+  assert.equal(C.cloudDomainFromEnv(undefined), '');
+  assert.equal(C.isCloudHost('Cloud.Example.com:443', 'cloud.example.com'), true);
+  assert.equal(C.isCloudHost('customer1.example.com', 'cloud.example.com'), false, 'negative: a customer domain never shows the panel');
+  assert.equal(C.isCloudHost('cloud.example.com', ''), false, 'negative: no CLOUD, no panel');
+  // What an earlier version kept in the database, set from the browser:
+  // nothing reads it now, and handed in anyway it is no panel.
+  assert.equal(C.isCloudHost('cloud.example.com', { domain: 'cloud.example.com', superAdminUsername: 'boss' }), false,
+    'negative: a domain stored in the database has no effect');
+  assert.equal(C.normalizeCloudSettings, undefined, 'negative: the domain can no longer be normalized for saving');
 });
 
-test('who: the SuperAdmin is an administrator whose username or e-mail is named; customers by their addresses', () => {
-  const settings = { domain: 'cloud.example.com', superAdminUsername: 'boss@example.com' };
-  const boss = { username: 'boss', isAdmin: true, emails: [{ address: 'Boss@Example.com' }] };
-  assert.equal(C.isCloudAdmin(boss, settings), true);
-  assert.equal(C.isCloudAdmin({ ...boss, isAdmin: false }, settings), false, 'negative: named, but not an administrator');
-  assert.equal(C.isCloudAdmin({ ...boss, loginDisabled: true }, settings), false, 'negative: disabled');
-  assert.equal(C.isCloudAdmin({ username: 'other', isAdmin: true }, settings), false, 'negative: another administrator');
-  assert.equal(C.isCloudAdmin(boss, { domain: 'x.example.com', superAdminUsername: '' }), false, 'negative: nobody when empty');
-  assert.equal(C.isCloudHost('Cloud.Example.com:443', settings), true);
-  assert.equal(C.isCloudHost('customer1.example.com', settings), false, 'negative: a customer domain never shows the panel');
-  assert.equal(C.isCloudHost('cloud.example.com', { domain: '' }), false, 'negative: no domain, no panel');
+test('who: the Cloud Admins are this container\'s site administrators; customers by their addresses', () => {
+  const boss = { _id: 'boss', username: 'boss', isAdmin: true, emails: [{ address: 'Boss@Example.com' }] };
+  assert.equal(C.isCloudAdmin(boss, 'cloud.example.com'), true, 'the first registered user is an administrator, so a Cloud Admin');
+  assert.equal(C.isCloudAdmin({ username: 'other', isAdmin: true }, 'cloud.example.com'), true, 'every administrator, no SuperAdmin name');
+  assert.equal(C.isCloudAdmin({ ...boss, isAdmin: false }, 'cloud.example.com'), false, 'negative: not an administrator');
+  assert.equal(C.isCloudAdmin({ ...boss, loginDisabled: true }, 'cloud.example.com'), false, 'negative: disabled');
+  assert.equal(C.isCloudAdmin(boss, ''), false, 'negative: no CLOUD, no Cloud Admin');
+  assert.equal(C.isCloudAdmin(boss, { domain: 'cloud.example.com' }), false, 'negative: a stored domain makes nobody a Cloud Admin');
+  const shadow = { _id: 's', username: 'anna-c1.example.com', isAdmin: true,
+    services: { cloudCustomer: { domainId: 'd1', username: 'anna', emails: ['anna@customer.fi'] } } };
+  assert.equal(C.isCloudAdmin(shadow, 'cloud.example.com'), false, 'negative: a customer\'s account is never a Cloud Admin');
+  assert.equal(C.isCloudCustomer(shadow), true);
+  assert.equal(C.isCloudCustomer(boss), false);
   const domains = [
     { _id: 'd1', customerEmail: 'anna@customer.fi' },
     { _id: 'd2', billingEmail: 'billing@customer.fi', customerUsernames: ['ben'] },
@@ -37,6 +52,93 @@ test('who: the SuperAdmin is an administrator whose username or e-mail is named;
   assert.deepEqual(C.customerDomains(anna, domains).map(d => d._id), ['d1', 'd2']);
   assert.deepEqual(C.customerDomains({ username: 'ben' }, domains).map(d => d._id), ['d2']);
   assert.deepEqual(C.customerDomains({ username: 'eve', emails: [{ address: 'eve@x.fi' }] }, domains), [], 'negative: nobody else\'s');
+});
+
+test('negative: a customer who signed in with their own WeKan\'s password sees exactly their own domain', () => {
+  const domains = [
+    { _id: 'd1', customerUsernames: ['anna'] },
+    { _id: 'd2', customerUsernames: ['anna'], customerEmail: 'anna@customer.fi' },
+    { _id: 'd3', customerEmail: 'anna@customer.fi' },
+  ];
+  const shadow = { username: 'anna', emails: [{ address: 'anna@customer.fi' }],
+    services: { cloudCustomer: { domainId: 'd1', username: 'anna', emails: ['anna@customer.fi'] } } };
+  assert.deepEqual(C.customerDomains(shadow, domains).map(d => d._id), ['d1'], 'never matched by name to another domain');
+  assert.deepEqual(C.customerDomains(shadow, [{ _id: 'd1', customerUsernames: ['ben'] }]), [],
+    'and not even its own once that domain no longer lists them');
+  const byEmail = { services: { cloudCustomer: { domainId: 'd3', username: 'a', emails: ['anna@customer.fi'] } } };
+  assert.deepEqual(C.customerDomains(byEmail, domains).map(d => d._id), ['d3']);
+});
+
+test('the customer login: only at the CLOUD address, only for a listed name, never for an account of the panel\'s own', () => {
+  const own = { _id: 'd1', domain: 'customer1.example.com', mode: 'own', database: { host: 'db', database: 'c1' }, customerUsernames: ['anna'],
+    customerEmail: 'anna@customer1.fi' };
+  const shared = { _id: 'd2', domain: 'customer2.example.com', mode: 'shared', customerUsernames: ['bob'] };
+  const noDb = { _id: 'd3', domain: 'customer3.example.com', mode: 'own', customerUsernames: ['cid'] };
+  const base = { cloudDomain: 'cloud.example.com', host: 'cloud.example.com', localUser: null, domains: [own, shared, noDb] };
+  assert.deepEqual(C.customerLoginPlan({ ...base, userQuery: { username: 'Anna' } }),
+    { handle: true, domain: own, name: 'anna', byEmail: false });
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { email: 'anna@customer1.fi' } }).byEmail, true);
+  assert.equal(C.customerLoginPlan({ ...base, cloudDomain: '', userQuery: { username: 'anna' } }).handle, false, 'negative: no CLOUD');
+  assert.equal(C.customerLoginPlan({ ...base, host: 'customer1.example.com', userQuery: { username: 'anna' } }).handle, false,
+    'negative: only at the panel\'s address');
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { username: 'eve' } }).reason, 'unlisted',
+    'negative: a name no domain lists is looked up nowhere');
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { username: 'bob' } }).handle, false, 'negative: a shared domain has no database to ask');
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { username: 'cid' } }).handle, false, 'negative: nor one without a database');
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { id: 'x' } }).handle, false);
+  assert.equal(C.customerLoginPlan({ ...base, localUser: { _id: 'boss', isAdmin: true }, userQuery: { username: 'anna' } }).reason,
+    'local-account', 'negative: an account here signs in with its own password, never a customer database\'s');
+  assert.equal(C.customerLoginPlan({ ...base, localUser: { _id: 's', services: { cloudCustomer: { domainId: 'd1' } } },
+    userQuery: { username: 'anna' } }).handle, true, 'a customer\'s own account here is asked again');
+  const twice = { ...own, _id: 'd4', domain: 'customer4.example.com' };
+  assert.deepEqual(C.customerLoginPlan({ ...base, domains: [own, twice], userQuery: { username: 'anna' } }), { handle: true, refuse: 'ambiguous' },
+    'negative: two domains listing one name are not guessed between');
+});
+
+test('the customer\'s account in their own database: one, enabled, with a password', () => {
+  const ok = { _id: 'u', username: 'anna', services: { password: { bcrypt: '$2b$10$x' } } };
+  assert.equal(C.foreignAccountDecision([ok]).ok, true);
+  assert.equal(C.foreignAccountDecision([{ ...ok, services: { password: { argon2: '$argon2id$v=19$m=1,t=1,p=1$x' } } }]).ok, true);
+  assert.equal(C.foreignAccountDecision([]).reason, 'not-found', 'negative: not there');
+  assert.equal(C.foreignAccountDecision([ok, { ...ok, _id: 'v' }]).reason, 'ambiguous', 'negative: two of them');
+  assert.equal(C.foreignAccountDecision([{ ...ok, loginDisabled: true }]).reason, 'disabled', 'negative: disabled in their own WeKan');
+  assert.equal(C.foreignAccountDecision([{ ...ok, services: {} }]).reason, 'no-password', 'negative: no password there (LDAP, OAuth)');
+  assert.equal(C.shadowUsername('Anna K', 'customer1.example.com'), 'anna-k-customer1.example.com');
+});
+
+test('the support board: Cloud Admins its board admins, customers Comment only - never more', () => {
+  const members = C.supportMembers(['boss', 'admin2'], ['anna', 'boss']);
+  assert.deepEqual(members.map(m => [m.userId, m.isAdmin, m.isCommentOnly]), [['boss', true, false], ['admin2', true, false], ['anna', false, true]]);
+  const { memberRoleOf, roleCan } = require('../models/lib/boardRoleCapabilities.js');
+  const anna = members.find(m => m.userId === 'anna');
+  assert.equal(memberRoleOf(anna), 'comment-only');
+  assert.equal(roleCan('comment-only', 'comment'), true, 'a customer writes in the chat and comments');
+  for (const cap of ['write', 'moveCard', 'manageBoard']) {
+    assert.equal(roleCan(memberRoleOf(anna), cap), false, `negative: a customer may not ${cap} (archive, delete, move, administer)`);
+  }
+  assert.equal(memberRoleOf(members[0]), 'board-admin');
+  assert.deepEqual(C.SUPPORT_LISTS.map(l => l.key), ['open', 'progress', 'done', 'chat']);
+  assert.equal(C.supportBoardTitle('customer1.example.com'), 'Support: customer1.example.com');
+  assert.deepEqual(C.normalizeTicket({ title: ' Down ', description: 'since 9' }), { title: 'Down', description: 'since 9' });
+  assert.throws(() => C.normalizeTicket({ title: '' }), /title/);
+  assert.throws(() => C.normalizeTicket({ title: 'x', listId: 'elsewhere' }), /Unsupported/, 'negative: a ticket names no list');
+});
+
+test('no REST API at the CLOUD address without a login; every other host unchanged', () => {
+  const at = (url, signedIn, host = 'cloud.example.com', cloudDomain = 'cloud.example.com') => C.cloudRestDecision({ cloudDomain, host, url, signedIn });
+  assert.equal(at('/users/login', false), 'refuse');
+  assert.equal(at('/users/login', true), 'refuse', 'not even with a token: it is a way of getting one');
+  assert.equal(at('/users/register', false), 'refuse');
+  assert.equal(at('/USERS/Login/', false), 'refuse');
+  assert.equal(at('/api/boards', false), 'refuse');
+  assert.equal(at('/%61pi/boards', false), 'refuse', 'decoded, as Express decodes it');
+  assert.equal(at('//api/boards', false), 'refuse');
+  assert.equal(at('/api/inbound-email', false), 'refuse', 'nor the email webhooks');
+  assert.equal(at('/users/logout', false), 'refuse');
+  assert.equal(at('/api/boards', true), 'pass', 'a Cloud Admin\'s own export still works');
+  assert.equal(at('/b/x/y', false), 'pass', 'the page itself is not the REST API');
+  assert.equal(at('/users/login', false, 'customer1.example.com'), 'pass', 'negative: another host is unchanged');
+  assert.equal(at('/users/login', false, 'cloud.example.com', ''), 'pass', 'negative: a WeKan without CLOUD is unchanged');
 });
 
 test('domains: own database and container, or shared; dates and e-mail addresses checked', () => {
@@ -81,7 +183,7 @@ test('Caddy: the panel and shared domains to this WeKan, own domains to their co
     { domain: 'b.example.com', mode: 'own', upstream: 'wekan-b:8080' },
     { domain: 'a.example.com', mode: 'shared' },
     { domain: 'old.example.com', mode: 'own', upstream: 'old:8080', endDate: '2026-12-31' },
-  ], { settings: { domain: 'cloud.example.com' }, caddy: { sharedUpstream: 'wekan:3000', email: 'ops@example.com' } }, '2027-01-01');
+  ], { cloudDomain: 'cloud.example.com', caddy: { sharedUpstream: 'wekan:3000', email: 'ops@example.com' } }, '2027-01-01');
   assert.equal(text, '{\n\temail ops@example.com\n}\n\ncloud.example.com {\n\treverse_proxy wekan:3000\n}\n\n'
     + 'a.example.com {\n\treverse_proxy wekan:3000\n}\n\nb.example.com {\n\treverse_proxy wekan-b:8080\n}\n');
   assert.throws(() => C.normalizeCaddy({ adminUrl: 'javascript:alert(1)' }), /http\(s\)/);
@@ -94,7 +196,7 @@ test('CloudFlare: what to create and update; a record of another kind is never r
     { id: '2', type: 'CNAME', name: 'b.example.com', content: 'elsewhere.example.net' },
     { id: '3', type: 'MX', name: 'c.example.com', content: 'mail.example.com' },
     { id: '4', type: 'A', name: 'cloud.example.com', content: '203.0.113.10', proxied: true },
-  ], { settings: { domain: 'cloud.example.com' }, cloudflare: { target: '203.0.113.10', proxied: true } });
+  ], { cloudDomain: 'cloud.example.com', cloudflare: { target: '203.0.113.10', proxied: true } });
   assert.deepEqual(plan.update.map(r => [r.id, r.name, r.content]), [['1', 'a.example.com', '203.0.113.10']]);
   assert.deepEqual(plan.create.map(r => [r.type, r.name]), [['A', 'c.example.com']], 'an MX is not in the way of an A');
   assert.deepEqual(plan.conflicts, [{ name: 'b.example.com', type: 'CNAME', content: 'elsewhere.example.net' }]);

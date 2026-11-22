@@ -19,3 +19,10 @@ template(name="adminPanelTabs")
         a.board-header-btn.problems(class="{{isProblemsActive}} {{problemsClass}}" href="{{pathFor 'problems'}}" title="{{_ 'problems'}}")
           i.fa.fa-exclamation-triangle
           span.board-header-btn-label {{_ 'problems'}}
+      //- Admin Panel / Cloud: only where the server has the CLOUD environment
+        variable, at that address, for its Cloud Admins - the server says so
+        (cloudPanelWhoAmI); nothing in the browser can turn it on.
+      if isCloudAdmin
+        a.board-header-btn.cloud(class=isCloudActive href="{{pathFor 'cloud-admin-home'}}" title="{{_ 'cloud'}}")
+          i.fa.fa-cloud
+          span.board-header-btn-label {{_ 'cloud'}}

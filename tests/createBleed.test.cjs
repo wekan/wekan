@@ -178,6 +178,7 @@ const SYSTEM_CREATORS = {
   'models/csvCreator.js': 'an import creator, reached through the guarded importBoard',
   'models/kanboardCreator.js': 'an import creator, reached through the guarded importBoard',
   'models/jiraCreator.js': 'an import creator, reached through the guarded importBoard',
+  'server/cloudPanel.js': 'the support board of a Cloud Panel customer domain, made by the panel itself, only where the server has CLOUD',
 };
 
 function sources(dir, out = []) {

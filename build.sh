@@ -775,6 +775,7 @@ function run_playwright_docker(){
 		-e WEKAN_TEST_SERVER_MODE="${WEKAN_TEST_SERVER_MODE:-bundle}" \
 		-e WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-}" \
 		-e WEKAN_TEST_REVERSE_PORTS="$reverse_ports" \
+		-e WEKAN_TEST_CLOUD="${WEKAN_TEST_CLOUD:-}" \
 		-e PLAYWRIGHT_HTML_OPEN=never \
 		-e WEKAN_FILES_PATH="$filesroot" \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \

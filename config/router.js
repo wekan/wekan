@@ -206,13 +206,18 @@ function startSandstormAutoOpen() {
   });
 }
 
-// Once a page load: is this the Cloud Panel's domain? Then / opens the panel.
+// Once a page load: is this the Cloud Panel's domain? Then / opens the panel:
+// Admin Panel / Cloud for a Cloud Admin, /cloud for a customer. The server
+// answers `enabled: false` on a WeKan without the CLOUD environment variable,
+// and nothing changes there.
 let cloudPanelChecked = false;
 function maybeOpenCloudPanel() {
   if (cloudPanelChecked || !Meteor.userId()) return;
   cloudPanelChecked = true;
   Meteor.callAsync('cloudPanelWhoAmI').then(info => {
-    if (info && info.onCloudHost && FlowRouter.current().path === '/') FlowRouter.go('/cloud');
+    if (!info || !info.enabled || !info.onCloudHost || FlowRouter.current().path !== '/') return;
+    if (info.isCloudAdmin) FlowRouter.go('/admin/cloud/domains');
+    else if (info.domains && info.domains.length) FlowRouter.go('/cloud');
   }).catch(() => {});
 }
 
@@ -736,8 +741,10 @@ FlowRouter.route('/billing', {
   },
 });
 
-// Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): answers only on the
-// panel's own domain; elsewhere the page says so.
+// Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md): answers only where
+// the server has the CLOUD environment variable, at that address; elsewhere
+// the page says so. /cloud is the customers' panel - and a Cloud Admin's too,
+// who has it as Admin Panel / Cloud as well, with the pane in the address.
 FlowRouter.route('/cloud', {
   name: 'cloud',
   triggersEnter: [ensureSignedInUnlessSandstorm],
@@ -745,6 +752,27 @@ FlowRouter.route('/cloud', {
     Filter.reset();
     EscapeActions.executeUpTo('popup-close');
     Utils.manageCustomUI();
+    Session.set('cloudOpenPane', null);
+    this.render('defaultLayout', {
+      content: 'cloudPanel',
+    });
+  },
+});
+
+FlowRouter.route('/admin/cloud', {
+  name: 'cloud-admin-home',
+  triggersEnter: [(context, redirect) => redirect('/admin/cloud/domains')],
+  action() {},
+});
+
+FlowRouter.route('/admin/cloud/:pane', {
+  name: 'cloud-admin',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action(params) {
+    Filter.reset();
+    EscapeActions.executeUpTo('popup-close');
+    Utils.manageCustomUI();
+    Session.set('cloudOpenPane', (params && params.pane) || 'domains');
     this.render('defaultLayout', {
       content: 'cloudPanel',
     });

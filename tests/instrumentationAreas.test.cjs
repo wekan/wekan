@@ -36,14 +36,22 @@ function operationNames() {
         try {
           ast = parse(src, { sourceType: 'unambiguous', errorRecovery: true, plugins: ['jsx', 'topLevelAwait'] });
         } catch (e) { continue; }
+        // `const METHODS = { ... }; Meteor.methods(METHODS);` - the methods
+        // object named first and registered after (server/cloudPanel.js, which
+        // puts its CLOUD gate in front of every method in between).
+        const objects = new Map();
+        const registered = [];
         (function visit(node) {
           if (!node || typeof node.type !== 'string') return;
+          if (node.type === 'VariableDeclarator' && node.id && node.id.type === 'Identifier' && node.init
+            && node.init.type === 'ObjectExpression') objects.set(node.id.name, node.init);
           if (node.type === 'CallExpression') {
             const callee = src.slice(node.callee.start, node.callee.end);
             const first = node.arguments[0];
             if (callee === 'Meteor.methods' && first && first.type === 'ObjectExpression') {
               for (const p of first.properties) if (p.key) names.add(p.key.name ?? p.key.value);
             }
+            if (callee === 'Meteor.methods' && first && first.type === 'Identifier') registered.push(first.name);
             if (/^(Meteor\.publish|publishComposite|Meteor\.publishComposite)$/.test(callee)
               && first && first.type === 'StringLiteral') names.add(first.value);
           }
@@ -54,6 +62,10 @@ function operationNames() {
             else if (v && typeof v.type === 'string') visit(v);
           }
         })(ast.program);
+        for (const name of registered) {
+          const object = objects.get(name);
+          if (object) for (const p of object.properties) if (p.key) names.add(p.key.name ?? p.key.value);
+        }
       }
     }
   };

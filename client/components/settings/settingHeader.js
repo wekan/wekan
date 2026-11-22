@@ -11,8 +11,21 @@ function refreshProblems() {
   });
 }
 
+// Is the signed-in user a Cloud Admin here? Asked once per page load: false
+// on every WeKan without the CLOUD environment variable, which is nearly all.
+const cloudAdminVar = new ReactiveVar(false);
+let cloudAsked = false;
+function askCloud() {
+  if (cloudAsked) return;
+  cloudAsked = true;
+  Meteor.callAsync('cloudPanelWhoAmI')
+    .then(info => cloudAdminVar.set(!!(info && info.enabled && info.onCloudHost && info.isCloudAdmin)))
+    .catch(() => cloudAdminVar.set(false));
+}
+
 Template.adminPanelTabs.onCreated(function () {
   refreshProblems();
+  askCloud();
   problemsTimer = Meteor.setInterval(refreshProblems, 30000);
 });
 Template.adminPanelTabs.onDestroyed(function () {
@@ -32,6 +45,12 @@ Template.adminPanelTabs.helpers({
   },
   isPeopleActive() {
     return FlowRouter.getRouteName() === 'people' ? 'active' : '';
+  },
+  isCloudAdmin() {
+    return cloudAdminVar.get();
+  },
+  isCloudActive() {
+    return FlowRouter.getRouteName() === 'cloud-admin' ? 'active' : '';
   },
   isAttachmentsActive() {
     return FlowRouter.getRouteName() === 'attachments' ? 'active' : '';

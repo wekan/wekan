@@ -63,8 +63,7 @@
    (client/components/forms/forms.css) hides native checkboxes three ways -
    display, visibility, an offset - which left these with a label and no box
    to tick or see ticked. All three are undone, as in cardFlow.css. */
-.cloud-panel input[type="checkbox"],
-.js-cloud-panel-settings input[type="checkbox"] {
+.cloud-panel input[type="checkbox"] {
   display: inline-block;
   visibility: visible;
   position: static;
@@ -75,4 +74,45 @@
   margin: 0;
   margin-inline-end: 4px;
   flex: none;
+}
+
+/* Support tickets: the support board's Open / In progress / Done lists, side
+   by side as Board View / Lists draws a board, wrapping on a narrow screen. */
+.cloud-ticket-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  align-items: flex-start;
+  margin-block: 0.8em;
+}
+.cloud-ticket-column {
+  flex: 1 1 14em;
+  min-width: 0;
+  max-width: 24em;
+  background: #e8e8e8;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+.cloud-ticket-column-title {
+  font-size: 1em;
+  margin: 0 0 0.5em;
+}
+.cloud-ticket {
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  margin-block-end: 0.5em;
+  overflow-wrap: anywhere;
+}
+.cloud-ticket-title {
+  font-weight: bold;
+}
+.cloud-ticket-description {
+  white-space: pre-wrap;
+  margin-block: 0.3em;
+}
+.cloud-info th {
+  text-align: start;
+  padding-inline-end: 1em;
 }

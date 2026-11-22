@@ -177,9 +177,11 @@ Template.header.helpers({
     return boardCreationAllowed();
   },
 
-  // The Admin Panel is four routes; its tabs show on all of them.
+  // The Admin Panel is four routes; its tabs show on all of them - and on
+  // Admin Panel / Cloud, which exists only where the server has CLOUD.
   isAdminPanel() {
-    return ADMIN_PANEL_ROUTES.includes(FlowRouter.getRouteName());
+    const route = FlowRouter.getRouteName();
+    return ADMIN_PANEL_ROUTES.includes(route) || route === 'cloud-admin';
   },
 
   // Whether to draw the hamburger at all. A page with no sidebar and nothing to

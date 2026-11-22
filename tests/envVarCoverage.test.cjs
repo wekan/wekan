@@ -43,6 +43,10 @@ const ENV_ONLY = {
   // provider with the same quirk, so no platform lists them.
   OAUTH2_RESPONSE_MODE: { platforms: false, reason: "an OIDC provider's response_mode; Apple's is set by itself" },
   OAUTH2_CLAIMS_IN_ID_TOKEN: { platforms: false, reason: "an OIDC provider that keeps the claims in the ID token; Apple's is detected by itself" },
+  // The Cloud Panel's way back in for an operator locked out by its allowed
+  // addresses (docs/Features/Admin-Panel/Cloud-Panel.md): set for one restart,
+  // never kept, and never something the browser may switch.
+  CLOUD_ADMIN_ANY_ADDRESS: { platforms: false, reason: 'a one-off recovery switch for a Cloud Panel locked out by its own allowed addresses; a setting in the browser could not reach a locked-out operator' },
   NEXTCLOUD_EXAPP: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   NEXTCLOUD_URL: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   WEKAN_NEXTCLOUD_PROXY_KEY: { platforms: false, reason: "a per-deployment secret Nextcloud's AppAPI hands over" },

@@ -294,7 +294,9 @@ const walk = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }
 });
 const sources = [...walk('server'), ...walk('models')];
 
-const GUARD = /!this\.userId|requireBoardMutation\(|allowIsBoardMember(?:WithWriteAccess)?\(|\.hasMember\(|\.hasAdmin\(|userHasBoardWriteAccess\(|boardAccess\(|destination\(this\.userId|canExport\(|requireAdmin\(|\.isAdmin\b|check[A-Za-z]*Access\(|checkBoardAdmin\(/g;
+// cloudAdmin(this: the Cloud Panel's Cloud Admin check (server/cloudPanel.js) -
+// signed in, at the CLOUD address, a site administrator there.
+const GUARD = /cloudAdmin\(this|!this\.userId|requireBoardMutation\(|allowIsBoardMember(?:WithWriteAccess)?\(|\.hasMember\(|\.hasAdmin\(|userHasBoardWriteAccess\(|boardAccess\(|destination\(this\.userId|canExport\(|requireAdmin\(|\.isAdmin\b|check[A-Za-z]*Access\(|checkBoardAdmin\(/g;
 const WRITE = /\.(copy|move|archive)\(|\b[A-Z]\w*\.(insert|update|remove|upsert)Async\(|\.direct\.|Meteor\.defer\(/;
 
 // Every copy/move/clone method, with the number of guards it must pass before
@@ -320,6 +322,9 @@ const METHODS = {
   'server/attachmentBulkMove.js resumeBulkAttachmentMove': 1,
   'server/attachmentBulkMove.js cancelBulkAttachmentMove': 1,
   'server/models/users.js moveStarredPage': 1,           // the caller's own starred pages
+  // A support ticket between the Open / In progress / Done lists of a Cloud
+  // Panel support board: Cloud Admins only, and only within that board.
+  'server/cloudPanel.js cloudPanelMoveTicket': 1,
 };
 // get/set...DialogOption(s) are user-document helpers for the caller's own
 // remembered dialog choices (models/users.js), not board writes.
