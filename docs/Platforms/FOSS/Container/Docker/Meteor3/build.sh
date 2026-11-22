@@ -166,8 +166,22 @@ run_entry() {
 		db) local n; n="$(customer_name)" || return; run_script "$script" "$n" ;;
 		limit)
 			# Each container to its own port and its database port; plan first.
-			local a; a="$(ask "plan, apply, remove or status" plan)"
-			case "$a" in plan|apply|remove|status) run_script "$script" "$a" ;; *) echo "One of: plan, apply, remove, status." ;; esac ;;
+			# With a server set it runs HERE: the settings (1createdb.sh, the
+			# customers' <name>.txt and restore/<name>/) are read in this
+			# directory, as they need not be on the server, and only the server's
+			# containers, Caddyfile and firewall are reached over SSH.
+			local a h; a="$(ask "plan, apply, remove or status" plan)"; h="$(host)"
+			case "$a" in
+				plan|apply|remove|status)
+					if [ -n "$h" ]; then
+						if ! valid_host "$h"; then echo "The server '$h' in $INI is not a host name."; return 1; fi
+						echo "==> here: bash $script --host $h $a"
+						(cd "$HERE" && bash "./$script" --host "$h" "$a")
+					else
+						run_script "$script" "$a"
+					fi ;;
+				*) echo "One of: plan, apply, remove, status." ;;
+			esac ;;
 		versions)
 			local old new
 			old="$(ask "Old WeKan version (e.g. 9.10)")"; new="$(ask "New WeKan version (e.g. 9.11)")"

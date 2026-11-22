@@ -2,11 +2,21 @@
 # localhost-limit.sh - limit each WeKan container's localhost access to its own
 # Node.js port and its database port only.
 #
-#   ./localhost-limit.sh            plan: what was found, and the rules (default)
-#   ./localhost-limit.sh plan       the same
-#   ./localhost-limit.sh apply      replace the rules with the plan (as root)
-#   ./localhost-limit.sh remove     remove the rules (as root)
-#   ./localhost-limit.sh status     the rules now in place
+#   ./localhost-limit.sh [--host <ssh host>] [plan|apply|remove|status]
+#
+#   plan     what was found, and the rules; changes nothing (the default)
+#   apply    replace the rules with the plan (as root on the server)
+#   remove   remove the rules
+#   status   the rules now in place
+#
+# Where it runs. Without --host, on this machine: this machine is the server.
+# With --host (build.sh passes the server of its settings), the server is
+# reached over SSH, and only for what is ON the server: its running containers
+# (docker ps, docker inspect, their cgroups), its /etc/caddy/Caddyfile, and its
+# firewall. The settings - 1createdb.sh, the customers' <name>.txt and
+# restore/<name>/docker-compose.yml - are read HERE, in this directory, because
+# they and their passwords are not necessarily copied to the server. Everything
+# from the server comes back in one SSH call, and the rules go in one more.
 #
 # Why this way. The containers of this setup run with network_mode: host
 # (restore/docker-start.yml), so they share the server's network: every
@@ -27,13 +37,13 @@
 # user has rights to its own database only (1createdb.sh).
 #
 # Where the ports come from, compared and shown:
-#   - docker ps: running containers named *-app or *-tenant (NAME_PATTERN),
-#     their PORT, MONGO_URL and MONGO_OPLOG_URL from docker inspect;
-#   - restore/<customer>/docker-compose.yml: container_name, PORT, MONGO_URL
-#     (used when a container's own environment has no PORT);
-#   - /etc/caddy/Caddyfile (CADDYFILE): "import wekan_proxy <port>" and
+#   - the server's docker ps: running containers named *-app or *-tenant
+#     (NAME_PATTERN), their PORT, MONGO_URL and MONGO_OPLOG_URL (docker inspect);
+#   - here: restore/<customer>/docker-compose.yml - container_name, PORT,
+#     MONGO_URL - used when a container's own environment has no PORT;
+#   - the server's /etc/caddy/Caddyfile: "import wekan_proxy <port>" and
 #     "reverse_proxy 127.0.0.1:<port>" / "localhost:<port>";
-#   - 1createdb.sh: MONGO_PORT, and the <customer>.txt files it writes.
+#   - here: 1createdb.sh's MONGO_PORT, and the <customer>.txt files it writes.
 # A Caddyfile port with no container, or a container port Caddy does not
 # proxy, is reported.
 #
@@ -45,6 +55,7 @@ set -u
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 NAME_PATTERN="${NAME_PATTERN:-(-app|-tenant)\$}"
+# On the server; the defaults are the real places, the tests point them elsewhere.
 CADDYFILE="${CADDYFILE:-/etc/caddy/Caddyfile}"
 PROC_ROOT="${PROC_ROOT:-/proc}"
 CGROUP_ROOT="${CGROUP_ROOT:-/sys/fs/cgroup}"
@@ -54,15 +65,28 @@ IP6TABLES="${IP6TABLES:-ip6tables}"
 CHAIN=WEKAN-LOCALHOST
 DEFAULT_MONGO_PORT=27017
 
-# --- reading the settings ---------------------------------------------------
+SSH_HOST=""
+if [ "${1:-}" = "--host" ]; then SSH_HOST="${2:-}"; shift 2 || true; fi
+if [ -n "$SSH_HOST" ] && [[ ! "$SSH_HOST" =~ ^[A-Za-z0-9._@-]+$ || "$SSH_HOST" == -* ]]; then
+	echo "Error: not a host name: $SSH_HOST" >&2; exit 2
+fi
+
+where() { if [ -n "$SSH_HOST" ]; then printf '%s (over SSH)' "$SSH_HOST"; else printf 'this machine'; fi; }
+
+# on_server: the script on stdin runs on the server - over SSH, or here.
+on_server() {
+	if [ -n "$SSH_HOST" ]; then ssh -- "$SSH_HOST" bash -s; else bash -s; fi
+}
+
+# --- reading the settings (here) ------------------------------------------------
 
 is_port() { [[ "$1" =~ ^[0-9]{1,5}$ ]] && [ "$1" -ge 1 ] && [ "$1" -le 65535 ]; }
 
-# The ports of the hosts in a mongodb:// URL that are on this machine
-# (localhost, 127.x, ::1, or no host given); a host elsewhere is not localhost
-# traffic and needs no rule.
+# The ports of the hosts in a mongodb:// URL that are on the server itself
+# (localhost, 127.x, ::1); a host elsewhere is not localhost traffic.
 mongo_ports() {
-	local url="$1" hosts h port
+	local url="$1" hosts h port list
+	[ -n "$url" ] || return
 	url="${url#*://}"; url="${url#*@}"; hosts="${url%%/*}"; hosts="${hosts%%\?*}"
 	[ -z "$hosts" ] && return
 	IFS=',' read -r -a list <<< "$hosts"
@@ -74,7 +98,7 @@ mongo_ports() {
 			*) port="$DEFAULT_MONGO_PORT" ;;
 		esac
 		case "$h" in
-			localhost|127.*|\[::1\]|::1|"") is_port "$port" && echo "$port" ;;
+			localhost|127.*|\[::1\]|::1) is_port "$port" && echo "$port" ;;
 		esac
 	done
 }
@@ -82,14 +106,7 @@ mongo_ports() {
 # env_value <name> <lines of NAME=value>
 env_value() { printf '%s\n' "$2" | sed -n "s/^[ \t-]*$1=//p" | head -n 1 | tr -d '\r'; }
 
-# The ports Caddy proxies to on this machine.
-caddy_ports() {
-	[ -r "$CADDYFILE" ] || return
-	sed -e 's/#.*//' "$CADDYFILE" | grep -oE 'import[ \t]+wekan_proxy[ \t]+[0-9]+|reverse_proxy[ \t]+(127\.0\.0\.1|localhost|\[::1\]):[0-9]+' \
-		| grep -oE '[0-9]+$' | sort -un
-}
-
-# compose_field <container name> <NAME>: from restore/*/docker-compose.yml.
+# compose_field <container name> <NAME>: from restore/*/docker-compose.yml here.
 compose_field() {
 	local f
 	for f in "$HERE"/restore/*/docker-compose.yml; do
@@ -117,42 +134,92 @@ createdb_mongo_ports() {
 	done | sort -un
 }
 
-# One line per running WeKan container:
-#   name|id|cgroup path|own port|mongo port,port
-CONTAINERS=()
-read_containers() {
-	CONTAINERS=()
-	command -v "$DOCKER" >/dev/null 2>&1 || return
-	local id name pid envs port mongo cgroup
-	while read -r id name; do
+# --- reading the server (one call) ------------------------------------------------
+
+# What runs on the server to describe it. Nothing in it writes.
+gather_script() {
+	printf 'DOCKER=%q CADDYFILE=%q PROC_ROOT=%q CGROUP_ROOT=%q\n' "$DOCKER" "$CADDYFILE" "$PROC_ROOT" "$CGROUP_ROOT"
+	cat <<'EOS'
+echo "@uid $(id -u)"
+if [ -e "$CGROUP_ROOT/cgroup.controllers" ]; then echo "@cgroupv2 yes"; else echo "@cgroupv2 no"; fi
+if [ -r "$CADDYFILE" ]; then echo "@caddy"; cat "$CADDYFILE"; echo; echo "@end"; else echo "@nocaddy"; fi
+if command -v "$DOCKER" >/dev/null 2>&1; then
+	"$DOCKER" ps --format '{{.ID}} {{.Names}}' 2>/dev/null | while read -r id name; do
 		[ -n "$id" ] || continue
-		[[ "$name" =~ $NAME_PATTERN ]] || continue
 		pid="$("$DOCKER" inspect -f '{{.State.Pid}}' "$id" 2>/dev/null)"
-		envs="$("$DOCKER" inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$id" 2>/dev/null)"
-		port="$(env_value PORT "$envs")"
-		is_port "${port:-x}" || port="$(compose_field "$name" PORT)"
-		mongo="$( { mongo_ports "$(env_value MONGO_URL "$envs")"; mongo_ports "$(env_value MONGO_OPLOG_URL "$envs")"; } | sort -un | paste -sd, -)"
-		if [ -z "$mongo" ]; then
-			mongo="$( { mongo_ports "$(compose_field "$name" MONGO_URL)"; mongo_ports "$(compose_field "$name" MONGO_OPLOG_URL)"; } | sort -un | paste -sd, -)"
+		echo "@container $id $name"
+		cg=""
+		case "$pid" in ''|*[!0-9]*) ;; *) [ -r "$PROC_ROOT/$pid/cgroup" ] && cg="$(sed -n 's/^0::\(.*\)$/\1/p' "$PROC_ROOT/$pid/cgroup" | head -n 1)" ;; esac
+		echo "@cgroup $cg"
+		echo "@env"
+		"$DOCKER" inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$id" 2>/dev/null | grep -E '^(PORT|MONGO_URL|MONGO_OPLOG_URL)='
+		echo "@end"
+	done
+else
+	echo "@nodocker"
+fi
+EOS
+}
+
+SERVER_UID=""; SERVER_CGROUPV2=""; CADDY_TEXT=""; SERVER_HAS_DOCKER=yes; SERVER_HAS_CADDY=yes
+CONTAINERS=()   # name|id|cgroup path|own port|mongo port,port
+
+read_server() {
+	local out line section="" id="" name="" cg="" envs="" port mongo
+	if ! out="$(gather_script | on_server)"; then
+		echo "Error: could not read $(where)." >&2; exit 1
+	fi
+	CONTAINERS=(); CADDY_TEXT=""
+	flush_container() {
+		[ -n "$id" ] || return 0
+		if [[ "$name" =~ $NAME_PATTERN ]]; then
+			port="$(env_value PORT "$envs")"
+			is_port "${port:-x}" || port="$(compose_field "$name" PORT)"
+			mongo="$( { mongo_ports "$(env_value MONGO_URL "$envs")"; mongo_ports "$(env_value MONGO_OPLOG_URL "$envs")"; } | sort -un | paste -sd, -)"
+			[ -n "$mongo" ] || mongo="$( { mongo_ports "$(compose_field "$name" MONGO_URL)"; mongo_ports "$(compose_field "$name" MONGO_OPLOG_URL)"; } | sort -un | paste -sd, -)"
+			CONTAINERS+=("$name|$id|$cg|$port|$mongo")
 		fi
-		cgroup=""
-		if [[ "$pid" =~ ^[0-9]+$ ]] && [ "$pid" -gt 0 ] && [ -r "$PROC_ROOT/$pid/cgroup" ]; then
-			cgroup="$(sed -n 's/^0::\(.*\)$/\1/p' "$PROC_ROOT/$pid/cgroup" | head -n 1)"
-		fi
-		CONTAINERS+=("$name|$id|$cgroup|$port|$mongo")
-	done < <("$DOCKER" ps --format '{{.ID}} {{.Names}}' 2>/dev/null)
+		id=""; name=""; cg=""; envs=""
+	}
+	while IFS= read -r line; do
+		case "$section" in
+			caddy) if [ "$line" = "@end" ]; then section=""; else CADDY_TEXT+="$line"$'\n'; fi; continue ;;
+			env) if [ "$line" = "@end" ]; then section=""; else envs+="$line"$'\n'; fi; continue ;;
+		esac
+		case "$line" in
+			"@uid "*) SERVER_UID="${line#@uid }" ;;
+			"@cgroupv2 "*) SERVER_CGROUPV2="${line#@cgroupv2 }" ;;
+			"@caddy") section=caddy ;;
+			"@nocaddy") SERVER_HAS_CADDY=no ;;
+			"@nodocker") SERVER_HAS_DOCKER=no ;;
+			"@container "*) flush_container; read -r _ id name <<< "$line" ;;
+			"@cgroup "*) cg="${line#@cgroup }" ;;
+			"@cgroup") cg="" ;;
+			"@env") section=env ;;
+		esac
+	done <<< "$out"
+	flush_container
+}
+
+caddy_ports() {
+	printf '%s' "$CADDY_TEXT" | sed -e 's/#.*//' \
+		| grep -oE 'import[ \t]+wekan_proxy[ \t]+[0-9]+|reverse_proxy[ \t]+(127\.0\.0\.1|localhost|\[::1\]):[0-9]+' \
+		| grep -oE '[0-9]+$' | sort -un
 }
 
 part() { local p; IFS='|' read -r -a p <<< "$1"; printf '%s' "${p[$(($2 - 1))]:-}"; }
 
 # --- the rules ----------------------------------------------------------------
 
-# The rule arguments, one rule per line, for one table.
+# The rule arguments, one rule per line.
 rules() {
-	local entry name cgroup port mongo m
+	local entry name cgroup port mongo m ms
 	for entry in "${CONTAINERS[@]}"; do
 		name="$(part "$entry" 1)"; cgroup="$(part "$entry" 3)"; port="$(part "$entry" 4)"; mongo="$(part "$entry" 5)"
 		[ -n "$cgroup" ] && is_port "${port:-x}" || continue
+		# A cgroup path is /a/b.scope: nothing the shell would split or expand.
+		[[ "$cgroup" =~ ^/[A-Za-z0-9._/@:-]+$ ]] || continue
+		[[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || name=container
 		local c="-m cgroup --path $cgroup -m comment --comment wekan:$name"
 		echo "$c -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN"
 		echo "$c -p tcp --dport $port -j RETURN"
@@ -167,19 +234,22 @@ rules() {
 
 show_plan() {
 	local entry caddy compose found problems=0 name port mongo cgroup
-	echo "Containers (docker ps, names matching $NAME_PATTERN):"
+	echo "Server: $(where). Settings: $HERE"
+	[ "$SERVER_HAS_DOCKER" = yes ] || { echo "  ! docker was not found on the server"; problems=1; }
+	echo "Containers (docker ps on the server, names matching $NAME_PATTERN):"
 	if [ "${#CONTAINERS[@]}" -eq 0 ]; then echo "  none found"; fi
 	for entry in "${CONTAINERS[@]}"; do
 		name="$(part "$entry" 1)"; cgroup="$(part "$entry" 3)"; port="$(part "$entry" 4)"; mongo="$(part "$entry" 5)"
 		printf '  %-28s port %-6s database %-14s cgroup %s\n' "$name" "${port:-?}" "${mongo:-$DEFAULT_MONGO_PORT}" "${cgroup:-?}"
-		if ! is_port "${port:-x}"; then echo "    ! no PORT in its environment or restore/*/docker-compose.yml: left without rules"; problems=1; fi
+		if ! is_port "${port:-x}"; then echo "    ! no PORT in its environment or here in restore/*/docker-compose.yml: left without rules"; problems=1; fi
 		if [ -z "$cgroup" ]; then echo "    ! its cgroup could not be read: left without rules"; problems=1; fi
 	done
 	caddy="$(caddy_ports | paste -sd' ' -)"
 	compose="$(compose_ports | paste -sd' ' -)"
-	echo "Caddy proxies to ($CADDYFILE): ${caddy:-nothing found}"
-	echo "restore/*/docker-compose.yml PORTs: ${compose:-none}"
-	echo "1createdb.sh database ports: $(createdb_mongo_ports | paste -sd' ' -)"
+	if [ "$SERVER_HAS_CADDY" = yes ]; then echo "Caddy proxies to ($CADDYFILE on the server): ${caddy:-nothing found}"
+	else echo "Caddy: $CADDYFILE was not found on the server"; fi
+	echo "restore/*/docker-compose.yml PORTs here: ${compose:-none}"
+	echo "1createdb.sh database ports here: $(createdb_mongo_ports | paste -sd' ' -)"
 	found=" $(for entry in "${CONTAINERS[@]}"; do part "$entry" 4; echo; done | paste -sd' ' -) "
 	for port in $caddy; do
 		case "$found" in *" $port "*) ;; *) echo "  ! Caddy proxies to $port, but no running WeKan container has that PORT"; problems=1 ;; esac
@@ -197,67 +267,111 @@ show_plan() {
 }
 
 need_root() {
-	if [ "${EUID:-$(id -u)}" -ne 0 ] && [ -z "${LOCALHOST_LIMIT_NOT_ROOT_OK:-}" ]; then
-		echo "Error: run as root (sudo su), it changes the firewall." >&2; exit 1
+	if [ "$SERVER_UID" != 0 ] && [ -z "${LOCALHOST_LIMIT_NOT_ROOT_OK:-}" ]; then
+		echo "Error: the firewall of $(where) is changed as root: sign in as root (sudo su, or root in ~/.ssh/config)." >&2; exit 1
 	fi
 }
 
 need_cgroup_v2() {
-	if [ ! -e "$CGROUP_ROOT/cgroup.controllers" ]; then
-		echo "Error: this server does not use cgroup v2 ($CGROUP_ROOT/cgroup.controllers is missing);" >&2
+	if [ "$SERVER_CGROUPV2" != yes ]; then
+		echo "Error: $(where) does not use cgroup v2 ($CGROUP_ROOT/cgroup.controllers is missing);" >&2
 		echo "the rules match a container by its cgroup v2 path." >&2; exit 1
 	fi
 }
 
-flush_table() {
-	local t="$1"
-	command -v "$t" >/dev/null 2>&1 || return 0
-	while "$t" -C OUTPUT -o lo -j "$CHAIN" 2>/dev/null; do "$t" -D OUTPUT -o lo -j "$CHAIN"; done
-	"$t" -F "$CHAIN" 2>/dev/null
-	"$t" -X "$CHAIN" 2>/dev/null
-	return 0
+# The script that puts the rules in place, run on the server. The new chain is
+# built beside the old one and then the jump is swapped, so there is no moment
+# without rules; a rule the firewall refuses leaves the old rules as they were.
+apply_script() {
+	local t r
+	printf 'set -u\nfail=0\n'
+	for t in "$IPTABLES" "$IP6TABLES"; do
+		printf 'if command -v %q >/dev/null 2>&1; then\n' "$t"
+		printf '  T=%q; C=%q\n' "$t" "$CHAIN"
+		cat <<'EOS'
+  "$T" -N "$C-new" 2>/dev/null || "$T" -F "$C-new"
+  ok=1
+EOS
+		while read -r r; do
+			[ -n "$r" ] || continue
+			printf '  [ $ok = 1 ] && { "$T" -A "$C-new" %s || { echo "  ! $T refused: %s" >&2; ok=0; }; }\n' "$r" "$r"
+		done < <(rules)
+		cat <<'EOS'
+  if [ $ok = 1 ]; then
+    "$T" -I OUTPUT 1 -o lo -j "$C-new"
+    while "$T" -C OUTPUT -o lo -j "$C" 2>/dev/null; do "$T" -D OUTPUT -o lo -j "$C"; done
+    "$T" -F "$C" 2>/dev/null; "$T" -X "$C" 2>/dev/null
+    "$T" -E "$C-new" "$C"
+    echo "  $T: $("$T" -S "$C" 2>/dev/null | grep -c -- '^-A') rules in $C"
+  else
+    "$T" -F "$C-new"; "$T" -X "$C-new"; fail=1
+  fi
+else
+  echo "  $T not found: skipped"
+fi
+EOS
+	done
+	printf 'exit $fail\n'
 }
 
-apply_table() {
-	local t="$1" r
-	command -v "$t" >/dev/null 2>&1 || { echo "  $t not found: skipped"; return 0; }
-	# Build the new chain beside the old one, then swap the jump, so there is no
-	# moment without rules.
-	"$t" -N "$CHAIN-new" 2>/dev/null || "$t" -F "$CHAIN-new"
-	while read -r r; do
-		[ -n "$r" ] || continue
-		# shellcheck disable=SC2086 # the rule is words by design
-		"$t" -A "$CHAIN-new" $r || { echo "  ! $t refused: $r" >&2; "$t" -F "$CHAIN-new"; "$t" -X "$CHAIN-new"; return 1; }
-	done < <(rules)
-	"$t" -I OUTPUT 1 -o lo -j "$CHAIN-new"
-	while "$t" -C OUTPUT -o lo -j "$CHAIN" 2>/dev/null; do "$t" -D OUTPUT -o lo -j "$CHAIN"; done
-	"$t" -F "$CHAIN" 2>/dev/null; "$t" -X "$CHAIN" 2>/dev/null
-	"$t" -E "$CHAIN-new" "$CHAIN"
-	echo "  $t: $(rules | grep -c .) rules in $CHAIN"
+remove_script() {
+	local t
+	for t in "$IPTABLES" "$IP6TABLES"; do
+		printf 'if command -v %q >/dev/null 2>&1; then T=%q; C=%q\n' "$t" "$t" "$CHAIN"
+		cat <<'EOS'
+  while "$T" -C OUTPUT -o lo -j "$C" 2>/dev/null; do "$T" -D OUTPUT -o lo -j "$C"; done
+  "$T" -F "$C" 2>/dev/null; "$T" -X "$C" 2>/dev/null
+fi
+EOS
+	done
+}
+
+# ufw (Ubuntu) accepts all loopback traffic in ufw-before-output
+# (-o lo -j ACCEPT), so the jump to this chain has to come BEFORE ufw's jump in
+# OUTPUT, or nothing here is ever reached. apply inserts it at position 1; a
+# later "ufw reload" or "ufw enable" can put ufw's first again, which status
+# shows - run apply again then.
+status_script() {
+	local t
+	for t in "$IPTABLES" "$IP6TABLES"; do
+		printf 'if command -v %q >/dev/null 2>&1; then T=%q; C=%q\n' "$t" "$t" "$CHAIN"
+		cat <<'EOS'
+  echo "$T:"
+  if "$T" -S "$C" 2>/dev/null; then
+    order="$("$T" -S OUTPUT 2>/dev/null | grep -nE -- "-j ($C|ufw-before-output)\$" | head -n 1)"
+    case "$order" in
+      *"-j $C") echo "  in effect: the jump to $C comes before ufw's" ;;
+      *ufw-before-output) echo "  ! NOT in effect: ufw's loopback ACCEPT comes first (after a ufw reload?) - run apply again" ;;
+    esac
+  else
+    echo "  no $C chain: not limited"
+  fi
+fi
+EOS
+	done
 }
 
 case "${1:-plan}" in
 	plan)
-		read_containers
+		read_server
 		show_plan
 		echo
-		echo "Nothing was changed. \"$0 apply\" (as root) puts these rules in place." ;;
+		echo "Nothing was changed. \"apply\" (as root on the server) puts these rules in place." ;;
 	apply)
+		read_server
 		need_root; need_cgroup_v2
-		read_containers
 		show_plan || echo "(continuing: the containers above marked ! keep their access until fixed)"
 		echo
-		apply_table "$IPTABLES" && apply_table "$IP6TABLES"
-		echo "Run this again after a container is recreated, and after a reboot." ;;
+		apply_script | on_server || { echo "Error: the rules were not changed on $(where)." >&2; exit 1; }
+		status_script | on_server
+		echo "Run this again after a container is recreated, after a reboot, and after \"ufw reload\"." ;;
 	remove)
+		read_server
 		need_root
-		flush_table "$IPTABLES"; flush_table "$IP6TABLES"
-		echo "Removed $CHAIN: the containers reach every localhost port again." ;;
+		remove_script | on_server
+		echo "Removed $CHAIN on $(where): the containers reach every localhost port again." ;;
 	status)
-		for t in "$IPTABLES" "$IP6TABLES"; do
-			command -v "$t" >/dev/null 2>&1 || continue
-			echo "$t:"; "$t" -S "$CHAIN" 2>/dev/null || echo "  no $CHAIN chain: not limited"
-		done ;;
-	-h|--help) sed -n '2,46p' "$0" ;;
-	*) echo "Usage: $0 [plan|apply|remove|status]" >&2; exit 2 ;;
+		status_script | on_server ;;
+	-h|--help) sed -n '2,52p' "$0" ;;
+	*) echo "Usage: $0 [--host <ssh host>] [plan|apply|remove|status]" >&2; exit 2 ;;
 esac
