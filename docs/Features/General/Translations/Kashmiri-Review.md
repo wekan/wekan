@@ -98,3 +98,10 @@ regression expectation for the superseded civil wording was updated.
 No live calendar-popup browser test ran. Ledger 19,781; original corrected
 15,700, pending 203, restored 4. Kashmiri has no original pending flags,
 but these drafts and earlier sighting agreement remain open. No push.
+
+## Commits
+
+ - [Record Kashmiri tabular calendar repairs and remaining compound review](https://github.com/wekan/wekan/commit/fe3d28048bcea24b96109816e8817bb8f6b2d03f)
+ - [Record Kashmiri sighting draft and outstanding grammar review](https://github.com/wekan/wekan/commit/c4b699b22b2ab2b1bf190aaf87fe0a756d778e2a)
+ - [Record primary Kashmiri moon and seeing grammar evidence](https://github.com/wekan/wekan/commit/3567bf197efc8cca2b0bb29d205abe849fff9803)
+ - [Review Kashmiri lunar spelling and reject redirected dictionary source](https://github.com/wekan/wekan/commit/002e14d69ec08ba2fd1688dfed3ce36dc9107bfe)

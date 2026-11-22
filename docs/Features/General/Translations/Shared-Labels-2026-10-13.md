@@ -73,3 +73,7 @@ Structural coverage is separate from meaning and fluency. The full fill
 inventory still contains **55,375 values across 130 non-English locale paths**;
 it includes pending Transifex keys. This batch does not complete the goal of
 reviewing every string in every language.
+
+## Commits
+
+ - [Translate shared UI labels and repair seeded terminology](https://github.com/wekan/wekan/commit/67d1ad324faad31ad113447be102d5299fe0050e)

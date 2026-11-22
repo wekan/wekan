@@ -27,3 +27,9 @@ independently uses `کمیده` with a numeric lower bound. The complete
 validation sentence remains low confidence pending native review. Exact
 value, stale-threshold negative, source-sense, ledger and runtime checks
 pass. No live UI test or remote write occurred.
+
+## Commits
+
+ - [Document Persian-digit list-width repairs](https://github.com/wekan/wekan/commit/49a0654bd18735e7fd1b681f83b2686fda04f1cb)
+ - [Record dated Uzbek spelling repair and verification limits](https://github.com/wekan/wekan/commit/1b5f65a9d592655d138b879f8d75e0617c9e0968)
+ - [Restore alif in Afghan Uzbek cancellation label](https://github.com/wekan/wekan/commit/b433730e365feb300182ec646cb1cbe69ffe6668)

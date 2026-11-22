@@ -1275,3 +1275,36 @@ than Finnish prose. The focused test compares the complete residual overlap to
 this closed set, so no Finnish match is unclassified. Eight focused files pass
 for all 20,663 corrections and all 234 locale inventories. Full draft style
 remains open to fluent improvement. No live UI test or remote write ran.
+
+## Commits
+
+ - [Document completed Veps seed review](https://github.com/wekan/wekan/commit/7db8afc76c90fa74f000194f2beb097a0bf14b9b)
+ - [Document Veps account and rule repairs](https://github.com/wekan/wekan/commit/33d1a89761d7c375e06baf58b6e3597aa1e1a025)
+ - [Document Veps board interface repairs](https://github.com/wekan/wekan/commit/be8c47c26afe5ea43f3b1c32fdaa195810ca92a0)
+ - [Document lexical Veps repairs](https://github.com/wekan/wekan/commit/8858912ed443e02c059e673cbbce9c1aef15ca2f)
+ - [Document native-catalogue Veps repairs](https://github.com/wekan/wekan/commit/8d02a5d7580124670fcaa549e631a7f55f05b3b1)
+ - [Document completed Veps tracked audit](https://github.com/wekan/wekan/commit/38cde52187bc642bd14032e82aaefca5a617f65a)
+ - [Document Veps keyboard translation repair](https://github.com/wekan/wekan/commit/a229d53471495c64e3e31fad30e4d9d9247fcd29)
+ - [Document Veps scrollbar translation repair](https://github.com/wekan/wekan/commit/3830365ecda2829f0cacdfeef032303353070ea7)
+ - [Document Veps field sum translation repair](https://github.com/wekan/wekan/commit/e8d971489b1a6f9423fdd09c8fbe1a56c87e0085)
+ - [Document Veps accessibility translation repairs](https://github.com/wekan/wekan/commit/68c82d941c9acc02326a970812a24c103447c7ca)
+ - [Document Veps card loading translation repairs](https://github.com/wekan/wekan/commit/a31eebdc39688c67dd88d31393b9572bafb61c40)
+ - [Record Veps voting translation repairs](https://github.com/wekan/wekan/commit/c4f049e320fc4c3d4f7adab7cf0a2788d13c66c7)
+ - [Record Veps Problems heading repairs](https://github.com/wekan/wekan/commit/8061759d2cc62da4a70b809101741e36e7069e31)
+ - [Record Veps card-number translation repair](https://github.com/wekan/wekan/commit/3e0c124d4a549c07f8cf7f7857367ba493cec0f8)
+ - [Record Veps numeric addition repair and primary evidence](https://github.com/wekan/wekan/commit/832e44c7e94ff2e8bd4060d58fa2a0c89fec9647)
+ - [Record Veps date range repair and native interval evidence](https://github.com/wekan/wekan/commit/3d47446dfe6504a7805dddfb9797424d59ac7a8c)
+ - [Record Veps severity draft and technical review limits](https://github.com/wekan/wekan/commit/7dcdc054a4c9e108cacf9ffb7dec044eeff5a150)
+ - [Verify native Veps abstract-level noun for severity review](https://github.com/wekan/wekan/commit/9e5758a5080c20895185aa5de644be487ed35377)
+ - [Verify rendered Veps hardness noun and limit severity inference](https://github.com/wekan/wekan/commit/dad7f2ae35e4ad0fc207e43f6944b7bc7a52555c)
+ - [Record Veps severity lexical evidence and excluded meanings](https://github.com/wekan/wekan/commit/99aeb90cdb00401acbb356704254a2ee469fe9bf)
+ - [Record Veps backup scope repairs and terminology limits](https://github.com/wekan/wekan/commit/10f1a4964bd1a1fdf53526f7347729f49de274aa)
+ - [Record Veps acknowledgment repairs and open grammar review](https://github.com/wekan/wekan/commit/eb056cf59f25ebc674146fff1209cec707179324)
+ - [Record Veps CPU repairs and remaining core terminology review](https://github.com/wekan/wekan/commit/ed2565e9b7af75879f0ae580aeda8d3f9a3725f8)
+ - [Record Veps loading and status repairs with review limits](https://github.com/wekan/wekan/commit/f46fb0272ed98b415a8c93d7547f528f69b48f6d)
+ - [Record Veps forecast repairs and remaining grammar review](https://github.com/wekan/wekan/commit/4cf2381c669d824d839c9a8c026eca4ce7009844)
+ - [Record Veps repair message corrections and grammar limits](https://github.com/wekan/wekan/commit/b7a903473d52c0853b2aaab028c40fcb422d3efe)
+ - [Record Veps voting repairs and expanded review scope](https://github.com/wekan/wekan/commit/6fd9eb88d3e73b53e025fd0f9ae38e2443c56e17)
+ - [Record native Veps software-key evidence and title repair](https://github.com/wekan/wekan/commit/5a62a6b3b1692affd30c8d00137787f64203a5d9)
+ - [Record Veps two-factor instruction repairs and uncertainty](https://github.com/wekan/wekan/commit/1aacb92a3b09e66973c736687ef681e111f3fea3)
+ - [Document Veps translation review requirements and verified control terms](https://github.com/wekan/wekan/commit/742f71766b10cbbd47d9bdf2447928740d3d6162)

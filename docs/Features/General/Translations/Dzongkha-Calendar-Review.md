@@ -122,3 +122,12 @@ calendar UI test ran. Ledger 19,861; original corrected 15,746, pending
 157, Dzongkha 2 to 0, restored 4 unchanged. Empty original queue does not
 complete Dzongkha native grammar or earlier low-confidence reviews.
 Broader review remains open; no remote writes were made.
+
+## Commits
+
+ - [Document Dzongkha epoch label repairs and native review limits](https://github.com/wekan/wekan/commit/2c200ab5b983b06cde3a227e9c6e5737bf8a77ef)
+ - [Verify Dzongkha epoch and start entries from rendered source](https://github.com/wekan/wekan/commit/87835255ae555461dbc462cfe3ec7e68efdf1fc6)
+ - [Verify Dzongkha tabular spelling from rendered dictionary page](https://github.com/wekan/wekan/commit/1b10527d1bb023b3e8c770705f4a148557c0064c)
+ - [Verify Dzongkha tabular calendar epoch distinction against current CLDR](https://github.com/wekan/wekan/commit/fd0b18431f444a83cc16dea40a1c66e05e73af4a)
+ - [Record dated Dzongkha ISO label repair and verification](https://github.com/wekan/wekan/commit/33743d87d3f126b2b026beeae1389200a3d02268)
+ - [Record dated Dzongkha sighting repair and remaining epoch review](https://github.com/wekan/wekan/commit/591ed8bc0afc2da629b9e2065ac20ab5443da663)

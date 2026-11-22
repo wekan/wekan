@@ -159,3 +159,14 @@ calculation/epoch wording in the Saudi sighting label. No browser run.
 Counts unchanged: ledger 19,765, original pending 218, restored 4. This
 revises an existing correction; zero Quechua queue entries does not prove
 completion of broader native review. No remote push.
+
+## Commits
+
+ - [Document Quechua sighting terminology review](https://github.com/wekan/wekan/commit/b8e2f4a994806ab6136f8a5848f7a7c0c92da932)
+ - [Record Quechua epoch repairs and remaining native review](https://github.com/wekan/wekan/commit/a55747c2aadce3e100ae16202e80962c67e848cd)
+ - [Record calendar-system heading repair and variety limitations](https://github.com/wekan/wekan/commit/0fb9c531f5a4ec766574a2c2ec75067ac20c7f6b)
+ - [Record dated calendar meaning repairs and native week evidence](https://github.com/wekan/wekan/commit/5641cb9d3ae337d96e81e19b3478111c1719ce23)
+ - [Record nine calendar noun repairs and retained naming review](https://github.com/wekan/wekan/commit/ebdc0c1b8025d68fa6bd4d5935c3c54f523602b2)
+ - [Correct Quechua named calendar nouns](https://github.com/wekan/wekan/commit/6e3663c83b9232e752af3968d9754adbbff2d5af)
+ - [Repair Quechua day and daily recurrence labels from native vocabulary](https://github.com/wekan/wekan/commit/34dbfa64cb76cf23c66bcdd5166fe2865b9460a6)
+ - [Repair Quechua generic calendar noun from native dictionary](https://github.com/wekan/wekan/commit/5c5ee40b64f40f5cd99662cf049aa62fe89b9a82)

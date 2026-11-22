@@ -45,3 +45,8 @@ correction records, distinct calendar variants, registry binding, newer-value
 preservation and all 234 locale token/key inventories. No live calendar picker
 ran. The tracked Ewe queue is complete: overall pending 117, no Ewe row,
 restored four unchanged. Broader uncertain review continues.
+
+## Commits
+
+ - [Document completed Ewe tracked audit](https://github.com/wekan/wekan/commit/78fda5345a1228c21caefbdc1636cdece7cb5459)
+ - [Document unresolved Ewe calendar epoch terminology from primary CLDR source](https://github.com/wekan/wekan/commit/e7d0f821ccdc750ab8c511aab2a63e0d9320c781)

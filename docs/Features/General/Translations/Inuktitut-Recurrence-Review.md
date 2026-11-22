@@ -41,3 +41,7 @@ native construction review. The reset lead in Multitran is secondary and
 lists several distinct senses; it is not sufficient primary evidence for
 this checklist action. Preserve the already reviewed daily, weekly and
 monthly choices. Complete heading/off wording and browser review remain open.
+
+## Commits
+
+ - [Record Inuktitut recurrence and reset semantic review](https://github.com/wekan/wekan/commit/5400a0ce98410d1b2c4256342077a700c94e7521)

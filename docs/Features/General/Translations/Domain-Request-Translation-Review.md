@@ -61,3 +61,7 @@ administrator and save terms, with the wrong-language exceptions above.
   and [Wolaytta phrasebook](https://en.wikivoyage.org/wiki/Wolayttattuwa_phrasebook):
   giving, requesting and changing. These support roots, not the complete
   specialist wording.
+
+## Commits
+
+ - [Translate organization domain requests and card edits in every locale](https://github.com/wekan/wekan/commit/054ba53c8d2270a989897caba06bf3092982e253)

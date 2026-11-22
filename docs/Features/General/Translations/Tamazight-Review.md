@@ -4763,3 +4763,36 @@ complete phrase remain low confidence pending fluent review. Preserve
 after an earlier due date, and the focused runtime test verifies slot
 interpolation. Ledger 21,898; original classified counts unchanged. No
 live UI test or remote write ran.
+
+## Commits
+
+ - [Record dated board and card translation audit progress](https://github.com/wekan/wekan/commit/bfac55c30c6ebb127749959ce0c7cfdc39951f5d)
+ - [Record dated Tamazight version-check audit progress](https://github.com/wekan/wekan/commit/77d574a627c2d98a4331626c210460b0530fe24b)
+ - [Record dated Tamazight version terminology progress](https://github.com/wekan/wekan/commit/cf14bd7db96ce2a27fb42bd4f3cda1b2cd192117)
+ - [Record dated Tamazight shared-label repair progress](https://github.com/wekan/wekan/commit/7da3334c47f059c3ce26a2ccd91dbb736f949fb6)
+ - [Record Tamazight popup audit progress](https://github.com/wekan/wekan/commit/1cf705484e38d2c88f0461b2efe28d2bb98a76fe)
+ - [Record Tamazight noun audit progress and source evidence](https://github.com/wekan/wekan/commit/1405047ba7203188455fb570b70fbfdf463e1c9b)
+ - [Record Tamazight popup title audit progress](https://github.com/wekan/wekan/commit/0134b39520bd7a9563f44ceb8e80a9cb660d9c58)
+ - [Record Tamazight Unset context audit progress](https://github.com/wekan/wekan/commit/0b7606194eb5f928a89a23722bfb36858471606b)
+ - [Record Tamazight board popup audit progress](https://github.com/wekan/wekan/commit/0b2cc01e6f302f7afecd1553a7610733ca05c099)
+ - [Record Tamazight board background audit progress](https://github.com/wekan/wekan/commit/6de53fb0c1c5e3c37fd92ff170830bd1e1edb6d7)
+ - [Record Tamazight activity audit progress](https://github.com/wekan/wekan/commit/8922a87f2aaab50f0ede1fa740fe20df94a2e66a)
+ - [Record Tamazight admin status audit progress](https://github.com/wekan/wekan/commit/1990e603966aac246dadba3bf97a3635daf68754)
+ - [Record Tamazight filter and sort audit progress](https://github.com/wekan/wekan/commit/987c5c22b52625f258072f1b81732bcb2bda47dc)
+ - [Record Tamazight creator-label audit progress](https://github.com/wekan/wekan/commit/a58c57296180f9dfd37fc6455b970d5cf2769e5f)
+ - [Record Tamazight search predicate audit progress](https://github.com/wekan/wekan/commit/f30c32e8978926940b4ec484bfd5b48bd643b529)
+ - [Record Tamazight search syntax audit progress](https://github.com/wekan/wekan/commit/fc2a8da2c8f11ac48c364e227f048b39a0a69893)
+ - [Record Tamazight board label repairs and Arabic-script queue](https://github.com/wekan/wekan/commit/278ca10a0ffef4acadecbb89b77a4e8aa7328f69)
+ - [Record Tamazight sky and metal-color audit progress](https://github.com/wekan/wekan/commit/f851f409d7243f47a178871f056ebaff2f355f83)
+ - [Record Tamazight color repairs and remaining plural review](https://github.com/wekan/wekan/commit/5fcd43df391fcc0eb189861f0950252e633e69cc)
+ - [Record Tamazight email-address repair and plural review](https://github.com/wekan/wekan/commit/3ed7dd3761c99f57e8334d204ea35a5af50416e0)
+ - [Document Tamazight due-reminder activity repair](https://github.com/wekan/wekan/commit/3d8b41be8c0667a298c74aae7fe8a84e14f9fc8b)
+ - [Document completion of tracked translation audit](https://github.com/wekan/wekan/commit/e911879b6b34e38f4c080a9ae7a12adfa48f0143)
+ - [Document Tamazight diagnostic translation repairs](https://github.com/wekan/wekan/commit/667eb393dde1b8c75ece6c3608927c35f8f0bb46)
+ - [Document Tamazight accessibility translation repairs](https://github.com/wekan/wekan/commit/c9d838170b238e967f2a936c531a9e0f9223bc04)
+ - [Document Tamazight calendar repairs](https://github.com/wekan/wekan/commit/e0bb7f2ca18192381ef72c58315c55a2ebc0b916)
+ - [Record dated resident-memory repair and remaining native review](https://github.com/wekan/wekan/commit/b9dae272e763b009147eb7874e0b51af6856a7b3)
+ - [Correct Tamazight memory review and preserve attested alternatives](https://github.com/wekan/wekan/commit/d30a2f57374b6031946130c7ee072ddc542dea01)
+ - [Record dated used-memory translation repair and terminology limits](https://github.com/wekan/wekan/commit/efa6b0eb1105e3d65d6c92c45f6c7d9001f758cb)
+ - [Record dated Tamazight reminder repair and review limits](https://github.com/wekan/wekan/commit/9570c3af3f425b306a1890a92226f6e98e865c33)
+ - [Record inspected Tamazight wrong-language queue and dictionary leads](https://github.com/wekan/wekan/commit/9f0d5cad802b9e656d563937df036ae5843ba8a3)

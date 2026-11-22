@@ -56,3 +56,8 @@ exact full labels, English negatives and distinct-epoch coverage.
 Original corrected 15,656; pending 246; Greenlandic original queue zero
 is not fluency certification. Ledger 18,787. Earlier pending notes are
 superseded by drafts, with native/browser validation still outstanding.
+
+## Commits
+
+ - [Record dated Greenlandic epoch repairs and validation limits](https://github.com/wekan/wekan/commit/a7031c618fd36351de6344a64ab8f0f8ba83c7e2)
+ - [Record Greenlandic tabular calendar and epoch evidence](https://github.com/wekan/wekan/commit/8ba8134b93f8a27a889b8668bf3ceed3c9a8243c)

@@ -51,3 +51,8 @@ variants, newer-value preservation and all 234 locale token/key inventories.
 No live calendar picker ran. The tracked Nahuatl queue is complete: overall
 pending 100, no Nahuatl row, restored four unchanged. Broader uncertain review
 continues.
+
+## Commits
+
+ - [Document completed Nahuatl tracked audit](https://github.com/wekan/wekan/commit/54f008fc5d800d098de807aaa38990a20a600e7c)
+ - [Document Nahuatl calendar reference distinctions and unresolved wording](https://github.com/wekan/wekan/commit/e82ffa7fd566747a748da60cd99118d13741406f)

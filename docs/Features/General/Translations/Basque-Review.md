@@ -294,3 +294,26 @@ named Basque controls, saved Demo checklist description, and unchanged
 English subject-before-name order. Earlier browser-unavailable notes are
 superseded. This proves rendering and composition, not native fluency of
 full add/remove clauses. Pending 232, restored 4 and ledger 18,831 unchanged.
+
+## Commits
+
+ - [Document completion of tracked translation audit](https://github.com/wekan/wekan/commit/e911879b6b34e38f4c080a9ae7a12adfa48f0143)
+ - [Record successful Basque rule grammar browser verification](https://github.com/wekan/wekan/commit/b98f6bfec5e93306a6d4678548676dd3d686db5c)
+ - [Record Basque assignee control order repair and browser verification status](https://github.com/wekan/wekan/commit/1f2eac8b9d3b0f5e9ba5bd12bd8fbbba0729ba7a)
+ - [Record dated Basque assignee repair and unresolved named row composition](https://github.com/wekan/wekan/commit/6a11dd75d14d317b1d4f47410b13db182d10aba0)
+ - [Record dated saved-description verification and remaining audit gates](https://github.com/wekan/wekan/commit/af27f700e737797158beb001c6da9d10e8f2fb3c)
+ - [Join nonempty rule description fragments without browser globals](https://github.com/wekan/wekan/commit/0c51a3261f3d06570ae5c837ad515b12a11d097d)
+ - [Record dated Basque subject ordering repair and browser gate](https://github.com/wekan/wekan/commit/f332c63b475df6b49691342729e5862446762e11)
+ - [Order Basque named rule subjects before their final demonstrative](https://github.com/wekan/wekan/commit/1e4411183708b886ab7b2e30311fb602ebc131ff)
+ - [Record dated Basque integration review in audit and changelog](https://github.com/wekan/wekan/commit/0f07c684dd0e97fec801a0b9812981fcbb455bf7)
+ - [Document confirmed Basque named-subject integration constraints](https://github.com/wekan/wekan/commit/209d1088bcd63f5fd99a4454d95c42423b0f886a)
+ - [Record dated Basque subject review and group audit changelog entries](https://github.com/wekan/wekan/commit/a1afa9f06f1f9587b41995f2e34118719e1e14c4)
+ - [Retain Basque generic member and attachment subjects](https://github.com/wekan/wekan/commit/946e1a29be8bc5be2b2bb41d78800994a37f87c4)
+ - [Record dated Basque movement review and remaining repair counts](https://github.com/wekan/wekan/commit/7a9edbec6c2acd195012d02c9ef07caea51923a6)
+ - [Retain restored Basque movement direction labels](https://github.com/wekan/wekan/commit/2bb54a30b64bd5b52601f014065766d8892b849f)
+ - [Record dated Basque checklist-item review and progress](https://github.com/wekan/wekan/commit/bfe7b0d5be2c8b4e90ea97313eed4cb9c834f7c7)
+ - [Record dated Basque incomplete status repair and remaining review](https://github.com/wekan/wekan/commit/55df5cb0a5f41d5bd58118026ee3228e88232fcb)
+ - [Record dated Basque S3 review and reduced restored queue](https://github.com/wekan/wekan/commit/1b69c24928566260166d81e251e6c503ba2b43ef)
+ - [Review Basque incomplete trigger against native completion-status guidance](https://github.com/wekan/wekan/commit/7998e6aff6268d4a42b78f1cff96844812c1ff56)
+ - [Record dated Basque completion acceptance and audit progress](https://github.com/wekan/wekan/commit/95c4398482be213835ed1250535f1bf8bc2439a5)
+ - [Record Basque completion evidence and runtime meaning discrepancy](https://github.com/wekan/wekan/commit/c4db1c19cfe2c187935d53c15a28ee09d703e63c)

@@ -85,3 +85,10 @@ remain under fluent review. Four focused files pass for exact labels, all
 preservation and all 234 locale token/key inventories. No live selector ran.
 Original pending is 35 with no Inuktitut row; restored four unchanged. No
 external translation service or remote write.
+
+## Commits
+
+ - [Document completed Inuktitut audit queue](https://github.com/wekan/wekan/commit/3caf5f6a73539ecbbec7e5cedf26f77a83bb3539)
+ - [Document Inuktitut orthography review](https://github.com/wekan/wekan/commit/97dc41d07695a8bde697f0fd3583a32e719e76a2)
+ - [Record dated Inuktitut named calendar repairs and limits](https://github.com/wekan/wekan/commit/f6e67998ab07cf47b8be70fb2841093633d9698b)
+ - [Record primary Inuktitut calendar evidence and unresolved phrase review](https://github.com/wekan/wekan/commit/d5ffeba209255c98ed41e25abfe54453be20b0e1)

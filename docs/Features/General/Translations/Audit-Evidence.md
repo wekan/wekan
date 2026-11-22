@@ -32146,3 +32146,36 @@ used source port 3000; after that server stopped during Firefox setup, the
 Firefox and WebKit checks ran against an isolated source server on 4000 with
 bundled MongoDB on 4001. No Transifex pull or push was performed for these tests.
 The upload-runner tests use mocks and explicit offline dry runs only.
+
+## Commits
+
+ - [Reject recurring wrong-language translations during Transifex pulls](https://github.com/wekan/wekan/commit/3e38abc0d616c3a472b527cd48ed7131d7d45ac8)
+ - [Record interrupted translation audit status](https://github.com/wekan/wekan/commit/0e962bba3f638cb8ad9af66016a9da44fc9d5409)
+ - [Record Tamazight popup title audit progress](https://github.com/wekan/wekan/commit/0134b39520bd7a9563f44ceb8e80a9cb660d9c58)
+ - [Record Tamazight Unset context audit progress](https://github.com/wekan/wekan/commit/0b7606194eb5f928a89a23722bfb36858471606b)
+ - [Record Tamazight board popup audit progress](https://github.com/wekan/wekan/commit/0b2cc01e6f302f7afecd1553a7610733ca05c099)
+ - [Record Tamazight board background audit progress](https://github.com/wekan/wekan/commit/6de53fb0c1c5e3c37fd92ff170830bd1e1edb6d7)
+ - [Record Tamazight activity audit progress](https://github.com/wekan/wekan/commit/8922a87f2aaab50f0ede1fa740fe20df94a2e66a)
+ - [Record Tamazight admin status audit progress](https://github.com/wekan/wekan/commit/1990e603966aac246dadba3bf97a3635daf68754)
+ - [Record Tamazight filter and sort audit progress](https://github.com/wekan/wekan/commit/987c5c22b52625f258072f1b81732bcb2bda47dc)
+ - [Record Tamazight creator-label audit progress](https://github.com/wekan/wekan/commit/a58c57296180f9dfd37fc6455b970d5cf2769e5f)
+ - [Record Tamazight search predicate audit progress](https://github.com/wekan/wekan/commit/f30c32e8978926940b4ec484bfd5b48bd643b529)
+ - [Record Tamazight search syntax audit progress](https://github.com/wekan/wekan/commit/fc2a8da2c8f11ac48c364e227f048b39a0a69893)
+ - [Record Tamazight board label repairs and Arabic-script queue](https://github.com/wekan/wekan/commit/278ca10a0ffef4acadecbb89b77a4e8aa7328f69)
+ - [Record Tamazight sky and metal-color audit progress](https://github.com/wekan/wekan/commit/f851f409d7243f47a178871f056ebaff2f355f83)
+ - [Record Tamazight color repairs and remaining plural review](https://github.com/wekan/wekan/commit/5fcd43df391fcc0eb189861f0950252e633e69cc)
+ - [Record Tamazight email-address repair and plural review](https://github.com/wekan/wekan/commit/3ed7dd3761c99f57e8334d204ea35a5af50416e0)
+ - [Record Tigre slate-blue review and reconcile overlap counts](https://github.com/wekan/wekan/commit/a43727f0bc3465f85602544b6ce4a472e67601c9)
+ - [Record Tigre dark-green audit progress](https://github.com/wekan/wekan/commit/59a7261e3318b8eff8185359104fedb4a841ccdb)
+ - [Record dated Tigre transport corpus audit](https://github.com/wekan/wekan/commit/10fff07af3570d9762ca35a81d2955d2d9767172)
+ - [Record dated final width-rule translation audit](https://github.com/wekan/wekan/commit/f4097bfda12061e6d8a1f1b3010376d5c71c3b21)
+ - [Record dated Xitsonga translation audit](https://github.com/wekan/wekan/commit/4ac8c5d129dd4abc1c3881f14150a6f591cccf16)
+ - [Record dated Aymara Quechua translation audit](https://github.com/wekan/wekan/commit/c95017d5602a2d26b3aaadcc0b770452ec414374)
+ - [Record dated Hawaiian Klingon Inuktitut audit](https://github.com/wekan/wekan/commit/04df435baffb522f43fb2252dbc28858f224866a)
+ - [Record dated three-locale width repair audit](https://github.com/wekan/wekan/commit/4e6739844018fc3f058d3aa998e71f712303fd40)
+ - [Record dated Serbian and regional translation audit progress](https://github.com/wekan/wekan/commit/0bd8f323163b30a585fa9eac40706cdce4e2204f)
+ - [Record dated wrong-language translation audit progress](https://github.com/wekan/wekan/commit/77cf4af47e1f11fe97e490c61bc2a7a078ff2404)
+ - [Record dated native-minimum translation audit progress](https://github.com/wekan/wekan/commit/e855bb7ede2a0e74357b6dcc7ab097a8a0cbd1d4)
+ - [Record dated ten-locale translation audit progress](https://github.com/wekan/wekan/commit/91555657e2451fa2966ff9af365fe471f932d48a)
+ - [Record dated nine-locale translation audit progress](https://github.com/wekan/wekan/commit/376ecf3043ddcb0dc27283ffc0f20037b0632066)
+ - [Document audit of uncommitted Transifex translation regressions](https://github.com/wekan/wekan/commit/224dded118d90afbfd71679f711af4e82d1fb164)

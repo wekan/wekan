@@ -59,3 +59,9 @@ Existing Saudi sighting wording remains unchanged. No live calendar-selector
 browser test was run. Ledger 19,767; original corrected 15,687, pending 216,
 restored 4 unchanged. Zero original Fulah pending findings does not close
 broader uncertain or unflagged wording review. No remote push.
+
+## Commits
+
+ - [Record Fulah epoch repairs and remaining native wording review](https://github.com/wekan/wekan/commit/499f996a35ceab39a9071e01e756acf5f603a07e)
+ - [Link dated Fulah terminology evidence in audit and upcoming changelog](https://github.com/wekan/wekan/commit/7850f41248e2e2b39c4533fd390a7fb42303a187)
+ - [Document primary Fulah calendar component evidence and limits](https://github.com/wekan/wekan/commit/ee94227ea548a9f51528effdd72dc05b20587348)

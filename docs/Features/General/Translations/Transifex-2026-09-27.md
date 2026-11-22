@@ -61,3 +61,7 @@ can use Latin letters legitimately; writing-system detection alone cannot
 decide those cases. Greek mathematical symbols, inverse-trigonometric names
 and URLs are not evidence of a wrong-language translation. New English
 placeholders remain outside this repair batch. No translations were uploaded.
+
+## Commits
+
+ - [Repair wrong-language and contextual translation regressions after download](https://github.com/wekan/wekan/commit/ff12d95160a50fc435b3b851aef7fe1cf2d4d987)

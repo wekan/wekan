@@ -53,3 +53,7 @@ FerretDB pass: Finnish, French, Japanese and Hebrew creation labels, RTL
 direction, absence of English/raw-placeholder fallbacks, and card, list,
 swimlane and board creation. The final Wolaytta vocabulary correction was
 verified by the locale suite; Wolaytta was not exercised in Chromium.
+
+## Commits
+
+ - [Translate multiline creation choices in every locale](https://github.com/wekan/wekan/commit/d97b6a85e2269c0561c0270ab113d1b4edbea11e)

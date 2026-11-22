@@ -889,3 +889,36 @@ other locale messages and is tracked in the short audit. All 50 Tigre suites
 pass. Ledger 21,936; exact non-English overlap 229 (22 attested shared,
 207 unclassified), with 19 matches at least 20 characters and 2 at least
 35. No live UI test or remote write occurred.
+
+## Commits
+
+ - [Record list-width source mismatch and locale repair queue](https://github.com/wekan/wekan/commit/c249bacaa24247341f50ee85c2aa0653ae7034dc)
+ - [Document Tigre Trello and S3 plural repair](https://github.com/wekan/wekan/commit/8bf19dada2ae05b6a2a7857191f4474340ebcc8d)
+ - [Document Tigre PDF preview translation review](https://github.com/wekan/wekan/commit/99e0121b0e7bab8e09c9d79a8f0c9b16c5927e48)
+ - [Document Tigre authentication error review](https://github.com/wekan/wekan/commit/e24a4fe717a4345050abb7dd208de5b253c8a0cc)
+ - [Record Tigre S3 translation audit progress](https://github.com/wekan/wekan/commit/70308145463781d40d34c5a02183de9e9f22e4be)
+ - [Document corpus-attested Tigre plural follow-up](https://github.com/wekan/wekan/commit/d140ac347f86056cddd58dc16d73aa29423740b9)
+ - [Document Tigre Star and Break repairs](https://github.com/wekan/wekan/commit/95a3a4baff9a550d99235ffb9a9b46dc16ecf00a)
+ - [Document Tigre Endpoint meaning repair](https://github.com/wekan/wekan/commit/f4dd67eb3b8854871716c060c1c81c0bf1745a85)
+ - [Document Tigre exact control reviews](https://github.com/wekan/wekan/commit/c450740d78f4caaf9095987e9542030ed49db3db)
+ - [Document missed Tigre organizations repair](https://github.com/wekan/wekan/commit/0f9f13d1d905529b1cf6b682591fb2a3f4c35683)
+ - [Document full Tigre noun family repairs](https://github.com/wekan/wekan/commit/238e33127809d47d080e3f3af06e05127543b68d)
+ - [Document full Tigre board and card cleanup](https://github.com/wekan/wekan/commit/d954922c9050ac55d9870d705953a8e4d5de02d5)
+ - [Document Tigre short control repairs](https://github.com/wekan/wekan/commit/b30134be78229a89c1d8cd30075fb9bd1f1905df)
+ - [Document additional Tigre interface repairs](https://github.com/wekan/wekan/commit/4e09c23b215c1ccd9bc5c2d749c2e5d813fbb866)
+ - [Document second Tigre ledger reuse pass](https://github.com/wekan/wekan/commit/828800a301068b466676c38b1eefe62bec7669e2)
+ - [Document Tigre edit and template repairs](https://github.com/wekan/wekan/commit/2fa5a88449539c044ba9880ff92d71c15ce7a62c)
+ - [Document embedded Tigre terminology repairs](https://github.com/wekan/wekan/commit/876d879596928b69126c2c2c2354b73aa6e0a0ed)
+ - [Document Tigre account storage and template repairs](https://github.com/wekan/wekan/commit/79b144ae76492d0e000987ad0f7b3bf0d8a84547)
+ - [Document remaining Tigre card repairs](https://github.com/wekan/wekan/commit/9173c625990a059e8798c91c66c4b42e30bc2815)
+ - [Document Tigre outcome and account repairs](https://github.com/wekan/wekan/commit/b0fd098cea6aca19e6c1cad9ad607521022574c5)
+ - [Document Tigre date and time repairs](https://github.com/wekan/wekan/commit/1ae4305237d9e403cecb7503ae5f1ec9a640772f)
+ - [Document Tigre noun repairs](https://github.com/wekan/wekan/commit/4a8323c96ff51e2ee1a693a82bddd0883580ae52)
+ - [Document repeated Tigre component repairs](https://github.com/wekan/wekan/commit/b658832f599f90bdf3ae9ee6a291ff140547a84f)
+ - [Document Tigre board repairs](https://github.com/wekan/wekan/commit/7e49057262034f7ffe609219e2203e1fd9ac89d0)
+ - [Document Tigre file-clause repairs](https://github.com/wekan/wekan/commit/79708827c70ac0bc2bb374e60e6b54d85dc5fde1)
+ - [Document Tigre card and file repairs](https://github.com/wekan/wekan/commit/f81c9ab58f1a8c2f9b2a1b432b7387680d1d61e9)
+ - [Document shared Tigre plural review](https://github.com/wekan/wekan/commit/b0bef07079af53bc36e07aeae1b2194c403d07ae)
+ - [Document multi-component Tigre repairs](https://github.com/wekan/wekan/commit/a56cccfeb3a2c51bb2096d3198ac14ca7a617b37)
+ - [Document compact Tigre repairs](https://github.com/wekan/wekan/commit/4a25311bf77a2953042b0411379ef440d2f162e8)
+ - [Record Tigre and Wolaytta calendar provenance gaps](https://github.com/wekan/wekan/commit/5da10eee565c5fb0f5803a2c154d8ce0ea403236)

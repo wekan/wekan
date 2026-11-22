@@ -21757,3 +21757,36 @@ Verification summary — **2026-09-14**:
   newer correct-language translations; they do not certify native fluency.
 
 Translation work continues. Dated details remain in [evidence](Audit-Evidence.md).
+
+## Commits
+
+ - [Translations: Romanian, Tamazight and Urdu in their own languages](https://github.com/wekan/wekan/commit/d3dead539b1ed7842d84f5321221008b57810274)
+ - [Document Igbo interrupted import recovery translations](https://github.com/wekan/wekan/commit/52f0bc1271af56bad588cfd11780a383fefa8a73)
+ - [Document Igbo stopped sync recovery translations](https://github.com/wekan/wekan/commit/6e3678552a6393a76a8cf354b72b9a8668a03243)
+ - [Document Igbo workflow and permission translations](https://github.com/wekan/wekan/commit/19aa5fd7dd91ed2dd4691c42eafaf55c3e49f8c3)
+ - [Document Igbo notification translations in Upcoming](https://github.com/wekan/wekan/commit/cfde3385b86340745207d96fa893512fbd08187d)
+ - [Document Igbo transfer-help translations](https://github.com/wekan/wekan/commit/daf8549cdd7ce313d1716e579bd79f9a9e726752)
+ - [Document Igbo import mapping and bulk transfer translations](https://github.com/wekan/wekan/commit/7306d06919ee5102ad81b308541daf219e82bed0)
+ - [Document second Igbo import-guide translation batch](https://github.com/wekan/wekan/commit/8bc9d15be13623438854484ab106548ea2e108c0)
+ - [Document first Igbo import-guide translation batch](https://github.com/wekan/wekan/commit/93ded6339555014986c9c751a3b00d59196dba25)
+ - [Document Igbo linked-field translation progress](https://github.com/wekan/wekan/commit/e1b92a011e024873a66947a90c81be7bc91a05b6)
+ - [Document Igbo attachments and refresh translation backlog counts](https://github.com/wekan/wekan/commit/5416b7f6724de508440ef1363f94aec515ceb8aa)
+ - [Document Scottish Gaelic import and tooltip corrections](https://github.com/wekan/wekan/commit/f6d7aafc5f2a6aaa9b225ea1e9aa67f6cd65d89c)
+ - [Document Scottish Gaelic report control corrections](https://github.com/wekan/wekan/commit/2834c752f4795f01d957221035879329e0dc59af)
+ - [Document Scottish Gaelic report translation review](https://github.com/wekan/wekan/commit/2dd80befcf529c9d5b3402c4f28990c45505a218)
+ - [Document Scottish Gaelic date and linking corrections](https://github.com/wekan/wekan/commit/7b3b9f00e175af9d19850d58ff85a5ffe433985e)
+ - [Document Scottish Gaelic meaning corrections and review limits](https://github.com/wekan/wekan/commit/add0493214ba1ffc7f1a1091fed61560094c2a39)
+ - [Document Scottish Gaelic recovery translations and full placeholder check](https://github.com/wekan/wekan/commit/faed3b3048329f9709384f59179930bbf9b7622f)
+ - [Document Scottish Gaelic workflow translation progress](https://github.com/wekan/wekan/commit/80bac12b8f7f41b63b32e331619f6434249cdaba)
+ - [Document Scottish Gaelic integration translation progress](https://github.com/wekan/wekan/commit/154a3d6c710cb74479b268be6ea494e9a6bef1d3)
+ - [Document Scottish Gaelic import-control translation progress](https://github.com/wekan/wekan/commit/6c5d1097545fbb90ab5bf873771ad1b99d46544f)
+ - [Document the second Scottish Gaelic import-guide batch](https://github.com/wekan/wekan/commit/6543da6538c42e07edd04c3d6bfa0f1f2a4785b6)
+ - [Document Scottish Gaelic import-guide translation progress](https://github.com/wekan/wekan/commit/f69c05e75b229f53b924c42c28b830e42f5dc978)
+ - [Document Scottish Gaelic field-link translation progress](https://github.com/wekan/wekan/commit/4fc3e3b1e2a8206a1d0e54f457999d3a24d8b419)
+ - [Document Scottish Gaelic attachment translation progress](https://github.com/wekan/wekan/commit/d2766886bf7d4cdf18d00587d1ff8ffc5b252830)
+ - [Document Irish rule grammar corrections in Upcoming](https://github.com/wekan/wekan/commit/1238df0faa2e4e87fc6777544247ed6692c76bcf)
+ - [Document Irish import and header help corrections](https://github.com/wekan/wekan/commit/b6d2a1dc5f64a7ae23417ceacef402897caa0313)
+ - [Document Irish date and card-action translation corrections](https://github.com/wekan/wekan/commit/fc1f67cdffa0375578160a702235d7d2708f8cb7)
+ - [Document Irish report metric translation corrections](https://github.com/wekan/wekan/commit/825f93aec6ce5923928d05c3751a623bd002dc89)
+ - [Document Irish analytics translation corrections in Upcoming](https://github.com/wekan/wekan/commit/9af9c316701409032a201d7c87d09c3a75424fa0)
+ - [Document audit of uncommitted Transifex translation regressions](https://github.com/wekan/wekan/commit/224dded118d90afbfd71679f711af4e82d1fb164)
