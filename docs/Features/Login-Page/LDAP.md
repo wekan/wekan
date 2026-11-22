@@ -1,5 +1,22 @@
-## LDAP info
+# LDAP
 
+## What it is
+
+LDAP login lets people sign in to WeKan with the username and password they
+already have in the organization's directory: Active Directory, OpenLDAP,
+FreeIPA, 389 DS, Univention and others. WeKan checks the password against the
+directory, creates the WeKan account at the first login, and can keep names,
+emails, admin status, Organizations and Teams in step with the directory's
+users and groups, also by a background sync while nobody logs in.
+
+## Read more
+
+- [Lightweight Directory Access Protocol on Wikipedia](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol)
+- [Active Directory on Wikipedia](https://en.wikipedia.org/wiki/Active_Directory)
+- [Microsoft: LDAP search filter syntax](https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax)
+- [ldapts](https://github.com/ldapts/ldapts), the LDAP client library WeKan uses
+- [later.js text parser](https://bunkat.github.io/later/parsers.html), the
+  format of `LDAP_BACKGROUND_SYNC_INTERVAL` text
 - [LDAP sync script, that also correctly removes users](./ldap-sync/ldap-sync.py)
 - [LDAP AD Simple Auth](./LDAP-AD-Simple-Auth.md) 2021-07-24 and related [Search Filter Settings](https://github.com/wekan/wekan/issues/3908#issuecomment-887545168):
 
@@ -14,46 +31,33 @@
 - [Univention LDAP related issues](https://github.com/wekan/univention/issues)
 - [Teams/Organizations feature related LDAP plans](https://github.com/wekan/wekan/issues/802). Needs info from LDAP experts to describe how LDAP works.
 - [Wekan LDAP code](../../../packages/wekan-ldap)
+- WeKan: [LDAP AD Simple Auth](LDAP-AD-Simple-Auth.md),
+  [Admin Panel / People / Login](../Admin-Panel/People/Login.md),
+  [Organizations](../Admin-Panel/People/Organizations.md),
+  [Teams](../Admin-Panel/People/Teams.md)
 
-***
+## How to use it
 
-## LDAP transport encryption
+1. Set at least `LDAP_ENABLE=true`, `LDAP_HOST`, `LDAP_PORT`,
+   `LDAP_ENCRYPTION` and `LDAP_BASEDN`, and how users are found
+   (`LDAP_USER_SEARCH_FIELD`, `LDAP_USER_SEARCH_FILTER`, `LDAP_USERNAME_FIELD`,
+   `LDAP_EMAIL_FIELD`, ...), either with a service account
+   (`LDAP_AUTHENTIFICATION=true`, `LDAP_AUTHENTIFICATION_USERDN`,
+   `LDAP_AUTHENTIFICATION_PASSWORD`) or with the user's own bind
+   (`LDAP_USER_AUTHENTICATION=true`). The examples below show complete sets for
+   Active Directory, FreeIPA and OpenLDAP.
+2. Or set them in **Admin Panel / People / LDAP** (`/admin/people/ldap`): a
+   saved value wins over the environment variable, and **Default** gives the
+   variable back.
+3. Click **Test LDAP Connection** there to try the settings in effect.
+4. Make LDAP the method of the sign-in button: `DEFAULT_AUTHENTICATION_METHOD=ldap`
+   (snap `default-authentication-method='ldap'`), or choose it in Admin Panel /
+   People / Login.
+5. Sign in on the sign-in page with the directory username and password.
+6. Optional: turn on background sync (`LDAP_BACKGROUND_SYNC=true`), and click
+   **Sync LDAP users now** in Admin Panel / People / LDAP to run it at once.
 
-Set `LDAP_ENCRYPTION` to one of these values:
-
-- `true` — connect with TLS immediately, normally on port 636 (LDAPS).
-- `starttls` — connect normally, then negotiate TLS with STARTTLS, normally on
-  port 389.
-- `false` — use an unencrypted connection. Avoid this outside a trusted local
-  network.
-
-The legacy values `ssl` (LDAPS) and `tls` (STARTTLS) still work so existing
-deployments do not break, but WeKan logs a deprecation warning naming the value
-above that should replace them. An unknown value logs a warning and does not
-silently enable encryption. LDAPS and STARTTLS can negotiate the same modern
-TLS protocols; STARTTLS is not inherently more secure than LDAPS.
-
-### A private or company certificate authority
-
-The LDAP server's certificate is verified (`LDAP_REJECT_UNAUTHORIZED` defaults
-to `true`). WeKan trusts the certificate authorities Node.js ships with and,
-since #6762, also those installed on the server. So a company root CA works
-the same way it does for every other program:
-
-```
-sudo cp company-root-ca.crt /usr/local/share/ca-certificates/
-sudo update-ca-certificates
-sudo snap restart wekan        # or restart the Docker container / service
-```
-
-The file must end in `.crt`. If the LDAP server sends only its own certificate,
-install the intermediate CA the same way. Fedora and RHEL use
-`/etc/pki/ca-trust/source/anchors/` and `update-ca-trust`. Instead, the CA can
-be given to WeKan alone in `LDAP_CA_CERT` (snap:
-`sudo snap set wekan ldap-ca-cert="$(cat company-root-ca.pem)"`). Either is
-better than turning verification off.
-
-## Snap
+### Snap
 
 LDAP is available on Snap Stable channel. Settings can be seen with command `wekan.help` and from repo https://github.com/wekan/wekan-ldap . More settings at https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
 
@@ -65,12 +69,12 @@ For root-url, see [Settings](../../Platforms/Webserver/Settings.md)
 
 For Caddy/Wekan/RocketChat Snap settings, see [Snap install page](https://github.com/wekan/wekan-snap/wiki/Install), [OAuth2 page](./OAuth2.md#snap) and [Caddy page](../../Platforms/Webserver/Caddy.md). Instead of Caddy you can also use [Nginx](../../Platforms/Webserver/Nginx.md) or [Apache](../../Platforms/Webserver/Apache.md).
 
-## LDAP Filter settings
+### LDAP Filter settings
 
 For better working LDAP filter setting than those below, settings info here:
 https://github.com/wekan/univention/issues/5
 
-### Active Directory LDAP part
+#### Active Directory LDAP part
 [Source](https://github.com/wekan/wekan/issues/2822#issuecomment-568314135)
 ```
 sudo snap set wekan ldap-enable='true'
@@ -105,7 +109,7 @@ sudo snap set wekan ldap-username-field='sAMAccountName'
 sudo snap set wekan ldap-fullname-field='cn'
 ```
 
-### FreeIPA v4.6.6
+#### FreeIPA v4.6.6
 
 [Source](https://github.com/wekan/wekan/issues/3357)
 
@@ -164,7 +168,7 @@ snap set wekan ldap-sync-user-data='true'
 snap set wekan ldap-sync-user-data-fieldmap='{"displayName":"name", "mail":"email", "initials":"initials"}'
 ```
 
-### OpenLDAP
+#### OpenLDAP
 [Source](https://github.com/wekan/wekan/issues/2822#issuecomment-564451384)
 ```
 sudo snap set wekan default-authentication-method='ldap'
@@ -201,66 +205,11 @@ sudo snap set wekan ldap-user-search-scope='sub'
 sudo snap set wekan ldap-username-field='uid'
 ```
 
-## LDAP background sync, Organizations and Teams sync
-
-These settings extend LDAP background sync and let LDAP groups be mirrored into
-Wekan Organizations and Teams. They are read as environment variables (Docker /
-Source). On Snap use the lower-case dash-separated equivalent (for example
-`ldap-sync-organizations`).
-
-When the user base DN also contains LDAP groups, set
-`LDAP_USER_SEARCH_FILTER` to the directory's user class, for example
-`(objectClass=user)` for Active Directory or `(objectClass=inetOrgPerson)` for
-OpenLDAP. WeKan also refuses known group object classes returned by an
-over-broad search, so they cannot be imported as user accounts.
-
-- `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default `false`) — when
-  `true`, background sync disables Wekan users that a successful LDAP search
-  confirms are no longer present, and re-enables them if they reappear. This
-  makes LDAP authoritative for active/inactive status and requires
-  `LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true`. Lookup errors,
-  missing identifier settings and ambiguous matches abort the run instead of
-  disabling accounts.
-
-  The lookup uses `LDAP_USER_SEARCH_FILTER`, exactly like login does, so an
-  account the filter excludes counts as no longer present. That is how an
-  account **disabled in the directory** is disabled in WeKan too. For Active
-  Directory, exclude disabled accounts in the filter:
-
-  ```
-  LDAP_USER_SEARCH_FILTER=(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
-  ```
-
-  For OpenLDAP with the ppolicy overlay, `(!(pwdAccountLockedTime=*))` does the
-  same; for 389 DS / FreeIPA, `(!(nsAccountLock=TRUE))`.
-
-  A user that WeKan disabled for inactivity (`USERS_DISABLE_INACTIVE_AFTER_DAYS`)
-  is *not* re-enabled by background sync; an administrator re-enables it.
-- `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
-  are synced into that user's Wekan **Organizations**.
-- `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP
-  group names/patterns to sync as Organizations. Leave empty to sync all of the
-  user's groups. Supports wildcards: `*` (any number of characters) and `?`
-  (single character).
-- `LDAP_SYNC_TEAMS` (default `false`) — when `true`, a user's LDAP groups are
-  synced into that user's Wekan **Teams**.
-- `LDAP_SYNC_TEAMS_GROUPS` (default empty) — comma-separated list of LDAP group
-  names/patterns to sync as Teams. Leave empty to sync all of the user's
-  groups. Supports wildcards: `*` (any number of characters) and `?` (single
-  character).
-
-Notes:
-
-- LDAP admin status (`LDAP_SYNC_ADMIN_STATUS` / `LDAP_SYNC_ADMIN_GROUPS`) is now
-  also kept up to date during background sync, not only at sign-in.
-- LDAP group-filter values are now escaped, so a DN or `cn` that contains
-  parentheses no longer breaks sign-in.
-
-## Docker
+### Docker
 
 LDAP login works now by using this docker-compose.yml file:
-https://raw.githubusercontent.com/wekan/wekan/edge/docker-compose.yml
-adding ROOT_URL, LDAP settings etc to that file.
+[docker-compose.yml](../../../docker-compose.yml) (the `edge`
+branch address this page used to link no longer exists), adding ROOT_URL, LDAP settings etc to that file.
 
 Using this docker-compose:
 https://docs.docker.com/compose/install/
@@ -270,10 +219,7 @@ With this command:
 docker-compose up -d --no-build
 ```
 
-## Bugs and Feature Requests
-
-[LDAP Bugs and Feature Requests](https://github.com/wekan/wekan-ldap/issues)
-## Example LDAP settings for Docker
+### Example LDAP settings for Docker
 
 Note: Some newer settings could be missing from example below. Someone could copy newest missing settings from docker-compose.yml above to example below. Some examples are also at closed and open issues at https://github.com/wekan/wekan-ldap/issues
 
@@ -588,10 +534,145 @@ networks:
     driver: bridge
 ```
 
-## Integration tests
+## How the numbers are calculated
 
-See [local login protocol tests](Testing.md) for example identities, actual
-request/response checks, failure cases and deployment limitations.
+- **Background sync interval**
+  ([packages/wekan-ldap/server/syncSchedule.js](../../../packages/wekan-ldap/server/syncSchedule.js)):
+  unset means at minute 0 of every hour. A number is milliseconds (3600000 =
+  hourly). An interval below one minute logs a warning, because it re-syncs
+  the whole directory that often. An interval over 1.5 days is rounded to
+  whole days. Other values must be one the scheduler can keep exactly - 1, 2,
+  3, 4, 5, 6, 10, 12, 15, 20 or 30 seconds or minutes, 1, 2, 3, 4, 6, 8 or 12
+  hours, or 1 day - and any other value is moved to the nearest of those
+  (nearest on a logarithmic scale) with a warning. Text such as
+  `every 1 hours` is later.js text.
+- **Timeouts**: `LDAP_TIMEOUT`, `LDAP_IDLE_TIMEOUT` and `LDAP_CONNECT_TIMEOUT`
+  are milliseconds (the examples use 10000 = 10 seconds).
+- **Paged search**: with `LDAP_SEARCH_PAGE_SIZE` greater than 0 the directory
+  is read in pages of that many entries; a paged search without a size uses
+  250 ([packages/wekan-ldap/server/ldap.js](../../../packages/wekan-ldap/server/ldap.js)).
+  `LDAP_SEARCH_SIZE_LIMIT`, when set, caps the entries one search returns.
+- **Ports**: LDAPS (`LDAP_ENCRYPTION=true`) is normally 636, plain and
+  STARTTLS normally 389.
+- **Group name patterns** in `LDAP_SYNC_ORGANIZATIONS_GROUPS` and
+  `LDAP_SYNC_TEAMS_GROUPS`: `*` matches any number of characters and `?`
+  exactly one.
+- **Nested groups** use the Active Directory matching rule OID
+  `1.2.840.113556.1.4.1941` (`LDAP_MATCHING_RULE_IN_CHAIN`), which follows
+  group-in-group membership to any depth.
+
+## How it works in WeKan
+
+- [packages/wekan-ldap](../../../packages/wekan-ldap) is the LDAP login:
+  [server/loginHandler.js](../../../packages/wekan-ldap/server/loginHandler.js)
+  handles `Meteor.loginWithLDAP`, [server/ldap.js](../../../packages/wekan-ldap/server/ldap.js)
+  binds and searches with ldapts, [server/sync.js](../../../packages/wekan-ldap/server/sync.js)
+  creates and updates the WeKan user and runs the background sync,
+  [server/testConnection.js](../../../packages/wekan-ldap/server/testConnection.js)
+  is the `ldap_test_connection` method and
+  [server/syncUser.js](../../../packages/wekan-ldap/server/syncUser.js) the
+  `ldap_sync_now` method, both for admins only.
+- Every `LDAP_*` setting is read through `authEnv()`: the Admin Panel value
+  first, then the environment variable
+  ([server/lib/authConfig.js](../../../server/lib/authConfig.js), section
+  `ldap` of [models/lib/authConfigCatalog.js](../../../models/lib/authConfigCatalog.js)).
+  The bind password is never sent to the browser.
+- [server/ldapGroupSync.js](../../../server/ldapGroupSync.js)
+  (`setUserOrgsTeamsFromLdap`) mirrors LDAP groups into the user's
+  Organizations and Teams.
+- Refused attempts (empty credentials, a user outside the allowed groups,
+  ...) are summarized in Admin Panel / Problems.
+
+### LDAP transport encryption
+
+Set `LDAP_ENCRYPTION` to one of these values:
+
+- `true` — connect with TLS immediately, normally on port 636 (LDAPS).
+- `starttls` — connect normally, then negotiate TLS with STARTTLS, normally on
+  port 389.
+- `false` — use an unencrypted connection. Avoid this outside a trusted local
+  network.
+
+The legacy values `ssl` (LDAPS) and `tls` (STARTTLS) still work so existing
+deployments do not break, but WeKan logs a deprecation warning naming the value
+above that should replace them. An unknown value logs a warning and does not
+silently enable encryption. LDAPS and STARTTLS can negotiate the same modern
+TLS protocols; STARTTLS is not inherently more secure than LDAPS.
+
+#### A private or company certificate authority
+
+The LDAP server's certificate is verified (`LDAP_REJECT_UNAUTHORIZED` defaults
+to `true`). WeKan trusts the certificate authorities Node.js ships with and,
+since #6762, also those installed on the server. So a company root CA works
+the same way it does for every other program:
+
+```
+sudo cp company-root-ca.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+sudo snap restart wekan        # or restart the Docker container / service
+```
+
+The file must end in `.crt`. If the LDAP server sends only its own certificate,
+install the intermediate CA the same way. Fedora and RHEL use
+`/etc/pki/ca-trust/source/anchors/` and `update-ca-trust`. Instead, the CA can
+be given to WeKan alone in `LDAP_CA_CERT` (snap:
+`sudo snap set wekan ldap-ca-cert="$(cat company-root-ca.pem)"`). Either is
+better than turning verification off.
+
+### LDAP background sync, Organizations and Teams sync
+
+These settings extend LDAP background sync and let LDAP groups be mirrored into
+Wekan Organizations and Teams. They are read as environment variables (Docker /
+Source). On Snap use the lower-case dash-separated equivalent (for example
+`ldap-sync-organizations`).
+
+When the user base DN also contains LDAP groups, set
+`LDAP_USER_SEARCH_FILTER` to the directory's user class, for example
+`(objectClass=user)` for Active Directory or `(objectClass=inetOrgPerson)` for
+OpenLDAP. WeKan also refuses known group object classes returned by an
+over-broad search, so they cannot be imported as user accounts.
+
+- `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default `false`) — when
+  `true`, background sync disables Wekan users that a successful LDAP search
+  confirms are no longer present, and re-enables them if they reappear. This
+  makes LDAP authoritative for active/inactive status and requires
+  `LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true`. Lookup errors,
+  missing identifier settings and ambiguous matches abort the run instead of
+  disabling accounts.
+
+  The lookup uses `LDAP_USER_SEARCH_FILTER`, exactly like login does, so an
+  account the filter excludes counts as no longer present. That is how an
+  account **disabled in the directory** is disabled in WeKan too. For Active
+  Directory, exclude disabled accounts in the filter:
+
+  ```
+  LDAP_USER_SEARCH_FILTER=(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
+  ```
+
+  For OpenLDAP with the ppolicy overlay, `(!(pwdAccountLockedTime=*))` does the
+  same; for 389 DS / FreeIPA, `(!(nsAccountLock=TRUE))`.
+
+  A user that WeKan disabled for inactivity (`USERS_DISABLE_INACTIVE_AFTER_DAYS`)
+  is *not* re-enabled by background sync; an administrator re-enables it.
+- `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
+  are synced into that user's Wekan **Organizations**.
+- `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP
+  group names/patterns to sync as Organizations. Leave empty to sync all of the
+  user's groups. Supports wildcards: `*` (any number of characters) and `?`
+  (single character).
+- `LDAP_SYNC_TEAMS` (default `false`) — when `true`, a user's LDAP groups are
+  synced into that user's Wekan **Teams**.
+- `LDAP_SYNC_TEAMS_GROUPS` (default empty) — comma-separated list of LDAP group
+  names/patterns to sync as Teams. Leave empty to sync all of the user's
+  groups. Supports wildcards: `*` (any number of characters) and `?` (single
+  character).
+
+Notes:
+
+- LDAP admin status (`LDAP_SYNC_ADMIN_STATUS` / `LDAP_SYNC_ADMIN_GROUPS`) is now
+  also kept up to date during background sync, not only at sign-in.
+- LDAP group-filter values are now escaped, so a DN or `cn` that contains
+  parentheses no longer breaks sign-in.
 
 ### Authentication boundary checks
 
@@ -611,8 +692,8 @@ for validation coverage and deployment limitations.
 Every `LDAP_*` setting above can also be set in **Admin Panel / People / LDAP**
 (`/admin/people/ldap`). A value saved there wins over the environment variable;
 an empty field, or **Default**, gives the environment variable back. The page
-says for each setting which one is in effect, and **Test connection** tries the
-settings in effect. The bind password is never sent to the browser - the page
+says for each setting which one is in effect, and **Test LDAP Connection** tries
+the settings in effect. The bind password is never sent to the browser - the page
 shows only whether one is set and where it comes from. Changes apply to the
 next login; background sync is rescheduled at once.
 
@@ -667,3 +748,64 @@ Directory deployment that grants access through nested groups needs
 `LDAP_GROUP_FILTER_NESTED=true` after upgrading, or those users are refused and
 appear in Admin Panel / Problems as `ldap.group-denied`
 ([#6744](https://github.com/wekan/wekan/issues/6744)).
+
+### Tests
+
+[tests/ldapAuthenticationBoundary.test.cjs](../../../tests/ldapAuthenticationBoundary.test.cjs),
+[tests/ldapBackgroundSync.test.cjs](../../../tests/ldapBackgroundSync.test.cjs),
+[tests/ldapSyncSchedule.test.cjs](../../../tests/ldapSyncSchedule.test.cjs),
+[tests/ldapEncryptionSetting.test.cjs](../../../tests/ldapEncryptionSetting.test.cjs),
+[tests/ldapRejectUnauthorizedDefault.test.cjs](../../../tests/ldapRejectUnauthorizedDefault.test.cjs),
+[tests/ldapNestedGroups.test.cjs](../../../tests/ldapNestedGroups.test.cjs),
+[tests/ldapGroupBaseDn.test.cjs](../../../tests/ldapGroupBaseDn.test.cjs),
+[tests/ldapGroupAllowlist.test.cjs](../../../tests/ldapGroupAllowlist.test.cjs),
+[tests/ldapAdminGroups.test.cjs](../../../tests/ldapAdminGroups.test.cjs),
+[tests/ldapAccountBinding.test.cjs](../../../tests/ldapAccountBinding.test.cjs),
+[tests/ldapConnectionRelease.test.cjs](../../../tests/ldapConnectionRelease.test.cjs),
+[tests/ldapSyncNow.test.cjs](../../../tests/ldapSyncNow.test.cjs),
+[tests/ldapTestConnectionProbe.test.cjs](../../../tests/ldapTestConnectionProbe.test.cjs),
+[tests/ldapAdminOverrideSecurity.test.cjs](../../../tests/ldapAdminOverrideSecurity.test.cjs),
+[tests/playwright/specs/30-ldap-orgs-teams.e2e.js](../../../tests/playwright/specs/30-ldap-orgs-teams.e2e.js),
+[tests/playwright/specs/ldap-login-form.e2e.js](../../../tests/playwright/specs/ldap-login-form.e2e.js).
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.
+
+## Bugs and Feature Requests
+
+[LDAP Bugs and Feature Requests](https://github.com/wekan/wekan-ldap/issues)
+
+## Commits
+
+ - [A reused login name no longer opens the previous owner's account](https://github.com/wekan/wekan/commit/e91c14cd9a7bff84121de2e2d3d4f09a37e3e314)
+ - [LDAP sync honours its search filter; inactive users can be disabled](https://github.com/wekan/wekan/commit/b933a69cd4953543cece844865ab7dc72eb4a6c1)
+ - [Background sync imports users again, and keeps the interval it is given](https://github.com/wekan/wekan/commit/a944be18173392ea072c6b5851d668b1e5770bc3)
+ - [A sync interval in milliseconds no longer stops WeKan](https://github.com/wekan/wekan/commit/7dfd942ff67717164bf9b3c18f058d6a6cf2f4a6)
+ - [Trust the operating system's certificate authorities for TLS](https://github.com/wekan/wekan/commit/8ab7d467143ec2d376e5dfacaeddac456d91aa71)
+ - [LDAP- and OIDC-synced team members become members of the team's boards](https://github.com/wekan/wekan/commit/d560e2fcf869a54bf2e8b4f51086cddaae4e80e4)
+ - [Add a Sync LDAP users now button to Admin Panel / People / LDAP](https://github.com/wekan/wekan/commit/95147fc9995ebb40d3b4804ce6bf6fa3f97ad2f7)
+ - [Test connection proves the directory answered without a service account](https://github.com/wekan/wekan/commit/9d27f4be4da46d306578096aebeac24148972bda)
+ - [Read the bind password from a *_FILE](https://github.com/wekan/wekan/commit/031440665618f6e3492033ff65db26e8ea18c4bb)
+ - [Override every login environment variable in Admin Panel / People](https://github.com/wekan/wekan/commit/eb49a4b1b6853650823434e924f5d0dc47a4fe5b)
+ - [Accept nested Active Directory groups in the group filter](https://github.com/wekan/wekan/commit/dc2e7592a3fb7a262255e1a773472c8ee231411b)
+ - [Show LDAP diagnostics in production when LDAP logging is on](https://github.com/wekan/wekan/commit/66925f0bded0d2931ab8a04c69ff6986767aa966)
+ - [Verify LDAP server certificates by default](https://github.com/wekan/wekan/commit/daf6593adf55b2e398f6b4ccca6a97d5f2b495eb)
+ - [Reject empty credentials and enforce directory groups](https://github.com/wekan/wekan/commit/679a8b349960a64f03eabb9ae3c24d115be8915a)
+ - [Admin Panel overrides for LDAP_* variables, and a Test LDAP Connection button](https://github.com/wekan/wekan/commit/ac363f979f3f73102e305302796eb6c65c5eefcb)
+ - [Exclude LDAP groups from user synchronization](https://github.com/wekan/wekan/commit/1485251958aaa3372a010672b25cdc394949a549)
+ - [Fail closed on incomplete group filters](https://github.com/wekan/wekan/commit/433348c66770d1ac00c4edd3229c794ccf53d9c8)
+ - [Close the encryption setting ambiguity: true, starttls, false](https://github.com/wekan/wekan/commit/7fb9ad1d75e3d2dc99bdb28ca32bdff583b4fa14)
+ - [Groups may live in their own subtree (LDAP_GROUP_BASEDN)](https://github.com/wekan/wekan/commit/8b2e0038df5513c6cd9b409e063f1c9e3183514c)
+ - [Every LDAP user no longer becomes an admin](https://github.com/wekan/wekan/commit/e901ebd3fbb601485c0ecae7160c82376929f2e1)
+ - [The connection leak that exhausted the directory server is fixed](https://github.com/wekan/wekan/commit/7374b7e00d473b1b8b979695d5bbb0cabae247ff)
+ - [Group allowlist with wildcards](https://github.com/wekan/wekan/commit/2513c782f70fccdbf137605717bb6d7dd178606f)
+ - [A username with a hyphen no longer becomes a dot](https://github.com/wekan/wekan/commit/0119e62da5b6021d6a1fd7f67a9e6960efa50322)
+ - [Escape group-filter values so parentheses in a DN or cn work](https://github.com/wekan/wekan/commit/6a89da85e614793edd9e1f6f30abea02281a8eed)
+ - [Optionally sync LDAP groups as Organizations or Teams](https://github.com/wekan/wekan/commit/bc8167166dab343d194f3f84e47b5fc3a1a02f9d)
+ - [Optionally disable LDAP users that disappeared from the directory](https://github.com/wekan/wekan/commit/f9bfd370aa34ef2ca6d3c64a9cfa18bdc76c8429)
+ - [Keep LDAP admin status updated during background sync](https://github.com/wekan/wekan/commit/8d28106dd532a5a31bdd52a68bb397ac8249956c)
+ - [Use ldapts instead of ldapjs](https://github.com/wekan/wekan/commit/217cd7bcb6f61ef1673cbf53180ac6249c315461)
+ - [SyncLDAPBleed security fix](https://github.com/wekan/wekan/commit/146905a459106b5d00b4f09453a6554255e6965a)
+ - [LDAP filter injection fix in LDAP auth](https://github.com/wekan/wekan/commit/0b0e16c3eae28bbf453d33a81a9c58ce7db6d5bb)
