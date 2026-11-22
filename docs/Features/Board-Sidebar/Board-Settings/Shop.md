@@ -80,3 +80,12 @@ board as `shopSettings`, with who saved them. The Orders list choices come
 from `shopOrderTargets`: the private boards the user administers. Tests:
 [tests/shop.test.cjs](../../../../tests/shop.test.cjs) and
 [server/lib/tests/shop.tests.js](../../../../server/lib/tests/shop.tests.js).
+
+## Commits
+
+ - [Shop: products, cart, totals and orders computed from the cards](https://github.com/wekan/wekan/commit/0aa3d0b9d67330670e51bb118dae44fa40eaca8a)
+ - [Board View / Shop: the products on the cards as a web shop, with a cart and a checkout](https://github.com/wekan/wekan/commit/04436a739da5d0f1c5326253c4c92310c4fdb983)
+ - [Board Settings / Shop: open the shop, map the cards to products, choose the Orders list and the payment methods](https://github.com/wekan/wekan/commit/493af449982c808b11e4d9e3ff138c635e05cc2a)
+ - [Shop: every setting is enforced on the server, and refused attempts are in Admin Panel / Problems](https://github.com/wekan/wekan/commit/8892734fa987d89c0f455464dfdf7def84488850)
+ - [Translations: the Shop's 38 new strings in every language](https://github.com/wekan/wekan/commit/136fdebf969071d371b94c5b7646b10fb43a925a)
+ - [Shop: tests of the products, the prices, the settings and the orders, and of what is refused](https://github.com/wekan/wekan/commit/0d74e6ec25a8d7f976cbb69f1a5c34763036cf25)

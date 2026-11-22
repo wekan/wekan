@@ -117,7 +117,8 @@ that by providing one-click installation on various platforms.
         Throughput Run Chart, Due Date Performance
       - Overview: Statistics, Dashboard, Pulse, Workload, Distribution, Dependency Map, Activity Heatmap
       - Communication and code: Email, Chat, Version Control,
-        [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): the board as a website, which a public board can show at its own address instead of the kanban
+        [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): the board as a website, which a public board can show at its own address instead of the kanban,
+        [Shop](docs/Features/Board-Header/Board-Views/Shop.md): the products on the cards as a web shop - cart, checkout, orders as cards, Budget and billing's payment methods - which a public board can show instead of the kanban
       - The charts and reports each have PDF and Excel export
    - Right Sidebar / Board Settings:
     - Rules: like IFTTT like Trello Butler
