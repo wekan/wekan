@@ -425,6 +425,67 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
   padding: 0.3em;
   white-space: pre-wrap;
 }
+/* Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument
+   (client/lib/attachmentRichViewer.js). */
+#rich-viewer {
+  background: white;
+  color: #222;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+#rich-viewer li {
+  padding: 0.3em;
+  white-space: pre-wrap;
+}
+#rich-viewer .attachment-preview-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  margin-block-end: 1em;
+}
+#rich-viewer .attachment-preview-table th,
+#rich-viewer .attachment-preview-table td {
+  border: 1px solid #c1c7d0;
+  padding: 0.25em 0.5em;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: normal;
+}
+#rich-viewer .attachment-preview-table th {
+  background: #f4f5f7;
+  font-weight: bold;
+}
+#rich-viewer .attachment-preview-code pre {
+  margin: 0;
+  padding: 0.75em;
+  background: #f6f8fa;
+  overflow: auto;
+  white-space: pre;
+  overflow-wrap: normal;
+}
+#rich-viewer .attachment-preview-fields {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25em 1em;
+}
+#rich-viewer .attachment-preview-fields dt {
+  font-weight: bold;
+}
+#rich-viewer .attachment-preview-fields dd {
+  margin: 0;
+}
+#rich-viewer .attachment-preview-mail-body {
+  margin-block-start: 1em;
+  white-space: pre-wrap;
+}
+#rich-viewer .attachment-preview-page {
+  border-block-start: 1px solid #c1c7d0;
+  padding-block-start: 0.5em;
+}
 .pdf-preview-error {
   margin-top: 180px;
   display: block;
@@ -465,6 +526,7 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
     ); /* Full height - height of top and bottom bars */
   }
   #zip-viewer,
+  #rich-viewer,
   #txt-viewer,
   #office-viewer {
     width: 100%;

@@ -139,7 +139,12 @@ let attachmentKindFix;
 
   test('the card view and the viewer both ask the helper', () => {
     const src = read('client/components/cards/attachments.js');
-    assert.ok(/import \{ attachmentKind \} from '\/models\/lib\/attachmentKind';/.test(src));
+    // The import also brings the slideshow's own viewers' helpers
+    // (attachmentRichKind, attachmentCanPreview - tests/attachmentRichViewer.test.cjs);
+    // what is pinned is that attachmentKind itself comes from this module.
+    assert.ok(/import \{ attachmentKind\b[^}]*\} from '\/models\/lib\/attachmentKind';/.test(src));
+    assert.ok(/function attachmentCanBeOpened\(attachment\) \{[\s\S]*?return attachmentCanPreview\(attachment\);/.test(src),
+      'whether it opens is the shared answer, which derives the kind the same way');
     assert.ok(/isImage\(\) \{\s*\n\s*return attachmentKind\(this\)\.isImage;/.test(src),
       'the gallery helper - a Blaze helper wins over the data context');
     assert.ok(/extension\(\) \{\s*\n\s*return attachmentKind\(this\)\.extension;/.test(src));

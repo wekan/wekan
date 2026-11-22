@@ -153,7 +153,9 @@ test('Attachments tab: the controls of an opened card\'s attachments', () => {
   // A click views it in the card's viewer, walking the tab's files.
   assert.match(files, /button\.vcs-file-view\.js-vcs-file-view/);
   assert.match(js, /openAttachmentSlideshow\(event\.currentTarget\.dataset\.attachmentId, ids\)/);
-  assert.match(js, /canPreview: !!\(kind\.isImage \|\| kind\.isPDF/);
+  // What it opens is the viewer's own shared answer (models/lib/attachmentKind.js),
+  // not a copy of the list here - tests/attachmentRichViewer.test.cjs pins that.
+  assert.match(js, /canPreview: attachmentCanPreview\(file\)/);
   // Download, rename, delete and the cover / background menu, through the card's popups.
   for (const cls of ['js-download', 'js-vcs-file-rename', 'js-vcs-file-delete', 'js-vcs-file-menu']) assert.ok(files.includes(cls), cls);
   assert.match(js, /Popup\.open\('attachmentRename'\)\.call\(file, event, tpl\)/);

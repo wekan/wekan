@@ -5,7 +5,7 @@ import CardComments from '/models/cardComments';
 import { Utils } from '/client/lib/utils';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { IMPORT_SOURCES } from '/models/lib/importSources';
-import { attachmentKind } from '/models/lib/attachmentKind';
+import { attachmentKind, attachmentCanPreview } from '/models/lib/attachmentKind';
 import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
 const vcs = require('/models/lib/versionControlView');
@@ -257,9 +257,8 @@ Template.versionControlView.helpers({
         _id: file._id,
         attachment: file,
         isImage: !!kind.isImage,
-        // What the attachment viewer opens (cards/attachments.js attachmentCanBeOpened).
-        canPreview: !!(kind.isImage || kind.isPDF || kind.isText || kind.isJSON
-          || kind.isOffice || kind.isZIP || kind.isVideo || kind.isAudio),
+        // What the attachment viewer opens (models/lib/attachmentKind.js attachmentCanPreview).
+        canPreview: attachmentCanPreview(file),
         name: file.name,
         link: typeof file.link === 'function' ? file.link() : '',
         size: humanSize(file.size),

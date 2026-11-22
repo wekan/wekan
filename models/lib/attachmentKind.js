@@ -29,6 +29,31 @@ const AUDIO_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac', 'opu
 const TEXT_EXTENSIONS = ['txt', 'md', 'csv', 'log', 'ini', 'conf', 'yml', 'yaml'];
 const OFFICE_EXTENSIONS = ['docx', 'xlsx', 'pptx'];
 
+// The kinds the slideshow shows with a viewer of its own
+// (client/lib/attachmentRichViewer.js), each loaded only when such a file is
+// opened. A file whose stated type says it is something else is not one of them.
+const MARKDOWN_EXTENSIONS = ['md', 'markdown', 'mdown', 'mkd'];
+const CSV_EXTENSIONS = ['csv', 'tsv'];
+const CALENDAR_EXTENSIONS = ['ics', 'ical', 'ifb'];
+const OPENDOCUMENT_EXTENSIONS = ['odt', 'ods', 'odp'];
+// Source code, as the highlight.js language (its "common" set) to colour it with.
+const CODE_LANGUAGES = {
+  js: 'javascript', mjs: 'javascript', cjs: 'javascript', jsx: 'javascript',
+  ts: 'typescript', tsx: 'typescript', mts: 'typescript', cts: 'typescript',
+  py: 'python', rb: 'ruby', go: 'go', rs: 'rust', java: 'java', kt: 'kotlin',
+  kts: 'kotlin', c: 'c', h: 'c', cc: 'cpp', cpp: 'cpp', cxx: 'cpp', hpp: 'cpp',
+  hh: 'cpp', cs: 'csharp', php: 'php', pl: 'perl', pm: 'perl', lua: 'lua',
+  r: 'r', swift: 'swift', m: 'objectivec', sh: 'bash', bash: 'bash', zsh: 'bash',
+  sql: 'sql', css: 'css', scss: 'scss', less: 'less', html: 'xml', htm: 'xml',
+  xhtml: 'xml', xml: 'xml', vue: 'xml', json: 'json', toml: 'ini',
+  diff: 'diff', patch: 'diff', graphql: 'graphql', gql: 'graphql',
+  vb: 'vbnet', wat: 'wasm', jade: 'plaintext', pug: 'plaintext',
+  dockerfile: 'plaintext', gradle: 'plaintext',
+};
+// Types a browser or an operating system gives these files, besides text/*.
+const GENERIC_TYPES = ['application/octet-stream', 'application/x-download', 'binary/octet-stream'];
+const CODE_TYPE = /^application\/(json|javascript|x-javascript|ecmascript|xml|xhtml\+xml|x-sh|x-httpd-php|x-php|sql|typescript|x-typescript|x-python|toml|x-yaml|yaml|graphql)$/;
+
 // Enough of a name -> mime map to answer the questions above. Not a full table:
 // anything not listed simply has no derived type, and the flags stay false.
 const EXTENSION_MIME = {
@@ -116,6 +141,47 @@ function attachmentKind(doc) {
   };
 }
 
+// The slideshow's own viewer for a file, or null: 'markdown', 'csv', 'code',
+// 'calendar', 'outlook', 'tar' or 'opendocument'. Asked before the plain text
+// viewer, so a .md is formatted and a .py coloured rather than shown raw.
+function attachmentRichKind(doc) {
+  const kind = attachmentKind(doc);
+  const { extension, type } = kind;
+  const stated = statedType(doc);
+  const generic = !stated || GENERIC_TYPES.includes(type);
+  const textual = generic || type.startsWith('text/');
+  const name = String((doc && doc.name) || '').toLowerCase().split(/[?#]/)[0];
+  if (['text/markdown', 'text/x-markdown'].includes(type)
+    || (MARKDOWN_EXTENSIONS.includes(extension) && textual)) return 'markdown';
+  if (['text/csv', 'text/tab-separated-values', 'application/csv'].includes(type)
+    || (CSV_EXTENSIONS.includes(extension) && (textual || type === 'application/vnd.ms-excel'))) return 'csv';
+  if (type === 'text/calendar' || (CALENDAR_EXTENSIONS.includes(extension) && textual)) return 'calendar';
+  if (type === 'application/vnd.ms-outlook'
+    || (extension === 'msg' && (generic || type === 'application/x-ole-storage'))) return 'outlook';
+  const tarName = /\.(tar|tgz|tar\.gz)$/.test(name) || ['tar', 'tgz'].includes(extension);
+  if (type === 'application/x-tar' || (tarName && (generic
+    || ['application/gzip', 'application/x-gzip', 'application/x-compressed-tar', 'application/x-gtar'].includes(type)))) return 'tar';
+  if (OPENDOCUMENT_EXTENSIONS.includes(extension)
+    && (generic || type.startsWith('application/vnd.oasis.opendocument.') || type === 'application/zip')) return 'opendocument';
+  if (kind.isJSON || (CODE_LANGUAGES[extension] && (textual || CODE_TYPE.test(type)))) return 'code';
+  return null;
+}
+
+// The highlight.js language of a code file, 'json' for JSON, else 'plaintext'.
+function attachmentCodeLanguage(doc) {
+  const kind = attachmentKind(doc);
+  if (kind.isJSON) return 'json';
+  return CODE_LANGUAGES[kind.extension] || 'plaintext';
+}
+
+// Whether the slideshow opens this file at all. One answer for the card view,
+// the board's version control view, the history table and Admin Panel / Files.
+function attachmentCanPreview(doc) {
+  const kind = attachmentKind(doc);
+  return !!(kind.isImage || kind.isPDF || kind.isText || kind.isJSON || kind.isOffice
+    || kind.isZIP || kind.isVideo || kind.isAudio || attachmentRichKind(doc));
+}
+
 // Which of the derived flags a stored document is MISSING - what a repair would
 // write. Returns null when the document already says everything it needs to.
 function attachmentKindFix(doc) {
@@ -137,6 +203,10 @@ function attachmentKindFix(doc) {
 export {
   attachmentKind,
   attachmentKindFix,
+  attachmentRichKind,
+  attachmentCodeLanguage,
+  attachmentCanPreview,
+  CODE_LANGUAGES,
   extensionOfName,
   IMAGE_EXTENSIONS,
   VIDEO_EXTENSIONS,

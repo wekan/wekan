@@ -80,7 +80,14 @@ template(name="attachmentViewer")
         object#txt-viewer.hidden(type="text/plain")
         #zip-viewer.hidden(aria-live="polite")
         #office-viewer.hidden
+        #rich-viewer.hidden(aria-live="polite")
       button.fa.fa-caret-right#next-attachment(type="button" aria-label="{{_ 'next'}}")
+
+//- An attached Markdown file in the slideshow (client/lib/attachmentRichViewer.js):
+  the same +viewer as a card description, with all of its settings.
+template(name="attachmentMarkdownPreview")
+  +viewer
+    = text
 
 template(name="attachmentGallery")
 

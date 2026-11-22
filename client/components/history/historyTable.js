@@ -9,7 +9,7 @@ import { Meteor } from 'meteor/meteor';
 // caught that; the build did, first time.
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { attachmentKind } from '/models/lib/attachmentKind';
+import { attachmentCanPreview } from '/models/lib/attachmentKind';
 import { historyRowOffersRestore } from '/models/lib/attachmentSoftDelete';
 import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
@@ -157,13 +157,11 @@ function attachmentForRow(row) {
   if (!row || row.entityType !== 'attachment') return null;
   const attachment = ReactiveCache.getAttachment(row.entityId);
   if (!attachment) return null;
-  const kind = attachmentKind(attachment);
   return {
     _id: attachment._id,
     name: attachment.name,
     link: typeof attachment.link === 'function' ? attachment.link() : '',
-    canPreview: !!(kind.isImage || kind.isPDF || kind.isText || kind.isJSON
-      || kind.isOffice || kind.isVideo || kind.isAudio),
+    canPreview: attachmentCanPreview(attachment),
     isDeleted: historyRowOffersRestore(row, attachment),
   };
 }

@@ -3,7 +3,7 @@ import { trapTabKey } from '/client/lib/accessibility';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
-import { attachmentKind } from '/models/lib/attachmentKind';
+import { attachmentKind, attachmentRichKind, attachmentCodeLanguage, attachmentCanPreview } from '/models/lib/attachmentKind';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { canThumbnail, thumbnailUrl } from '/models/lib/attachmentThumbnail';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
@@ -24,6 +24,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { openNewDrawing } from '/client/lib/newDrawing';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Blaze } from 'meteor/blaze';
 
 const { filesize } = require('filesize');
 import prettyMilliseconds from 'pretty-ms';
@@ -44,6 +45,11 @@ let zipPreviewAbortController = null;
 let officePreview = null;
 let officePreviewAbortController = null;
 let officePreviewGeneration = 0;
+// Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument
+// (client/lib/attachmentRichViewer.js, loaded the first time one is opened).
+let richPreview = null;
+let richPreviewAbortController = null;
+let richPreviewGeneration = 0;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
@@ -127,17 +133,25 @@ function attachmentCanBeOpened(attachment) {
   // shared helper - which derives them from the mime type or the file name -
   // rather than the raw document. Otherwise an image that renders as a
   // thumbnail still refuses to open in the viewer.
-  const kind = attachmentKind(attachment);
-  return (
-    kind.isImage ||
-    kind.isPDF ||
-    kind.isText ||
-    kind.isJSON ||
-    kind.isOffice ||
-    kind.isZIP ||
-    kind.isVideo ||
-    kind.isAudio
-  );
+  return attachmentCanPreview(attachment);
+}
+
+// The rich viewer's Markdown: WeKan's own +viewer, so an attached .md follows
+// every setting a card description does (code shown as text, hidden links,
+// link schemes, sanitizing).
+function renderAttachmentMarkdown(holder, text) {
+  const view = Blaze.renderWithData(Template.attachmentMarkdownPreview, { text }, holder);
+  return { destroy() { Blaze.remove(view); } };
+}
+
+function richPreviewLabels() {
+  return {
+    title: TAPi18n.__('title'), start: TAPi18n.__('card-start'), end: TAPi18n.__('card-end'),
+    due: TAPi18n.__('card-due'), description: TAPi18n.__('description'),
+    from: TAPi18n.__('email-view-from'), to: TAPi18n.__('email-view-to'), cc: TAPi18n.__('email-view-cc'),
+    subject: TAPi18n.__('email-view-subject'), date: TAPi18n.__('email-view-date'),
+    attachments: TAPi18n.__('attachments'), empty: TAPi18n.__('no-results'),
+  };
 }
 
 function getAttachmentUrl(attachment) {
@@ -156,10 +170,35 @@ function openAttachmentViewer(attachmentId) {
   Instructions for adding a new viewer:
     - add a new case to the switch statement below
     - implement cleanup in the closeAttachmentViewer() function, if necessary
-    - mark attachment type as openable by adding a new condition to the attachmentCanBeOpened function
+    - mark attachment type as openable in attachmentCanPreview (models/lib/attachmentKind.js),
+      which the card, the version control view, the history table and Admin Panel / Files share
+    - a file that needs a library of its own goes in client/lib/attachmentRichViewer.js,
+      loaded only when such a file is opened
   */
   const kind = attachmentKind(attachment);
+  const rich = attachmentRichKind(attachment);
   switch(true){
+    case (!!rich && !kind.isImage && !kind.isVideo && !kind.isAudio && !kind.isPDF): {
+      const generation = ++richPreviewGeneration;
+      const container = document.getElementById('rich-viewer');
+      richPreviewAbortController = new AbortController();
+      const { signal } = richPreviewAbortController;
+      container.classList.remove('hidden');
+      container.textContent = TAPi18n.__('loading');
+      import('/client/lib/attachmentRichViewer').then(({ openRichAttachment }) => openRichAttachment({
+        container, rich, signal, extension: kind.extension, language: attachmentCodeLanguage(attachment),
+        size: attachment.size, url: getAttachmentUrl(attachment), labels: richPreviewLabels(),
+        renderMarkdown: renderAttachmentMarkdown,
+      })).then(preview => {
+        if (generation !== richPreviewGeneration) { preview.destroy(); return; }
+        richPreview = preview;
+      }).catch(error => {
+        if (generation !== richPreviewGeneration || signal.aborted) return;
+        container.textContent = TAPi18n.__('error');
+        console.error('Could not preview attachment:', error);
+      });
+      break;
+    }
     case (kind.isImage):
       $("#image-viewer").attr("src", getAttachmentUrl(attachment));
       // #337: the picture is named by its file for a screen reader.
@@ -258,6 +297,16 @@ export function openAttachmentSlideshow(attachmentId, attachmentIds = []) {
 }
 
 function closeAttachmentViewer(restoreFocus = true) {
+  richPreviewGeneration++;
+  richPreviewAbortController?.abort();
+  richPreviewAbortController = null;
+  if (richPreview) {
+    richPreview.destroy();
+    richPreview = null;
+  }
+  const richViewer = document.getElementById('rich-viewer');
+  richViewer?.replaceChildren();
+  richViewer?.classList.add('hidden');
   zipPreviewAbortController?.abort();
   zipPreviewAbortController = null;
   const zipViewer = document.getElementById('zip-viewer');
