@@ -38,6 +38,23 @@ import { deliverBoardInviteToTray } from '/server/lib/boardInviteTray';
 import { providerOfUser, onCreateProviderUser } from '/server/lib/oauthProviders';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 const { decideAnonymize, buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
+const { selfRemovalRefusal } = require('/models/lib/selfAccountRemoval');
+
+// Admin Panel / People / Login / "Self delete user account".
+async function selfDeleteAllowed() {
+  return (await AccountSettings.findOneAsync('accounts-allowUserDelete'))?.booleanValue === true;
+}
+
+// Deleting or anonymizing one's own account while that setting is off: the
+// profile draws no Delete or Anonymize button then, so this is an attempt.
+function recordSelfRemovalAttempt(source, userId) {
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authz.disabled-setting', action: 'blocked', source, userId,
+      detail: 'Own account deletion or anonymization refused while self delete is not allowed.',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+}
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
 // so invitation-code sign-up (and any other registration) attempts cannot be
@@ -442,7 +459,18 @@ Meteor.methods({
       throw new Meteor.Error('user-not-found', 'Target user not found');
     }
 
+    // Your own account: only while Admin Panel / People / Login allows it, and
+    // never the last site administrator (models/lib/selfAccountRemoval.js).
     if (currentUserId === targetUserId) {
+      const refusal = selfRemovalRefusal({
+        selfDeleteAllowed: await selfDeleteAllowed(),
+        isAdmin: currentUser.isAdmin === true,
+        adminsCount: currentUser.isAdmin ? (await ReactiveCache.getUsers({ isAdmin: true })).length : undefined,
+      });
+      if (refusal) {
+        if (refusal.attempt) recordSelfRemovalAttempt('ddp:removeUser', currentUserId);
+        throw new Meteor.Error(refusal.error, refusal.reason);
+      }
       await Users.removeAsync(targetUserId);
       return { success: true, message: 'User deleted successfully' };
     }
@@ -472,10 +500,13 @@ Meteor.methods({
   // account owner on themselves and by an admin on any other user, mirroring
   // removeUser's self/admin split below.
   //
-  // No Admin Panel -> Problems entry: that log is for ATTEMPTS an attacker
-  // controls (see CLAUDE.md's security-logging discipline), and there is no
-  // attacker here - this is a privileged admin action an admin takes on
-  // purpose, or a member acting on their own account. WeKan has no general
+  // No Admin Panel -> Problems entry for an allowed call: that log is for
+  // ATTEMPTS an attacker controls (see CLAUDE.md's security-logging
+  // discipline), and there is no attacker here - this is a privileged admin
+  // action an admin takes on purpose, or a member acting on their own account.
+  // The one exception is a member anonymizing themselves while "Self delete
+  // user account" is off: no screen offers it then, so it is recorded
+  // (recordSelfRemovalAttempt). WeKan has no general
   // admin-action audit log to hook into (server/lib/recoveryAudit.js is
   // board-deletion-specific, keyed to RecoveryEvents/boardIds); the audit trail
   // for this action is the anonymized/anonymizedAt fields persisted on the
@@ -496,8 +527,10 @@ Meteor.methods({
       targetUserId,
       targetUser,
       adminsCount,
+      selfDeleteAllowed: currentUserId && currentUserId === targetUserId ? await selfDeleteAllowed() : undefined,
     });
     if (!decision.allowed) {
+      if (decision.attempt) recordSelfRemovalAttempt('ddp:anonymizeUser', currentUserId);
       throw new Meteor.Error(decision.error, decision.reason);
     }
 
@@ -3009,6 +3042,20 @@ WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
+    // An administrator deleting their OWN account here follows the same rule
+    // as the profile's Delete button (models/lib/selfAccountRemoval.js).
+    if (id === req.userId) {
+      const refusal = selfRemovalRefusal({
+        selfDeleteAllowed: await selfDeleteAllowed(),
+        isAdmin: true,
+        adminsCount: (await ReactiveCache.getUsers({ isAdmin: true })).length,
+      });
+      if (refusal) {
+        if (refusal.attempt) recordSelfRemovalAttempt('DELETE /api/users/:userId', req.userId);
+        sendJsonResult(res, { code: 403, data: { error: refusal.error, reason: refusal.reason } });
+        return;
+      }
+    }
     const removed = await Meteor.users.removeAsync({ _id: id });
     if (removed === 0) {
       sendJsonResult(res, { code: 404, data: { error: 'User not found' } });

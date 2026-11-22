@@ -10,9 +10,12 @@
 
 // Decides whether `currentUserId` may anonymize `targetUser`, mirroring the
 // self/admin split removeUser already uses. Returns { allowed: true } or
-// { allowed: false, error, reason } - never throws, so the Meteor method can
-// turn a denial straight into a Meteor.Error.
-function decideAnonymize({ currentUserId, currentUser, targetUserId, targetUser, adminsCount }) {
+// { allowed: false, error, reason, attempt } - never throws, so the Meteor
+// method can turn a denial straight into a Meteor.Error. Anonymizing one's own
+// account follows Admin Panel / People / Login / "Self delete user account"
+// (`selfDeleteAllowed`) and never leaves the instance without a site
+// administrator (models/lib/selfAccountRemoval.js).
+function decideAnonymize({ currentUserId, currentUser, targetUserId, targetUser, adminsCount, selfDeleteAllowed }) {
   if (!currentUserId) {
     return { allowed: false, error: 'not-authorized', reason: 'User must be logged in' };
   }
@@ -30,6 +33,13 @@ function decideAnonymize({ currentUserId, currentUser, targetUserId, targetUser,
       error: 'not-authorized',
       reason: 'Only administrators can anonymize other users',
     };
+  }
+
+  if (isSelf) {
+    const refusal = require('./selfAccountRemoval').selfRemovalRefusal({
+      selfDeleteAllowed, isAdmin: currentUser.isAdmin === true, adminsCount, action: 'anonymize',
+    });
+    if (refusal) return { allowed: false, ...refusal };
   }
 
   if (!isSelf && adminsCount === 1 && targetUser.isAdmin) {

@@ -28,15 +28,47 @@ const SELF = 'user1';
 const OTHER = 'user2';
 const ADMIN = 'admin1';
 
-test('self-service: an account owner may anonymize themselves', () => {
+// Since 2026-11-22 anonymizing one's own account follows Admin Panel / People /
+// Login / "Self delete user account" on the server too, not only by the hidden
+// button (models/lib/selfAccountRemoval.js), so the allowed case passes it.
+test('self-service: an account owner may anonymize themselves while self delete is allowed', () => {
   const decision = decideAnonymize({
     currentUserId: SELF,
     currentUser: { _id: SELF, isAdmin: false },
     targetUserId: SELF,
     targetUser: { _id: SELF, isAdmin: false },
     adminsCount: undefined,
+    selfDeleteAllowed: true,
   });
   assert.deepStrictEqual(decision, { allowed: true, isSelf: true });
+});
+
+test('negative: self-anonymizing is refused while self delete is not allowed, as an attempt', () => {
+  for (const selfDeleteAllowed of [false, undefined, 'true']) {
+    const decision = decideAnonymize({
+      currentUserId: SELF,
+      currentUser: { _id: SELF, isAdmin: false },
+      targetUserId: SELF,
+      targetUser: { _id: SELF, isAdmin: false },
+      selfDeleteAllowed,
+    });
+    assert.strictEqual(decision.allowed, false);
+    assert.strictEqual(decision.attempt, true);
+  }
+});
+
+test('negative: the last administrator cannot anonymize themselves', () => {
+  const decision = decideAnonymize({
+    currentUserId: ADMIN,
+    currentUser: { _id: ADMIN, isAdmin: true },
+    targetUserId: ADMIN,
+    targetUser: { _id: ADMIN, isAdmin: true },
+    adminsCount: 1,
+    selfDeleteAllowed: true,
+  });
+  assert.strictEqual(decision.allowed, false);
+  assert.strictEqual(decision.reason, 'Cannot anonymize the last administrator');
+  assert.strictEqual(decision.attempt, false, 'the button is there: ordinary use, not recorded');
 });
 
 test('admin-triggered: an admin may anonymize another user', () => {

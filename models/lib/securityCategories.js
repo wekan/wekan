@@ -289,6 +289,15 @@ const CATALOG = {
   // administrator changed the setting still sends it.
   'authn.password-login-disabled': { category: 'authn', bleed: 'Password login disabled', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
   'authn.forgot-password-disabled': { category: 'authn', bleed: 'Forgot password disabled', severity: 'low', cwe: 'CWE-284', blocksAccount: false },
+  // Something an administrator turned off, asked for anyway on a path no
+  // screen offers while it is off (docs/Features/Admin-Panel/
+  // Settings-Enforced-On-Server.md): an Admin Panel / Settings / Features
+  // entry (models/lib/featureServerGates.js), a board's Card Settings switch,
+  // or an account setting of People / Login (own account deletion, username
+  // change). One key for the kind, the source says which. Not a Hall of Fame
+  // vulnerability: settings that used to only hide their buttons.
+  // blocksAccount: false - a page open from before the change still asks.
+  'authz.disabled-setting': { category: 'authz', bleed: 'Disabled setting', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
   'authn.authentication-method': { category: 'authn', bleed: 'MembershipBleed', severity: 'high', cwe: 'CWE-200' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },

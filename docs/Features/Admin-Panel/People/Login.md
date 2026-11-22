@@ -52,7 +52,10 @@ It was the **Registration** pane of Settings.
      is invite-only: the pane then shows an **Invite People** box for sending
      invitations to chosen boards.
    - **Username Change** — a user may change their own username.
-   - **Self delete user account** — a user may delete their own account.
+   - **Self delete user account** — a user may delete (or anonymize) their own
+     account. Unticked, the server refuses it too, and the last site
+     administrator can never remove themselves
+     ([Settings enforced on the server](../Settings-Enforced-On-Server.md)).
    - **Display Authentication Method** — show the method selector on the
      sign-in page.
 

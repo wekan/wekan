@@ -65,3 +65,30 @@ Users.deny({
   },
   fetch: [],
 });
+
+// Admin Panel / People / Login / "Username Change" off: the allow rule above
+// lets a user write their own `username`, and the setUsername method already
+// refuses while the change is not allowed - so a direct client write of it
+// is the way round that method, and no WeKan screen makes one. Refused and
+// recorded (docs/Features/Admin-Panel/Settings-Enforced-On-Server.md).
+Users.deny({
+  async update(userId, doc, fields, modifier) {
+    const paths = modifier && typeof modifier === 'object'
+      ? Object.entries(modifier).flatMap(([op, value]) => (op === '$rename' && value && typeof value === 'object'
+        ? [...Object.keys(value), ...Object.values(value)]
+        : (value && typeof value === 'object' ? Object.keys(value) : [])))
+      : [];
+    if (!fields.includes('username') && !paths.includes('username')) return false;
+    const AccountSettings = require('/models/accountSettings').default;
+    const allowed = (await AccountSettings.findOneAsync('accounts-allowUserNameChange'))?.booleanValue === true;
+    if (allowed) return false;
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.disabled-setting', action: 'blocked', source: 'ddp:users.update-username', userId,
+        detail: 'Client write of a username refused while username change is not allowed.',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+    return true;
+  },
+  fetch: [],
+});

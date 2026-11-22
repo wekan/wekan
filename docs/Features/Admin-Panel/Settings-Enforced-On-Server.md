@@ -47,6 +47,9 @@ Nothing to turn on: every setting below is enforced as soon as it is saved.
 | --- | --- | --- |
 | People / Login: `PASSWORD_LOGIN_ENABLED` = false | Every sign-in through the password service: the DDP `login` with a password, and the sign-ins that `resetPassword`, `verifyEmail` and `createUser` make, whether the password was right or not; `POST /users/login` answers 403 `password-login-disabled` before it looks up any user. LDAP keeps working: with LDAP on, a username sent to `POST /users/login` goes to the directory only, and the LDAP handler's own `LDAP_LOGIN_FALLBACK` is an LDAP decision of the operator. Meteor's `forgotPassword` is refused too. | Password login disabled |
 | People / Login: Forgot password unticked | Meteor's `forgotPassword` method, which e-mails a reset link. A reset link an administrator sent still works. | Forgot password disabled |
+| People / Login: Self delete user account unticked | `removeUser` and `anonymizeUser` on your own account, and `DELETE /api/users/:userId` when an administrator names their own id. Administrators too: the profile draws the buttons for nobody while it is off. Deleting another user from Admin Panel / People is unchanged. | Disabled setting |
+| (always) The last site administrator | Deleting or anonymizing your own account when you are the only site administrator - it used to skip the check that deleting somebody else had. Not recorded: the buttons are there, so it is ordinary use. | - |
+| People / Login: Username Change unticked | A direct client write of your own `username` (`Users.update`), the way round the `setUsername` method, which already refused. E-mail addresses are never written that way. | Disabled setting |
 
 ## How the numbers are calculated
 
@@ -62,10 +65,21 @@ tally names the account (when the call had one) and the address it came from.
   asks it in an `Accounts.validateLoginAttempt` hook and in a wrapper around
   Meteor's `forgotPassword` method; [server/apiAuthRoutes.js](../../../server/apiAuthRoutes.js)
   asks it before the user lookup.
+- [models/lib/selfAccountRemoval.js](../../../models/lib/selfAccountRemoval.js)
+  decides deleting or anonymizing your own account (`selfRemovalRefusal`),
+  asked by `removeUser`, by `anonymizeUser` through
+  [models/lib/userAnonymization.js](../../../models/lib/userAnonymization.js)
+  and by `DELETE /api/users/:userId` in
+  [server/models/users.js](../../../server/models/users.js). The username
+  write is a `Users.deny` rule in
+  [server/permissions/users.js](../../../server/permissions/users.js).
 - The Problems names are keys of
   [models/lib/securityCategories.js](../../../models/lib/securityCategories.js),
   recorded with `securityLog.record({ key, action: 'blocked', ... })`.
 - Tests: [tests/passwordLoginPolicy.test.cjs](../../../tests/passwordLoginPolicy.test.cjs)
   (the decisions, and every server path that checks a local password asks
   them) and [server/lib/tests/passwordLoginDisabled.tests.js](../../../server/lib/tests/passwordLoginDisabled.tests.js)
-  (a DDP and a REST sign-in refused on a running server).
+  (a DDP and a REST sign-in refused on a running server);
+  [tests/selfAccountRemoval.test.cjs](../../../tests/selfAccountRemoval.test.cjs)
+  (the rule, and every server file that removes or anonymizes users asks it)
+  and [server/lib/tests/selfAccountRemoval.tests.js](../../../server/lib/tests/selfAccountRemoval.tests.js).
