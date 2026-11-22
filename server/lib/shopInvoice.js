@@ -9,10 +9,10 @@
 // profile, VAT and due date, with the ORDER's payment reference, so the card,
 // the invoice and the payment all name the same reference. The invoice is
 // marked sent: the buyer has it, in the order's confirmation. Its lines are
-// fixed-price lines naming the product cards (models/lib/shop.js invoiceLinesOf).
+// product lines naming the product cards (models/lib/shop.js invoiceLinesOf).
 import { BillingInvoices, BillingProfiles } from '/models/billing';
 
-const { normalizeProfile, invoiceNumber, defaultDueDate } = require('/models/lib/billing');
+const { normalizeProfile, invoiceNumber, defaultDueDate, isInvoiceLineKind } = require('/models/lib/billing');
 const { invoiceLinesOf } = require('/models/lib/shop');
 
 function compact(doc) {
@@ -32,6 +32,8 @@ async function boardProfile(boardId) {
  */
 export async function createOrderInvoice({ boardId, ownerId, order, contact, today = new Date().toISOString().slice(0, 10) }) {
   const profile = await boardProfile(boardId);
+  const lines = invoiceLinesOf(order).map(compact);
+  if (!lines.every(line => isInvoiceLineKind(line.kind))) throw new Error('Unknown invoice line kind');
   const year = today.slice(0, 4);
   for (let attempt = 0; attempt < 5; attempt += 1) {
     const count = await BillingInvoices.find({ number: { $regex: `^(INV|CRN)-${year}-` } }).countAsync();
@@ -48,7 +50,7 @@ export async function createOrderInvoice({ boardId, ownerId, order, contact, tod
       customer: String(contact.name || '').slice(0, 500),
       reference: order.number,
       notes: `${order.number}`,
-      lines: invoiceLinesOf(order).map(compact),
+      lines,
       netMinor: order.netMinor,
       vatPercent: order.vatPercent || 0,
       vatMinor: order.vatMinor,

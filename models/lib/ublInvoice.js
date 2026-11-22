@@ -43,6 +43,12 @@ function party(role, { name, address, country, vatId, businessId, email }) {
  *                          vatMinor, totalMinor, paidMinor, paymentReference, creditOfNumber, reverseCharge
  * @param {Object} profile  issuerName, issuerAddress, issuerCountry, businessId, vatId, email, paymentMethods
  */
+// A product line whose quantity times its unit price is its amount.
+function productUnit(line) {
+  return line.kind === 'product' && Number.isInteger(line.quantity) && line.quantity > 0
+    && Number.isInteger(line.unitMinor) && line.unitMinor * line.quantity === line.amountMinor;
+}
+
 function ublInvoiceXml(invoice, profile) {
   const credit = invoice.kind === 'credit';
   const root = credit ? 'CreditNote' : 'Invoice';
@@ -86,12 +92,16 @@ function ublInvoiceXml(invoice, profile) {
       + `${money('TaxInclusiveAmount', invoice.totalMinor)}${money('PrepaidAmount', invoice.paidMinor || 0)}`
       + `${money('PayableAmount', Math.max((invoice.totalMinor || 0) - (invoice.paidMinor || 0), 0))}</cac:LegalMonetaryTotal>`,
     ...(invoice.lines || []).map((line, i) => `<cac:${lineTag}>${tag('cbc:ID', i + 1)}`
-      // Hours (HUR) at the hourly rate; a fee or an expense is one unit (C62).
-      + (typeof line.rateMinor === 'number' ? `<${qtyTag} unitCode="HUR">${line.hours}</${qtyTag}>` : `<${qtyTag} unitCode="C62">1</${qtyTag}>`)
+      // Hours (HUR) at the hourly rate; a product (Board View / Shop) is its
+      // quantity of pieces (H87) at its unit price; a fee or an expense - and a
+      // product whose net does not divide into a whole unit price - is one
+      // unit (C62) at its amount (models/lib/billing.js INVOICE_LINE_KINDS).
+      + (typeof line.rateMinor === 'number' ? `<${qtyTag} unitCode="HUR">${line.hours}</${qtyTag}>`
+        : (productUnit(line) ? `<${qtyTag} unitCode="H87">${line.quantity}</${qtyTag}>` : `<${qtyTag} unitCode="C62">1</${qtyTag}>`))
       + money('LineExtensionAmount', line.amountMinor)
       + `<cac:Item>${tag('cbc:Name', line.title || '-')}<cac:ClassifiedTaxCategory><cbc:ID>${category}</cbc:ID><cbc:Percent>${percent}</cbc:Percent>`
       + '<cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item>'
-      + `<cac:Price>${money('PriceAmount', typeof line.rateMinor === 'number' ? line.rateMinor : line.amountMinor)}</cac:Price></cac:${lineTag}>`),
+      + `<cac:Price>${money('PriceAmount', typeof line.rateMinor === 'number' ? line.rateMinor : (productUnit(line) ? line.unitMinor : line.amountMinor))}</cac:Price></cac:${lineTag}>`),
     `</${root}>`,
   ];
   return parts.filter(Boolean).join('\n');

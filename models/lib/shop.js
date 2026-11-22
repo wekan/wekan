@@ -574,18 +574,35 @@ function suggestedMapping({ customFields = [], lists = [] } = {}) {
 // ---------------------------------------------------------------- the invoice
 
 /**
- * The order's lines as Budget and billing invoice lines: a fixed-price line
- * each (kind 'fee', the kind an invoice already has for a price that is not
- * hours), naming the product card, the quantity and the product code. No
- * feeId or feeKey: it is no fee of the board's own.
+ * The order's lines as Budget and billing invoice lines of the kind
+ * 'product' (models/lib/billing.js INVOICE_LINE_KINDS): the product card, its
+ * title with the quantity and product code, the quantity and the unit price.
+ *
+ * An invoice's lines add up to its NET: with prices that include VAT the
+ * net is shared over the lines in proportion to their prices, the rounding
+ * remainder on the last line, so the lines, the net, the VAT and the total of
+ * the invoice and its e-invoice agree. A line's unit price is written only
+ * when its net divides into a whole unit price; otherwise the line is the
+ * quantity's amount as one (models/lib/ublInvoice.js).
  */
 function invoiceLinesOf(order) {
-  return (order.lines || []).map(line => ({
-    kind: 'fee',
-    cardId: line.cardId,
-    title: `${line.quantity} × ${str(line.title)}${line.sku ? ` (${str(line.sku)})` : ''}`.slice(0, 500),
-    amountMinor: line.lineMinor,
-  }));
+  const lines = order.lines || [];
+  const gross = lines.reduce((sum, line) => sum + line.lineMinor, 0);
+  const net = Number.isSafeInteger(order.netMinor) ? order.netMinor : gross;
+  let left = net;
+  return lines.map((line, i) => {
+    const amountMinor = i === lines.length - 1 ? left : (gross ? Math.round(line.lineMinor * net / gross) : 0);
+    left -= amountMinor;
+    const out = {
+      kind: 'product',
+      cardId: line.cardId,
+      title: `${line.quantity} × ${str(line.title)}${line.sku ? ` (${str(line.sku)})` : ''}`.slice(0, 500),
+      quantity: line.quantity,
+      amountMinor,
+    };
+    if (line.quantity > 0 && amountMinor % line.quantity === 0) out.unitMinor = amountMinor / line.quantity;
+    return out;
+  });
 }
 
 // ---------------------------------------------------------------- the confirmation email

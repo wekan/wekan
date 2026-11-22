@@ -20,6 +20,18 @@ const { toMinorUnits, fromMinorUnits, minorToText, minorUnits } = require('./cur
 const MAX_MINOR = 1e13; // 100 000 000 000.00 of any currency
 const MAX_HOURS = 1e6;
 const INVOICE_STATUSES = Object.freeze(['draft', 'sent', 'paid', 'void', 'credited']);
+// The kinds of an invoice line, the one list (models/billing.js's schema,
+// the Budget and billing page, the e-invoice): time (hours at a rate; a line
+// with no kind is time), a fixed fee, an expense, and a product sold in Board
+// View / Shop (a quantity at a unit price, models/lib/shop.js invoiceLinesOf).
+// tests/billingLineKinds.test.cjs fails when a place listing them forgets one.
+const INVOICE_LINE_KINDS = Object.freeze(['time', 'fee', 'expense', 'product']);
+// The label of each kind a line names (time lines show their hours instead).
+const LINE_KIND_LABEL_KEYS = Object.freeze({ fee: 'billing-line-fee', expense: 'billing-line-expense', product: 'billing-line-product' });
+
+function isInvoiceLineKind(kind) {
+  return kind === undefined || INVOICE_LINE_KINDS.includes(kind);
+}
 const CURRENCY = /^[A-Z]{3}$/;
 
 function fail(message) { throw new Error(message); }
@@ -685,7 +697,7 @@ function invoiceCsv(invoice, nameOf = id => id || '') {
 }
 
 module.exports = {
-  INVOICE_STATUSES, QUOTE_STATUSES, EXPENSE_CATEGORIES, MAX_MINOR,
+  INVOICE_STATUSES, QUOTE_STATUSES, EXPENSE_CATEGORIES, MAX_MINOR, INVOICE_LINE_KINDS, LINE_KIND_LABEL_KEYS, isInvoiceLineKind,
   toMinor, normalizeRate, normalizeBudget, normalizeProfile, normalizeInvoiceRequest, normalizeInvoiceStatus, normalizePayment,
   normalizeExpense, normalizeFee, normalizeApproval, normalizeQuoteRequest, expenseCharge, feeOccurrences, invoicedFeeKeys,
   draftQuoteLines, canChangeQuoteStatus, quoteNumber,

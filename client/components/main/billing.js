@@ -8,7 +8,7 @@ import { TAPi18n } from '/imports/i18n';
 // The payment methods' labels and placeholders, and their QR codes and
 // barcode as SVG, are shared with Board View / Shop (client/lib/paymentCodeSvg.js).
 import { METHOD_KEYS, FIELD_KEYS, PLACEHOLDERS, qrSvg, barcodeSvg } from '/client/lib/paymentCodeSvg';
-const { formatMoney, EXPENSE_CATEGORIES } = require('/models/lib/billing');
+const { formatMoney, EXPENSE_CATEGORIES, LINE_KIND_LABEL_KEYS } = require('/models/lib/billing');
 const { minorToText } = require('/models/lib/currencies');
 const { PAYMENT_METHODS, formatReference, formatIban } = require('/models/lib/paymentCodes');
 
@@ -247,7 +247,7 @@ Template.billingBoard.helpers({
   expenseCategories: () => EXPENSE_CATEGORIES.map(value => ({ value, label: t(`billing-expense-${value}`) })),
   expenseCategory: value => t(`billing-expense-${value}`),
   lineKind: line => line.kind || 'time',
-  lineKindLabel: line => t(line.kind === 'fee' ? 'billing-line-fee' : 'billing-line-expense'),
+  lineKindLabel: line => t(LINE_KIND_LABEL_KEYS[line.kind] || 'billing-line-fee'),
   quoteStatusLabel: status => stateLabel(status, 'quote'),
   nextQuoteStatuses: quote => (QUOTE_NEXT[quote.status] || []).map(value => ({ value, label: t(QUOTE_ACTION_KEYS[value]) })),
   quoteFormats: () => [

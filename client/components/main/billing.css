@@ -154,7 +154,8 @@
   color: #555;
 }
 .billing-draft-lines li.billing-line-fee,
-.billing-draft-lines li.billing-line-expense {
+.billing-draft-lines li.billing-line-expense,
+.billing-draft-lines li.billing-line-product {
   font-style: italic;
 }
 .billing-quote-accepted td:first-child {

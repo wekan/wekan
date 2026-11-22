@@ -52,8 +52,13 @@ BillingInvoices.attachSchema(new SimpleSchema({
   dueDate: { type: String, optional: true, regEx: /^\d{4}-\d\d-\d\d$/ },
   lines: { type: Array },
   'lines.$': { type: Object },
-  // A line is time (hours at a rate), a fixed fee or an expense.
-  'lines.$.kind': { type: String, optional: true, allowedValues: ['time', 'fee', 'expense'] },
+  // A line is time (hours at a rate), a fixed fee, an expense or a product
+  // (models/lib/billing.js INVOICE_LINE_KINDS, which tests/billingAccess.test.cjs
+  // holds this list to).
+  'lines.$.kind': { type: String, optional: true, allowedValues: ['time', 'fee', 'expense', 'product'] },
+  // A product line (Board View / Shop): how many, at what unit price.
+  'lines.$.quantity': { type: SimpleSchema.Integer, optional: true, min: 1 },
+  'lines.$.unitMinor': { type: Number, optional: true, min: 0 },
   'lines.$.cardId': { type: String, optional: true },
   'lines.$.title': { type: String, optional: true, max: 500 },
   'lines.$.userId': { type: String, optional: true },
