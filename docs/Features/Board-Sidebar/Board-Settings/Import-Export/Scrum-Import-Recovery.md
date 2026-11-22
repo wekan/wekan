@@ -1,5 +1,7 @@
 # Recover an interrupted Scrum import
 
+## What it is
+
 New native board imports, board copies, the Scrum planning of Jira, GitLab,
 OpenProject and Asana imports, and Scrum planning imported into an existing
 board stage private Scrum write plans before changing Scrum data. An interrupted plan keeps the incomplete-import warning and
@@ -18,7 +20,19 @@ administrator keeps the partial board or discards it with its Scrum plan
 first, then finish or discard its Scrum stage here; a discard of the whole
 import is refused while this command holds the board's claim.
 
-## Inspect without changing the database
+## Read more
+
+- [Wikipedia: Scrum (software development)](https://en.wikipedia.org/wiki/Scrum_(software_development))
+- [Wikipedia: Rollback (data management)](https://en.wikipedia.org/wiki/Rollback_(data_management))
+- [Recover an interrupted board import](Import-Run-Recovery.md)
+- [Scrum settings](../Scrum-Settings.md)
+
+## How to use it
+
+Each task below has its own commands, run with
+[releases/recover-scrum-import.cjs](../../../../../releases/recover-scrum-import.cjs).
+
+### Inspect without changing the database
 
 Run from a matching WeKan source checkout with its npm dependencies installed.
 Use the destination database connection in `MONGO_URL`, including its database
@@ -37,7 +51,7 @@ board, operation, position, collection and target, with exactly one final board
 settings update. Missing steps, duplicate targets, moved/deleted records and
 changed metadata stop recovery. All targets are checked before the first write.
 
-## Continue with all writers stopped
+### Continue with all writers stopped
 
 Stop **every WeKan instance**, scheduled job, other recovery process and external
 writer using this database. A paused or slow process is not a stopped process.
@@ -65,7 +79,7 @@ acknowledged; cleanup failures propagate instead of silently leaving an orphan
 plan. If removing plan rows stops halfway, the next recovery finishes cleanup
 without replaying data writes or requiring the already deleted rows.
 
-## Undo the stored Scrum segment instead
+### Undo the stored Scrum segment instead
 
 With the same all-writers-stopped prerequisite, inspect rollback first, then
 explicitly apply it:
@@ -97,7 +111,7 @@ plan, rollback is unavailable. Legacy marker-only imports remain unsupported.
 This is recovery of interrupted imports, not a general undo of completed board
 imports or recovery of their other stages.
 
-## A failed or stopped recovery retains its claim
+### A failed or stopped recovery retains its claim
 
 Recovery claims have **no expiry**. Automatically timing one out would let a
 replacement overlap a delayed write from the first process. On failure, inspect
@@ -120,7 +134,23 @@ connection failure, inspection reports no recoverable checkpoint and the token;
 the explicit claim-clear action removes only that claim. It never deletes cards,
 planning records or boards.
 
-## Verified scope and unfinished work
+## How the numbers are calculated
+
+The command has no numbers of its own: a recovery claim has **no expiry**, by
+design, and the command continues or undoes the one stored plan of the board
+with its original destination IDs; it does not count, sample or time anything.
+
+## How it works in WeKan
+
+The command is
+[releases/recover-scrum-import.cjs](../../../../../releases/recover-scrum-import.cjs).
+It reads the board's private Scrum write plan and checkpoint, checks the whole
+plan before writing (missing, foreign or changed targets refuse it), and either
+continues it (`--apply`) or undoes it (`--rollback --apply`); `--offline` is
+required for every change, and `--clear-claim TOKEN` clears only that exact
+claim.
+
+### Verified scope and unfinished work
 
 MongoDB integration tests cover complete and incomplete staging, whole-plan
 preflight, missing/foreign/changed targets, lost acknowledgements, stored BSON
@@ -139,3 +169,9 @@ Old orphan plans left by earlier versions without a checkpoint are not reclaimed
 by this command; it cannot infer the state of their original import.
 This command has not been verified against FerretDB. It is intentionally not a
 release-menu action or an automatic startup repair.
+
+## Commits
+
+ - [Retain Scrum import checkpoints until plan cleanup completes](https://github.com/wekan/wekan/commit/8a3a1d1b34efd178e96dc75219973f5b23c0a760)
+ - [Rollback interrupted Scrum imports during offline maintenance](https://github.com/wekan/wekan/commit/bde8c3010fe9921927a204911db00bfdc76256f4)
+ - [Resume stored Scrum import plans through explicit offline maintenance](https://github.com/wekan/wekan/commit/3b2bb233564697716d33caf4fc834cbf95c4c6e9)

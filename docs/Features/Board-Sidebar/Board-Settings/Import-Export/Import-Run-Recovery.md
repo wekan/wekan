@@ -1,5 +1,7 @@
 # Recover an interrupted board import
 
+## What it is
+
 A board import writes its board step by step: the board, swimlanes, lists,
 cards, checklists, comments, attachments, rules, Scrum data. A server restart or
 a failure in the middle used to leave a partial board that nothing recorded.
@@ -8,67 +10,16 @@ Trello API import - runs under an **import run**, and one that stops before it
 finishes is listed in **Admin Panel → Problems → Recovery**, where an
 administrator **keeps** the partial board or **discards** it.
 
-Code: `server/lib/importRuns.js` (Meteor-free core), `server/importRuns.js`
-(collection, scan, methods), `models/lib/importPipeline.js`
-(`plannedBoardFields`), `models/import.js`. Tests: `tests/importRuns.test.cjs`,
-`tests/playwright/specs/import-run-recovery.e2e.js`.
+## Read more
 
-## The run record
+- [Wikipedia: Application checkpointing](https://en.wikipedia.org/wiki/Application_checkpointing)
+- [Wikipedia: Heartbeat (computing)](https://en.wikipedia.org/wiki/Heartbeat_(computing))
+- [Recover an interrupted Scrum import](Scrum-Import-Recovery.md)
+- [Durable operations](../../../Admin-Panel/Problems/Durable-Operations.md)
 
-Before the import writes anything, a document is inserted into the private
-`importRuns` collection:
+## How to use it
 
-| Field | Meaning |
-| --- | --- |
-| `_id` | the run id (UUID) |
-| `userId`, `source` | who imported, and from what (`wekan`, `trello`, `csv`, `jira`, `clone`, `trello-zip`, …) |
-| `boardId` | the id the new board **will** have, chosen now |
-| `state` | `running`, `finished`, `failed`, `failed-empty`, `interrupted`, `discarding`, `discarded`, `kept` |
-| `startedAt`, `touchedAt`, `stage` | start, last heartbeat, and the creator step it was in |
-| `finishedAt`, `errorCode` | when it ended; for a failure only the error's code, never its message |
-| `interruptedAt`, `interruptedFrom` | when the scan flagged it, and whether it had stopped (`running`) or failed |
-| `decision`, `decidedBy`, `decidedAt` | an administrator's keep or discard |
-
-Every importer inserts its board **with that id and with `importRunId`** set to
-the run's id. So the link between a run and its board exists before the board
-does: there is no moment in which a board was created that no run names, and
-the board itself says which run made it.
-
-While the import runs, a heartbeat renews `touchedAt` every 30 seconds with the
-current step. When the import returns, the run is `finished`. When it throws,
-the run is `failed` - or `failed-empty` if its board was never created, which
-closes it silently: nothing was written that a discard could remove (members
-brought in as placeholder users are shared, inert and reused by later imports).
-
-The run holds **no imported data**: no titles, no members, no file contents.
-Finished, kept and discarded runs are removed after 30 days. A run waiting for
-a decision stays until an administrator decides.
-
-## When a run counts as interrupted
-
-A scan runs once at startup and then every 5 minutes (SyncedCron
-`wekan-import-run-scan`). It flags a run as `interrupted`:
-
-- when it is still `running` but its heartbeat is older than
-  `WEKAN_IMPORT_RUN_STALE_MS` (default 10 minutes; at least 1 minute) - its
-  server stopped, or its writer hung;
-- when it `failed` after creating its board - at once, as nothing is still
-  writing.
-
-Each run is flagged by one conditional update, so it is flagged **once**, even
-with several servers scanning, and one Recovery event `import-interrupted`
-records it with what the board holds so far.
-
-A writer that is only slow and comes back after being flagged finds its run no
-longer `running` and stops at its next step. When the import method's own
-deadline (`WEKAN_IMPORT_TIMEOUT_MS`) answers the client, the writer is told to
-stop at its next step as well, so a client that was told "Import took too long
-and was aborted" does not get a board that keeps growing afterwards. That
-deadline is `WEKAN_IMPORT_TIMEOUT_MS` plus half a second for each record of the
-file (models/lib/importDeadline.js, #6792), so a large import is not stopped
-for being large; the import page's own watchdog uses the same sum.
-
-## Keep or discard
+### Keep or discard
 
 Problems → Recovery lists each interrupted run: its board, source and start
 time, where it stopped, how many swimlanes, lists, cards, checklists, comments
@@ -106,7 +57,86 @@ What a discard does not undo: on Sandstorm an import archives the board it was
 started from before it creates the new one; that board stays archived and can
 be restored from the Archive.
 
-## The Scrum stage
+## How the numbers are calculated
+
+- **Heartbeat**: a running import renews `touchedAt` every 30 seconds
+  (`HEARTBEAT_MS`, `DEFAULT_STALE_MS` and `RETENTION_MS` in
+  [server/lib/importRuns.js](../../../../../server/lib/importRuns.js)).
+- **Interrupted**: a `running` run whose heartbeat is older than
+  `WEKAN_IMPORT_RUN_STALE_MS` (default 10 minutes, at least 1 minute), or a
+  failed run that had created its board. The scan runs at startup and then
+  every 5 minutes.
+- **Retention**: finished, kept and discarded runs are removed after 30 days; a
+  run waiting for a decision stays until an administrator decides.
+- **The Recovery list** shows at most 50 interrupted runs at a time
+  (`LIST_LIMIT`).
+- **The import's deadline**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000 ms)
+  plus 500 ms for each record of the file
+  ([models/lib/importDeadline.js](../../../../../models/lib/importDeadline.js)).
+
+## How it works in WeKan
+
+Code: [server/lib/importRuns.js](../../../../../server/lib/importRuns.js) (Meteor-free core), [server/importRuns.js](../../../../../server/importRuns.js)
+(collection, scan, methods), [models/lib/importPipeline.js](../../../../../models/lib/importPipeline.js)
+(`plannedBoardFields`), [models/import.js](../../../../../models/import.js). Tests: [tests/importRuns.test.cjs](../../../../../tests/importRuns.test.cjs),
+[tests/playwright/specs/import-run-recovery.e2e.js](../../../../../tests/playwright/specs/import-run-recovery.e2e.js).
+
+### The run record
+
+Before the import writes anything, a document is inserted into the private
+`importRuns` collection:
+
+| Field | Meaning |
+| --- | --- |
+| `_id` | the run id (UUID) |
+| `userId`, `source` | who imported, and from what (`wekan`, `trello`, `csv`, `jira`, `clone`, `trello-zip`, …) |
+| `boardId` | the id the new board **will** have, chosen now |
+| `state` | `running`, `finished`, `failed`, `failed-empty`, `interrupted`, `discarding`, `discarded`, `kept` |
+| `startedAt`, `touchedAt`, `stage` | start, last heartbeat, and the creator step it was in |
+| `finishedAt`, `errorCode` | when it ended; for a failure only the error's code, never its message |
+| `interruptedAt`, `interruptedFrom` | when the scan flagged it, and whether it had stopped (`running`) or failed |
+| `decision`, `decidedBy`, `decidedAt` | an administrator's keep or discard |
+
+Every importer inserts its board **with that id and with `importRunId`** set to
+the run's id. So the link between a run and its board exists before the board
+does: there is no moment in which a board was created that no run names, and
+the board itself says which run made it.
+
+While the import runs, a heartbeat renews `touchedAt` every 30 seconds with the
+current step. When the import returns, the run is `finished`. When it throws,
+the run is `failed` - or `failed-empty` if its board was never created, which
+closes it silently: nothing was written that a discard could remove (members
+brought in as placeholder users are shared, inert and reused by later imports).
+
+The run holds **no imported data**: no titles, no members, no file contents.
+Finished, kept and discarded runs are removed after 30 days. A run waiting for
+a decision stays until an administrator decides.
+
+### When a run counts as interrupted
+
+A scan runs once at startup and then every 5 minutes (SyncedCron
+`wekan-import-run-scan`). It flags a run as `interrupted`:
+
+- when it is still `running` but its heartbeat is older than
+  `WEKAN_IMPORT_RUN_STALE_MS` (default 10 minutes; at least 1 minute) - its
+  server stopped, or its writer hung;
+- when it `failed` after creating its board - at once, as nothing is still
+  writing.
+
+Each run is flagged by one conditional update, so it is flagged **once**, even
+with several servers scanning, and one Recovery event `import-interrupted`
+records it with what the board holds so far.
+
+A writer that is only slow and comes back after being flagged finds its run no
+longer `running` and stops at its next step. When the import method's own
+deadline (`WEKAN_IMPORT_TIMEOUT_MS`) answers the client, the writer is told to
+stop at its next step as well, so a client that was told "Import took too long
+and was aborted" does not get a board that keeps growing afterwards. That
+deadline is `WEKAN_IMPORT_TIMEOUT_MS` plus half a second for each record of the
+file (models/lib/importDeadline.js, #6792), so a large import is not stopped
+for being large; the import page's own watchdog uses the same sum.
+
+### The Scrum stage
 
 Native WeKan imports, board copies and the Scrum planning of Jira, GitLab,
 OpenProject and Asana imports stage their Scrum writes as a private plan with
@@ -122,7 +152,7 @@ import has one recovery story:
   recovery (finish or discard, by a board administrator, or the offline
   command) then completes or discards the Scrum part.
 
-## Why there is no "finish" or "resume"
+### Why there is no "finish" or "resume"
 
 Resuming an import needs what it was importing. The source document is not
 kept, and that is a decision, not an omission:
@@ -147,3 +177,7 @@ planning records the board will contain anyway, is removed as soon as the stage
 finishes, and its steps were written with fixed ids from the start. The rest of an import is completed the safe
 way: **discard the partial board and import the file again**, which gives the
 same result a resume would, with the file the administrator still has.
+
+## Commits
+
+ - [Record every board import before its first write, and let an admin keep or discard an interrupted one](https://github.com/wekan/wekan/commit/e8fac5e85ca09f33dd32eb9fbd25300afa3fbd90)

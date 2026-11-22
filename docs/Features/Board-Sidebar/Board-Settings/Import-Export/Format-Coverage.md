@@ -1,5 +1,7 @@
 # Design: complete, current and restart-safe import/export
 
+## What it is
+
 Status: **Implementation in progress** · Last specification audit: 2026-09-05
 
 This document is the contract for every format shown in WeKan's Import or Export
@@ -11,6 +13,42 @@ dropped. It cannot mean inventing a destination feature that does not exist.
 Long operations follow the [durable operations](../../../Admin-Panel/Problems/Durable-Operations.md)
 contract: persisted checkpoints, idempotent units, expiring leases, restart
 reclaim, bounded external requests and rate-limit-aware retries.
+
+## Read more
+
+- [Wikipedia: Data portability](https://en.wikipedia.org/wiki/Data_portability)
+- [Wikipedia: Round-trip format conversion](https://en.wikipedia.org/wiki/Round-trip_format_conversion)
+- [Import / Export with other tools](External-Tools.md)
+- [Durable operations](../../../Admin-Panel/Problems/Durable-Operations.md)
+
+## How to use it
+
+1. Find the format under **Formats** below and open its page: the steps to
+   import and export it, many boards at once, its REST API, its limits and
+   what is and is not kept.
+2. The sections after Formats are the shared contract every format follows:
+   the canonical WeKan format, loss accounting, compatibility, the one
+   validation boundary and the verification matrix.
+
+## How the numbers are calculated
+
+See the pages above: each format's page gives its own limits and the limits
+every import shares (the import deadline, many files at once, one board per
+project, the loss report and the validation boundary).
+
+## How it works in WeKan
+
+The import sources are one list,
+[models/lib/importSources.js](../../../../../models/lib/importSources.js); the
+export formats one table in
+[client/components/boards/exportScope.js](../../../../../client/components/boards/exportScope.js).
+Every document passes
+[models/lib/importExportBoundary.js](../../../../../models/lib/importExportBoundary.js),
+and what an import could not keep is summed up by
+[models/lib/importLossReport.js](../../../../../models/lib/importLossReport.js).
+[tests/importExportDocsCoverage.test.cjs](../../../../../tests/importExportDocsCoverage.test.cjs)
+checks that this index links every format's page and that each page has the
+shared structure.
 
 ## Canonical WeKan format
 
@@ -234,3 +272,13 @@ malformed types, duplicate source IDs, reordered arrays, pagination, restart at
 every checkpoint and export→import round trips. A field-inventory test fails when
 a new canonical WeKan field is exported but not imported, or when documentation
 claims a mapping absent from code.
+
+## Commits
+
+ - [A failed import or export disables an account only when it was an attempt](https://github.com/wekan/wekan/commit/567f99227b2a05dc1b49374fbc2995bbda456ecc)
+ - [Large Jira exports import, and an existing board can be saved as a board template](https://github.com/wekan/wekan/commit/14a43da557985bb85e8a73134eda6b243e8521c7)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Document every import and export format WeKan supports](https://github.com/wekan/wekan/commit/2ea4d09678df52b9a7d06f7064ff3ad6b3a8024b)
+ - [Record what an external import could not bring over in Problems -> Recovery](https://github.com/wekan/wekan/commit/50a24abce096dadffafc768ffda0004d53126b80)
+ - [Add Markdown import/export and give GitHub-style import loss reporting](https://github.com/wekan/wekan/commit/237b4f3f883b9e0bcf3a05a82eb7325cb9c00439)
+ - [Secure and resume import export operations](https://github.com/wekan/wekan/commit/71ad5447aa38b43531cb3066de0a52f82b55769f)

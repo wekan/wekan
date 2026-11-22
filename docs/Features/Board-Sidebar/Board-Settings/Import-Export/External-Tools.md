@@ -1,10 +1,28 @@
 # Import / Export with other tools
 
-WeKan imports boards from 78 sources and exports boards to some sixty formats
-and tools. You use them from the existing menus:
+## What it is
 
-- **Import**: **All Boards → New → Import**, then pick the tool. The import
-  page says where in that tool to get the file. Choose the file, or paste its
+WeKan imports boards from some eighty sources and exports boards to some sixty formats
+and tools. This page lists every tool and file WeKan reads and writes, with
+a page of its own for each.
+
+## Read more
+
+- [Wikipedia: Data portability](https://en.wikipedia.org/wiki/Data_portability)
+- [Wikipedia: Kanban board](https://en.wikipedia.org/wiki/Kanban_board)
+- [Format coverage: every field of every format](./Format-Coverage.md)
+- [Rules import and export, Wrike workflows](../../../Rules/Rules/Rules.md#import--export)
+- [Kanboard](./Kanboard/Kanboard.md), [Jira](./Jira/Jira.md),
+  [Trello](./Trello/trello/Migrating-from-Trello.md), [CSV/TSV](./CSV/CSV.md),
+  [Excel](./Excel/Excel-and-VBA.md)
+- [Migrate all boards from another WeKan](./Sync.md)
+
+## How to use it
+
+You use them from the existing menus:
+
+- **Import**: **All Boards → Add Board → Import → Import board**, then pick
+  the tool. The import page says where in that tool to get the file. Choose the file, or paste its
   text where the format is text.
 - **Export**: **Board Settings → Export**. Choose the scope and the fields to
   include, then the format.
@@ -23,7 +41,6 @@ and tools. You use them from the existing menus:
   grain backups WeKan reads and writes (see [Sandstorm](./Sandstorm/Sandstorm.md)).
 - **Rules and workflows**: **Board Settings → Rules → Import / Export rules**
   (see [Rules](../../../Rules/Rules/Rules.md#import--export)).
-
 Every import follows the tool's documented or source-verified file format.
 After an import, a **loss report** lists what WeKan has no place for. It is
 shown on the import page and in **Admin Panel → Problems → Recovery**. Most
@@ -32,7 +49,7 @@ WeKan. The [format coverage table](./Format-Coverage.md) is the contract for
 every field of every format: what maps where, what is reported, and the
 sources of the format.
 
-## Project and task tools
+### Project and task tools
 
 | Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
 | --- | --- | --- |
@@ -79,7 +96,7 @@ sources of the format.
 | [Google Tasks](./Google-Tasks/Google-Tasks.md) | Fetched from its API with your access token | — |
 | [Google Keep](./Google-Keep/Google-Keep.md) | Fetched from its API with your access token (Google Workspace) | — |
 
-## Issue trackers and source code hosting
+### Issue trackers and source code hosting
 
 | Tool | Import | Export |
 | --- | --- | --- |
@@ -91,7 +108,7 @@ sources of the format.
 GitHub, GitLab, Gitea and Forgejo import their issues JSON only through their
 own API, so the exported file is for a script that calls it.
 
-## Plain text, outlines and personal task files
+### Plain text, outlines and personal task files
 
 | Format | Import | Export |
 | --- | --- | --- |
@@ -102,7 +119,7 @@ own API, so the exported file is for a script that calls it.
 | [OPML](./OPML/OPML.md) | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
 | [Leo](./Leo/Leo.md) | Leo outline (`.leo`) | Leo outline |
 
-## Mail, calendars, chats and notes
+### Mail, calendars, chats and notes
 
 Mail shows in Board View → Email, chats in Board View → Chat (a channel is a
 card, its messages the comments), and dated items in Calendar and Gantt.
@@ -122,7 +139,7 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 | [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | Fetched from Microsoft Graph, the personal export `.tar`, or Graph chat messages `.json` | Teams chats as Graph chat messages `.json` |
 | [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
 
-## Website
+### Website
 
 | Tool | Import | Export |
 | --- | --- | --- |
@@ -134,7 +151,7 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 | [HTML website, Medium (.zip)](./Website/Website.md) | The site's `.html` files `.zip`, or Medium's export | HTML website (.zip) |
 | [Substack (.zip)](./Website/Website.md) | Settings → Exports `.zip` | — |
 
-## Sandstorm
+### Sandstorm
 
 [Sandstorm](https://sandstorm.org) apps' grain backups: under the heading
 **Sandstorm** on both the import page and the export menu. Rocket.Chat, Text
@@ -156,7 +173,7 @@ and are not read.
 | [Sandstorm Gogs](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
 | [Sandstorm WordPress](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
 
-## WeKan's own formats and documents
+### WeKan's own formats and documents
 
 | Format | Import | Export |
 | --- | --- | --- |
@@ -167,7 +184,7 @@ and are not read.
 | [Dependencies](./Dependencies/Dependencies.md) | — | Dependency graph as JSON or SVG |
 | [Rules](./Rules/Rules.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
 
-## People in the file
+### People in the file
 
 Every import asks once, under **People in the file**, what the people named in
 the file become (`models/lib/importMembersMode.js`):
@@ -183,14 +200,14 @@ the file become (`models/lib/importMembersMode.js`):
 **Import many boards** offers placeholders or you, since one person at a time
 cannot be chosen across many files.
 
-## Attachments
+### Attachments
 
 Attachments in an imported `.zip` are streamed into the attachment storage one
 at a time, never held whole in memory, and held to the upload limit set in
 **Admin Panel → Attachments → Limits**, if one is set
 (`server/lib/importAttachmentStream.js`).
 
-## Large files
+### Large files
 
 A file chosen on the Import page for any tool of the generalized importer is
 sent to the server a part at a time (`POST /api/import/upload/:source`,
@@ -220,7 +237,7 @@ never held whole in the browser or in the server's memory on the way:
 `tests/importUpload.test.cjs` covers the limit, the full disk before and during
 the upload, an interrupted upload and how each source reads its file.
 
-## Many boards at once
+### Many boards at once
 
 - **Import many boards**: on the import page of any tool, choose several of
   its export files, or one `.zip` that holds them, under **Import many
@@ -241,18 +258,19 @@ the upload, an interrupted upload and how each source reads its file.
 - From a script: `python3 api.py importboardsfrom SOURCE [--split] FILES...`
   and `python3 api.py exportallboards FORMAT OUTPUT [--boards ID1,ID2]`.
 
-## Not supported yet
+### Not supported yet
 
 These tools have no export file to read: only an API, which needs live
-credentials to build and verify against. They are Planka, Microsoft To Do,
-KanbanFlow, Basecamp and Taskcafe. Restyaboard's CSV export is a closed paid
+credentials to build and verify against. Planka, Microsoft To Do, KanbanFlow,
+Basecamp, Google Tasks and Google Keep are imported now by reading their API
+(**Fetched from a service** on the import page); Taskcafe is not. Restyaboard's CSV export is a closed paid
 app with undocumented columns. YouTrack, Airtable and Leantime write CSV
 headers that are undocumented or in the user's language. Things 3 exports only
 its SQLite database. Wrike's automation rules have no export, import or API.
-The **TODO Later** section of [CHANGELOG-big.md](../../../../../CHANGELOG-big.md) keeps the
-reason for each.
+[TODO.md](../../../../../TODO.md) keeps the reason for each (it was the TODO
+Later section of the changelog).
 
-## REST API and `api.py`
+### REST API and `api.py`
 
 Both directions are scriptable, so all boards can be migrated in bulk:
 
@@ -275,11 +293,48 @@ python3 api.py exportallboards excel all-boards.xlsx
 #   → GET  /api/export-all-boards/excel?authToken=:token[&boardIds=ID1,ID2]
 ```
 
-## Related
+## How the numbers are calculated
 
-- [Format coverage: every field of every format](./Format-Coverage.md)
-- [Rules import and export, Wrike workflows](../../../Rules/Rules/Rules.md#import--export)
-- [Kanboard](./Kanboard/Kanboard.md), [Jira](./Jira/Jira.md),
-  [Trello](./Trello/trello/Migrating-from-Trello.md), [CSV/TSV](./CSV/CSV.md),
-  [Excel](./Excel/Excel-and-VBA.md)
-- [Migrate all boards from another WeKan](./Sync.md)
+- **Import sources**: the entries of `IMPORT_SOURCES` in
+  [models/lib/importSources.js](../../../../../models/lib/importSources.js),
+  85 today, WeKan's own included; some are several products of one tool, such
+  as the Sandstorm grain apps and the website platforms.
+- **Export formats**: the entries of `EXPORT_FORMAT_GROUPS` in
+  [client/components/boards/exportScope.js](../../../../../client/components/boards/exportScope.js),
+  some sixty.
+- The size limits of large files and of many boards at once are given above
+  and on each format's page.
+
+## How it works in WeKan
+
+The import page reads its sources from one list,
+[models/lib/importSources.js](../../../../../models/lib/importSources.js), and
+the export menu its formats from
+[client/components/boards/exportScope.js](../../../../../client/components/boards/exportScope.js);
+both group them by [models/lib/toolGroups.js](../../../../../models/lib/toolGroups.js).
+[tests/importExportDocsCoverage.test.cjs](../../../../../tests/importExportDocsCoverage.test.cjs)
+checks that every source and format is named on this page and has its own
+page, so the page cannot go stale again.
+
+## Commits
+
+ - [Docs: Import / Export formats Super-Productivity to monday-com: what each feature is, how to use it, how its numbers ](https://github.com/wekan/wekan/commit/f4264cf7a9de67e84b1b38ad9ee5c3f0ccea4598)
+ - [Website: import and export WordPress, Ghost, Blogger, static and HTML sites, and the board as a website at a public ](https://github.com/wekan/wekan/commit/2e8549032ea4b44e90a96eb53a4e1941f53a5261)
+ - [Import and export Sandstorm grain backups](https://github.com/wekan/wekan/commit/6f3f6cc5a83df1b91a40d6afae261a74cf5b6507)
+ - [Import and export Azure DevOps Boards, Microsoft Lists, Project, Outlook, Teams and OneNote](https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85)
+ - [Import and Export: a company's products under the company's name](https://github.com/wekan/wekan/commit/fa28e3fba81f3f5eafc8cb7044133cc330e12b80)
+ - [Import and export Rocket.Chat and Fizzy](https://github.com/wekan/wekan/commit/dffbafd30fd16978dbae49a4e0d576bb1ff017ec)
+ - [Telegram and Discord imports bring their message files: a zipped export folder's photos and files are attachments](https://github.com/wekan/wekan/commit/828ca63713b0a034c9e1c436341cd60435c01443)
+ - [Trello .zip export: the Trello board JSON with the cards' attachment files, imported back with them](https://github.com/wekan/wekan/commit/e8330fb090c885c9d8ea015ed896c34a9b6cf251)
+ - [Import page uploads stream to the server's disk, checked against the free space and an Admin Panel limit](https://github.com/wekan/wekan/commit/32c24ed84e9d6c8080e89bdd4097f87a3b0b4b04)
+ - [Board View menu and the Import and Export lists are grouped under headings](https://github.com/wekan/wekan/commit/257835733b0ec5d950fac6feb2e13c589219bb9d)
+ - [Import and export mail, calendars, chats and notes: mbox/.eml, iCalendar, Google Takeout, Slack, Mattermost, Telegram ](https://github.com/wekan/wekan/commit/ccfa6cf362e9b1eb812804d38e4d85653c5b0b0a)
+ - [Import: Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep from their APIs](https://github.com/wekan/wekan/commit/46e30f01e48f2676a47c0052007f5c4ea951a923)
+ - [Export boards to Trello, keep swimlanes as labels, and reach Trello from Sandstorm](https://github.com/wekan/wekan/commit/88d00e02f1251716e345b7bbd32185417b08842d)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Choose who an import's people become, for every import, and stream imported attachments](https://github.com/wekan/wekan/commit/73db241bd4628070ea95f10a83ace8d4c7cd2497)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Document every import and export format WeKan supports](https://github.com/wekan/wekan/commit/2ea4d09678df52b9a7d06f7064ff3ad6b3a8024b)
+ - [Add shared HTML4 import source picker](https://github.com/wekan/wekan/commit/ca008534fae653d57617bd1513609401ec93fbd5)
+ - [Design complete restart-safe import and export](https://github.com/wekan/wekan/commit/5154939a412c2e344392a07d339ced0d7132be16)
+ - [More Import Export and Rules features](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f)

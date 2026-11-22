@@ -1,6 +1,34 @@
 # [Big Picture Roadmap](../../../../../FUTURE.md): Import/Export/Sync with WeKan
 
-## List sync (implemented, Jira end to end)
+## What it is
+
+**List sync** keeps a WeKan list in step with an external tracker: a list is
+marked as synced from Jira, GitHub, GitLab, Gitea, Forgejo or another source,
+and every 15 minutes WeKan fetches the source's items and creates, updates or
+archives the list's cards to match, never deleting one. This page also holds
+the big-picture roadmap of importing, exporting and syncing with WeKan: what is
+implemented, the historical issues and the wishes.
+
+## Read more
+
+- [Wikipedia: Data synchronization](https://en.wikipedia.org/wiki/Data_synchronization)
+- [Wikipedia: Jira (software)](https://en.wikipedia.org/wiki/Jira_(software))
+- [Big Picture Roadmap](../../../../../FUTURE.md)
+- [Import / Export with other tools](External-Tools.md)
+- [Format coverage](Format-Coverage.md)
+
+## How to use it
+
+1. Open the list's menu (☰ at the list header), then **Sync**
+   (`js-list-sync`).
+2. Choose the **Source**, and fill in the **URL**, the **Project key** and the
+   **Credential** the source needs. The credential is write-only: it is never
+   sent back to the browser.
+3. Tick **Sync enabled** and click **Save**. The list is then synced every 15
+   minutes by the account that saved it; **Sync now** runs it at once, and
+   **Stop syncing** ends it.
+
+### List sync (implemented, Jira end to end)
 
 A WeKan list can be marked as synced from an external tracker through
 `setListSyncSource`. It stores public settings in `Lists.syncSource`
@@ -173,7 +201,7 @@ source item. If an active subtask is outside the archive plan, the run stops
 before card writes. Concurrent child creation is not covered by a transaction.
 New Scrum metadata mappings and fully atomic synchronization remain pending.
 
-### Resolve field conflicts
+#### Resolve field conflicts
 
 Open the list's Sync popup and run Sync. For conflicting title, description or
 spent-time or mapped estimate values, the popup shows the current WeKan value and freshly fetched
@@ -204,7 +232,7 @@ already-issued card writes after lease loss. New UI strings are English source
 entries with the normal English fallback; translation filling remains outside
 the current work queue.
 
-### Preview saved Sync changes
+#### Preview saved Sync changes
 
 **Preview changes** fetches the saved source and uses the same merge, operation
 selection and conflict checks as Sync now. It shows create/update/archive
@@ -244,7 +272,7 @@ for a frozen plan. The source inventory follows the current parsers; it is not
 a complete provider schema or a mapping editor. Binary and history transport
 and complete source schema coverage remain unfinished.
 
-### Recent Sync runs
+#### Recent Sync runs
 
 **Recent Sync runs** reads the latest 20 full-list run reports from the last 30
 days. Manual and scheduled runs persist a private starting record before
@@ -284,7 +312,7 @@ operation in
 changes already applied stay and the next Sync compares the list with its
 source again.
 
-### Repair duplicate mappings
+#### Repair duplicate mappings
 
 If multiple visible cards map to the same source item, the popup shows each
 extra card and the card whose mapping will remain. Choose **Keep duplicate as
@@ -307,7 +335,7 @@ writer to review the full group. This repair does not merge card contents,
 or choose arbitrary replacement IDs. Creation collisions have a separate
 replacement action below.
 
-### Replace a moved or detached Sync card
+#### Replace a moved or detached Sync card
 
 A card occupying the next creation ID stops the plan before normal card writes.
 The popup offers **Create replacement here** to unrestricted writers. Its preview
@@ -329,7 +357,7 @@ contain no credentials. They must not be reset when cleaning up credentials.
 This does not provide transactions or fence a card write already issued by a
 worker that subsequently loses its lease.
 
-### Keep a parent whose archival is blocked
+#### Keep a parent whose archival is blocked
 
 When the source item disappears but active subcards outside the archive plan
 remain, Sync stops before applying the normal reconciliation plan. The popup
@@ -349,7 +377,7 @@ rules. If the source item later returns, the existing stable-ID collision guard
 preserves the detached local parent and may report a creation conflict. An
 unrestricted writer can then explicitly choose a replacement as described above.
 
-### Which servers List Sync may reach
+#### Which servers List Sync may reach
 
 List Sync requests go through the same SSRF guard as webhooks and imports
 ([SyncBleed](https://wekan.fi/hall-of-fame/syncbleed/), GHSA-5q84-p3vr-f3xv).
@@ -370,7 +398,7 @@ or addresses as written in the Sync server URL, for example
 `LIST_SYNC_ALLOWED_PRIVATE_HOSTS=gitea.lan,10.0.0.20`. Board members cannot
 change it. Requests to an allowed host still refuse redirects and time out.
 
-### Source identity and switching projects
+#### Source identity and switching projects
 
 Each card mapping now includes the provider, normalized server URL (including
 its path), and project. Equal issue IDs from different projects are separate
@@ -499,7 +527,7 @@ Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow`, `previewListSync` (`server/methods/listSync.js`), all requiring board write
 access.
 
-### Comments, labels, state and files (GitHub, GitLab, Gitea, Forgejo)
+#### Comments, labels, state and files (GitHub, GitLab, Gitea, Forgejo)
 
 A sync option of its own, off by default, beside **Add card** and **Archive
 card** in the Sync popup. With it, a list synced from an issue tracker also
@@ -515,7 +543,7 @@ description sync is not undone. Everything is keyed by the tracker's own ids
 run writes only what changed upstream, and nothing written in WeKan is
 changed or removed.
 
-### Write changes back to GitLab
+#### Write changes back to GitLab
 
 [#2698](https://github.com/wekan/wekan/issues/2698). For a list synced from
 GitLab, a sync option of its own, off by default: **Write changes back to
@@ -552,7 +580,7 @@ Live tests (`releases/live-tests/gitlab-write-back.mjs`). It writes only to
 one scratch issue in a private `wekan-live-test` project of that account,
 which it creates if needed, and deletes the issue at the end.
 
-### Sprints and releases (Scrum planning)
+#### Sprints and releases (Scrum planning)
 
 The Sync settings offer **Sprint (Scrum planning)** and **Releases (Scrum
 planning)** as opt-in switches, off for existing configurations, and only for
@@ -646,18 +674,47 @@ Jira's `fixVersions` as unmapped. Sprint goals and release notes are written
 only when a record is created; Jira's epic links, rank and closed-sprint history
 are not synced.
 
-## Implemented formats and completeness work
+## How the numbers are calculated
+
+- **Schedule** ([server/listSync.js](../../../../../server/listSync.js)): the
+  synced lists are scanned every 15 minutes; Sync operations interrupted by a
+  restart are replayed every minute; stale credentials are cleaned up every
+  hour.
+- **Fetching** ([server/lib/listSyncFetch.js](../../../../../server/lib/listSyncFetch.js)):
+  one request may take 20 seconds and answer at most 32 MB; a run reads at most
+  1,000 pages and 100,000 items. A rate-limited answer is waited out once when
+  the source frees up within 60 seconds; a longer wait ends the run, and the
+  next scheduled run picks it up.
+
+## How it works in WeKan
+
+The list's settings are `Lists.syncSource`
+([models/lists.js](../../../../../models/lists.js)); the credential is kept
+server-only in `ListSyncCredentials`
+([models/listSyncCredentials.js](../../../../../models/listSyncCredentials.js)),
+which has no publication. The methods are in
+[server/methods/listSync.js](../../../../../server/methods/listSync.js), the
+scheduled job in [server/listSync.js](../../../../../server/listSync.js), the
+fetch in [server/lib/listSyncFetch.js](../../../../../server/lib/listSyncFetch.js)
+and the reconciliation in the pure
+[models/lib/listSyncReconcile.js](../../../../../models/lib/listSyncReconcile.js),
+pinned by [tests/listSyncReconcile.test.cjs](../../../../../tests/listSyncReconcile.test.cjs)
+and the popup by
+[tests/listSyncUiWiring.test.cjs](../../../../../tests/listSyncUiWiring.test.cjs).
+The details are in the List sync section above.
+
+### Implemented formats and completeness work
 
 The current contract, newest provider/API references, complete field inventory,
 loss accounting and restart behavior are maintained in
 [Format-Coverage.md](./Format-Coverage.md). The historical issue table below is
 retained as provenance; it is not the current format specification.
 
-## Historical issue inventory
+### Historical issue inventory
 
 [More](https://github.com/wekan/wekan/issues/4578)
 
-### WeKan kanban
+#### WeKan kanban
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
@@ -672,7 +729,7 @@ Print | | [Board](https://github.com/wekan/wekan/issues/2794) | |
 CLI | [Sandstorm](https://github.com/wekan/wekan/issues/1695) | [Sandstorm](https://github.com/wekan/wekan/issues/1695) | |
 WeKan All Boards  | | [ZIP](https://github.com/wekan/wekan/issues/4902) | | 
 
-### Other kanban
+#### Other kanban
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
@@ -681,7 +738,7 @@ From | Import | Export | Sync | In Progress
 [Asana](./Asana/Asana.md) | | | |
 [Zenkit](./ZenKit/ZenKit.md) | | | |
 
-## Wishes
+### Wishes
 
 Done since these issues were opened: Focalboard, Todoist, Taskwarrior,
 todo.txt, Notion, Redmine, Leo, Org mode and Microsoft Planner import and
@@ -689,7 +746,7 @@ export, and GitHub, GitLab and Gitea issues. See
 [Import / Export with other tools](./External-Tools.md) for every format
 supported now.
 
-### Other Kanban
+#### Other Kanban
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
@@ -705,7 +762,7 @@ From | Import | Export | Sync | In Progress
 [Leo and Emacs Org mode](https://github.com/wekan/wekan/issues/2186)  |  |  |  |
 [Microsoft Planner](https://github.com/wekan/wekan/issues/2642)  |  |  |  |
 
-### Issues and SCM
+#### Issues and SCM
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
@@ -716,13 +773,13 @@ From | Import | Export | Sync | In Progress
 Gitea
 Gogs | | | [wekan-gogs](https://github.com/wekan/wekan-gogs) | 
 
-### Wiki
+#### Wiki
 
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
 Confluence |  |  | |
 
-### Stored activity delivery coordinator (internal)
+#### Stored activity delivery coordinator (internal)
 
 `server/lib/syncActivityDelivery.js` composes the durable delivery stages used
 by a saved activity's `completeDelivery` callback. It requires a durable rules
@@ -748,7 +805,7 @@ remain prerequisites. The current tests exercise the coordinator and binding
 with scripted adapters; they do not claim end-to-end rule execution or external
 webhook delivery.
 
-### Stored rule selection plans (internal)
+#### Stored rule selection plans (internal)
 
 `server/lib/syncRulePlan.js` prepares and persists an immutable rule selection
 for one saved activity/effect identity. It freezes the ordered rule documents
@@ -1010,7 +1067,7 @@ Legacy unbound commands, obsolete Details bindings, partial/unknown acceptance
 and online operator resolution remain unfinished. This tool does not make those
 commands eligible for dispatch or activate manual/cron Sync.
 
-### Stored archive rule command preparation
+#### Stored archive rule command preparation
 
 `server/lib/syncRuleArchiveCommand.js` captures archive/unarchive rule cascades
 before any card write. It binds the command to the saved rule plan, invocation,
@@ -1062,7 +1119,7 @@ checks ordinary restore activity/History recording. The test uses controlled
 effect callbacks; saved effect plans and production rule-stage activation are
 still required before this adapter can be enabled in ordinary Sync execution.
 
-### Stored archive History and activity plans
+#### Stored archive History and activity plans
 
 `server/lib/syncRuleArchiveEffects.js` prepares and persists the complete
 cascade's effect plans before execution. Each card keeps a stable effect ID,
@@ -1102,7 +1159,7 @@ and confirms replay creates no duplicates. Ordinary restore recording still
 works afterward. The test controls only downstream delivery acknowledgements;
 production delivery binding and shared History-writer coordination remain open.
 
-### Private archive command storage
+#### Private archive command storage
 
 `captureStoredSyncRuleArchiveCommand` uses actual saved rule selection and the
 private `listSyncRuleArchiveCommands` collection. The internal entry point
@@ -1118,7 +1175,7 @@ alongside commands for subsequent execution binding. All three collections deny
 browser insert/update/remove, have recovery lookup indexes and no publication
 or TTL. They are not wired into ordinary/manual/cron rule execution yet.
 
-### Internal stored archive execution
+#### Internal stored archive execution
 
 `runStoredSyncRuleArchive` now binds command/effect/receipt storage to real
 Cards, ChangeHistory and Activities. It prepares effects once from current
@@ -1135,7 +1192,7 @@ ordinary rules and manual/cron Sync do not install this archive adapter yet.
 An isolated full-app test supplies a controlled reservation; that proves the
 entry point's data flow, not multi-process History exclusivity.
 
-### Durable History append coordination primitive
+#### Durable History append coordination primitive
 
 `server/lib/historyChainAppend.js` introduces a single persisted head per board
 (including a distinct null-board scope). Conditional head replacement reserves
@@ -1181,7 +1238,7 @@ scans, lost replies and real MongoDB iteration across multiple batches followed
 by append on a new connection. The server binding below drains participating
 writers; deployment-wide exclusion still needs a caller-provided guard.
 
-### Schema-backed coordinated History storage
+#### Schema-backed coordinated History storage
 
 `server/lib/storedHistoryChain.js` registers private `historyChainHeads` with a
 unique board index and denied browser writes. No publication or TTL exposes or
@@ -1202,7 +1259,7 @@ cannot leave an uncertain writer token. The existing best-effort logging and
 null result on failure remain in place. A migrated board never falls back to
 legacy insertion when its coordinated head is missing.
 
-### Migration writer admission
+#### Migration writer admission
 
 `server/lib/historyWriterGate.js` provides persistent per-board admission for
 participating writers. Legacy writes register unique tokens before their
@@ -1242,7 +1299,7 @@ remain unfinished. Draining refuses new records;
 the best-effort recorder currently returns null for those failures. Durable
 recovery of such failed recording is still required before automatic rollout.
 
-### Online recovery of abandoned writers
+#### Online recovery of abandoned writers
 
 Every legacy History writer on an upgraded server keeps a lease beside its gate
 token, in `historyWriterLeases`, and renews it while it works. Before each
@@ -1270,7 +1327,7 @@ an abandoned lease may be taken, and a slow writer that is taken loses its
 write with an error. A token with no lease was written by an older server, or
 before the upgrade; it still needs the offline procedure below.
 
-### Offline recovery of uncertain writer admission
+#### Offline recovery of uncertain writer admission
 
 With every application instance, maintenance command and other database writer
 stopped, inspect the board gate using an explicitly named database:
@@ -1311,7 +1368,7 @@ History, reject missing offline confirmation/wrong ownership and bootstrap the
 persisted row after retirement. Missing-row replay and online recovery remain
 unfinished. There is no browser recovery action.
 
-### Offline board migration to coordinated History
+#### Offline board migration to coordinated History
 
 After upgrading every application instance, stop all writers and keep them
 stopped until this maintenance finishes. Supply a new lowercase UUID once for
@@ -1348,7 +1405,7 @@ Forked History is rejected without changing its rows or creating a head.
 This command does not recover missing records, coordinate redo/undo operations,
 provide multi-row Sync reservations or enable archive jobs automatically.
 
-### Coordinated Scrum restoration events
+#### Coordinated Scrum restoration events
 
 Scrum undo/redo's strict restoration-event writer now uses the same persistent
 writer admission as ordinary History recording. Its deterministic event ID is
@@ -1371,3 +1428,36 @@ also rejects changed retry contents, migration-time insertion and a missing
 coordinated head. This coordinates the restoration audit rows only. The
 restored entity mutations, source-row undo/redo flags, redo invalidation and
 multi-row Sync reservations still need shared operation-level coordination.
+
+## Commits
+
+ - [Sandstorm: Jira List Sync works from a grain](https://github.com/wekan/wekan/commit/1dc5b823698fab227e4816606aa2a89effda7218)
+ - [List Sync: write WeKan's changes back to GitLab](https://github.com/wekan/wekan/commit/d6c1d6fce178691577ba8eabc67ce810a4527a63)
+ - [Board View / Version Control, issue files and synced issue details](https://github.com/wekan/wekan/commit/326d9bbf619ed811e9db92896a67f0ea6fa60b24)
+ - [On Sandstorm, sync lists from GitHub, GitLab, Gitea and Forgejo through the Powerbox](https://github.com/wekan/wekan/commit/d53b4da799496e2af39cc1f3188561ea0b125a88)
+ - [Sync sprints and releases into Scrum planning](https://github.com/wekan/wekan/commit/c06bf8d0e9d3085a5e6513a0c3ec52977a071381)
+ - [Let administrators discard List Sync operations that cannot be replayed](https://github.com/wekan/wekan/commit/cb69750b17bc1b1318e61ce058fe074d888cc264)
+ - [List Sync records a refused address once, as SyncBleed, and no longer disables the member](https://github.com/wekan/wekan/commit/988d351c32fbf216ab77ea6698aa907bf58864f3)
+ - [Sync GitLab's weight or time estimate into a numeric field](https://github.com/wekan/wekan/commit/4f4de145b1ebdaecbd290fe7288d866d25ec7e8b)
+ - [Fix SyncBleed: send List Sync requests through the SSRF guard and keep responses out of errors](https://github.com/wekan/wekan/commit/2172f19d887bed4ca61c4326e4d061edff55558c)
+ - [Run manual and scheduled Sync through the durable journal, with replay](https://github.com/wekan/wekan/commit/6ed28c41f7b1d33d3e47e9cc627e57e47a0940d4)
+ - [Bind stored Sync rule execution to private receipt storage and live guards](https://github.com/wekan/wekan/commit/23022595239bc6ba5ebb501459b0c0a0322f2a05)
+ - [Capture stored Sync rule plans through actual matching and scope guards](https://github.com/wekan/wekan/commit/d2c73b4225078bb5d4148c3d01f148ccf97a4d43)
+ - [Persist immutable ordered Sync rule selection plans](https://github.com/wekan/wekan/commit/c7f30bfd42de7c2c199ed63e2247f6e0a0f6894d)
+ - [Coordinate stored Sync activity delivery with exact stage receipts](https://github.com/wekan/wekan/commit/cc9a568c76b0115fc6ebd965c5a6a1a755a408a9)
+ - [Register private Sync recovery storage with list-lifetime guards](https://github.com/wekan/wekan/commit/9f179eb7b527a68a9e373055f3395327f22e56c6)
+ - [Sync Jira original and remaining time estimates with conflict review](https://github.com/wekan/wekan/commit/5e1ed32f58328551ee2a3f4a968ef329e46d93c4)
+ - [Bind scheduled Sync to its authorizing account](https://github.com/wekan/wekan/commit/a00c009ba662811f365541ffbc37d58b8230fcc1)
+ - [Retain Sync completion proofs across stable request retries](https://github.com/wekan/wekan/commit/617ba292f9cd0ab8b2b4d182a95c262d11e81f2b)
+ - [Prepare conditional field patches for durable Sync steps](https://github.com/wekan/wekan/commit/0d2dd1d36eddc030e8bdb9f1b21941e6313bba7a)
+ - [Preserve mapped estimate snapshots in durable Sync plans](https://github.com/wekan/wekan/commit/281d7f574be3a3fa6ff9ce777b99f4c00c0e13ef)
+ - [Sync explicitly mapped Jira estimates with local conflict review](https://github.com/wekan/wekan/commit/79fcd0061e3bc589bf19e03d8fbde2eb69d9fa2e)
+ - [Expose retained Sync diagnostics in Problems Recovery](https://github.com/wekan/wekan/commit/6a4e5e29a862c02f3c9843c4d6a5ed6cfa5708c6)
+ - [Persist private Sync run outcomes and bounded coverage reports](https://github.com/wekan/wekan/commit/adf646177b75a62a0fcde67b8b82c34f4b277325)
+ - [Report discarded source fields in Sync previews without their values](https://github.com/wekan/wekan/commit/e0f54fc93bde57743056caa8b2ffe422cfa27232)
+ - [Preview Sync changes and normalized omissions without applying writes](https://github.com/wekan/wekan/commit/80ccf100a77975242d5711b331de1f9ab143b98c)
+ - [Repair malformed Sync credential counters without reviving stale saves](https://github.com/wekan/wekan/commit/0210614a89b4164e622e8c1a90fbb3ee1e614d60)
+ - [Retire deleted-list Sync credentials with list lifetime isolation](https://github.com/wekan/wekan/commit/210f1b59b733ac7593265c5c914035fe5cdab5f2)
+ - [Create durable Sync replacements without changing moved or detached cards](https://github.com/wekan/wekan/commit/352dcbea879bef4162f0f70411117e05ee61812c)
+ - [Keep Sync parents local when active subtasks block archival](https://github.com/wekan/wekan/commit/ed1615369cb4f67910d054c8da340ef6e0b41313)
+ - [Add a list-sync job that keeps a list up to date from Jira, GitHub, GitLab and others](https://github.com/wekan/wekan/commit/a01e8478c30cce9569c6e68f5eb374031b162191)
