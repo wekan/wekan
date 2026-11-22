@@ -399,92 +399,124 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
   width: 100%;
   height: 100%;
 }
-#txt-viewer {
-  background-color: white;
-  width: 100%;
-  height: 100%;
-}
 #office-viewer {
   background-color: #e5e7eb;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
+/* Text, Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument
+   (client/lib/attachmentRichViewer.js), read windowed (attachmentWindow.js):
+   the .attachment-window scrolls, its viewport stays in view and holds only
+   the visible rows, and the spacer gives the scrollbar the file's length. */
+#rich-viewer,
 #zip-viewer {
   background: white;
   color: #222;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  padding: 1em;
+  overflow: hidden;
   box-sizing: border-box;
   text-align: start;
-  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
 }
+.attachment-window {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.attachment-window-viewport {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 1em;
+  box-sizing: border-box;
+}
+.attachment-window-row {
+  height: 1.5em;
+  line-height: 1.5em;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: monospace;
+}
+.attachment-window-list {
+  margin: 0;
+  padding-inline-start: 1.2em;
+  will-change: transform;
+}
+#rich-viewer li,
 #zip-viewer li {
   padding: 0.3em;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
-/* Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument
-   (client/lib/attachmentRichViewer.js). */
-#rich-viewer {
-  background: white;
-  color: #222;
-  width: 100%;
+.attachment-csv-row {
+  display: flex;
+  font-family: inherit;
+}
+.attachment-csv-cell {
+  flex: 0 0 14em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-inline-end: 1px solid #c1c7d0;
+  border-block-end: 1px solid #ebecf0;
+  padding: 0 0.5em;
+  box-sizing: border-box;
+}
+.attachment-csv-header {
+  position: sticky;
+  top: 0;
+  background: #f4f5f7;
+  font-weight: bold;
+  z-index: 1;
+}
+.attachment-preview-code .attachment-window-viewport {
+  background: #f6f8fa;
+}
+.attachment-preview-odf .attachment-window-list {
+  padding-inline-start: 0;
+}
+.attachment-preview-odf p,
+.attachment-preview-odf h3 {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0 0 0.5em;
+}
+.attachment-preview-page {
+  border-block-start: 1px solid #c1c7d0;
+  padding-block-start: 0.5em;
+}
+.attachment-preview-markdown {
   height: 100%;
   overflow: auto;
   padding: 1em;
   box-sizing: border-box;
-  text-align: start;
-  overflow-wrap: anywhere;
 }
-#rich-viewer li {
-  padding: 0.3em;
-  white-space: pre-wrap;
-}
-#rich-viewer .attachment-preview-table {
-  border-collapse: collapse;
-  font-size: 0.9em;
-  margin-block-end: 1em;
-}
-#rich-viewer .attachment-preview-table th,
-#rich-viewer .attachment-preview-table td {
-  border: 1px solid #c1c7d0;
-  padding: 0.25em 0.5em;
-  vertical-align: top;
-  white-space: pre-wrap;
-  overflow-wrap: normal;
-}
-#rich-viewer .attachment-preview-table th {
-  background: #f4f5f7;
-  font-weight: bold;
-}
-#rich-viewer .attachment-preview-code pre {
-  margin: 0;
-  padding: 0.75em;
-  background: #f6f8fa;
-  overflow: auto;
-  white-space: pre;
-  overflow-wrap: normal;
-}
-#rich-viewer .attachment-preview-fields {
+.attachment-preview-fields {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 0.25em 1em;
+  margin: 1em;
+  overflow-wrap: anywhere;
 }
-#rich-viewer .attachment-preview-fields dt {
+.attachment-preview-fields dt {
   font-weight: bold;
 }
-#rich-viewer .attachment-preview-fields dd {
+.attachment-preview-fields dd {
   margin: 0;
 }
-#rich-viewer .attachment-preview-mail-body {
-  margin-block-start: 1em;
-  white-space: pre-wrap;
-}
-#rich-viewer .attachment-preview-page {
+.attachment-preview-mail-body {
+  flex: 1 1 auto;
+  min-height: 0;
   border-block-start: 1px solid #c1c7d0;
-  padding-block-start: 0.5em;
 }
 .pdf-preview-error {
   margin-top: 180px;
@@ -527,7 +559,6 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
   }
   #zip-viewer,
   #rich-viewer,
-  #txt-viewer,
   #office-viewer {
     width: 100%;
     height: calc(

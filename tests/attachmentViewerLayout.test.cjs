@@ -23,11 +23,14 @@ test('#6612: the attachment overlay gives its viewer the available viewport', ()
   assert.match(declarations('#viewer-container'), /flex:\s*1 1 auto/);
   assert.match(declarations('#viewer-content'), /flex:\s*1 1 auto/);
   assert.match(declarations('#office-viewer'), /width:\s*100%/);
-  assert.match(declarations('#txt-viewer'), /width:\s*100%/);
+  // Plain text is read windowed in #rich-viewer now (client/lib/attachmentWindow.js),
+  // whose rule it shares with #zip-viewer; the <object> #txt-viewer is gone.
+  assert.match(declarations('#zip-viewer'), /width:\s*100%/);
+  assert.match(declarations('#zip-viewer'), /height:\s*100%/);
 });
 
 test('#6612 negative: desktop document previews are not fixed-width columns', () => {
   assert.doesNotMatch(declarations('#office-viewer'), /width:\s*\d+px/);
-  assert.doesNotMatch(declarations('#txt-viewer'), /width:\s*\d+px/);
+  assert.doesNotMatch(declarations('#zip-viewer'), /width:\s*\d+px/);
   assert.doesNotMatch(css, /max-width:\s*1600px[\s\S]*?#office-viewer/);
 });

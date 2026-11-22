@@ -1,26 +1,38 @@
 // The attachment slideshow's viewers for files a browser does not show by
-// itself: Markdown, CSV and TSV, source code and JSON, iCalendar, Outlook
-// .msg, tar archives and OpenDocument text, spreadsheets and presentations.
+// itself: plain text, Markdown, CSV and TSV, source code and JSON, iCalendar,
+// Outlook .msg, tar archives and OpenDocument text, spreadsheets and
+// presentations.
 //
-// Each reads the file through the same bounded download as the ZIP and Office
-// viewers (attachmentPreviewSource.js), and loads its library only when such a
-// file is opened: papaparse, highlight.js and DOMPurify, WeKan's own
-// iCalendar and Outlook readers (models/lib/icalendarFormat.js,
-// outlookMsgFormat.js) and fflate. Everything a file contains reaches the page
-// as text (textContent), never as HTML - except highlight.js's output, which is
-// escaped text in <span class="hljs-..."> and is sanitized down to exactly
-// that, and Markdown, which the caller renders through WeKan's own markdown
-// helper with every setting the card description has.
+// Nothing is read whole that does not have to be (attachmentWindow.js):
+//
+//   text, code, CSV, JSON, Markdown   HTTP Range requests for what is on the
+//       screen; the scrollbar is the whole file, so dragging it to the middle
+//       shows the middle. A file of one chunk (256 KB) is read in that one
+//       request and indexed exactly; Markdown and JSON of that size are
+//       formatted (a larger one is shown as its text, as formatting needs the
+//       whole document).
+//   tar and tar.gz, iCalendar, OpenDocument   read in order, as far as they are
+//       scrolled: infinite scroll downwards. Compressed data cannot be read from
+//       its middle. An OpenDocument's content.xml is found through the ZIP
+//       central directory and only it is read (zipAttachmentViewer.js).
+//   Outlook .msg   a little file system scattered through the file: read whole,
+//       as before, up to the preview limit, and its text shown windowed.
+//
+// Only the visible rows are in the page. Everything a file contains reaches it
+// as text (textContent) - except highlight.js's output, escaped text in
+// <span class="hljs-..."> sanitized down to exactly that, and Markdown, which
+// the caller renders through WeKan's own markdown helper with every setting
+// the card description has.
 
-import { assertSourceSize, readBoundedResponse } from './attachmentPreviewSource.js';
+import { RangeReader, ByteRows, WindowView, GrowingView, splitRows, CHUNK_BYTES, MAX_ROW_BYTES }
+  from './attachmentWindow.js';
+import { ZipDirectory } from './zipAttachmentViewer.js';
+import { assertSourceSize } from './attachmentPreviewSource.js';
 
-export const MAX_TABLE_ROWS = 1000;
-export const MAX_TABLE_COLUMNS = 200;
-export const MAX_HIGHLIGHT_BYTES = 1024 * 1024;
-export const MAX_ARCHIVE_ENTRIES = 2048;
-export const MAX_INFLATED_BYTES = 96 * 1024 * 1024;
-// What a cut-off table or list ends with: no words, so no translation.
-export const MORE_MARK = '⋯';
+export const MAX_COLUMNS = 1024;
+export const MAX_COMPONENT_BYTES = 1024 * 1024;
+export const ROWS_PER_READ = 200;
+const FEED_BYTES = 4096;
 
 export function decodeText(bytes) {
   return new TextDecoder('utf-8').decode(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes));
@@ -33,48 +45,124 @@ export function looksBinary(bytes) {
   return view.subarray(0, 8000).includes(0);
 }
 
-// --- CSV / TSV --------------------------------------------------------------
+function element(doc, tag, text, className) {
+  const node = doc.createElement(tag);
+  if (text !== undefined) node.textContent = text;
+  if (className) node.className = className;
+  return node;
+}
 
-export function csvRows(Papa, text, { tab = false } = {}) {
-  const result = Papa.parse(text, {
-    delimiter: tab ? '\t' : '',
-    preview: MAX_TABLE_ROWS + 1,
-    skipEmptyLines: 'greedy',
-  });
-  const rows = result.data.map(row => (Array.isArray(row) ? row : [row]));
-  const truncated = rows.length > MAX_TABLE_ROWS;
-  return {
-    rows: rows.slice(0, MAX_TABLE_ROWS).map(row => row.slice(0, MAX_TABLE_COLUMNS).map(cell => String(cell ?? ''))),
-    truncated: truncated || rows.some(row => row.length > MAX_TABLE_COLUMNS),
+// Rows of text already in memory, cut at MAX_ROW_BYTES characters as ByteRows
+// cuts a file.
+function rowsOfText(text) {
+  const rows = [];
+  for (const line of text.split('\n')) {
+    if (line.length <= MAX_ROW_BYTES) rows.push({ start: rows.length, end: rows.length + 1, text: line });
+    else {
+      for (let at = 0; at < line.length; at += MAX_ROW_BYTES) {
+        rows.push({ start: rows.length, end: rows.length + 1, text: line.slice(at, at + MAX_ROW_BYTES) });
+      }
+    }
+  }
+  return rows;
+}
+
+// --- text, code, CSV, JSON, Markdown ----------------------------------------------
+
+async function highlighter(language) {
+  if (!language || language === 'plaintext') return null;
+  const [{ default: hljs }, { default: DOMPurify }] = await Promise.all([
+    import('highlight.js/lib/common'), import('dompurify')]);
+  if (!hljs.getLanguage(language)) return null;
+  // highlight.js escapes the source; this keeps that guarantee even if it ever
+  // did not: only <span class="hljs-..."> survives. Each row is coloured on
+  // its own, as only the rows on the screen are read.
+  return text => DOMPurify.sanitize(hljs.highlight(text, { language, ignoreIllegals: true }).value,
+    { ALLOWED_TAGS: ['span'], ALLOWED_ATTR: ['class'], ALLOWED_URI_REGEXP: /^$/ });
+}
+
+function textRenderer(doc, highlight) {
+  return (rows, viewport) => {
+    const items = rows.map(row => {
+      const el = element(doc, 'div', undefined, 'attachment-window-row');
+      if (highlight) {
+        el.innerHTML = highlight(row.text);
+        for (const span of Array.from(el.querySelectorAll('span'))) {
+          span.className = String(span.className).split(/\s+/).filter(c => /^hljs-[\w-]+$/.test(c)).join(' ');
+        }
+      } else el.textContent = row.text;
+      return el;
+    });
+    viewport.replaceChildren(...items);
   };
+}
+
+function cellsRow(doc, cells, className) {
+  const el = element(doc, 'div', undefined, `attachment-window-row attachment-csv-row ${className || ''}`.trim());
+  for (const text of cells) {
+    const cell = element(doc, 'span', text, 'attachment-csv-cell');
+    cell.title = text;
+    el.appendChild(cell);
+  }
+  return el;
+}
+
+function csvRenderer(doc, Papa, delimiter, header) {
+  // Each row is parsed on its own, as only the rows on the screen are read; a
+  // quoted value with a newline in it shows as two rows.
+  const parse = text => {
+    const data = Papa.parse(text, { delimiter }).data[0];
+    return (Array.isArray(data) ? data : [text]).slice(0, MAX_COLUMNS).map(c => String(c ?? ''));
+  };
+  const columns = header ? parse(header.text) : [];
+  return (rows, viewport) => {
+    const items = [];
+    if (header) items.push(cellsRow(doc, columns, 'attachment-csv-header'));
+    // The header row is drawn once, pinned; not again as data.
+    for (const r of rows) if (!header || r.start !== header.start) items.push(cellsRow(doc, parse(r.text)));
+    viewport.replaceChildren(...items);
+  };
+}
+
+async function openTextWindow({ container, reader, rich, language, extension, renderMarkdown, viewportHeight }) {
+  const doc = container.ownerDocument;
+  const size = reader.size;
+  const first = await reader.bytes(0, Math.min(size, CHUNK_BYTES));
+  if (looksBinary(first)) throw new Error('Binary file');
+  const whole = size <= CHUNK_BYTES;
+  container.replaceChildren();
+  if (whole && rich === 'markdown') {
+    const holder = element(doc, 'div', undefined, 'attachment-preview-markdown');
+    container.appendChild(holder);
+    return renderMarkdown(holder, decodeText(first));
+  }
+  let all = null;
+  if (whole) {
+    let text = null;
+    if (language === 'json') {
+      try { text = JSON.stringify(JSON.parse(decodeText(first)), null, 2); } catch (e) { /* shown as it is */ }
+    }
+    all = text === null ? await splitRows(first) : rowsOfText(text);
+  }
+  const rows = new ByteRows(reader, size);
+  let renderRows;
+  let className = 'attachment-preview-text';
+  if (rich === 'csv') {
+    const { default: Papa } = await import('papaparse');
+    const header = all ? all[0] : await rows.rowAt(0);
+    renderRows = csvRenderer(doc, Papa, extension === 'tsv' ? '\t' : ',', header);
+    className = 'attachment-preview-csv';
+  } else {
+    const highlight = rich === 'code' ? await highlighter(language) : null;
+    renderRows = textRenderer(doc, highlight);
+    if (rich === 'code') className = 'viewer attachment-preview-code';
+  }
+  const view = new WindowView(container, { rows, all, size, renderRows, className, viewportHeight });
+  await view.start();
+  return { view, destroy() { view.destroy(); } };
 }
 
 // --- tar --------------------------------------------------------------------
-
-// gunzip with a ceiling: fflate's streaming Gunzip, fed in slices, stops as soon
-// as the inflated size passes MAX_INFLATED_BYTES, so a gzip bomb never fills
-// the memory it claims.
-export function gunzipBounded(Gunzip, bytes, limit = MAX_INFLATED_BYTES) {
-  const chunks = [];
-  let total = 0;
-  const gunzip = new Gunzip();
-  gunzip.ondata = chunk => {
-    total += chunk.length;
-    if (total > limit) throw new RangeError('Archive inflates past the preview limit');
-    chunks.push(chunk);
-  };
-  const step = 64 * 1024;
-  for (let at = 0; at < bytes.length; at += step) {
-    gunzip.push(bytes.subarray(at, at + step), at + step >= bytes.length);
-  }
-  if (!bytes.length) throw new Error('Empty gzip stream');
-  const out = new Uint8Array(total);
-  let offset = 0;
-  for (const chunk of chunks) { out.set(chunk, offset); offset += chunk.length; }
-  return out;
-}
-
-const isGzip = bytes => bytes.length > 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
 
 function field(bytes, start, length) {
   const slice = bytes.subarray(start, start + length);
@@ -84,8 +172,7 @@ function field(bytes, start, length) {
 
 function octal(bytes, start, length) {
   const text = field(bytes, start, length).trim();
-  if (!/^[0-7]+$/.test(text)) return 0;
-  return parseInt(text, 8);
+  return /^[0-7]+$/.test(text) ? parseInt(text, 8) : 0;
 }
 
 // A tar header's checksum: the sum of its bytes with the checksum field
@@ -96,160 +183,337 @@ function tarChecksumOk(header) {
   return sum === octal(header, 148, 8);
 }
 
-// The names in a tar archive (ustar, GNU long names, pax paths). Only the
-// headers are read; no member is extracted or written anywhere.
-export function listTarEntries(input) {
-  const bytes = input instanceof Uint8Array ? input : new Uint8Array(input);
-  const names = [];
-  let longName = null;
-  let at = 0;
-  let truncated = false;
-  while (at + 512 <= bytes.length) {
-    const header = bytes.subarray(at, at + 512);
-    if (header.every(b => b === 0)) break;
-    if (!tarChecksumOk(header)) {
-      // Not a tar at all, or the rest of one that was cut off.
-      if (at === 0) throw new Error('Not a tar archive');
-      truncated = true;
-      break;
-    }
-    const size = octal(header, 124, 12);
-    const type = String.fromCharCode(header[156] || 48);
-    const dataStart = at + 512;
-    const data = bytes.subarray(dataStart, dataStart + size);
-    at = dataStart + Math.ceil(size / 512) * 512;
-    if (type === 'L') { longName = field(data, 0, data.length); continue; }
-    if (type === 'x') {
-      const path = /(?:^|\n)\d+ path=([^\n]*)\n/.exec(decodeText(data));
-      if (path) longName = path[1];
-      continue;
-    }
-    if (type === 'g' || type === 'K') continue;
-    const prefix = field(header, 0x159, 155);
-    const name = longName || (prefix ? `${prefix}/${field(header, 0, 100)}` : field(header, 0, 100));
-    longName = null;
-    if (names.length >= MAX_ARCHIVE_ENTRIES) { truncated = true; break; }
-    names.push(name);
+// The names of a tar archive, fed in pieces as it streams in: ustar, GNU long
+// names and pax paths. Member data is counted past, never kept.
+export class TarNames {
+  constructor() {
+    this.buffer = new Uint8Array(0);
+    this.skip = 0;
+    this.collect = null;
+    this.longName = null;
+    this.headers = 0;
+    this.ended = false;
   }
-  return { names, truncated };
-}
 
-// --- OpenDocument -----------------------------------------------------------
-
-const TEXT_NS = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0';
-const TABLE_NS = 'urn:oasis:names:tc:opendocument:xmlns:table:1.0';
-const DRAW_NS = 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0';
-
-// The text of an ODF element: its text nodes, with text:s spaces, text:tab
-// and text:line-break kept as the characters they stand for.
-function odfText(node) {
-  let out = '';
-  for (const child of Array.from(node.childNodes || [])) {
-    if (child.nodeType === 3) out += child.nodeValue;
-    else if (child.nodeType === 1 && child.namespaceURI === TEXT_NS) {
-      if (child.localName === 's') out += ' '.repeat(Math.min(Number(child.getAttributeNS(TEXT_NS, 'c')) || 1, 1000));
-      else if (child.localName === 'tab') out += '\t';
-      else if (child.localName === 'line-break') out += '\n';
-      else if (child.localName !== 'note') out += odfText(child);
-    } else if (child.nodeType === 1) out += odfText(child);
-  }
-  return out;
-}
-
-// content.xml as blocks in document order: { kind: 'heading' | 'paragraph',
-// text }, { kind: 'table', rows }, { kind: 'page', name } for a slide or a
-// sheet. Pure DOM (childNodes, namespaceURI, localName), so a test can give it
-// any DOMParser's document.
-export function odfBlocks(doc) {
-  const blocks = [];
-  let rowsLeft = MAX_TABLE_ROWS;
-  let truncated = false;
-  const walk = node => {
-    for (const child of Array.from(node.childNodes || [])) {
-      if (child.nodeType !== 1) continue;
-      const ns = child.namespaceURI;
-      const name = child.localName;
-      if (ns === TEXT_NS && (name === 'h' || name === 'p')) {
-        const text = odfText(child);
-        if (text.trim()) blocks.push({ kind: name === 'h' ? 'heading' : 'paragraph', text });
-      } else if (ns === TABLE_NS && name === 'table') {
-        const tableName = child.getAttributeNS(TABLE_NS, 'name');
-        if (tableName) blocks.push({ kind: 'page', name: tableName });
-        const rows = [];
-        for (const row of Array.from(child.getElementsByTagNameNS(TABLE_NS, 'table-row'))) {
-          const repeat = Math.max(1, Math.min(Number(row.getAttributeNS(TABLE_NS, 'number-rows-repeated')) || 1, MAX_TABLE_ROWS));
-          const cells = [];
-          for (const cell of Array.from(row.childNodes)) {
-            if (cell.nodeType !== 1 || cell.namespaceURI !== TABLE_NS) continue;
-            if (cell.localName !== 'table-cell' && cell.localName !== 'covered-table-cell') continue;
-            const text = Array.from(cell.getElementsByTagNameNS(TEXT_NS, 'p')).map(odfText).join('\n');
-            const span = Math.max(1, Math.min(Number(cell.getAttributeNS(TABLE_NS, 'number-columns-repeated')) || 1, MAX_TABLE_COLUMNS));
-            for (let i = 0; i < span && cells.length < MAX_TABLE_COLUMNS; i += 1) cells.push(text);
+  push(bytes) {
+    const names = [];
+    let data = bytes;
+    while (data.length && !this.ended) {
+      if (this.skip > 0) {
+        const n = Math.min(this.skip, data.length);
+        this.skip -= n;
+        data = data.subarray(n);
+        continue;
+      }
+      if (this.collect) {
+        const n = Math.min(this.collect.left, data.length);
+        this.collect.parts.push(data.slice(0, n));
+        this.collect.left -= n;
+        data = data.subarray(n);
+        if (this.collect.left === 0) {
+          const joined = new Uint8Array(this.collect.parts.reduce((t, p) => t + p.length, 0));
+          let at = 0;
+          for (const p of this.collect.parts) { joined.set(p, at); at += p.length; }
+          const body = decodeText(joined);
+          if (this.collect.type === 'L') this.longName = body.replace(/\0[\s\S]*$/, '');
+          else {
+            const path = /(?:^|\n)\d+ path=([^\n]*)\n/.exec(body);
+            if (path) this.longName = path[1];
           }
-          // Spreadsheets end every row and sheet with empty cells repeated to
-          // the edge of the grid; those are not content.
-          while (cells.length && !cells[cells.length - 1]) cells.pop();
-          for (let i = 0; i < repeat; i += 1) {
-            if (rowsLeft <= 0) { truncated = true; break; }
-            rows.push(cells);
-            rowsLeft -= 1;
-          }
+          this.skip = this.collect.padding;
+          this.collect = null;
         }
-        while (rows.length && !rows[rows.length - 1].length) rows.pop();
-        if (rows.length) blocks.push({ kind: 'table', rows });
-      } else if (ns === DRAW_NS && name === 'page') {
-        blocks.push({ kind: 'page', name: child.getAttributeNS(DRAW_NS, 'name') || '' });
-        walk(child);
-      } else {
-        walk(child);
+        continue;
+      }
+      const take = Math.min(512 - this.buffer.length, data.length);
+      const header = new Uint8Array(this.buffer.length + take);
+      header.set(this.buffer);
+      header.set(data.subarray(0, take), this.buffer.length);
+      data = data.subarray(take);
+      if (header.length < 512) { this.buffer = header; continue; }
+      this.buffer = new Uint8Array(0);
+      if (header.every(b => b === 0)) { this.ended = true; break; }
+      if (!tarChecksumOk(header)) {
+        if (!this.headers) throw new Error('Not a tar archive');
+        this.ended = true; // the rest of one that was cut off or damaged
+        break;
+      }
+      this.headers += 1;
+      const size = octal(header, 124, 12);
+      const padded = Math.ceil(size / 512) * 512;
+      const type = String.fromCharCode(header[156] || 48);
+      if ((type === 'L' || type === 'x') && size > 0 && size <= 65536) {
+        this.collect = { type, left: size, parts: [], padding: padded - size };
+        continue;
+      }
+      if (type === 'L' || type === 'x' || type === 'g' || type === 'K') { this.skip = padded; continue; }
+      const prefix = field(header, 0x159, 155);
+      names.push(this.longName || (prefix ? `${prefix}/${field(header, 0, 100)}` : field(header, 0, 100)));
+      this.longName = null;
+      this.skip = padded;
+    }
+    return names;
+  }
+}
+
+async function* tarNameStream(reader) {
+  const tar = new TarNames();
+  let gunzip = null;
+  let pending = [];
+  for await (const chunk of reader.stream()) {
+    if (gunzip === null) {
+      if (chunk.length > 2 && chunk[0] === 0x1f && chunk[1] === 0x8b) {
+        const { Gunzip } = await import('fflate');
+        gunzip = new Gunzip();
+        gunzip.ondata = data => { if (!tar.ended) pending.push(...tar.push(data)); };
+      } else gunzip = false;
+    }
+    // Small pieces, so a gzip bomb inflates a little at a time and stops as
+    // soon as the view has enough names.
+    for (let at = 0; at < chunk.length; at += FEED_BYTES) {
+      const piece = chunk.subarray(at, at + FEED_BYTES);
+      if (gunzip) gunzip.push(piece, false);
+      else pending.push(...tar.push(piece));
+      if (pending.length) { yield* pending; pending = []; }
+      if (tar.ended) return;
+    }
+  }
+}
+
+// --- iCalendar ----------------------------------------------------------------
+
+// The VEVENTs and VTODOs of a calendar, fed as text as it streams in; each is
+// read by WeKan's own parseICalendar on its own.
+export class IcsComponents {
+  constructor(parseICalendar) {
+    this.parse = parseICalendar;
+    this.rest = '';
+    this.line = null;
+    this.lines = null;
+    this.depth = 0;
+    this.bytes = 0;
+    this.started = false;
+  }
+
+  logical(line, out) {
+    if (!this.started) {
+      if (!line.trim()) return;
+      if (!/^BEGIN:VCALENDAR$/i.test(line.trim())) throw new Error('Not an iCalendar file: no BEGIN:VCALENDAR');
+      this.started = true;
+      return;
+    }
+    const upper = line.toUpperCase();
+    if (!this.lines) {
+      if (upper === 'BEGIN:VEVENT' || upper === 'BEGIN:VTODO') { this.lines = [line]; this.depth = 1; this.bytes = line.length; }
+      return;
+    }
+    this.lines.push(line);
+    this.bytes += line.length;
+    if (upper.startsWith('BEGIN:')) this.depth += 1;
+    else if (upper.startsWith('END:')) this.depth -= 1;
+    if (this.depth === 0) {
+      const text = `BEGIN:VCALENDAR\r\n${this.lines.join('\r\n')}\r\nEND:VCALENDAR\r\n`;
+      this.lines = null;
+      try { out.push(...this.parse(text).tasks); } catch (e) { /* one broken item: the others still show */ }
+    } else if (this.bytes > MAX_COMPONENT_BYTES) {
+      this.lines = null; // an item this large is not shown
+    }
+  }
+
+  push(text, final = false) {
+    const out = [];
+    const parts = (this.rest + text).split(/\r?\n/);
+    this.rest = final ? '' : parts.pop();
+    for (const raw of parts) {
+      if (/^[ \t]/.test(raw) && this.line !== null) { this.line += raw.slice(1); continue; }
+      if (this.line !== null) this.logical(this.line, out);
+      this.line = raw;
+    }
+    if (final && this.line !== null) { this.logical(this.line, out); this.line = null; }
+    if (final && !this.started) throw new Error('Not an iCalendar file: no BEGIN:VCALENDAR');
+    return out;
+  }
+}
+
+async function* calendarStream(reader) {
+  const { parseICalendar } = await import('../../models/lib/icalendarFormat.js');
+  const ics = new IcsComponents(parseICalendar);
+  const decoder = new TextDecoder('utf-8');
+  for await (const chunk of reader.stream()) {
+    for (let at = 0; at < chunk.length; at += FEED_BYTES * 16) {
+      const tasks = ics.push(decoder.decode(chunk.subarray(at, at + FEED_BYTES * 16), { stream: true }));
+      if (tasks.length) yield* tasks;
+    }
+  }
+  yield* ics.push(decoder.decode(), true);
+}
+
+// --- OpenDocument -------------------------------------------------------------
+
+const ODF_NS = {
+  text: 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
+  table: 'urn:oasis:names:tc:opendocument:xmlns:table:1.0',
+  draw: 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
+};
+
+// content.xml's blocks in document order, from SAX events as it streams in:
+// { kind: 'heading' | 'paragraph', text }, { kind: 'row', cells, count },
+// { kind: 'page', name } for a sheet or a slide. Repeated rows are one block
+// with a count, given out one at a time only as they are scrolled to, so a
+// sheet whose last row repeats a million times to the edge of the grid costs
+// nothing; trailing empty cells and rows are the grid, not content.
+export class OdfBlocks {
+  constructor() {
+    this.queue = [];
+    this.scopes = [{}];
+    this.para = null;
+    this.heading = false;
+    this.note = 0;
+    this.row = null;
+    this.cell = null;
+    this.emptyRows = 0;
+  }
+
+  // Prefixes are resolved through the xmlns declarations in scope, so a file
+  // that names the namespaces differently is read the same.
+  resolve(qname, attrs) {
+    const map = Object.assign({}, this.scopes[this.scopes.length - 1]);
+    for (const [k, v] of Object.entries(attrs || {})) if (k.startsWith('xmlns:')) map[k.slice(6)] = v;
+    this.scopes.push(map);
+    const at = qname.indexOf(':');
+    return { ns: at > 0 ? map[qname.slice(0, at)] : '', local: at > 0 ? qname.slice(at + 1) : qname, map };
+  }
+
+  attr(attrs, map, ns, local) {
+    for (const [k, v] of Object.entries(attrs || {})) {
+      const at = k.indexOf(':');
+      if (at > 0 && map[k.slice(0, at)] === ns && k.slice(at + 1) === local) return v;
+    }
+    return undefined;
+  }
+
+  addText(text) {
+    if (!this.note && this.para !== null) this.para += text;
+  }
+
+  open(qname, attrs) {
+    const { ns, local, map } = this.resolve(qname, attrs);
+    if (ns === ODF_NS.text) {
+      if (local === 'note') this.note += 1;
+      // A footnote's own paragraphs are not the text's: they would end the
+      // paragraph the note sits in.
+      else if (this.note) return;
+      else if (local === 'p' || local === 'h') { this.para = ''; this.heading = local === 'h'; }
+      else if (local === 's') this.addText(' '.repeat(Math.min(Number(this.attr(attrs, map, ODF_NS.text, 'c')) || 1, 1000)));
+      else if (local === 'tab') this.addText('\t');
+      else if (local === 'line-break') this.addText('\n');
+    } else if (ns === ODF_NS.table) {
+      if (local === 'table') {
+        const name = this.attr(attrs, map, ODF_NS.table, 'name');
+        if (name) this.queue.push({ kind: 'page', name });
+        this.emptyRows = 0;
+      } else if (local === 'table-row') {
+        const count = Math.max(1, Number(this.attr(attrs, map, ODF_NS.table, 'number-rows-repeated')) || 1);
+        this.row = { cells: [], count };
+      } else if ((local === 'table-cell' || local === 'covered-table-cell') && this.row) {
+        const repeat = Number(this.attr(attrs, map, ODF_NS.table, 'number-columns-repeated')) || 1;
+        this.cell = { parts: [], repeat: Math.max(1, Math.min(repeat, MAX_COLUMNS)) };
+      }
+    } else if (ns === ODF_NS.draw && local === 'page') {
+      this.queue.push({ kind: 'page', name: this.attr(attrs, map, ODF_NS.draw, 'name') || '' });
+    }
+  }
+
+  close(qname) {
+    const map = this.scopes.pop() || {};
+    const at = qname.indexOf(':');
+    const ns = at > 0 ? map[qname.slice(0, at)] : '';
+    const local = at > 0 ? qname.slice(at + 1) : qname;
+    if (ns === ODF_NS.text) {
+      if (local === 'note') this.note = Math.max(0, this.note - 1);
+      else if (this.note) return;
+      else if ((local === 'p' || local === 'h') && this.para !== null) {
+        if (this.cell) this.cell.parts.push(this.para);
+        else if (this.para.trim()) this.queue.push({ kind: this.heading ? 'heading' : 'paragraph', text: this.para });
+        this.para = null;
+      }
+    } else if (ns === ODF_NS.table) {
+      if ((local === 'table-cell' || local === 'covered-table-cell') && this.cell && this.row) {
+        const text = this.cell.parts.join('\n');
+        for (let i = 0; i < this.cell.repeat && this.row.cells.length < MAX_COLUMNS; i += 1) this.row.cells.push(text);
+        this.cell = null;
+      } else if (local === 'table-row' && this.row) {
+        const cells = this.row.cells;
+        while (cells.length && !cells[cells.length - 1]) cells.pop();
+        if (!cells.length) this.emptyRows += this.row.count;
+        else {
+          if (this.emptyRows) this.queue.push({ kind: 'row', cells: [], count: this.emptyRows });
+          this.emptyRows = 0;
+          this.queue.push({ kind: 'row', cells, count: this.row.count });
+        }
+        this.row = null;
+      } else if (local === 'table') {
+        this.emptyRows = 0;
       }
     }
-  };
-  walk(doc.documentElement || doc);
-  return { blocks, truncated };
-}
-
-export function odfContentXml(unzipSync, bytes) {
-  let found = false;
-  const files = unzipSync(bytes, { filter(entry) {
-    if (entry.name !== 'content.xml') return false;
-    if (entry.originalSize > MAX_INFLATED_BYTES) throw new RangeError('content.xml exceeds the preview limit');
-    found = true;
-    return true;
-  } });
-  if (!found || !files['content.xml']) throw new Error('Not an OpenDocument file: no content.xml');
-  return decodeText(files['content.xml']);
-}
-
-// --- rendering --------------------------------------------------------------
-
-function element(doc, tag, text, className) {
-  const node = doc.createElement(tag);
-  if (text !== undefined) node.textContent = text;
-  if (className) node.className = className;
-  return node;
-}
-
-function renderTable(doc, rows, truncated, { header = true } = {}) {
-  const table = element(doc, 'table', undefined, 'attachment-preview-table');
-  rows.forEach((row, index) => {
-    const tr = doc.createElement('tr');
-    for (const cell of row) tr.appendChild(element(doc, header && index === 0 ? 'th' : 'td', cell));
-    table.appendChild(tr);
-  });
-  if (truncated) {
-    const tr = doc.createElement('tr');
-    tr.appendChild(element(doc, 'td', MORE_MARK));
-    table.appendChild(tr);
   }
-  return table;
+
+  // The next block - a repeated row one at a time - or null when none is queued.
+  take() {
+    const head = this.queue[0];
+    if (!head) return null;
+    if (head.kind === 'row' && head.count > 1) {
+      head.count -= 1;
+      return { kind: 'row', cells: head.cells, count: 1 };
+    }
+    return this.queue.shift();
+  }
 }
 
-function renderList(doc, names, truncated) {
-  const list = doc.createElement('ul');
-  for (const name of names) list.appendChild(element(doc, 'li', name));
-  if (truncated) list.appendChild(element(doc, 'li', MORE_MARK));
-  return list;
+async function* odfStream(reader) {
+  const zip = await new ZipDirectory(reader).open();
+  let entry = null;
+  for await (const e of zip.entries()) if (e.name === 'content.xml') { entry = e; break; }
+  if (!entry) throw new Error('Not an OpenDocument file: no content.xml');
+  if (entry.method !== 0 && entry.method !== 8) throw new Error('Unsupported compression in content.xml');
+  const start = await zip.dataStart(entry);
+  const [{ Inflate }, { Parser }] = await Promise.all([import('fflate'), import('htmlparser2')]);
+  const blocks = new OdfBlocks();
+  const parser = new Parser({
+    onopentag: (name, attrs) => blocks.open(name, attrs),
+    ontext: text => blocks.addText(text),
+    onclosetag: name => blocks.close(name),
+  }, { xmlMode: true, decodeEntities: true });
+  const decoder = new TextDecoder('utf-8');
+  const feed = data => parser.write(decoder.decode(data, { stream: true }));
+  const inflate = entry.method === 8 ? new Inflate(data => feed(data)) : null;
+  // Small pieces, so a content.xml that inflates enormously is read a little
+  // at a time, only as far as it is scrolled.
+  for await (const chunk of reader.stream(start, start + entry.compressedSize)) {
+    for (let at = 0; at < chunk.length; at += FEED_BYTES) {
+      const piece = chunk.subarray(at, at + FEED_BYTES);
+      if (inflate) inflate.push(piece, false);
+      else feed(piece);
+      for (let b = blocks.take(); b; b = blocks.take()) yield b;
+    }
+  }
+  if (inflate) inflate.push(new Uint8Array(0), true);
+  parser.end();
+  for (let b = blocks.take(); b; b = blocks.take()) yield b;
+}
+
+// --- opening ------------------------------------------------------------------
+
+function batches(iterator) {
+  return async () => {
+    const rows = [];
+    while (rows.length < ROWS_PER_READ) {
+      const { value, done } = await iterator.next();
+      if (done) break;
+      rows.push(value);
+    }
+    return rows.length ? rows : null;
+  };
 }
 
 function localDate(value) {
@@ -258,147 +522,86 @@ function localDate(value) {
   return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString();
 }
 
-function definitionList(doc, pairs) {
-  const dl = element(doc, 'dl', undefined, 'attachment-preview-fields');
-  for (const [label, value] of pairs) {
-    if (!value) continue;
-    dl.appendChild(element(doc, 'dt', label));
-    dl.appendChild(element(doc, 'dd', value));
+async function openGrowing({ container, next, renderRow, header, className, listTag, viewportHeight, emptyText }) {
+  const view = new GrowingView(container, { next, renderRow, className, listTag, viewportHeight });
+  if (header) view.viewport.insertBefore(header, view.list);
+  await view.start();
+  if (!view.rows.length && view.done) {
+    view.destroy();
+    container.textContent = emptyText;
+    return { destroy() { container.replaceChildren(); } };
   }
-  return dl;
+  return { view, destroy() { view.destroy(); } };
 }
 
-const people = list => (list || []).map(p => (p.name && p.address ? `${p.name} <${p.address}>` : p.name || p.address))
-  .filter(Boolean).join(', ');
-
-async function renderCode(doc, bytes, language) {
-  if (looksBinary(bytes)) throw new Error('Binary file');
-  let text = decodeText(bytes);
-  if (language === 'json') {
-    try { text = JSON.stringify(JSON.parse(text), null, 2); } catch (e) { /* shown as it is */ }
-  }
-  const wrap = element(doc, 'div', undefined, 'viewer attachment-preview-code');
-  const pre = doc.createElement('pre');
-  const code = element(doc, 'code', undefined, `hljs language-${language}`);
-  if (language !== 'plaintext' && bytes.byteLength <= MAX_HIGHLIGHT_BYTES) {
-    const [{ default: hljs }, { default: DOMPurify }] = await Promise.all([
-      import('highlight.js/lib/common'), import('dompurify')]);
-    if (hljs.getLanguage(language)) {
-      const html = hljs.highlight(text, { language, ignoreIllegals: true }).value;
-      // highlight.js escapes the source; this keeps that guarantee even if it
-      // ever did not: only <span class="hljs-..."> survives.
-      code.innerHTML = DOMPurify.sanitize(html, { ALLOWED_TAGS: ['span'], ALLOWED_ATTR: ['class'],
-        ALLOWED_URI_REGEXP: /^$/ });
-      for (const span of Array.from(code.querySelectorAll('span'))) {
-        const classes = String(span.className).split(/\s+/).filter(c => /^hljs-[\w-]+$/.test(c));
-        span.className = classes.join(' ');
-      }
-    } else code.textContent = text;
-  } else code.textContent = text;
-  pre.appendChild(code);
-  wrap.appendChild(pre);
-  return wrap;
-}
-
-async function renderKind({ doc, rich, bytes, extension, language, labels, renderMarkdown, container }) {
+// Open one file into `container`. Resolves to { destroy() }, which the
+// slideshow calls when it moves on or closes. A file whose first read arrives
+// after the slideshow moved on (signal aborted) is not rendered.
+export async function openRichAttachment({ container, rich, extension, language, signal, size, url,
+  labels = {}, renderMarkdown, fetchImpl, viewportHeight }) {
+  const reader = new RangeReader(url, size, { signal, fetchImpl });
+  await reader.probeSize();
+  if (signal && signal.aborted) return { destroy() {} };
+  const doc = container.ownerDocument;
   switch (rich) {
-    case 'markdown': {
-      if (looksBinary(bytes)) throw new Error('Binary file');
-      const holder = element(doc, 'div', undefined, 'attachment-preview-markdown');
-      container.appendChild(holder);
-      return renderMarkdown(holder, decodeText(bytes));
-    }
-    case 'csv': {
-      if (looksBinary(bytes)) throw new Error('Binary file');
-      const { default: Papa } = await import('papaparse');
-      const { rows, truncated } = csvRows(Papa, decodeText(bytes), { tab: extension === 'tsv' });
-      container.appendChild(renderTable(doc, rows, truncated));
-      return null;
-    }
-    case 'code':
-      container.appendChild(await renderCode(doc, bytes, language));
-      return null;
+    case 'text': case 'markdown': case 'csv': case 'code':
+      return openTextWindow({ container, reader, rich, language, extension, renderMarkdown, viewportHeight });
+    case 'tar':
+      container.replaceChildren();
+      return openGrowing({ container, listTag: 'ul', viewportHeight, emptyText: labels.empty,
+        next: batches(tarNameStream(reader)), renderRow: name => element(doc, 'li', name) });
     case 'calendar': {
-      const { parseICalendar } = await import('../../models/lib/icalendarFormat.js');
-      const { tasks } = parseICalendar(decodeText(bytes));
-      const rows = [[labels.title, labels.start, labels.end, labels.due, labels.description]];
-      for (const task of tasks.slice(0, MAX_TABLE_ROWS)) {
+      container.replaceChildren();
+      const head = cellsRow(doc, [labels.title, labels.start, labels.end, labels.due, labels.description], 'attachment-csv-header');
+      return openGrowing({ container, viewportHeight, emptyText: labels.empty, header: head, className: 'attachment-preview-csv',
+        next: batches(calendarStream(reader)),
         // parseICalendar puts a VEVENT in the list "Events" and gives it its
         // DTEND as date_due; a VTODO's date_due is its DUE and date_end its
-        // completion. A cancelled event is shown like a cancelled task.
-        const isEvent = task.column_name === 'Events';
-        rows.push([task.title, localDate(task.date_started),
-          isEvent ? localDate(task.date_due) : localDate(task.date_end),
-          isEvent ? '' : localDate(task.date_due), task.description || '']);
-      }
-      container.appendChild(renderTable(doc, rows, tasks.length > MAX_TABLE_ROWS));
-      return null;
+        // completion.
+        renderRow: task => {
+          const isEvent = task.column_name === 'Events';
+          return cellsRow(doc, [task.title, localDate(task.date_started),
+            isEvent ? localDate(task.date_due) : localDate(task.date_end),
+            isEvent ? '' : localDate(task.date_due), task.description || '']);
+        } });
     }
+    case 'opendocument':
+      container.replaceChildren();
+      return openGrowing({ container, viewportHeight, emptyText: labels.empty, className: 'attachment-preview-odf',
+        next: batches(odfStream(reader)),
+        renderRow: block => {
+          if (block.kind === 'heading') return element(doc, 'h3', block.text);
+          if (block.kind === 'paragraph') return element(doc, 'p', block.text);
+          if (block.kind === 'page') return element(doc, 'h2', block.name, 'attachment-preview-page');
+          return cellsRow(doc, block.cells);
+        } });
     case 'outlook': {
+      // A Compound File's streams are scattered through it: it is read whole.
+      assertSourceSize(reader.size);
+      const bytes = await reader.bytes(0, reader.size);
       const { readOutlookMsg } = await import('../../models/lib/outlookMsgFormat.js');
-      const msg = readOutlookMsg(new Uint8Array(bytes));
-      container.appendChild(definitionList(doc, [
-        [labels.from, people([msg.from])], [labels.to, people(msg.to)], [labels.cc, people(msg.cc)],
-        [labels.subject, msg.subject], [labels.date, localDate(msg.date)],
-      ]));
-      container.appendChild(element(doc, 'div', msg.text || '', 'attachment-preview-mail-body'));
-      const files = (msg.files || []).map(f => f.name);
-      if (files.length) {
-        container.appendChild(element(doc, 'h3', labels.attachments));
-        container.appendChild(renderList(doc, files, !!msg.attachments));
+      const msg = readOutlookMsg(bytes);
+      if (signal && signal.aborted) return { destroy() {} };
+      container.replaceChildren();
+      const people = list => (list || []).map(p => (p.name && p.address ? `${p.name} <${p.address}>` : p.name || p.address))
+        .filter(Boolean).join(', ');
+      const dl = element(doc, 'dl', undefined, 'attachment-preview-fields');
+      for (const [label, value] of [[labels.from, people([msg.from])], [labels.to, people(msg.to)],
+        [labels.cc, people(msg.cc)], [labels.subject, msg.subject], [labels.date, localDate(msg.date)],
+        [labels.attachments, (msg.files || []).map(f => f.name).join(', ')]]) {
+        if (!value) continue;
+        dl.appendChild(element(doc, 'dt', label));
+        dl.appendChild(element(doc, 'dd', value));
       }
-      return null;
-    }
-    case 'tar': {
-      let view = new Uint8Array(bytes);
-      if (isGzip(view)) {
-        const { Gunzip } = await import('fflate');
-        view = gunzipBounded(Gunzip, view);
-      }
-      const { names, truncated } = listTarEntries(view);
-      if (names.length) container.appendChild(renderList(doc, names, truncated));
-      else container.textContent = labels.empty;
-      return null;
-    }
-    case 'opendocument': {
-      const { unzipSync } = await import('fflate');
-      const xml = odfContentXml(unzipSync, new Uint8Array(bytes));
-      const parsed = new DOMParser().parseFromString(xml, 'application/xml');
-      if (parsed.getElementsByTagName('parsererror').length) throw new Error('Invalid content.xml');
-      const { blocks, truncated } = odfBlocks(parsed);
-      for (const block of blocks) {
-        if (block.kind === 'heading') container.appendChild(element(doc, 'h3', block.text));
-        else if (block.kind === 'paragraph') container.appendChild(element(doc, 'p', block.text));
-        else if (block.kind === 'page') container.appendChild(element(doc, 'h2', block.name, 'attachment-preview-page'));
-        else container.appendChild(renderTable(doc, block.rows, false, { header: false }));
-      }
-      if (truncated) container.appendChild(element(doc, 'p', MORE_MARK));
-      if (!blocks.length) container.textContent = labels.empty;
-      return null;
+      container.appendChild(dl);
+      const body = element(doc, 'div', undefined, 'attachment-preview-mail-body');
+      container.appendChild(body);
+      const view = new WindowView(body, { all: rowsOfText(msg.text || ''), size: 0, viewportHeight,
+        renderRows: textRenderer(doc, null), className: 'attachment-preview-text' });
+      await view.start();
+      return { view, destroy() { view.destroy(); container.replaceChildren(); } };
     }
     default:
       throw new TypeError(`No viewer for ${rich}`);
   }
-}
-
-// Open one file into `container`. Resolves to { destroy() }, which the
-// slideshow calls when it moves on or closes. A response that arrives after
-// the slideshow moved on (signal aborted) is not rendered.
-export async function openRichAttachment({ container, rich, extension, language, signal, size, url,
-  labels = {}, renderMarkdown }) {
-  assertSourceSize(size);
-  const response = await fetch(url, { credentials: 'same-origin', signal });
-  if (!response.ok) throw new Error(`Attachment fetch failed: ${response.status}`);
-  assertSourceSize(Number(response.headers.get('content-length')));
-  const bytes = new Uint8Array(await readBoundedResponse(response));
-  if (signal && signal.aborted) return { destroy() {} };
-  const doc = container.ownerDocument;
-  container.replaceChildren();
-  const view = await renderKind({ doc, rich, bytes, extension, language, labels, renderMarkdown, container });
-  return {
-    destroy() {
-      if (view && typeof view.destroy === 'function') view.destroy();
-      container.replaceChildren();
-    },
-  };
 }

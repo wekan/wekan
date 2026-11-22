@@ -83,23 +83,24 @@ test('the slideshow shows Markdown, CSV, code, iCalendar, tar.gz and OpenDocumen
     await expect(rich.locator('*')).toHaveCount(0);
 
     await openPreview('csv');
-    await expect(rich.locator('td')).toHaveText(['Smith, Jo', '<img src=x onerror=window.csvRan=1>']);
+    await expect(rich.locator('.attachment-csv-row:not(.attachment-csv-header) .attachment-csv-cell'))
+      .toHaveText(['Smith, Jo', '<img src=x onerror=window.csvRan=1>']);
     await expect(rich.locator('img')).toHaveCount(0);
     await page.locator('#viewer-close').click();
 
     await openPreview('py');
-    await expect(rich.locator('code.language-python')).toContainText('return "<b>hi</b>"');
-    await expect(rich.locator('code span.hljs-keyword').first()).toHaveText('def');
+    await expect(rich.locator('.attachment-window-row').nth(1)).toHaveText('    return "<b>hi</b>"');
+    await expect(rich.locator('.attachment-window-row span.hljs-keyword').first()).toHaveText('def');
     await expect(rich.locator('b')).toHaveCount(0);
     await page.locator('#viewer-close').click();
 
     await openPreview('html');
-    await expect(rich.locator('code')).toContainText('<script>window.htmlRan = 1</script>');
+    await expect(rich.locator('.attachment-window-row').first()).toContainText('<script>window.htmlRan = 1</script>');
     await expect(rich.locator('script, h1')).toHaveCount(0);
     await page.locator('#viewer-close').click();
 
     await openPreview('ics');
-    await expect(rich.locator('td').first()).toHaveText('Sprint review');
+    await expect(rich.locator('.attachment-csv-row:not(.attachment-csv-header) .attachment-csv-cell').first()).toHaveText('Sprint review');
     await page.locator('#viewer-close').click();
 
     await openPreview('tgz');
@@ -117,5 +118,62 @@ test('the slideshow shows Markdown, CSV, code, iCalendar, tar.gz and OpenDocumen
   } finally {
     for (const id of Object.values(ids)) db.deleteOne('attachments', { _id: id });
     for (const filename of written) fs.rmSync(filename, { force: true });
+  }
+});
+
+// No limit and no whole download: a 150,000-row CSV opens with only its screen
+// fetched through Range requests and only its screen in the page, and the
+// scrollbar is the file - its middle shows the middle, its end the last row.
+test('a large CSV is read windowed: only the screen is fetched and drawn, the scrollbar is the whole file', async ({ page, adminUser, user, board }) => {
+  const directory = path.join(process.env.WEKAN_FILES_PATH, 'attachments');
+  fs.mkdirSync(directory, { recursive: true });
+  const card = db.findOne('cards', { boardId: board.boardId });
+  const id = db.uid('richbigcsv');
+  const name = `${id}.csv`;
+  const body = Buffer.from(`Name,Value\n${Array.from({ length: 150000 }, (_, i) => `row ${i},${i * 2}`).join('\n')}\n`);
+  const filename = path.join(directory, name);
+  fs.writeFileSync(filename, body);
+  try {
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    const storage = await page.evaluate(() => Meteor.callAsync('getAttachmentStoragePaths'));
+    db.insertOne('attachments', { _id: id, name, extension: 'csv', type: 'text/csv', size: body.length,
+      meta: { boardId: board.boardId, cardId: card._id },
+      versions: { original: { storage: 'fs', path: `${storage.attachments}/${name}`, size: body.length, extension: 'csv', type: 'text/csv' } } });
+    await loginWithToken(page, user.id, user.token);
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}/${card._id}`);
+    const fetched = [];
+    page.on('response', async response => {
+      if (!response.url().includes(`/cdn/storage/attachments/${id}`)) return;
+      fetched.push({ status: response.status(), range: response.request().headers().range || '',
+        length: Number(response.headers()['content-length'] || 0) });
+    });
+    await page.locator(`.open-preview[data-attachment-id="${id}"]`).click();
+    const rows = page.locator('#rich-viewer .attachment-csv-row:not(.attachment-csv-header)');
+    const firstCell = () => rows.first().locator('.attachment-csv-cell').first().textContent();
+    await expect(rows.first().locator('.attachment-csv-cell').first()).toHaveText('row 0');
+    await expect(page.locator('#rich-viewer .attachment-csv-header .attachment-csv-cell')).toHaveText(['Name', 'Value']);
+    expect(await page.locator('#rich-viewer .attachment-csv-row').count()).toBeLessThan(80);
+
+    const scroller = page.locator('#rich-viewer .attachment-window');
+    await scroller.evaluate(el => { el.scrollTop = (el.scrollHeight - el.clientHeight) / 2; });
+    await expect.poll(async () => Number(String(await firstCell()).replace('row ', ''))).toBeGreaterThan(60000);
+    const middle = Number(String(await firstCell()).replace('row ', ''));
+    expect(middle).toBeLessThan(90000);
+
+    await scroller.evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await expect(rows.last().locator('.attachment-csv-cell').first()).toHaveText('row 149999');
+    await expect(page.locator('#rich-viewer .attachment-csv-header .attachment-csv-cell').first()).toHaveText('Name');
+    expect(await page.locator('#rich-viewer .attachment-csv-row').count()).toBeLessThan(80);
+
+    // Only ranges of it were fetched, never the whole file.
+    expect(fetched.length).toBeGreaterThan(0);
+    expect(fetched.every(f => f.status === 206 && /^bytes=\d+-\d+$/.test(f.range))).toBe(true);
+    const sent = fetched.reduce((n, f) => n + f.length, 0);
+    expect(sent).toBeLessThan(body.length / 2);
+    await page.locator('#viewer-close').click();
+    await expect(page.locator('#rich-viewer .attachment-csv-row')).toHaveCount(0);
+  } finally {
+    db.deleteOne('attachments', { _id: id });
+    fs.rmSync(filename, { force: true });
   }
 });

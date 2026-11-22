@@ -42,6 +42,7 @@ let touchStartCoords = null;
 let touchEndCoords = null;
 
 let zipPreviewAbortController = null;
+let zipPreview = null;
 let officePreview = null;
 let officePreviewAbortController = null;
 let officePreviewGeneration = 0;
@@ -176,7 +177,9 @@ function openAttachmentViewer(attachmentId) {
       loaded only when such a file is opened
   */
   const kind = attachmentKind(attachment);
-  const rich = attachmentRichKind(attachment);
+  // Any other text (a .txt, a .log) is read windowed as well, only what is on
+  // the screen (client/lib/attachmentWindow.js).
+  const rich = attachmentRichKind(attachment) || ((kind.isText || kind.isJSON) ? 'text' : null);
   switch(true){
     case (!!rich && !kind.isImage && !kind.isVideo && !kind.isAudio && !kind.isPDF): {
       const generation = ++richPreviewGeneration;
@@ -227,11 +230,6 @@ function openAttachmentViewer(attachmentId) {
 
       $("#audio-viewer").removeClass("hidden");
       break;
-    case (kind.isText):
-    case (kind.isJSON):
-      $("#txt-viewer").attr("data", getAttachmentUrl(attachment));
-      $("#txt-viewer").removeClass("hidden");
-      break;
     case (kind.isZIP): {
       const container = document.getElementById('zip-viewer');
       zipPreviewAbortController = new AbortController();
@@ -240,6 +238,10 @@ function openAttachmentViewer(attachmentId) {
       container.textContent = TAPi18n.__('loading');
       openZipAttachment({ container, signal, size: attachment.size,
         url: getAttachmentUrl(attachment), emptyMessage: TAPi18n.__('no-results') })
+        .then(preview => {
+          if (signal.aborted) { preview.destroy(); return; }
+          zipPreview = preview;
+        })
         .catch(error => {
           if (signal.aborted) return;
           container.textContent = TAPi18n.__('error');
@@ -309,6 +311,8 @@ function closeAttachmentViewer(restoreFocus = true) {
   richViewer?.classList.add('hidden');
   zipPreviewAbortController?.abort();
   zipPreviewAbortController = null;
+  zipPreview?.destroy();
+  zipPreview = null;
   const zipViewer = document.getElementById('zip-viewer');
   zipViewer?.replaceChildren();
   zipViewer?.classList.add('hidden');
@@ -334,8 +338,6 @@ function closeAttachmentViewer(restoreFocus = true) {
   $("#pdf-viewer").attr("data", "");
   $("#pdf-viewer").addClass("hidden");
 
-  $("#txt-viewer").attr("data", "");
-  $("#txt-viewer").addClass("hidden");
 
   $("#video-viewer").get(0)?.pause(); // Stop playback
   if ($("#video-viewer").get(0)) $("#video-viewer").get(0).currentTime = 0;
