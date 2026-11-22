@@ -20,7 +20,7 @@ const require = createRequire(import.meta.url);
 const inventory = require(path.join(ROOT, 'models/lib/personalDataInventory.js'));
 
 // One table cell: no line breaks, and a | would end the cell.
-const cell = text => String(text == null ? '-' : text).replace(/\s+/g, ' ').replace(/\|/g, '\\|').trim() || '-';
+const cell = text => String(text == null ? '-' : text).replace(/\s+/g, ' ').replace(/\\/g, '\\\\').replace(/\|/g, '\\|').trim() || '-';
 const code = text => (text ? `\`${text}\`` : '-');
 
 function retentionOf(entry) {

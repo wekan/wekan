@@ -90,7 +90,9 @@ const offenders = [];
     if (['node_modules', '.tools', '.build', '.meteor', '.git'].includes(entry.name) || entry.name.startsWith('_build')) continue;
     const rel = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(rel);
-    else if (/\.js$/.test(entry.name) && !['server/sharedDescription.js', 'client/lib/sharedDescription.js'].includes(rel)
+    // models/lib/personalDataInventory.js names every collection as data (it
+    // classifies them, docs/Compliance WP-3); it neither reads nor writes one.
+    else if (/\.js$/.test(entry.name) && !['server/sharedDescription.js', 'client/lib/sharedDescription.js', 'models/lib/personalDataInventory.js'].includes(rel)
       && /cardDescriptionDocs|CardDescriptionDocs/.test(read(rel))) offenders.push(rel);
   }
 })('.');
