@@ -28,6 +28,7 @@ import { riskOf } from '/client/lib/cardRiskOf';
 import Rules from '/models/rules';
 import { suggestedMembersFor } from '/client/lib/suggestedMembers';
 import '/client/components/cards/similarCards';
+import { webhooksOff } from '/client/lib/webhooksSwitch';
 
 // Which dependency the icon picker should apply its choice to. The icon popup's
 // own data context is the dependency row (not the source card), so we capture
@@ -559,7 +560,8 @@ Template.cardDetails.onRendered(function () {
       url: '',
     };
 
-    const integrations = ReactiveCache.getIntegrations({
+    // None while all webhooks are turned off (the server sends nothing anyway).
+    const integrations = webhooksOff() ? [] : ReactiveCache.getIntegrations({
       boardId: { $in: [card.boardId, Integrations.Const.GLOBAL_WEBHOOK_ID] },
       enabled: true,
       activities: { $in: ['CardDetailsRendered', 'all'] },

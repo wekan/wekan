@@ -28,6 +28,8 @@ const cardSettingsCustomFields = require('/models/lib/cardSettingsCustomFields')
 const cardSettingsSplit = require('/models/lib/cardSettingsSplit');
 import { invalidateScrumNames } from '/client/components/boards/scrum/scrumFields';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
+// Registers {{webhooksOff}}: the board menu's Outgoing Webhooks and Bots.
+import '/client/lib/webhooksSwitch';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';

@@ -706,11 +706,13 @@ template(name="boardMenuPopup")
           | {{_ 'r-workflow-view'}}
       //- Bots: the alternative workflow view - external runners this board
         hands cards to (client/components/rules/rulesBots.*). Board admins
-        only, as every entry of this group.
-      li
-        a.js-open-rules-bots-view(title="{{_ 'bots'}}")
-          i.fa.fa-android
-          | {{_ 'bots'}}
+        only, as every entry of this group. A bot is a webhook, so it is
+        hidden while all webhooks are turned off.
+      unless webhooksOff
+        li
+          a.js-open-rules-bots-view(title="{{_ 'bots'}}")
+            i.fa.fa-android
+            | {{_ 'bots'}}
       li
         a.js-open-rules-blocks-view(title="{{_ 'r-blocks-view'}}")
           i.fa.fa-puzzle-piece
@@ -850,10 +852,13 @@ template(name="boardMenuPopup")
         a.js-open-notification-settings
           i.fa.fa-bell
           | {{_ 'notifications'}}
-      li
-        a.js-outgoing-webhooks
-          i.fa.fa-globe
-          | {{_ 'outgoing-webhooks'}}
+      //- Hidden while Admin Panel / Settings / Features / Turn off all webhooks
+        is on (client/lib/webhooksSwitch.js).
+      unless webhooksOff
+        li
+          a.js-outgoing-webhooks
+            i.fa.fa-globe
+            | {{_ 'outgoing-webhooks'}}
       //- "Subtasks Settings" was here. What subtasks do on this board is behind
         the hamburger at the end of the Subtasks heading on an opened card,
         which is where somebody looking at subtasks already is.

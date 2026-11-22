@@ -48,9 +48,10 @@ template(name="notificationSettingsPopup")
           a.flex.js-due-reminder-off(role="checkbox" aria-checked="{{#if dueRemindersOff}}true{{else}}false{{/if}}")
             .materialCheckBox(class="{{#if dueRemindersOff}}is-checked{{/if}}")
             span {{_ 'due-reminder-off'}}
-          a.flex.js-due-reminder-webhook(role="checkbox" aria-checked="{{#if dueReminderWebhook}}true{{else}}false{{/if}}")
-            .materialCheckBox(class="{{#if dueReminderWebhook}}is-checked{{/if}}")
-            span {{_ 'due-reminder-webhook'}}
+          unless webhooksOff
+            a.flex.js-due-reminder-webhook(role="checkbox" aria-checked="{{#if dueReminderWebhook}}true{{else}}false{{/if}}")
+              .materialCheckBox(class="{{#if dueReminderWebhook}}is-checked{{/if}}")
+              span {{_ 'due-reminder-webhook'}}
           if dueReminderMessage
             p.quiet.js-due-reminder-message {{dueReminderMessage}}
           button.primary.js-due-reminder-save(type="submit") {{_ 'save'}}

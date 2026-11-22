@@ -5,6 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { parseDueReminderInput } from '/models/lib/dueNotificationConfig';
 import { GROUP_KEYS, cleanMutedGroups } from '/models/lib/notificationActivityGroups';
+import { webhooksOff } from '/client/lib/webhooksSwitch';
 
 // The 3-tier Notification Settings popup (see notificationSettingsPopup.jade
 // and models/lib/notificationSettings.js). `this.data().scope` is one of
@@ -95,8 +96,10 @@ Template.notificationSettingsPopup.helpers({
   deliveryTargetId() {
     return Template.instance().data.scope === 'board' ? Utils.getCurrentBoardId() : null;
   },
+  // The webhook channel is hidden while all webhooks are turned off.
   deliveryChannels() {
-    return ['email', 'tray', 'webhook'].map(channel => ({ channel }));
+    const off = webhooksOff();
+    return ['email', 'tray', 'webhook'].filter(channel => !off || channel !== 'webhook').map(channel => ({ channel }));
   },
   // #572: every kind of card activity, ticked unless this member muted it.
   isMemberScope() {

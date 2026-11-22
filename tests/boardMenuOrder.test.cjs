@@ -158,7 +158,12 @@ function guardsOf(cls) {
 test('the reorder kept every guard (negative: nothing became visible to more people)', () => {
   const admin = 'if currentUser.isBoardAdmin';
   assert.deepStrictEqual(guardsOf('js-open-rules-view'), [admin]);
-  for (const cls of RULES_VIEWS) assert.deepStrictEqual(guardsOf(cls), [admin], `${cls} is board-admin only, like Rules`);
+  // Bots is a webhook, so it is also hidden while Admin Panel / Settings /
+  // Features / Turn off all webhooks is on - one guard more, never one fewer.
+  for (const cls of RULES_VIEWS) {
+    assert.deepStrictEqual(guardsOf(cls), cls === 'js-open-rules-bots-view' ? [admin, 'unless webhooksOff'] : [admin],
+      `${cls} is board-admin only, like Rules`);
+  }
   assert.deepStrictEqual(guardsOf('js-change-board-color'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-announcement'), [admin]);
   assert.deepStrictEqual(guardsOf('js-change-background-image'), [admin]);
@@ -179,7 +184,8 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-export-board'), ['if withApi', 'unless exportDisabled']);
   assert.deepStrictEqual(guardsOf('js-import-into-board'), ['if withApi', 'unless exportDisabled', 'if canImportIntoBoard']);
   assert.deepStrictEqual(guardsOf('js-open-notification-settings'), [admin]);
-  assert.deepStrictEqual(guardsOf('js-outgoing-webhooks'), [admin]);
+  // And hidden while every webhook is turned off (Features / Turn off all webhooks).
+  assert.deepStrictEqual(guardsOf('js-outgoing-webhooks'), [admin, 'unless webhooksOff']);
   assert.deepStrictEqual(guardsOf('js-open-archives'), [], 'Archived items is open to everyone who sees the board');
   // The helpers answer only what the reader may see; the tick hides them.
   assert.deepStrictEqual(guardsOf('js-open-board-summary'), ["if allowFeature 'board-summary'"]);

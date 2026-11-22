@@ -49,7 +49,12 @@ template(name="setting")
           else if isLayoutSetting
             +pwaSettings
           else if isWebhookSetting
-            +webhookSettings
+            //- Its menu entry is hidden while all webhooks are turned off; an
+              old link to it says why instead of showing the forms.
+            if webhooksOff
+              p.quiet.js-webhooks-off-notice {{_ 'webhooks-disabled'}}
+            else
+              +webhookSettings
           else if isSharedLabelsSetting
             +sharedLabelsSettings
 
@@ -402,6 +407,14 @@ template(name='tableVisibilityModeSettings')
             .materialCheckBox#activity-pub-enabled(class="{{#if currentSetting.activityPubEnabled}}is-checked{{/if}}")
             span {{_ 'activity-pub-enabled'}}
           .feature-desc {{_ 'activity-pub-desc'}}
+        //- Turn off all webhooks (models/lib/webhooksSwitch.js): hides every
+          webhook screen, and the server sends no webhook and refuses to add
+          or change one. Saved as soon as it is switched; nothing is deleted.
+        li.tableVisibilityMode-form
+          a.flex.js-toggle-webhooks-off
+            .materialCheckBox#webhooks-off(class="{{#if webhooksOff}}is-checked{{/if}}")
+            span {{_ 'webhooks-off'}}
+          .feature-desc {{_ 'webhooks-off-desc'}}
 
         li.admin-pane-group-separator
           hr

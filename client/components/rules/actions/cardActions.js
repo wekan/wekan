@@ -3,6 +3,7 @@ import { Utils } from '/client/lib/utils';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { saveRuleTriggerAction } from '/client/components/rules/rulesSaveHelper';
 import { RULE_ACTING_USER_SENTINEL } from '/models/lib/ruleActingUser';
+import { webhooksOff } from '/client/lib/webhooksSwitch';
 
 let cardColors;
 Meteor.startup(() => {
@@ -21,7 +22,9 @@ Template.cardActions.onCreated(function () {
 
 Template.cardActions.helpers({
   // This board's bots (Board Settings / Bots), for "Dispatch to bot".
+  // None while all webhooks are turned off (client/lib/webhooksSwitch.js).
   boardBots() {
+    if (webhooksOff()) return [];
     return ReactiveCache.getIntegrations({ boardId: Session.get('currentBoard'), bot: true }) || [];
   },
   cardColorButton() {

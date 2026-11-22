@@ -2,6 +2,7 @@ import { currentRulesAccess } from '/client/lib/rulesAccess';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 import { triggerValueHasVars } from '/models/lib/ruleTriggerVars';
+import { webhooksOff } from '/client/lib/webhooksSwitch';
 
 Template.rulesMain.onCreated(function () {
   this.rulesCurrentTab = new ReactiveVar('rulesList');
@@ -72,7 +73,10 @@ Template.rulesMain.helpers({
     return Session.get('rulesViewMode') === 'workflow';
   },
   // Board Settings / Bots: the alternative workflow view for bots.
-  isBotsView() { return Session.get('rulesViewMode') === 'bots'; },
+  // Not while all webhooks are turned off: a bot is a webhook.
+  isBotsView() {
+    return Session.get('rulesViewMode') === 'bots' && !webhooksOff();
+  },
 });
 
 function sanitizeObject(obj) {

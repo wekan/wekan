@@ -17,6 +17,8 @@ import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
 import { errorMessage } from '/client/lib/errorMessage';
+// Registers {{webhooksOff}}: Features / Turn off all webhooks, Global Webhooks.
+import { webhooksOff } from '/client/lib/webhooksSwitch';
 const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
 const instanceFeatures = require('/models/lib/instanceFeatures');
 const { cardFieldRows } = require('/models/lib/cardFieldVisibility');
@@ -251,6 +253,11 @@ function settingsMenu(user) {
     // #2761, #4698: shared label catalogs.
     { id: 'shared-labels-setting', icon: 'fa-tags', labelKey: 'shared-labels', emoji: true },
   ];
+  // Global Webhooks is not offered while all webhooks are turned off
+  // (Features / Turn off all webhooks, models/lib/webhooksSwitch.js).
+  if (webhooksOff()) {
+    items.splice(items.findIndex(item => item.id === 'webhook-setting'), 1);
+  }
   // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7/D.9): an
   // Organization's own admin has ONE pane here - Visibility, for its "Change color"
   // section, which is that Organization's site theme. Every other pane, and every
@@ -739,6 +746,15 @@ Template.tableVisibilityModeSettings.events({
     event.preventDefault();
     try {
       await Meteor.callAsync('saveSqrlEnabled', !instance.$('#sqrl-enabled').hasClass('is-checked'));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  // Turn off all webhooks (models/lib/webhooksSwitch.js), saved at once.
+  async 'click .js-toggle-webhooks-off'(event, instance) {
+    event.preventDefault();
+    try {
+      await Meteor.callAsync('saveWebhooksDisabled', !instance.$('#webhooks-off').hasClass('is-checked'));
     } catch (error) {
       console.error(error);
     }
