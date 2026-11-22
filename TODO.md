@@ -40,7 +40,12 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
   against what WeKan already has; what is missing is added where it belongs in
-  the menus.
+  the menus: a complete admin audit log, retention for login and address data,
+  a personal-data inventory, complete erasure, a personal-data export, legal
+  pages with accepted versions, and the rest of the gap analysis.
+- Board View Shop: the products on a board's cards as a web shop, which a
+  public board can show instead of the kanban as Website can, with Board
+  Settings / Shop choosing the payment methods WeKan already has.
 - Found while documenting, to fix: the per-address login delay is never
   applied; Broken Cards counts unknown card types in its list but not in the
   Summary or its repair; the database, integrity and mail streams have no name
