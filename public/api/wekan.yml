@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.27
+  version: v13.28
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -6129,6 +6129,11 @@ definitions:
            Per view: { '<board-view-key>': { showOnPublic: Boolean, showOnPrivate: Boolean } }
         type: object
         x-nullable: true
+      shopSettings:
+        description: |
+           The shop's settings (models/lib/shop.js normalizeShopSettings)
+        type: object
+        x-nullable: true
       defaultPublicBoardView:
         description: |
            The Board View a PUBLIC board opens in when the viewer has no stored
@@ -8275,8 +8280,17 @@ definitions:
           type: string
           x-nullable: true
         x-nullable: true
+      adminPanelAllowedAddresses:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       accountWebhook:
         type: object
+        x-nullable: true
+      webhooksDisabled:
+        type: boolean
         x-nullable: true
       sqrlEnabled:
         type: boolean
@@ -8326,6 +8340,9 @@ definitions:
         x-nullable: true
       hideBoardMemberList:
         type: boolean
+        x-nullable: true
+      cardDetailsDefaultWidthPercent:
+        type: number
         x-nullable: true
       hideBoardActivitiesOnAllBoards:
         type: boolean
@@ -8914,6 +8931,12 @@ definitions:
            right-to-left language. One width for both pages, like the fold above.
            Unset = the CSS default. docs/Features/All-Boards/Left-Menu.md
         type: number
+      cardDetailsWidth:
+        description: |
+           #6939: the width (px) the card details window was dragged to; every
+           card opens at it, within the viewport. Unset = the Admin Panel's default
+           percentage, else 520px. models/lib/cardDetailsWidth.js
+        type: number
       submitOnEnter:
         description: |
            per-user preference: in multi-line editors (card title/description and
@@ -9284,6 +9307,7 @@ definitions:
           - board-view-dependency-map
           - board-view-activity-heatmap
           - board-view-website
+          - board-view-shop
       listSortBy:
         description: |
            default sort list for user
