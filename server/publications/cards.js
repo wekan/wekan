@@ -990,8 +990,22 @@ async function buildSelector(queryParams, userId) {
         { fields: { cardId: 1 } },
       );
 
+      // The text inside attachments (server/lib/attachmentContentIndex.js): the
+      // index rows are a hint, each checked against its live attachment; the
+      // cards are still limited by the board and permission constraints above.
+      const { attachmentTextCardIds } = require('/server/lib/attachmentContentIndex');
+      const { DocumentPreviews } = require('/server/lib/documentGif');
+      const textRows = await DocumentPreviews.rawCollection().find(
+        { searchText: regex, ...(selector.boardId && Array.isArray(selector.boardId.$in) ? { boardId: { $in: selector.boardId.$in } } : {}) },
+        { projection: { cardId: 1 } },
+      ).limit(5000).toArray();
+      const attachmentTextCards = await attachmentTextCardIds({
+        cardIds: [...new Set(textRows.map(row => row.cardId).filter(Boolean))], regex,
+      });
+
       let cardsSelector = [
           { title: regex },
+          { _id: { $in: attachmentTextCards } },
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
           { _id: { $in: checklists.map(list => list.cardId) } },

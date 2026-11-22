@@ -2586,6 +2586,13 @@ Boards.helpers({
       if (commentCardIds.length) {
         query.$or.push({ _id: { $in: commentCardIds } });
       }
+      // The cards whose attachments contain it: the server's board text
+      // matches (client/lib/boardTextFilter.js), which the search sidebar
+      // subscribes to - attachment text is never sent to the browser.
+      if (Meteor.isClient) {
+        const { boardTextSelector } = require('/client/lib/boardTextFilter');
+        query.$or.push(boardTextSelector(term));
+      }
 
       ret = ReactiveCache.getCards(query, projection);
     }

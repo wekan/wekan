@@ -836,6 +836,17 @@ function sendThumbnail(req, res, attachment, key, buffer) {
         }
         res.statusCode = 206;
       }
+      // A whole read is hashed on the way out and checked against the stored
+      // SHA-256; a missing hash or search text is made from it
+      // (server/lib/attachmentContentIndex.js). A range is part of the file.
+      if (!range && attachment?.meta?.source !== 'legacy') {
+        const { hashingTap, afterWholeRead } = require('/server/lib/attachmentContentIndex');
+        const tap = hashingTap();
+        readStream.on('error', error => tap.stream.destroy(error));
+        readStream.pipe(tap.stream);
+        tap.result.then(actual => afterWholeRead(attachment, actual)).catch(() => {});
+        readStream = tap.stream;
+      }
       serveFile(req, res, readStream, attachment);
 
     } catch (error) {

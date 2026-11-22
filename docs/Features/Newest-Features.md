@@ -9,6 +9,7 @@ before expecting the newest UI. For all menus, use [Features](Features.md).
 
 | Feature | Where to find it | Instructions |
 | --- | --- | --- |
+| Search inside attachments with Filter, Search and Search All Boards; each attachment's SHA-256 checked when it is read, with a warning in Admin Panel / Problems | Board Filter and Search, Search All Boards, Admin Panel / Problems | [Attachment search and integrity](Cards/Attachments/Attachment-Search-And-Integrity.md) |
 | The card details window remembers the width you drag it to; an administrator sets the default width as a percentage of the browser window | Opened card: its bottom corner, and the card menu / Reset width; Admin Panel / Settings / Appearance | [Card details width](Cards/Card-Details-Width.md) |
 | Workload and capacity: hours against working time across boards, absences, holidays, allocations, placeholders, billable utilization and skills | User menu / Workload and capacity | [Workload](Workload/Workload.md) |
 | Budget and billing: rates, cost rates, budget against cost, forecast and margin; time by day and its approval; expenses, fixed fees, retainers, quotes and invoices | User menu / Budget and billing | [Budget and billing](Billing/Billing.md) |

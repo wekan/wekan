@@ -276,23 +276,19 @@ Attachments.onAfterUpload = async function (fileObj) {
     }
   });
 
-  // Index PDF/DOCX/XLSX/PPTX text content for card search, in the
-  // background. This only builds the search index - it does not affect how
-  // the attachment is displayed (office-open-xml-viewer / the browser's
-  // native PDF viewer render the original file directly).
-  const extension = String(fileObj.extension || fileObj.name?.split('.').pop() || '').toLowerCase();
-  if (['pdf', 'docx', 'xlsx', 'pptx'].includes(extension)) {
-    Meteor.defer(async () => {
-      try {
-        const { indexAttachmentDocumentText } = require('/server/routes/universalFileServer');
-        const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
-        if (currentFileObj) await indexAttachmentDocumentText(currentFileObj);
-      } catch (error) {
-        // Search indexing must never break the upload.
-        console.error('[onAfterUpload] Document search indexing failed:', error);
-      }
-    });
-  }
+  // Every new attachment gets its SHA-256 and its plain search text, in the
+  // background, and an "added" row in the card history carrying that hash
+  // (server/lib/attachmentContentIndex.js). This only builds the search index
+  // and the check - it does not change how the attachment is displayed.
+  Meteor.defer(async () => {
+    try {
+      const { indexNewAttachment } = require('/server/lib/attachmentContentIndex');
+      await indexNewAttachment(fileObjId);
+    } catch (error) {
+      // Search indexing must never break the upload.
+      console.error('[onAfterUpload] Attachment content indexing failed:', error);
+    }
+  });
 };
 
 Attachments.interceptDownload = function (http, fileObj, versionName) {

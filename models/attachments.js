@@ -220,6 +220,11 @@ if (Meteor.isServer) {
     } catch (error) {
       console.error('Failed to remove attachment previews:', error);
     }
+    // Its search text goes with it: a removed file is found by no search.
+    if (doc && doc._id) {
+      require('/server/lib/documentGif').DocumentPreviews.rawCollection().deleteMany({ attachmentId: doc._id })
+        .catch(error => console.error('Failed to remove attachment search text:', error));
+    }
   });
 }
 

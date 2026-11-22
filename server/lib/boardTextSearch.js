@@ -20,6 +20,12 @@ export async function boardTextSearch({ cards, children, scope, term, stopped = 
         for await (const row of cursor) if (allowed.has(row.cardId)) matches.add(row.cardId);
       } finally { await cursor.close(); }
     }
+    // The text inside the cards' attachments (server/lib/attachmentContentIndex.js),
+    // live attachments only.
+    if (!stopped()) {
+      const { attachmentTextCardIds } = require('/server/lib/attachmentContentIndex');
+      for (const id of await attachmentTextCardIds({ cardIds: ids, regex })) matches.add(id);
+    }
     after = batch[batch.length - 1]._id;
   }
   return stopped() ? [] : [...matches];

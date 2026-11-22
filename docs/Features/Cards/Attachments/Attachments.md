@@ -34,6 +34,12 @@ page.
 Uploaded SVG images are **sanitized** (rather than rejected), so SVGs are safe to use
 as attachments and avatars.
 
+## Searching inside attachments
+
+Filter, Search and Search All Boards also find the text inside attachments,
+and every attachment's content is checked against its SHA-256 when it is
+read: [Searching inside attachments, and checking that they are unchanged](Attachment-Search-And-Integrity.md).
+
 ## The slideshow: which files are shown, and how much is read
 
 Clicking an attachment opens it in the card's slideshow (also from **Admin

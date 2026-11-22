@@ -192,7 +192,10 @@ test('search indexing repairs a stale stored name before reading the file, like 
   // but the indexer must still fail closed (not throw into the upload) when
   // the file genuinely cannot be read.
   const server = read('models/attachments.server.js');
-  assert.match(server, /indexAttachmentDocumentText/);
+  // Since every attachment gets its hash and search text, the upload indexes
+  // through indexNewAttachment (server/lib/attachmentContentIndex.js), which
+  // runs the same document text extraction for PDF and Office files.
+  assert.match(server, /indexNewAttachment\(fileObjId\)/);
   assert.match(server, /Search indexing must never break the upload/);
 });
 

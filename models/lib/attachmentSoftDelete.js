@@ -28,9 +28,13 @@ function isLiveAttachment(attachment) {
 // so the row reads "Removed · photo.png" with no lookup, and the deleted flag
 // the applier reads back.
 function attachmentHistoryContent(attachment, deleted) {
+  const hash = attachment && attachment.contentHash;
   return {
     deleted: !!deleted,
     name: (attachment && attachment.name) || '',
+    // The content's SHA-256 at that moment (models/lib/attachmentContent.js):
+    // a later read finding this hash knows the file is that version.
+    ...(hash && typeof hash.value === 'string' ? { contentHash: hash.value } : {}),
   };
 }
 

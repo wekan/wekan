@@ -3,6 +3,13 @@ import { revealOnBoard } from '/client/lib/revealOnBoard';
 
 Template.searchSidebar.onCreated(function () {
   this.term = new ReactiveVar('');
+  // The server's matches for the term, attachment text included
+  // (server/publications/boardTextMatches.js): the search below ORs them in.
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard');
+    const term = this.term.get().trim();
+    if (boardId && term) this.subscribe('boardTextMatches', boardId, term);
+  });
   // #2171: which card found is shown on the board (0 = none yet).
   this.step = new ReactiveVar(0);
 });
