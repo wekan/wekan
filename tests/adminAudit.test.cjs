@@ -148,6 +148,21 @@ test('every audited name is a Meteor method that exists', () => {
   }
 });
 
+test('the Admin Panel\'s own collection writes are audited: every one is a site-admin-only collection', () => {
+  // WP-1 of docs/Compliance/README.md: Settings / Appearance, Features and the
+  // rest are saved from the browser through /<collection>/update, and were not
+  // in the trail.
+  assert.ok(audit.isAudited('/settings/update') && audit.isAudited('/announcements/insert') && audit.isAudited('anonymizeUser'));
+  assert.ok(!audit.isAudited('/cards/update'), 'negative: a member editing a card is not an admin action');
+  const files = execFileSync('git', ['ls-files', 'server', 'models'], { cwd: repoRoot, encoding: 'utf8' })
+    .split('\n').filter(f => f.endsWith('.js') && !/test/i.test(f));
+  const source = files.map(f => read(f)).join('\n');
+  for (const collection of audit.AUDITED_COLLECTIONS) {
+    assert.match(source, new RegExp(`new Mongo\\.Collection\\('${collection}'`), `${collection} is a collection`);
+  }
+  assert.match(read('server/adminAudit.js'), /\[\.\.\.AUDITED_METHODS, \.\.\.auditedMutationMethods\(\)\]/, 'and they are wrapped');
+});
+
 test('the trail is for site administrators, and the Admin Panel shows it', () => {
   const server = read('server/adminAudit.js');
   assert.match(server, /user\.isAdmin !== true \|\| user\.loginDisabled === true\) throw new Meteor\.Error\('error-notAuthorized'\)/);

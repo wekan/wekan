@@ -8,7 +8,7 @@ import { deferArgumentAudit, applyAudited } from '/server/lib/argumentChecks';
 // a site administrator, one document each. Which methods, and what of their
 // arguments is kept (never a password or a secret), is in
 // models/lib/adminAudit.js.
-const { AUDITED_METHODS, AUDIT_KEEP_DAYS, auditArgs } = require('/models/lib/adminAudit');
+const { AUDITED_METHODS, auditedMutationMethods, AUDIT_KEEP_DAYS, auditArgs } = require('/models/lib/adminAudit');
 const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
 
 export const AdminAuditLog = new Mongo.Collection('adminAuditLog');
@@ -52,7 +52,8 @@ async function record(invocation, actor, method, args, error) {
 // after every startup hook, for methods a later file defines in one.
 export function wrapAuditedMethods() {
   const methods = Meteor.server.method_handlers;
-  for (const name of AUDITED_METHODS) {
+  // The named methods, and the Admin Panel's own collection writes.
+  for (const name of [...AUDITED_METHODS, ...auditedMutationMethods()]) {
     const original = methods[name];
     if (!original || original[WRAPPED]) continue;
     methods[name] = function auditedMethod(...args) {

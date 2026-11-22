@@ -46,7 +46,25 @@ const AUDITED_METHODS = [
   'compactMongoGridFs', 'saveBackupSchedule', 'restoreBackup', 'runBackup',
   'migrateTextDatabase', 'repairBrokenCards', 'repairDataHealth', 'permanentlyDeleteArchivedBoards',
   'cleanupUnusedTemplateContainers', 'sandstormDeleteRawMongo', 'setRecoveryMaintenance',
+  // Personal data (docs/Compliance/README.md WP-1)
+  'anonymizeUser',
 ];
+
+// The collections the Admin Panel writes straight from the browser - Settings
+// / Appearance and Features, Announcement, Accessibility, Translation, Locked
+// users, the invite roles and the attachment storage settings - through
+// Meteor's own /<collection>/insert, /update and /remove methods, which only a
+// site administrator may call (their allow rules). Without these, most Admin
+// Panel switches changed the site with no trace in the audit log
+// (GDPR Art. 5(2), NIS2 Art. 21(2), ISO/IEC 27001 A.8.15).
+const AUDITED_COLLECTIONS = [
+  'settings', 'announcements', 'translation', 'accessibilitySettings',
+  'lockoutSettings', 'inviteToBoardRolesSettings', 'attachmentStorageSettings',
+];
+const MUTATIONS = ['insert', 'update', 'remove'];
+function auditedMutationMethods() {
+  return AUDITED_COLLECTIONS.flatMap(c => MUTATIONS.map(m => `/${c}/${m}`));
+}
 
 // Arguments that are a password by position, for methods that take one.
 const SECRET_POSITIONS = {
@@ -98,9 +116,10 @@ function auditArgs(method, args) {
 }
 
 function isAudited(method) {
-  return AUDITED_METHODS.includes(method);
+  return AUDITED_METHODS.includes(method) || auditedMutationMethods().includes(method);
 }
 
 module.exports = {
+  AUDITED_COLLECTIONS, auditedMutationMethods,
   AUDITED_METHODS, SECRET_POSITIONS, AUDIT_KEEP_DAYS, auditArgs, isAudited, maskUrlCredentials,
 };
