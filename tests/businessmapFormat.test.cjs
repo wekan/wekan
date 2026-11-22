@@ -214,7 +214,9 @@ async function main() {
     assert.match(read('client/components/boards/exportScope.js'), /key: 'businessmap'[^}]*path: 'export\/businessmap', ext: 'xlsx'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Businessmap/Businessmap.md');
-    assert.match(docPage, /^## Format details$/m);
+    // The format details are a subsection of How it works in WeKan, since every
+    // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
+    assert.match(docPage, /^### Format details$/m);
     assert.match(docPage, /100 cards per run/);
     assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Businessmap\/Businessmap\.md\)/);
     // No URLs in the module's comments (the docs carry the sources).

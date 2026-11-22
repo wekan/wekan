@@ -1,5 +1,7 @@
 # GitLab
 
+## What it is
+
 WeKan imports the issues of a [GitLab](https://about.gitlab.com) project and
 exports a board as GitLab issues. Both directions use the JSON array that
 GitLab's [Issues API v4](https://docs.gitlab.com/api/issues/) returns for a
@@ -9,7 +11,30 @@ releases. GitLab has no file export of issues in this shape, so the file is
 made with the API, and the exported file goes back into GitLab only through
 the API.
 
-## How to import
+## Read more
+
+- [Wikipedia: GitLab](https://en.wikipedia.org/wiki/GitLab)
+- [Issues API](https://docs.gitlab.com/api/issues/): listing and creating
+  issues, the iteration, milestone, weight, time stats and task completion
+  fields, and the `created_at` and `iid` rights
+- [REST API](https://docs.gitlab.com/api/rest/): pagination,
+  fetching every page
+- [Notes API](https://docs.gitlab.com/api/notes/): an issue's comments
+- [Issue links API](https://docs.gitlab.com/api/issue_links/): the links
+  between issues
+- [Personal access tokens](https://docs.gitlab.com/user/profile/personal_access_tokens/):
+  the token for the API
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In GitLab, get the issues as JSON with
    [List all project issues](https://docs.gitlab.com/api/issues/),
@@ -31,7 +56,7 @@ the API.
    and a `links` array (from
    [the issue's links](https://docs.gitlab.com/api/issue_links/)). WeKan then
    imports the comments and the links between issues.
-3. In WeKan, go to **All Boards → New → Import → GitLab**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → GitLab**.
 4. Tick the parts to import (**Select what to include**). Only the ticked parts
    are imported. Sprints and releases are imported only when **Scrum
    settings** is ticked.
@@ -45,7 +70,7 @@ The import page says the same: *Paste a GitLab issues JSON array
 (GET /projects/ID/issues). Issues become cards grouped into Open / Closed
 lists.*
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several export
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -61,7 +86,7 @@ lists.*
 - From a script: `python3 api.py importboardsfrom gitlab FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include**, tick the parts you want. Tick **Scrum
@@ -78,7 +103,7 @@ lists.*
    (`state_event=close`). Iterations, milestones and assignees must already
    exist in GitLab and are given by their ids.
 
-## How to export all boards at once
+### How to export all boards at once
 
 - **All Boards → sidebar → Export all boards**, choose **GitLab**: this
   downloads one `.zip` with one GitLab issues file per board you can export
@@ -87,7 +112,90 @@ lists.*
   select the boards, then **Export**.
 - From a script: `python3 api.py exportallboards gitlab boards.zip`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom gitlab issues.json          # POST /api/boards/import/gitlab
+python3 api.py importboardsfrom gitlab project1.json project2.json
+python3 api.py exportboardformat BOARDID gitlab issues.json  # GET /api/boards/BOARDID/export/gitlab
+python3 api.py exportallboards gitlab boards.zip           # GET /api/export-all-boards/gitlab?authToken=...
+```
+
+`POST /api/boards/import/gitlab` takes the issues array as the body, or as
+`{ "board": [...] }`, with an optional `membersMapping`. The mass export route
+takes an optional `&boardIds=ID1,ID2` to export only those boards.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[server/lib/scrumTransferImport.js](../../../../../../server/lib/scrumTransferImport.js).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/externalScrumPlanning.test.cjs](../../../../../../tests/externalScrumPlanning.test.cjs),
+[tests/gitlabImport.test.cjs](../../../../../../tests/gitlabImport.test.cjs),
+[tests/importFormatAudit.test.cjs](../../../../../../tests/importFormatAudit.test.cjs),
+[tests/playwright/specs/gitlab-scrum-import.e2e.js](../../../../../../tests/playwright/specs/gitlab-scrum-import.e2e.js),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -110,7 +218,7 @@ comments that exist upstream but were not embedded are reported in
 `unsupported`. List Sync still writes only title, description and time fields
 on existing cards; the others apply when a card is created.
 
-### Sprints and releases
+#### Sprints and releases
 
 GitLab imports create Scrum sprints and releases from what the export really
 carries (`models/lib/externalScrumPlanning.js`), written through the same
@@ -140,7 +248,7 @@ a cancelled sprint or release has no equivalent there and is left out. The
 format carries no commitment snapshot, so an exported active or closed sprint
 comes back as the import above describes.
 
-### What the current code does
+#### What the current code does
 
 The parser is `parseGitlab` in `models/lib/externalParsers.js`:
 
@@ -171,7 +279,7 @@ only), comments as `notes`, the spent hours as `time_stats.total_time_spent`
 (seconds), and the sprint and release as `iteration` and `milestone`. It writes no `iid`, so importing the file again does not add a
 second `Source:` line.
 
-## What is kept
+### What is kept
 
 | GitLab | WeKan |
 | --- | --- |
@@ -199,7 +307,7 @@ second `Source:` line.
 | `references.full` (else `#iid`), `web_url` | `Source:` line in the description |
 | `iid` | Sync key |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report:
 
@@ -221,7 +329,7 @@ The GitLab export does not write weight, time estimate, task completion,
 custom fields, checklists, subtasks, dependencies, attachments, archived
 cards, or a cancelled sprint or release.
 
-## Attachment files
+### Attachment files
 
 The files linked from an issue and its comments (`/uploads/<secret>/<name>`)
 are downloaded as before. A private project's upload needs a sign-in: under
@@ -245,20 +353,7 @@ Through the REST API (`POST /api/boards/import/<source>`), send the same as
 `"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
 `"board"`.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom gitlab issues.json          # POST /api/boards/import/gitlab
-python3 api.py importboardsfrom gitlab project1.json project2.json
-python3 api.py exportboardformat BOARDID gitlab issues.json  # GET /api/boards/BOARDID/export/gitlab
-python3 api.py exportallboards gitlab boards.zip           # GET /api/export-all-boards/gitlab?authToken=...
-```
-
-`POST /api/boards/import/gitlab` takes the issues array as the body, or as
-`{ "board": [...] }`, with an optional `membersMapping`. The mass export route
-takes an optional `&boardIds=ID1,ID2` to export only those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/externalParsers.js` (`parseGitlab`) reads the issues;
   `models/lib/externalScrumPlanning.js` (`gitlabScrumPlanning`) reads the
@@ -276,18 +371,14 @@ takes an optional `&boardIds=ID1,ID2` to export only those boards.
   `tests/playwright/specs/import-export-format-audit.e2e.js` (fixture import,
   malformed JSON, the export menu link).
 
-## Sources
+## Commits
 
-- [Issues API](https://docs.gitlab.com/api/issues/): listing and creating
-  issues, the iteration, milestone, weight, time stats and task completion
-  fields, and the `created_at` and `iid` rights
-- [REST API](https://docs.gitlab.com/api/rest/): pagination,
-  fetching every page
-- [Notes API](https://docs.gitlab.com/api/notes/): an issue's comments
-- [Issue links API](https://docs.gitlab.com/api/issue_links/): the links
-  between issues
-- [Personal access tokens](https://docs.gitlab.com/user/profile/personal_access_tokens/):
-  the token for the API
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [GitLab: an issue's health status and an incident's severity are kept as labels](https://github.com/wekan/wekan/commit/c916b154731084d1a9e7674852575a205ff68a66)
+ - [ClickUp and GitLab exports write spent time, which their imports read and a round trip lost](https://github.com/wekan/wekan/commit/14afc74adbb6659ee3a8f57ebe84999b439557c6)
+ - [GitHub, Gitea, Forgejo and GitLab imports report reaction counts instead of dropping them](https://github.com/wekan/wekan/commit/1b9ec7b9a1ba12f83969379ec059dd9bd5ec5c3a)
+ - [JSON exports whose cards are one array are written a page at a time: Trello, Jira, Asana, Zenkit, OpenProject, GitHub ](https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8)
+ - [Import: attachment files of Jira, Nextcloud Deck, OpenProject, Asana and GitLab](https://github.com/wekan/wekan/commit/51238ed8ad80179fa54517ab429b7a14c31510e8)
+ - [Import Scrum sprints and releases from GitLab, OpenProject and Asana](https://github.com/wekan/wekan/commit/958e9e13f3d200fe321bdeee09cdb127cfb6629a)
+ - [Export to GitLab with the people, dates and comments its importer reads](https://github.com/wekan/wekan/commit/65f5cb45b69790107cd08e00d41111f83b9aeeec)
+ - [Bring the GitLab importer and Sync source up to the format contract](https://github.com/wekan/wekan/commit/d71bab65b379a979e40aa8c55daadaf71bd8abf5)
+ - [Add a list-sync job that keeps a list up to date from Jira (and GitHub/GitLab/Gitea)](https://github.com/wekan/wekan/commit/a01e8478c30cce9569c6e68f5eb374031b162191)

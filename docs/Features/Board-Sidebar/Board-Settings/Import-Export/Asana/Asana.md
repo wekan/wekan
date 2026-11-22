@@ -1,5 +1,7 @@
 # Asana
 
+## What it is
+
 WeKan imports boards from [Asana](https://asana.com/) and exports a board in the
 same shape. It reads Asana tasks as JSON (`{ "data": [...] }`): sections
 become lists and tasks become cards, and completed tasks without a section go to
@@ -11,7 +13,24 @@ This directory also holds two Perl scripts, added in 2022 by GeekRuthie:
 WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
 [LICENSE](./LICENSE) are beside them.
 
-## How to import
+## Read more
+
+- [Wikipedia: Asana, the company and its work management app](https://en.wikipedia.org/wiki/Asana,_Inc.)
+- [Asana Tasks API](https://developers.asana.com/reference/tasks): the task
+  fields and `opt_fields`
+- [Export Asana projects](https://asana.com/inside-asana/export-to-csv): the
+  project's Export/Print menu
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Asana, click the drop-down arrow next to the project's title, hover over
    **Export/Print** and choose **JSON**
@@ -19,7 +38,7 @@ WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
    tasks from Asana's [Tasks API](https://developers.asana.com/reference/tasks)
    (`GET /tasks` with the `opt_fields` you want, such as `memberships`,
    `custom_fields`, `dependencies`, `followers`, `stories`).
-2. In WeKan, go to **All Boards → New → Import → Asana**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Asana**.
 3. Paste the JSON into the text box. Tick the parts to import. **Scrum
    settings** decides whether milestones are imported as releases.
 4. Click **Import**. Asana has no member-mapping step in WeKan, so the people
@@ -27,7 +46,7 @@ WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
 5. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Asana JSON
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -40,7 +59,7 @@ WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
   `python3 api.py importboardsfrom asana FILE_OR_DIR ...` takes files,
   directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include:**, tick the parts to export.
@@ -50,7 +69,7 @@ WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
    [Tasks API](https://developers.asana.com/reference/tasks). The file is also
    what WeKan's own Asana import reads.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **Asana**.
    This downloads one `.zip` with one Asana file per board you can
@@ -62,7 +81,86 @@ WeKan beforehand, through WeKan's API. Their [CHANGELOG](./CHANGELOG.md) and
 
 From a script: `python3 api.py exportallboards asana boards.zip`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom asana tasks.json               # POST /api/boards/import/asana
+python3 api.py importboardsfrom asana a.json b.json dir/      # one board per file
+python3 api.py exportboardformat BOARDID asana tasks.json     # GET /api/boards/BOARDID/export/asana?authToken=TOKEN
+python3 api.py exportallboards asana boards.zip               # GET /api/export-all-boards/asana?authToken=TOKEN
+```
+
+`GET /api/export-all-boards/asana?authToken=TOKEN&boardIds=ID1,ID2` exports
+only the boards listed.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+The tests that pin it:
+[tests/asanaImport.test.cjs](../../../../../../tests/asanaImport.test.cjs),
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/externalScrumPlanning.test.cjs](../../../../../../tests/externalScrumPlanning.test.cjs),
+[tests/importedTaskPlan.test.cjs](../../../../../../tests/importedTaskPlan.test.cjs),
+[tests/playwright/specs/external-export-extras.e2e.js](../../../../../../tests/playwright/specs/external-export-extras.e2e.js),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -118,7 +216,7 @@ What the current code does (`parseAsana` in `models/lib/externalParsers.js`):
 - The board takes the project's name, from `project` or the first task's
   membership.
 
-## What is kept
+### What is kept
 
 | Asana | WeKan |
 | --- | --- |
@@ -151,7 +249,26 @@ complete, archiv or finished) with `completed_at`, `due_on`, `start_on`,
 `number_value`, everything else as `text_value`), every checklist item as a
 `subtasks` entry and the comments as `comment_added` stories.
 
-## Attachment files
+### What is not kept
+
+The import reports these on the loss report:
+
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
+- an attachment kept on Google Drive, Dropbox, OneDrive, Box or Vimeo, which
+  is a link there rather than a file in Asana;
+- followers who are not members of the new board;
+- the milestone losses listed above;
+- more than 50 custom fields, duplicate task ids, and parents or dependencies
+  that point outside the file.
+
+Asana has no member mapping in WeKan, so assignees do not become card members.
+
+The export leaves out swimlanes, archived cards and lists, further assignees,
+dependencies, Scrum releases and attachments. Several checklists are flattened
+into one subtask list.
+
+### Attachment files
 
 A file `export_boards.pl` embedded (as base64) is imported as it is. For the
 others, Asana's API documents `GET /attachments/{attachment_gid}` with
@@ -176,38 +293,7 @@ Through the REST API (`POST /api/boards/import/<source>`), send the same as
 `"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
 `"board"`.
 
-## What is not kept
-
-The import reports these on the loss report:
-
-- an attachment that could not be downloaded, and why (no sign-in given, a
-  refused address, an HTTP error);
-- an attachment kept on Google Drive, Dropbox, OneDrive, Box or Vimeo, which
-  is a link there rather than a file in Asana;
-- followers who are not members of the new board;
-- the milestone losses listed above;
-- more than 50 custom fields, duplicate task ids, and parents or dependencies
-  that point outside the file.
-
-Asana has no member mapping in WeKan, so assignees do not become card members.
-
-The export leaves out swimlanes, archived cards and lists, further assignees,
-dependencies, Scrum releases and attachments. Several checklists are flattened
-into one subtask list.
-
-## REST API
-
-```bash
-python3 api.py importboardfrom asana tasks.json               # POST /api/boards/import/asana
-python3 api.py importboardsfrom asana a.json b.json dir/      # one board per file
-python3 api.py exportboardformat BOARDID asana tasks.json     # GET /api/boards/BOARDID/export/asana?authToken=TOKEN
-python3 api.py exportallboards asana boards.zip               # GET /api/export-all-boards/asana?authToken=TOKEN
-```
-
-`GET /api/export-all-boards/asana?authToken=TOKEN&boardIds=ID1,ID2` exports
-only the boards listed.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/externalParsers.js` (`parseAsana`) reads the file.
   `models/lib/externalScrumPlanning.js` reads the milestones.
@@ -224,12 +310,13 @@ only the boards listed.
   `tests/playwright/specs/external-export-extras.e2e.js` (the export carries
   comments and checklists, and the selection removes them).
 
-## Sources
+## Commits
 
-- [Asana Tasks API](https://developers.asana.com/reference/tasks): the task
-  fields and `opt_fields`
-- [Export Asana projects](https://asana.com/inside-asana/export-to-csv): the
-  project's Export/Print menu
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Asana: html_notes, approval states and comment likes come across](https://github.com/wekan/wekan/commit/57a657445ef63cc979530f04585227d778c01845)
+ - [Every export is held to what its own import reads back: Asana time tracking, Deck's done tick, Kanboard colors](https://github.com/wekan/wekan/commit/1a02de4b5b398018bbe2076d98cba10b01639e5a)
+ - [Asana, OpenProject, Obsidian and Wrike exports carry what each card waits for](https://github.com/wekan/wekan/commit/c9da13b63e6f1fea86cb30b604093a8a120bcf53)
+ - [JSON exports whose cards are one array are written a page at a time: Trello, Jira, Asana, Zenkit, OpenProject, GitHub ](https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8)
+ - [Import: attachment files of Jira, Nextcloud Deck, OpenProject, Asana and GitLab](https://github.com/wekan/wekan/commit/51238ed8ad80179fa54517ab429b7a14c31510e8)
+ - [Import Scrum sprints and releases from GitLab, OpenProject and Asana](https://github.com/wekan/wekan/commit/958e9e13f3d200fe321bdeee09cdb127cfb6629a)
+ - [Import OpenProject watchers and Asana followers as card watchers](https://github.com/wekan/wekan/commit/d893d1791b8068b2d13486c758d88da6120b3d1f)
+ - [Import Asana custom fields, comments, subtasks and dependencies](https://github.com/wekan/wekan/commit/1d32801cf91aefc4d011f70e5214dc7a2f455908)

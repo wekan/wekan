@@ -1,5 +1,7 @@
 # Businessmap
 
+## What it is
+
 WeKan imports boards from [Businessmap](https://businessmap.io), formerly
 Kanbanize, and exports boards to it as an Excel file.
 
@@ -11,7 +13,25 @@ Kanbanize, and exports boards to it as an Excel file.
 Columns become lists, lanes become swimlanes, and cards keep their owners,
 tags, color, dates, comments and parent links.
 
-## How to import
+## Read more
+
+- [Wikipedia: Kanban, the method Businessmap (Kanbanize) is built on](https://en.wikipedia.org/wiki/Kanban_(development))
+- [How to Export Card Data](https://knowledgebase.businessmap.io/hc/en-us/articles/115003163029-How-to-Export-Data-from-Businessmap):
+  Advanced Search, Configure results and the Excel download
+- [How to Access the Import Tool and Format Your File for Successful Import](https://knowledgebase.businessmap.io/hc/en-us/articles/360010794520-How-to-Access-the-Import-Tool-and-Format-Your-File-for-Successful-Import):
+  the import columns, their value forms, the 100-card limit and updating cards
+  by Card ID
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Businessmap, open **Advanced Search** (the magnifying glass in the board
    header or the dashboard). Filter the cards you want, and use **Configure
@@ -24,7 +44,7 @@ tags, color, dates, comments and parent links.
    your account uses another language, rename the header row to English first.
 3. The file must be `.xlsx`. An old `.xls` file is refused: open it in a
    spreadsheet program and save it as `.xlsx`.
-4. In WeKan, go to **All Boards → New → Import → Businessmap (Kanbanize)**.
+4. In WeKan, go to **All Boards → Add Board → Import → Import board → Businessmap (Kanbanize)**.
 5. Choose the `.xlsx` file and click **Import**. Members are not mapped on the
    way in; they can be mapped later.
 6. Read the loss report on the import page. It is also kept in **Admin Panel →
@@ -33,7 +53,7 @@ tags, color, dates, comments and parent links.
 A file made for Businessmap's import tool, filled in by hand or from another
 tool, imports the same way.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, under **Import many boards**, choose several `.xlsx`
    files, or one `.zip` that holds them. Each file becomes its own board,
@@ -55,7 +75,7 @@ python3 api.py importboardsfrom businessmap FILE_OR_DIR ...
 
 It takes files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**. Choose which
    fields to include, then click **Businessmap (Kanbanize)**. The board
@@ -69,7 +89,7 @@ It takes files, directories of files, or `.zip` files.
 Businessmap creates or updates at most **100 cards** in one import, so a
 larger board is imported there in parts.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. In WeKan, go to **All Boards**, open the sidebar and choose **Export all
    boards**, then **Businessmap (Kanbanize)**. This downloads one `.zip` with
@@ -84,7 +104,88 @@ From a script:
 python3 api.py exportallboards businessmap boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom businessmap cards.xlsx          # POST /api/boards/import/businessmap
+python3 api.py importboardsfrom businessmap a.xlsx b.xlsx
+python3 api.py exportboardformat BOARDID businessmap cards.xlsx
+python3 api.py exportallboards businessmap boards.zip
+```
+
+- `POST /api/boards/import/businessmap` imports one file.
+- `GET /api/boards/:boardId/export/businessmap?authToken=…` exports one board.
+- `GET /api/export-all-boards/businessmap?authToken=…` exports all boards you
+  can export; add `&boardIds=ID1,ID2` to export only those boards.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/businessmapFormat.js](../../../../../../models/lib/businessmapFormat.js),
+[server/lib/businessmapWorkbook.js](../../../../../../server/lib/businessmapWorkbook.js).
+
+The tests that pin it:
+[tests/businessmapFormat.test.cjs](../../../../../../tests/businessmapFormat.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 WeKan reads the Excel file of Businessmap's
 [import tool](https://knowledgebase.businessmap.io/hc/en-us/articles/360010794520-How-to-Access-the-Import-Tool-and-Format-Your-File-for-Successful-Import)
@@ -139,7 +240,7 @@ header in row 1:
 Checklists have no column. Businessmap imports at most 100 cards per run, so
 a larger board is imported there in parts.
 
-## What is kept
+### What is kept
 
 | Businessmap | WeKan |
 | --- | --- |
@@ -165,7 +266,7 @@ a larger board is imported there in parts.
 | Priority (low, average, high, critical), Size, Type, Planned Start, Planned End, Track | Custom fields |
 | Any other column | Custom field of that name |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -184,21 +285,7 @@ silently:
 The export does not write checklists, attachments or dependencies, and writes
 Card ID and Parent only for cards that came from Businessmap.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom businessmap cards.xlsx          # POST /api/boards/import/businessmap
-python3 api.py importboardsfrom businessmap a.xlsx b.xlsx
-python3 api.py exportboardformat BOARDID businessmap cards.xlsx
-python3 api.py exportallboards businessmap boards.zip
-```
-
-- `POST /api/boards/import/businessmap` imports one file.
-- `GET /api/boards/:boardId/export/businessmap?authToken=…` exports one board.
-- `GET /api/export-all-boards/businessmap?authToken=…` exports all boards you
-  can export; add `&boardIds=ID1,ID2` to export only those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/businessmapFormat.js` reads and writes the sheets' rows.
   `server/lib/businessmapWorkbook.js` opens and writes the workbook.
@@ -211,13 +298,11 @@ python3 api.py exportallboards businessmap boards.zip
   workbook imports with its column, lane, deadline, priority, comment and
   parent*.
 
-## Sources
+## Commits
 
-- [How to Export Card Data](https://knowledgebase.businessmap.io/hc/en-us/articles/115003163029-How-to-Export-Data-from-Businessmap):
-  Advanced Search, Configure results and the Excel download
-- [How to Access the Import Tool and Format Your File for Successful Import](https://knowledgebase.businessmap.io/hc/en-us/articles/360010794520-How-to-Access-the-Import-Tool-and-Format-Your-File-for-Successful-Import):
-  the import columns, their value forms, the 100-card limit and updating cards
-  by Card ID
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Monday.com, Businessmap and Wrike workbooks are streamed a page at a time too](https://github.com/wekan/wekan/commit/db9c06dc5eb5d5ff76867431f969da67eb3b0676)
+ - [Defer ZIP and Excel initialization until first use](https://github.com/wekan/wekan/commit/3df146c164158d65901d0d29ba123282671d6080)
+ - [Excel-based tool exports work again, and All Boards offers Export all boards in its bar](https://github.com/wekan/wekan/commit/8834cecea9c3db559ccc92da19bf7a0c20196ed4)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Businessmap (Kanbanize) Excel workbooks](https://github.com/wekan/wekan/commit/edb808e266ee214f91a1330535a8749a79001063)

@@ -1,5 +1,7 @@
 # Excel
 
+## What it is
+
 WeKan imports boards from an Excel `.xlsx` workbook laid out as a table, one
 card per row - including the table WeKan's own Excel export writes, in any
 language, and the "Export all boards" workbook with a sheet per board - and
@@ -16,14 +18,32 @@ same card-document model. The intended common layout is described in
 [One Card Layout](One-Card-Layout.md). Using the workbook from Excel and VBA is
 described in [Excel and VBA](Excel-and-VBA.md).
 
-## How to import
+## Read more
+
+- [Wikipedia: Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel)
+- [Wikipedia: Office Open XML, the .xlsx file format](https://en.wikipedia.org/wiki/Office_Open_XML)
+- [ECMA-376, Office Open XML](https://ecma-international.org/publications-and-standards/standards/ecma-376/):
+  the `.xlsx` format
+- [Rename a worksheet](https://support.microsoft.com/en-us/office/rename-a-worksheet-3f1f7148-ee83-404d-8ef0-9ff99fbad1f9):
+  Excel's limits for sheet names
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Excel, or another spreadsheet program, make a sheet with a header row
    (the column names are listed under **Format details**) and one card per
    row below it, and save it as an **Excel Workbook (.xlsx)**. A `.xls` file
    must first be saved as `.xlsx`. A workbook WeKan exported can be imported
    as it is.
-2. In WeKan, go to **All Boards → New → Import → Excel**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Excel**.
 3. Tick the parts to import (**Select what to include**).
 4. Under **Choose the export file, or paste its text below:**, choose the `.xlsx` file and click
    **Import**.
@@ -43,7 +63,7 @@ the [CSV / TSV import](../CSV/CSV.md), so it reads the same column names.
 The file is sent twice: once to read its columns for the mapping step, once
 to import it. Like the CSV import, it does not write a loss report.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - One workbook can hold many boards: every sheet with a header row becomes
   its own board, named after the title above its table (WeKan's export
@@ -62,7 +82,7 @@ to import it. Like the CSV import, it does not write a loss report.
 - From a script: `python3 api.py importboardsfrom excel FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
-## How to export
+### How to export
 
 1. In WeKan, open the menu of what to export: **Board Settings → Export** for
    the board, or the hamburger menu of a swimlane, a list or a card.
@@ -72,7 +92,7 @@ to import it. Like the CSV import, it does not write a loss report.
 3. Choose **Excel**. The `.xlsx` file downloads.
 4. Open it in Excel, LibreOffice Calc or another program that reads `.xlsx`.
 
-## How to export all boards at once
+### How to export all boards at once
 
 - **All Boards → sidebar → Export all boards**, choose **Excel**: this
   downloads **one `.xlsx` workbook** in which each board you can export
@@ -86,7 +106,121 @@ to import it. Like the CSV import, it does not write a loss report.
   select the boards, then **Export**.
 - From a script: `python3 api.py exportallboards excel boards.xlsx`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom excel board.xlsx        # POST /api/boards/import/excel
+python3 api.py importboardsfrom excel a.xlsx b.xlsx
+python3 api.py exportboardformat BOARDID excel board.xlsx  # GET /api/boards/BOARDID/exportExcel
+python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boards/excel?authToken=...
+```
+
+- `POST /api/boards/import/excel` takes `{ "board": { "excelBase64": "..." } }`:
+  the workbook in base64. Every sheet with a header becomes a board, and the
+  answer is the first board's id. An optional `csvMapping` beside `board`
+  says which column holds which field, as the mapping step does, in the shape
+  the [CSV page](../CSV/CSV.md#rest-api) describes; it applies to the sheets
+  with the first board sheet's header, and a column the sheet does not have
+  is refused with `400`. From `api.py`: `python3 api.py importboardfrom excel
+  board.xlsx --csv-mapping mapping.json`.
+- `GET /api/boards/BOARDID/exportExcel?authToken=TOKEN` exports a board, with
+  `fields` (the ticked parts; leave out `card-details` for the table),
+  `swimlaneId` or `listId` to narrow it.
+- `GET /api/boards/BOARDID/lists/LISTID/cards/CARDID/exportExcel?authToken=TOKEN`
+  exports one card.
+- `GET /api/export-all-boards/excel?authToken=TOKEN` exports all boards as one
+  workbook; `&boardIds=ID1,ID2` exports only those boards.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- A list name given in the column mapping may be at most 255 characters; a
+  longer one makes the mapping invalid. (`MAX_LIST_NAME` in
+  [models/lib/csvImportMapping.js](../../../../../../models/lib/csvImportMapping.js#L73))
+- The column mapping accepts at most 10,000 columns. (`MAX_COLUMNS` in
+  [models/lib/csvImportMapping.js](../../../../../../models/lib/csvImportMapping.js#L74))
+- The header row read for the column mapping has at most 10,000 cells.
+  (`MAX_HEADER_CELLS` in
+  [server/methods/csvImportMapping.js](../../../../../../server/methods/csvImportMapping.js#L15))
+- The column mapping step shows the first 3 data rows of the file as samples.
+  (`SAMPLE_ROWS` in
+  [server/methods/csvImportMapping.js](../../../../../../server/methods/csvImportMapping.js#L16))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[client/components/boards/exportScope.jade](../../../../../../client/components/boards/exportScope.jade),
+[client/components/import/csvMapping.js](../../../../../../client/components/import/csvMapping.js),
+[models/csvCreator.js](../../../../../../models/csvCreator.js),
+[models/exportExcel.js](../../../../../../models/exportExcel.js),
+[models/exportExcelCard.js](../../../../../../models/exportExcelCard.js),
+[models/lib/cardDocument.js](../../../../../../models/lib/cardDocument.js),
+[models/lib/cardExportDocument.js](../../../../../../models/lib/cardExportDocument.js),
+[models/lib/csvImportMapping.js](../../../../../../models/lib/csvImportMapping.js),
+[models/server/ExporterExcel.js](../../../../../../models/server/ExporterExcel.js),
+[models/server/ExporterExcelBoard.js](../../../../../../models/server/ExporterExcelBoard.js),
+[models/server/ExporterExcelCard.js](../../../../../../models/server/ExporterExcelCard.js),
+[models/server/createWorkbook.js](../../../../../../models/server/createWorkbook.js),
+[models/server/renderCardDocumentExcel.js](../../../../../../models/server/renderCardDocumentExcel.js),
+[server/lib/excelBoardWorkbook.js](../../../../../../server/lib/excelBoardWorkbook.js),
+[server/methods/csvImportMapping.js](../../../../../../server/methods/csvImportMapping.js).
+
+The tests that pin it:
+[tests/csvImportMapping.test.cjs](../../../../../../tests/csvImportMapping.test.cjs),
+[tests/excelExport.test.cjs](../../../../../../tests/excelExport.test.cjs),
+[tests/exportExcelCardContainment.test.cjs](../../../../../../tests/exportExcelCardContainment.test.cjs),
+[tests/playwright/specs/25-excel-pdf.e2e.js](../../../../../../tests/playwright/specs/25-excel-pdf.e2e.js),
+[tests/playwright/specs/export-access.e2e.js](../../../../../../tests/playwright/specs/export-access.e2e.js),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/xlsxTabColorCssInjection.test.cjs](../../../../../../tests/xlsxTabColorCssInjection.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -101,7 +235,7 @@ formula cell as its calculated result, a rich text cell as its text and a
 date cell as a date, and hands each board's rows to the CSV import
 (`server/lib/excelBoardWorkbook.js`, `models/lib/csvImportMapping.js`).
 
-### Import columns
+#### Import columns
 
 The header is the first row that names a title column - row 1 of a plain
 table, row 7 of WeKan's export, which has the board's title, description,
@@ -127,7 +261,7 @@ was matched, and anything can be changed there.
   typed in the mapping step, or *To do* in the importing user's language.
 - The board is private and the importing user is its admin.
 
-### Importing a WeKan Excel export again
+#### Importing a WeKan Excel export again
 
 Import the streaming table export, or the **Export all boards** workbook, as
 it is: the header in row 7 is found in the language it was exported in,
@@ -137,7 +271,7 @@ Activity sheet is skipped. The table has no custom field columns. The
 detailed card-block export is a printed layout, not a table, and does not
 import.
 
-### Export layout
+#### Export layout
 
 The board, swimlane, list and card hamburger menus all include the same
 `exportScopeBody` Blaze template from
@@ -193,7 +327,7 @@ force the same font into an Excel workbook. Converting cells to pictures would
 make all glyphs visible but would destroy editing, searching, copying and
 accessibility, so WeKan keeps real Unicode cell text.
 
-### Current progress
+#### Current progress
 
 Completed:
 
@@ -222,7 +356,7 @@ device is required.
 The design and progress live here rather than in `CHANGELOG-big.md`'s TODO list so
 implementation details stay beside the format they describe.
 
-## What is kept
+### What is kept
 
 On import:
 
@@ -245,7 +379,7 @@ On import:
 On export, the detailed workbook keeps every section of the opened card
 listed under **Export layout**, as far as the sections are ticked.
 
-## What is not kept
+### What is not kept
 
 On import:
 
@@ -266,32 +400,7 @@ On export, the `.xlsx` cannot carry its own font, so the spreadsheet program
 picks a font. The streaming table has no custom fields, checklists or
 attachments; use the detailed export for those.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom excel board.xlsx        # POST /api/boards/import/excel
-python3 api.py importboardsfrom excel a.xlsx b.xlsx
-python3 api.py exportboardformat BOARDID excel board.xlsx  # GET /api/boards/BOARDID/exportExcel
-python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boards/excel?authToken=...
-```
-
-- `POST /api/boards/import/excel` takes `{ "board": { "excelBase64": "..." } }`:
-  the workbook in base64. Every sheet with a header becomes a board, and the
-  answer is the first board's id. An optional `csvMapping` beside `board`
-  says which column holds which field, as the mapping step does, in the shape
-  the [CSV page](../CSV/CSV.md#rest-api) describes; it applies to the sheets
-  with the first board sheet's header, and a column the sheet does not have
-  is refused with `400`. From `api.py`: `python3 api.py importboardfrom excel
-  board.xlsx --csv-mapping mapping.json`.
-- `GET /api/boards/BOARDID/exportExcel?authToken=TOKEN` exports a board, with
-  `fields` (the ticked parts; leave out `card-details` for the table),
-  `swimlaneId` or `listId` to narrow it.
-- `GET /api/boards/BOARDID/lists/LISTID/cards/CARDID/exportExcel?authToken=TOKEN`
-  exports one card.
-- `GET /api/export-all-boards/excel?authToken=TOKEN` exports all boards as one
-  workbook; `&boardIds=ID1,ID2` exports only those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - Import: `server/lib/excelBoardWorkbook.js` opens the workbook with
   `@wekanteam/exceljs`; `models/lib/csvImportMapping.js` reads the cells,
@@ -329,12 +438,35 @@ python3 api.py exportallboards excel boards.xlsx       # GET /api/export-all-boa
   imports as several boards) and `tests/playwright/specs/export-access.e2e.js` (an
   assigned-only member cannot export the whole board, or an unassigned card).
 
-## Sources
+## Commits
 
-- [ECMA-376, Office Open XML](https://ecma-international.org/publications-and-standards/standards/ecma-376/):
-  the `.xlsx` format
-- [Rename a worksheet](https://support.microsoft.com/en-us/office/rename-a-worksheet-3f1f7148-ee83-404d-8ef0-9ff99fbad1f9):
-  Excel's limits for sheet names
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [CSV, TSV and Excel imports keep every column: one with no card field becomes a text custom field](https://github.com/wekan/wekan/commit/5b9fa791a82da0bcaa01e5b04f8e711c011580db)
+ - [Teamwork and Planner workbooks are written a page of cards at a time with ExcelJS's streaming writer](https://github.com/wekan/wekan/commit/a2257442a855ce930cc3ae3a4a5b9fdb16555aa8)
+ - [Defer ZIP and Excel initialization until first use](https://github.com/wekan/wekan/commit/3df146c164158d65901d0d29ba123282671d6080)
+ - [Write the card and board Excel exports as they are drawn, reading each picture only when it is written](https://github.com/wekan/wekan/commit/b1841b75254a5e0fa008aa87ca1da7ed78b5a8c0)
+ - [Ask for the columns of a CSV or Excel import, apply Owner, and import WeKan's own Excel export](https://github.com/wekan/wekan/commit/86652c8718abf6a91964d2676b711ef9093829cc)
+ - [Export Wrike Excel with Wrike's custom workflow statuses, and import and export Wrike workflows as lists and rules](https://github.com/wekan/wekan/commit/a78b4aa744b011fc385bbd462b83fb092b547efd)
+ - [Import and export boards as Businessmap (Kanbanize) Excel workbooks](https://github.com/wekan/wekan/commit/edb808e266ee214f91a1330535a8749a79001063)
+ - [Import and export boards as Teamwork.com Excel task import templates](https://github.com/wekan/wekan/commit/7aa90f7a0056412e611e187debcc0ca54189297a)
+ - [Import and export boards as Wrike Excel workbooks](https://github.com/wekan/wekan/commit/063365e8b919b5e3ad1974d52cbd2747f86c08f1)
+ - [Import and export boards as monday.com Excel workbooks](https://github.com/wekan/wekan/commit/1ceaad80f48ff5133af4f0dc6a5443761c274e89)
+ - [Import and export boards as Microsoft Planner Excel workbooks](https://github.com/wekan/wekan/commit/7ef5b875fa24edc99a4a4a7c37d1d2cad2c88c51)
+ - [Write dates as real date cells in every Excel export](https://github.com/wekan/wekan/commit/278db0ada3c9f695d82ead81b75c5f15c715b959)
+ - [Restore the full-featured DOCX/XLSX/PPTX viewer and native PDF preview](https://github.com/wekan/wekan/commit/373980ac8a37eb830539b01ffc12dfb0c0a53e18)
+ - [Validate XLSX sheet colors before CSS serialization](https://github.com/wekan/wekan/commit/e54b123c1086423056d8a79d92f8ba34b1e91e1d)
+ - [Share one card document adapter across PDF and Excel exports](https://github.com/wekan/wekan/commit/0885b9a10b596e22d4919b241bb06bbb097d0b55)
+ - [Name PDF and Excel exports by their localized scope](https://github.com/wekan/wekan/commit/4b27f4fc455ef47ead365dd430edf54d0bfbd069)
+ - [Place six Excel attachment previews per row](https://github.com/wekan/wekan/commit/ef66347f07bb7a28f3ff19e3c230ce460d3e0cda)
+ - [Align PDF and Excel card attachment layouts](https://github.com/wekan/wekan/commit/fb52149e94dbee3c1f3118d45f73e44620234a52)
+ - [Complete multilingual PDF and Excel exports](https://github.com/wekan/wekan/commit/c796fc6c6b79f2362bd03bea469ba3f3b00ee549)
+ - [Step 2: every text in an Excel card export renders its markdown](https://github.com/wekan/wekan/commit/c1b68efbd342b26afe1751425f3da7716341face)
+ - [Card PDF and Excel exports say the same thing, in the reader's language, format and time zone](https://github.com/wekan/wekan/commit/698e980e27522b53f60ad6fce347727cb11eb017)
+ - [Fix the board Excel export, and the attachment stuck as .bin](https://github.com/wekan/wekan/commit/a712db94737d6f1e49c7d773e2cc004911f39a80)
+ - [PassBleed: the Excel card export authorised one board and read a card from another](https://github.com/wekan/wekan/commit/5269d0ba5c791d9017637da3c2e103d55daae313)
+ - [Stream board exports (JSON, CSV/TSV, Excel) with bounded memory](https://github.com/wekan/wekan/commit/41cd166358ea40a4517eddd02fe1913c22b7777b)
+ - [Fix ExcelBleed](https://github.com/wekan/wekan/commit/7bbd1a3fad5d868fd01d79b5908913e215698e8e)
+ - [Export Card to Excel. Part 3. Also, fixed uploading attachments](https://github.com/wekan/wekan/commit/5c5ed102cabd07e1be00d3fdb01ea599da0a5517)
+ - [Export Card to Excel. Part 2](https://github.com/wekan/wekan/commit/7de1b04ebc51269e37840e74ba8fa72eed59950e)
+ - [Export Card to Excel and related fixes. Part 1](https://github.com/wekan/wekan/commit/be5bdbe3142f54f571fcef79cac064cec6da17d2)
+ - [Fix: Impossible to export board to excel where title exceeding 31 chars](https://github.com/wekan/wekan/commit/08a01c6d2c9c4639414890688441d5aec56ba753)
+ - [Excel Export : fix add comments worksheet (#4045)](https://github.com/wekan/wekan/commit/e694c587e5fd866ecd6c6cef333f3c41ac1a0b1e)
