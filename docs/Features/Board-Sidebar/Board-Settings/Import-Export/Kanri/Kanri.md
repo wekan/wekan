@@ -1,19 +1,42 @@
 # Kanri
 
+## What it is
+
 WeKan imports and exports a board as the JSON of [Kanri](https://github.com/kanriapp/kanri),
 the offline desktop kanban app. Kanri writes two files: a single board, and
 all data with the app settings and every board. WeKan reads both and writes a
 single board. Columns become lists and cards keep their description, due
 date, tags, colors and tasks.
 
-## How to import
+## Read more
+
+- [Wikipedia: kanban boards](https://en.wikipedia.org/wiki/Kanban_board)
+- [Kanri](https://github.com/kanriapp/kanri): the app
+- [kanban-types.d.ts](https://github.com/kanriapp/kanri/blob/main/types/kanban-types.d.ts):
+  the board, column, card and tag types
+- [json-schemas.ts](https://github.com/kanriapp/kanri/blob/main/types/json-schemas.ts):
+  what Kanri's import accepts
+- [pages/import.vue](https://github.com/kanriapp/kanri/blob/main/pages/import.vue)
+  and [the English strings](https://github.com/kanriapp/kanri/blob/main/i18n/locales/en.json):
+  the Import/Export page, its Partial and Full export and import
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Kanri, choose **Import/Export** in the sidebar. Under **Export Data**:
    - **Partial Export (individual board)**: click **Export individual board**,
      select the board and save the `.json` file;
    - **Full Export**: click **Export all data** to save all boards, themes and
      preferences in one `.json` file.
-2. In WeKan, go to **All Boards → New → Import → Kanri**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Kanri**.
 3. Open the `.json` file in a text editor, copy all of it and paste it into
    the text box.
 4. Click **Import**.
@@ -24,7 +47,7 @@ An all-data export brings in every board. Each Kanri board becomes a swimlane
 named after it, on one WeKan board. Tick **One board per project** (below) to
 make each Kanri board its own WeKan board instead.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose **Kanri**, then under **Import many boards**
    choose several `.json` files, or one `.zip` that holds them.
@@ -55,7 +78,7 @@ python3 api.py importboardsfrom kanri FILE_OR_DIR ...
 
 Each argument is a file, a directory of files, or a `.zip` file.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Choose what to include, then under **JSON** choose **Kanri**. The board
@@ -70,7 +93,7 @@ data with what it imports, and expects an all-data file.
 The Kanri entry is offered for a whole board only, not for a swimlane or a
 list.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. In WeKan, go to **All Boards**, open the sidebar and choose **Export all
    boards**, then **Kanri**.
@@ -89,7 +112,98 @@ From a script:
 python3 api.py exportallboards kanri boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom kanri board.json          # POST /api/boards/import/kanri
+python3 api.py importboardsfrom kanri FILE_OR_DIR ...    # several boards
+python3 api.py exportboardformat BOARDID kanri board.json
+python3 api.py exportallboards kanri boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/kanri` with the file's JSON as `board`;
+- `GET /api/boards/:boardId/export/kanri?authToken=…` returns the board as
+  JSON;
+- `GET /api/export-all-boards/kanri?authToken=…` returns the `.zip`; add
+  `&boardIds=ID1,ID2` for only those boards.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 20,000 cards. More stops the import with an error. (`MAX_KANRI_CARDS`
+  in
+  [models/lib/kanriFormat.js](../../../../../../models/lib/kanriFormat.js#L35))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/kanriFormat.js](../../../../../../models/lib/kanriFormat.js).
+
+The tests that pin it:
+[tests/boardExportScope.test.cjs](../../../../../../tests/boardExportScope.test.cjs),
+[tests/importLossReport.test.cjs](../../../../../../tests/importLossReport.test.cjs),
+[tests/kanriFormat.test.cjs](../../../../../../tests/kanriFormat.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 The format is the JSON that [Kanri](https://github.com/kanriapp/kanri)'s
 Import & Export page writes and its **Import from Kanri** reads, as its
@@ -159,7 +273,7 @@ What the export writes (`formatKanri` in the same module):
 
 Archived cards and archived lists are not exported.
 
-## What is kept
+### What is kept
 
 | Kanri | WeKan |
 | --- | --- |
@@ -174,7 +288,7 @@ Archived cards and archived lists are not exported.
 | Card `color` | Card color |
 | `boards[0]` of an all-data export | The imported board |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report:
 
@@ -194,24 +308,7 @@ dates, custom fields or swimlanes: Kanri has no place for them. Several
 checklists become one task list. Kanri's own import does not read
 `isDueDateCompleted`.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom kanri board.json          # POST /api/boards/import/kanri
-python3 api.py importboardsfrom kanri FILE_OR_DIR ...    # several boards
-python3 api.py exportboardformat BOARDID kanri board.json
-python3 api.py exportallboards kanri boards.zip
-```
-
-The HTTP routes:
-
-- `POST /api/boards/import/kanri` with the file's JSON as `board`;
-- `GET /api/boards/:boardId/export/kanri?authToken=…` returns the board as
-  JSON;
-- `GET /api/export-all-boards/kanri?authToken=…` returns the `.zip`; add
-  `&boardIds=ID1,ID2` for only those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/kanriFormat.js` reads and writes the JSON. `models/import.js`
   sends the document to the parser, and `models/kanboardCreator.js` creates
@@ -227,16 +324,10 @@ The HTTP routes:
   project; other documents are refused", and the export menu link for every
   format.
 
-## Sources
+## Commits
 
-- [Kanri](https://github.com/kanriapp/kanri): the app
-- [kanban-types.d.ts](https://github.com/kanriapp/kanri/blob/main/types/kanban-types.d.ts):
-  the board, column, card and tag types
-- [json-schemas.ts](https://github.com/kanriapp/kanri/blob/main/types/json-schemas.ts):
-  what Kanri's import accepts
-- [pages/import.vue](https://github.com/kanriapp/kanri/blob/main/pages/import.vue)
-  and [the English strings](https://github.com/kanriapp/kanri/blob/main/i18n/locales/en.json):
-  the Import/Export page, its Partial and Full export and import
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Deck and Kanri exports are written a page at a time, each list around its cards](https://github.com/wekan/wekan/commit/21c64e092d8b067a9416a09a92c0ca1424b9da26)
+ - [Themes: every board theme and every color a member chooses is readable](https://github.com/wekan/wekan/commit/8b2114cd0f9501867c01521c7a6f78a02e44d549)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Kanri JSON](https://github.com/wekan/wekan/commit/eec53eb322f6cee14b61f1fd1f9d1ca0ee26d74e)

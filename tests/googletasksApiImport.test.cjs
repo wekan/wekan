@@ -208,8 +208,16 @@ async function main() {
   await test('the docs page has its sections in order', async () => {
     const doc = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Google-Tasks/Google-Tasks.md');
     const sections = doc.split('\n').filter(line => line.startsWith('## ')).map(line => line.slice(3));
-    assert.deepEqual(sections, ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
-      'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources']);
+    // Every feature page has the one structure; the steps and the REST API are
+    // subsections of How to use it, the format details, what is kept and the
+    // tests subsections of How it works in WeKan, and the sources are under
+    // Read more (tests/importExportDocsCoverage.test.cjs).
+    assert.deepEqual(sections, ['What it is', 'Read more', 'How to use it', 'How the numbers are calculated',
+      'How it works in WeKan', 'Commits']);
+    const subsections = doc.split('\n').filter(line => line.startsWith('### ')).map(line => line.slice(4));
+    assert.deepEqual(subsections, ['How to import', 'How to import many boards at once', 'How to export',
+      'How to export all boards at once', 'REST API', 'Format details', 'What is kept', 'What is not kept',
+      'How it is built and tested']);
     assert.match(doc, /POST \/api\/boards\/import\/googletasks/);
     assert.match(read('releases/live-tests/googletasks-import.mjs'), /WEKAN_LIVE_GOOGLE_TASKS_TOKEN/);
     assert.doesNotMatch(read('releases/live-tests/googletasks-import.mjs'), /method: '(POST|PUT|PATCH|DELETE)'/, 'the live test only reads');

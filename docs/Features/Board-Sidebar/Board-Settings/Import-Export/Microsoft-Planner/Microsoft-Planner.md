@@ -1,5 +1,7 @@
 # Microsoft Planner
 
+## What it is
+
 WeKan imports boards from
 [Microsoft Planner](https://www.microsoft.com/microsoft-365/planner) and
 exports boards in Planner's layout, as the Excel workbook (`.xlsx`) that
@@ -12,19 +14,38 @@ so there is no live import or sync: the Graph API needs credentials, a
 Microsoft Entra app registration and a signed-in Microsoft 365 user, which a
 WeKan server does not have.
 
-## How to import
+## Read more
+
+- [Wikipedia: Microsoft Planner](https://en.wikipedia.org/wiki/Microsoft_Planner)
+- [Export a plan to Excel](https://support.microsoft.com/office/4d850c6e-e548-4aab-83b4-b62b68662d2a):
+  the export steps and what the workbook holds
+- [plannr](https://github.com/program--/plannr): the real Planner export used
+  as test data (`tests/fixtures/planner/`)
+- [Planner API overview](https://learn.microsoft.com/graph/api/resources/planner-overview):
+  the Microsoft Graph API, which needs credentials and is not used
+
+See also the [format coverage](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Planner, open the plan, open the **...** menu next to the plan's name
    and choose **Export as Excel** (classic Planner calls it **Export plan to
    Excel**). The `.xlsx` file downloads to your Downloads folder.
-2. In WeKan, go to **All Boards → New → Import → Microsoft Planner**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Microsoft Planner**.
 3. Choose the `.xlsx` file and click **Import**. Under **People in the file**, choose whether
    Planner's people become existing users you pick, placeholder users with
    their own names, or you.
 4. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose **Microsoft Planner**, then under **Import many
    boards** choose several `.xlsx` files, or one `.zip` that holds them. Each
@@ -47,7 +68,7 @@ python3 api.py importboardsfrom planner FILE_OR_DIR ...
 
 The arguments are files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include**, choose what to export, then click
@@ -58,7 +79,7 @@ The arguments are files, directories of files, or `.zip` files.
    imports it back. Creating Planner tasks from it needs a tool outside
    Planner's own pages; see Microsoft's Planner documentation.
 
-## How to export all boards at once
+### How to export all boards at once
 
 In **All Boards**, open the sidebar and choose **Export all boards**, then
 **Microsoft Planner**. This downloads one `.zip` with one `.xlsx` file per
@@ -74,7 +95,99 @@ From a script:
 python3 api.py exportallboards planner boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom planner plan.xlsx
+python3 api.py importboardsfrom planner plan1.xlsx plan2.xlsx
+python3 api.py exportboardformat BOARDID planner plan.xlsx
+python3 api.py exportallboards planner boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/planner`: the body is
+  `{"board": {"excelBase64": "<the .xlsx file in base64>"}}`.
+- `GET /api/boards/:boardId/export/planner?authToken=…`
+- `GET /api/export-all-boards/planner?authToken=…`, with
+  `&boardIds=ID1,ID2` for selected boards only.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 20,000 rows. More stops the import with an error. (`MAX_PLANNER_ROWS`
+  in
+  [models/lib/plannerFormat.js](../../../../../../models/lib/plannerFormat.js#L48))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/plannerFormat.js](../../../../../../models/lib/plannerFormat.js),
+[server/lib/plannerWorkbook.js](../../../../../../server/lib/plannerWorkbook.js).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/plannerFormat.test.cjs](../../../../../../tests/plannerFormat.test.cjs),
+[tests/plannerInstructionTranslations.test.cjs](../../../../../../tests/plannerInstructionTranslations.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 What WeKan reads is the workbook Planner's
 [Export plan to Excel](https://support.microsoft.com/office/4d850c6e-e548-4aab-83b4-b62b68662d2a)
@@ -146,7 +259,7 @@ The export writes the same sheet:
 - the owner, then the other assignees, in **Assigned To**, separated by `;`;
 - the creator (or Requested by) as **Created By**.
 
-## What is kept
+### What is kept
 
 | Planner | WeKan |
 | --- | --- |
@@ -169,7 +282,7 @@ Assigned To becomes card members only when those names are mapped to WeKan
 users, through the REST API's `membersMapping`. The import page maps no one,
 so there they are not kept.
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -187,24 +300,7 @@ The export leaves out comments, attachments, swimlanes, archived cards, lists
 and swimlanes, and custom fields other than Progress, Priority and Completed
 By. Several checklists become one list of items.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom planner plan.xlsx
-python3 api.py importboardsfrom planner plan1.xlsx plan2.xlsx
-python3 api.py exportboardformat BOARDID planner plan.xlsx
-python3 api.py exportallboards planner boards.zip
-```
-
-The HTTP routes:
-
-- `POST /api/boards/import/planner`: the body is
-  `{"board": {"excelBase64": "<the .xlsx file in base64>"}}`.
-- `GET /api/boards/:boardId/export/planner?authToken=…`
-- `GET /api/export-all-boards/planner?authToken=…`, with
-  `&boardIds=ID1,ID2` for selected boards only.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/plannerFormat.js` reads and writes the rows.
   `server/lib/plannerWorkbook.js` opens and writes the workbook with ExcelJS.
@@ -223,14 +319,17 @@ The HTTP routes:
   unrelated user*, and *Microsoft Planner: an exported plan imports through
   the page*.
 
-## Sources
+## Commits
 
-- [Export a plan to Excel](https://support.microsoft.com/office/4d850c6e-e548-4aab-83b4-b62b68662d2a):
-  the export steps and what the workbook holds
-- [plannr](https://github.com/program--/plannr): the real Planner export used
-  as test data (`tests/fixtures/planner/`)
-- [Planner API overview](https://learn.microsoft.com/graph/api/resources/planner-overview):
-  the Microsoft Graph API, which needs credentials and is not used
-
-See also the [format coverage](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Planner: the newer "Export as Excel" column names are read too; Linear is checked against its importer](https://github.com/wekan/wekan/commit/d3aa34e7b8f5d579fabb0e4df9f06710493fd1f2)
+ - [Teamwork and Planner workbooks are written a page of cards at a time with ExcelJS's streaming writer](https://github.com/wekan/wekan/commit/a2257442a855ce930cc3ae3a4a5b9fdb16555aa8)
+ - [Defer ZIP and Excel initialization until first use](https://github.com/wekan/wekan/commit/3df146c164158d65901d0d29ba123282671d6080)
+ - [Excel-based tool exports work again, and All Boards offers Export all boards in its bar](https://github.com/wekan/wekan/commit/8834cecea9c3db559ccc92da19bf7a0c20196ed4)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Choose who an import's people become, for every import, and stream imported attachments](https://github.com/wekan/wekan/commit/73db241bd4628070ea95f10a83ace8d4c7cd2497)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Finish import instructions in four Portuguese catalogs](https://github.com/wekan/wekan/commit/a846a7961fd978c668e778b506bda0b6cdc0967f)
+ - [Finish import instructions in nine Spanish catalogs](https://github.com/wekan/wekan/commit/771127e70bb89a7374f6ad0b75f29bcf103c07db)
+ - [Finish import instructions in five French catalogs](https://github.com/wekan/wekan/commit/7d52e278f32aee6f8c1e796cb1ad665b884c7484)
+ - [Import and export boards as monday.com Excel workbooks](https://github.com/wekan/wekan/commit/1ceaad80f48ff5133af4f0dc6a5443761c274e89)
+ - [Import and export boards as Microsoft Planner Excel workbooks](https://github.com/wekan/wekan/commit/7ef5b875fa24edc99a4a4a7c37d1d2cad2c88c51)

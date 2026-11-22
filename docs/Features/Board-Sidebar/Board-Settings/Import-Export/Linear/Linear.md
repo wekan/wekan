@@ -1,12 +1,33 @@
 # Linear
 
+## What it is
+
 WeKan imports boards from [Linear](https://linear.app) and exports boards to
 it as Linear's issues CSV file. Statuses become lists, teams become swimlanes,
 and issues become cards with their assignee, labels, dates, parent issue,
 priority, estimate, project and cycle. The export writes Linear's own columns
 in Linear's order.
 
-## How to import
+## Read more
+
+- [Wikipedia: issue tracking systems](https://en.wikipedia.org/wiki/Issue_tracking_system)
+- [Exporting data](https://linear.app/docs/exporting-data): the export steps,
+  limits and columns
+- [LinearCsvImporter.ts](https://github.com/linear/linear/blob/master/packages/import/src/importers/linearCsv/LinearCsvImporter.ts):
+  how Linear's own importer reads the values
+- [Import issues](https://linear.app/docs/import-issues): Linear's import
+  assistants and CLI importer
+
+See also the [format coverage](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Linear, export the issues as CSV, in one of these ways:
    - the whole workspace: **Settings → Administration → Import / Export**,
@@ -17,14 +38,14 @@ in Linear's order.
      CSV…**, or press `Ctrl`/`Cmd` + `K` and choose the export option. Members
      can export up to 250 issues, admins and owners up to 2,000.
 2. Open the CSV file in a text editor and copy all of it.
-3. In WeKan, go to **All Boards → New → Import → Linear**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → Linear**.
 4. Paste the text into the box and click **Import**. A **Map members** step
    follows with nobody to map: click **Done**. (**Import without mapping
    members (map later)** skips that step.)
 5. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose **Linear**, then under **Import many boards**
    choose several CSV files, or one `.zip` that holds them. Each file becomes
@@ -48,7 +69,7 @@ python3 api.py importboardsfrom linear FILE_OR_DIR ...
 
 The arguments are files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include**, choose what to export, then click
@@ -60,7 +81,7 @@ The arguments are files, directories of files, or `.zip` files.
    [import documentation](https://linear.app/docs/import-issues) for the
    steps.
 
-## How to export all boards at once
+### How to export all boards at once
 
 In **All Boards**, open the sidebar and choose **Export all boards**, then
 **Linear**. This downloads one `.zip` with one `.csv` file per board you can
@@ -75,7 +96,90 @@ From a script:
 python3 api.py exportallboards linear boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom linear issues.csv
+python3 api.py importboardsfrom linear issues1.csv issues2.csv
+python3 api.py exportboardformat BOARDID linear issues.csv
+python3 api.py exportallboards linear boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/linear`: the body is `{"board": "<CSV text>"}`.
+- `GET /api/boards/:boardId/export/linear?authToken=…`
+- `GET /api/export-all-boards/linear?authToken=…`, with
+  `&boardIds=ID1,ID2` for selected boards only.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/linearCsvFormat.js](../../../../../../models/lib/linearCsvFormat.js).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/linearCsv.test.cjs](../../../../../../tests/linearCsv.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 What WeKan reads is Linear's
 [CSV export](https://linear.app/docs/exporting-data) (workspace or view),
@@ -151,7 +255,7 @@ are empty. In the others:
 - Due Date is a day (`2026-10-08`); the other dates are ISO 8601;
 - a `,` inside a label becomes a space, and labels are joined by `, `.
 
-## What is kept
+### What is kept
 
 | Linear | WeKan |
 | --- | --- |
@@ -176,7 +280,7 @@ The assignee becomes a card member only when that name is mapped to a WeKan
 user, through the REST API's `membersMapping`. The import page maps no one, so
 there it is not kept.
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -195,23 +299,7 @@ The export leaves out checklists, comments, attachments, archived cards,
 assignees other than the owner, and every column WeKan has no value for (see
 above).
 
-## REST API
-
-```bash
-python3 api.py importboardfrom linear issues.csv
-python3 api.py importboardsfrom linear issues1.csv issues2.csv
-python3 api.py exportboardformat BOARDID linear issues.csv
-python3 api.py exportallboards linear boards.zip
-```
-
-The HTTP routes:
-
-- `POST /api/boards/import/linear`: the body is `{"board": "<CSV text>"}`.
-- `GET /api/boards/:boardId/export/linear?authToken=…`
-- `GET /api/export-all-boards/linear?authToken=…`, with
-  `&boardIds=ID1,ID2` for selected boards only.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/linearCsvFormat.js` reads and writes the CSV, with the CSV
   reader of `models/lib/todoistCsvFormat.js`. `models/lib/externalParsers.js`
@@ -228,14 +316,10 @@ The HTTP routes:
   and *every external export menu link returns text and refuses an unrelated
   user*.
 
-## Sources
+## Commits
 
-- [Exporting data](https://linear.app/docs/exporting-data): the export steps,
-  limits and columns
-- [LinearCsvImporter.ts](https://github.com/linear/linear/blob/master/packages/import/src/importers/linearCsv/LinearCsvImporter.ts):
-  how Linear's own importer reads the values
-- [Import issues](https://linear.app/docs/import-issues): Linear's import
-  assistants and CLI importer
-
-See also the [format coverage](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Linear cycles become Scrum sprints and project milestones Scrum releases](https://github.com/wekan/wekan/commit/75694ac644d71016b092c0543a62fb63aef817ee)
+ - [Ten more exports are written a page of cards at a time, their references read in a light first pass](https://github.com/wekan/wekan/commit/e2cbbe510457940b6db26c90b45307a6c539a0e7)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Linear CSV](https://github.com/wekan/wekan/commit/fb7cbc66e6c942760de73873fb5fb2f6f66b2a8f)
