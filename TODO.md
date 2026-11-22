@@ -15,6 +15,26 @@ the changelog only says what changed.
 
 `tests/todoFile.test.cjs` checks this shape.
 
+**Where things are** (2026-11-22). Each repository's own TODO.md has the
+details; WeKan's are below.
+
+| Repository | In progress, or not verified yet | Needs a person |
+| --- | --- | --- |
+| WeKan | The help button's texts in 176 of 232 languages; the test build that runs out of memory; the changelog of the newest work; Latvian with Lithuanian words; laws and standards WP-4 onwards; accessibility; the docs folders | Push; the CVEs and advisories of ListLockMoveBleed and BounceBleed after the release; the Snap Store review ([#6929](https://github.com/wekan/wekan/issues/6929)) |
+| [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Push; run "Migrate all Gitea to backups" with `--dry-run` first |
+| [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Push; stop and back up Gitea before the first real write |
+| [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
+| [weddy](https://github.com/wekan/weddy/blob/main/TODO.md) | 20 of WeKan's 174 templates in Go; attachments' Office preview and WebP thumbnails; more of WeKan's specs; Firefox and WebKit; netbsd/arm64 | Its "For the maintainer (on GitHub)" items |
+| [caddy-ferretdb-plugin](https://github.com/wekan/caddy-ferretdb-plugin/blob/main/TODO.md) | The Windows SQLite URI fix, checked on Linux only | Close the otel Dependabot alert; push before caddy-wekan-plugin |
+| [caddy-wekan-plugin](https://github.com/wekan/caddy-wekan-plugin/blob/main/TODO.md) | Weddy behind WeKan's newest settings; the Windows fixes, checked on Linux only | Push; close the otel Dependabot alert |
+| [node-patches](https://github.com/wekan/node-patches/blob/main/TODO.md) | The clone retry, until the next Release All | - |
+| [wekango](https://github.com/wekan/wekango/blob/main/TODO.md) | The Windows and macOS fixes, checked on Linux only | Confirm the mongo-tools notice review |
+| [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password; close the rack Dependabot pull request |
+| [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | Rerun the Pages deploy; the CVE numbers into the Hall of Fame |
+| wekan-meteor3-html4 | - | Turn on the dependency graph, then rebase the Dependabot pull request |
+| wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64 |
+| wepica | Left out: too old | - |
+
 ## In progress
 
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
