@@ -334,11 +334,17 @@ function productsInCategory(products, categoryId) {
 // The first words of a description, for a product's tile: Markdown marks and
 // links taken out, never cut inside a word when it can be helped.
 function shortDescription(description, max = 160) {
-  const plain = str(description)
+  let text = str(description)
     .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/[#*_`>~|]/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1');
+  // Until nothing changes: one pass over "<<b>b>" would leave a "<b>".
+  let before;
+  do {
+    before = text;
+    text = text.replace(/<[^>]*>/g, ' ');
+  } while (text !== before);
+  const plain = text
+    .replace(/[#*_`<>~|]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
   if (plain.length <= max) return plain;
