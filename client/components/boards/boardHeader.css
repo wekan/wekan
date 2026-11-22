@@ -992,7 +992,8 @@ body.board-view.mobile-mode #header #header-main-bar .board-header-sidebar-toggl
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6b778c;
+  /* 4.5:1 for small text; #6b778c on white is 4.48:1. */
+  color: #505f79;
   cursor: default;
 }
 .pop-over-list .board-view-group-heading:not(:first-child) {

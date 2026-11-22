@@ -736,7 +736,11 @@ test('Taiga: a project dump imports with its stories, tasks, epics, issues, comm
     expect(issue.labelIds.map(id => board.labels.find(l => l._id === id).name).sort())
       .toEqual(['priority:High', 'severity:Critical', 'type:Bug']);
     const fields = db.find('customFields', { boardIds: boardId }).map(field => field.name);
-    for (const name of ['Audience', 'Words', 'Story points', 'Task status', 'Blocked']) expect(fields).toContain(name);
+    for (const name of ['Audience', 'Words', 'Story points', 'Task status']) expect(fields).toContain(name);
+    // Blocked is the card's Blocked flow field since ab884547f4, with Taiga's
+    // note as its reason - not a custom field of its own any more.
+    expect(story.flow).toEqual({ blocked: true, blockedReason: 'Waiting for the brand guide' });
+    expect(fields).not.toContain('Blocked');
     const sprints = db.find('scrumSprints', { boardId });
     expect(sprints.map(sprint => [sprint.name, sprint.state])).toEqual([['Sprint 1', 'planned']]);
     expect(story.scrum.sprintId).toBe(sprints[0]._id);

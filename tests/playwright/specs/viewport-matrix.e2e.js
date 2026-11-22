@@ -6,7 +6,7 @@
 //   - the board header's icons and texts are on screen, and the page does not
 //     scroll sideways;
 //   - board menu → Original positions is reachable and its sidebar fits;
-//   - Admin Panel → Problems → Memory Usage and Disk usage show their live line;
+//   - Admin Panel → Problems → Memory usage and Disk usage show their live line;
 //   - the Table, Calendar Mode, Time, Timeline and Map views open and fit;
 //   - dragscroll pans the board - by mouse where there is a mouse, by finger
 //     where there is a touchscreen.
@@ -200,7 +200,7 @@ for (const [name, use] of DEVICES) {
       expect(await offScreen(page, '.original-positions-view, .original-positions-view .fa, .original-positions-view h3, .js-refresh-history')).toEqual([]);
     });
 
-    for (const [area, label] of [['ram', 'Memory Usage'], ['disk', 'Disk usage']]) {
+    for (const [area, label] of [['ram', 'Memory usage'], ['disk', 'Disk usage']]) {
       test(`Admin Panel → Problems → ${label} shows its live line`, async ({ page }) => {
         await loginWithToken(page, user.id, user.token);
         await page.goto(`/admin/problems/${area}`);

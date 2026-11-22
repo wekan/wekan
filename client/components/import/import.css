@@ -288,7 +288,9 @@ a.show-mapping {
   font-size: 0.85em;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6b778c;
+  /* #505f79, not #6b778c: small bold text needs 4.5:1, and #6b778c on
+     white is 4.48:1 - axe (45-axe-accessibility.e2e.js) failed it. */
+  color: #505f79;
 }
 .import-source-list .import-source-group:first-child {
   margin-top: 0;

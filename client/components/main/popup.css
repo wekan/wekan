@@ -1409,12 +1409,15 @@ body.mobile-mode .pop-over .content-wrapper {
 @media screen and (min-width: 801px) {
   .pop-over.pop-over--menu-columns {
     position: fixed;
-    width: min(960px, calc(100vw - 24px)) !important;
+    /* 1200px: four 240px columns on a 1280px screen. At 960px the Board View
+       menu, grouped under headings, needed a fourth column's worth of height
+       and ran below a 720px-high window (popup-menu-columns.e2e.js). */
+    width: min(1200px, calc(100vw - 24px)) !important;
     max-width: calc(100vw - 24px) !important;
     /* Logical, so RTL mirrors it; the value is symmetric, so both centre.
        inset-inline-end: auto is `right` in LTR and `left` in RTL, so it also
        overrides the inline left the popup placement code sets. */
-    inset-inline-start: max(12px, calc((100vw - 960px) / 2)) !important;
+    inset-inline-start: max(12px, calc((100vw - 1200px) / 2)) !important;
     inset-inline-end: auto !important;
     top: 12px !important;
     margin-top: 0;
