@@ -115,5 +115,12 @@ const invoice = { number: 'INV-2027-0001', kind: 'invoice', issueDate: '2027-04-
   assert.ok(!feeRow.getCell(3).value, 'no hours');
   assert.equal(feeRow.getCell(5).value, 500);
   console.log('  ok - a quote: its own title and validity, fee lines without hours, no payment details');
-  console.log('\ninvoiceFiles: 5 tests passed');
+  // Negative: PDFKit is never left to open its built-in Helvetica, which a
+  // production bundle does not carry - every PDFDocument here starts with the
+  // Unicode font.
+  const source = fs.readFileSync(path.join(ROOT, 'server/lib/invoiceFiles.js'), 'utf8');
+  const docs = source.match(/new PDFDocument\(\{[\s\S]*?\}\);/g) || [];
+  assert.ok(docs.length >= 1 && docs.every(d => /font: Buffer\.from\(fonts\.main\)/.test(d)), 'the PDF starts with the Unicode font');
+  console.log('  ok - the PDF starts with its own font, not PDFKit\'s built-in Helvetica');
+  console.log('\ninvoiceFiles: 6 tests passed');
 })().catch(e => { console.error(e); process.exitCode = 1; });

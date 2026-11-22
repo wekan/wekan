@@ -187,3 +187,20 @@
 .workload-person-utilization.is-below {
   color: #b71c1c;
 }
+
+/* Labelled native checkboxes: the app-wide material form rule
+   (client/components/forms/forms.css) hides native checkboxes three ways -
+   display, visibility, an offset - which left these with a label and no box
+   to tick or see ticked. All three are undone, as in cardFlow.css. */
+.workload-page input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0;
+  margin-inline-end: 4px;
+  flex: none;
+}

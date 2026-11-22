@@ -487,7 +487,7 @@ template(name="billingBoard")
         p {{_ 'billing-no-quotes'}}
 
     if printed
-      +billingInvoicePrint(invoice=printed reload=reload setPrinted=setPrinted)
+      +billingInvoicePrint(invoice=printed reload=reloadFn setPrinted=setPrinted)
 
     if actionError
       .warning {{actionError}}

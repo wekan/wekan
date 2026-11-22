@@ -279,4 +279,17 @@ test('negative: skills and the utilization target are validated', () => {
     'a stored document, with its own fields, still reads as a capacity');
 });
 
+test('a refresh after a save keeps the planning form (the spinner is only for the first load)', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const js = fs.readFileSync(path.join(__dirname, '..', 'client', 'components', 'main', 'workload.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(__dirname, '..', 'client', 'components', 'main', 'workload.jade'), 'utf8');
+  // The form sits under the spinner's else, so a spinner on every reload
+  // destroyed it - the "saved" note never showed (workload-capacity.e2e.js).
+  assert.match(jade, /if loading[\s\S]*else[\s\S]*\+workloadPlanning/);
+  assert.match(js, /return tpl\.loading\.get\(\) && !tpl\.report\.get\(\);/);
+  // Negative: the helper that hid the page on every reload is gone.
+  assert.doesNotMatch(js, /loading: \(\) => Template\.instance\(\)\.loading\.get\(\)/);
+});
+
 console.log(`\nworkload: ${passed} tests passed`);

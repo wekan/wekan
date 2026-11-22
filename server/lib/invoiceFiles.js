@@ -96,7 +96,12 @@ function money(minor, invoice, locale) {
  */
 export function invoicePdf(invoice, profile, instructions, labels, fonts, locale) {
   return new Promise((resolve, reject) => {
-    const pdf = new PDFDocument({ size: 'A4', margin: 50, info: { Title: `${labels[titleKey(invoice)]} ${invoice.number}` } });
+    // Started with the Unicode font, as models/server/buildUnicodePdf.js is:
+    // otherwise PDFKit opens its built-in Helvetica first, which a production
+    // bundle does not carry ("Cannot find module '#standard-fonts/Helvetica'"),
+    // and no invoice PDF could be made.
+    const pdf = new PDFDocument({ size: 'A4', margin: 50, font: Buffer.from(fonts.main),
+      info: { Title: `${labels[titleKey(invoice)]} ${invoice.number}` } });
     const chunks = [];
     pdf.on('data', chunk => chunks.push(chunk));
     pdf.on('end', () => resolve(Buffer.concat(chunks)));

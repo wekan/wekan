@@ -99,7 +99,13 @@ function cardUrl(card) {
 }
 
 Template.workload.helpers({
-  loading: () => Template.instance().loading.get(),
+  // The spinner only until the first report: a refresh after a save keeps the
+  // page, because the spinner replaces the planning form under it - which
+  // lost its "saved" note and anything still typed there.
+  loading() {
+    const tpl = Template.instance();
+    return tpl.loading.get() && !tpl.report.get();
+  },
   error: () => Template.instance().error.get(),
   report: () => report(),
   truncated: () => !!(report() && report().truncated),

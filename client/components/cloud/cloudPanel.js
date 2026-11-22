@@ -26,10 +26,14 @@ function list(value) {
   return String(value || '').split(/[\s,;]+/).map(s => s.trim()).filter(Boolean);
 }
 
-// Each pane's call goes through `done`, which shows its error above the pane.
-function parentDone() {
-  const { done } = Template.currentData() || {};
-  return typeof done === 'function' ? done : promise => promise;
+// Every pane reports through this one place, shown above the pane. It is a
+// module value, not a function handed down in a data context: Spacebars calls
+// a function it finds in a data context when it passes it on, so `done=done`
+// called done() with nothing and the domain form never rendered.
+const panelError = new ReactiveVar('');
+function report(promise) {
+  return promise.then(result => { panelError.set(''); return result; })
+    .catch(error => { panelError.set(errorText(error)); });
 }
 
 // ---------------------------------------------------------------- the page
@@ -48,17 +52,15 @@ Template.cloudPanel.onCreated(function () {
   this.info = new ReactiveVar({ onCloudHost: false, isCloudAdmin: false, domains: [] });
   this.config = new ReactiveVar(null);
   this.pane = new ReactiveVar('');
-  this.actionError = new ReactiveVar('');
+  panelError.set('');
   this.loadConfig = () => Meteor.callAsync('cloudPanelConfig').then(config => this.config.set(config));
-  this.done = promise => promise.then(result => { this.actionError.set(''); return result; })
-    .catch(error => { this.actionError.set(errorText(error)); });
   Meteor.callAsync('cloudPanelWhoAmI')
     .then(info => {
       this.info.set(info);
       this.pane.set(info.isCloudAdmin ? 'domains' : 'invoices');
       return info.isCloudAdmin ? this.loadConfig() : null;
     })
-    .catch(error => this.actionError.set(errorText(error)))
+    .catch(error => panelError.set(errorText(error)))
     .finally(() => this.loading.set(false));
 });
 
@@ -71,7 +73,7 @@ Template.cloudPanel.helpers({
   info: () => Template.instance().info.get(),
   config: () => Template.instance().config.get(),
   pane: () => Template.instance().pane.get(),
-  actionError: () => Template.instance().actionError.get(),
+  actionError: () => panelError.get(),
   // Not at the Cloud Panel Domain, or neither the SuperAdmin nor a customer.
   notAllowed() {
     const info = Template.instance().info.get();
@@ -89,16 +91,12 @@ Template.cloudPanel.helpers({
     const tpl = Template.instance();
     return () => tpl.loadConfig();
   },
-  done() {
-    const tpl = Template.instance();
-    return promise => tpl.done(promise);
-  },
 });
 
 Template.cloudPanel.events({
   'click a.js-cloud-menu'(event, tpl) {
     event.preventDefault();
-    tpl.actionError.set('');
+    panelError.set('');
     tpl.pane.set(event.currentTarget.getAttribute('data-id'));
   },
 });
@@ -118,18 +116,18 @@ Template.cloudPanelCloudflare.events({
     event.preventDefault();
     const form = event.currentTarget;
     const { reload } = Template.currentData();
-    parentDone()(Meteor.callAsync('cloudPanelSetCloudflare', {
+    report(Meteor.callAsync('cloudPanelSetCloudflare', {
       apiToken: field(form, 'apiToken'), zoneId: field(form, 'zoneId'), target: field(form, 'target'),
       proxied: form.elements.proxied.checked === true,
     }).then(() => { form.elements.apiToken.value = ''; return reload(); }));
   },
   'click .js-cloud-dns-plan'(event, tpl) {
     event.preventDefault();
-    parentDone()(Meteor.callAsync('cloudPanelDnsPlan').then(plan => tpl.plan.set(plan)));
+    report(Meteor.callAsync('cloudPanelDnsPlan').then(plan => tpl.plan.set(plan)));
   },
   'click .js-cloud-dns-apply'(event, tpl) {
     event.preventDefault();
-    parentDone()(Meteor.callAsync('cloudPanelDnsApply').then(() => Meteor.callAsync('cloudPanelDnsPlan')).then(plan => tpl.plan.set(plan)));
+    report(Meteor.callAsync('cloudPanelDnsApply').then(() => Meteor.callAsync('cloudPanelDnsPlan')).then(plan => tpl.plan.set(plan)));
   },
 });
 
@@ -150,18 +148,18 @@ Template.cloudPanelCaddy.events({
     event.preventDefault();
     const form = event.currentTarget;
     const { reload } = Template.currentData();
-    parentDone()(Meteor.callAsync('cloudPanelSetCaddy', {
+    report(Meteor.callAsync('cloudPanelSetCaddy', {
       adminUrl: field(form, 'adminUrl'), sharedUpstream: field(form, 'sharedUpstream'), email: field(form, 'email'),
     }).then(() => reload()));
   },
   'click .js-cloud-caddyfile'(event, tpl) {
     event.preventDefault();
-    parentDone()(Meteor.callAsync('cloudPanelCaddyfile').then(text => tpl.caddyfile.set(text)));
+    report(Meteor.callAsync('cloudPanelCaddyfile').then(text => tpl.caddyfile.set(text)));
   },
   'click .js-cloud-caddy-push'(event, tpl) {
     event.preventDefault();
     tpl.pushed.set(false);
-    parentDone()(Meteor.callAsync('cloudPanelPushCaddy').then(() => tpl.pushed.set(true)));
+    report(Meteor.callAsync('cloudPanelPushCaddy').then(() => tpl.pushed.set(true)));
   },
 });
 
@@ -180,12 +178,25 @@ const DOMAIN_COLUMNS = [
   { label: '' },
 ];
 
+// The domain being edited, shared with the header's "New domain" link: a
+// table page's header template takes its own clicks (as People's "New" rows
+// do), so the link and the pane meet here.
+const editingDomain = new ReactiveVar(null);
+
+Template.cloudPanelDomainNew.events({
+  'click .js-cloud-domain-new'(event) {
+    event.preventDefault();
+    editingDomain.set({ mode: 'own', database: {}, customerUsernames: [], cloudflare: true });
+  },
+});
+
 Template.cloudPanelDomains.onCreated(function () {
+  editingDomain.set(null);
+  this.editing = editingDomain;
   this.searchTerm = new ReactiveVar('');
   this.page = new ReactiveVar(1);
   this.total = new ReactiveVar(0);
   this.rows = new ReactiveVar([]);
-  this.editing = new ReactiveVar(null);
   this.report = new ReactiveVar(null);
   this.loadPage = () => Meteor.callAsync('cloudPanelDomainsPage', { search: this.searchTerm.get(), page: this.page.get() })
     .then(rows => this.rows.set(rows));
@@ -246,26 +257,22 @@ Template.cloudPanelDomains.events({
     const { totalPages } = pageInfo(tpl.total.get(), tpl.page.get(), TABLE_PAGE_ROWS_PER_PAGE);
     if (tpl.page.get() < totalPages) { tpl.page.set(tpl.page.get() + 1); tpl.loadPage(); }
   },
-  'click .js-cloud-domain-new'(event, tpl) {
-    event.preventDefault();
-    tpl.editing.set({ mode: 'own', database: {}, customerUsernames: [], cloudflare: true });
-  },
   'click .js-cloud-domain-edit'(event, tpl) {
     event.preventDefault();
-    parentDone()(Meteor.callAsync('cloudPanelDomain', event.currentTarget.getAttribute('data-id'))
+    report(Meteor.callAsync('cloudPanelDomain', event.currentTarget.getAttribute('data-id'))
       .then(domain => tpl.editing.set({ ...domain, database: domain.database || {} })));
   },
   'click .js-cloud-domain-import'(event, tpl) {
     event.preventDefault();
     const domainId = event.currentTarget.getAttribute('data-id');
     // A dry run first: what would be copied, and nothing written.
-    parentDone()(Meteor.callAsync('cloudPanelImportDomain', domainId, { dryRun: true })
+    report(Meteor.callAsync('cloudPanelImportDomain', domainId, { dryRun: true })
       .then(report => tpl.report.set({ ...report, dryRun: true, domainId })));
   },
   'click .js-cloud-import-now'(event, tpl) {
     event.preventDefault();
     const domainId = event.currentTarget.getAttribute('data-id');
-    parentDone()(Meteor.callAsync('cloudPanelImportDomain', domainId, { dryRun: false })
+    report(Meteor.callAsync('cloudPanelImportDomain', domainId, { dryRun: false })
       .then(report => { tpl.report.set({ ...report, dryRun: false, domainId }); return tpl.loadAll(); }));
   },
 });
@@ -321,7 +328,7 @@ Template.cloudPanelDomainForm.events({
       notes: field(form, 'notes'), cloudflare: form.elements.cloudflare.checked === true,
     };
     if (Object.keys(database).length) value.database = database;
-    parentDone()(Meteor.callAsync('cloudPanelSaveDomain', domain._id || null, value).then(() => close(true)));
+    report(Meteor.callAsync('cloudPanelSaveDomain', domain._id || null, value).then(() => close(true)));
   },
   'click .js-cloud-domain-close'(event) {
     event.preventDefault();
@@ -330,7 +337,7 @@ Template.cloudPanelDomainForm.events({
   'click .js-cloud-domain-remove'(event) {
     event.preventDefault();
     const { close } = Template.currentData();
-    parentDone()(Meteor.callAsync('cloudPanelRemoveDomain', event.currentTarget.getAttribute('data-id')).then(() => close(true)));
+    report(Meteor.callAsync('cloudPanelRemoveDomain', event.currentTarget.getAttribute('data-id')).then(() => close(true)));
   },
 });
 
@@ -365,11 +372,11 @@ Template.cloudPanelInvoices.events({
     const value = { number: field(form, 'number'), issueDate: field(form, 'issueDate'), amount: parseFloat(field(form, 'amount')),
       currency: field(form, 'currency'), status: field(form, 'status') };
     for (const name of ['dueDate', 'paidDate', 'description', 'link']) if (field(form, name)) value[name] = field(form, name);
-    parentDone()(Meteor.callAsync('cloudPanelSaveInvoice', field(form, 'domainId'), null, value).then(() => { form.reset(); return tpl.load(); }));
+    report(Meteor.callAsync('cloudPanelSaveInvoice', field(form, 'domainId'), null, value).then(() => { form.reset(); return tpl.load(); }));
   },
   'click .js-cloud-invoice-remove'(event, tpl) {
     event.preventDefault();
-    parentDone()(Meteor.callAsync('cloudPanelRemoveInvoice', event.currentTarget.getAttribute('data-id')).then(() => tpl.load()));
+    report(Meteor.callAsync('cloudPanelRemoveInvoice', event.currentTarget.getAttribute('data-id')).then(() => tpl.load()));
   },
 });
 
@@ -421,7 +428,7 @@ Template.cloudPanelChat.events({
   'submit .js-cloud-chat-send'(event, tpl) {
     event.preventDefault();
     const form = event.currentTarget;
-    parentDone()(Meteor.callAsync('cloudPanelSendChat', tpl.domainId.get(), { text: form.elements.text.value })
+    report(Meteor.callAsync('cloudPanelSendChat', tpl.domainId.get(), { text: form.elements.text.value })
       .then(() => { form.reset(); return tpl.load(); }));
   },
   'submit .js-cloud-chat-import'(event, tpl) {
@@ -432,7 +439,7 @@ Template.cloudPanelChat.events({
     const reader = new FileReader();
     reader.onload = () => {
       const zipBase64 = String(reader.result).split(',')[1] || '';
-      parentDone()(Meteor.callAsync('cloudPanelImportChat', tpl.domainId.get(), field(form, 'source'), { zipBase64 })
+      report(Meteor.callAsync('cloudPanelImportChat', tpl.domainId.get(), field(form, 'source'), { zipBase64 })
         .then(result => { tpl.imported.set(result.imported); form.reset(); return tpl.load(); }));
     };
     reader.readAsDataURL(file);

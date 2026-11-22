@@ -124,6 +124,8 @@ Template.billing.onCreated(function () {
   this.selected = new ReactiveVar(null);
   this.detail = new ReactiveVar(null);
   this.period = new ReactiveVar({ periodStart: '', periodEnd: '', includeUndated: false });
+  // The spinner of this load takes the board pane down with it, so a save
+  // refreshes through reload below, never through this.
   this.loadBoards = () => {
     this.loading.set(true);
     return Meteor.callAsync('billingBoards', { allBoards: this.allBoards.get() })
@@ -146,7 +148,16 @@ Template.billing.onCreated(function () {
     return Meteor.callAsync('billingBoard', boardId, period).then(detail => this.detail.set(detail))
       .catch(error => this.error.set(errorText(error)));
   };
-  this.reload = () => Promise.all([this.loadBoards(), this.loadDetail()]);
+  // After a save only the open board is read again, and its row in the list
+  // takes the numbers from that answer: reading every board after each save
+  // ran into billingBoards' rate limit (server/billing.js) within a minute of
+  // filling in a few forms.
+  this.reload = () => this.loadDetail().then(() => {
+    const detail = this.detail.get();
+    if (!detail) return;
+    this.boards.set(this.boards.get().map(b => (b._id === detail.board._id
+      ? { ...b, budget: detail.budget, finance: detail.finance } : b)));
+  });
   this.loadBoards();
 });
 
@@ -201,7 +212,10 @@ Template.billingBoard.onCreated(function () {
   this.methodType = new ReactiveVar('sepa');
   this.done = promise => promise.then(result => {
     this.actionError.set('');
-    const { reload } = Template.currentData() || {};
+    // The instance's own data context: inside a promise there is no current
+    // template, and the current-data lookup is null there - which left the
+    // page unrefreshed after every save.
+    const { reload } = this.data || {};
     if (typeof reload === 'function') reload();
     return result;
   }).catch(error => this.actionError.set(errorText(error)));
@@ -272,6 +286,10 @@ Template.billingBoard.helpers({
     { value: 'csv', label: 'CSV', icon: 'fa-file-text-o' }, { value: 'ubl', label: t('billing-e-invoice'), icon: 'fa-file-code-o' },
   ],
   printed: () => Template.instance().printed.get(),
+  // The parent's reload, handed on by a helper: written `reload=reload`,
+  // Spacebars would call the function it finds in this data context instead
+  // of passing it on.
+  reloadFn: () => Template.currentData().reload,
   setPrinted() {
     const tpl = Template.instance();
     return invoice => tpl.printed.set(invoice);

@@ -17,15 +17,15 @@ template(name="cloudPanel")
           if actionError
             .warning {{actionError}}
           if $eq pane 'cloudflare'
-            +cloudPanelCloudflare(config=config reload=reload done=done)
+            +cloudPanelCloudflare(config=config reload=reload)
           else if $eq pane 'caddy'
-            +cloudPanelCaddy(config=config reload=reload done=done)
+            +cloudPanelCaddy(config=config reload=reload)
           else if $eq pane 'domains'
-            +cloudPanelDomains(done=done)
+            +cloudPanelDomains
           else if $eq pane 'invoices'
-            +cloudPanelInvoices(domains=info.domains isCloudAdmin=info.isCloudAdmin done=done)
+            +cloudPanelInvoices(domains=info.domains isCloudAdmin=info.isCloudAdmin)
           else if $eq pane 'chat'
-            +cloudPanelChat(domains=info.domains isCloudAdmin=info.isCloudAdmin done=done)
+            +cloudPanelChat(domains=info.domains isCloudAdmin=info.isCloudAdmin)
 
 template(name="cloudPanelCloudflare")
   form.js-cloud-cloudflare.cloud-form
@@ -80,7 +80,7 @@ template(name="cloudPanelCaddy")
 template(name="cloudPanelDomains")
   +tablePage(tablePageData)
   if editing
-    +cloudPanelDomainForm(domain=editing close=close done=done)
+    +cloudPanelDomainForm(domain=editing close=close)
   if report
     .cloud-report
       h3 {{_ 'cloud-panel-import-report'}}

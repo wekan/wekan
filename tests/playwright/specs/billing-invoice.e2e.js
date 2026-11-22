@@ -35,6 +35,9 @@ test('Budget and billing: cost against budget, and one invoice of the billable h
     await page.locator('form.js-billing-rate #billing-rate-amount').fill('100');
     await page.locator('form.js-billing-rate #billing-rate-currency').fill('EUR');
     await page.locator('form.js-billing-rate button[type="submit"]').click();
+    // The page draws the saved rate before the next form is filled: a save
+    // redraws the forms, and would reset what is being typed.
+    await expect(page.locator('.billing-list li', { hasText: '100' })).toHaveCount(1, { timeout: 20_000 });
     await page.locator('#billing-budget-amount').fill('1500');
     await page.locator('#billing-budget-currency').fill('EUR');
     await page.locator('form.js-billing-budget button[type="submit"]').click();
@@ -100,12 +103,14 @@ test('Budget and billing: expenses, fees, approving time and a quote', async ({ 
     await page.locator('form.js-billing-rate #billing-rate-cost').fill('60');
     await page.locator('form.js-billing-rate button[type="submit"]').click();
     await expect(page.locator('.billing-margin')).toBeVisible({ timeout: 20_000 });
+    await expect(page.locator('.billing-list li', { hasText: '100' })).toHaveCount(1, { timeout: 20_000 });
 
     const expense = page.locator('form.js-billing-expense');
     await expense.locator('[name="amount"]').fill('50');
     await expense.locator('[name="description"]').fill(`Train ${stamp}`);
     await expense.locator('[name="category"]').selectOption('travel');
     await expense.locator('button[type="submit"]').click();
+    await expect(page.locator('.billing-expenses li', { hasText: `Train ${stamp}` })).toHaveCount(1, { timeout: 20_000 });
     const fee = page.locator('form.js-billing-fee');
     await fee.locator('[name="title"]').fill(`Kick-off ${stamp}`);
     await fee.locator('[name="amount"]').fill('500');
