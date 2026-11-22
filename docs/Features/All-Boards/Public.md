@@ -1,11 +1,49 @@
 # Design: the Public Boards page
 
+## What it is
+
+`/public` lists the boards anybody may open: public boards, and for a signed-in
+visitor also the boards visible to everybody on this WeKan. It is a read-only
+table of board titles and descriptions, ten per page, searchable by title.
+Clicking a row opens the board. It changes nothing.
+
+## Read more
+
+- [Table (information)](https://en.wikipedia.org/wiki/Table_(information)) and
+  [Pagination](https://en.wikipedia.org/wiki/Pagination) on Wikipedia
+- [The Table page design](../General/Table.md),
+  [Allow private boards only: Disable Public Boards](../Admin-Panel/Settings/Appearance.md)
+  and [Starred](../Pages/Starred.md) in these docs
+
+## How to use it
+
+1. Open `/public` (**Public** in the header title).
+2. Type part of a board title in the search field and press **Enter**.
+3. Use the pager below the table to move between pages.
+4. Click a board's row to open the board.
+
+## How the numbers are calculated
+
+- **Rows per page**: `TABLE_PAGE_ROWS_PER_PAGE`, **10**
+  ([models/lib/tablePage.js](../../../models/lib/tablePage.js)). The
+  publication accepts 1 to 100 per page and clamps anything else into that
+  range (`Math.max(1, Math.min(Math.floor(limit) || 10, 100))`).
+- **Page *n*** skips `(n - 1) × 10` boards.
+- **Total** (for the pager): `getPublicBoardsCount(searchTerm)`, the number of
+  boards matching the same selector the publication uses - so the total and the
+  pages agree.
+- **Order**: by each board's `sort` value, ascending.
+- **Search**: the term is matched against the title, ignoring case, with regular
+  expression characters escaped.
+
+## How it works in WeKan
+
 `/public` lists the boards anybody may open. It is a **table page**: everything
 about its layout, its controls and its paging is defined once in
 [the Table page design](../General/Table.md), and this page describes only what is different
 about this one.
 
-## What it is not
+### What it is not
 
 `/public` used to render `boardList`, the All Boards page, with its query swapped
 for `{ permission: 'public' }`. That brought the whole of All Boards with it —
@@ -26,7 +64,7 @@ prints a title only when it is given one, for exactly this reason — the Admin
 Panel panes supply none either, since their heading comes from the active left
 menu entry.
 
-## Read-only
+### Read-only
 
 The only thing a row does is **open its board**. There is no starring, no
 archiving, no editing, and no per-row menu — a visitor to this page is looking at
@@ -37,7 +75,7 @@ colours (see below), which a text-cell column spec cannot express. "Read-only"
 here is about what the page can CHANGE, not about whether its rows are plain text:
 the row template renders one anchor and no control.
 
-## The rows look like the board tiles
+### The rows look like the board tiles
 
 A board on All Boards is recognised by its colour or its background image before
 its title is read, and that is worth keeping — it is the same board. So each row
@@ -57,7 +95,7 @@ and with the light text on top that is white on white — only the row's emoji i
 visible. The All Boards tile has the same problem and answers it the same way,
 with a grey fallback under its white text.
 
-## Columns
+### Columns
 
 Two:
 
@@ -79,7 +117,7 @@ from a per-board tile-data method, and the clock answers by looking for cards,
 which this page does not publish at all — it would read `false` for every board
 on every instance.
 
-## Paging, and how little is sent
+### Paging, and how little is sent
 
 Ten boards per page, which is the shared `TABLE_PAGE_ROWS_PER_PAGE`, and the
 paging is server-side like every other table page: the `publicBoards` publication
@@ -103,20 +141,23 @@ board, and this page shows no avatars.
 
 The search box searches board **titles**, on Enter, like every table page.
 
-## What the page may show
+### What the page may show
 
 Only boards that are:
 
-- `permission: 'public'`,
+- `permission: 'public'` - or, for a signed-in visitor, `permission: 'public'`
+  or `'instance'` (boards visible to everybody signed in to this WeKan),
 - not archived,
 - `type: 'board'` — not a template container,
 - and not an internal helper board (`^Subtasks^`), which
   `models/lib/helperBoards.js` excludes for every board list.
 
-The publication resolves that itself. It does not take a selector from the
-client, and it needs no login: a public board is public.
+The publication resolves that itself (`publicBoardsSelector()`). It does not
+take a selector from the client, and the publication needs no login: a public
+board is public. The `/public` route itself still goes through
+`ensureSignedInUnlessSandstorm`, so in the app a visitor signs in first.
 
-## Related files
+### Related files
 
 Only what is specific to this page; everything shared is in
 [Table.md's own list](../General/Table.md#related-files).
@@ -130,7 +171,14 @@ Only what is specific to this page; everything shared is in
 | `config/router.js` | `.js` routes | `/public` renders this pane instead of `boardList`. |
 | `tests/publicBoardsPage.test.cjs` | `.cjs` Node test | That the page is the shared table, is read-only, carries none of the All Boards chrome, pages ten at a time on the server, and shows only public non-helper boards. |
 
-## Related
+### Related
 
 - [The Table page design](../General/Table.md) — everything shared
 - [Left menu](Left-Menu.md)
+
+## Commits
+
+ - [A search shows its own results, never the previous search's](https://github.com/wekan/wekan/commit/49344f32f464e494b6a2e4ecbf5694e26ee58383)
+ - [One heading on /public, not two](https://github.com/wekan/wekan/commit/3644b3b0cdbd4350d9879daeff464fd39df7365e)
+ - [Public Boards no longer lists the internal Subtasks boards](https://github.com/wekan/wekan/commit/a4475e57eb78901a02af925d23f1f5b7c5fb4389)
+ - [/public is its own read-only table page, not All Boards with a different query](https://github.com/wekan/wekan/commit/54915db250ef310c0149f29c99abded3d60b6a0f)

@@ -1,5 +1,48 @@
 # Design: the All Boards page's URLs
 
+## What it is
+
+Every entry of the All Boards left menu has its own URL - the sections, the
+Archive, Home and every workspace, however deep it is nested. So a section or
+a workspace can be bookmarked, sent to a colleague, opened in a second tab and
+reached with the Back button. A workspace is addressed by the slugs of its
+names down the tree, not by a random id.
+
+## Read more
+
+- [Uniform Resource Locator](https://en.wikipedia.org/wiki/Uniform_Resource_Locator)
+  and [Clean URL - Slug](https://en.wikipedia.org/wiki/Clean_URL#Slug) on
+  Wikipedia
+- [Permalink](https://en.wikipedia.org/wiki/Permalink)
+- [Breadcrumb navigation](https://en.wikipedia.org/wiki/Breadcrumb_navigation) -
+  the title trail in the header
+- [limax](https://github.com/lovell/limax), the slug library WeKan uses
+- [Admin Panel URLs](../Admin-Panel/Admin-Panel-URLs.md) and
+  [Workspaces](Workspaces.md) in these docs
+
+## How to use it
+
+1. Open **All Boards** and click a row of the left menu, or a workspace.
+2. The browser's address bar now shows that entry's URL, for example
+   `/allboards/workspaces/engineering/backend`; copy or bookmark it.
+3. Opening the URL later selects the same entry. **Back** returns to the entry
+   you had before.
+
+The old addresses `/templates` and `/remaining` still work and redirect.
+
+## How the numbers are calculated
+
+The URLs have no numbers of their own. Their rules:
+
+- the route is `'/allboards/:section?/:path*'`, and `:path*` is zero or more
+  segments, so there is no depth limit;
+- an unknown section falls back to Starred (`resolveSection()`, `DEFAULT_SECTION`
+  in `models/lib/allBoardsUrls.js`);
+- a workspace name that slugifies to nothing uses the workspace id instead;
+- of two sibling workspaces with the same slug, the first wins.
+
+## How it works in WeKan
+
 Every left-menu entry of All Boards has its own URL — the workspaces tree
 included.
 
@@ -8,7 +51,7 @@ workspaces tree had none at all. Which workspace you had open was a ReactiveVar,
 so a workspace could not be linked to a colleague, bookmarked, opened in a second
 tab or reached with the back button.
 
-## The shape
+### The shape
 
 ```
 /allboards/starred
@@ -26,9 +69,12 @@ The route is `'/allboards/:section?/:path*'`. `:path*` is **zero or more
 segments** — `[^/]+` would stop at the first slash, and a workspace two levels
 down would not resolve — so a workspace nests as deep as its tree does.
 
-`/` stays the app's home and still shows Starred.
+`/` stays the app's home. It names no section, so the page picks one:
+Starred when you have starred boards, Remaining when you have none (and,
+once per session after login, it first opens your [Home](Home.md) board when
+one is set).
 
-## A workspace is addressed by its names
+### A workspace is addressed by its names
 
 Not by its id. The id is a random string; a URL should say where you are.
 `/allboards/workspaces/engineering/backend` is a path down the tree, one slug per
@@ -46,10 +92,10 @@ opened from a link.
 Two sibling workspaces whose names slugify the same are ambiguous, and the first
 wins. That is the rule a duplicate board slug already follows.
 
-## The title bar names the same things
+### The title bar names the same things
 
 `All Boards / Starred`, `All Boards / Workspaces / Engineering / Backend`. The
-page is four lists of boards under one name, and a workspace is a tree under one
+page is several lists of boards under one name, and a workspace is a tree under one
 of them, so "All Boards" alone named the page and not the list you were looking
 at.
 
@@ -75,7 +121,7 @@ This is the same title trail the Admin Panel uses
 segment: the two pages do not have the same number of segments, and a workspace
 has as many as its tree is deep.
 
-## Who resolves what
+### Who resolves what
 
 | | |
 | --- | --- |
@@ -95,14 +141,14 @@ entry and then `FlowRouter.go`s to its URL. `go`, not `replace`, so Back returns
 to the previous entry — and only when the path would actually change, or every
 click becomes a navigation to where you already are.
 
-## `allboards` is an All Boards route
+### `allboards` is an All Boards route
 
 `boardsList.js` filters boards by membership only on the All Boards routes. A
 route missing from that list falls through to the **public-boards** branch, so
 the page would show public boards instead of the user's own. The list is `home`,
 `allboards`, `allboards-templates`, `allboards-remaining`.
 
-## Old URLs
+### Old URLs
 
 | Old | Now |
 | --- | --- |
@@ -117,7 +163,7 @@ whatever page it was on.
 `{{pathFor 'allboards-templates'}}` in `userHeader.jade` still resolves, through
 that redirect.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -126,7 +172,16 @@ that redirect.
 | `client/components/boards/boardsList.js` | `.js` Blaze template logic | Resolves the workspace once the tree loads, and puts a clicked entry in the URL. |
 | `tests/allBoardsUrls.test.cjs` | `.cjs` Node test | Both directions of the slug path, the fallbacks, the wildcard splitting, and the wiring — including that `getSlug` is the one board URLs use. |
 
-## Related
+### Related
 
 - [All Boards](All-Boards.md) — the page these URLs open
 - [The Admin Panel's URLs](../Admin-Panel/Admin-Panel-URLs.md) — the same idea, for the Admin Panel
+
+## Commits
+
+ - [All Boards: Home is a section with its own URL](https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040)
+ - [Open Starred, or Remaining when nothing is starred](https://github.com/wekan/wekan/commit/50a1d4263e253b0771342e7469243b13eaf106d3)
+ - [The Archive is a section of All Boards, at /allboards/archive](https://github.com/wekan/wekan/commit/a05c1ac08a53bc83ea75ee5f836deb5227506085)
+ - [Pin that a workspace nests as deep as its tree does](https://github.com/wekan/wekan/commit/1b5375414bca6032bae0552daca6d75f27d7fda9)
+ - [The header bar names the list, and the workspace inside it](https://github.com/wekan/wekan/commit/1164785d1d72903b656683c76ddbbb201c33c414)
+ - [A URL for every left-menu entry, workspaces included](https://github.com/wekan/wekan/commit/5cc399b473c210c61b28fc302039c53ff2e7f16f)

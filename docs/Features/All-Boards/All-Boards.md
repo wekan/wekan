@@ -1,13 +1,99 @@
 # Design: the All Boards page
 
-All Boards (`/board`, and the Starred / Templates / Remaining sections with it) is
-a left menu, a header bar of controls, and a view of the boards themselves.
+## What it is
+
+**All Boards** is the page that lists your boards. A left menu picks which
+boards are shown - Starred, Remaining, Home, Templates, Archive, a workspace or
+an organization or team - and the boards are drawn as icons or as a table. The
+first header bar holds the page's controls: sort, search, export, and
+Multi-Selection for acting on several boards at once.
+
+## Read more
+
+- [Kanban board](https://en.wikipedia.org/wiki/Kanban_board) on Wikipedia
+- [Faceted search](https://en.wikipedia.org/wiki/Faceted_search) - the facet bar
+  above the boards
+- [Hamburger button](https://en.wikipedia.org/wiki/Hamburger_button) - which this
+  page deliberately does not have
+- [Table](../General/Table.md), [Left menu](Left-Menu.md),
+  [Workspaces](Workspaces.md), [Home](Home.md), [Archive](Archive.md),
+  [URLs](URLs.md), [Board labels](Board-Labels.md),
+  [Search](../Board-Header/Search.md) and
+  [Multi-Selection](../General/Multi-Selection.md) in these docs
+
+## How to use it
+
+**Find a board**
+
+1. Open **All Boards** (`/`). It opens on **Starred**, or on **Remaining** when
+   you have starred nothing.
+2. Click a section, workspace or group in the left menu.
+3. Optionally click a group in the facet bar, or **Search boards** in the
+   header bar.
+4. Click a board to open it.
+
+**Sort the boards**
+
+1. Click **Sort Boards** in the header bar.
+2. Choose **Custom (drag order)**, **Title (A → Z)** or **Title (Z → A)**. The
+   button is emphasised while a title sort is on.
+
+**Switch between icons and a table**
+
+1. Click the view menu in the header bar (it shows **Lists** or **Table**).
+2. Choose **Lists** (board icons, the default) or **Table**.
+3. In the Table, click the pencil to open **Edit board title**.
+
+**Archive or duplicate boards**
+
+1. Click **Multi-Selection** and tick the boards.
+2. In the right sidebar click **Move Board to Archive**, **Duplicate Board**,
+   **Export selected boards** or **Set as Home board (opened after login)**.
+3. Click **Turn Multi-Selection off** (the ✕) when done.
+
+Or drag one board onto **Archive** in the left menu and confirm.
+
+## How the numbers are calculated
+
+The counts beside the left-menu rows (`menuItemCountOf()` in
+[client/components/boards/boardsList.js](../../../client/components/boards/boardsList.js))
+are counted over the boards that are not archived, are of type `board` or
+`template-container`, are not internal helper boards, and have you as a member -
+plus the public or instance boards you have starred:
+
+| Row | Count |
+| --- | --- |
+| Starred | Those boards you have starred (`profile.starredBoards`). |
+| Remaining | Those boards in no workspace (`profile.boardWorkspaceAssignments`) that are not template containers. A starred board is counted here too. |
+| Home | `1` when your Home board is among those boards, otherwise `0`. |
+| Templates | The template containers among those boards. |
+| Archive | `getArchivedBoardsCount('')` from the server - see [Archive](Archive.md#how-the-numbers-are-calculated). |
+| A workspace | See [Workspaces](Workspaces.md#how-the-numbers-are-calculated). |
+
+Other numbers:
+
+- **Table view**: `TABLE_PAGE_ROWS_PER_PAGE`, **10** rows per page
+  ([models/lib/tablePage.js](../../../models/lib/tablePage.js)).
+- **Archive section**: up to `ARCHIVED_BOARDS_LIMIT`, **60**, archived boards at
+  once.
+- **Right sidebar**: **420px** wide; on a desktop the boards move aside by that
+  much (`margin-inline-end: 420px` in
+  [client/components/boards/boardsList.css](../../../client/components/boards/boardsList.css)).
+- **Header labels**: hidden at **1000px** and narrower
+  ([client/components/main/header.css](../../../client/components/main/header.css)).
+- The facet bar's counts are explained in
+  [Board labels](Board-Labels.md#how-the-numbers-are-calculated).
+
+## How it works in WeKan
+
+All Boards (`/`, and `/allboards/<section>` for each of its sections) is a left
+menu, a header bar of controls, and a view of the boards themselves.
 
 Its **Table** view is a table page: everything about the table's layout, controls
 and paging is defined once in [the Table page design](../General/Table.md), and only what is
 particular to it is described here.
 
-## The controls live in the header bar
+### The controls live in the header bar
 
 There is **one** row of controls, and it is the **first** top header bar — the
 one that is always on screen and says `All Boards / Starred`. They sit to the
@@ -19,16 +105,19 @@ same emphasis state when a control is on.
 | --- | --- | --- |
 | Sort | `fa-sort` | Opens the boards sort popup. Emphasised while a sort other than the custom order is active. |
 | Search | `fa-search` | Opens the right sidebar on its search view — [Search](../Board-Header/Search.md). |
+| Export all boards | `fa-download` | Exports all your boards (`server/routes/exportAllBoards.js`). |
 | Multi-Selection | `fa-check-square-o` | Turns board multi-selection on and opens the sidebar that holds what to do with a selection — [Multi-Selection](../General/Multi-Selection.md). |
 | Lists / Table | `fa-trello` / `fa-table` | The view menu — see below. |
 
 Each names itself beside its icon where the bar has room for it, and loses the
-label below 1100px with every other one — see [the header](../Header-Bar/Header.md).
+label at 1000px and narrower with every other one, keeping its tooltip — see
+[the header](../Header-Bar/Header.md).
 
-**Archive is not one of them.** The three above act on the boards in
+**Archive is not one of them.** The controls above act on the boards in
 front of you; the Archive is a *place* you go instead, so it is a row of the
-**left menu**, the last of its four rows, with a count beside it like the three
-board lists above it. It is labelled **Archive** — one word, like Starred, Templates and Remaining
+**left menu**, the last of its five section rows (Starred, Remaining, Home,
+Templates, Archive), with a count beside it like the board lists above it.
+It is labelled **Archive** — one word, like Starred, Templates and Remaining
 beside it, and the menu already says what it is listing. That is `archives`, an
 existing key, and the *section title* uses the same one so the header's path and
 the highlighted row cannot name one place two ways.
@@ -38,13 +127,16 @@ full-width page that replaces it. Selecting something from a menu and then losin
 the menu is a menu that throws itself away. Its address is `/allboards/archive`,
 in the same shape as the other four sections, and the template is the archive's
 own so its search and its pager come with it. The standalone `/archive` page
-still exists for a direct link, and the *sidebar's* row still goes there.
+still exists for a direct link, but nothing in the UI points at it any more: the
+board menu, the member menu, the board sidebar and this page's own sidebar all go
+to `/allboards/archive` ([Archive](Archive.md)).
 
 Its count is asked of the server (`getArchivedBoardsCount`, the method the
 archive's own pager uses) rather than counted from what this page has: All Boards
 does not subscribe to archived boards at all — its query is `archived: false` —
-and the archive's publication is paginated to 30, so counting minimongo would
-answer 0 on a fresh load and something arbitrary later.
+and the archive's publication is paginated (this page asks it for
+`ARCHIVED_BOARDS_LIMIT`, 60, at a time; its own default is 30), so counting
+minimongo would answer 0 on a fresh load and something arbitrary later.
 
 **A board can be dragged onto it** to archive it, from any of the four lists or
 from a workspace. The left menu already accepts a drop on Remaining, so the
@@ -52,7 +144,7 @@ gesture is the one already in the reader's hand; the alternative was three click
 through Multi-Selection. It asks first, because a drop is easy to make by
 accident — a board dragged to reorder that lands one row low.
 
-## The pane's heading
+### The pane's heading
 
 The right pane opens with a **heading naming the section you are looking at** —
 Starred, Remaining, Home, Templates, Archive, or a workspace's own name. The
@@ -74,7 +166,7 @@ all three say the same thing. A **workspace** is the exception: its name is what
 somebody typed, so it is passed as a label and never goes through the
 translator, because a workspace called "starred" is not the Starred section.
 
-## Which section the page opens on
+### Which section the page opens on
 
 Starred was always the landing section, and on an account that has starred
 nothing that is an **empty page with a full one behind it** — which reads as
@@ -172,7 +264,7 @@ four icon-only buttons crowded in beside the controls; the sidebar gives each
 one its name, and it is where a board keeps them too. See
 [Multi-Selection](../General/Multi-Selection.md).
 
-### Every button names itself in a tooltip
+#### Every button names itself in a tooltip
 
 The controls are icons, so the tooltip is the only place a name can be — a
 button without one is an unlabelled picture. Every `.board-header-btn` in the
@@ -183,7 +275,7 @@ The ✕ that turns Multi-Selection off used to say "Clear filter", which is what
 different control does. It says `multi-selection-off` now, because there is only
 one of it.
 
-## The right sidebar
+### The right sidebar
 
 All Boards has one, and it is not the board sidebar: that one is built around a
 board — its members, labels, activities and settings — and this page has no
@@ -193,7 +285,7 @@ same `.board-sidebar.sidebar` classes, the same `.sidebar-actions` row with the
 
 | View | Opened by | What it is |
 | --- | --- | --- |
-| `home` | the back arrow of another view | The page's own menu: Search, Multi-Selection, and [Boards in Archive](Archive.md) — which is a page, so that row leaves the sidebar rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. Nothing *opens* the sidebar here any more, since those four are in the header bar; it is what you land on going back. |
+| `home` | the back arrow of another view | The page's own menu: Sort Boards, Search boards, Multi-Selection, Export all boards and [Boards in Archive](Archive.md) — which is a section of the page, so that row closes the sidebar and opens `/allboards/archive` rather than opening in it. The default, as `homeSidebar` is on a board. No title and no back arrow — there is nothing behind it. Nothing *opens* the sidebar here any more, since those four are in the header bar; it is what you land on going back. |
 | `search` | the Search button | [Search](../Board-Header/Search.md) |
 | `multiselection` | the Multi-Selection button | [Multi-Selection](../General/Multi-Selection.md) |
 
@@ -212,7 +304,7 @@ closes the sidebar again, so the button that opened it also shuts it. Escape
 closes it — the **key** only, because the click half of `EscapeActions` would
 close it on every click, including clicks on its own contents.
 
-### Where it sits
+#### Where it sits
 
 On a **desktop** it is pinned to the viewport: `top` is
 `var(--wekan-header-height)` — the height the header MEASURES itself to be,
@@ -237,7 +329,7 @@ own stylesheet already pins this element — it carries that class — to the fu
 screen width below the header, which is what a phone should do. There is nothing
 to move aside from a full-width panel.
 
-### It carries a theme
+#### It carries a theme
 
 `.sidebar .sidebar-content .sidebar-btn` is a light grey box whose text is
 **white**. What makes that readable on a board is a `.board-color-*` ancestor
@@ -263,7 +355,7 @@ costs no layout.
 The theme is a class in the markup, so it is the **same at every width**; only
 the geometry above is desktop-only.
 
-## The view menu
+### The view menu
 
 The button shows the **name of the current view**, not the word "Board View" — the
 same as the board header, which says "Swimlanes" or "Lists" rather than naming the
@@ -282,7 +374,7 @@ and it is not worth a profile field or a round trip. This is the one place All
 Boards deliberately differs from a board, whose view IS on the profile because it
 follows the user between devices.
 
-## The Table view
+### The Table view
 
 A table page, editable — which is the difference from
 [Public Boards](Public.md), the other board table, which is read-only.
@@ -304,21 +396,22 @@ Rows are ten per page, the shared `TABLE_PAGE_ROWS_PER_PAGE`, and the table show
 the boards of the section the left menu has selected, filtered by the search
 field — the same set the Lists view would draw.
 
-## What stays on the left
+### What stays on the left
 
-The left menu keeps its sections (Starred, Templates, Remaining), the workspaces
-tree and the organization / team filters. Starred is *only* here now: the header
+The left menu keeps its sections (Starred, Remaining, Home, Templates, Archive),
+the workspaces tree, the organization and team tabs and the organization / team
+filters. Starred is *only* here now: the header
 bar had a Starred button beside it, and two ways to reach one section, one click
 apart, is a control that has to be kept in step with the menu for no gain.
 
-### What a workspace row shows
+#### What a workspace row shows
 
 The full design of the workspaces tree - folding, nesting, the drop slots and the
 depth - is [Workspaces](Workspaces.md). What follows is the part of it that is
 about this page's left menu.
 
 
-Icon, name, the ⋯ **menu**, then the **count of boards** in it — the count last,
+Icon, name, the ☰ **menu**, then the **count of boards** in it — the count last,
 at the end of the row, where the counts of the sections above it are too.
 
 The **selected** workspace is filled with the theme accent, and that fill covers
@@ -333,7 +426,7 @@ The menu and the count are `flex: 0 0 auto` and the name's anchor is `flex: 1`
 with `min-width: 0`, so a long workspace name ellipses itself instead of
 squeezing its two neighbours off the row.
 
-### Reordering a workspace
+#### Reordering a workspace
 
 A workspace row obeys the **Show desktop drag handles** toggle in the first
 header bar — the same setting swimlanes, lists, cards and the board tiles obey,
@@ -349,7 +442,7 @@ at and the name beside it is the part of the row a reader is pointing at anyway.
 Clicking that same anchor still opens the workspace: a click and a drag are two
 gestures on one element, exactly as they are on a board tile with handles off.
 
-Not the whole **row**, though — the row also holds the ⋯ menu and the board
+Not the whole **row**, though — the row also holds the ☰ menu and the board
 count, and a drag started on those is a drag of something else. So `draggable`
 lives on the handle or on the anchor, never on the row, and the `dragstart`
 handler stays on the row because the event bubbles up from whichever child
@@ -372,41 +465,7 @@ does change follows the `draggable` attribute itself (`[draggable="true"]` in
 the selector) rather than a second class, so there is one answer to "is this the
 drag source right now".
 
-## Related files
-
-Only what is particular to this page; everything shared by table pages is in
-[Table.md's own list](../General/Table.md#related-files), and the two shared header-bar
-controls have their own lists in [Search](../Board-Header/Search.md) and
-[Multi-Selection](../General/Multi-Selection.md).
-
-| File Path | File Type | Description |
-| --- | --- | --- |
-| `client/components/boards/boardsList.jade` | `.jade` template | `boardList` (the page), `boardListHeaderBar` (the controls) and `allBoardsRow` (a Table row). |
-| `client/components/boards/boardsList.js` | `.js` Blaze template logic | The controls' handlers, the view switch, the Table column spec. |
-| `client/components/boards/boardsList.css` | `.css` stylesheet | The page's own layout. The header bar and the sidebar reuse the board header's and board sidebar's styles rather than restating them. |
-| `client/components/boards/allBoardsSidebar.jade` | `.jade` template | The sidebar shell and its three views. |
-| `client/components/boards/allBoardsSidebar.js` | `.js` Blaze template logic | The views' helpers and handlers. |
-| `models/lib/allBoardsSidebar.js` | `.js` module, pure | Which sidebar views exist, their titles and the template each one draws. No Meteor, so it is unit-testable. |
-| `client/lib/allBoardsSidebar.js` | `.js` module | Whether the sidebar is open and on which view, and the Escape action that closes it. |
-| `models/lib/allBoardsView.js` | `.js` module, pure | Which board views exist, which is the default, and how an unrecognised stored value is treated. |
-| `client/lib/allBoardsView.js` | `.js` module | The Meteor and browser glue: the ReactiveVars the templates share (they are separate Blaze instances) and the `localStorage` the view choice is kept in. |
-| `client/components/boards/boardHeader.jade` | `.jade` template | `boardChangeTitlePopup`, shared with the Swimlanes view. |
-| `client/features/boards.js` | `.js` import list | Every `.jade` above has to be imported here, or its templates do not exist at runtime. |
-| `tests/allBoardsPage.test.cjs` | `.cjs` Node test | The controls are in the header bar and nowhere else, the sidebar's shell and views, the view menu's two entries and its default, the Table's columns, and that the Edit popup is the shared one. |
-| `tests/templateRegistration.test.cjs` | `.cjs` Node test | Every `.jade` is imported, and every `+template` it includes exists. |
-
-## Related
-
-- [Boards in Archive](Archive.md) — the page the sidebar's Archive row opens
-- [The All Boards URLs](URLs.md) — a URL per left-menu entry, workspaces included
-- [Search](../Board-Header/Search.md) — the shared Search control and both search views
-- [Multi-Selection](../General/Multi-Selection.md) — the shared Multi-Selection control and both views
-- [The Table page design](../General/Table.md) — everything shared by table pages
-- [Public Boards](Public.md) — the other board table, read-only
-- [Workspaces](Workspaces.md) — the tree in the left menu: folding, nesting and the drag
-- [Left menu](Left-Menu.md)
-
-## Archive or duplicate a board
+### Archive or duplicate a board
 
 In the right sidebar's Multi-selection actions, **Duplicate Board** opens a
 selection popup for all selected boards. All choices start selected. **Select
@@ -435,3 +494,69 @@ Board — Without cards** action has been removed from Multi-selection.
 
 Board tiles have no Actions hamburger menu; use the multiselection sidebar to
 archive selected boards.
+
+### Related files
+
+Only what is particular to this page; everything shared by table pages is in
+[Table.md's own list](../General/Table.md#related-files), and the two shared header-bar
+controls have their own lists in [Search](../Board-Header/Search.md) and
+[Multi-Selection](../General/Multi-Selection.md).
+
+| File Path | File Type | Description |
+| --- | --- | --- |
+| `client/components/boards/boardsList.jade` | `.jade` template | `boardList` (the page), `boardListHeaderBar` (the controls) and `allBoardsRow` (a Table row). |
+| `client/components/boards/boardsList.js` | `.js` Blaze template logic | The controls' handlers, the view switch, the Table column spec. |
+| `client/components/boards/boardsList.css` | `.css` stylesheet | The page's own layout. The header bar and the sidebar reuse the board header's and board sidebar's styles rather than restating them. |
+| `client/components/boards/allBoardsSidebar.jade` | `.jade` template | The sidebar shell and its three views. |
+| `client/components/boards/allBoardsSidebar.js` | `.js` Blaze template logic | The views' helpers and handlers. |
+| `models/lib/allBoardsSidebar.js` | `.js` module, pure | Which sidebar views exist, their titles and the template each one draws. No Meteor, so it is unit-testable. |
+| `client/lib/allBoardsSidebar.js` | `.js` module | Whether the sidebar is open and on which view, and the Escape action that closes it. |
+| `models/lib/allBoardsView.js` | `.js` module, pure | Which board views exist, which is the default, and how an unrecognised stored value is treated. |
+| `client/lib/allBoardsView.js` | `.js` module | The Meteor and browser glue: the ReactiveVars the templates share (they are separate Blaze instances) and the `localStorage` the view choice is kept in. |
+| `client/components/boards/boardHeader.jade` | `.jade` template | `boardChangeTitlePopup`, shared with the Swimlanes view. |
+| `client/features/boards.js` | `.js` import list | Every `.jade` above has to be imported here, or its templates do not exist at runtime. |
+| `tests/allBoardsPage.test.cjs` | `.cjs` Node test | The controls are in the header bar and nowhere else, the sidebar's shell and views, the view menu's two entries and its default, the Table's columns, and that the Edit popup is the shared one. |
+| `tests/templateRegistration.test.cjs` | `.cjs` Node test | Every `.jade` is imported, and every `+template` it includes exists. |
+
+### Related
+
+- [Boards in Archive](Archive.md) — the page the sidebar's Archive row opens
+- [The All Boards URLs](URLs.md) — a URL per left-menu entry, workspaces included
+- [Search](../Board-Header/Search.md) — the shared Search control and both search views
+- [Multi-Selection](../General/Multi-Selection.md) — the shared Multi-Selection control and both views
+- [The Table page design](../General/Table.md) — everything shared by table pages
+- [Public Boards](Public.md) — the other board table, read-only
+- [Workspaces](Workspaces.md) — the tree in the left menu: folding, nesting and the drag
+- [Left menu](Left-Menu.md)
+
+## Commits
+
+ - [Choose structure and content when duplicating selected boards](https://github.com/wekan/wekan/commit/8bf47d1a9ad2dabf56186ce7f069318a2aaff9ce)
+ - [Card-free board duplication moves into the multiselection actions](https://github.com/wekan/wekan/commit/5dbb9167fd686fa54b9836ad16236bae64564f5c)
+ - [Select the visible boards in every All Boards section](https://github.com/wekan/wekan/commit/2547c52168f90b690968888b7c822e186d91ce01)
+ - [Keep the All Boards selection actions visible](https://github.com/wekan/wekan/commit/c704b65ccf3098f36e43a1265cfff120300930f5)
+ - [All Boards on a phone: the scroll, the table view, the tiles and the spacing](https://github.com/wekan/wekan/commit/c0a5c2b7c97ca4ec0b3ee54a04f2fed9318d6450)
+ - [A starred page is the same height as a board and as Add Board](https://github.com/wekan/wekan/commit/6c591968024d8889accdd9a1c342d05db7d6738e)
+ - [Board tiles fill their row](https://github.com/wekan/wekan/commit/580b03e1727f4c6880d15ff240a00f91ea58b29c)
+ - [Every section names itself at the top of its pane](https://github.com/wekan/wekan/commit/a88dc8cbba676a7ef33ab076943f6dd5b57b9e05)
+ - [Open Starred, or Remaining when nothing is starred](https://github.com/wekan/wekan/commit/50a1d4263e253b0771342e7469243b13eaf106d3)
+ - [Drag a board onto Archive, and the Archive is board icons](https://github.com/wekan/wekan/commit/27cfc214b5bb175db25c4ec6319510334142066c)
+ - [The archive is a section of this page](https://github.com/wekan/wekan/commit/a05c1ac08a53bc83ea75ee5f836deb5227506085)
+ - [The Workspaces rules are dark grey](https://github.com/wekan/wekan/commit/2c39a83b6a9fb4081af0226326e276752b682822)
+ - [The controls keep their names at every width they fit](https://github.com/wekan/wekan/commit/040526db51f506024aa7d19668d0f6dfd92d7208)
+ - [Name the controls too](https://github.com/wekan/wekan/commit/c48d9e533d25ce3c5333e7460bc5d5cbf2519908)
+ - [Four controls into the header bar, and no hamburger to open](https://github.com/wekan/wekan/commit/6051a4368b0e4230bd6bb79214ea85639738864e)
+ - [The sidebar's theme goes where a theme rule can see it](https://github.com/wekan/wekan/commit/a1980ca67ed4746535dd3e009aa65953c6927a5d)
+ - [Place the sidebar, size it, and give it a theme](https://github.com/wekan/wekan/commit/ae80d997eb85065a10180ad8de0738a356b23eaf)
+ - [Search and Multi-Selection become the board header's controls](https://github.com/wekan/wekan/commit/fcfed1fd3721ae9cee271adf12d8a96d860f824c)
+ - [Make the selected star a toggle, and name every button](https://github.com/wekan/wekan/commit/2537a52ec2405e0a522426d47f8e246531832af3)
+ - [Drop Starred from the bar](https://github.com/wekan/wekan/commit/fa6bcd1f4ce326104cee9fa472faa4c35eca806b)
+ - [One row of controls in the header bar, and a Table view](https://github.com/wekan/wekan/commit/05e9cbc7c69716e82bcbe5e04dbc843bed7df6b2)
+ - [Drop a board directly onto the slot it should take](https://github.com/wekan/wekan/commit/8ee11ee0e0fe778277852ecedd2fa76c3bec25b6)
+ - [A live drop gap that follows the drag](https://github.com/wekan/wekan/commit/c0e71705f65fb1a2cb275673da0f8f51223440b4)
+ - [Show desktop drag handles works on All Boards too](https://github.com/wekan/wekan/commit/66d8709fa00ea2f4251ec57862e4c3e27393e503)
+ - [Touch to HTML5 drag-and-drop bridge, so board icons drag by finger](https://github.com/wekan/wekan/commit/1c2e1e2047f55724ce75fc42dc60e45a5db28ad5)
+ - [All Boards search and server-side pagination of board icons](https://github.com/wekan/wekan/commit/c1da7a4a332cd10bbd2ed3c93122fe0ea8864336)
+ - [All Boards / Templates URL routes, and no auto-created templates board](https://github.com/wekan/wekan/commit/1ee73a0cfb51fb72f635f04f8e659b0d873f1713)
+ - [Fix dragging a board in Remaining](https://github.com/wekan/wekan/commit/8183a645a1765c7decd51e160759e467049f719d)
+ - [Workspaces at the All Boards page](https://github.com/wekan/wekan/commit/0afbdc95b49537e06b4f9cf98f51a669ef249384)

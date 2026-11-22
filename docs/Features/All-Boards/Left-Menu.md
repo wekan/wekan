@@ -1,5 +1,70 @@
 # Design: the Left Menu
 
+## What it is
+
+The **left menu** is the column of entries beside the content on every Admin
+Panel page and on All Boards: each entry is an icon and a label, and the one
+whose pane is showing is highlighted. It is one design with one
+implementation, so every page's menu looks and behaves the same. It can be
+folded away with a caret and made wider or narrower by dragging its inner
+edge, and it moves to the right-hand side for right-to-left languages.
+
+## Read more
+
+- [Sidebar (computing)](https://en.wikipedia.org/wiki/Sidebar_(computing)) and
+  [Navigation bar](https://en.wikipedia.org/wiki/Navigation_bar) on Wikipedia
+- [Bidirectional text](https://en.wikipedia.org/wiki/Bidirectional_text) - why
+  the menu mirrors for right-to-left languages
+- [CSS logical properties and values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values)
+  and [Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+  (MDN) - how the mirroring and the width are done
+- [Table](../General/Table.md), [All Boards](All-Boards.md) and
+  [Workspaces](Workspaces.md) in these docs
+
+## How to use it
+
+**Open a pane**
+
+1. Click an entry of the menu. Its pane opens beside the menu, with the entry's
+   label as the pane's title.
+
+**Fold the menu away and back**
+
+1. Click the caret at the top of the menu (*Collapse*). The menu disappears.
+2. To bring it back, click the pane title, which now starts with a caret
+   pointing right (*Uncollapse*). With the keyboard, focus the caret and press
+   Enter or Space.
+
+**Change its width**
+
+1. Point at the inner edge of the menu (the right edge in left-to-right
+   languages); the cursor becomes a resize cursor.
+2. Drag it wider or narrower and let go. The width is remembered.
+
+On a phone (800px or narrower) the menu is full width above the content and
+cannot be dragged.
+
+## How the numbers are calculated
+
+- **Default width**: **260px** (`--wekan-left-menu-width` on `:root`,
+  [client/components/settings/settingBody.css](../../../client/components/settings/settingBody.css));
+  **250px** on tablets 768-1024px wide and **320px** from 1920px up
+  ([client/components/main/layouts.css](../../../client/components/main/layouts.css)).
+- **Dragged width, in the browser**: at least **160px** and at most
+  `min(600px, window width − 240px)`
+  ([client/components/settings/leftMenu.js](../../../client/components/settings/leftMenu.js)).
+- **Saved width, on the server**: rounded and clamped again to **120-1200px**;
+  `NaN` and other non-finite numbers are refused
+  ([server/models/users.js](../../../server/models/users.js)).
+- **The grip**: a **6px** strip, placed at
+  `calc(var(--wekan-left-menu-width) - 3px)` from the row's inline start.
+- **Phone layout**: at **800px** and narrower the menu stacks above the
+  content.
+- **Active entries**: always exactly one (`activeCount()` in
+  [models/lib/leftMenu.js](../../../models/lib/leftMenu.js)).
+
+## How it works in WeKan
+
 One design, one implementation, for the menu beside the content on every Admin
 Panel page: a list of entries, each an icon and a label, with the current one
 highlighted.
@@ -12,7 +77,7 @@ Pages that pair this menu with a paginated table also use
 [Table](../General/Table.md) — the two designs compose: menu on the reading-start side,
 table beside it.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -32,9 +97,9 @@ table beside it.
 | `tests/leftMenu.test.cjs` | `.cjs` Node test | The one suite: the pure helpers, the template, the side placement and mirroring, and that no page re-implements the menu. |
 | `tests/clientBundleImports.test.cjs` | `.cjs` Node test | Walks the import graph from `client/main.js` so a component that registers a template can never be left out of the bundle again. |
 
-## Pages that use this design
+### Pages that use this design
 
-### Admin Panel
+#### Admin Panel
 
 | Menu name | Menu path | Description |
 | --- | --- | --- |
@@ -51,7 +116,7 @@ Summary, Backup and the reports. A page whose menu had a single entry was a page
 in name only — the entry belongs in the menu of the section it is part of, and
 the tab that led to it is one tab fewer in the bar above.
 
-### All Boards
+#### All Boards
 
 `client/components/boards/boardsList.jade` uses the same caret, grip, width and
 pane title, with its own rows. From top to bottom:
@@ -71,7 +136,7 @@ The row order comes from `menuSectionOrder()` in `models/lib/allBoardsUrls.js`.
 The facet bar above the boards, with your own board labels and **Apply
 label**, is described in [Board labels](Board-Labels.md).
 
-## Which side the menu is on
+### Which side the menu is on
 
 **The menu is on the side the language starts from.**
 
@@ -95,7 +160,7 @@ Never write `left`, `right`, `margin-left` or `padding-left` for this menu: a
 physical property does not flip, and produces a right-hand menu whose entries are
 still indented from the left.
 
-## Collapsing it
+### Collapsing it
 
 A **caret at the top of the menu** folds it away. It is the control a **list**
 has on a board (`listHeader.jade`): pointing **down** while the thing is open and
@@ -171,7 +236,7 @@ either. `tests/clientBundleImports.test.cjs` walks the import graph from
 `client/main.js` and pins that every component file which registers something
 with Blaze is reachable from it.
 
-## Its width, and dragging it
+### Its width, and dragging it
 
 The menu's **inner edge** — the right one while reading left to right, the left
 one under a right-to-left language — carries a **grip**, and dragging it changes
@@ -219,7 +284,7 @@ method clamps again (120–1200px) and refuses `NaN`, which passes
 `check(width, Number)` and would otherwise store a width no page could recover
 from.
 
-## Theme
+### Theme
 
 Most of the menu is deliberately **neutral**: the panel is a light grey card
 (`#f7f7f7` on `#f0f0f0`) and the row you are on, or hover, lifts to white with a
@@ -258,7 +323,7 @@ never introduce a second accent variable.
 The Font Awesome icon of the selected entry is coloured with its label, in the same
 rule, so the two can never drift apart.
 
-## Layout
+### Layout
 
 - **Wide windows** — the menu keeps a fixed width beside the content, which fills
   the rest of the row.
@@ -267,7 +332,7 @@ rule, so the two can never drift apart.
   lives in `tablePage.css` and applies to the whole `.content-body`, so both
   designs stack the same way.
 
-## The pane title
+### The pane title
 
 **Every Admin Panel pane opens with a heading, and the heading is the active menu
 entry's own label.** The menu says which pane is open on the side you clicked; the
@@ -308,7 +373,7 @@ heading that says something the menu label does not — Limits' "Attachment And 
 File Size Limits", Locked users' "Brute Force Protection Settings" — is not a
 repeat and stays.
 
-## Entries
+### Entries
 
 A page describes its menu as data, not as markup:
 
@@ -333,7 +398,7 @@ A page describes its menu as data, not as markup:
   opts out of the hover highlight — a row that lights up under the pointer reads as
   one you can open. Use an existing i18n key: a heading is a label like any other.
 
-## Clicks
+### Clicks
 
 Every entry carries the shared `js-left-menu-item` class **and**, optionally, the
 page's own class, so a page keeps one handler:
@@ -345,10 +410,31 @@ page's own class, so a page keeps one handler:
 Adding an entry is a line in the item list. It needs no markup, no CSS and no new
 handler.
 
-## Adding a page
+### Adding a page
 
 1. Build the item list.
 2. Render `+leftMenu(menuItems)` beside `.main-body` inside `.content-body`.
 3. Render `+paneTitle(paneTitleData)` as the first thing inside `.main-body`, with
    a `paneTitleData()` helper that calls `paneTitle(items, activeId)`.
 4. Handle `click .js-left-menu-item` and switch on `data-id`.
+
+## Commits
+
+ - [The board counts line up in one column](https://github.com/wekan/wekan/commit/852ad1714b58589fd132c4f63ef32fc47eef709d)
+ - [The left menu fits its column on a phone](https://github.com/wekan/wekan/commit/5b91c99b115c93c27fa2d257972a748ee45054e4)
+ - [The left menu is resized by dragging its inner edge](https://github.com/wekan/wekan/commit/920d42b6db4c2df0d8302ee56b3d0d17fc40c3c3)
+ - [Folded, the left menu is gone, and the pane title brings it back](https://github.com/wekan/wekan/commit/8ef151696d8ceaa5b62f402592e22cd44290bc69)
+ - [The left menu's caret does something when clicked](https://github.com/wekan/wekan/commit/25265527648cffb1fe479c7a4c2a4f13b69f9041)
+ - [Left menus fold away, with the caret a list already has](https://github.com/wekan/wekan/commit/5df6f284212be9ec6070f8438dca78f0d1fa89d8)
+ - [Every All Boards section names itself at the top of its pane](https://github.com/wekan/wekan/commit/a88dc8cbba676a7ef33ab076943f6dd5b57b9e05)
+ - [Left menus keep the neutral panel with the themed selected row](https://github.com/wekan/wekan/commit/40325c88fdcf30b874f1ffaada164d61b69d8631)
+ - [The menu carries the theme](https://github.com/wekan/wekan/commit/83e832e9e721fcec8cf102f65dee8c098d5bb0a6)
+ - [The All Boards left menu matches the Admin Panel's rows](https://github.com/wekan/wekan/commit/cb728c334bf1d024fd537acd32022583772484ce)
+ - [The All Boards left menu reaches the window's left and bottom edges](https://github.com/wekan/wekan/commit/b45e19ef8d843b090f162d44c8cb5e5eda15b003)
+ - [The All Boards menu looks like the Admin Panel's](https://github.com/wekan/wekan/commit/a05c1ac08a53bc83ea75ee5f836deb5227506085)
+ - [Admin Panel: every pane has a title, and Version opens first](https://github.com/wekan/wekan/commit/d232194070314bbde9ab80f90cad037a215a90f9)
+ - [Admin Panel / Problems: the menu says which group is which](https://github.com/wekan/wekan/commit/fc0fe31779194fe0e363fe97a433502c9c22f2d2)
+ - [Admin Panel: the left menu is back on every page](https://github.com/wekan/wekan/commit/d34d281595b9bd10cf7295b4aa216afaf29e8394)
+ - [Admin Panel / Attachments renders its side menu from the shared left menu](https://github.com/wekan/wekan/commit/1c1aefbd16c2be4a21d5a9f339f618da01bdb2b4)
+ - [Admin Panel / Problems renders its side menu from the shared left menu](https://github.com/wekan/wekan/commit/f46aab011b7c1e319fe0c1f97ef155e66b615fa6)
+ - [The Left Menu design document](https://github.com/wekan/wekan/commit/33a0cf6160d6248f1a67abf2408f7b5271ddc074)

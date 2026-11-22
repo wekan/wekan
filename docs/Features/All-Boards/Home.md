@@ -1,5 +1,61 @@
 # Home: the board that opens after login
 
+## What it is
+
+One board can be **Home**: logging in opens it instead of the All Boards page,
+so somebody who works in one board every day starts in it. Home is a section
+of All Boards, with a row in the left menu that shows which board it is. Making
+a board Home does not move it; it is a mark, like a star, but only one board
+can carry it.
+
+## Read more
+
+- [Home screen](https://en.wikipedia.org/wiki/Home_screen) on Wikipedia - the
+  launcher gesture the Remove bar follows
+- [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
+  (MDN) - why the check is made in `dragover` with a type name
+- [All Boards](All-Boards.md), [All Boards URLs](URLs.md) and
+  [Archive](Archive.md) in these docs
+
+## How to use it
+
+**Set the Home board by dragging**
+
+1. Open **All Boards**.
+2. Drag one board's icon onto **Home** in the left menu.
+
+The board becomes Home, replacing any board that was there.
+
+**Set or unset it with Multi-Selection**
+
+1. Click **Multi-Selection** in the header bar and tick exactly one board.
+2. In the right sidebar click **Set as Home board (opened after login)** - or,
+   when that board already is Home, **Unset as Home board**.
+
+**See which board is Home**
+
+1. Click **Home** in the left menu (`/allboards/home`). An empty Home says
+   *Drag only one board here to open it after login*.
+
+**Take a board off Home**
+
+1. In **Home**, start dragging the board.
+2. Drop it on the **Remove from Home** bar that appears at the top, and
+   confirm. The board itself is not deleted or moved.
+
+## How the numbers are calculated
+
+- **The count beside the Home row** is `1` when `profile.defaultBoardId` names
+  a board that is still in the boards the page has (not archived, one you are a
+  member of), and `0` otherwise - including when the id points at a board that
+  was deleted or archived (`menuItemCountOf('home')` in
+  [client/components/boards/boardsList.js](../../../client/components/boards/boardsList.js)).
+- **How many boards can be Home**: exactly one or none.
+- **How often login opens it**: once per session, by the redirect in
+  [config/router.js](../../../config/router.js).
+
+## How it works in WeKan
+
 One board can be **Home**. Logging in opens it instead of the All Boards page,
 so somebody who works in one board every day starts in it rather than starting
 in a list and clicking the same tile every morning.
@@ -11,7 +67,7 @@ the only way to find out what you had chosen was to log out. Home is now a
 **section of All Boards**, with a row in the left menu like Starred and
 Templates, so there is a place that answers the question.
 
-## Home is a mark, not a place
+### Home is a mark, not a place
 
 Like a **star**. Making a board Home does not move it: it stays in Remaining, or
 in whatever workspace it was filed in, and it appears in the Home section as
@@ -20,7 +76,7 @@ well. Taking it off Home leaves it exactly where it lives.
 The difference from a star is **how many**: any number of boards can be starred,
 and exactly one — or none — can be Home. Logging in opens one board.
 
-## The row
+### The row
 
 `fa-home`, the word **Home** (the existing `home` key, translated in every
 language WeKan has), and a count beside it like the other board lists: `1` when
@@ -44,7 +100,7 @@ board that opens after login, so the tile would promise something it cannot do.
 An empty Home says "Drag only one board here to open it after login" instead of
 showing a blank pane, making the one-board limit explicit before a drag starts.
 
-## Dragging
+### Dragging
 
 **Drop a board on the Home row** and it becomes the board that opens after
 login. The row is one more place in a column a board icon can already be dragged
@@ -63,7 +119,7 @@ Dropping a **multi-selection** does not silently choose its first board. It
 reports "Please select only one board", changes nothing and keeps the selection
 so it can be narrowed. A one-board drag continues to set Home normally.
 
-### Taking a board off Home — the launcher's Remove bar
+#### Taking a board off Home — the launcher's Remove bar
 
 A board dragged out of Home may land in **exactly one place**: the **Remove**
 target, which appears while you drag it.
@@ -103,7 +159,7 @@ on the way past. That made every drop a Home drop, and a board could leave Home
 by accident while you were filing it into a workspace. One gesture, one
 destination, and the destination is the thing that says what it will do.
 
-## What the server enforces
+### What the server enforces
 
 `setDefaultBoard` accepts only a board the caller is a **member of** and that is
 **not archived**. A Home board that this user cannot open would send them, at
@@ -116,7 +172,7 @@ here — in particular Sandstorm's auto-open, which opens a grain's single board
 must not thereby decide which board that user starts in
 (`models/lib/sandstormAutoOpen.js`).
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -130,9 +186,18 @@ must not thereby decide which board that user starts in
 | `config/router.js` | `.js` routes | The once-per-session redirect to the Home board after login. |
 | `tests/homeBoard.test.cjs` | `.cjs` Node test | The order, the count, the drags, and what the server refuses. |
 
-## Related
+### Related
 
 - [All Boards](All-Boards.md) — the page this is a section of
 - [All Boards URLs](URLs.md) — `/allboards/home`
 - [Archive](Archive.md) — the other section a board is dragged onto
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md) — what archiving a board does
+
+## Commits
+
+ - [The empty Home selection uses the exact-one warning](https://github.com/wekan/wekan/commit/9cb5ef5e0fe8d985d8d69a0a329dcb33fd905e30)
+ - [Multi-selection actions specialised for Home](https://github.com/wekan/wekan/commit/9c6febe1da12d49dcba1d648678821768c3cc3d4)
+ - [Document the single Home board rule](https://github.com/wekan/wekan/commit/d0521c15998a6c82409bddc022e679bf417b6358)
+ - [The Home selection action needs exactly one board](https://github.com/wekan/wekan/commit/ddb0ab4a26fa3444c4bf81aa3bac46301fac4f90)
+ - [The launcher's Remove bar, and one destination for a drag out of Home](https://github.com/wekan/wekan/commit/aa16115c7d7cb4003a01bd192cd4784f68b3a2a0)
+ - [Home, a section of All Boards for the board that opens after login](https://github.com/wekan/wekan/commit/eea1f2ffed4af635c67659f176353de57b0d4040)
