@@ -330,6 +330,18 @@ Settings.attachSchema(
     'webhookInternalHosts.$': {
       type: String,
     },
+    // Admin Panel / Settings / Privacy and security / Allowed addresses
+    // (models/lib/adminPanelAddresses.js): the addresses and ranges the Admin
+    // Panel and the admin REST API can be used from. Empty: any. Never
+    // published; saved through a method that refuses a list without the
+    // saver's own address (server/adminPanelAddresses.js).
+    adminPanelAllowedAddresses: {
+      type: Array,
+      optional: true,
+    },
+    'adminPanelAllowedAddresses.$': {
+      type: String,
+    },
     // #2290: the login and registration webhook (models/lib/accountWebhook.js):
     // { url, token, onLogin, onRegister, fields }. Never published.
     accountWebhook: {

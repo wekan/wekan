@@ -1,0 +1,25 @@
+//- Admin Panel / Settings / Privacy and security / Allowed addresses
+  (models/lib/adminPanelAddresses.js, server/adminPanelAddresses.js): from
+  any other address the Admin Panel and the admin REST API refuse, and a site
+  administrator there is a member like any other. The server refuses a list
+  without the saver's own address, and the page says so before it is sent.
+template(name="adminPanelAllowedAddresses")
+  form.js-admin-panel-addresses.admin-panel-addresses
+    h2.admin-pane-group-title {{_ 'cloud-allowed-addresses'}}
+    p.description {{_ 'admin-panel-allowed-addresses-desc'}}
+    if fromEnvironment
+      p.warning.js-admin-panel-addresses-env {{_ 'admin-panel-allowed-addresses-env'}}
+    textarea.wekan-form-control.js-admin-panel-addresses-text(name="addresses" rows="5" maxlength="12000" placeholder="203.0.113.0/24&#10;2001:db8::/32" aria-label="{{_ 'cloud-allowed-addresses'}}")= addressesText
+    p.quiet.js-admin-panel-your-address {{_ 'cloud-allowed-addresses-yours' address=yourAddress}}
+    if lockout
+      p.warning.js-admin-panel-addresses-lockout {{_ 'cloud-allowed-addresses-lockout' address=yourAddress}}
+    button.primary(type="submit") {{_ 'save'}}
+    span.js-admin-panel-addresses-status= status
+
+//- Shown in the Admin Panel's tabs to a site administrator at an address the
+  list does not have: the panes are empty there, and this says why.
+template(name="adminPanelAddressRefused")
+  if refused
+    span.admin-panel-address-refused.js-admin-panel-address-refused
+      i.fa.fa-shield
+      | {{_ 'admin-panel-address-refused' address=yourAddress}}

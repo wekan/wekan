@@ -45,6 +45,11 @@ const ENV_ONLY = {
   // The /metrics address allowlist under the name every platform sets
   // (models/server/metrics.js reads it beside METRICS_ACCEPTED_IP_ADDRESS).
   METRICS_ALLOWED_IP_ADDRESSES: { platforms: true, reason: 'which addresses may scrape /metrics: an operator setting of this deployment, not a WeKan option' },
+  // Admin Panel / Settings / Privacy and security / Allowed addresses
+  // (models/lib/adminPanelAddresses.js): the server's own list wins over the
+  // Admin Panel's, and "any" is the way back in for an operator whose saved
+  // list no longer has their address - which a browser setting cannot be.
+  ADMIN_PANEL_ALLOWED_IP_ADDRESSES: { platforms: true, reason: 'the addresses the Admin Panel can be used from, set by the operator so a list that locked the admins out can be overridden without the Admin Panel' },
   OAUTH2_RESPONSE_MODE: { platforms: false, reason: "an OIDC provider's response_mode; Apple's is set by itself" },
   OAUTH2_CLAIMS_IN_ID_TOKEN: { platforms: false, reason: "an OIDC provider that keeps the claims in the ID token; Apple's is detected by itself" },
   // The Cloud Panel's way back in for an operator locked out by its allowed

@@ -52,6 +52,10 @@ import '/client/components/settings/problemsSummary.jade';
 import '/client/components/settings/problemsSummary.js';
 import '/client/components/settings/passwordLengthReport.jade';
 import '/client/components/settings/passwordLengthReport.js';
+// Admin Panel / Settings / Privacy and security / Allowed addresses.
+import '/client/components/settings/adminPanelAddresses.jade';
+import '/client/components/settings/adminPanelAddresses.js';
+import '/client/components/settings/adminPanelAddresses.css';
 import '/client/components/settings/translationBody.js';
 
 // adminProblems.css was missing here, so NONE of the Admin Panel report styling

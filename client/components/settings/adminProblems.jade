@@ -146,6 +146,8 @@ template(name="featuresPerformance")
 template(name="featuresSecurity")
   ul.setting-detail
     li
+      +adminPanelAllowedAddresses
+    li
       a.flex.js-toggle-render-links-as-plain-text
         .materialCheckBox(class="{{#if renderLinksAsPlainText}}is-checked{{/if}}")
         span {{_ 'render-links-as-plain-text'}}

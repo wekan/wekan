@@ -241,6 +241,13 @@ REM # ==== METRICS ALLOWED IP ADDRESSES ====
 REM # https://github.com/wekan/wekan/wiki/Metrics
 REM SET METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
 
+REM # ==== ADMIN PANEL ALLOWED IP ADDRESSES ====
+REM # https://github.com/wekan/wekan/blob/main/docs/Features/Admin-Panel/Admin-Panel-Allowed-Addresses.md
+REM # The IPv4 and IPv6 addresses and CIDR ranges the Admin Panel and the admin
+REM # REST API can be used from. Set here, it wins over the Admin Panel list.
+REM # any = no restriction, the way back in after a list that locked you out.
+REM SET ADMIN_PANEL_ALLOWED_IP_ADDRESSES=192.168.0.0/24,2001:db8::/32
+
 REM # The value of the site ID given in Matomo server for Wekan
 REM # example: - MATOMO_SITE_ID=12345
 REM SET MATOMO_SITE_ID=

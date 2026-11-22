@@ -37,6 +37,10 @@ import '/server/initializeDirs';
 // 0. API middleware & auth routes (must register before model routes)
 // ----------------------------------------------------------------------------
 import '/server/lib/requestReportContext';
+// Admin Panel / Settings / Privacy and security / Allowed addresses: from any
+// other address a site administrator reads as a non-administrator. Early, so
+// it is in place before any admin check can run.
+import '/server/adminPanelAddresses';
 import '/server/00adminOnlyFieldBoundary';
 import '/server/apiMiddleware';
 import '/server/apiAuthRoutes';

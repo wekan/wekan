@@ -40,7 +40,7 @@ const AUDITED_METHODS = [
   'saveSqrlEnabled', 'saveInstanceFeatures', 'saveOptionalApis', 'saveRulesReadOnlyForMembers',
   'saveWebhookInternalHosts', 'saveAccountWebhook', 'saveActivityPubEnabled',
   'saveEmailBounceSettings', 'saveInboundMailSettings', 'setAdminNotifyDefault', 'uploadSiteLogo',
-  'reloadAccountsLockout',
+  'reloadAccountsLockout', 'saveAdminPanelAllowedAddresses',
   // Attachments, backups and data
   'updateAttachmentStorageSettings', 'setDefaultAttachmentStorage', 'startBulkAttachmentMove',
   'compactMongoGridFs', 'saveBackupSchedule', 'restoreBackup', 'runBackup',

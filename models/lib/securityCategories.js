@@ -343,6 +343,12 @@ const CATALOG = {
   // The REST API at the CLOUD address, without a login: POST /users/login,
   // /users/register and /api/ are not there at all (server/apiMiddleware.js).
   'authn.cloud-rest-off': { category: 'authn', bleed: 'CloudPanelBleed', severity: 'medium', cwe: 'CWE-306', blocksAccount: false },
+  // Admin Panel / Settings / Privacy and security / Allowed addresses
+  // (server/adminPanelAddresses.js): a site administrator's admin method,
+  // admin check or admin REST call from an address the list does not have.
+  // blocksAccount: false - it is the administrator's own account, and their
+  // boards still work from there; only the admin action is refused.
+  'authz.admin-panel-address': { category: 'authz', bleed: 'Admin Panel allowed addresses', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
   // Board View / Shop (server/shop.js). Board Settings / Shop saved by
   // somebody who is not an admin of the board, an Orders list named on a board
   // they do not administer, or a client write of a board's shopSettings past

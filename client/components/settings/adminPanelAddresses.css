@@ -1,0 +1,17 @@
+/* Admin Panel / Settings / Privacy and security / Allowed addresses. */
+.admin-panel-addresses textarea {
+  width: 100%;
+  max-width: 40em;
+  font-family: monospace;
+}
+.admin-panel-addresses .warning,
+.admin-panel-address-refused {
+  color: #b00020;
+}
+.admin-panel-address-refused {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0 0.6em;
+  font-weight: bold;
+}

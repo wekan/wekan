@@ -426,6 +426,14 @@ services:
       # https://github.com/wekan/wekan/blob/main/docs/Features/Metrics.md
       #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
       #-----------------------------------------------------------------
+      # ==== ADMIN PANEL ALLOWED IP ADDRESSES ====
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Admin-Panel/Admin-Panel-Allowed-Addresses.md
+      # The IPv4 and IPv6 addresses and CIDR ranges the Admin Panel and the admin
+      # REST API can be used from. Set here, it wins over Admin Panel / Settings /
+      # Privacy and security. any = no restriction, the way back in after a list
+      # that locked you out. Unset = the Admin Panel list decides.
+      #- ADMIN_PANEL_ALLOWED_IP_ADDRESSES=192.168.0.0/24,2001:db8::/32
+      #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,board,list,swimlane,commentId

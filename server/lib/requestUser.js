@@ -103,6 +103,14 @@ export function isSandstormRequest(req) {
  *  whether to serve a file wants an answer, not an exception that its own
  *  try/catch will turn into a 500. */
 export async function getUserIdFromRequest(req) {
+  const userId = await resolveUserIdFromRequest(req);
+  // Kept on the request, so a check later in it knows whose it is
+  // (server/adminPanelAddresses.js: the Admin Panel allowed addresses).
+  if (userId && req && typeof req === 'object') req.requestUserId = userId;
+  return userId;
+}
+
+async function resolveUserIdFromRequest(req) {
   try {
     if (process.env.NEXTCLOUD_EXAPP === 'true') {
       const { nextcloudIdentity, nextcloudUserId, matchesNextcloudUser } = require('/server/lib/nextcloudIdentity');

@@ -162,5 +162,7 @@ import './selfAccountRemoval.tests';
 import './featureServerGates.tests';
 // CloudPanelBleed: the Cloud Panel without the CLOUD environment variable.
 import './cloudPanel.security.tests';
+// Admin Panel / Settings / Privacy and security / Allowed addresses.
+import './adminPanelAddresses.tests';
 // Board View / Shop: settings for board admins only, orders priced from the cards.
 import './shop.tests';

@@ -349,6 +349,13 @@
       # ==== METRICS ALLOWED IP ADDRESSES ====
       # https://github.com/wekan/wekan/wiki/Metrics
       #export METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
+      #---------------------------------------------
+      # ==== ADMIN PANEL ALLOWED IP ADDRESSES ====
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Admin-Panel/Admin-Panel-Allowed-Addresses.md
+      # The IPv4 and IPv6 addresses and CIDR ranges the Admin Panel and the admin
+      # REST API can be used from. Set here, it wins over the Admin Panel list.
+      # any = no restriction, the way back in after a list that locked you out.
+      #export ADMIN_PANEL_ALLOWED_IP_ADDRESSES=192.168.0.0/24,2001:db8::/32
       #-----------------------------------------------------------------
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections

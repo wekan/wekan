@@ -26,3 +26,6 @@ template(name="adminPanelTabs")
         a.board-header-btn.cloud(class=isCloudActive href="{{pathFor 'cloud-admin-home'}}" title="{{_ 'cloud'}}")
           i.fa.fa-cloud
           span.board-header-btn-label {{_ 'cloud'}}
+      //- Admin Panel / Settings / Privacy and security / Allowed addresses: a
+        site administrator at another address sees why the panes are empty.
+      +adminPanelAddressRefused
