@@ -53,6 +53,7 @@ before expecting the newest UI. For all menus, use [Features](Features.md).
 | My Cards, Due Cards and My Attachments | Username menu | [Personal pages](Pages/My-Cards-Due-Attachments.md) |
 | Same-tab linked-card navigation | Linked card title | [Linked cards](Cards/Linked-Cards.md) |
 | Checklist dates, attachment previews and comment replies | Opened card | [Checklists](Cards/Checklists.md), [attachments](Cards/Attachments/Attachments.md), [comments](Cards/Comment-Replies-And-Editing-Restriction.md) |
+| Attachment slideshow: Markdown, CSV, code, iCalendar, Outlook .msg, tar.gz and OpenDocument; only the screen is read, no size limit | Opened card / an attachment | [The slideshow](Cards/Attachments/Attachments.md#the-slideshow-which-files-are-shown-and-how-much-is-read) |
 | Passwordless login and two-factor authentication | Login page and Member Settings | [Passwordless](Login-Page/Passwordless.md) and [two-factor authentication](Login-Page/Two-Factor-Authentication.md) |
 | Local operation counters | Admin Panel / Problems / Instrumentation | [Instrumentation](Admin-Panel/Problems/Instrumentation.md) |
 | Read-only file, type and recovery-evidence scans | Admin Panel / Problems / Files, Filesystem integrity or Recovery | [File status](Admin-Panel/Problems/File-status.md) |

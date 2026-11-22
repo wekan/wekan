@@ -34,6 +34,77 @@ page.
 Uploaded SVG images are **sanitized** (rather than rejected), so SVGs are safe to use
 as attachments and avatars.
 
+## The slideshow: which files are shown, and how much is read
+
+Clicking an attachment opens it in the card's slideshow (also from **Admin
+Panel / Files**, the board's version control view and the history table). A
+file is shown directly when its type is one of these; any other file is a
+download. **Only what is on the screen is read, and only that is in the
+page**: there is no row or size limit, and a file of gigabytes costs a
+screenful.
+
+| Files | Shown as | What is read |
+|---|---|---|
+| Images, PDF, video, audio | the browser's own viewer | video, audio and PDF through HTTP Range requests, by the browser |
+| Text, logs, `.txt` and other `text/*` | text rows | HTTP Range requests for the rows on the screen |
+| CSV, TSV | a table with its header pinned | the same |
+| Source code (JavaScript, TypeScript, Python, Go, Rust, Java, C, C++, C#, PHP, SQL, shell, CSS, HTML and XML source, ...) and JSON | coloured by highlight.js, as text - an HTML or SVG source file is shown, never run | the same; JSON of up to 256 KB is pretty-printed |
+| Markdown (`.md`) | formatted, by the same viewer as a card description, with all of its settings, up to 256 KB; larger, as its text | one request up to 256 KB; Range requests above |
+| ZIP | its file names | the end of the archive and its central directory, through Range requests, as far as scrolled - never an entry; ZIP64 too |
+| tar, tar.gz, `.tgz` | its file names | read in order as far as scrolled (infinite scroll), as compressed data cannot be read from its middle |
+| iCalendar (`.ics`) | its events and tasks as a table | read in order as far as scrolled |
+| Outlook `.msg` | sender, recipients, subject, date, attachment names, then the text | converted once on the server, then rows on the screen (below) |
+| OpenDocument text, spreadsheets and presentations (`.odt`, `.ods`, `.odp`) | headings, paragraphs, sheets and slides as rows | converted once on the server, then rows on the screen (below) |
+| Word, Excel, PowerPoint (`.docx`, `.xlsx`, `.pptx`) | laid out by the Office viewer | read whole, up to 32 MB |
+
+**How the scrollbar works.** For the files read by Range requests the
+scrollbar is the whole file: dragged to the middle it shows the middle (the
+byte at that fraction of the file), scrolled a little it moves row by row,
+and at its end is the last row. A row ends at a newline, or at every 4096
+bytes of a longer line - so a 50 MB line of minified JSON is many rows - and
+never splits a character. The browser keeps at most sixteen 256 KB chunks of
+a file (`client/lib/attachmentWindow.js`). A legacy CollectionFS attachment,
+which the server sends whole, is read only up to the rows wanted.
+
+**Files whose content is scattered through them** - an Outlook `.msg` (a
+Compound File: a little file system of sectors) and an OpenDocument (a ZIP
+whose text is a compressed `content.xml`) - cannot be read a row at a time as
+they are. The first time one is opened, the server converts it **once, a
+piece at a time**: it reads the original from its own storage (file system,
+GridFS or a cloud backend) in 64 KB byte ranges, never whole; of a `.msg` it
+keeps only the sector tables and streams the text, never reading an
+attachment's data; of an OpenDocument it reads only `content.xml`, inflating
+and parsing it as a stream. What it finds is written as **rows with an
+index** - one JSON object a line, and where each line starts - so the
+slideshow knows how many rows there are (the scrollbar is exact) and fetches
+the index entries and rows on the screen through Range requests
+(`server/lib/attachmentPreviewStore.js`, `client/lib/attachmentRecords.js`).
+
+- The converted preview is served at
+  `/cdn/storage/attachments/<id>/preview-meta`, `preview-index` and
+  `preview-rows`, after every check the original has: board access, the
+  download block and size limit, and the storage's Read flag. It is sent as
+  `application/octet-stream` with `nosniff` and a sandboxing
+  Content-Security-Policy.
+- It is a cache, kept in `attachment-previews/` beside `attachments/` under the
+  files root (`WRITABLE_PATH`), named by the attachment and what it is (size,
+  upload time, storage path): made again when the file changes, and removed
+  with the attachment. Two conversions run at a time; a preview half written
+  is never served.
+- The server's disk is guarded: one preview takes at most 512 MB, and a
+  spreadsheet row repeated more than 100,000 times is written that many times.
+  A preview that reaches the limit ends with a `⋯` row.
+
+**Everything a file contains reaches the page as text**, never as markup:
+names in an archive, CSV cells, calendar items, mail text, document
+paragraphs. The exceptions are highlight.js's output, which is escaped text in
+`<span class="hljs-...">` sanitized down to exactly that, and Markdown, which
+goes through the card viewer's own sanitizer.
+
+**Known limits of reading a screen at a time.** Code is coloured a row at a
+time, so a multi-line comment or string may be coloured as code on its later
+rows; a CSV value with a newline inside quotes shows as two rows.
+
 ## Searchable document previews
 
 The first preview of a PDF, DOCX, XLSX or PPTX attachment is produced on the
