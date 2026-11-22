@@ -33,7 +33,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   commits.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
-  overview.
+  overview. Every topic in one folder at the `docs/Features/` level: the
+  `General/` level goes, its folders move up into the same-named folders, and
+  the folders of `# Moved` stubs are removed, with every link updated.
+- The compliance reports move to `docs/Compliance/`.
 - Accessibility: every missing WCAG 2.2 AA feature added, and the accessibility
   tests extended to every page, popup and Admin Panel pane - axe with the WCAG
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
