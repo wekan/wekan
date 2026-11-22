@@ -11,8 +11,11 @@ The **attachment slideshow** shows more kinds of files and reads
 only what is on the screen, and **Filter, Search and Search All Boards** find
 the text **inside attachments**, whose **SHA-256** is checked on every read.
 The opened card **remembers its width**, a forged bounce report can no longer
-stop email (**BounceBleed**), and the **Meteor 3 hosting scripts** have one
-menu that runs them on a server over SSH.
+stop email (**BounceBleed**), the **Cloud Panel** exists only in a Cloud Admin
+container with the `CLOUD` variable (**CloudPanelBleed**), and every setting
+that turns something off is **refused on the server**, not only hidden. Every
+**feature page** of the docs now says what it is, how to use it, how its
+numbers are calculated, how it works and its commits.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
