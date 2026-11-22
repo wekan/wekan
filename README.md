@@ -165,11 +165,14 @@ that by providing one-click installation on various platforms.
       - Global Webhooks
   - People
     - Email, Notifications, Domains, Organizations, Teams, People
-    - Cloud: the [Cloud Panel](docs/Features/Admin-Panel/Cloud-Panel.md) Domain and its SuperAdmin. At that domain the Cloud Panel keeps
-      the customer domains - each with its own WeKan and MongoDB, or sharing this WeKan - and merges many WeKans into one,
-      with CloudFlare DNS, Caddy routes, each customer's invoices, and a chat with earlier Rocket.Chat and SandChat conversations
     - Locked Users, Roles, Shared Templates
     - Login, SAML, LDAP, OAuth2 login providers, Passwordless login
+  - Cloud, only in a container started with the environment variable `CLOUD=<its domain>`: the
+    [Cloud Panel](docs/Features/Admin-Panel/Cloud-Panel.md). Its site administrators are the Cloud Admins - the first
+    registered user is one - and keep the customer domains, each with its own WeKan and MongoDB or sharing this WeKan,
+    merge many WeKans into one, with CloudFlare DNS, Caddy routes, invoices, support tickets and chat on a support board per
+    domain, and the addresses a Cloud Admin may sign in from. A customer signs in there with the password of their own
+    WeKan, checked against its database, and sees their invoices, tickets and chat. No REST API at that address
   - Attachments
     - Scheduled Backups, Continuous realtime backups, Move Attachments, Default Save Storage, Limits
     - Storage: MongoDB GridFS, Filesystem, S3/MinIO, Azure Blob, Google Cloud
