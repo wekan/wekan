@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "I no gat prais tok yet.",
   "billing-line-fee": "Fi",
   "billing-line-expense": "Mani i go aut",
+  "billing-line-product": "Samting bilong salim",
   "time-entry-approved": "Ol i orait",
   "time-entry-rejected": "Ol i salim i go bek",
   "workload-utilization": "Bai kisim pei __percent__ % (__hours__ h)",

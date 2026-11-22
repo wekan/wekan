@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Zatiaľ žiadne ponuky.",
   "billing-line-fee": "Poplatok",
   "billing-line-expense": "Výdavok",
+  "billing-line-product": "Produkt",
   "time-entry-approved": "Schválené",
   "time-entry-rejected": "Vrátené",
   "workload-utilization": "Fakturovateľné __percent__ % (__hours__ h)",

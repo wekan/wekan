@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ҳоло пешниҳоди нарх нест.",
   "billing-line-fee": "Пардохт",
   "billing-line-expense": "Харҷ",
+  "billing-line-product": "Маҳсулот",
   "time-entry-approved": "Тасдиқшуда",
   "time-entry-rejected": "Баргардонидашуда",
   "workload-utilization": "Пардохтшаванда __percent__ % (__hours__ h)",

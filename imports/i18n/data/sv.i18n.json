@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Inga offerter ännu.",
   "billing-line-fee": "Arvode",
   "billing-line-expense": "Utlägg",
+  "billing-line-product": "Produkt",
   "time-entry-approved": "Godkänd",
   "time-entry-rejected": "Skickad tillbaka",
   "workload-utilization": "Debiterbart __percent__ % (__hours__ h)",

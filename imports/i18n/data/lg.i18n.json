@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Tewannabaawo biteeso.",
   "billing-line-fee": "Ensasula",
   "billing-line-expense": "Ekisaasaanyizibwa",
+  "billing-line-product": "Ekintu",
   "time-entry-approved": "Kyakakasibwa",
   "time-entry-rejected": "Kyazzibwayo",
   "workload-utilization": "Ekisasulwa __percent__ % (__hours__ h)",

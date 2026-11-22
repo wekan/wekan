@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Neqerooruteqanngilaq suli.",
   "billing-line-fee": "Akiliut",
   "billing-line-expense": "Aningaasartuut",
+  "billing-line-product": "Nioqqutissaq",
   "time-entry-approved": "Akuerineqarsimasoq",
   "time-entry-rejected": "Utertinneqartoq",
   "workload-utilization": "Akiligassiissutigineqarsinnaasoq __percent__ % (__hours__ h)",

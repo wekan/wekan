@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "还没有报价。",
   "billing-line-fee": "收费",
   "billing-line-expense": "支出",
+  "billing-line-product": "商品",
   "time-entry-approved": "已批准",
   "time-entry-rejected": "已退回",
   "workload-utilization": "可计费 __percent__ % (__hours__ h)",

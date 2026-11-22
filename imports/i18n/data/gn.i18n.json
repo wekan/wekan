@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ndaipóri gueteri hepy ñemombe'u.",
   "billing-line-fee": "Jehepyme'ẽ",
   "billing-line-expense": "Viru jeporu",
+  "billing-line-product": "Mba'e ojeváva",
   "time-entry-approved": "Oñemoneĩ",
   "time-entry-rejected": "Oñemondojey",
   "workload-utilization": "Ojehepyme'ẽva __percent__ % (__hours__ h)",

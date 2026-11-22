@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Kò sí ìdíyelé síbẹ̀.",
   "billing-line-fee": "Owó ìsanwó",
   "billing-line-expense": "Ìnáwó kan",
+  "billing-line-product": "Ọjà",
   "time-entry-approved": "A ti fọwọ́ sí i",
   "time-entry-rejected": "A ti dá a padà",
   "workload-utilization": "Ó ṣeé gba owó __percent__ % (__hours__ h)",

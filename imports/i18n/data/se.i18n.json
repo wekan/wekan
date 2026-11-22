@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ii vel fálaldagat.",
   "billing-line-fee": "Divat",
   "billing-line-expense": "Gollu",
+  "billing-line-product": "Buvtta",
   "time-entry-approved": "Dohkkehuvvon",
   "time-entry-rejected": "Sáddejuvvon ruovttoluotta",
   "workload-utilization": "Fakturerejeaddji __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ʻAʻohe koho kumukūʻai i kēia manawa.",
   "billing-line-fee": "Uku",
   "billing-line-expense": "Lilo",
+  "billing-line-product": "Huahana",
   "time-entry-approved": "Ua ʻāpono ʻia",
   "time-entry-rejected": "Ua hoʻihoʻi ʻia",
   "workload-utilization": "Hiki ke pila ʻia __percent__ % (__hours__ h)",

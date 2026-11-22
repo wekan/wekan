@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "אין עדיין הצעות מחיר.",
   "billing-line-fee": "תשלום",
   "billing-line-expense": "הוצאה",
+  "billing-line-product": "מוצר",
   "time-entry-approved": "אושר",
   "time-entry-rejected": "הוחזר",
   "workload-utilization": "לחיוב __percent__ % (__hours__ h)",

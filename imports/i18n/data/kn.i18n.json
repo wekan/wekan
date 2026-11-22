@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ಇನ್ನೂ ದರಪಟ್ಟಿಗಳಿಲ್ಲ.",
   "billing-line-fee": "ಶುಲ್ಕ",
   "billing-line-expense": "ವೆಚ್ಚ",
+  "billing-line-product": "ಉತ್ಪನ್ನ",
   "time-entry-approved": "ಅನುಮೋದಿಸಲಾಗಿದೆ",
   "time-entry-rejected": "ಹಿಂದಕ್ಕೆ ಕಳುಹಿಸಲಾಗಿದೆ",
   "workload-utilization": "ಬಿಲ್ ಮಾಡಬಹುದಾದ __percent__ % (__hours__ h)",

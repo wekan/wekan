@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Babu ƙiyasi tukuna.",
   "billing-line-fee": "Kuɗin aiki",
   "billing-line-expense": "Kashe kuɗi",
+  "billing-line-product": "Kaya",
   "time-entry-approved": "An amince",
   "time-entry-rejected": "An mayar",
   "workload-utilization": "Ana biya __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ʻOku teʻeki ai ha tohi fakafuofua totongi.",
   "billing-line-fee": "Totongi paú",
   "billing-line-expense": "Fakamole",
+  "billing-line-product": "Koloa",
   "time-entry-approved": "Kuo fakangofua",
   "time-entry-rejected": "Kuo fakafoki",
   "workload-utilization": "ʻE totongi __percent__ % (__hours__ h)",

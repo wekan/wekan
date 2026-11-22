@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Сӗнӳсем халӗ ҫук.",
   "billing-line-fee": "Тӳлев",
   "billing-line-expense": "Тӑкак",
+  "billing-line-product": "Тавар",
   "time-entry-approved": "Ырланӑ",
   "time-entry-rejected": "Каялла янӑ",
   "workload-utilization": "Тӳлевлӗ __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Belum ada sebut harga.",
   "billing-line-fee": "Yuran",
   "billing-line-expense": "Perbelanjaan",
+  "billing-line-product": "Produk",
   "time-entry-approved": "Diluluskan",
   "time-entry-rejected": "Dihantar balik",
   "workload-utilization": "Boleh bil __percent__ % (__hours__ h)",

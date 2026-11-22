@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Še ni ponudb.",
   "billing-line-fee": "Pristojbina",
   "billing-line-expense": "Izdatek",
+  "billing-line-product": "Izdelek",
   "time-entry-approved": "Odobreno",
   "time-entry-rejected": "Vrnjeno",
   "workload-utilization": "Obračunljivo __percent__ % (__hours__ h)",

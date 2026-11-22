@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Lofs nonik nog.",
   "billing-line-fee": "Pelam",
   "billing-line-expense": "Segivot",
+  "billing-line-product": "Prodäd",
   "time-entry-approved": "Pezepöl",
   "time-entry-rejected": "Pesedöl ge",
   "workload-utilization": "Kalotovik __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "अजून दरपत्रकां नात.",
   "billing-line-fee": "शुल्क",
   "billing-line-expense": "खर्च",
+  "billing-line-product": "उत्पादन",
   "time-entry-approved": "मान्य जालें",
   "time-entry-rejected": "परत धाडलें",
   "workload-utilization": "बील करपासारकें __percent__ % (__hours__ h)",

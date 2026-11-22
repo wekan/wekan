@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Kinnig ebet c'hoazh.",
   "billing-line-fee": "Gopr",
   "billing-line-expense": "Dispign",
+  "billing-line-product": "Produ",
   "time-entry-approved": "Aprouet",
   "time-entry-rejected": "Kaset en-dro",
   "workload-utilization": "Da fakturiñ __percent__ % (__hours__ h)",

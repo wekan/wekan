@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ei vielä tarjouksia.",
   "billing-line-fee": "Maksu",
   "billing-line-expense": "Kulu",
+  "billing-line-product": "Tuote",
   "time-entry-approved": "Hyväksytty",
   "time-entry-rejected": "Palautettu",
   "workload-utilization": "Laskutettava __percent__ % (__hours__ h)",

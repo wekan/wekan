@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "هێشتا هیچ نرخنامەیەک نییە.",
   "billing-line-fee": "کرێ",
   "billing-line-expense": "خەرجی",
+  "billing-line-product": "بەرهەم",
   "time-entry-approved": "پەسەندکراو",
   "time-entry-rejected": "گەڕێندراوە",
   "workload-utilization": "شیاوی پسوولەکردن __percent__ % (__hours__ h)",

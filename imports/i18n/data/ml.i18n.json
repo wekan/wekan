@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ഇതുവരെ ക്വട്ടേഷനുകളൊന്നുമില്ല.",
   "billing-line-fee": "ഫീസ്",
   "billing-line-expense": "ചെലവ്",
+  "billing-line-product": "ഉൽപ്പന്നം",
   "time-entry-approved": "അംഗീകരിച്ചു",
   "time-entry-rejected": "തിരിച്ചയച്ചു",
   "workload-utilization": "ബിൽ ചെയ്യാവുന്നത് __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Chưa có báo giá.",
   "billing-line-fee": "Phí",
   "billing-line-expense": "Khoản chi",
+  "billing-line-product": "Sản phẩm",
   "time-entry-approved": "Đã duyệt",
   "time-entry-rejected": "Đã gửi trả lại",
   "workload-utilization": "Tính phí __percent__ % (__hours__ h)",

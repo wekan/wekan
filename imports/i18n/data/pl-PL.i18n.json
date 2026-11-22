@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Brak ofert.",
   "billing-line-fee": "Opłata",
   "billing-line-expense": "Wydatek",
+  "billing-line-product": "Produkt",
   "time-entry-approved": "Zatwierdzono",
   "time-entry-rejected": "Odesłano",
   "workload-utilization": "Do rozliczenia __percent__ % (__hours__ h)",

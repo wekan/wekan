@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "હજી કોઈ ભાવપત્ર નથી.",
   "billing-line-fee": "ફી",
   "billing-line-expense": "ખર્ચ",
+  "billing-line-product": "ઉત્પાદન",
   "time-entry-approved": "મંજૂર",
   "time-entry-rejected": "પાછું મોકલ્યું",
   "workload-utilization": "બિલપાત્ર __percent__ % (__hours__ h)",

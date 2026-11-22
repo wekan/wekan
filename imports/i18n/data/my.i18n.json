@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "စျေးနှုန်းအဆိုပြုချက် မရှိသေးပါ။",
   "billing-line-fee": "အခကြေးငွေ",
   "billing-line-expense": "အသုံးစရိတ်",
+  "billing-line-product": "ကုန်ပစ္စည်း",
   "time-entry-approved": "အတည်ပြုပြီး",
   "time-entry-rejected": "ပြန်ပို့ပြီး",
   "workload-utilization": "ငွေတောင်းခံနိုင်သော __percent__ % (__hours__ h)",

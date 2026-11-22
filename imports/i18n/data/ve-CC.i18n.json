@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Gnancora preventivi.",
   "billing-line-fee": "Conpenso",
   "billing-line-expense": "Spesa",
+  "billing-line-product": "Prodoto",
   "time-entry-approved": "Aprovà",
   "time-entry-rejected": "Mandà indrìo",
   "workload-utilization": "Da faturar __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "هنوز پیش‌فاکتوری وجود ندارد.",
   "billing-line-fee": "کارمزد",
   "billing-line-expense": "هزینه",
+  "billing-line-product": "محصول",
   "time-entry-approved": "تأییدشده",
   "time-entry-rejected": "بازگردانده‌شده",
   "workload-utilization": "قابل صورت‌حساب __percent__ % (__hours__ h)",

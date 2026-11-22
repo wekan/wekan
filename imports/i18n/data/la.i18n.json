@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Nullae aestimationes adhuc.",
   "billing-line-fee": "Merces",
   "billing-line-expense": "Impensa",
+  "billing-line-product": "Merx",
   "time-entry-approved": "Approbatum",
   "time-entry-rejected": "Remissum",
   "workload-utilization": "Solvendum __percent__ % (__hours__ h)",

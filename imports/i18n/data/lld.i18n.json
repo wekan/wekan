@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Mo deguna oferta.",
   "billing-line-fee": "Tarifa",
   "billing-line-expense": "Spëisa",
+  "billing-line-product": "Prodot",
   "time-entry-approved": "Aprovà",
   "time-entry-rejected": "Mandà zeruch",
   "workload-utilization": "Da faturé __percent__ % (__hours__ h)",

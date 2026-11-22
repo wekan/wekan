@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ገና ዋጋ ሕሳባት የለን።",
   "billing-line-fee": "ክፍሊት",
   "billing-line-expense": "ወጻኢ",
+  "billing-line-product": "ፍርያት",
   "time-entry-approved": "ጸዲቑ",
   "time-entry-rejected": "ተመሊሱ",
   "workload-utilization": "ዝኽፈል __percent__ % (__hours__ h)",

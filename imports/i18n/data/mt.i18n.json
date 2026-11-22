@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Għad m'hemmx offerti.",
   "billing-line-fee": "Tariffa",
   "billing-line-expense": "Spiża",
+  "billing-line-product": "Prodott",
   "time-entry-approved": "Approvat",
   "time-entry-rejected": "Mibgħut lura",
   "workload-utilization": "Fatturabbli __percent__ % (__hours__ h)",

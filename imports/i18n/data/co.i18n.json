@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ùn ci hè ancu prupposte.",
   "billing-line-fee": "Tariffa",
   "billing-line-expense": "Spesa",
+  "billing-line-product": "Pruduttu",
   "time-entry-approved": "Appruvatu",
   "time-entry-rejected": "Rimandatu",
   "workload-utilization": "Fatturabile __percent__ % (__hours__ h)",

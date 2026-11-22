@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Кошторисів ще немає.",
   "billing-line-fee": "Платіж",
   "billing-line-expense": "Витрата",
+  "billing-line-product": "Товар",
   "time-entry-approved": "Затверджено",
   "time-entry-rejected": "Повернуто",
   "workload-utilization": "Оплачуваний __percent__ % (__hours__ h)",

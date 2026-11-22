@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Waray pa kotasyon.",
   "billing-line-fee": "Bayad",
   "billing-line-expense": "Gastos",
+  "billing-line-product": "Produkto",
   "time-entry-approved": "Naaprobahan",
   "time-entry-rejected": "Ginbalik",
   "workload-utilization": "Masisingil __percent__ % (__hours__ h)",

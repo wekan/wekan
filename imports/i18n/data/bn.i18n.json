@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "এখনও কোনো উদ্ধৃতি নেই।",
   "billing-line-fee": "ফি",
   "billing-line-expense": "খরচ",
+  "billing-line-product": "পণ্য",
   "time-entry-approved": "অনুমোদিত",
   "time-entry-rejected": "ফেরত পাঠানো হয়েছে",
   "workload-utilization": "বিলযোগ্য __percent__ % (__hours__ h)",

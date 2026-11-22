@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "No quotes yet.",
   "billing-line-fee": "Fee",
   "billing-line-expense": "Expense",
+  "billing-line-product": "Product",
   "time-entry-approved": "Approved",
   "time-entry-rejected": "Sent back",
   "workload-utilization": "Billable __percent__ % (__hours__ h)",

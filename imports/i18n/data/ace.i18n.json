@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Goh na penawaran.",
   "billing-line-fee": "Yuran",
   "billing-line-expense": "Pengeluaran",
+  "billing-line-product": "Barang",
   "time-entry-approved": "Ka geupeusetuju",
   "time-entry-rejected": "Ka geupeuriwang",
   "workload-utilization": "Jeuet geutagih __percent__ % (__hours__ h)",

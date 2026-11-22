@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ابھی کوئی کوٹیشن نہیں۔",
   "billing-line-fee": "فیس",
   "billing-line-expense": "خرچ",
+  "billing-line-product": "پروڈکٹ",
   "time-entry-approved": "منظور شدہ",
   "time-entry-rejected": "واپس بھیجا گیا",
   "workload-utilization": "قابلِ بل __percent__ % (__hours__ h)",

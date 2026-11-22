@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Akukabikho kowuteshini.",
   "billing-line-fee": "Intlawulo",
   "billing-line-expense": "Inkcitho",
+  "billing-line-product": "Imveliso",
   "time-entry-approved": "Livunyiwe",
   "time-entry-rejected": "Libuyisiwe",
   "workload-utilization": "Iyahlawulwa __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "wagh ja'chuq tu'lu'be' 'ach.",
   "billing-line-fee": "DIl",
   "billing-line-expense": "lo'pu'bogh Huch wa'",
+  "billing-line-product": "Doch",
   "time-entry-approved": "chaw'lu'pu'",
   "time-entry-rejected": "tatlhlu'pu'",
   "workload-utilization": "DIlnIS __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Manaraq chani willaykuna kanchu.",
   "billing-line-fee": "Chanincha",
   "billing-line-expense": "Gastu",
+  "billing-line-product": "Rantina",
   "time-entry-approved": "Chaskisqa",
   "time-entry-rejected": "Kutichisqa",
   "workload-utilization": "Chaninchana __percent__ % (__hours__ h)",

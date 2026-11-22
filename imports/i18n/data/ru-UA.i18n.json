@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Предложений пока нет.",
   "billing-line-fee": "Платёж",
   "billing-line-expense": "Расход",
+  "billing-line-product": "Товар",
   "time-entry-approved": "Утверждено",
   "time-entry-rejected": "Возвращено",
   "workload-utilization": "Оплачиваемое __percent__ % (__hours__ h)",

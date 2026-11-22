@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "შეთავაზებები ჯერ არ არის.",
   "billing-line-fee": "საფასური",
   "billing-line-expense": "ხარჯი",
+  "billing-line-product": "პროდუქტი",
   "time-entry-approved": "დამტკიცებული",
   "time-entry-rejected": "დაბრუნებული",
   "workload-utilization": "ასანაზღაურებელი __percent__ % (__hours__ h)",

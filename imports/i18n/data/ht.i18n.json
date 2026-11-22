@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Poko gen devi.",
   "billing-line-fee": "Frè",
   "billing-line-expense": "Depans",
+  "billing-line-product": "Pwodwi",
   "time-entry-approved": "Apwouve",
   "time-entry-rejected": "Voye tounen",
   "workload-utilization": "Pou faktire __percent__ % (__hours__ h)",

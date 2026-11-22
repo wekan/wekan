@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ayamo onca tlanahuatilli patiyotl.",
   "billing-line-fee": "Tlaxtlahuilli",
   "billing-line-expense": "Tlacohualiztli",
+  "billing-line-product": "Tlamantli",
   "time-entry-approved": "Omoyecteneh",
   "time-entry-rejected": "Omocuep",
   "workload-utilization": "Motlaxtlahuiz __percent__ % (__hours__ h)",

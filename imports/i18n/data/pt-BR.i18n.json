@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Nenhuma proposta ainda.",
   "billing-line-fee": "Taxa",
   "billing-line-expense": "Despesa",
+  "billing-line-product": "Produto",
   "time-entry-approved": "Aprovado",
   "time-entry-rejected": "Devolvido",
   "workload-utilization": "Faturável __percent__ % (__hours__ h)",

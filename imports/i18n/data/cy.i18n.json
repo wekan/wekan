@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Dim dyfynbrisiau eto.",
   "billing-line-fee": "Ffi",
   "billing-line-expense": "Traul",
+  "billing-line-product": "Cynnyrch",
   "time-entry-approved": "Cymeradwywyd",
   "time-entry-rejected": "Anfonwyd yn ôl",
   "workload-utilization": "Biliadwy __percent__ % (__hours__ h)",

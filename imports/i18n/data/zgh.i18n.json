@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ⴰⵔ ⴷⵖⵉ ⵓⵍⴰ ⵜⵉⵙⵓⵎⴰⵏ.",
   "billing-line-fee": "ⵜⴰⵅⵍⵍⵙⵜ",
   "billing-line-expense": "ⴰⵚⵕⵉⴼ",
+  "billing-line-product": "ⴰⴼⴰⵔⵙ",
   "time-entry-approved": "ⵉⵜⵜⵓⵙⵙⵖⵜ",
   "time-entry-rejected": "ⵉⵜⵜⵓⵔⴰⵔ",
   "workload-utilization": "ⵉⵜⵜⵓⴼⴰⴽⵜⵓⵔ __percent__ % (__hours__ h)",

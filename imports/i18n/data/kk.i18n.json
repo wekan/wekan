@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Әзірге ұсыныстар жоқ.",
   "billing-line-fee": "Төлемақы",
   "billing-line-expense": "Шығыс",
+  "billing-line-product": "Тауар",
   "time-entry-approved": "Бекітілді",
   "time-entry-rejected": "Қайтарылды",
   "workload-utilization": "Төлеуге жатады __percent__ % (__hours__ h)",

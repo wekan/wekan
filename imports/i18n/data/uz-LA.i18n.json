@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Hozircha tijoriy takliflar yoʻq.",
   "billing-line-fee": "Toʻlov",
   "billing-line-expense": "Xarajat",
+  "billing-line-product": "Mahsulot",
   "time-entry-approved": "Tasdiqlandi",
   "time-entry-rejected": "Qaytarildi",
   "workload-utilization": "Toʻlanadigan __percent__ % (__hours__ h)",

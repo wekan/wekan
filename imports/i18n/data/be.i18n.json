@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Прапаноў пакуль няма.",
   "billing-line-fee": "Збор",
   "billing-line-expense": "Выдатак",
+  "billing-line-product": "Тавар",
   "time-entry-approved": "Зацверджана",
   "time-entry-rejected": "Вернута",
   "workload-utilization": "Аплатны __percent__ % (__hours__ h)",

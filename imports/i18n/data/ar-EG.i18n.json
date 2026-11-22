@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "لا توجد عروض أسعار بعد.",
   "billing-line-fee": "رسم",
   "billing-line-expense": "مصروف",
+  "billing-line-product": "منتج",
   "time-entry-approved": "معتمد",
   "time-entry-rejected": "مُعاد",
   "workload-utilization": "قابل للفوترة __percent__ % (__hours__ h)",

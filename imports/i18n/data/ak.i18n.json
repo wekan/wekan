@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Boɔ nkyerɛkyerɛ biara nni hɔ da.",
   "billing-line-fee": "Ka",
   "billing-line-expense": "Ka a wɔbɔe",
+  "billing-line-product": "Adetɔnneɛ",
   "time-entry-approved": "Wɔapene so",
   "time-entry-rejected": "Wɔasan de akɔ",
   "workload-utilization": "Wobetumi agye ho ka __percent__ % (__hours__ h)",

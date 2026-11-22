@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Alaa devis tawo.",
   "billing-line-fee": "Njoɓdi",
   "billing-line-expense": "Dépanse",
+  "billing-line-product": "Kuuje",
   "time-entry-approved": "Jaɓaama",
   "time-entry-rejected": "Artiraama",
   "workload-utilization": "Faktuurteeɗo __percent__ % (__hours__ h)",

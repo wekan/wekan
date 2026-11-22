@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "仲未有報價。",
   "billing-line-fee": "收費項目",
   "billing-line-expense": "費用",
+  "billing-line-product": "商品",
   "time-entry-approved": "已核准",
   "time-entry-rejected": "已退回",
   "workload-utilization": "可計費 __percent__ % (__hours__ h)",

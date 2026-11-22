@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Nog geen kwotasies nie.",
   "billing-line-fee": "Fooi",
   "billing-line-expense": "Uitgawe",
+  "billing-line-product": "Produk",
   "time-entry-approved": "Goedgekeur",
   "time-entry-rejected": "Teruggestuur",
   "workload-utilization": "Faktureerbaar __percent__ % (__hours__ h)",

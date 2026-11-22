@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "اڃا ڪا قيمت جي آڇ ناهي.",
   "billing-line-fee": "فيس",
   "billing-line-expense": "خرچ",
+  "billing-line-product": "شيءِ",
   "time-entry-approved": "منظور ٿيل",
   "time-entry-rejected": "واپس موڪليل",
   "workload-utilization": "بل لائق __percent__ % (__hours__ h)",

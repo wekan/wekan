@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "មិនទាន់មានសម្រង់តម្លៃនៅឡើយ។",
   "billing-line-fee": "ថ្លៃសេវា",
   "billing-line-expense": "ចំណាយ",
+  "billing-line-product": "ផលិតផល",
   "time-entry-approved": "បានអនុម័ត",
   "time-entry-rejected": "បានផ្ញើត្រឡប់",
   "workload-utilization": "អាចគិតថ្លៃ __percent__ % (__hours__ h)",

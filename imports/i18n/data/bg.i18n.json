@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Все още няма оферти.",
   "billing-line-fee": "Такса",
   "billing-line-expense": "Разход",
+  "billing-line-product": "Продукт",
   "time-entry-approved": "Одобрено",
   "time-entry-rejected": "Върнато",
   "workload-utilization": "Фактурируемо __percent__ % (__hours__ h)",

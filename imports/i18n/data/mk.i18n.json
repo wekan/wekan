@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Сè уште нема понуди.",
   "billing-line-fee": "Надоместок",
   "billing-line-expense": "Трошок",
+  "billing-line-product": "Производ",
   "time-entry-approved": "Одобрено",
   "time-entry-rejected": "Вратено",
   "workload-utilization": "Наплатливо __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ankoraŭ neniuj ofertoj.",
   "billing-line-fee": "Kotizo",
   "billing-line-expense": "Elspezo",
+  "billing-line-product": "Produkto",
   "time-entry-approved": "Aprobita",
   "time-entry-rejected": "Resendita",
   "workload-utilization": "Fakturebla __percent__ % (__hours__ h)",

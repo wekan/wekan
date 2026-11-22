@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ancora nuddu preventivu.",
   "billing-line-fee": "Tariffa",
   "billing-line-expense": "Spisa",
+  "billing-line-product": "Prodottu",
   "time-entry-approved": "Appruvatu",
   "time-entry-rejected": "Mannatu arreri",
   "workload-utilization": "Fatturàbbili __percent__ % (__hours__ h)",

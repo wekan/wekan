@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Oraindik ez dago eskaintzarik.",
   "billing-line-fee": "Kuota",
   "billing-line-expense": "Gastua",
+  "billing-line-product": "Produktua",
   "time-entry-approved": "Onartuta",
   "time-entry-rejected": "Itzulita",
   "workload-utilization": "Fakturagarria __percent__ % (__hours__ h)",

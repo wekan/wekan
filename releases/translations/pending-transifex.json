@@ -6067,6 +6067,10 @@
     {
       "key": "help-billing-how-it-works-description",
       "since": "2026-11-22"
+    },
+    {
+      "key": "billing-line-product",
+      "since": "2026-11-22"
     }
   ]
 }

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Janiw chani uñacht'awinakax utjkiti.",
   "billing-line-fee": "Pago",
   "billing-line-expense": "Apsu",
+  "billing-line-product": "Yä",
   "time-entry-approved": "Iyawsata",
   "time-entry-rejected": "Kutt'ayata",
   "workload-utilization": "Facturañjama __percent__ % (__hours__ h)",

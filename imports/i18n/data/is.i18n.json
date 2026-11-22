@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Engin tilboð enn.",
   "billing-line-fee": "Gjald",
   "billing-line-expense": "Útgjaldaliður",
+  "billing-line-product": "Vara",
   "time-entry-approved": "Samþykkt",
   "time-entry-rejected": "Sent til baka",
   "workload-utilization": "Reikningshæft __percent__ % (__hours__ h)",

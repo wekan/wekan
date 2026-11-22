@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "अबहीं कवनो कोटेशन नइखे।",
   "billing-line-fee": "फीस",
   "billing-line-expense": "खरचा",
+  "billing-line-product": "सामान",
   "time-entry-approved": "मंजूर",
   "time-entry-rejected": "वापस भेजल गइल",
   "workload-utilization": "बिल लायक __percent__ % (__hours__ h)",

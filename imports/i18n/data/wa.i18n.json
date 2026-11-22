@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Nole ofe co.",
   "billing-line-fee": "Pårt",
   "billing-line-expense": "Dispinse",
+  "billing-line-product": "Prodût",
   "time-entry-approved": "Aprové",
   "time-entry-rejected": "Rinvoyî",
   "workload-utilization": "A facturer __percent__ % (__hours__ h)",

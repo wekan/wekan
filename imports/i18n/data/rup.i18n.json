@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ninga nu ari oferti.",
   "billing-line-fee": "Platã",
   "billing-line-expense": "Hãrgiu",
+  "billing-line-product": "Produs",
   "time-entry-approved": "Aprochiat",
   "time-entry-rejected": "Pitricut nãpoi",
   "workload-utilization": "Ti facturari __percent__ % (__hours__ h)",

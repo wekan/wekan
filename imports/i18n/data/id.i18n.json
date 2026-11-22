@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Belum ada penawaran.",
   "billing-line-fee": "Imbalan",
   "billing-line-expense": "Pengeluaran",
+  "billing-line-product": "Produk",
   "time-entry-approved": "Disetujui",
   "time-entry-rejected": "Dikembalikan",
   "workload-utilization": "Dapat ditagih __percent__ % (__hours__ h)",

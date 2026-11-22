@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "みつもり は まだ ありません。",
   "billing-line-fee": "りょうきん",
   "billing-line-expense": "けいひ",
+  "billing-line-product": "しょうひん",
   "time-entry-approved": "しょうにん ずみ",
   "time-entry-rejected": "さしもどし ずみ",
   "workload-utilization": "せいきゅう たいしょう __percent__ % (__hours__ h)",

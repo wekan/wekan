@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Tsy mbola misy tolo-bidy.",
   "billing-line-fee": "Sarany",
   "billing-line-expense": "Fandaniana",
+  "billing-line-product": "Vokatra",
   "time-entry-approved": "Nankatoavina",
   "time-entry-rejected": "Naverina",
   "workload-utilization": "Azo faktiorana __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Դեռ գնառաջարկներ չկան։",
   "billing-line-fee": "Վճար",
   "billing-line-expense": "Ծախս",
+  "billing-line-product": "Ապրանք",
   "time-entry-approved": "Հաստատված",
   "time-entry-rejected": "Հետ ուղարկված",
   "workload-utilization": "Վճարման ենթակա __percent__ % (__hours__ h)",

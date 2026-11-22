@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Azikabikho izilinganiso zentengo.",
   "billing-line-fee": "Imali",
   "billing-line-expense": "Indleko",
+  "billing-line-product": "Umkhiqizo",
   "time-entry-approved": "Kugunyaziwe",
   "time-entry-rejected": "Kubuyisiwe",
   "workload-utilization": "Kuyakhokhiswa __percent__ % (__hours__ h)",

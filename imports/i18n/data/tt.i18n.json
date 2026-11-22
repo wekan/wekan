@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Әлегә бәя тәкъдимнәре юк.",
   "billing-line-fee": "Түләү",
   "billing-line-expense": "Чыгым",
+  "billing-line-product": "Товар",
   "time-entry-approved": "Расланган",
   "time-entry-rejected": "Кире җибәрелгән",
   "workload-utilization": "Түләүле __percent__ % (__hours__ h)",

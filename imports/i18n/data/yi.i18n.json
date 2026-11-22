@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "נאָך קיין אָנבאָטן נישטאָ.",
   "billing-line-fee": "אָפּצאָל",
   "billing-line-expense": "הוצאה",
+  "billing-line-product": "פּראָדוקט",
   "time-entry-approved": "באַשטעטיקט",
   "time-entry-rejected": "צוריקגעשיקט",
   "workload-utilization": "באַצאָלבאַר __percent__ % (__hours__ h)",

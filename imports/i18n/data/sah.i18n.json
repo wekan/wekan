@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Сыана этиитэ өссө суох.",
   "billing-line-fee": "Төлөбүр",
   "billing-line-expense": "Ороскуот",
+  "billing-line-product": "Табаар",
   "time-entry-approved": "Бигэргэтиллибит",
   "time-entry-rejected": "Төнүннэриллибит",
   "workload-utilization": "Төлөнөр __percent__ % (__hours__ h)",

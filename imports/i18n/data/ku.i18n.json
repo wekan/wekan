@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Hêj pêşniyarên bihayê tune ne.",
   "billing-line-fee": "Heq",
   "billing-line-expense": "Mesref",
+  "billing-line-product": "Berhem",
   "time-entry-approved": "Pejirandî",
   "time-entry-rejected": "Vegerandî",
   "workload-utilization": "Tê fatûrekirin __percent__ % (__hours__ h)",

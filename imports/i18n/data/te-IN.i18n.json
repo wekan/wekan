@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ఇంకా కొటేషన్లు లేవు.",
   "billing-line-fee": "రుసుము",
   "billing-line-expense": "ఖర్చు",
+  "billing-line-product": "ఉత్పత్తి",
   "time-entry-approved": "ఆమోదించబడింది",
   "time-entry-rejected": "వెనక్కి పంపబడింది",
   "workload-utilization": "బిల్ చేయదగినది __percent__ % (__hours__ h)",

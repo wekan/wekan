@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "እስካሁን የዋጋ ቅናሾች የሉም።",
   "billing-line-fee": "ክፍያ",
   "billing-line-expense": "ወጪ",
+  "billing-line-product": "ምርት",
   "time-entry-approved": "ጸድቋል",
   "time-entry-rejected": "ተመልሷል",
   "workload-utilization": "የሚከፈልበት __percent__ % (__hours__ h)",

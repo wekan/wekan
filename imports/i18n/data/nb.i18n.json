@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ingen tilbud ennå.",
   "billing-line-fee": "Honorar",
   "billing-line-expense": "Utgift",
+  "billing-line-product": "Produkt",
   "time-entry-approved": "Godkjent",
   "time-entry-rejected": "Sendt tilbake",
   "workload-utilization": "Fakturerbar __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "अद्याप कोणतेही दरपत्रक नाही.",
   "billing-line-fee": "शुल्क",
   "billing-line-expense": "खर्च",
+  "billing-line-product": "उत्पादन",
   "time-entry-approved": "मंजूर",
   "time-entry-rejected": "परत पाठवले",
   "workload-utilization": "बिल करण्यायोग्य __percent__ % (__hours__ h)",

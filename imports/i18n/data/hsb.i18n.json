@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Hišće žane poskitki.",
   "billing-line-fee": "Popłatk",
   "billing-line-expense": "Wudawk",
+  "billing-line-product": "Produkt",
   "time-entry-approved": "Schwalene",
   "time-entry-rejected": "Wróćo pósłane",
   "workload-utilization": "Zličbujomne __percent__ % (__hours__ h)",

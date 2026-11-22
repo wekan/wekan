@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି କୋଟେସନ ନାହିଁ।",
   "billing-line-fee": "ଶୁଳ୍କ",
   "billing-line-expense": "ଖର୍ଚ୍ଚ",
+  "billing-line-product": "ଉତ୍ପାଦ",
   "time-entry-approved": "ଅନୁମୋଦିତ",
   "time-entry-rejected": "ଫେରାଇ ପଠାଯାଇଛି",
   "workload-utilization": "ବିଲ ଯୋଗ୍ୟ __percent__ % (__hours__ h)",

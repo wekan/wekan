@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Níl aon luachana fós.",
   "billing-line-fee": "Táille",
   "billing-line-expense": "Costas",
+  "billing-line-product": "Táirge",
   "time-entry-approved": "Ceadaithe",
   "time-entry-rejected": "Seolta ar ais",
   "workload-utilization": "Inbhillithe __percent__ % (__hours__ h)",

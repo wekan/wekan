@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "وُنِہ کانٛہہ کوٹیشن نہٕ۔",
   "billing-line-fee": "فیس",
   "billing-line-expense": "خرچہٕ",
+  "billing-line-product": "پیداوار",
   "time-entry-approved": "منظور شُدہ",
   "time-entry-rejected": "واپس سوزمُت",
   "workload-utilization": "بِل لایق __percent__ % (__hours__ h)",

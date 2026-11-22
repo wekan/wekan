@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Kāore anō he tātai utu.",
   "billing-line-fee": "Utu",
   "billing-line-expense": "Whakapaunga",
+  "billing-line-product": "Hua",
   "time-entry-approved": "Kua whakaaetia",
   "time-entry-rejected": "Kua whakahokia",
   "workload-utilization": "Ka taea te nama __percent__ % (__hours__ h)",

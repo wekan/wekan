@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ammallee gatiin kenname hin jiru.",
   "billing-line-fee": "Kaffaltii",
   "billing-line-expense": "Baasii",
+  "billing-line-product": "Oomisha",
   "time-entry-approved": "Mirkanaa'e",
   "time-entry-rejected": "Deebi'e",
   "workload-utilization": "Kaffaltii kan qabu __percent__ % (__hours__ h)",

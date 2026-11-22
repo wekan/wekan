@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "अहिलेसम्म कुनै मूल्य प्रस्ताव छैन।",
   "billing-line-fee": "शुल्क",
   "billing-line-expense": "खर्च",
+  "billing-line-product": "उत्पादन",
   "time-entry-approved": "स्वीकृत भयो",
   "time-entry-rejected": "फिर्ता पठाइयो",
   "workload-utilization": "बिल गर्न मिल्ने __percent__ % (__hours__ h)",

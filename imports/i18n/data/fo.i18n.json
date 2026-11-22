@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Eingi tilboð enn.",
   "billing-line-fee": "Gjald",
   "billing-line-expense": "Útreiðsla",
+  "billing-line-product": "Vøra",
   "time-entry-approved": "Góðkent",
   "time-entry-rejected": "Sent aftur",
   "workload-utilization": "Rokningarført __percent__ % (__hours__ h)",

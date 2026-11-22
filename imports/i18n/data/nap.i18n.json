@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ancora nisciuno preventivo.",
   "billing-line-fee": "Cumpenso",
   "billing-line-expense": "Spesa",
+  "billing-line-product": "Prudotto",
   "time-entry-approved": "Appruvato",
   "time-entry-rejected": "Mannato arreto",
   "workload-utilization": "Fatturabbile __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Weli qiime-bixin ma jirto.",
   "billing-line-fee": "Khidmad",
   "billing-line-expense": "Kharash",
+  "billing-line-product": "Alaab",
   "time-entry-approved": "La ansixiyay",
   "time-entry-rejected": "Dib loo diray",
   "workload-utilization": "La biilayn karo __percent__ % (__hours__ h)",

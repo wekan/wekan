@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Enweghị aro ọnụ ahịa ugbu a.",
   "billing-line-fee": "Ụgwọ ọrụ",
   "billing-line-expense": "Mmefu",
+  "billing-line-product": "Ngwaahịa",
   "time-entry-approved": "Akwadoro",
   "time-entry-rejected": "Ezighachiri",
   "workload-utilization": "A ga-akwụ ụgwọ __percent__ % (__hours__ h)",

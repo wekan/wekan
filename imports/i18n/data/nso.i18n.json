@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Ga go na ditheko tša kakanyo ga bjale.",
   "billing-line-fee": "Tefo",
   "billing-line-expense": "Tshenyagalelo",
+  "billing-line-product": "Setšweletšwa",
   "time-entry-approved": "E dumetšwe",
   "time-entry-rejected": "E bušeditšwe",
   "workload-utilization": "E a lefišwa __percent__ % (__hours__ h)",

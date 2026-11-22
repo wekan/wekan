@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "एखन धरि कोनो कोटेशन नहि।",
   "billing-line-fee": "शुल्क",
   "billing-line-expense": "खर्च",
+  "billing-line-product": "उत्पाद",
   "time-entry-approved": "स्वीकृत भेल",
   "time-entry-rejected": "वापस पठाओल गेल",
   "workload-utilization": "बिल योग्य __percent__ % (__hours__ h)",

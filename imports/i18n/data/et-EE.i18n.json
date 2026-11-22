@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Pakkumisi veel pole.",
   "billing-line-fee": "Tasu",
   "billing-line-expense": "Kulu",
+  "billing-line-product": "Toode",
   "time-entry-approved": "Kinnitatud",
   "time-entry-rejected": "Tagasi saadetud",
   "workload-utilization": "Arveldatav __percent__ % (__hours__ h)",

@@ -5167,6 +5167,7 @@
   "billing-no-quotes": "Durung ana tawaran.",
   "billing-line-fee": "Ongkos",
   "billing-line-expense": "Wragad",
+  "billing-line-product": "Produk",
   "time-entry-approved": "Disetujoni",
   "time-entry-rejected": "Dibalèkaké",
   "workload-utilization": "Bisa ditagih __percent__ % (__hours__ h)",
