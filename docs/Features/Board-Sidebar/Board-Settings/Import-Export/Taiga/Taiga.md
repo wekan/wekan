@@ -1,5 +1,7 @@
 # Taiga
 
+## What it is
+
 WeKan imports boards from [Taiga](https://taiga.io) and exports boards to it.
 Both directions use Taiga's project dump: the one JSON object that Taiga's
 project export writes and its project import reads back. On import, user story
@@ -8,7 +10,31 @@ cards, epics and issues get swimlanes of their own, and Taiga's sprints
 (milestones) become WeKan Scrum sprints. On export, WeKan writes a dump with
 every key Taiga's own exporter writes, so Taiga can create a project from it.
 
-## How to import
+## Read more
+
+- [Wikipedia: Taiga, the project management platform](https://en.wikipedia.org/wiki/Taiga_(project_management))
+- [Import/Export Taiga Projects](https://community.taiga.io/t/import-export-taiga-projects/168):
+  Taiga's steps to export a project and to import a dump, and how users are
+  matched by email
+- [taiga-back `export_import/services/store.py`](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/services/store.py):
+  `load_dump`, the importer
+- [taiga-back export serializers](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/serializers/serializers.py):
+  the keys and value shapes of a dump
+- [taiga-back import validators](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/validators/validators.py):
+  what the importer accepts
+- [taiga-back `export_import/tasks.py`](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/tasks.py):
+  a dump is written as `.json`, or as `.json.gz` in the gzip format
+
+See also the [format coverage table](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Taiga, open the project, click the **Settings** menu icon, then
    **Project Profile → Export**, and click the green **Export** button.
@@ -18,7 +44,7 @@ every key Taiga's own exporter writes, so Taiga can create a project from it.
    when it is ready.
 2. If the file is a `.json.gz`, unpack it first. Taiga writes a gzip dump when
    the export is asked for in that format.
-3. In WeKan, go to **All Boards → New → Import → Taiga**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → Taiga**.
 4. Under **Select what to include:** tick the parts to import. Tick **Scrum
    settings** to bring Taiga's sprints in as Scrum sprints. Without it the
    cards are imported, but no sprints, backlog ranks or Scrum estimate.
@@ -34,7 +60,7 @@ that Taiga embeds in it as base64, and the project logo. Attachments are not
 imported, and without them the dump is much smaller. They are still counted in
 the loss report.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, under **Import many boards**, choose several Taiga dump
    files, or one `.zip` that holds them. Each file becomes its own board,
@@ -62,7 +88,7 @@ python3 api.py importboardsfrom taiga FILE_OR_DIR ...
 
 It takes files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Choose what to include. Tick **Scrum settings** to write the board's Scrum
@@ -78,7 +104,7 @@ case-sensitive, so create the users in Taiga first. WeKan writes people as
 WeKan usernames, so they are kept only where the username is the email of a
 Taiga user. The user who imports becomes the project's owner and admin.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. Go to **All Boards → sidebar → Export all boards** and choose **Taiga**.
    This downloads one `.zip` with one dump file per board you can export:
@@ -92,9 +118,95 @@ From a script:
 python3 api.py exportallboards taiga boards.zip
 ```
 
-## Format details
+### REST API
 
-### The dump
+```bash
+python3 api.py importboardfrom taiga project-dump.json   # POST /api/boards/import/taiga
+python3 api.py importboardsfrom taiga FILES...
+python3 api.py exportboardformat BOARDID taiga board.json # GET /api/boards/:boardId/export/taiga?authToken=…
+python3 api.py exportallboards taiga boards.zip          # GET /api/export-all-boards/taiga?authToken=…
+```
+
+The mass export route takes an optional `&boardIds=ID1,ID2` to export only
+those boards.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 50,000 items. More stops the import with an error. (`MAX_TAIGA_ITEMS`
+  in
+  [models/lib/taigaFormat.js](../../../../../../models/lib/taigaFormat.js#L76))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/taigaFormat.js](../../../../../../models/lib/taigaFormat.js).
+
+The tests that pin it:
+[tests/boardExportScope.test.cjs](../../../../../../tests/boardExportScope.test.cjs),
+[tests/importLossReport.test.cjs](../../../../../../tests/importLossReport.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/taigaFormat.test.cjs](../../../../../../tests/taigaFormat.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### The dump
 
 - The file is a Taiga project dump: the one JSON object that Taiga's
   **Admin > Project > Export** (or `manage.py dump_project`) writes, and its
@@ -115,7 +227,7 @@ python3 api.py exportallboards taiga boards.zip
   `Z`, or a plain date (`2024-03-15`). A date that does not exist on the
   calendar, such as 2024-02-31, is reported and left out.
 
-### Import
+#### Import
 
 - **Lists**: the user story statuses (`us_statuses`), in their order. A status
   used by an epic or issue that is not a user story status adds a list.
@@ -154,7 +266,7 @@ to WeKan users. The import page imports Taiga without member mapping, so
 members can be added later. A watcher becomes a card watcher only when mapped
 to a member of the new board. Requested by keeps the Taiga email as text.
 
-### Scrum sprints from milestones
+#### Scrum sprints from milestones
 
 Taiga's milestones are its sprints. They are imported only when **Scrum
 settings** is ticked under **Select what to include:**
@@ -177,7 +289,7 @@ settings** is ticked under **Select what to include:**
 The sprints are written through the same journaled Scrum import as Jira and
 WeKan JSON, so an interrupted import is recovered like theirs.
 
-### Export
+#### Export
 
 The export writes a dump with every key Taiga's exporter writes, in its order:
 
@@ -212,7 +324,7 @@ The export writes a dump with every key Taiga's exporter writes, in its order:
 - Taiga's default statuses, issue types, priorities, severities and due date
   settings are written, plus any further status or value the cards use.
 
-## What is kept
+### What is kept
 
 | Taiga | WeKan |
 | --- | --- |
@@ -243,7 +355,7 @@ The export writes a dump with every key Taiga's exporter writes, in its order:
 | Item `milestone` | The card's sprint |
 | `backlog_order` | Backlog rank |
 
-## What is not kept
+### What is not kept
 
 The import reports these in the loss report:
 
@@ -266,19 +378,7 @@ The export leaves out attachments, activities, wiki pages, votes, the timeline
 and the project logo; their keys are written empty. A card that has no Taiga
 place for a field, such as a start date or a card color on a story, loses it.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom taiga project-dump.json   # POST /api/boards/import/taiga
-python3 api.py importboardsfrom taiga FILES...
-python3 api.py exportboardformat BOARDID taiga board.json # GET /api/boards/:boardId/export/taiga?authToken=…
-python3 api.py exportallboards taiga boards.zip          # GET /api/export-all-boards/taiga?authToken=…
-```
-
-The mass export route takes an optional `&boardIds=ID1,ID2` to export only
-those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/taigaFormat.js` reads a dump (`parseTaiga`), writes one
   (`formatTaiga`) and leaves the attachment files out on the import page
@@ -306,19 +406,10 @@ those boards.
   - *every external export menu link returns text and refuses an unrelated
     user* includes the Taiga export link.
 
-## Sources
+## Commits
 
-- [Import/Export Taiga Projects](https://community.taiga.io/t/import-export-taiga-projects/168):
-  Taiga's steps to export a project and to import a dump, and how users are
-  matched by email
-- [taiga-back `export_import/services/store.py`](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/services/store.py):
-  `load_dump`, the importer
-- [taiga-back export serializers](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/serializers/serializers.py):
-  the keys and value shapes of a dump
-- [taiga-back import validators](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/validators/validators.py):
-  what the importer accepts
-- [taiga-back `export_import/tasks.py`](https://github.com/taigaio/taiga-back/blob/main/taiga/export_import/tasks.py):
-  a dump is written as `.json`, or as `.json.gz` in the gzip format
-
-See also the [format coverage table](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Taiga's blocked state is the card's Blocked flow field, both ways](https://github.com/wekan/wekan/commit/ab884547f44913cb5269b8248e6301b4983a43c0)
+ - [Taiga export is written a page of cards at a time; every export is now paged](https://github.com/wekan/wekan/commit/9f85b51695be62df106f9c823645b10988a9a13a)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Taiga project dumps](https://github.com/wekan/wekan/commit/bd6a8ce0193786be5c0eb64cebb18fb8a62ae581)

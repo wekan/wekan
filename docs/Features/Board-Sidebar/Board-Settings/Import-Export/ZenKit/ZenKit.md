@@ -1,5 +1,7 @@
 # Zenkit
 
+## What it is
+
 WeKan imports boards from [Zenkit](https://zenkit.com/) and exports a board in
 the same shape. It reads two shapes of JSON: a list as Zenkit's API returns it
 (the list, its elements and its entries), and a simpler adapter shape
@@ -9,7 +11,28 @@ WeKan's menus the tool is named **Zenkit**.
 Zenkit does not publish a schema for its single-file JSON export, so WeKan
 does not claim to read that file; see Format details.
 
-## How to import
+## Read more
+
+- [Wikipedia: kanban boards](https://en.wikipedia.org/wiki/Kanban_board)
+- [Zenkit API documentation](https://public.zenkit.com/documentation): lists,
+  elements and entries
+- [Zenkit list actions](https://help.zenkit.com/en/support/solutions/articles/43000585496-list-actions):
+  Generate JSON
+- WeKan discussion #4487,
+  [kjgcoop/very-rough-wekan-from-zk](https://github.com/kjgcoop/very-rough-wekan-from-zk)
+  and its fork [wekan/very-rough-wekan-from-zk](https://github.com/wekan/very-rough-wekan-from-zk):
+  an earlier Zenkit to WeKan converter
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. Get the list as JSON. Two ways work:
    - From Zenkit's [API](https://public.zenkit.com/documentation): the list,
@@ -18,18 +41,18 @@ does not claim to read that file; see Format details.
    - In the adapter shape, written by hand or by a script of your own:
      `{ "title", "stages": [...], "items": [...] }`. An earlier converter,
      [very-rough-wekan-from-zk](https://github.com/wekan/very-rough-wekan-from-zk),
-     is described in [discussion #4487](https://github.com/wekan/wekan/discussions/4487).
+     is described in discussion #4487.
    Zenkit also offers **Generate JSON** in a list's settings
    ([list actions](https://help.zenkit.com/en/support/solutions/articles/43000585496-list-actions)).
    Its layout is not documented, so check the loss report after importing it.
-2. In WeKan, go to **All Boards → New → Import → Zenkit**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Zenkit**.
 3. Paste the JSON into the text box. Tick the parts to import.
 4. Click **Import**. Zenkit has no member-mapping step in WeKan, so the people
    in the file do not become card members.
 5. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Zenkit JSON
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -42,7 +65,7 @@ does not claim to read that file; see Format details.
   `python3 api.py importboardsfrom zenkit FILE_OR_DIR ...` takes files,
   directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include:**, tick the parts to export.
@@ -52,7 +75,7 @@ does not claim to read that file; see Format details.
    file; see [Zenkit's help](https://help.zenkit.com/). The file is what
    WeKan's own Zenkit import reads.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **Zenkit**.
    This downloads one `.zip` with one Zenkit file per board you can
@@ -64,7 +87,84 @@ does not claim to read that file; see Format details.
 
 From a script: `python3 api.py exportallboards zenkit boards.zip`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom zenkit list.json               # POST /api/boards/import/zenkit
+python3 api.py importboardsfrom zenkit a.json b.json dir/     # one board per file
+python3 api.py exportboardformat BOARDID zenkit list.json     # GET /api/boards/BOARDID/export/zenkit?authToken=TOKEN
+python3 api.py exportallboards zenkit boards.zip              # GET /api/export-all-boards/zenkit?authToken=TOKEN
+```
+
+`GET /api/export-all-boards/zenkit?authToken=TOKEN&boardIds=ID1,ID2` exports
+only the boards listed.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/importedTaskPlan.test.cjs](../../../../../../tests/importedTaskPlan.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/zenkitImport.test.cjs](../../../../../../tests/zenkitImport.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -107,7 +207,7 @@ What the current code does (`parseZenkit` in `models/lib/externalParsers.js`):
 (or `uuid`), `parent_id` (or `parentId`), `fields`, `comments` and
 `checklists`. Any other key is reported.
 
-## What is kept
+### What is kept
 
 | Zenkit | WeKan |
 | --- | --- |
@@ -132,7 +232,7 @@ The export writes the adapter shape: `title`, a stage per list, and per card
 `created_at`, `parent_id`, the owner and further people as `assignees`, the
 custom fields as `fields`, the checklists and the comments.
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report:
 
@@ -154,19 +254,7 @@ members.
 The export leaves out swimlanes, archived cards and lists, end dates,
 dependencies and attachments.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom zenkit list.json               # POST /api/boards/import/zenkit
-python3 api.py importboardsfrom zenkit a.json b.json dir/     # one board per file
-python3 api.py exportboardformat BOARDID zenkit list.json     # GET /api/boards/BOARDID/export/zenkit?authToken=TOKEN
-python3 api.py exportallboards zenkit boards.zip              # GET /api/export-all-boards/zenkit?authToken=TOKEN
-```
-
-`GET /api/export-all-boards/zenkit?authToken=TOKEN&boardIds=ID1,ID2` exports
-only the boards listed.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/externalParsers.js` (`parseZenkit`) reads both shapes.
   `models/kanboardCreator.js` creates the board, and
@@ -180,16 +268,7 @@ only the boards listed.
   (importing the adapter fixture through the page, refusing malformed JSON,
   and API entries importing stages, checklists, fields and hierarchy).
 
-## Sources
+## Commits
 
-- [Zenkit API documentation](https://public.zenkit.com/documentation): lists,
-  elements and entries
-- [Zenkit list actions](https://help.zenkit.com/en/support/solutions/articles/43000585496-list-actions):
-  Generate JSON
-- [WeKan discussion #4487](https://github.com/wekan/wekan/discussions/4487),
-  [kjgcoop/very-rough-wekan-from-zk](https://github.com/kjgcoop/very-rough-wekan-from-zk)
-  and its fork [wekan/very-rough-wekan-from-zk](https://github.com/wekan/very-rough-wekan-from-zk):
-  an earlier Zenkit to WeKan converter
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [JSON exports whose cards are one array are written a page at a time: Trello, Jira, Asana, Zenkit, OpenProject, GitHub ](https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8)
+ - [Import Zenkit API entries and the adapter shape's hierarchy, members and fields](https://github.com/wekan/wekan/commit/13ea3e9c6d57533ef6ab5dfd4b4cb1080d2ba79f)

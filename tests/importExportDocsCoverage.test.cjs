@@ -68,8 +68,19 @@ const DIRECTORY = {
   teams: 'Microsoft-Teams', onenote: 'Microsoft-OneNote',
   sandstormwekan: 'Sandstorm', sandstormprioritize: 'Sandstorm', sandstormyatl: 'Sandstorm', sandstormmutodo: 'Sandstorm', sandstormsandchat: 'Sandstorm', sandstormethercalc: 'Sandstorm', sandstormradicalecalendar: 'Sandstorm', sandstormradicalecontacts: 'Sandstorm', sandstormdavros: 'Sandstorm', sandstormhackercms: 'Sandstorm', sandstormgogs: 'Sandstorm', sandstormwordpress: 'Sandstorm',
 };
-const HEADINGS = ['How to import', 'How to import many boards at once', 'How to export', 'How to export all boards at once',
-  'Format details', 'What is kept', 'What is not kept', 'REST API', 'How it is built and tested', 'Sources'];
+// Every feature page in docs/Features follows one structure: What it is, Read
+// more, How to use it, How the numbers are calculated, How it works in WeKan,
+// Commits. A format page keeps its own steps and details as subsections of
+// that structure: the import and export steps and the REST API under How to
+// use it, the format details and what is and is not kept under How it works in
+// WeKan. (They were top-level sections, with the sources in a section of their
+// own, until the pages took the shared structure; the sources are now under
+// Read more.) The order is pinned, so a page cannot drift back to a shape of
+// its own.
+const HEADINGS = ['## What it is', '## Read more', '## How to use it', '### How to import',
+  '### How to import many boards at once', '### How to export', '### How to export all boards at once',
+  '### REST API', '## How the numbers are calculated', '## How it works in WeKan', '### Format details',
+  '### What is kept', '### What is not kept', '### How it is built and tested', '## Commits'];
 
 test('every import source and export format has its own page, with the steps and details, linked from the index', () => {
   const keys = [
@@ -85,11 +96,14 @@ test('every import source and export format has its own page, with the steps and
     const page = read(`docs/Features/Board-Sidebar/Board-Settings/Import-Export/${dir}/${dir}.md`);
     // A heading is matched as text: its characters are escaped, not read as
     // regular-expression syntax.
-    const at = HEADINGS.map(h => page.search(new RegExp(`^## ${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm')));
+    const at = HEADINGS.map(h => page.search(new RegExp(`^${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm')));
     assert.ok(at.every(i => i !== -1), `${dir}.md has every section: ${HEADINGS.filter((h, i) => at[i] === -1).join(', ')}`);
     assert.deepEqual([...at].sort((x, y) => x - y), at, `${dir}.md has them in order`);
     assert.ok(index.includes(`](./${dir}/${dir}.md)`), `the coverage index links ${dir}`);
     assert.doesNotMatch(page, /\/api\/boards\/export-all\//, `${dir}.md names the mass export route as it is`);
+    const commits = page.slice(page.search(/^## Commits$/m));
+    assert.match(commits, /^ - \[[^\]]+\]\(https:\/\/github\.com\/wekan\/wekan\/commit\/[0-9a-f]{40}\)$/m, `${dir}.md links its commits`);
+    assert.doesNotMatch(page, /TODO_(?:WHAT|READMORE|NUMBERS|WORKS|COMMITS)/, `${dir}.md has no placeholder left`);
   }
 });
 

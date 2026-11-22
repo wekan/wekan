@@ -1,5 +1,7 @@
 # Super Productivity
 
+## What it is
+
 WeKan imports boards from a
 [Super Productivity](https://github.com/super-productivity/super-productivity)
 backup file and exports boards as one. The backup is the JSON file that
@@ -7,13 +9,35 @@ Super Productivity's **Export Data** writes (`sp-backup_*.json`). Each project
 becomes a swimlane and each task a card. The export writes a backup that
 Super Productivity's **Import from File** reads.
 
-## How to import
+## Read more
+
+- [Wikipedia: time tracking](https://en.wikipedia.org/wiki/Time_tracking)
+- [Super Productivity](https://github.com/super-productivity/super-productivity):
+  the app and its source
+- [Managing Your Data](https://github.com/super-productivity/super-productivity/wiki/4.23-Managing-Your-Data):
+  what export and import do, and that import replaces the current data
+- [Restore Data From Backup](https://github.com/super-productivity/super-productivity/wiki/2.02-Restore-Data-From-Backup):
+  the Settings → Sync & Backup → Import/Export steps and Import from File
+- Super Productivity's own e2e fixture
+  `e2e/fixtures/test-backup-with-archives.json`: the backup shape the unit test
+  follows
+
+See also the [format coverage table](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Super Productivity, open **Settings**, open the **Sync & Backup** tab, and
    in the **Import/Export** section export your data. This downloads the
    backup as a plain JSON file.
 2. Open the file in a text editor and copy all of its text.
-3. In WeKan, go to **All Boards → New → Import → Super Productivity**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → Super Productivity**.
 4. Choose the backup under **Choose the export file, or paste its text below:**, or paste the text
    into the text box. Either way it is read as text.
 5. Click **Import**, or **Import without mapping members (map later)**.
@@ -24,7 +48,7 @@ Super Productivity's **Import from File** reads.
 A backup from before Super Productivity version 14 is refused. Import it into
 a current Super Productivity and export it again first.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several backup
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -42,7 +66,7 @@ a current Super Productivity and export it again first.
 - From a script: `python3 api.py importboardsfrom superproductivity FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**. Choose what to
    include, then choose **Super Productivity** in the JSON group. This
@@ -54,7 +78,7 @@ a current Super Productivity and export it again first.
    Productivity and cannot be undone, so export your own data first if you
    want to keep it.
 
-## How to export all boards at once
+### How to export all boards at once
 
 **All Boards → sidebar → Export all boards**, choose **Super Productivity**:
 this downloads one `.zip` with one file per board you can export (boards you
@@ -69,9 +93,101 @@ Each file in the `.zip` is a complete backup. Importing one into Super
 Productivity replaces everything there, so only one of them can be imported
 at a time.
 
-## Format details
+### REST API
 
-### The backup file
+```bash
+python3 api.py importboardfrom superproductivity sp-backup.json     # POST /api/boards/import/superproductivity
+python3 api.py importboardsfrom superproductivity FILES...
+python3 api.py exportboardformat BOARDID superproductivity board.json
+python3 api.py exportallboards superproductivity boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/superproductivity`
+- `GET /api/boards/:boardId/export/superproductivity?authToken=…`
+- `GET /api/export-all-boards/superproductivity?authToken=…`, with an optional
+  `&boardIds=ID1,ID2` for selected boards
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- The export writes `crossModelVersion: 4.5`, the backup version Super
+  Productivity reads. (`SP_CROSS_MODEL_VERSION` in
+  [models/lib/superProductivityFormat.js](../../../../../../models/lib/superProductivityFormat.js#L56))
+- Time spent is milliseconds in Super Productivity; it is divided by one hour
+  (3,600,000 ms) and rounded to two decimals to give hours, and hours are
+  multiplied back on export. (`HOUR` in
+  [models/lib/superProductivityFormat.js](../../../../../../models/lib/superProductivityFormat.js#L65))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/superProductivityFormat.js](../../../../../../models/lib/superProductivityFormat.js).
+
+The tests that pin it:
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/superProductivityFormat.test.cjs](../../../../../../tests/superProductivityFormat.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### The backup file
 
 - The file is a Super Productivity backup as **Settings > Sync & Backup >
   Export Data** writes it (`sp-backup_*.json`):
@@ -86,7 +202,7 @@ at a time.
   `taskArchive`, `improvement` or `obstruction` models is from before version
   14 and is refused.
 
-### Lists
+#### Lists
 
 Super Productivity has no columns. Its Kanban boards are saved filters, not
 containers. So the lists follow its default Kanban board:
@@ -100,7 +216,7 @@ containers. So the lists follow its default Kanban board:
 The board always has To Do and Done; Backlog and In Progress are added when a
 task uses them.
 
-### Projects, tasks and the rest
+#### Projects, tasks and the rest
 
 - Every project that has tasks becomes a swimlane, in the backup's project
   order. Two projects with the same title get `Title (2)` and so on. A project
@@ -126,7 +242,7 @@ task uses them.
 - Archived tasks (archiveYoung and archiveOld) become archived cards.
 - The task id becomes the card's source reference.
 
-### The export
+#### The export
 
 The export writes a backup Super Productivity's **Import from File** reads:
 
@@ -155,7 +271,7 @@ The export writes a backup Super Productivity's **Import from File** reads:
   is put under its top-level card.
 - Comments and attachments are not exported.
 
-## What is kept
+### What is kept
 
 | Super Productivity | WeKan |
 | --- | --- |
@@ -174,7 +290,7 @@ The export writes a backup Super Productivity's **Import from File** reads:
 | Tasks in archiveYoung / archiveOld | Archived cards |
 | `id` | The card's source reference |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -196,23 +312,18 @@ estimate (hours) and Priority. Archived cards, lists and swimlanes are not
 exported. Spent hours are exported only when dates are included in the export,
 and sub-tasks only when sub-tasks are included.
 
-## REST API
+### Repeating tasks
 
-```bash
-python3 api.py importboardfrom superproductivity sp-backup.json     # POST /api/boards/import/superproductivity
-python3 api.py importboardsfrom superproductivity FILES...
-python3 api.py exportboardformat BOARDID superproductivity board.json
-python3 api.py exportallboards superproductivity boards.zip
-```
+A task's repeat configuration (`taskRepeatCfg`) that repeats every 1 day,
+week or month makes the card repeat daily, weekly or monthly. The export
+writes an open repeating card's repeat back as a `taskRepeatCfg` with the
+fields and defaults of Super Productivity's own model
+(`src/app/features/task-repeat-cfg/task-repeat-cfg.model.ts`): the cycle, its
+quick setting, the start date (the due date, or the creation date), the
+weekday of a weekly repeat, and today as the last creation day, since the card
+is this period's task.
 
-The HTTP routes:
-
-- `POST /api/boards/import/superproductivity`
-- `GET /api/boards/:boardId/export/superproductivity?authToken=…`
-- `GET /api/export-all-boards/superproductivity?authToken=…`, with an optional
-  `&boardIds=ID1,ID2` for selected boards
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/superProductivityFormat.js` reads the backup
   (`parseSuperProductivity`) and writes it (`formatSuperProductivity`). It is
@@ -230,28 +341,13 @@ The HTTP routes:
   the board through the Export menu's Super Productivity entry and checks that
   another user is refused.
 
-## Sources
+## Commits
 
-- [Super Productivity](https://github.com/super-productivity/super-productivity):
-  the app and its source
-- [Managing Your Data](https://github.com/super-productivity/super-productivity/wiki/4.23-Managing-Your-Data):
-  what export and import do, and that import replaces the current data
-- [Restore Data From Backup](https://github.com/super-productivity/super-productivity/wiki/2.02-Restore-Data-From-Backup):
-  the Settings → Sync & Backup → Import/Export steps and Import from File
-- Super Productivity's own e2e fixture
-  `e2e/fixtures/test-backup-with-archives.json`: the backup shape the unit test
-  follows
-
-See also the [format coverage table](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
-
-## Repeating tasks
-
-A task's repeat configuration (`taskRepeatCfg`) that repeats every 1 day,
-week or month makes the card repeat daily, weekly or monthly. The export
-writes an open repeating card's repeat back as a `taskRepeatCfg` with the
-fields and defaults of Super Productivity's own model
-(`src/app/features/task-repeat-cfg/task-repeat-cfg.model.ts`): the cycle, its
-quick setting, the start date (the due date, or the creation date), the
-weekday of a weekly repeat, and today as the last creation day, since the card
-is this period's task.
+ - [Super Productivity export writes a repeating card's taskRepeatCfg, so it repeats there too](https://github.com/wekan/wekan/commit/35f3f6c9dbec5de87e1181956ed7bf71c30a2f12)
+ - [Tasks.org, Vikunja and Super Productivity repeats become the card's recurrence too](https://github.com/wekan/wekan/commit/878e53f418c2416796b5af00876ada7cc87a4161)
+ - [Super Productivity export is written a page of cards at a time](https://github.com/wekan/wekan/commit/6187806cf1006bb0f00d27d5e72af9147027f0a9)
+ - [Super Productivity export no longer fails on a card whose list is archived](https://github.com/wekan/wekan/commit/8b4fe0e7376194c498219a0b496340a94020098a)
+ - [Fix the code scanning and Dependabot alerts of 2026-10-10](https://github.com/wekan/wekan/commit/5ec6d9af18d99ab5514cd189fed6bf642e0bb3b2)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Super Productivity backups](https://github.com/wekan/wekan/commit/b7e515dba65adf755b553a3e28fec49317ed33fd)

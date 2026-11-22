@@ -457,7 +457,9 @@ async function main() {
     assert.match(creator, /color === 'black' && LABEL_COLORS\.includes\(named\) \? named : color/, 'only a WeKan label color is stored');
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Taiga/Taiga.md');
-    assert.match(docPage, /^## Format details$/m);
+    // The format details are a subsection of How it works in WeKan, since every
+    // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
+    assert.match(docPage, /^### Format details$/m);
     assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Taiga\/Taiga\.md\)/);
     // Named in both the import and the export list.
     assert.ok((read('README.md').match(/\bTaiga\b/g) || []).length >= 2);

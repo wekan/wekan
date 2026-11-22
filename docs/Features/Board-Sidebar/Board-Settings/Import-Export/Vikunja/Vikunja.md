@@ -1,18 +1,40 @@
 # Vikunja
 
+## What it is
+
 WeKan imports boards from [Vikunja](https://vikunja.io) and exports boards to
 it. Both directions use Vikunja's own user data export: a `.zip` with
 `data.json`, `filters.json` and `VERSION`, the file Vikunja's **Vikunja
 export** import reads back. The import also takes the `data.json` from inside
 that `.zip`, chosen as a file or pasted as text.
 
-## How to import
+## Read more
+
+- [Wikipedia: kanban boards](https://en.wikipedia.org/wiki/Kanban_board)
+- [Vikunja: Import & Export](https://vikunja.io/help/import-and-export/):
+  the Data Export and Import steps, the **Vikunja export** source, and
+  importing WeKan's JSON export
+- [pkg/models/export.go](https://github.com/go-vikunja/vikunja/blob/main/pkg/models/export.go):
+  how Vikunja writes the export `.zip`
+- [Vikunja Export migrator](https://github.com/go-vikunja/vikunja/blob/main/pkg/modules/migration/vikunja-file/vikunja.go):
+  how Vikunja reads it back, and the minimum version 0.20.1
+
+See also the [format coverage table](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Vikunja, open **Settings** and go to the **Data Export** section.
 2. Confirm your password. With third-party login, such as Vikunja Cloud,
    Vikunja asks for a confirmation instead.
 3. Vikunja makes a `.zip` file of all your data. Download it.
-4. In WeKan, go to **All Boards → New → Import → Vikunja**.
+4. In WeKan, go to **All Boards → Add Board → Import → Import board → Vikunja**.
 5. Choose the `.zip` file. You can instead choose the `data.json` file from
    inside it, or paste the text of `data.json` into the text box.
 6. Click **Import**. Vikunja's people are not mapped to WeKan members here;
@@ -24,7 +46,7 @@ A `.zip` must have a `VERSION` file of Vikunja 0.20.1 or newer, which is also
 the oldest export Vikunja's own import accepts. A pasted or chosen `data.json`
 has no `VERSION`, so its version is not checked.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, under **Import many boards**, choose several export
    files, or one `.zip` that holds them.
@@ -57,7 +79,7 @@ python3 api.py importboardsfrom vikunja FILE_OR_DIR ...
 
 It takes files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Choose what to include, then **Vikunja**. It downloads `<board>.zip`.
@@ -69,7 +91,7 @@ Vikunja 2.3.0 and newer also imports WeKan's own JSON export directly (the
 **WeKan** source on the same **Import** tab). See
 [Vikunja's documentation](https://vikunja.io/help/import-and-export/).
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. Go to **All Boards → sidebar → Export all boards** and choose **Vikunja**.
 2. It downloads one `.zip` with one file per board you can export: boards you
@@ -85,9 +107,121 @@ From a script:
 python3 api.py exportallboards vikunja boards.zip
 ```
 
-## Format details
+### REST API
 
-### The file
+```bash
+python3 api.py importboardfrom vikunja export.zip      # POST /api/boards/import/vikunja
+python3 api.py importboardsfrom vikunja FILES...
+python3 api.py exportboardformat BOARDID vikunja board.zip
+python3 api.py exportallboards vikunja boards.zip
+```
+
+- `POST /api/boards/import/vikunja` imports one board. The `.zip` is sent as
+  `{ "zipBase64": "…" }`, a `data.json` as its text.
+- `GET /api/boards/:boardId/export/vikunja?authToken=…` exports one board.
+- `GET /api/export-all-boards/vikunja?authToken=…` exports all boards, with an
+  optional `&boardIds=ID1,ID2` for selected boards.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- The Vikunja data: at most 67,108,864 characters (64 MB of text). More stops
+  the import with an error. (`MAX_VIKUNJA_DATA_CHARS` in
+  [models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js#L58))
+- At most 20,000 tasks. More stops the import with an error.
+  (`MAX_VIKUNJA_TASKS` in
+  [models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js#L59))
+- A repeat of 86,400 seconds is daily and 7 x 86,400 seconds is weekly; other
+  repeat intervals are reported. (`DAY` in
+  [models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js#L66))
+- The export places buckets and projects 65,536 positions apart, as Vikunja
+  does. (`POSITION_STEP` in
+  [models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js#L69))
+- At most 4,096 characters of a task's attribute text are read.
+  (`MAX_ATTRIBUTES_CHARS` in
+  [models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js#L148))
+- The Vikunja .zip file: at most 64 MB. More stops the import with an error.
+  (`MAX_VIKUNJA_ZIP_BYTES` in
+  [server/lib/vikunjaArchive.js](../../../../../../server/lib/vikunjaArchive.js#L16))
+- The Vikunja data: at most 64 MB. More stops the import with an error.
+  (`MAX_VIKUNJA_DATA_BYTES` in
+  [server/lib/vikunjaArchive.js](../../../../../../server/lib/vikunjaArchive.js#L18))
+- One small file in the Vikunja .zip: at most 1 MB.
+  (`MAX_VIKUNJA_SMALL_ENTRY_BYTES` in
+  [server/lib/vikunjaArchive.js](../../../../../../server/lib/vikunjaArchive.js#L19))
+- At most 20,000 files in the archive. More stops the import with an error.
+  (`MAX_VIKUNJA_ZIP_ENTRIES` in
+  [server/lib/vikunjaArchive.js](../../../../../../server/lib/vikunjaArchive.js#L22))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/vikunjaFormat.js](../../../../../../models/lib/vikunjaFormat.js),
+[server/lib/vikunjaArchive.js](../../../../../../server/lib/vikunjaArchive.js).
+
+The tests that pin it:
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/vikunjaFormat.test.cjs](../../../../../../tests/vikunjaFormat.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### The file
 
 The file is Vikunja's user data export (**Settings > Data Export**): a `.zip`
 with `data.json`, `filters.json`, `VERSION` and `files/<id>`, as
@@ -117,7 +251,7 @@ Dates are RFC 3339. Go's zero time, `0001-01-01T00:00:00Z`, means no date.
 Descriptions and comments are TipTap HTML. Older Vikunja versions stored
 Markdown, which is read as it is.
 
-### Reading the .zip
+#### Reading the .zip
 
 The `.zip` is uploaded, or its `data.json` chosen or pasted. The server opens
 the `.zip` under size, entry-count and inflate limits
@@ -137,7 +271,7 @@ A file that does not start like a `.zip`, or has no `data.json` or no
 `VERSION`, is refused. `data.json` must be a JSON array of projects, with at
 most 20,000 tasks in all.
 
-### Which projects become the board
+#### Which projects become the board
 
 - Vikunja's Favorites pseudo project (id -1) is skipped, as Vikunja's own
   import skips it.
@@ -150,7 +284,7 @@ most 20,000 tasks in all.
   **Default** swimlane.
 - Projects that are not imported are listed in the loss report.
 
-### Lists and card order
+#### Lists and card order
 
 - The first kanban view's buckets become lists, in bucket position order.
 - Tasks become cards in that view's order (`positions`, else
@@ -159,7 +293,7 @@ most 20,000 tasks in all.
   view's default bucket, else to the first bucket. A project with no buckets
   gets Vikunja's default lists, **To-Do** and **Done**.
 
-### Export
+#### Export
 
 The export writes the same `.zip` layout, with `data.json`, `filters.json`
 (an empty list) and `VERSION` `v1.0.0`. It has no `files/<id>`.
@@ -174,7 +308,7 @@ The export writes the same `.zip` layout, with `data.json`, `filters.json`
 - Parent links are written by id, so Vikunja drops a link across projects
   rather than duplicating the task.
 
-## What is kept
+### What is kept
 
 | Vikunja | WeKan |
 | --- | --- |
@@ -223,7 +357,7 @@ The export writes back:
 | Comments, with author and date | Comments as HTML |
 | Parent card | subtask and parenttask relations |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -249,22 +383,7 @@ The Vikunja export does not write card colors, label colors, dependencies
 other than parent cards, attachments, custom fields other than Priority,
 Percent Done and Done, or reminders and repeats.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom vikunja export.zip      # POST /api/boards/import/vikunja
-python3 api.py importboardsfrom vikunja FILES...
-python3 api.py exportboardformat BOARDID vikunja board.zip
-python3 api.py exportallboards vikunja boards.zip
-```
-
-- `POST /api/boards/import/vikunja` imports one board. The `.zip` is sent as
-  `{ "zipBase64": "…" }`, a `data.json` as its text.
-- `GET /api/boards/:boardId/export/vikunja?authToken=…` exports one board.
-- `GET /api/export-all-boards/vikunja?authToken=…` exports all boards, with an
-  optional `&boardIds=ID1,ID2` for selected boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/vikunjaFormat.js` reads and writes `data.json`: projects,
   buckets, tasks, the TipTap HTML, and the export.
@@ -285,15 +404,15 @@ python3 api.py exportallboards vikunja boards.zip
   - a pasted `data.json` imports, and a broken one or an unrelated `.zip` is
     refused.
 
-## Sources
+## Commits
 
-- [Vikunja: Import & Export](https://vikunja.io/help/import-and-export/):
-  the Data Export and Import steps, the **Vikunja export** source, and
-  importing WeKan's JSON export
-- [pkg/models/export.go](https://github.com/go-vikunja/vikunja/blob/main/pkg/models/export.go):
-  how Vikunja writes the export `.zip`
-- [Vikunja Export migrator](https://github.com/go-vikunja/vikunja/blob/main/pkg/modules/migration/vikunja-file/vikunja.go):
-  how Vikunja reads it back, and the minimum version 0.20.1
-
-See also the [format coverage table](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Tasks.org, Vikunja and Super Productivity repeats become the card's recurrence too](https://github.com/wekan/wekan/commit/878e53f418c2416796b5af00876ada7cc87a4161)
+ - [Vikunja export is streamed a page of cards at a time, and carries what each task waits for](https://github.com/wekan/wekan/commit/bd34f44460838cfacd10c678d6349f9cc5fd90a0)
+ - [Import page uploads stream to the server's disk, checked against the free space and an Admin Panel limit](https://github.com/wekan/wekan/commit/32c24ed84e9d6c8080e89bdd4097f87a3b0b4b04)
+ - [Fix the code scanning and Dependabot alerts of 2026-10-10](https://github.com/wekan/wekan/commit/5ec6d9af18d99ab5514cd189fed6bf642e0bb3b2)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import boards from Plane issue exports](https://github.com/wekan/wekan/commit/d21a26339363181807908e26c2a5155e732b745e)
+ - [Import and export boards as Notion Markdown & CSV exports](https://github.com/wekan/wekan/commit/b7d3274780989c8169549507e416c60316d70ccf)
+ - [Strip tags to a fixed point in the Vikunja export test](https://github.com/wekan/wekan/commit/ff8f82b40dc37da876aa2d835f50a6d39260c8b2)
+ - [Import and export boards as Vikunja data exports](https://github.com/wekan/wekan/commit/a8e73adf4837fc349f2105818a580c048a85cd28)

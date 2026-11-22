@@ -1,5 +1,7 @@
 # WeKan JSON and .zip
 
+## What it is
+
 WeKan's own export is the board as one JSON document, `wekan-board-1.0.0`. It
 is the lossless format: it carries what a board has, and importing it makes the
 same board again with new ids. It comes in three forms:
@@ -12,12 +14,38 @@ same board again with new ids. It comes in three forms:
 On the import page this source is named after the instance's product name, for
 example **WeKan**.
 
-## How to import
+## Read more
 
-### A new board, from the import page
+- [Wikipedia: WeKan](https://en.wikipedia.org/wiki/Wekan)
+- [Format coverage](../Format-Coverage.md): the canonical format and its field
+  inventory
+- `models/exporter.js`, `models/server/ExporterZip.js` and
+  `models/importZip.js`: the document and the archive layout
+
+- [From previous export](./From-Previous-Export.md): pasting a big JSON on
+  Linux, exporting very large boards without attachments, and JSON to SQLite.
+- [Migrating from old WeKan manually](./Migrating-from-old-Wekan-manually.md)
+- [History of schema migration systems](./History-of-Schema-Migrations-Systems.md)
+- [Delete a board](./Delete-Board.md): move it to the Archive, then delete it
+  from All Boards → Archive.
+- [example-input.txt](./example-input.txt) and the import page
+  [screenshot](./wekan-import-board.png).
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
+
+#### A new board, from the import page
 
 1. In the WeKan that has the board, export it as JSON (see How to export).
-2. In this WeKan, go to **All Boards → New → Import → WeKan**.
+2. In this WeKan, go to **All Boards → Add Board → Import → Import board → WeKan**.
 3. Choose the `.json` or `.zip` file under **Choose the export file, or paste its text below:**, or
    paste
    the JSON into the text box. Tick the parts to import.
@@ -41,7 +69,7 @@ An export that has no lists, swimlanes or cards (from a broken or very old
 export) is refused with a request to export the board again, rather than
 creating an empty board.
 
-### Into an existing board, swimlane, list or card
+#### Into an existing board, swimlane, list or card
 
 1. Open the board, then **Board Settings → Import**. Swimlanes, lists and
    cards have the same **Import** entry in their own menus.
@@ -55,7 +83,7 @@ too large for one JSON document still imports.
 For pasting a very large JSON on Linux, see
 [From previous export](./From-Previous-Export.md).
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several WeKan export
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -69,7 +97,7 @@ For pasting a very large JSON on Linux, see
   `python3 api.py importboardsfrom wekan FILE_OR_DIR ...` takes files,
   directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**. The same
    export is in the menus of a swimlane, a list and a card, for just that
@@ -86,7 +114,7 @@ For pasting a very large JSON on Linux, see
 The Export entry is shown when the server runs with the API enabled
 (`WITH_API=true`) and export is not turned off.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **JSON**.
    This downloads one `.zip` with one WeKan JSON file per board you can
@@ -101,7 +129,104 @@ From a script: `python3 api.py exportallboards wekan boards.zip`.
 For a whole instance, a database backup is the complete copy; see
 [Backup](../../../../../Backup/Backup.md).
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom wekan board.json               # POST /api/boards/import/wekan
+python3 api.py importboardsfrom wekan a.json b.zip dir/       # one board per file
+python3 api.py exportallboards wekan boards.zip               # GET /api/export-all-boards/wekan?authToken=TOKEN
+```
+
+- `GET /api/boards/:boardId/export?authToken=TOKEN` exports the JSON.
+  `&attachments=false` leaves out the attachment data. `&fields=a,b,c`
+  selects the parts, and `swimlaneId`, `listId`, `cardId` or `checklistId`
+  export only that part of the board.
+- `GET /api/boards/:boardId/exportZip?authToken=TOKEN` exports the `.zip`,
+  with the same parameters.
+- `POST /api/import/zip?authToken=TOKEN&boardId=BOARDID` imports a `.zip`
+  into an existing board, with optional `fields`, `swimlaneId`, `listId`,
+  `cardId` and `checklistId`.
+- `GET /api/export-all-boards/wekan?authToken=TOKEN&boardIds=ID1,ID2` exports
+  only the boards listed.
+
+A public board can be exported without a token.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- The board document read from a WeKan .zip: at most 256 MB.
+  (`MAX_IMPORT_DOCUMENT_BYTES` in
+  [models/importZip.js](../../../../../../models/importZip.js#L13))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[client/components/import/wekanMembersMapper.js](../../../../../../client/components/import/wekanMembersMapper.js),
+[models/importZip.js](../../../../../../models/importZip.js),
+[models/lib/wekanBoardFields.js](../../../../../../models/lib/wekanBoardFields.js),
+[models/lib/wekanCardFields.js](../../../../../../models/lib/wekanCardFields.js),
+[models/lib/wekanRecordFields.js](../../../../../../models/lib/wekanRecordFields.js),
+[models/server/ExporterZip.js](../../../../../../models/server/ExporterZip.js),
+[models/server/scopedImporter.js](../../../../../../models/server/scopedImporter.js),
+[server/lib/importAttachmentStream.js](../../../../../../server/lib/importAttachmentStream.js).
+
+The tests that pin it:
+[tests/boardExportScope.test.cjs](../../../../../../tests/boardExportScope.test.cjs),
+[tests/boardJsonStream.test.cjs](../../../../../../tests/boardJsonStream.test.cjs),
+[tests/exportZipArchiverApi.test.cjs](../../../../../../tests/exportZipArchiverApi.test.cjs),
+[tests/exporterBackpressure.test.cjs](../../../../../../tests/exporterBackpressure.test.cjs),
+[tests/scopedImport.test.cjs](../../../../../../tests/scopedImport.test.cjs),
+[tests/wekanCardFields.test.cjs](../../../../../../tests/wekanCardFields.test.cjs),
+[tests/wekanCreator.import.test.js](../../../../../../tests/wekanCreator.import.test.js),
+[tests/wekanCreator.inconsistent.test.js](../../../../../../tests/wekanCreator.inconsistent.test.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) design:
 
@@ -145,7 +270,7 @@ What the current code does:
   items, activities, triggers, actions and rules, and board backgrounds are
   created in that order.
 
-## What is kept
+### What is kept
 
 | WeKan export | WeKan |
 | --- | --- |
@@ -164,7 +289,7 @@ What the current code does:
 | Scrum records | Sprints, releases and Scrum settings |
 | Board background attachments | Board background |
 
-## What is not kept
+### What is not kept
 
 - **JSON (without attachments)** leaves out the attachment data, so its
   attachments have no files.
@@ -192,29 +317,7 @@ Older WeKan versions used other database schemas. For moving data from them,
 see [Migrating from old WeKan manually](./Migrating-from-old-Wekan-manually.md)
 and the [history of schema migration systems](./History-of-Schema-Migrations-Systems.md).
 
-## REST API
-
-```bash
-python3 api.py importboardfrom wekan board.json               # POST /api/boards/import/wekan
-python3 api.py importboardsfrom wekan a.json b.zip dir/       # one board per file
-python3 api.py exportallboards wekan boards.zip               # GET /api/export-all-boards/wekan?authToken=TOKEN
-```
-
-- `GET /api/boards/:boardId/export?authToken=TOKEN` exports the JSON.
-  `&attachments=false` leaves out the attachment data. `&fields=a,b,c`
-  selects the parts, and `swimlaneId`, `listId`, `cardId` or `checklistId`
-  export only that part of the board.
-- `GET /api/boards/:boardId/exportZip?authToken=TOKEN` exports the `.zip`,
-  with the same parameters.
-- `POST /api/import/zip?authToken=TOKEN&boardId=BOARDID` imports a `.zip`
-  into an existing board, with optional `fields`, `swimlaneId`, `listId`,
-  `cardId` and `checklistId`.
-- `GET /api/export-all-boards/wekan?authToken=TOKEN&boardIds=ID1,ID2` exports
-  only the boards listed.
-
-A public board can be exported without a token.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/exporter.js` and `models/server/ExporterZip.js` write the export;
   `models/export.js` serves the `export` and `exportZip` routes.
@@ -236,23 +339,34 @@ A public board can be exported without a token.
   `scrum-native-export.e2e.js` and `scrum-native-import.e2e.js` (Scrum records
   through the native export and import).
 
-## Sources
+## Commits
 
-- [Format coverage](../Format-Coverage.md): the canonical format and its field
-  inventory
-- `models/exporter.js`, `models/server/ExporterZip.js` and
-  `models/importZip.js`: the document and the archive layout
-
-## More
-
-- [From previous export](./From-Previous-Export.md): pasting a big JSON on
-  Linux, exporting very large boards without attachments, and JSON to SQLite.
-- [Migrating from old WeKan manually](./Migrating-from-old-Wekan-manually.md)
-- [History of schema migration systems](./History-of-Schema-Migrations-Systems.md)
-- [Delete a board](./Delete-Board.md): move it to the Archive, then delete it
-  from All Boards → Archive.
-- [example-input.txt](./example-input.txt) and the import page
-  [screenshot](./wekan-import-board.png).
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Import: a .zip that becomes a new board, and a Trello API import, run as the importing user](https://github.com/wekan/wekan/commit/a7cd22f94ca17a5702fa7f0c81e439c2df03cebc)
+ - [Telegram and Discord imports bring their message files: a zipped export folder's photos and files are attachments](https://github.com/wekan/wekan/commit/828ca63713b0a034c9e1c436341cd60435c01443)
+ - [WeKan import keeps templates: a template board, card, list or swimlane stays a template](https://github.com/wekan/wekan/commit/a4359731b1bed397e1616dd8289b0d437f8e7243)
+ - [WeKan JSON import keeps lists' WIP limits, policies and splits, checklist settings, custom field access, item assignees ](https://github.com/wekan/wekan/commit/24b6b9b0247bf1cda039faec6dba9298f9115116)
+ - [WeKan JSON import keeps every board and card field: all Board Settings, flow fields, votes, poker, stickers, drawings](https://github.com/wekan/wekan/commit/c640c5c376526f6550873b757fa6b68511c63d42)
+ - [Repeating tasks of other tools repeat in WeKan: daily, weekly and monthly as the card's recurrence](https://github.com/wekan/wekan/commit/24ac6b2bd2e55323fa1c6e52eb53ff3291fc80fb)
+ - [Trello .zip export: the Trello board JSON with the cards' attachment files, imported back with them](https://github.com/wekan/wekan/commit/e8330fb090c885c9d8ea015ed896c34a9b6cf251)
+ - [JSON exports whose cards are one array are written a page at a time: Trello, Jira, Asana, Zenkit, OpenProject, GitHub ](https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8)
+ - [Uploaded JSON is parsed from the file a chunk at a time; a Mattermost export a line at a time](https://github.com/wekan/wekan/commit/640e4925935e3842e00a864057b083b6dc386031)
+ - [WeKan and Trello .zip imports use the shared upload, limit and disk check; .mbox and .enex export a page at a time](https://github.com/wekan/wekan/commit/3b1c7ce7bb430834e024d7684734f7586a07b007)
+ - [Ask for the columns of a CSV or Excel import, apply Owner, and import WeKan's own Excel export](https://github.com/wekan/wekan/commit/86652c8718abf6a91964d2676b711ef9093829cc)
+ - [Import and export boards as Kanri JSON](https://github.com/wekan/wekan/commit/eec53eb322f6cee14b61f1fd1f9d1ca0ee26d74e)
+ - [Import and export boards as Taskwarrior JSON](https://github.com/wekan/wekan/commit/f0323140f6f5325c7b2abf4ffb938f456c5d54d7)
+ - [Fix ZipBombBleed and the zip import write check](https://github.com/wekan/wekan/commit/e7ed71ee2ec90558abe775a48f17923e449a4d45)
+ - [Fix board JSON exports containing HTML card text](https://github.com/wekan/wekan/commit/49eaade957243ec6f83c3d138c044efda5de8747)
+ - [Fix board export to .zip (with attachments) answering a bare 500 error](https://github.com/wekan/wekan/commit/f383fe9b3afd31e2ca2b0b0cc11f5057d91fb032)
+ - [Add Legacy HTML4 WeKan ZIP imports](https://github.com/wekan/wekan/commit/034d3b92086bee655aed469733e72dd06dec868f)
+ - [Stream a .zip import through an upload endpoint instead of the browser](https://github.com/wekan/wekan/commit/fe77b7461e6737a528e953b1080e91f206812b45)
+ - [JSON and .zip export at every menu, streamed, from the one export popup](https://github.com/wekan/wekan/commit/b0ca22609905c45c35090d097f46d339fb4a748a)
+ - [Stream board exports (JSON, CSV/TSV, Excel) with bounded memory](https://github.com/wekan/wekan/commit/41cd166358ea40a4517eddd02fe1913c22b7777b)
+ - [Export big boards: optional JSON export without base64 attachments (#5870)](https://github.com/wekan/wekan/commit/c1752c5fbaf1f0b7640f9797c187fe6ba2dcc85f)
+ - [Fix Board Export/Import error. Fix import/clone of inconsistent board JSON so the newest WeKan can import board exports ](https://github.com/wekan/wekan/commit/68e0032c6d3b23a195b4051e2853465965e073dc)
+ - [Fix CloneBleed and other security issues. Added more security tests to test suite](https://github.com/wekan/wekan/commit/357de728c03113b787065bac2c5832ad77f1a117)
+ - [Fix: Impersonate user can now export Excel/CSV/TSV/JSON. Impersonate user and export Excel/CSV/TSV/JSON is now logged ](https://github.com/wekan/wekan/commit/3908cd5413b775d1ee549f0a95304cf9998d3855)
+ - [Included a new route to export (json) an attachment from a board](https://github.com/wekan/wekan/commit/6eb90238b1b1dec4f37a3727ed29ed82d2a43cc6)
+ - [Fix Sandstorm export board from web. - Fix Error when logging in to Wekan REST API when using Sandstorm Wekan.   ](https://github.com/wekan/wekan/commit/32f896f19d31f92b5c2e540d0960d00fbf1bf9c3)
+ - [Some fixes to Wekan import:   - isCommentOnly and isNoComments are now optional   - Turn off import error checking, so ](https://github.com/wekan/wekan/commit/4cf98134491b5870796de795418000c0a7c3a694)
+ - [Fix Wekan import / Export for ChecklistItems](https://github.com/wekan/wekan/commit/30b17ff6c92df07922f875071e864cf688902293)
+ - [Fix import wekan board with swimlanes](https://github.com/wekan/wekan/commit/ec0a8449ba98aea708e484d386e5a209e2be8fff)
