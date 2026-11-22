@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **attachment slideshow** shows more kinds of files directly:
+**Markdown** formatted, **CSV** as a table, **source code** coloured, and
+**iCalendar**, **Outlook .msg**, **tar.gz** and **OpenDocument** files, each
+with
+a viewer loaded only when such a file is opened.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.27 2026-11-22 WeKan ® release
 
 **CodeQL** alert #611 is fixed: the **autolink rules** find the

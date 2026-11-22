@@ -95,6 +95,47 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **attachment slideshow** shows more kinds of files directly:
+**Markdown** formatted, **CSV** as a table, **source code** coloured, and
+**iCalendar**, **Outlook .msg**, **tar.gz** and **OpenDocument** files, each
+with
+a viewer loaded only when such a file is opened.
+
+This release adds the following new features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d842a5e2fe7242ade92ca19e2ce5a4f9081485d">The attachment slideshow shows Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument files</a>. Thanks to xet7.</summary>
+
+The slideshow showed images, PDF, video, audio, plain text, ZIP listings and
+docx/xlsx/pptx. It now also shows, with viewers loaded only when such a file
+is opened (`client/lib/attachmentRichViewer.js`):
+
+- Markdown (`.md`) formatted, through WeKan's own `+viewer`, so an attached
+  file follows every setting a card description does;
+- CSV and TSV as a table (papaparse), the first 1000 rows;
+- source code and JSON coloured by highlight.js - an HTML or SVG source file is
+  shown as text, never run;
+- iCalendar (`.ics`) events and tasks, with WeKan's iCalendar reader;
+- Outlook `.msg` headers, text and attachment names, with WeKan's reader;
+- tar, tar.gz and `.tgz` file names (fflate, with an inflate limit and header
+  checksums);
+- OpenDocument text, spreadsheets and presentations (`.odt`, `.ods`, `.odp`)
+  as headings, paragraphs and tables.
+
+Everything a file contains reaches the page as text. Whether a file opens is
+now one answer, `attachmentCanPreview`, shared by the card, the board's version
+control view and the history table, whose own copy of the list had lost ZIP.
+`tests/attachmentRichViewer.test.cjs` drives each viewer in jsdom, with
+negative tests for binary files, refused downloads, gzip bombs, damaged tar
+headers and oversized OpenDocument content; `attachment-rich-preview.e2e.js`
+opens each kind in Chromium and checks that nothing in the files ran.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.27 2026-11-22 WeKan ® release
 
 **In short:** **CodeQL** alert #611 is fixed: the **autolink rules** find the
