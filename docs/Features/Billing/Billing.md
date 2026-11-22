@@ -1,12 +1,59 @@
 # Budget and billing
 
-User menu → **Budget and billing** (`/billing`) is where a board's admins plan
+## What it is
+
+Member menu → **Budget and billing** (`/billing`) is where a board's admins plan
 and charge for the board's work: its budget, what the work has cost and will
 cost, the hourly rates, and invoices of the hours spent. It builds on the time
 WeKan already tracks - a card's **spent time**, and its **estimated hours**
 (see [Workload](../Workload/Workload.md)).
 
-## Rates
+## Read more
+
+- [Budget](https://en.wikipedia.org/wiki/Budget),
+  [Time and materials](https://en.wikipedia.org/wiki/Time_and_materials) and
+  [Retainer agreement](https://en.wikipedia.org/wiki/Retainer_agreement) on
+  Wikipedia - the ways work is priced here.
+- [Invoice](https://en.wikipedia.org/wiki/Invoice),
+  [Credit note](https://en.wikipedia.org/wiki/Credit_note),
+  [Value-added tax](https://en.wikipedia.org/wiki/Value-added_tax) and
+  [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) (currencies and their
+  decimals).
+- [Electronic invoicing](https://en.wikipedia.org/wiki/Electronic_invoicing),
+  [Universal Business Language](https://en.wikipedia.org/wiki/Universal_Business_Language),
+  [PEPPOL](https://en.wikipedia.org/wiki/PEPPOL) and the
+  [Peppol BIS Billing 3.0](https://docs.peppol.eu/poacc/billing/3.0/)
+  specification - the e-invoice.
+- [Creditor Reference (ISO 11649)](https://en.wikipedia.org/wiki/Creditor_Reference)
+  and [EPC QR code](https://en.wikipedia.org/wiki/EPC_QR_code) - the payment
+  reference and the SEPA QR code.
+- [Professional services automation](https://en.wikipedia.org/wiki/Professional_services_automation).
+- In WeKan: [Workload and capacity](../Workload/Workload.md).
+
+## How to use it
+
+1. Open the member menu (your avatar in the header bar) and choose **Budget and
+   billing**. It is there while Admin Panel → Settings → Features keeps the
+   feature on, and shows the boards where you are an active board admin.
+2. Under **Hourly rates**, choose the **Currency** and set an **Hourly rate**
+   (and optionally a **Cost per hour**) per member, and one for **Everybody else
+   (board default)**.
+3. Under **Budget**, set an amount, hours, or both, and optionally a period.
+4. Add **Expenses** (**Add expense**) and **Fixed fees and retainers** (**Add
+   fee**) where the work costs or is priced that way.
+5. Log time on cards: a card's **Time** popup has **Log time**, and the timers
+   and the spent time work as before.
+6. With **Approve time before it is invoiced** on, approve or send back the
+   entries under **Time to approve**.
+7. Fill in the **Invoicer** (your details, VAT, payment terms, **Payment
+   methods**) once.
+8. Click **Create invoice**, choose the period and create it; **Open** it to
+   view or print, download it as PDF, SVG, Excel, CSV or e-invoice, mark it
+   sent, and **Record payment** when it is paid. A sent invoice is credited
+   with a **Credit note**.
+9. Click **Create quote** to price the work still to do.
+
+### Rates
 
 Each board has hourly rates, in a currency (an ISO code such as EUR or USD):
 one for a member, and a board default for everybody without one of their own.
@@ -15,7 +62,7 @@ it has several - or of its members when nobody is assigned, or at the board
 default when it has nobody. Hours with no rate in the board's currency are
 reported as unpriced, never billed at zero without saying so.
 
-## Budget
+### Budget
 
 A board's budget is an amount of money, a number of hours, or both, for an
 optional period. The page shows for each board:
@@ -26,7 +73,7 @@ optional period. The page shows for each board:
 - **Forecast**: spent plus still to do, in red when it is over the budget;
 - **Left of budget**, **Invoiced** and **Paid**.
 
-## Expenses
+### Expenses
 
 Besides time, a board's work costs money: travel, a hotel, meals, materials,
 a subcontractor, software. **Expenses** records each with its day, amount,
@@ -37,7 +84,7 @@ amount plus the markup, and like time it is billed once. An expense on an
 invoice is a record and cannot be removed; voiding or crediting the invoice
 frees it.
 
-## Fixed fees and retainers
+### Fixed fees and retainers
 
 Not all work is billed by the hour. A **fixed fee** is billed once, from its
 day on - a milestone, a deposit, a fixed price. A **retainer** is a fee billed
@@ -49,7 +96,7 @@ fees. A board whose price is fixed unticks **Bill time by the hour**: its
 invoices then carry only its fees and expenses, while the time is still
 tracked for the budget and the margin.
 
-## Approving time
+### Approving time
 
 With **Approve time before it is invoiced** on, the board's admins see the
 billable time waiting for them under **Time to approve**, and approve it or
@@ -58,7 +105,7 @@ many hours are still waiting. The person who logged the time sees the
 decision in the card's Time popup. Approved time cannot be removed by the
 person who logged it; time sent back can, and is logged again.
 
-## Profitability
+### Profitability
 
 A rate can also have a **cost per hour** - what an hour of that person costs
 (salary and overheads), never shown on an invoice. The board then shows its
@@ -67,7 +114,7 @@ the revenue - invoiced, and **unbilled work** (billable time, fees and
 expenses not invoiced yet) - less the cost. Hours of somebody with no cost
 rate are reported, never counted as free.
 
-## Quotes
+### Quotes
 
 **Create quote** prices the work still to do - each open, billable card's
 estimate less the time spent, at its people's rates - and the fees not
@@ -76,13 +123,13 @@ valid for the days set on the invoicer (30 by default), and goes from draft
 to sent to accepted or declined. **Accepting** it can make it the board's
 budget. It downloads as PDF, SVG, Excel and CSV, without payment details.
 
-## The board's customer
+### The board's customer
 
 The invoicer also keeps the board's **customer** - name and address,
 country, VAT ID - filled in on each invoice and quote that does not name
 another.
 
-## Time by day
+### Time by day
 
 A card's **Time** popup now lists its time by day - the day, the hours, who
 logged them and a note - and **Log time** adds an entry on a day. A card's
@@ -92,7 +139,7 @@ server records the difference as an entry of that day by that user (a
 correction when it went down). Time spent before entries were kept becomes one
 undated entry, once. An entry on an invoice is a record and cannot be removed.
 
-## Invoices
+### Invoices
 
 **Create invoice** bills the billable time entries of a **period** (both days
 inclusive; leave it empty for all open time) that are on no invoice yet: per
@@ -125,7 +172,7 @@ twice; voiding an invoice frees them.
   (EN 16931), a credit note as a UBL CreditNote. **Open** shows the invoice on
   the page, to print.
 
-## Payment methods
+### Payment methods
 
 The invoicer lists the ways to pay; each invoice shows them with their codes,
 made by their published standards (models/lib/paymentCodes.js, checked against
@@ -171,26 +218,60 @@ Zelle, Interac, M-Pesa. Slovenia's UPN QR, Slovakia's PAY by square,
 Croatia's HUB3 and Brazil's boleto are not drawn yet. For these, a payment link
 or the instructions as text work.
 
-## Currencies
+### Currencies
 
 Amounts are kept in the minor unit of their currency, as ISO 4217 gives it
 (models/lib/currencies.js): two decimals for most, none for JPY, KRW, VND, CLP,
 ISK and the others without, three for BHD, KWD, JOD, OMR, TND and IQD. Bitcoin,
 Litecoin and Ether are kept to 8 decimals.
 
-## Who sees what
+## How the numbers are calculated
+
+All in [models/lib/billing.js](../../../models/lib/billing.js) unless named:
+
+- **Amounts** are integers of the currency's minor unit
+  ([models/lib/currencies.js](../../../models/lib/currencies.js)).
+- **Cost of hours** = hours × rate, rounded to the minor unit; a card's hours
+  are shared equally between its assignees, else its members, else charged at
+  the board default.
+- **Still to do** = estimate - spent on open cards, never below 0. **Forecast**
+  = spent + still to do. **Spent %** = spent / budget × 100 and **forecast %**
+  = forecast / budget × 100, rounded, by money when the budget has an amount,
+  else by hours. **Left** = budget - spent. Over budget when the forecast is
+  more than the budget.
+- **Expense on an invoice** = amount × (100 + markup %) / 100, rounded.
+- **VAT** = net × VAT % / 100, rounded once, on the net; **total** = net + VAT;
+  0 with reverse charge.
+- **Overdue**: days = today - due date; **penalty interest** = amount still due
+  × penalty % / 100 × days overdue / 365 (simple interest a year), rounded.
+- **Margin** = revenue (invoiced + unbilled work) - cost (hours at cost rates +
+  expenses); **margin %** = margin / revenue × 100, rounded, when revenue is
+  more than 0.
+- **Due date** = issue date + payment terms in days (14 by default, unless
+  the invoice names its own due date); a quote is valid 30 days
+  by default (1-365).
+- **Numbers**: `INV-<year>-<4 digits>`, `CRN-...` and `QUO-...`, one sequence a
+  year.
+- **Finnish reference**: the check digit uses the weights 7, 3, 1 repeated from
+  the right; **RF reference**: `98 - (number + "RF00" as digits) mod 97`
+  ([models/lib/paymentCodes.js](../../../models/lib/paymentCodes.js)).
+- **Hours** are rounded to two decimals in the totals.
+
+## How it works in WeKan
+
+### Who sees what
 
 Money is the business of a board's active admins: members, even with write
 access, do not see rates, budgets or invoices, and neither does an admin who
 sees only the cards assigned to them. Site administrators may manage every
 board. Everything goes through server methods; nothing is published to the
-browser, and the collections take no client writes. Admin Panel → Features →
-Budget and billing turns the page and its methods off.
+browser, and the collections take no client writes. Admin Panel → Settings →
+Features → Budget and billing turns the page and its methods off.
 
 Amounts are kept as integers of their currency's minor unit, so an invoice
 adds up exactly.
 
-## Professional services automation
+### Professional services automation
 
 Together with [Workload](../Workload/Workload.md), these pages cover what a
 professional services automation (PSA) system does:
@@ -215,7 +296,7 @@ works as one, but leads and contacts are not modelled), a customer portal
 revenue recognition, the general ledger and payroll - which belong to the
 accounting system the invoices go to as e-invoices.
 
-## Code
+### Code
 
 | | |
 | --- | --- |
@@ -228,3 +309,14 @@ accounting system the invoices go to as e-invoices.
 | `server/billing.js` | the methods, with who may call them |
 | `client/components/main/billing.*` | the page |
 | `tests/billing.test.cjs`, `tests/timeEntries.test.cjs`, `tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`, `tests/invoiceFiles.test.cjs` | the rules and the files; `tests/billingAccess.test.cjs` who may do what |
+
+The browser test is
+[tests/playwright/specs/billing-invoice.e2e.js](../../../tests/playwright/specs/billing-invoice.e2e.js).
+
+## Commits
+
+ - [Saves show, forms render and PDFs print in Budget and billing](https://github.com/wekan/wekan/commit/1032b472f3264e82c1cb860e59ebda3719f374ef)
+ - [Expenses, fixed fees and retainers, time approval, cost rates and margin, quotes](https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690)
+ - [Amounts in each currency's own decimals, and regional payment codes](https://github.com/wekan/wekan/commit/37bc16e1e5f4c5f248e7aca9a779e4fc5cc5d8d2)
+ - [Invoicing: time by day, invoices of a period, payment codes, PDF/SVG/Excel/e-invoice, VAT, payments and credit notes](https://github.com/wekan/wekan/commit/13b0d5fe37d5ff73e109e06a4fdc21418497e273)
+ - [Budget and billing: rates, budget against cost and forecast, and invoices of the hours spent](https://github.com/wekan/wekan/commit/604b3dbe84c17d11af722826741866c8953e91b3)
