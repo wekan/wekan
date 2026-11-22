@@ -72,3 +72,14 @@ survives a round trip and is the place to extend.
 3. The picker popups.
 4. The card document carries both lists; Excel and PDF draw initials + text.
 5. Import/export round trip, and the tests that pin it.
+
+## Commits
+
+ - [Shown on the minicard when a member was picked, with the same icon everywhere](https://github.com/wekan/wekan/commit/22e5df55d7ff2ef03ee05c9e6adfe128844b1d77)
+ - [Icons for the card's person add buttons](https://github.com/wekan/wekan/commit/96e598059a90e46dbdd6e86dda96c9758713fa11)
+ - [Titles and anchors for the card's people pickers](https://github.com/wekan/wekan/commit/c183b5bf88e5f9c855c7cef40e9e9f2d83d044d7)
+ - [Select requesters and assigners from board members](https://github.com/wekan/wekan/commit/bb5275e9743c01868cc0826d4645913a8f27a830)
+ - [Assigned By shows when there is an assigner, not when there is a requester](https://github.com/wekan/wekan/commit/e6df1a5d6dca294600e06f1a2e6f12661e9422a3)
+ - [The PDF draws the shared card document, Requested By and Assigned By included](https://github.com/wekan/wekan/commit/f6e31444521ffc71c9a1cd78cceaa001c52b8e9b)
+ - [A + to set them, and they survive an export and import round trip](https://github.com/wekan/wekan/commit/050df89f06ab07a17899a4b032beeae04676c270)
+ - [Requested By and Assigned By text fields on the card](https://github.com/wekan/wekan/commit/3ce3fa74b350ff1af73b0fffddaeff4b0f126e2c)
