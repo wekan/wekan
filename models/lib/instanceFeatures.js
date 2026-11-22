@@ -73,6 +73,9 @@ const FEATURES = [
   // The board as a website (models/lib/websiteView.js).
   { key: 'views-website', labelKey: 'feature-views-website', descKey: 'feature-views-website-desc',
     views: ['board-view-website'] },
+  // The products on the cards as a web shop, and its orders (models/lib/shop.js).
+  { key: 'views-shop', labelKey: 'feature-views-shop', descKey: 'feature-views-shop-desc',
+    views: ['board-view-shop'] },
   { key: 'views-version-control', labelKey: 'feature-views-version-control', descKey: 'feature-views-version-control-desc',
     views: ['board-view-version-control'] },
   // #211

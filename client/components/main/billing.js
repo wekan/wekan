@@ -4,11 +4,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import qrcode from 'qrcode-generator';
 import { TAPi18n } from '/imports/i18n';
+// The payment methods' labels and placeholders, and their QR codes and
+// barcode as SVG, are shared with Board View / Shop (client/lib/paymentCodeSvg.js).
+import { METHOD_KEYS, FIELD_KEYS, PLACEHOLDERS, qrSvg, barcodeSvg } from '/client/lib/paymentCodeSvg';
 const { formatMoney, EXPENSE_CATEGORIES } = require('/models/lib/billing');
 const { minorToText } = require('/models/lib/currencies');
-const { PAYMENT_METHODS, code128CModules, formatReference, formatIban } = require('/models/lib/paymentCodes');
+const { PAYMENT_METHODS, formatReference, formatIban } = require('/models/lib/paymentCodes');
 
 function t(key, options) {
   return TAPi18n.__(key, options);
@@ -36,63 +38,6 @@ const ACTION_KEYS = { sent: 'billing-mark-sent', paid: 'billing-mark-paid', void
 const QUOTE_STATE_KEYS = { draft: 'billing-status-draft', sent: 'billing-status-sent', accepted: 'billing-quote-accepted', declined: 'billing-quote-declined' };
 const QUOTE_NEXT = { draft: ['sent', 'declined'], sent: ['accepted', 'declined', 'draft'], accepted: [], declined: [] };
 const QUOTE_ACTION_KEYS = { sent: 'billing-mark-sent', accepted: 'accept', declined: 'decline', draft: 'billing-back-to-draft' };
-const METHOD_KEYS = {
-  sepa: 'billing-method-sepa', 'fi-bank': 'billing-method-fi-bank', 'swiss-qr': 'billing-method-swiss-qr',
-  'bank-transfer': 'billing-method-bank-transfer', swish: 'billing-method-swish', pix: 'billing-method-pix',
-  upi: 'billing-method-upi', bitcoin: 'billing-method-bitcoin', paypal: 'billing-method-paypal', link: 'billing-method-link',
-  cash: 'billing-method-cash', cheque: 'billing-method-cheque', other: 'billing-method-other',
-  promptpay: 'billing-method-promptpay', paynow: 'billing-method-paynow', vietqr: 'billing-method-vietqr', fps: 'billing-method-fps',
-  spayd: 'billing-method-spayd', zbp: 'billing-method-zbp', mnb: 'billing-method-mnb', ips: 'billing-method-ips',
-  'dk-fik': 'billing-method-dk-fik', ethereum: 'billing-method-ethereum', litecoin: 'billing-method-litecoin',
-};
-const FIELD_KEYS = {
-  name: 'billing-field-name', iban: 'billing-field-iban', bic: 'billing-field-bic', street: 'billing-field-street',
-  building: 'billing-field-building', postcode: 'billing-field-postcode', town: 'billing-field-town', country: 'billing-country',
-  details: 'billing-field-details', payee: 'billing-field-payee', key: 'billing-field-pix-key', city: 'billing-field-town',
-  vpa: 'billing-field-vpa', address: 'billing-field-crypto-address', user: 'billing-field-paypal-user', label: 'billing-field-label',
-  url: 'billing-field-url', target: 'billing-field-promptpay-target', proxy: 'billing-field-proxy', bin: 'billing-field-bank-bin',
-  account: 'billing-field-account', nip: 'billing-field-nip', creditor: 'billing-field-creditor',
-};
-const PLACEHOLDERS = {
-  iban: 'FI21 1234 5600 0007 85', bic: 'NDEAFIHH', country: 'CH', url: '…?amount={amount}&reference={reference}', vpa: 'shop@bank',
-  target: '081 234 5678', proxy: '+65 9123 4567', bin: '970436', creditor: '12345678', nip: '5260250274',
-};
-
-// ---------------------------------------------------------------- codes as SVG
-
-// The QR code of a payment, drawn from its matrix: the SVG carries modules
-// only, never the payload's text.
-function qrSvg(payload, swissCross) {
-  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
-  const qr = qrcode(0, 'M');
-  qr.addData(payload, 'Byte');
-  qr.make();
-  const n = qr.getModuleCount();
-  const m = 4;
-  let path = '';
-  for (let r = 0; r < n; r += 1) for (let c = 0; c < n; c += 1) if (qr.isDark(r, c)) path += `M${c + m} ${r + m}h1v1h-1z`;
-  const size = n + 2 * m;
-  let cross = '';
-  if (swissCross) {
-    const s = n * 7 / 46;
-    const x = m + n / 2 - s / 2;
-    cross = `<rect x="${x}" y="${x}" width="${s}" height="${s}" fill="#fff"/><rect x="${x + s * 0.06}" y="${x + s * 0.06}" width="${s * 0.88}" height="${s * 0.88}" fill="#000"/>`
-      + `<rect x="${x + s * 0.4}" y="${x + s * 0.2}" width="${s * 0.2}" height="${s * 0.6}" fill="#fff"/><rect x="${x + s * 0.2}" y="${x + s * 0.4}" width="${s * 0.6}" height="${s * 0.2}" fill="#fff"/>`;
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="160" height="160" shape-rendering="crispEdges" role="img">`
-    + `<rect width="${size}" height="${size}" fill="#fff"/><path d="${path}" fill="#000"/>${cross}</svg>`;
-}
-
-// The Finnish bank barcode: digits only, as bars.
-function barcodeSvg(digits) {
-  if (!/^\d{54}$/.test(String(digits))) return '';
-  const modules = code128CModules(digits, 10);
-  let path = '';
-  for (let i = 0; i < modules.length; i += 1) if (modules[i] === '1') path += `M${i} 0h1v40h-1z`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${modules.length} 40" width="100%" height="60" preserveAspectRatio="none" shape-rendering="crispEdges" role="img">`
-    + `<rect width="${modules.length}" height="40" fill="#fff"/><path d="${path}" fill="#000"/></svg>`;
-}
-
 function download(name, mime, { text, base64 }) {
   let blob;
   if (base64) {

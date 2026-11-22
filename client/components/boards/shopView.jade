@@ -1,0 +1,283 @@
+//- Board View / Shop (models/lib/shop.js, docs/Features/Board-Header/Board-Views/Shop.md):
+  the products on the board's cards as a web shop - a card with a price in a
+  list on sale is a product, its labels the categories. The cart is kept in
+  this browser; the checkout sends card ids and quantities, and the server
+  prices the order from the cards and writes it as a card in the Orders list.
+  A public board can open in it (Board Settings / Shop or Board View), so a
+  visitor shops at the board's address instead of seeing the kanban. Every
+  text of a card is drawn as text, or through the Markdown viewer.
+template(name="shopView")
+  .shop-view
+    header.shop-header
+      h1.shop-title
+        a.js-shop-home(href="?") {{shopTitle}}
+      if isBoardAdmin
+        a.shop-settings-link.js-open-shop-settings(href="#" title="{{_ 'board-view-shop'}}" aria-label="{{_ 'board-view-shop'}}")
+          i.fa.fa-cog
+      a.shop-cart-button.js-shop-cart(href="#" class="{{#if $eq mode 'cart'}}is-current{{/if}}")
+        i.fa.fa-shopping-cart
+        |  {{_ 'shop-cart'}}
+        span.shop-cart-count {{cartCount}}
+    unless settings.enabled
+      p.shop-notice.shop-closed {{_ 'shop-closed'}}
+    if showShop
+      if $eq mode 'done'
+        +shopOrderDone(order=order)
+      else if $eq mode 'checkout'
+        +shopCheckout
+      else if $eq mode 'cart'
+        +shopCart
+      else if productPage
+        with productPage
+          article.shop-product-page
+            if coverUrl
+              img.shop-product-image(src=coverUrl alt=title)
+            .shop-product-details
+              h2.shop-product-title {{title}}
+              p.shop-price {{money priceMinor}}
+              if sku
+                p.shop-sku {{_ 'shop-product-code'}}: {{sku}}
+              if soldOut
+                p.shop-sold-out {{_ 'shop-sold-out'}}
+              else
+                if hasStock
+                  p.shop-stock {{_ 'shop-in-stock' count=stock}}
+                form.shop-add.js-shop-add(data-id=_id)
+                  label(for="shop-quantity") {{_ 'shop-quantity'}}
+                  input#shop-quantity(type="number" name="quantity" min="1" max="{{maxQuantity}}" step="1" value="1")
+                  button.primary(type="submit") {{_ 'shop-add-to-cart'}}
+              if description
+                .shop-product-description
+                  +viewer
+                    = description
+              a.js-shop-home(href="?") {{_ 'shop-continue'}}
+      else
+        if shopIntro
+          .shop-intro
+            +viewer
+              = shopIntro
+        if categories.length
+          nav.shop-categories(aria-label="{{_ 'labels'}}")
+            a.js-shop-category(href="#" data-id="" class="{{#unless category}}is-current{{/unless}}") {{_ 'shop-all-categories'}}
+            each cat in categories
+              a.js-shop-category(href="#" data-id=cat._id class="card-label-{{cat.color}} {{#if $eq cat._id category}}is-current{{/if}}") {{cat.name}}
+        if products.length
+          ul.shop-grid
+            each product in products
+              li.shop-tile(data-id=product._id)
+                a.shop-tile-link.js-shop-product(href="?product={{product._id}}" data-id=product._id)
+                  if product.coverUrl
+                    img.shop-tile-image(src=product.coverUrl alt=product.title loading="lazy")
+                  else
+                    span.shop-tile-image.shop-tile-noimage
+                      i.fa.fa-shopping-bag
+                  span.shop-tile-title {{product.title}}
+                span.shop-price {{money product.priceMinor}}
+                if product.short
+                  span.shop-tile-short {{product.short}}
+                if product.soldOut
+                  span.shop-sold-out {{_ 'shop-sold-out'}}
+                else
+                  button.js-shop-add-one(type="button" data-id=product._id) {{_ 'shop-add-to-cart'}}
+        else
+          p.quiet.shop-empty {{_ 'shop-empty'}}
+
+template(name="shopCart")
+  section.shop-cart
+    h2 {{_ 'shop-cart'}}
+    if priced.lines.length
+      table.shop-cart-table
+        thead
+          tr
+            th {{_ 'title'}}
+            th {{_ 'shop-quantity'}}
+            th {{_ 'billing-amount'}}
+            th
+        tbody
+          each line in priced.lines
+            tr(data-id=line.cardId)
+              td
+                a.js-shop-product(href="?product={{line.cardId}}" data-id=line.cardId) {{line.title}}
+              td
+                input.js-shop-quantity(type="number" min="1" max="999" step="1" value=line.quantity data-id=line.cardId aria-label="{{_ 'shop-quantity'}}")
+                |  × {{money line.unitMinor}}
+              td.shop-amount {{money line.lineMinor}}
+              td
+                a.js-shop-remove(href="#" data-id=line.cardId title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+                  i.fa.fa-trash
+      +shopTotals(totals=priced)
+      if checkoutRefusal
+        p.shop-notice {{refusalText}}
+      else
+        button.primary.js-shop-checkout(type="button") {{_ 'shop-checkout'}}
+    else
+      if priced.error
+        p.shop-notice {{priceErrorText}}
+      p.quiet {{_ 'shop-cart-empty'}}
+    a.js-shop-home(href="?") {{_ 'shop-continue'}}
+
+template(name="shopTotals")
+  dl.shop-totals
+    if totals.vatMinor
+      dt {{_ 'billing-net'}}
+      dd {{money totals.netMinor}}
+      dt {{_ 'billing-vat'}} {{totals.vatPercent}} %
+      dd {{money totals.vatMinor}}
+    dt.shop-total {{_ 'billing-total'}}
+    dd.shop-total {{money totals.totalMinor}}
+
+template(name="shopCheckout")
+  form.shop-checkout.js-shop-place-order
+    h2 {{_ 'shop-checkout'}}
+    +shopTotals(totals=priced)
+    label(for="shop-name") {{_ 'fullname'}}
+    input#shop-name(type="text" name="name" required maxlength="100" autocomplete="name")
+    label(for="shop-email") {{_ 'email'}}
+    input#shop-email(type="email" name="email" required maxlength="254" autocomplete="email")
+    label(for="shop-phone") {{_ 'billing-phone'}}
+    input#shop-phone(type="tel" name="phone" maxlength="40" autocomplete="tel")
+    label(for="shop-address") {{_ 'billing-address'}}
+    textarea#shop-address(name="address" rows="3" maxlength="500" autocomplete="street-address")
+    label(for="shop-note") {{_ 'shop-note'}}
+    textarea#shop-note(name="note" rows="3" maxlength="1000")
+    fieldset.shop-methods
+      legend {{_ 'billing-method'}}
+      each method in paymentMethods
+        label.shop-method
+          input(type="radio" name="paymentMethodId" value=method.id required checked="{{#if $eq @index 0}}checked{{/if}}")
+          |  {{method.label}}
+    if settings.termsUrl
+      label.shop-terms
+        input(type="checkbox" name="termsAccepted" required)
+        |  {{_ 'shop-accept-terms'}}
+        |  (
+        a(href=settings.termsUrl target="_blank" rel="noopener noreferrer") {{settings.termsUrl}}
+        | )
+    p.quiet.shop-privacy {{_ 'shop-privacy-note'}}
+    if error
+      p.shop-notice.shop-error {{error}}
+    button.primary(type="submit" disabled="{{#if sending}}disabled{{/if}}") {{_ 'shop-place-order'}}
+    a.js-shop-cart(href="#") {{_ 'back'}}
+
+template(name="shopOrderDone")
+  section.shop-done
+    h2 {{_ 'shop-order-placed' number=order.number}}
+    +shopTotals(totals=order)
+    with order.payment
+      section.shop-payment
+        h3 {{methodLabel}}
+        if error
+          p.shop-notice {{error}}
+        else
+          if qr
+            p.quiet {{_ 'billing-pay-by-scanning'}}
+            .shop-qr {{{qrCode}}}
+          if barcode
+            .shop-barcode {{{barcodeCode}}}
+          each line in lines
+            p.shop-payment-line {{line}}
+          if safeLink
+            p
+              a(href=safeLink target="_blank" rel="noopener noreferrer") {{safeLink}}
+    if order.reference
+      p {{_ 'billing-payment-reference'}}: {{formattedReference}}
+    a.js-shop-home(href="?") {{_ 'shop-continue'}}
+
+//- Board Settings / Shop (docs/Features/Board-Sidebar/Board-Settings/Shop.md).
+  Saved as a whole by the shopSetSettings method (server/shop.js), which
+  checks every value again: who saves, the fields, the lists, the Orders
+  list's board and the payment methods.
+template(name="boardShopSettingsPopup")
+  form.shop-settings.js-shop-settings
+    label.shop-check
+      input(type="checkbox" name="enabled" checked=draft.enabled)
+      |  {{_ 'shop-open'}}
+    label(for="shop-set-title") {{_ 'title'}}
+    input#shop-set-title(type="text" name="title" maxlength="200" value=draft.title placeholder=boardTitle)
+    label(for="shop-set-intro") {{_ 'shop-intro'}}
+    textarea#shop-set-intro(name="intro" rows="3" maxlength="5000") {{draft.intro}}
+    label(for="shop-set-price") {{_ 'shop-price-field'}}
+    select#shop-set-price(name="priceFieldId")
+      option(value="") {{_ 'shop-not-chosen'}}
+      each field in fieldsFor 'priceFieldId'
+        option(value=field._id selected="{{#if $eq field._id draft.priceFieldId}}selected{{/if}}") {{field.name}}
+    label(for="shop-set-sku") {{_ 'shop-sku-field'}}
+    select#shop-set-sku(name="skuFieldId")
+      option(value="") {{_ 'shop-not-chosen'}}
+      each field in fieldsFor 'skuFieldId'
+        option(value=field._id selected="{{#if $eq field._id draft.skuFieldId}}selected{{/if}}") {{field.name}}
+    label(for="shop-set-stock") {{_ 'shop-stock-field'}}
+    select#shop-set-stock(name="stockFieldId")
+      option(value="") {{_ 'shop-not-chosen'}}
+      each field in fieldsFor 'stockFieldId'
+        option(value=field._id selected="{{#if $eq field._id draft.stockFieldId}}selected{{/if}}") {{field.name}}
+    label.shop-check
+      input(type="checkbox" name="decrementStock" checked=draft.decrementStock)
+      |  {{_ 'shop-decrement-stock'}}
+    label(for="shop-set-currency") {{_ 'billing-currency'}}
+    input#shop-set-currency(type="text" name="currency" maxlength="3" pattern="[A-Za-z]{3}" value=draft.currency)
+    label(for="shop-set-vat") {{_ 'billing-vat'}} %
+    input#shop-set-vat(type="number" name="vatPercent" min="0" max="100" step="0.01" value=draft.vatPercent)
+    label.shop-check
+      input(type="checkbox" name="pricesIncludeVat" checked=draft.pricesIncludeVat)
+      |  {{_ 'shop-prices-include-vat'}}
+    label(for="shop-set-reference") {{_ 'billing-payment-reference'}}
+    select#shop-set-reference(name="referenceType")
+      each ref in referenceTypes
+        option(value=ref.value selected="{{#if $eq ref.value draft.referenceType}}selected{{/if}}") {{ref.label}}
+    fieldset
+      legend {{_ 'shop-sale-lists'}}
+      each list in boardLists
+        label.shop-check
+          input(type="checkbox" name="saleListIds" value=list._id checked=list.checked)
+          |  {{list.title}}
+    fieldset
+      legend {{_ 'shop-category-labels'}}
+      each label in boardLabels
+        label.shop-check
+          input(type="checkbox" name="categoryLabelIds" value=label._id checked=label.checked)
+          span.card-label(class="card-label-{{label.color}}") {{label.name}}
+    label(for="shop-set-orders") {{_ 'shop-orders-list'}}
+    select#shop-set-orders(name="orders")
+      option(value="") {{_ 'shop-not-chosen'}}
+      each target in orderTargets
+        optgroup(label=target.title)
+          each list in target.lists
+            option(value="{{target._id}}/{{list._id}}" selected="{{#if isOrdersList target._id list._id}}selected{{/if}}") {{list.title}}
+    p.quiet {{_ 'shop-orders-private'}}
+    label.shop-check
+      input(type="checkbox" name="guestCheckout" checked=draft.guestCheckout)
+      |  {{_ 'shop-guest-checkout'}}
+    label(for="shop-set-terms") {{_ 'shop-terms-url'}}
+    input#shop-set-terms(type="url" name="termsUrl" maxlength="2000" value=draft.termsUrl placeholder="https://")
+    label.shop-check
+      input(type="checkbox" name="showOnPublic" checked=showsOnPublic)
+      |  {{_ 'shop-show-on-public'}}
+    p.quiet {{_ 'shop-show-on-public-note' view=publicViewName}}
+    fieldset.shop-settings-methods
+      legend {{_ 'billing-payment-methods'}}
+      each method in draftMethods
+        .shop-settings-method(data-id=method.id)
+          label.shop-check
+            input.js-shop-method-enabled(type="checkbox" data-id=method.id checked=method.enabled)
+            |  {{method.label}}
+            if method.summary
+              |  · {{method.summary}}
+          a.js-shop-method-remove(href="#" data-id=method.id title="{{_ 'delete'}}" aria-label="{{_ 'delete'}}")
+            i.fa.fa-trash
+      label(for="shop-method-type") {{_ 'billing-method'}}
+      select#shop-method-type.js-shop-method-type
+        each type in methodTypes
+          option(value=type.value selected="{{#if $eq type.value methodType}}selected{{/if}}") {{type.label}}
+      each fieldName in methodFields
+        label(for="shop-method-{{fieldName.name}}") {{fieldName.label}}
+        if $eq fieldName.name 'details'
+          textarea.js-shop-method-field(id="shop-method-{{fieldName.name}}" data-name=fieldName.name rows="2" maxlength="2000")
+        else
+          input.js-shop-method-field(id="shop-method-{{fieldName.name}}" type="text" data-name=fieldName.name maxlength="2000" placeholder=fieldName.placeholder)
+      button.js-shop-method-add(type="button") {{_ 'billing-add-method'}}
+    if error
+      p.shop-notice.shop-error {{error}}
+    if saved
+      p.shop-saved {{_ 'feature-saved'}}
+    button.primary(type="submit") {{_ 'save'}}

@@ -89,6 +89,8 @@ const VIEWS = [
   { view: 'board-view-activity-heatmap', jsClass: 'js-open-activity-heatmap-view', icon: 'fa-th', template: 'activityHeatmapView', helper: 'isViewActivityHeatmap', chart: true },
   // Appended after Activity Heatmap: the board as its website (models/lib/websiteView.js).
   { view: 'board-view-website', jsClass: 'js-open-website-view', icon: 'fa-globe', template: 'websiteView', helper: 'isViewWebsite' },
+  // Appended after Website: the products on the cards as a web shop (models/lib/shop.js).
+  { view: 'board-view-shop', jsClass: 'js-open-shop-view', icon: 'fa-shopping-cart', template: 'shopView', helper: 'isViewShop' },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between

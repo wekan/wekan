@@ -1090,6 +1090,7 @@ Users.attachSchema(
         'board-view-dependency-map',
         'board-view-activity-heatmap',
         'board-view-website',
+        'board-view-shop',
       ],
     },
     'profile.listSortBy': {

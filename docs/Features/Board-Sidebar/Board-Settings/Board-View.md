@@ -141,6 +141,7 @@ menu's own order**, with the same translation keys the menu uses:
 51. Dependency Map (`board-view-dependency-map`)
 52. Activity Heatmap (`board-view-activity-heatmap`)
 53. Website (`board-view-website`)
+54. Shop (`board-view-shop`)
 
 The one list is `BOARD_VIEWS` in `models/lib/boardViewSettings.js`. Both the
 popup and the Board View menu (`boardChangeViewPopup` in
@@ -239,7 +240,7 @@ heading (`BOARD_VIEW_GROUPS` in `models/lib/boardViewSettings.js`):
 | Scrum | Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup, Release Burndown, Epic Progress |
 | Kanban flow | Cumulative Flow, Control, Cycle Time, Lead Time, Flow Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis, Monte Carlo, Process Behavior, Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run Chart, Due Date Performance |
 | Overview | Dashboard, Pulse, Statistics, Workload, Distribution, Dependency Map, Activity Heatmap |
-| Communication and code | Email, Chat, Website, Version Control |
+| Communication and code | Email, Chat, Website, Shop, Version Control |
 
 The order a board admin drags here decides inside each group; a view stays in
 its own group. A group none of whose views is shown has no heading.
@@ -264,6 +265,12 @@ its own group. A group none of whose views is shown has no heading.
   (`models/lib/websiteView.js`). A board imported from WordPress, Ghost,
   Blogger or a static site ([Website](Import-Export/Website/Website.md)) is
   laid out that way already; any board can be.
+- **A shop at the board's address.** With **Shop** as the public default -
+  ticked in Board Settings / Shop as *Show the Shop instead of the public
+  board*, or chosen here - a visitor of a public board sees the products on
+  its cards as a web shop and orders them
+  ([Shop](../../Board-Header/Board-Views/Shop.md)). A public board opens in
+  one view, so the Shop and the Website replace each other there.
 - **The Board View menu** (`boardChangeViewPopup`) is rendered from the
   board: `boardViewMenuEntries` gives it the views whose *Show* box is ticked
   for the side that applies to the person looking (above), in the board's

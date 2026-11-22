@@ -1,0 +1,233 @@
+/* Board View / Shop: a readable shop page, whatever the board's colours. */
+.shop-view {
+  max-width: 72em;
+  margin-inline: auto;
+  padding: 1em;
+  background: #fff;
+  color: #222;
+  line-height: 1.5;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+.shop-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 1em;
+  border-block-end: 1px solid #ddd;
+  margin-block-end: 1em;
+}
+.shop-title {
+  flex: 1 1 auto;
+  margin: 0.3em 0;
+}
+.shop-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.shop-cart-button,
+.shop-settings-link {
+  white-space: nowrap;
+}
+.shop-cart-button.is-current {
+  font-weight: bold;
+}
+.shop-cart-count {
+  display: inline-block;
+  min-width: 1.4em;
+  margin-inline-start: 0.3em;
+  padding: 0 0.3em;
+  border-radius: 0.7em;
+  background: #2e7d32;
+  color: #fff;
+  text-align: center;
+  font-size: 0.85em;
+}
+.shop-notice {
+  padding: 0.5em 0.8em;
+  border-radius: 4px;
+  background: #fff3cd;
+  color: #5c4400;
+}
+.shop-error {
+  background: #fde2e1;
+  color: #7a1712;
+}
+.shop-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-block: 0.6em 1em;
+}
+.shop-categories a {
+  padding: 0.2em 0.7em;
+  border-radius: 1em;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+.shop-categories a.is-current {
+  font-weight: bold;
+  outline: 2px solid #222;
+}
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13em), 1fr));
+  gap: 1em;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.shop-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  padding: 0.6em;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+}
+.shop-tile-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  color: inherit;
+  text-decoration: none;
+}
+.shop-tile-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f2f2f2;
+}
+.shop-tile-noimage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  color: #bbb;
+}
+.shop-tile-title {
+  font-weight: bold;
+}
+.shop-tile-short {
+  color: #555;
+  font-size: 0.9em;
+}
+.shop-price {
+  font-weight: bold;
+  color: #2e7d32;
+}
+.shop-sold-out {
+  color: #b71c1c;
+  font-weight: bold;
+}
+.shop-product-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+}
+.shop-product-image {
+  flex: 1 1 18em;
+  max-width: min(100%, 32em);
+  border-radius: 6px;
+  object-fit: contain;
+}
+.shop-product-details {
+  flex: 1 1 18em;
+  min-width: 0;
+}
+.shop-add,
+.shop-checkout,
+.shop-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  max-width: 32em;
+}
+.shop-add input[type="number"] {
+  max-width: 6em;
+}
+.shop-cart-table-wrap,
+.shop-cart {
+  overflow-x: auto;
+}
+.shop-cart-table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+.shop-cart-table th,
+.shop-cart-table td {
+  padding: 0.3em 0.5em;
+  border-block-end: 1px solid #eee;
+  text-align: start;
+}
+.shop-cart-table input[type="number"] {
+  width: 4.5em;
+}
+.shop-amount {
+  text-align: end;
+  white-space: nowrap;
+}
+.shop-totals {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  gap: 0.2em 1.5em;
+}
+.shop-totals dd {
+  margin: 0;
+  text-align: end;
+}
+.shop-total {
+  font-weight: bold;
+}
+.shop-methods {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.shop-check,
+.shop-method,
+.shop-terms {
+  display: block;
+}
+.shop-qr svg {
+  max-width: 100%;
+  height: auto;
+}
+.shop-barcode {
+  max-width: 32em;
+}
+.shop-settings fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 14em;
+  overflow-y: auto;
+}
+.shop-settings-method {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+.shop-saved {
+  color: #2e7d32;
+}
+/* The shop's forms use labelled native checkboxes and radio buttons, not the
+   hidden material inputs of the rest of WeKan. */
+.shop-view input[type="checkbox"],
+.shop-view input[type="radio"],
+.shop-settings input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  margin-inline-end: 6px;
+  appearance: auto;
+  vertical-align: middle;
+  cursor: pointer;
+}

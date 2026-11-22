@@ -517,6 +517,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-website');
     Popup.back();
   },
+  'click .js-open-shop-view'() {
+    Utils.setBoardView('board-view-shop');
+    Popup.back();
+  },
   'click .js-open-version-control-view'() {
     Utils.setBoardView('board-view-version-control');
     Popup.back();
@@ -1028,6 +1032,7 @@ Template.boardViewMenu.helpers({
       'board-view-email': 'board-view-email',
       'board-view-chat': 'board-view-chat',
       'board-view-website': 'board-view-website',
+      'board-view-shop': 'board-view-shop',
       'board-view-version-control': 'board-view-version-control',
       'board-view-column-sets': 'board-view-column-sets',
       'board-view-created-resolved': 'board-view-created-resolved',

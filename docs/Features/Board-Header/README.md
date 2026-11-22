@@ -165,6 +165,7 @@ draws it. Role permissions apply in every view; see
 | Dependency Map | `board-view-dependency-map` | `dependencyMapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
 | Activity Heatmap | `board-view-activity-heatmap` | `activityHeatmapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
 | Website | `board-view-website` | `websiteView` in `client/components/boards/websiteView.jade` | [Website](../Board-Sidebar/Board-Settings/Import-Export/Website/Website.md) |
+| Shop | `board-view-shop` | `shopView` in `client/components/boards/shopView.jade` | [Shop](Board-Views/Shop.md) |
 
 ## Commits
 

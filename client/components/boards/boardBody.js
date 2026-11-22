@@ -1025,6 +1025,9 @@ Template.boardBody.helpers({
   isViewWebsite() {
     return Utils.boardView() === 'board-view-website';
   },
+  isViewShop() {
+    return Utils.boardView() === 'board-view-shop';
+  },
   isViewColumnSets() {
     return Utils.boardView() === 'board-view-column-sets';
   },

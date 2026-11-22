@@ -335,8 +335,10 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
   // #3256 appended the Map view; the Email (#794), Chat, Version Control and
   // Column sets (#211) views followed it, and the reports of 2026-11-20 after
-  // those, and Website after the Activity Heatmap, so it is the last row now.
-  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-website', 'down'), all, 'last item down');
+  // those, Website after the Activity Heatmap, and Shop after Website, so it
+  // is the last row now.
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-shop', 'down'), all, 'last item down');
+  assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-website', 'down'), all, 'Website is no longer last');
   assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-chat', 'down'), all, 'Chat is no longer last');
   assert.notDeepStrictEqual(bvs.moveBoardView(undefined, 'board-view-map', 'down'), all, 'Map is no longer last');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
@@ -456,6 +458,8 @@ const PRE_FEATURE_MENU = [
   'board-view-activity-heatmap',
   // Appended after Activity Heatmap: the board as its website.
   'board-view-website',
+  // Appended after Website: the products on the cards as a web shop.
+  'board-view-shop',
 ];
 const bvsSrc = read('models/lib/boardViewSettings.js');
 const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
@@ -480,8 +484,8 @@ test('the default order is the pre-feature menu order (525bcab1b), literally', (
   // 34 before the Map view (#3256) was appended, 35 before Calendar Mode
   // (#3194), 36 before Email (#794) and Chat, 38 before Version Control,
   // 39 before Column sets (#211), 40 before the twelve reports of 2026-11-20,
-  // 52 before Website.
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 53);
+  // 52 before Website, 53 before Shop.
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 54);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

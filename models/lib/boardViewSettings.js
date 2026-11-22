@@ -86,6 +86,10 @@ const BOARD_VIEWS = [
   // static site - built from its cards and attachments; as a public board's
   // view, what visitors see at its address (client/components/boards/websiteView.*).
   { view: 'board-view-website', labelKey: 'board-view-website', icon: 'fa-globe', group: 'communication' },
+  // Appended after Website, under the same heading: the products on the cards
+  // as a web shop; as a public board's view, what visitors see at its address
+  // (client/components/boards/shopView.*, models/lib/shop.js).
+  { view: 'board-view-shop', labelKey: 'board-view-shop', icon: 'fa-shopping-cart', group: 'communication' },
 ];
 
 // The menu's groups, in the order they are drawn, each under its heading
@@ -169,6 +173,7 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-dependency-map',
   'board-view-activity-heatmap',
   'board-view-website',
+  'board-view-shop',
 ];
 
 // Views added to the default order after a board could save an order of its
@@ -189,6 +194,7 @@ const VIEWS_ADDED_LATER = ['board-view-calendar-mode', 'board-view-email', 'boar
   'board-view-dependency-map',
   'board-view-activity-heatmap',
   'board-view-website',
+  'board-view-shop',
 ];
 
 // After which entries the menu draws a separator - the same six `hr`s the
