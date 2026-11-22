@@ -94,7 +94,8 @@ deliver it, like any card.
 
 With **Budget and billing** on (Admin Panel / Settings / Features) for the
 admin who saved Board Settings / Shop, each order is also an invoice of the
-shop's board, marked *Sent*: Member menu → **Budget and billing** lists it,
+shop's board, marked *Sent*, whose lines are of the kind **Product**: Member
+menu → **Budget and billing** lists it,
 numbered `INV-<year>-<number>` as every invoice is, with the order number as
 its reference, the buyer's name as its customer, a line per product and the
 order's own **Payment reference** - the same as on the card and in the email,
@@ -132,10 +133,15 @@ and open the shop. An exported and imported board does not carry the shop.
   each year; **the payment reference** is made from the year and that number
   in the chosen form - RF (ISO 11649), Finnish, Belgian, Norwegian KID or
   Swedish OCR - by Budget and billing's own `paymentReference`.
-- **The invoice** has the order's net, VAT and total, one fixed-price line
-  per product (*2 × Shirt (TS-1)*, its card linked), the due date of the
-  board's payment terms in Budget and billing, and the order's payment
-  reference.
+- **The invoice** has the order's net, VAT and total, one **Product** line
+  per product (*2 × Shirt (TS-1)*, its card linked, its quantity and unit
+  price), the due date of the board's payment terms in Budget and billing,
+  and the order's payment reference. The lines add up to the net: with prices
+  that include VAT, the net is shared over the lines in proportion to their
+  prices, the rounding remainder on the last line. A line's unit price is kept
+  when its net divides into a whole unit price; the e-invoice then writes the
+  quantity in pieces (UN/ECE unit H87) at that price, and otherwise one unit
+  (C62) at the line's amount.
 - **Limits**: five orders a minute from one connection, thirty an hour from
   one address, and 200 an hour to one shop.
 
@@ -237,3 +243,6 @@ told the price changed.
  - [Shop: an order is also a Budget and billing invoice, the buyer gets a confirmation email, and a board copy closes its shop](https://github.com/wekan/wekan/commit/c7b48bce2f106e97a8cb2e4343a2544b59023887)
  - [Translations: the Shop's confirmation email and its setting in every language](https://github.com/wekan/wekan/commit/9f22d02b5dd5cb734a241c591a39b7eab98fd13f)
  - [Shop tests: the invoice, the confirmation email and the board copy, and what each must never do](https://github.com/wekan/wekan/commit/1083b52a3602219a8adda299ddcb0e1820a9ec5e)
+ - [Budget and billing: a Product kind of invoice line, and the Shop's invoices use it](https://github.com/wekan/wekan/commit/ac7c3d93fe8c0cb2a8e54c50b0bc38c06a62304d)
+ - [Translations: Product, the new kind of a Budget and billing invoice line, in every language](https://github.com/wekan/wekan/commit/070c72759a9f49829c616b977bac143041680398)
+ - [Tests: a Shop invoice line is a Product, an unknown kind is refused, and every list of the line kinds names Product](https://github.com/wekan/wekan/commit/1abb2020302c394857f9b5d15908903692739489)

@@ -104,3 +104,6 @@ from `shopOrderTargets`: the private boards the user administers. Tests:
  - [Shop: an order is also a Budget and billing invoice, the buyer gets a confirmation email, and a board copy closes its shop](https://github.com/wekan/wekan/commit/c7b48bce2f106e97a8cb2e4343a2544b59023887)
  - [Translations: the Shop's confirmation email and its setting in every language](https://github.com/wekan/wekan/commit/9f22d02b5dd5cb734a241c591a39b7eab98fd13f)
  - [Shop tests: the invoice, the confirmation email and the board copy, and what each must never do](https://github.com/wekan/wekan/commit/1083b52a3602219a8adda299ddcb0e1820a9ec5e)
+ - [Budget and billing: a Product kind of invoice line, and the Shop's invoices use it](https://github.com/wekan/wekan/commit/ac7c3d93fe8c0cb2a8e54c50b0bc38c06a62304d)
+ - [Translations: Product, the new kind of a Budget and billing invoice line, in every language](https://github.com/wekan/wekan/commit/070c72759a9f49829c616b977bac143041680398)
+ - [Tests: a Shop invoice line is a Product, an unknown kind is refused, and every list of the line kinds names Product](https://github.com/wekan/wekan/commit/1abb2020302c394857f9b5d15908903692739489)

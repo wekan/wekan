@@ -158,6 +158,13 @@ twice; voiding an invoice frees them.
   one sequence a year. The payment reference is a Finnish reference number
   (7-3-1 check digit), the same digits as an ISO 11649 RF creditor reference, or
   none.
+- **Lines**: an invoice line is **time** (hours at a rate), a **Fee** (a fixed
+  fee or a retainer), an **Expense**, or a **Product** - a quantity at a unit
+  price, the line an order of [Board View / Shop](../Board-Header/Board-Views/Shop.md)
+  is invoiced with. The kinds are one list, `INVOICE_LINE_KINDS` in
+  `models/lib/billing.js`; the invoice schema takes no other kind. In the
+  e-invoice a time line is hours (HUR), a product its pieces (H87) at its unit
+  price, and a fee or an expense one unit (C62).
 - **VAT**: the net, the VAT (rounded once, on the net) and the total. With
   reverse charge the VAT is 0 and the invoice says so.
 - **Status**: Draft → Sent → Paid, or Void; a sent or paid invoice is credited
@@ -308,13 +315,16 @@ accounting system the invoices go to as e-invoices.
 | `models/billing.js`, `models/timeEntries.js` | the collections `billingBudgets`, `billingRates`, `billingProfiles`, `billingInvoices`, `billingExpenses`, `billingFees`, `billingQuotes`, `timeEntries` |
 | `server/billing.js` | the methods, with who may call them |
 | `client/components/main/billing.*` | the page |
-| `tests/billing.test.cjs`, `tests/timeEntries.test.cjs`, `tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`, `tests/invoiceFiles.test.cjs` | the rules and the files; `tests/billingAccess.test.cjs` who may do what |
+| `tests/billing.test.cjs`, `tests/timeEntries.test.cjs`, `tests/paymentCodes.test.cjs`, `tests/ublInvoice.test.cjs`, `tests/invoiceFiles.test.cjs` | the rules and the files; `tests/billingAccess.test.cjs` who may do what; `tests/billingLineKinds.test.cjs` that every place naming the line kinds names them all |
 
 The browser test is
 [tests/playwright/specs/billing-invoice.e2e.js](../../../tests/playwright/specs/billing-invoice.e2e.js).
 
 ## Commits
 
+ - [Budget and billing: a Product kind of invoice line, and the Shop's invoices use it](https://github.com/wekan/wekan/commit/ac7c3d93fe8c0cb2a8e54c50b0bc38c06a62304d)
+ - [Translations: Product, the new kind of a Budget and billing invoice line, in every language](https://github.com/wekan/wekan/commit/070c72759a9f49829c616b977bac143041680398)
+ - [Tests: a Shop invoice line is a Product, an unknown kind is refused, and every list of the line kinds names Product](https://github.com/wekan/wekan/commit/1abb2020302c394857f9b5d15908903692739489)
  - [Saves show, forms render and PDFs print in Budget and billing](https://github.com/wekan/wekan/commit/1032b472f3264e82c1cb860e59ebda3719f374ef)
  - [Expenses, fixed fees and retainers, time approval, cost rates and margin, quotes](https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690)
  - [Amounts in each currency's own decimals, and regional payment codes](https://github.com/wekan/wekan/commit/37bc16e1e5f4c5f248e7aca9a779e4fc5cc5d8d2)
