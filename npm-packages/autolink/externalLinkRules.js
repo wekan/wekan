@@ -50,7 +50,11 @@ function parseExternalLinkRules(rulesText, aliasesText) {
     const identifiers = token.split('{identifier}').length - 1;
     if (numbers !== 1 || identifiers > 1 || !/^https?:\/\/[^\s]+$/i.test(url)) continue;
     if (/\{identifier\}/.test(url) && !identifiers) continue;
-    const source = token.split(/(\{number\}|\{identifier\})/).map(part => (part === '{number}' ? '(\\d+)'
+    // A token that STARTS with {number} would retry (\d+) from every digit
+    // of a long run that is not followed by the rest of the token, which is
+    // quadratic in the card text; it starts only where a run of digits does.
+    const lead = token.startsWith('{number}') ? '(?<!\\d)' : '';
+    const source = lead + token.split(/(\{number\}|\{identifier\})/).map(part => (part === '{number}' ? '(\\d+)'
       : part === '{identifier}' ? EXTERNAL_LINK_IDENTIFIER : externalLinkRuleEscape(part))).join('');
     const order = [...token.matchAll(/\{(number|identifier)\}/g)].map(m => m[1]);
     rules.push({ source, order, url, aliases });
@@ -59,12 +63,53 @@ function parseExternalLinkRules(rulesText, aliasesText) {
   return rules;
 }
 
-// The spans of existing markdown links and href values, never rewritten.
+// The spans of existing markdown links "[text](url)" and of href="..." /
+// href='...' values, never rewritten. A hand-written scan, not a regular
+// expression: /\[[^\]\n]*\]\([^)\n]*\)/g restarts at every "[" and reads to
+// the end of the line each time, so a card text of many "[" (or many href="
+// without a closing quote) took quadratic time (CodeQL js/polynomial-redos).
+// Every "next ... at or after i" is computed once, right to left, so the
+// whole scan is linear and finds exactly what those expressions found.
+function externalLinkNextOf(text, stops) {
+  const next = new Int32Array(text.length + 1);
+  next[text.length] = -1;
+  for (let i = text.length - 1; i >= 0; i -= 1) {
+    next[i] = stops.includes(text[i]) ? i : next[i + 1];
+  }
+  return next;
+}
+
 function externalLinkProtectedSpans(text) {
   const spans = [];
-  for (const re of [/\[[^\]\n]*\]\([^)\n]*\)/g, /href\s*=\s*("[^"]*"|'[^']*')/gi]) {
-    let match;
-    while ((match = re.exec(text)) !== null) spans.push([match.index, match.index + match[0].length]);
+  const n = text.length;
+  const closeBracket = externalLinkNextOf(text, ']\n');
+  const closeParen = externalLinkNextOf(text, ')\n');
+  for (let i = 0; i < n; i += 1) {
+    if (text[i] !== '[') continue;
+    const j = closeBracket[i + 1];
+    if (j < 0 || text[j] !== ']' || text[j + 1] !== '(') continue;
+    const k = closeParen[j + 2];
+    if (k < 0 || text[k] !== ')') continue;
+    spans.push([i, k + 1]);
+    i = k;
+  }
+  const dquote = externalLinkNextOf(text, '"');
+  const squote = externalLinkNextOf(text, "'");
+  const space = c => c !== undefined && /\s/.test(c);
+  const href = /href/gi;
+  for (let m = href.exec(text); m; m = href.exec(text)) {
+    const i = m.index;
+    let p = i + 4;
+    while (p < n && space(text[p])) p += 1;
+    if (text[p] !== '=') continue;
+    p += 1;
+    while (p < n && space(text[p])) p += 1;
+    const quote = text[p];
+    if (quote !== '"' && quote !== "'") continue;
+    const close = (quote === '"' ? dquote : squote)[p + 1];
+    if (close < 0) continue;
+    spans.push([i, close + 1]);
+    href.lastIndex = close + 1;
   }
   return spans;
 }
