@@ -4,7 +4,31 @@
      of trying to evaluate (and erroring on) them when building GitHub Pages. -->
 # Webhook data
 
-When a webhook is activated it sends the related information within the POST request body.
+## What it is
+
+When a webhook is activated it sends the related information within the POST
+request body: a JSON object with the activity's sentence in `text`, the event
+name in `description`, and the ids, names and links of what it is about. This
+page lists what is sent, how to choose it, and an example of each event.
+
+## Read more
+
+- [Wikipedia: Webhook](https://en.wikipedia.org/wiki/Webhook)
+- [Wikipedia: JSON](https://en.wikipedia.org/wiki/JSON)
+- [Notification delivery](../../../General/Notifications/Notification-Delivery.md)
+- [Receiving webhooks](Receiving-Webhooks.md)
+
+## How to use it
+
+1. Open the board, its right sidebar, then **Board Settings → Outgoing
+   Webhooks** (board admins; for every board at once, Admin Panel → Settings
+   → Global Webhooks).
+2. Write the **Webhook Name**, the **URL** the receiver gave you and, when the
+   receiver wants one, the **Token (Optional for Authentication)**.
+3. Choose the type (**Outgoing Webhooks**) and under **Send this webhook:**
+   either **Every activity** or the activities to send.
+4. Click **Create**. A saved webhook can be changed and saved again, or turned
+   off with **Disable This Webhook**.
 
 Present values keep their JSON types, including numeric `0`, boolean `false`,
 empty strings and explicit `null`. Missing or undefined values are omitted.
@@ -44,7 +68,7 @@ message from these, in its own language, and address the person by username.
 }
 ```
 
-## Choosing what a webhook sends (#3695)
+### Choosing what a webhook sends (#3695)
 
 A receiver that writes its own message - a Rocket.Chat incoming-webhook
 script, for example - can ask WeKan for the activity's data as properties and
@@ -76,7 +100,7 @@ The built-in standard list is `cardId`, `listId`, `oldListId`, `boardId`,
 `board`, `swimlane`, `member`, `memberUsername`, `assigneeId`, `assignee`,
 `assigneeUsername` and `url`.
 
-### Where to set it, and which setting wins
+#### Where to set it, and which setting wins
 
 These are the webhook channel's *content* settings in the shared notification
 delivery model, beside its grouping and schedule - see
@@ -102,7 +126,7 @@ At the webhook and board levels, *Default* means "inherit the next level".
 Field group names in the stored value are `standard`, `ids`, `names`,
 `links`, `actor`, `people` and `details`; anything else is refused.
 
-### Member Settings: leave my name out
+#### Member Settings: leave my name out
 
 Member Settings / Notifications / *Outgoing Webhooks* has one member-level choice:
 **Leave my name out of outgoing webhooks**. Webhooks deliver to a chat room,
@@ -115,7 +139,7 @@ text says "A member" instead of their name. No board or Admin Panel setting
 overrides it. (Text the member wrote themselves, such as a comment that
 mentions their name, is sent as written.)
 
-### What is never sent
+#### What is never sent
 
 A group only ever sends the properties listed above: never e-mail addresses,
 the watcher list, tokens or other secrets. The value of a custom field marked
@@ -127,9 +151,64 @@ Two-way webhooks keep sending the complete activity parameters (their reply
 protocol needs them); the text and field settings do not apply to them, the
 member's "leave my name out" does.
 
-## Cards
+## How the numbers are calculated
 
-### Creation
+- **Which setting wins**: for the text and for the field groups separately,
+  the first level that sets it - the webhook, then the board, then the Admin
+  Panel, then the built-in default (text on, the standard fields).
+- **Values keep their JSON types**: `0`, `false`, `""` and `null` are sent as
+  they are; a missing value is left out.
+
+The numbers every outgoing webhook has:
+
+- **Timeout**: one request may take 30 seconds (`totalTimeoutMs: 30000` in
+  [server/notifications/outgoing.js](../../../../../server/notifications/outgoing.js)).
+  A 2xx answer is success.
+- **At once or queued**: a webhook with the built-in delivery settings is
+  POSTed at once. One whose delivery groups or schedules its notifications
+  goes through the durable queue
+  ([server/lib/webhookOutbox.js](../../../../../server/lib/webhookOutbox.js)),
+  scanned every 5 seconds: at most 100 jobs a pass, a body of at most 1 MB,
+  and a failed job is tried again after `min(60 minutes, 30 seconds x
+  2^(attempts - 1))` - 30 s, 1 min, 2 min, 4 min ... - up to 10 attempts.
+- **Internal destinations**: Admin Panel can list at most 50 hosts on WeKan's
+  own network that webhooks may reach
+  ([models/lib/internalWebhookHosts.js](../../../../../models/lib/internalWebhookHosts.js)).
+
+## How it works in WeKan
+
+The body is built by `buildWebhookBody` in
+[models/lib/webhookPayload.js](../../../../../models/lib/webhookPayload.js), whose
+groups are `WEBHOOK_PAYLOAD_GROUPS`; the member's choice to leave their name
+out is `hideIdentityFields`, and the delivery settings are resolved by
+[models/lib/notificationDelivery.js](../../../../../models/lib/notificationDelivery.js).
+Pinned by
+[tests/webhookPayloadSettings.test.cjs](../../../../../tests/webhookPayloadSettings.test.cjs),
+which also checks that this page names every property and setting.
+
+A webhook is a document of the `Integrations` collection
+([models/integrations.js](../../../../../models/integrations.js)): the board it
+belongs to (`_global` for Admin Panel → Settings → Global Webhooks), its type
+(Outgoing Webhooks, or Two-Way Webhooks whose answer can change the board), its
+name, URL, optional token and the activities it sends. Only a board admin or a
+site admin may add, change or remove one, and it cannot be moved to another
+board ([server/permissions/integrations.js](../../../../../server/permissions/integrations.js)).
+When a board activity happens,
+[server/notifications/outgoing.js](../../../../../server/notifications/outgoing.js)
+builds the JSON body ([models/lib/webhookPayload.js](../../../../../models/lib/webhookPayload.js),
+described in [Webhook data](Webhook-data.md))
+and POSTs it through the outgoing request guard
+([server/lib/ssrfGuard.js](../../../../../server/lib/ssrfGuard.js)), which
+refuses private, loopback and link-local addresses unless Admin Panel lists
+them, and trusts `WEBHOOK_TLS_CA_CERT` for TLS. The webhooks are set in
+`outgoingWebhooksPopup` in
+[client/components/sidebar/sidebar.jade](../../../../../client/components/sidebar/sidebar.jade).
+
+The events and their bodies, one example each:
+
+### Cards
+
+#### Creation
 
 When a new card is created on board
 
@@ -146,7 +225,7 @@ When a new card is created on board
 }
 ```
 
-### Move
+#### Move
 
 When a card is moved beweteen lists
 
@@ -164,7 +243,7 @@ When a card is moved beweteen lists
 }
 ```
 
-### Archival
+#### Archival
 
 A card is moved to archive
 
@@ -181,7 +260,7 @@ A card is moved to archive
 }
 ```
 
-### Restored
+#### Restored
 
 When a card is restored from archive
 
@@ -198,11 +277,11 @@ When a card is restored from archive
 }
 ```
 
-## Card content
+### Card content
 
 Webhooks that are raised on card content change
 
-### Comment creation
+#### Comment creation
 
 A user comments the card
 
@@ -219,7 +298,7 @@ A user comments the card
 }
 ```
 
-### Comment edit
+#### Comment edit
 
 A user edits a comment on the card
 
@@ -238,7 +317,7 @@ A user edits a comment on the card
 }
 ```
 
-### AddLabel
+#### AddLabel
 
 A label is added to card
 
@@ -255,7 +334,7 @@ A label is added to card
 }
 ```
 
-### Join member
+#### Join member
 
 When a member is added to card
 
@@ -272,7 +351,7 @@ When a member is added to card
 }
 ```
 
-### Set custom field
+#### Set custom field
 
 A custom field on card is set
 
@@ -287,7 +366,7 @@ A custom field on card is set
 }
 ```
 
-### Add attachment
+#### Add attachment
 
 ```json
 {
@@ -300,7 +379,7 @@ A custom field on card is set
 }
 ```
 
-### Delete attachment
+#### Delete attachment
 
 ```json
 {
@@ -313,7 +392,7 @@ A custom field on card is set
 }
 ```
 
-### Add checklist
+#### Add checklist
 
 ```json
 {
@@ -326,7 +405,7 @@ A custom field on card is set
 }
 ```
 
-### Remove checklist
+#### Remove checklist
 
 ```json
 {
@@ -339,7 +418,7 @@ A custom field on card is set
 }
 ```
 
-### Uncomplete checklist
+#### Uncomplete checklist
 
 ```json
 {
@@ -352,7 +431,7 @@ A custom field on card is set
 }
 ```
 
-### Add checklist item
+#### Add checklist item
 
 ```json
 {
@@ -365,7 +444,7 @@ A custom field on card is set
 }
 ```
 
-### Checked item
+#### Checked item
 
 ```json
 {
@@ -378,7 +457,7 @@ A custom field on card is set
 }
 ```
 
-### Removed checklist item
+#### Removed checklist item
 
 ```json
 {
@@ -391,11 +470,11 @@ A custom field on card is set
 }
 ```
 
-## Board
+### Board
 
 Webhooks that are raised on board events
 
-### Create custom field
+#### Create custom field
 
 ```json
 {
@@ -406,11 +485,11 @@ Webhooks that are raised on board events
 }
 ```
 
-## Lists
+### Lists
 
 Webhooks that are raised on list events
 
-### Create list 
+#### Create list 
 
 ```json
 {
@@ -422,7 +501,7 @@ Webhooks that are raised on list events
 }
 ```
 
-### Archived list
+#### Archived list
 
 ```json
 {
@@ -434,7 +513,7 @@ Webhooks that are raised on list events
 }
 ```
 
-### Remove list
+#### Remove list
 
 ```json
 {
@@ -446,9 +525,9 @@ Webhooks that are raised on list events
 }
 ```
 
-## Swimlane
+### Swimlane
 
-### Create swimlane
+#### Create swimlane
 
 ```json
 {
@@ -460,7 +539,7 @@ Webhooks that are raised on list events
 }
 ```
 
-### Archived swimlane
+#### Archived swimlane
 
 ```json
 {
@@ -472,7 +551,7 @@ Webhooks that are raised on list events
 }
 ```
 
-### Remove swimlane
+#### Remove swimlane
 
 ```json
 {
@@ -483,4 +562,11 @@ Webhooks that are raised on list events
   "description": "act-removeSwimlane"
 }
 ```
+
+## Commits
+
+ - [Choose what notifications contain, and group and schedule them, for e-mail, the tray and webhooks](https://github.com/wekan/wekan/commit/ab785acd1ebd309a96e7231509796d8b71a78572)
+ - [Send names, the card link and the assigned person in outgoing webhooks](https://github.com/wekan/wekan/commit/5f413c12eb99cc72b8b7447286f35f9c13392560)
+ - [Preserve zero and false activity values in notifications and webhooks](https://github.com/wekan/wekan/commit/68dcb02d1389b53c0e6933cdba4a327a411204c2)
+ - [Add the docs from the wekan.wiki, this page among them](https://github.com/wekan/wekan/commit/73ae73d4c38640e9daedbe8ef9e5b25b877ee804)
 {% endraw %}
