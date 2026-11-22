@@ -1,4 +1,5 @@
 'use strict';
+// CloudPanelBleed (Hall of Fame): the Cloud Panel's methods and customer login, run for real, with and without CLOUD.
 
 // server/cloudPanel.js: the Cloud Panel exists only where the server has the
 // CLOUD environment variable, answers only at that address, to its Cloud
