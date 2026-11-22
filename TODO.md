@@ -15,6 +15,35 @@ the changelog only says what changed.
 
 `tests/todoFile.test.cjs` checks this shape.
 
+## In progress
+
+Work being done now. Each item moves to the `# Upcoming WeKan ® release`
+section of `CHANGELOG-big.md`, and to the docs, when it is committed.
+
+- Cloud Admin: only with the server's `CLOUD=<domain>` environment variable,
+  never set from the browser or the API; Admin Panel / Cloud for the
+  CloudAdmin; only it may connect to other MongoDB databases; customers sign
+  in with the password of their own WeKan, checked against its database;
+  their support chat and tickets as WeKan boards; the addresses a CloudAdmin
+  may sign in from; no REST API there for users who are not signed in.
+- Every setting that turns something off is refused on the server too, not
+  only hidden in the browser - first of them, a disabled password login.
+- Every feature page under `docs/Features/` in one shape: what it is, read
+  more, how to use it, how its numbers are calculated, how it works, and its
+  commits.
+- The docs folders keep their main page as `README.md` instead of a page named
+  after the folder, and `docs/Features/README.md` holds the website's feature
+  overview.
+- Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
+  against what WeKan already has; what is missing is added where it belongs in
+  the menus.
+- Found while documenting, to fix: the per-address login delay is never
+  applied; Broken Cards counts unknown card types in its list but not in the
+  Summary or its repair; the database, integrity and mail streams have no name
+  in the Summary; the Recovery pane's text says it does not retry or cancel;
+  the attachment retention form allows a larger per-run number than the
+  retention applies.
+
 ## Need the running app to reproduce/verify
 
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
