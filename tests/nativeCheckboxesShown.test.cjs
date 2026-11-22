@@ -23,7 +23,7 @@ assert.match(read('client/components/forms/forms.css'), /\[type="checkbox"\]:not
   'the rule this guard answers is still there');
 for (const { jade, css, scope } of PAGES) {
   assert.match(read(jade), /input\(type="checkbox"/, `${jade} has native checkboxes`);
-  const rule = new RegExp(`${scope.replace('.', '\\.')} input\\[type="checkbox"\\][^{]*\\{([^}]*)\\}`).exec(read(css));
+  const rule = new RegExp(`${scope.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} input\\[type="checkbox"\\][^{]*\\{([^}]*)\\}`).exec(read(css));
   assert.ok(rule, `${css} shows the native checkboxes of ${scope}`);
   for (const decl of ['display: inline-block', 'visibility: visible', 'position: static']) {
     assert.ok(rule[1].includes(decl), `${css}: ${decl}`);

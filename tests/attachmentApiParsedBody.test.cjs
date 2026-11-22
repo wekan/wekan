@@ -78,7 +78,11 @@ test('every route of the attachment API that waits for the body replays a parsed
   const walk = dir => {
     for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
       const rel = `${dir}/${entry.name}`;
-      if (entry.isDirectory()) { if (!['node_modules', '_build', '.build'].includes(entry.name)) walk(rel); continue; }
+      if (entry.isDirectory()) {
+        // Every rspack output (_build, _build-local-test, ...) holds a bundled copy.
+        if (entry.name !== 'node_modules' && entry.name !== '.build' && !entry.name.startsWith('_build')) walk(rel);
+        continue;
+      }
       if (!rel.endsWith('.js')) continue;
       const text = read(rel);
       if (!/req\.on\(['"]end['"]/.test(text)) continue;
