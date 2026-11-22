@@ -33,12 +33,12 @@ function world() {
 printf '%s\\n' "$*" >> ${JSON.stringify(log)}
 while [ "$1" != "--" ]; do shift; done; shift
 host="$1"; shift
-cmd="\${*//\\/srv\\/wekan/${server.replace(/\//g, '\\/')}}"
+cmd="\${*//\\/srv\\/wekan/$FAKE_SERVER_DIR}"
 exec bash -c "$cmd"
 `, { mode: 0o755 });
   const ini = path.join(base, 'settings.ini');
   const run = (args, input = '') => spawnSync('bash', [script, ...args], {
-    input, encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, WEKAN_METEOR3_SETTINGS: ini },
+    input, encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, WEKAN_METEOR3_SETTINGS: ini, FAKE_SERVER_DIR: server },
   });
   return { base, server, log, ini, run, done: () => fs.rmSync(base, { recursive: true, force: true }) };
 }
