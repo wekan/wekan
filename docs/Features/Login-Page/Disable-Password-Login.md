@@ -2,8 +2,8 @@
 
 ## What it is
 
-At login screen, do not show password login. Only show login button (OAuth2,
-LDAP, etc). This is for a WeKan where everybody signs in through an identity
+At login screen, do not show password login, and refuse it on the server.
+Only show login button (OAuth2, LDAP, etc). This is for a WeKan where everybody signs in through an identity
 provider, so the username and password fields would only confuse people.
 
 ## Read more
@@ -68,10 +68,27 @@ shown); only the exact value `false` hides it.
   method does not answer `false`, waiting for the form to render first; an
   error answer shows the form rather than leaving the page with no fields at
   all.
-- It is a display setting: it hides the form, and does not by itself refuse
-  a password login sent to the server another way.
+- It is enforced on the server too, not only hidden
+  ([models/lib/passwordLoginPolicy.js](../../../models/lib/passwordLoginPolicy.js)):
+  a DDP sign-in through the password service (`login`, and also
+  `resetPassword`, `verifyEmail` and `createUser`) is refused by an
+  `Accounts.validateLoginAttempt` hook in
+  [server/authentication.js](../../../server/authentication.js), whether the
+  password was right or not, and `POST /users/login`
+  ([server/apiAuthRoutes.js](../../../server/apiAuthRoutes.js)) answers 403
+  `password-login-disabled` before it looks up any user. With LDAP on, a
+  username sent to `POST /users/login` goes to the directory only, and the LDAP
+  handler's own `LDAP_LOGIN_FALLBACK` keeps working, because that is an LDAP
+  decision of the operator. Meteor's `forgotPassword` is refused too: the reset
+  link would only lead to a refused sign-in. Every refusal shows in
+  **Admin Panel / Problems** as *Password login disabled*. See
+  [Settings enforced on the server](../Admin-Panel/Settings-Enforced-On-Server.md).
 - Tests: [tests/authConfigCatalog.test.cjs](../../../tests/authConfigCatalog.test.cjs)
-  (the setting is in the catalog and on every platform).
+  (the setting is in the catalog and on every platform),
+  [tests/passwordLoginPolicy.test.cjs](../../../tests/passwordLoginPolicy.test.cjs)
+  (the decision, and every server path that checks a password) and
+  [server/lib/tests/passwordLoginDisabled.tests.js](../../../server/lib/tests/passwordLoginDisabled.tests.js)
+  (a DDP and a REST sign-in refused on a running server).
 
 ## Commits
 

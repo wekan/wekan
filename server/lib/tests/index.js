@@ -154,3 +154,5 @@ import './customFieldLinks.tests';
 import './passkeys.tests';
 import './sqrl.tests';
 import './webPush.tests';
+// PASSWORD_LOGIN_ENABLED=false refused on the server, DDP and REST.
+import './passwordLoginDisabled.tests';

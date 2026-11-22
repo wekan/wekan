@@ -280,6 +280,15 @@ const CATALOG = {
   // Every call that reaches the refusal is an attempt: the admin has turned
   // registration off, so there is no legitimate caller.
   'authz.register':    { category: 'authz', bleed: 'SignupBleed', severity: 'critical', cwe: 'CWE-862' },
+  // A password sign-in (DDP login, resetPassword, verifyEmail, createUser, or
+  // POST /users/login) while PASSWORD_LOGIN_ENABLED=false, and a forgotPassword
+  // call while forgot password - or password login - is disabled
+  // (models/lib/passwordLoginPolicy.js). The sign-in page offers neither then.
+  // Not a Hall of Fame vulnerability: a setting that used to only hide the
+  // form. blocksAccount: false - a sign-in page left open from before the
+  // administrator changed the setting still sends it.
+  'authn.password-login-disabled': { category: 'authn', bleed: 'Password login disabled', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
+  'authn.forgot-password-disabled': { category: 'authn', bleed: 'Forgot password disabled', severity: 'low', cwe: 'CWE-284', blocksAccount: false },
   'authn.authentication-method': { category: 'authn', bleed: 'MembershipBleed', severity: 'high', cwe: 'CWE-200' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },

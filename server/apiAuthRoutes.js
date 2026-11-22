@@ -26,6 +26,7 @@ const {
 const {
   shouldRejectPasswordLogin,
 } = require('/server/lib/ldapPasswordLoginGuard');
+const { restPasswordLoginRoute } = require('/models/lib/passwordLoginPolicy');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -131,15 +132,37 @@ WebApp.handlers.post('/users/login', async function (req, res) {
         password: String,
         code: Match.Optional(NonEmptyString),
       });
-      user = await Meteor.users.findOneAsync({
-        'emails.address': options.email,
-      });
     } else {
       check(options, {
         username: String,
         password: String,
         code: Match.Optional(NonEmptyString),
       });
+    }
+
+    // PASSWORD_LOGIN_ENABLED=false (models/lib/passwordLoginPolicy.js):
+    // decided before any user is looked up, so the refusal says nothing about
+    // an account. With LDAP on, a username goes to the directory only.
+    const passwordRoute = restPasswordLoginRoute({
+      env: authEnvObject,
+      usernameProvided: Boolean(options.username),
+    });
+    if (passwordRoute === 'refuse') {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authn.password-login-disabled', action: 'blocked', source: 'POST /users/login', req,
+          detail: 'Password sign-in refused while password login is disabled.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      const error = new Meteor.Error('password-login-disabled', 'Password login is disabled');
+      error.statusCode = 403;
+      throw error;
+    }
+    if (options.email) {
+      user = await Meteor.users.findOneAsync({
+        'emails.address': options.email,
+      });
+    } else {
       user = await Meteor.users.findOneAsync({ username: options.username });
     }
 
@@ -160,7 +183,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     // bcrypt password and rejected every LDAP-only account. _runLoginHandlers
     // is Meteor's server API for checking credentials without attaching them
     // to a DDP connection; token creation remains below in this REST route.
-    const useLdap = useLdapForRestLogin({
+    const useLdap = passwordRoute === 'ldap' || useLdapForRestLogin({
       user,
       ldapEnabled:
         authEnv('LDAP_ENABLE') === 'true',
