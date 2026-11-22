@@ -38,6 +38,7 @@ Board admins only.
 | Orders list | A list on a private board you are an admin of |
 | Visitors without an account may order | Off: only signed-in users order |
 | Terms and conditions (link) | An http or https address the buyer must accept |
+| Send the buyer an order confirmation by email | On by default: the buyer gets the order number, lines, totals and how to pay by email, when this WeKan sends email |
 | Show the Shop instead of the public board | The public board's default view becomes the Shop |
 | Payment methods | Budget and billing's methods, each with its own fields; untick one to stop offering it |
 
@@ -51,6 +52,17 @@ that view and replaces what was there - Website, say; choosing Website or
 another view as *Default on Public Board* in [Board View](Board-View.md)
 replaces the Shop. Unticking it when the Shop is the public view gives the
 visitors Swimlanes again; when another view is, it changes nothing.
+
+**Budget and billing.** With it on for the admin who saves these settings,
+every order is also an invoice of this board, with the order's payment
+reference ([Shop](../../Board-Header/Board-Views/Shop.md#handle-the-orders-the-shops-team)).
+The invoice's issuer, VAT ID and payment terms are Budget and billing's
+**Invoicer** of this board.
+
+**A copy of this board** - Board menu → Copy, or a board template - starts with
+its shop closed and without the Orders list, the price, product code and
+stock fields and the lists on sale, which are this board's; save the settings
+on the copy to open its shop.
 
 ## How the numbers are calculated
 
@@ -89,3 +101,6 @@ from `shopOrderTargets`: the private boards the user administers. Tests:
  - [Shop: every setting is enforced on the server, and refused attempts are in Admin Panel / Problems](https://github.com/wekan/wekan/commit/8892734fa987d89c0f455464dfdf7def84488850)
  - [Translations: the Shop's 38 new strings in every language](https://github.com/wekan/wekan/commit/136fdebf969071d371b94c5b7646b10fb43a925a)
  - [Shop: tests of the products, the prices, the settings and the orders, and of what is refused](https://github.com/wekan/wekan/commit/0d74e6ec25a8d7f976cbb69f1a5c34763036cf25)
+ - [Shop: an order is also a Budget and billing invoice, the buyer gets a confirmation email, and a board copy closes its shop](https://github.com/wekan/wekan/commit/c7b48bce2f106e97a8cb2e4343a2544b59023887)
+ - [Translations: the Shop's confirmation email and its setting in every language](https://github.com/wekan/wekan/commit/9f22d02b5dd5cb734a241c591a39b7eab98fd13f)
+ - [Shop tests: the invoice, the confirmation email and the board copy, and what each must never do](https://github.com/wekan/wekan/commit/1083b52a3602219a8adda299ddcb0e1820a9ec5e)

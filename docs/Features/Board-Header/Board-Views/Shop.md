@@ -14,7 +14,8 @@ from the board itself - no second copy of a product is kept:
 | Its price | The custom field chosen as the price (Number, Currency or Text) |
 | Its product code and stock | The custom fields chosen as the product code (SKU) and the stock |
 | A category | A label of the card |
-| An order | A new card in the Orders list, on a private board |
+| An order | A new card in the Orders list, on a private board - and, with Budget and billing on, an invoice of the shop's board |
+| The buyer's receipt | An order confirmation by email, in the buyer's language |
 | How to pay | The payment methods of [Budget and billing](../../Billing/Billing.md): SEPA QR code, Finnish bank barcode, Swiss QR-bill, Swish, Pix, UPI, PayPal.me, a payment link, the regional QR codes, crypto addresses, bank transfer, cash and cheque |
 
 A public board can open in it: with **Show the Shop instead of the public
@@ -78,7 +79,11 @@ view can be shown.
    **Place order**.
 6. The page shows the order number, the total, and how to pay: the QR code to
    scan with a bank or payment app, the barcode, the payment link or the
-   account details, and the **Payment reference**.
+   account details, and the **Payment reference** - and, with Budget and
+   billing on, the **Invoice** number.
+7. The buyer gets an email with the same: the order number, the lines, the
+   totals with the VAT, how to pay with the payment reference, and the shop's
+   name.
 
 ### Handle the orders (the shop's team)
 
@@ -86,6 +91,23 @@ Each order is a card in the Orders list: its title is the order number and
 the buyer's name, its description the lines, the totals, the payment method
 and reference, and the buyer's details. Move it through your lists as you
 deliver it, like any card.
+
+With **Budget and billing** on (Admin Panel / Settings / Features) for the
+admin who saved Board Settings / Shop, each order is also an invoice of the
+shop's board, marked *Sent*: Member menu → **Budget and billing** lists it,
+numbered `INV-<year>-<number>` as every invoice is, with the order number as
+its reference, the buyer's name as its customer, a line per product and the
+order's own **Payment reference** - the same as on the card and in the email,
+so a payment is matched to both. The order card names the invoice
+(*Invoice: INV-...*). **Record payment** on the invoice when the money
+arrives. With Budget and billing off, no invoice is made.
+
+**A copy of the board** - Board menu → Copy, a board template, or a board made
+from a template - has its shop closed and no Orders list, price, product code
+or stock field, and no lists on sale: they are the source board's. Its title,
+introduction, currency, VAT, categories and payment methods are kept; open
+Board Settings / Shop on the copy, check the suggested fields and Orders list,
+and open the shop. An exported and imported board does not carry the shop.
 
 ## How the numbers are calculated
 
@@ -110,6 +132,10 @@ deliver it, like any card.
   each year; **the payment reference** is made from the year and that number
   in the chosen form - RF (ISO 11649), Finnish, Belgian, Norwegian KID or
   Swedish OCR - by Budget and billing's own `paymentReference`.
+- **The invoice** has the order's net, VAT and total, one fixed-price line
+  per product (*2 × Shirt (TS-1)*, its card linked), the due date of the
+  board's payment terms in Budget and billing, and the order's payment
+  reference.
 - **Limits**: five orders a minute from one connection, thirty an hour from
   one address, and 200 an hour to one shop.
 
@@ -148,6 +174,33 @@ told the price changed.
   method the shop does not offer, and for a board the caller can not read; it
   is written only on a private board, in the name of the admin who chose the
   Orders list, while they are still its admin.
+- **The invoice**: [server/lib/shopInvoice.js](../../../../server/lib/shopInvoice.js)
+  writes the order into Budget and billing's own `billingInvoices` with its
+  numbering, issuer profile and payment terms, when `shopPlaceOrder` finds
+  Budget and billing on for the shop's owner and the owner still an admin of
+  the shop's board. It is made before the order card, and an order that fails
+  after it removes it again, with the stock it took.
+- **The confirmation email**: [server/lib/shopEmail.js](../../../../server/lib/shopEmail.js)
+  sends it after the order is stored, through Meteor's `Email` - so Admin
+  Panel / E-mail / Bounces takes out a stopped address and the SMTP limits
+  hold. It is not sent when this WeKan sends no email (no `MAIL_URL`), when
+  Board Settings / Shop unticks **Send the buyer an order confirmation by
+  email**, or to a stopped address. The text is plain
+  (`orderEmail` in `models/lib/shop.js`): the order number, lines, totals with
+  VAT, the payment method, its reference and account lines, an https payment
+  link, and the shop's title, in the language of the buyer's browser; the
+  subject is one line. The HTML part is the account email layout of that text
+  (`models/lib/accountEmailHtml.js`), which escapes every character, so a
+  product title or a shop title can not become markup. No QR image is
+  attached: the mail code has no inline images; the reference and the account
+  lines pay the same. A send that fails is recorded in Admin Panel →
+  Problems → Email and never fails the order.
+- **A copy of the board**: `copy()` in [models/boards.js](../../../../models/boards.js),
+  which the copyBoard method, `POST /api/boards/:boardId/copy` and the board
+  templates use, resets `shopSettings` through `copiedShopSettings` in
+  `models/lib/shop.js`; a WeKan import leaves `shopSettings` out
+  (`models/lib/wekanBoardFields.js`), and so does the board clone that runs
+  through it.
 - **The order's personal data**: the buyer's name and email address, and an
   optional phone number, delivery address and message - nothing else is
   asked. They are written only into the order card on the private orders
@@ -167,8 +220,11 @@ told the price changed.
   [server/lib/tests/shop.tests.js](../../../../server/lib/tests/shop.tests.js)
   (the methods against a database) and
   [tests/playwright/specs/shop-view.e2e.js](../../../../tests/playwright/specs/shop-view.e2e.js)
-  (a shop opened, a product bought, the order card found, and a public board
-  showing the shop to a visitor).
+  (a shop opened, a product bought, the order card and its invoice found, and
+  a public board showing the shop to a visitor). They also pin the invoice
+  (none while Budget and billing is off; the same reference as the card), the
+  board copy (closed, no Orders list) and the email (its content, its
+  escaping, a failed send that leaves the order standing).
 
 ## Commits
 
@@ -178,3 +234,6 @@ told the price changed.
  - [Shop: every setting is enforced on the server, and refused attempts are in Admin Panel / Problems](https://github.com/wekan/wekan/commit/8892734fa987d89c0f455464dfdf7def84488850)
  - [Translations: the Shop's 38 new strings in every language](https://github.com/wekan/wekan/commit/136fdebf969071d371b94c5b7646b10fb43a925a)
  - [Shop: tests of the products, the prices, the settings and the orders, and of what is refused](https://github.com/wekan/wekan/commit/0d74e6ec25a8d7f976cbb69f1a5c34763036cf25)
+ - [Shop: an order is also a Budget and billing invoice, the buyer gets a confirmation email, and a board copy closes its shop](https://github.com/wekan/wekan/commit/c7b48bce2f106e97a8cb2e4343a2544b59023887)
+ - [Translations: the Shop's confirmation email and its setting in every language](https://github.com/wekan/wekan/commit/9f22d02b5dd5cb734a241c591a39b7eab98fd13f)
+ - [Shop tests: the invoice, the confirmation email and the board copy, and what each must never do](https://github.com/wekan/wekan/commit/1083b52a3602219a8adda299ddcb0e1820a9ec5e)
