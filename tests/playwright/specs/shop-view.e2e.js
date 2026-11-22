@@ -85,9 +85,19 @@ test('Shop view: an admin opens the shop, a product is bought, the order is a ca
     expect(order.description).toContain('25.00');
     // The cart is empty again.
     await expect(shop.locator('.shop-cart-count')).toHaveText('0');
+    // Budget and billing is on here: the order is also an invoice of the
+    // board, with the order card's own payment reference, and the card names it.
+    await expect(done.locator('.shop-invoice-number')).toContainText('INV-');
+    const [invoice] = db.find('billingInvoices', { boardId: board.boardId }, { number: 1, paymentReference: 1, totalMinor: 1 });
+    expect(invoice.totalMinor).toBe(2500);
+    expect(order.description).toContain(invoice.number);
+    const [stored] = db.find('shopOrders', { boardId: board.boardId }, { reference: 1, invoiceId: 1 });
+    expect(invoice.paymentReference).toBe(stored.reference);
+    expect(stored.invoiceId).toBe(invoice._id);
   } finally {
     db.deleteMany('customFields', { _id: priceField });
     db.deleteMany('shopOrders', { boardId: board.boardId });
+    db.deleteMany('billingInvoices', { boardId: board.boardId });
     db.cleanup({ boardIds: [board.boardId] });
   }
 });

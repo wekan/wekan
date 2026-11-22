@@ -9,6 +9,8 @@ import Swimlanes from '/models/swimlanes';
 import CustomFields from '/models/customFields';
 import ShopOrders from '/models/shopOrders';
 import Settings from '/models/settings';
+import { BillingInvoices } from '/models/billing';
+import { setOrderEmailSenderForTests } from '/server/lib/shopEmail';
 
 // Board View / Shop (server/shop.js, models/lib/shop.js): Board Settings /
 // Shop only for the board's admins, and an order priced from the cards - never
@@ -38,7 +40,14 @@ describe('Shop view', function () {
     // decided before (an approval policy holds back a feature added later).
     const setting = await Settings.findOneAsync({});
     const savedShopState = setting && setting.featureStates ? setting.featureStates['views-shop'] : undefined;
-    if (setting) await Settings.updateAsync(setting._id, { $set: { 'featureStates.views-shop': true } });
+    const savedBillingState = setting && setting.featureStates ? setting.featureStates.billing : undefined;
+    // Budget and billing OFF for the first orders: no invoice is made.
+    if (setting) await Settings.updateAsync(setting._id, { $set: { 'featureStates.views-shop': true, 'featureStates.billing': false } });
+    const billingOn = on => setting && Settings.updateAsync(setting._id, { $set: { 'featureStates.billing': on } });
+    // The confirmation e-mails, captured instead of sent.
+    const mails = [];
+    setOrderEmailSenderForTests(async mail => { mails.push(mail); });
+    let copyId = null;
     try {
       await Meteor.users.rawCollection().insertMany([
         { _id: admin, username: `admin-${admin}`, profile: {} },
@@ -93,8 +102,9 @@ describe('Shop view', function () {
         { cart: [{ cardId: 'mug', quantity: 1 }], contact, paymentMethodId: 'm1', expectedTotalMinor: 1 }), /shop-price-changed/);
 
       // A tampered price is not read: 2 shirts at 10 EUR are 20 EUR.
+      await Cards.rawCollection().updateOne({ _id: 'shirt' }, { $set: { title: 'Shirt <script>alert(1)</script>' } });
       const order = await asMember('shopPlaceOrder', shopBoard,
-        { cart: [{ cardId: 'shirt', quantity: 2, priceMinor: 1, totalMinor: 1 }], contact, paymentMethodId: 'm1' });
+        { cart: [{ cardId: 'shirt', quantity: 2, priceMinor: 1, totalMinor: 1 }], contact, paymentMethodId: 'm1', language: 'fi' });
       assert.equal(order.totalMinor, 2000);
       assert.match(order.number, /^ORD-\d{4}-00001$/);
       assert.match(order.reference, /^RF\d+$/);
@@ -111,6 +121,24 @@ describe('Shop view', function () {
       assert.equal(stored.cardId, orderCard._id);
       assert.equal(stored.name, undefined, 'no personal data outside the order card');
       assert.equal(stored.email, undefined);
+      // Budget and billing off: no invoice, and the card names none.
+      assert.equal(order.invoiceNumber, '');
+      assert.equal(await BillingInvoices.find({ boardId: shopBoard }).countAsync(), 0, 'no invoice while billing is off');
+      assert.equal(stored.invoiceId, undefined);
+      // The buyer's confirmation, in the buyer's language: number, lines, total, how to pay, the shop.
+      assert.equal(order.emailed, true);
+      assert.equal(mails.length, 1);
+      const [mail] = mails;
+      assert.equal(mail.to, 'ann@example.com');
+      assert.ok(mail.subject.includes(order.number) && mail.subject.includes('Test shop'), mail.subject);
+      assert.ok(!/[\r\n]/.test(mail.subject));
+      assert.ok(mail.text.includes(order.number));
+      assert.ok(mail.text.includes('2 × Shirt <script>alert(1)</script>'), 'the plain text keeps the title as text');
+      assert.ok(mail.text.includes(order.reference));
+      assert.ok(mail.text.includes('FI21 1234 5600 0007 85'), 'the IBAN line of the payment method');
+      assert.ok(mail.text.includes('Näin maksat'), 'in Finnish, the buyer\'s language');
+      assert.ok(!mail.html.includes('<script>'), 'the HTML part escapes the title');
+      assert.ok(mail.html.includes('&lt;script&gt;'));
 
       // Sold out now.
       await assert.rejects(asMember('shopPlaceOrder', shopBoard, { cart: [{ cardId: 'shirt', quantity: 1 }], contact, paymentMethodId: 'm1' }),
@@ -119,11 +147,33 @@ describe('Shop view', function () {
       await assert.rejects(asMember('shopPlaceOrder', shopBoard, { cart: [{ cardId: `${ordersBoard}-x`, quantity: 1 }], contact, paymentMethodId: 'm1' }),
         /shop-not-for-sale/);
 
-      // Visitors allowed: a guest orders.
+      // Visitors allowed: a guest orders. Budget and billing on: the order is
+      // also an invoice of the shop's board, with the order's reference. The
+      // mail server fails: the order stands.
       await asAdmin('shopSetSettings', shopBoard, settings({ guestCheckout: true }));
+      await billingOn(true);
+      setOrderEmailSenderForTests(async () => { throw new Error('550 mail server says no'); });
       const guestOrder = await asGuest('shopPlaceOrder', shopBoard, { cart: [{ cardId: 'mug', quantity: 3 }], contact, paymentMethodId: 'm1' });
       assert.equal(guestOrder.totalMinor, 1500);
       assert.match(guestOrder.number, /-00002$/);
+      assert.equal(guestOrder.emailed, false, 'a failed confirmation never fails the order');
+      const invoice = await BillingInvoices.findOneAsync({ boardId: shopBoard });
+      assert.ok(invoice, 'an invoice of the shop\'s board');
+      assert.equal(invoice.number, guestOrder.invoiceNumber);
+      assert.match(invoice.number, /^INV-\d{4}-\d{4}$/);
+      assert.equal(invoice.paymentReference, guestOrder.reference, 'the same reference as the order card');
+      assert.equal(invoice.reference, guestOrder.number);
+      assert.equal(invoice.totalMinor, 1500);
+      assert.deepEqual(invoice.lines.map(l => [l.kind, l.cardId, l.amountMinor]), [['fee', 'mug', 1500]]);
+      const guestCard = await Cards.findOneAsync({ boardId: ordersBoard, title: { $regex: `^${guestOrder.number}` } });
+      assert.ok(guestCard.description.includes(invoice.number), 'the order card names its invoice');
+      assert.equal((await ShopOrders.findOneAsync({ number: guestOrder.number, boardId: shopBoard })).invoiceId, invoice._id);
+      // Board Settings / Shop turns the e-mail off: nothing is sent.
+      setOrderEmailSenderForTests(async mail => { mails.push(mail); });
+      await asAdmin('shopSetSettings', shopBoard, settings({ guestCheckout: true, confirmationEmail: false }));
+      const quiet = await asGuest('shopPlaceOrder', shopBoard, { cart: [{ cardId: 'mug', quantity: 1 }], contact, paymentMethodId: 'm1' });
+      assert.equal(quiet.emailed, false);
+      assert.equal(mails.length, 1, 'no confirmation when it is turned off');
 
       // A closed shop takes no order.
       await asAdmin('shopSetSettings', shopBoard, settings({ enabled: false }), false);
@@ -131,7 +181,28 @@ describe('Shop view', function () {
       assert.equal(board.defaultPublicBoardView, 'board-view-swimlanes', 'unticked: the kanban again');
       await assert.rejects(asMember('shopPlaceOrder', shopBoard, { cart: [{ cardId: 'mug', quantity: 1 }], contact, paymentMethodId: 'm1' }),
         /shop-closed/);
+
+      // Negative: a copy of the board never takes orders into this Orders list.
+      await asAdmin('shopSetSettings', shopBoard, settings());
+      copyId = await asAdmin('copyBoard', shopBoard, {});
+      const copy = await Boards.findOneAsync(copyId);
+      assert.ok(copy && copy._id !== shopBoard);
+      assert.equal(copy.shopSettings.enabled, false, 'the copy\'s shop is closed');
+      assert.equal(copy.shopSettings.ordersBoardId, '');
+      assert.equal(copy.shopSettings.ordersListId, '');
+      assert.equal(copy.shopSettings.priceFieldId, '', 'not the source board\'s custom field');
+      assert.equal(copy.shopSettings.updatedBy, undefined, 'no owner to write orders in the name of');
+      assert.equal(copy.shopSettings.title, 'Test shop', 'the look is kept');
+      await assert.rejects(asMember('shopPlaceOrder', copyId, { cart: [{ cardId: 'mug', quantity: 1 }], contact, paymentMethodId: 'm1' }),
+        /shop-closed|not-authorized/);
     } finally {
+      setOrderEmailSenderForTests(null);
+      if (copyId) {
+        for (const c of [Cards, Lists, Swimlanes]) await c.rawCollection().deleteMany({ boardId: copyId });
+        await CustomFields.rawCollection().deleteMany({ boardIds: copyId });
+        await Boards.rawCollection().deleteMany({ _id: copyId });
+      }
+      await BillingInvoices.rawCollection().deleteMany({ boardId: shopBoard });
       await Cards.rawCollection().deleteMany({ boardId: { $in: [shopBoard, ordersBoard, publicOther] } });
       await Lists.rawCollection().deleteMany({ boardId: { $in: [shopBoard, ordersBoard, publicOther] } });
       await Swimlanes.rawCollection().deleteMany({ boardId: { $in: [shopBoard, ordersBoard, publicOther] } });
@@ -142,6 +213,8 @@ describe('Shop view', function () {
       if (setting) {
         await Settings.updateAsync(setting._id, savedShopState === undefined
           ? { $unset: { 'featureStates.views-shop': '' } } : { $set: { 'featureStates.views-shop': savedShopState } });
+        await Settings.updateAsync(setting._id, savedBillingState === undefined
+          ? { $unset: { 'featureStates.billing': '' } } : { $set: { 'featureStates.billing': savedBillingState } });
       }
     }
   });

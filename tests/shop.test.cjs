@@ -318,3 +318,91 @@ test('negative: no other code writes a board\'s shopSettings', () => {
     .filter(f => /\$set:\s*\{[^}]*shopSettings|'shopSettings\.|shopSettings:\s*\{\s*\.\.\.checked/.test(read(f)));
   assert.deepEqual(writers, ['server/shop.js']);
 });
+
+test('a copy of a board never takes orders into the source board\'s Orders list', () => {
+  const stored = { ...settings(), title: 'Corner shop', updatedBy: 'admin', saleListIds: ['lA'], categoryLabelIds: ['red'] };
+  const copy = shop.copiedShopSettings(stored);
+  assert.equal(copy.enabled, false);
+  assert.equal(copy.ordersBoardId, '');
+  assert.equal(copy.ordersListId, '');
+  assert.deepEqual([copy.priceFieldId, copy.skuFieldId, copy.stockFieldId, copy.saleListIds], ['', '', '', []],
+    'the source board\'s fields and lists are not the copy\'s');
+  assert.equal(copy.updatedBy, undefined, 'nobody\'s orders are written in the copy\'s name');
+  assert.equal(copy.title, 'Corner shop', 'the look is kept');
+  assert.deepEqual(copy.categoryLabelIds, ['red'], 'labels are copied with their ids');
+  assert.equal(copy.paymentMethods.length, 2);
+  // The copy can not take an order: closed, and no Orders list.
+  assert.equal(shop.checkoutRefusal({ settings: copy, featureOn: true, canRead: true, userId: 'u' }), 'shop-closed');
+  assert.equal(shop.checkoutRefusal({ settings: { ...copy, enabled: true }, featureOn: true, canRead: true, userId: 'u' }), 'shop-no-orders-list');
+  assert.equal(shop.copiedShopSettings(undefined), undefined);
+});
+
+test('negative: every board copy resets the shop settings, and an import never brings them', () => {
+  // Board.copy() is the one copy of a board: the copyBoard method, the REST
+  // copy route and the board templates all call it.
+  const boards = read('models/boards.js');
+  const copy = boards.slice(boards.indexOf('  async copy(withoutCards = false, copyOptions) {'));
+  const reset = copy.indexOf("this.shopSettings = require('/models/lib/shop').copiedShopSettings(this.shopSettings);");
+  assert.ok(reset > 0 && reset < copy.indexOf('await Boards.insertAsync(this);'), 'reset before the copy is inserted');
+  assert.match(read('server/publications/boards.js'), /if \(selection\) return copy\.copy\(!selection\.cards, selection\);/);
+  assert.match(read('server/models/boards.js'), /const ret = await copy\.copy\(\);/);
+  // No other place inserts a board from an existing board's document.
+  const walk = dir => fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap(e => {
+    if (e.name === 'node_modules' || e.name.startsWith('.') || e.name.startsWith('_build') || e.name === 'tests') return [];
+    const rel = `${dir}/${e.name}`;
+    return e.isDirectory() ? walk(rel) : (/\.(c|m)?js$/.test(e.name) ? [rel] : []);
+  });
+  const inserts = ['client', 'server', 'models'].flatMap(walk).filter(f => /Boards\.insertAsync\(this\)/.test(read(f)));
+  assert.deepEqual(inserts, ['models/boards.js']);
+  // Import (and the cloneBoard that runs through it) leaves shopSettings out.
+  const fields = read('models/lib/wekanBoardFields.js');
+  assert.match(fields, /^ {2}shopSettings: '/m);
+});
+
+test('the confirmation e-mail: number, lines, VAT, how to pay and the shop - and the buyer\'s text stays text', () => {
+  const { renderAccountEmailHtml } = require('../models/lib/accountEmailHtml.js');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const t = (key, options = {}) => String(en[key] || key).replace(/__(\w+)__/g, (m, name) => (name in options ? options[name] : m));
+  const order = { number: 'ORD-2026-00007', reference: 'RF18202600007', netMinor: 2096, vatMinor: 534, vatPercent: 25.5, totalMinor: 2630,
+    lines: [{ cardId: 'a', title: 'Mug <img src=x onerror=alert(1)>', sku: 'M-1', quantity: 2, unitMinor: 1315, lineMinor: 2630 }] };
+  const payment = { lines: ['Shop Oy', 'FI21 1234 5600 0007 85'], link: 'javascript:alert(1)' };
+  const mail = shop.orderEmail({ order, payment, methodLabel: 'SEPA credit transfer', shopTitle: 'Corner\r\nBcc: x@evil.example shop',
+    t, money: m => `${(m / 100).toFixed(2)} EUR` });
+  assert.equal(mail.subject, 'Your order ORD-2026-00007 at Corner Bcc: x@evil.example shop', 'one line: no header can be injected');
+  for (const part of ['ORD-2026-00007', '2 × Mug <img src=x onerror=alert(1)> (M-1): 26.30 EUR', 'Net: 20.96 EUR', 'VAT 25.5 %: 5.34 EUR',
+    'Total: 26.30 EUR', 'How to pay:', 'SEPA credit transfer', 'RF18202600007', 'FI21 1234 5600 0007 85']) {
+    assert.ok(mail.text.includes(part), part);
+  }
+  assert.ok(!mail.text.includes('javascript:'), 'only an https payment link is written');
+  const html = renderAccountEmailHtml({ text: mail.text, siteName: 'Corner shop' });
+  assert.ok(!/<img/.test(html), 'the HTML part escapes the product title');
+  assert.ok(html.includes('&lt;img src=x onerror=alert(1)&gt;'));
+  // The keys and their placeholders, in every language.
+  for (const file of fs.readdirSync(path.join(ROOT, 'imports/i18n/data'))) {
+    const data = JSON.parse(read(`imports/i18n/data/${file}`));
+    assert.equal((data['shop-email-subject'].match(/__number__|__shop__/g) || []).sort().join(), '__number__,__shop__', file);
+    assert.ok(data['shop-email-pay'] && data['shop-confirmation-email'], file);
+  }
+});
+
+test('the server sends the confirmation, makes the invoice, and neither can fail the order wrongly', () => {
+  const src = read('server/shop.js');
+  // The invoice is part of the order, made only with Budget and billing on.
+  assert.match(src, /if \(activeAdmin\(board, ownerId\) && await featureOnFor\(ownerId, 'billing'\)\) \{\n\s*invoice = await createOrderInvoice\(/);
+  assert.match(src, /if \(invoice\) await removeOrderInvoice\(invoice\.invoiceId\)/, 'a failed order leaves no invoice');
+  // The invoice is billing's own: its collection, numbering and the order's reference.
+  const inv = read('server/lib/shopInvoice.js');
+  assert.match(inv, /import \{ BillingInvoices, BillingProfiles \} from '\/models\/billing';/);
+  assert.match(inv, /invoiceNumber\(year, count \+ 1 \+ attempt, 'invoice'\)/);
+  assert.match(inv, /paymentReference: order\.reference \|\| undefined,/);
+  // The e-mail comes after the order is stored, and its sender never throws.
+  assert.ok(src.indexOf('await sendOrderConfirmation(') > src.indexOf('await ShopOrders.updateAsync({ _id: orderId }, { $set: { cardId } });'));
+  const mail = read('server/lib/shopEmail.js');
+  assert.match(mail, /export async function sendOrderConfirmation\([^)]*\) \{\n\s*try \{/);
+  assert.match(mail, /\} catch \(error\) \{\n\s*try \{\n\s*require\('\/server\/lib\/mailProblems'\)\.recordMailProblem\('send-failed'/);
+  assert.match(mail, /return 'failed';\n\s*\}\n\}/);
+  // It respects what turns e-mail off: no MAIL_URL, the shop's setting, a stopped address.
+  assert.match(mail, /settings\.confirmationEmail === false \|\| !to \|\| !mailConfigured\(\)\) return 'skipped';/);
+  assert.match(mail, /isAddressStopped\(to\)\) return 'skipped';/);
+  assert.match(mail, /html: renderAccountEmailHtml\(\{ text, siteName: shopTitle \}\),/);
+});
