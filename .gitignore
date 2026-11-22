@@ -129,3 +129,6 @@ wekan-real-files.h
 
 # The Meteor 3 hosting menu's settings (docs/Platforms/FOSS/Container/Docker/Meteor3/build.sh): this machine's server name and directory.
 docs/Platforms/FOSS/Container/Docker/Meteor3/settings.ini
+
+# Python bytecode of the release scripts (releases/sec/ and others).
+__pycache__/

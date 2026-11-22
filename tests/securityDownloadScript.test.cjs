@@ -29,6 +29,10 @@ const python = (() => {
 const FAKE_GH = `#!${process.execPath}
 const args = process.argv.slice(2);
 if (args[0] === 'auth') { process.exit(process.env.FAKE_GH_AUTH === 'out' ? 1 : 0); }
+if (args[0] === 'run' && args[1] === 'view') {
+  if (process.env.FAKE_GH_RUNVIEW === 'fail') { process.stderr.write('run view failed (HTTP 403)\\n'); process.exit(1); }
+  process.stdout.write('from run view\\nError: 3 tests failed\\n'); process.exit(0);
+}
 const p = args[args.length - 1];
 const out = s => process.stdout.write(s);
 if (p.startsWith('/orgs/acme/repos')) {
@@ -54,6 +58,8 @@ if (p.startsWith('/orgs/acme/repos')) {
   out(JSON.stringify({ total_count: 2, jobs: [
     { id: 9001, name: 'Build arm64', conclusion: 'failure', steps: [{ name: 'Checkout', conclusion: 'success' }, { name: 'npm test', conclusion: 'failure' }] },
     { id: 9002, name: 'Lint', conclusion: 'success', steps: [] }] }));
+} else if (p.startsWith('/repos/acme/app/actions/jobs/9001/logs') && process.env.FAKE_GH_LOGS === 'redirect') {
+  process.stderr.write('gh: Found (HTTP 302)\\n'); process.exit(1);
 } else if (p.startsWith('/repos/acme/app/actions/jobs/9001/logs')) {
   out(Array.from({ length: 300 }, (_, i) => 'line ' + i).join('\\n') + '\\nError: 3 tests failed\\n');
 } else if (p.startsWith('/repos/acme/app/actions/jobs/')) {
@@ -145,6 +151,15 @@ test('builds: the newest finished run of each workflow, and the failed jobs\' lo
     assert.match(summary, /\| Docker \| main \| success \|/, 'the newest FINISHED run: the one in progress is skipped');
     // A repository whose Actions GitHub does not answer: its reason.
     assert.match(fs.readFileSync(path.join(runDir(t.out, 'tools'), 'builds', 'status.txt'), 'utf8'), /HTTP 404/);
+    // The log endpoint refused: read through `gh run view`; both refused: why.
+    const viaRun = path.join(t.dir, 'viarun');
+    assert.equal(run({ FAKE_GH_LOGS: 'redirect' }, ['acme', '--repo', 'app', '--out', viaRun], t).status, 0);
+    assert.match(fs.readFileSync(path.join(runDir(viaRun, 'app'), 'builds', 'Release-All', 'run-501', 'job-9001-Build-arm64.log'), 'utf8'), /from run view/);
+    const neither = path.join(t.dir, 'neither');
+    assert.equal(run({ FAKE_GH_LOGS: 'redirect', FAKE_GH_RUNVIEW: 'fail' }, ['acme', '--repo', 'app', '--out', neither], t).status, 0);
+    const errorFile = path.join(runDir(neither, 'app'), 'builds', 'Release-All', 'run-501', 'job-9001-Build-arm64.log-error.txt');
+    assert.match(fs.readFileSync(errorFile, 'utf8'), /HTTP 302.*run view failed/s);
+    assert.match(fs.readFileSync(path.join(runDir(neither, 'app'), 'SUMMARY.md'), 'utf8'), /log not available \(302\)/);
     // --builds 0: no builds at all.
     const none = path.join(t.dir, 'none');
     assert.equal(run({}, ['acme', '--repo', 'app', '--out', none, '--builds', '0'], t).status, 0);

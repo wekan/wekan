@@ -190,7 +190,18 @@ def download_builds(org, repo, run_dir, runs_limit, log):
             name = f"job-{job['id']}-{slug(job.get('name'))}"
             entry = {"name": job.get("name") or "", "steps": steps, "log": ""}
             try:
-                text = gh_text(f"/repos/{org}/{repo}/actions/jobs/{job['id']}/logs")
+                try:
+                    text = gh_text(f"/repos/{org}/{repo}/actions/jobs/{job['id']}/logs")
+                except GhError as first:
+                    # The log endpoint answers with a redirect to storage that
+                    # some gh versions and tokens do not follow; `gh run view`
+                    # reads the same log through the run's archive.
+                    proc = subprocess.run(["gh", "run", "view", str(run["id"]), "--job", str(job["id"]), "--log-failed",
+                                           "-R", f"{org}/{repo}"], capture_output=True)
+                    if proc.returncode != 0 or not proc.stdout.strip():
+                        raise GhError(f"{first}; gh run view: "
+                                      f"{(proc.stderr or b'').decode(errors='replace').strip()}", first.status)
+                    text = proc.stdout
                 cut = len(text) > MAX_LOG_BYTES
                 with open(os.path.join(rdir, f"{name}.log"), "wb") as fh:
                     fh.write(text[:MAX_LOG_BYTES])
@@ -202,6 +213,10 @@ def download_builds(org, repo, run_dir, runs_limit, log):
                 entry["log"] = os.path.relpath(os.path.join(rdir, f"{name}.log"), run_dir)
             except GhError as e:
                 log(f"  builds: {row['workflow']} job {job['id']}: log not available ({e.status or 'error'})")
+                with open(os.path.join(rdir, f"{name}.log-error.txt"), "w", encoding="utf-8") as fh:
+                    fh.write(f"The log was not downloaded: {e}\n")
+                entry["log"] = f"log not available ({e.status or 'error'}): " + os.path.relpath(
+                    os.path.join(rdir, f"{name}.log-error.txt"), run_dir)
             row["jobs"].append(entry)
     failed = [r for r in rows if r["conclusion"] in FAILED]
     log(f"  builds: {len(runs)} runs, {len(rows)} workflows, {len(failed)} failing")
