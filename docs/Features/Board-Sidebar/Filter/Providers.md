@@ -1,9 +1,21 @@
 # Adding a card filter
 
+## What it is
+
 Bundled client modules can register a filter through `Filter.providers`. One
 registration connects its sidebar template, query, reset behavior and saved
 state. The creation/modification recency controls use this interface too.
 This is an API for trusted application code, not an installer for uploaded code.
+
+## Read more
+
+- [Wikipedia: Plug-in (computing)](https://en.wikipedia.org/wiki/Plug-in_(computing))
+- [Blaze](https://www.blazejs.org/), the templates a filter's controls are
+- [MongoDB query selectors](https://www.mongodb.com/docs/manual/reference/operator/query/),
+  what `selector()` returns
+- [Board filters](README.md)
+
+## How to use it
 
 For example, import this module from the application's client entry point to
 add an exact-title filter using the existing compiled text-input template:
@@ -76,9 +88,37 @@ require recreating the saved choice. Version 1 combinations still load and
 reset extensions to their defaults. The built-in recency provider keeps its
 existing version 1 field; `legacyPreset` is reserved for that implementation.
 
+## How the numbers are calculated
+
+- **A provider's id**: lowercase letters and digits separated by dots or
+  hyphens, starting with a letter, at most 128 characters
+  ([client/lib/filterProviders.js](../../../../client/lib/filterProviders.js));
+  `version` is a positive whole number.
+- **A saved combination**
+  ([models/lib/filterPresetState.js](../../../../models/lib/filterPresetState.js)):
+  at most 65,536 characters of JSON, at most 100 providers, and at most 20
+  nesting levels in one provider's value. Combinations with extensions are
+  saved as version 2.
+
+## How it works in WeKan
+
 The server validates extension state as bounded JSON data; only the registered
 client provider knows its meaning. The complete combination is limited to
 65,536 JSON characters, at most 100 providers and 20 nesting levels per value.
 Dates must be serialized as strings/numbers. Functions, non-finite numbers and
 prototype-related object keys are rejected. Saved choices remain private to
 their owner and board, using the existing saved-filter access checks.
+
+The registry is `Filter.providers` in
+[client/lib/filterProviders.js](../../../../client/lib/filterProviders.js),
+used by [client/lib/filter.js](../../../../client/lib/filter.js); the saved
+state is checked by
+[models/lib/filterPresetState.js](../../../../models/lib/filterPresetState.js)
+and stored by [server/filterPresets.js](../../../../server/filterPresets.js).
+[server/lib/publishBoardMatches.js](../../../../server/lib/publishBoardMatches.js)
+is the shared server side for filters that need a join. Pinned by
+[tests/filterProviders.test.cjs](../../../../tests/filterProviders.test.cjs).
+
+## Commits
+
+ - [Register extensible card filters with versioned saved state](https://github.com/wekan/wekan/commit/5904f077a9328857a7e4aba5627563277937ff89)

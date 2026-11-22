@@ -1,5 +1,7 @@
 # Board View settings
 
+## What it is
+
 Per board, choose which entries of the **Board View** menu (Swimlanes, Lists,
 Table, Calendar, the Gantt views, the charts, …) are offered, and which one a
 board opens in - separately for when the board is **public** and when it is
@@ -7,24 +9,21 @@ board opens in - separately for when the board is **public** and when it is
 offer only Roadmap and Gantt and open in Roadmap, while the same board, made
 private again, shows its members every view and opens in Swimlanes.
 
-## Groups
+## Read more
 
-The Board View menu and this popup show the views in six groups, each under its
-heading (`BOARD_VIEW_GROUPS` in `models/lib/boardViewSettings.js`):
+- [Wikipedia: Kanban board](https://en.wikipedia.org/wiki/Kanban_board)
+- [Wikipedia: Gantt chart](https://en.wikipedia.org/wiki/Gantt_chart)
+- [Wikipedia: Burndown chart](https://en.wikipedia.org/wiki/Burndown_chart)
+- [Wikipedia: Cumulative flow diagram](https://en.wikipedia.org/wiki/Cumulative_flow_diagram)
+- [Card field display order](Card.md) - the Card Settings
+  popup this one is modelled on.
+- [Swimlanes](../../Swimlanes/Swimlanes.md), [Roadmap](../../Board-Header/Board-Views/Roadmap.md), [Bigboard](../../Board-Header/Board-Views/Bigboard.md),
+  [Group by Assignee](../../Board-Header/Board-Views/Group-By-Assignee.md) - some of the views the menu offers.
+- [REST-API.md, Board Settings: Board View](../../../API/REST-API.md#board-settings-board-view)
 
-| Group | Views |
-| --- | --- |
-| Board | Swimlanes, Lists, Table, Column sets, Group by Assignee, Map, Bigboard |
-| Calendar and time | Calendar, Calendar Mode, Multi Board Calendar, Time, Timeline, Gantt, Frappe Gantt, DHTMLX Gantt, Roadmap |
-| Scrum | Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup, Release Burndown, Epic Progress |
-| Kanban flow | Cumulative Flow, Control, Cycle Time, Lead Time, Flow Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis, Monte Carlo, Process Behavior, Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run Chart, Due Date Performance |
-| Overview | Dashboard, Pulse, Statistics, Workload, Distribution, Dependency Map, Activity Heatmap |
-| Communication and code | Email, Chat, Website, Version Control |
+## How to use it
 
-The order a board admin drags here decides inside each group; a view stays in
-its own group. A group none of whose views is shown has no heading.
-
-## Where to find it
+### Where to find it
 
 **Board sidebar (hamburger menu) → Board Settings → Board View**, the first
 entry of the second group of Board Settings, directly ABOVE **Swimlane**.
@@ -57,7 +56,11 @@ Board admins only - same restriction as Swimlane and List.
 └──────────────────────────────┘
 ```
 
-## The popup
+The diagram leaves out entries that are not about the board's views, such as
+the Rules views, Board announcement, All Boards Settings, Original positions
+and Summary; the whole menu is in [Board Settings](README.md).
+
+### The popup
 
 Same table pattern as **Card Settings** (one row per thing, one checkbox per
 column, the description last). Five columns, left to right:
@@ -156,9 +159,9 @@ keeps it as a literal list, `DEFAULT_BOARD_VIEW_ORDER`, and
 to the pre-feature template, so re-sorting `BOARD_VIEWS` cannot change what a
 board with no stored order shows.
 
-### When public boards are hidden
+#### When public boards are hidden
 
-When **Admin Panel → Settings → Visibility → All Boards: Hide → Public
+When **Admin Panel → Settings → Appearance → All Boards: Hide → Public
 boards** is ticked (the `tableVisibilityMode-allowPrivateOnly` setting, which
 makes every board private-only), the two public columns - *Default on Public
 Board* and *Show on Public Board* - are **not rendered**, and the popup is a
@@ -166,7 +169,7 @@ three-column table: *Default on Private Board*, *Show on Private Board*,
 *Description*. The stored public values are kept, untouched, for the day the
 setting is turned off again.
 
-### One default per visibility
+#### One default per visibility
 
 *Default on Public Board* and *Default on Private Board* are each a
 **radio group drawn as checkboxes**: exactly one view is ticked in each
@@ -183,16 +186,15 @@ Every setting is on by default: a board that has never opened this popup
 shows every view on both public and private, and opens in **Swimlanes**
 (`board-view-swimlanes`) for both, which is what WeKan has always done.
 
-### Reordering the menu
+#### Reordering the menu
 
-Each row carries an **up** and a **down** arrow in front of its name, in the
-Description column - the same arrows as Card Settings' *Card field order*,
-with the same *Move up* / *Move down* titles (`card-field-order-move-up`,
-`card-field-order-move-down`; no new keys). They are real links, so the
-keyboard reaches them with Tab and presses them with Enter. Clicking one
-moves the row one step, and the **Board View menu lists its entries in that
-order** for everybody on the board. The first row's up arrow and the last
-row's down arrow do nothing and are drawn disabled.
+Each row's place in the Board View menu is changed by **drag and drop**, like
+Board Settings / Card: with drag handles on, drag the handle (the arrows icon,
+*Drag to reorder*) in front of the name, in the Description column; with them
+off, drag the row's icon and name. A row moves only within its own group. On a
+focused handle or name, the **Up** and **Down** arrow keys move the row one
+step. The **Board View menu lists its entries in that order** for everybody on
+the board.
 
 The default order is the menu's order above - the pre-feature menu order,
 exactly as the menu was before it became orderable - and while the order is
@@ -209,7 +211,40 @@ keys, in the default (pre-feature) order - so a menu never loses a view and
 never shows one twice, whatever an old or hand-edited document holds, and a
 view added to WeKan later appears at the end of an existing custom order.
 
-## How the settings apply
+## How the numbers are calculated
+
+- **Views and groups**: the menu has 53 views in 6 groups (`BOARD_VIEWS` and
+  `BOARD_VIEW_GROUPS` in
+  [models/lib/boardViewSettings.js](../../../../models/lib/boardViewSettings.js)).
+- **Defaults**: every view is shown on both sides, and both sides open in
+  Swimlanes (`board-view-swimlanes`), until a board admin changes them.
+- **Exactly one default per side**: a *Default* click sets that view and ticks
+  its *Show* box; a *Show* click that would hide that side's default changes
+  nothing.
+- **The order** is made whole before use (`normalizeBoardViewOrder`): unknown
+  and repeated keys are dropped, and every known view missing from it is
+  appended in the default order, so the menu always shows each view once.
+
+## How it works in WeKan
+
+### Groups
+
+The Board View menu and this popup show the views in six groups, each under its
+heading (`BOARD_VIEW_GROUPS` in `models/lib/boardViewSettings.js`):
+
+| Group | Views |
+| --- | --- |
+| Board | Swimlanes, Lists, Table, Column sets, Group by Assignee, Map, Bigboard |
+| Calendar and time | Calendar, Calendar Mode, Multi Board Calendar, Time, Timeline, Gantt, Frappe Gantt, DHTMLX Gantt, Roadmap |
+| Scrum | Product Backlog, Sprints, Sprint Report, Velocity, Burndown, Burnup, Release Burndown, Epic Progress |
+| Kanban flow | Cumulative Flow, Control, Cycle Time, Lead Time, Flow Efficiency, Throughput Histogram, WIP Run, Aging WIP, Blocker Analysis, Monte Carlo, Process Behavior, Size vs. Cycle Time, Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run Chart, Due Date Performance |
+| Overview | Dashboard, Pulse, Statistics, Workload, Distribution, Dependency Map, Activity Heatmap |
+| Communication and code | Email, Chat, Website, Version Control |
+
+The order a board admin drags here decides inside each group; a view stays in
+its own group. A group none of whose views is shown has no heading.
+
+### How the settings apply
 
 - **Who sees which side.** The *Public* columns are for **the public**: on a
   public board, a visitor who is not logged in, or who is logged in but not a
@@ -247,7 +282,7 @@ view added to WeKan later appears at the end of an existing custom order.
   other column set takes over immediately, since both are read from the board
   document reactively.
 
-## Data model and setters
+### Data model and setters
 
 Three fields on the board (`models/boards.js`):
 
@@ -294,7 +329,7 @@ Who may persist them is decided where it is for every other board setting:
 a **board admin** (or a site admin). A non-admin does not see the menu entry
 and could not write the fields if they did.
 
-## REST API
+### REST API
 
 The same settings over HTTP, for scripts and integrations:
 `GET /api/boards/:boardId/boardViewSettings` (board access) answers
@@ -309,16 +344,34 @@ is always shown, hiding a side's default is a `400`, an unknown view key is a
 and in the generated OpenAPI spec (`get_board_view_settings`,
 `update_board_view_settings`).
 
-## Related
-
-- [Card field display order](Card.md) - the Card Settings
-  popup this one is modelled on.
-- [Swimlanes](../../Swimlanes/Swimlanes.md), [Roadmap](../../Board-Header/Board-Views/Roadmap.md), [Bigboard](../../Board-Header/Board-Views/Bigboard.md),
-  [Group by Assignee](../../Board-Header/Board-Views/Group-By-Assignee.md) - some of the views the menu offers.
-
-## Scrum support design
+### Scrum support design
 
 See the [source audit and Scrum implementation design](../../Board-Header/Board-Views/Scrum/Scrum-Design.md)
 for existing capabilities, missing sprint features, menu placement, optional
 fields and import/export/sync requirements. This is planned work, not a list of
 features already shipped.
+
+## Commits
+
+ - [Twelve Board View reports: Created vs. Resolved, Net Flow, Time in List, Average Age, Throughput Run, Due Date ](https://github.com/wekan/wekan/commit/63b5e089f5113960f22fc3d72e3dce3ae86981e2)
+ - [Board View menu and the Import and Export lists are grouped under headings](https://github.com/wekan/wekan/commit/257835733b0ec5d950fac6feb2e13c589219bb9d)
+ - [A visitor's Scrum board view opens as chosen, not as Swimlanes](https://github.com/wekan/wekan/commit/a896f3ed8c0dc7741b158c3d6d58ff59ffbb6be2)
+ - [Board View / Version Control, issue files and synced issue details](https://github.com/wekan/wekan/commit/326d9bbf619ed811e9db92896a67f0ea6fa60b24)
+ - [Board views Email and Chat](https://github.com/wekan/wekan/commit/ddb33d21d05fb6ce47cd9a899407319a82fb6753)
+ - [Add Calendar Mode to the Board View menu, below Calendar: Trello's calendar](https://github.com/wekan/wekan/commit/f133ddbba163dacb53077457a44428d3a8e81796)
+ - [Remember the board view per board](https://github.com/wekan/wekan/commit/80fb317fda1b069562b76263dc135007d4104c6e)
+ - [Reorder Board Settings / Card and Board View rows by drag and drop](https://github.com/wekan/wekan/commit/2d80e6e4ee4afec3dff380e53fa90f419af450f2)
+ - [Add a Map board view: cards as markers on an uploaded image](https://github.com/wekan/wekan/commit/3d891ace09d88fa6723ef556c343fdcfeb72e87b)
+ - [Board View: the default menu order is the order it had before views became orderable](https://github.com/wekan/wekan/commit/bbe8b40d903c516491c45c69d3b220415dfd2b32)
+ - [Board Settings / Board View: reorder the Board View menu with up/down arrows](https://github.com/wekan/wekan/commit/82646e4bc0f891ed044bdc5c6cf910cd8dd4a4ea)
+ - [Add REST API for Board Settings / Board View, and OpenAPI blocks for the card settings routes](https://github.com/wekan/wekan/commit/c64d3454ac625f8c16d267decad88a9113417659)
+ - [Board Settings / Board View: which views a public or private board offers, and which one it opens in](https://github.com/wekan/wekan/commit/349c7490e72f93b4e692ff1ff22c7f0eda2431da)
+ - [Add the Timeline board view (read-only history + restore to a past state)](https://github.com/wekan/wekan/commit/12cd826c37717682aac58e1bb98f062a000acb50)
+ - [Add a Roadmap board view grouping cards by a custom field into timeline rows (#627)](https://github.com/wekan/wekan/commit/784a249331b98cc617bc7f00ca87ad2d28afd2c7)
+ - [Add a "Pulse" board view charting daily board activity, GitHub-Pulse-style](https://github.com/wekan/wekan/commit/2d8fb6070af0229b398f2aeed71b204c7494eb32)
+ - [Add a "Multi Board Calendar" board view (#2469)](https://github.com/wekan/wekan/commit/0c15b56f6e3db5b52e43ceaf238dfac30ab7fb6d)
+ - [Register the Bigboard view's templates and add its regression test](https://github.com/wekan/wekan/commit/8c7345ace67d9bf7b3d8b6965bbc3e06d64d2719)
+ - [Add a "Group by Assignee" board view for team-meeting-friendly overviews](https://github.com/wekan/wekan/commit/8dad0d0506f89e3c54ee98099c182bdec71acc5d)
+ - [Give Frappe Gantt its own Board View page; add DHTMLX Gantt](https://github.com/wekan/wekan/commit/e5e4c97154f5ecf940958504c65f1159cf0b7165)
+ - [Group the Board View menu with separators and mark unfinished views](https://github.com/wekan/wekan/commit/14136a5b0c6aaff80964bbe62d385c4e8925ab43)
+ - [Reorder the Board View menu and add its not-yet-built views](https://github.com/wekan/wekan/commit/876b0a2c12edffcff323900a2f50807816cfabf6)

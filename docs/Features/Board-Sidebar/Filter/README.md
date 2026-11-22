@@ -1,6 +1,29 @@
 # Board filters
 
-## Search across boards
+## What it is
+
+The board's **Filter** shows only the cards that match what you choose -
+labels, members, assignees, creators, parent cards, dates, custom-field
+comparisons, card text, list age and recorded moves - without changing any
+card or anyone's access. **Global Search** finds cards across all your boards.
+A combination of filters can be saved under a name and applied again.
+
+## Read more
+
+- [Wikipedia: Filter (software)](https://en.wikipedia.org/wiki/Filter_(software))
+- [Wikipedia: Boolean algebra](https://en.wikipedia.org/wiki/Boolean_algebra),
+  the `and`, `or` and `not` of the advanced filter
+- [Wikipedia: ISO 8601](https://en.wikipedia.org/wiki/ISO_8601), the
+  `YYYY-MM-DD` dates the filter reads without ambiguity
+- [Adding a card filter](Providers.md): the filter provider API
+- WeKan issue [#1499](https://github.com/wekan/wekan/issues/1499), hiding old
+  cards in a list
+
+## How to use it
+
+Open **Filter** in the board header. Each task below has its own steps.
+
+### Search across boards
 
 In **Global Search**, `due:overdue` finds cards whose deadline is before the
 instant you submit the search, including deadlines earlier today. In an
@@ -15,7 +38,7 @@ terms retain their additional card-number match (`#12` means label 12 or card
 number 12). Rerun the query to refresh its time cutoff. Saved sidebar filter
 combinations are still per board, separate from global search queries.
 
-## Filter the current board
+### Filter the current board
 
 Open **Filter** in the board header. Card, list and advanced-filter text stays
 visible when the panel is closed and reopened. Closing the panel does not clear
@@ -57,7 +80,7 @@ The board Calendar grid and Calendar list honor the same active card filters.
 This does not claim that the separate Multi Board Calendar shares every board
 filter or that arbitrary historical move-date filters exist.
 
-## Subtasks by parent
+### Subtasks by parent
 
 Choose **Filter → Parent card** to show direct subtasks of the selected parent
 cards. Selecting several parents matches children of any of them. Click a
@@ -74,7 +97,7 @@ This is a view filter: read-only members can use it, and it changes no card or
 permission. Switching boards clears parent selections, like other board-local
 filters. No new card fields or server publications are required.
 
-## Advanced custom-field comparisons
+### Advanced custom-field comparisons
 
 An advanced comparison matches the named custom field's own value. For example,
 `Points = 2` does not match a card with Points set to 1 merely because another
@@ -105,7 +128,7 @@ comparison; `Points > 2hours` is invalid. Equality can still match literal text
 such as `Text = '2hours'`, without also matching the number 2. Dropdown labels
 continue resolving to their stored option IDs.
 
-## Hide old cards in a list
+### Hide old cards in a list
 
 In **Filter → Hide old cards in a list**, select a list (for example Done),
 enter a whole number of days, and choose **Apply**. Cards that entered that list
@@ -145,7 +168,7 @@ when performing this repair. These controls implement the list-age request in
 [#1499](https://github.com/wekan/wekan/issues/1499); unrecorded historical moves
 cannot be reconstructed, so their ages deliberately remain unknown.
 
-## Filter the card's own dates
+### Filter the card's own dates
 
 Advanced Filter accepts these built-in date names:
 
@@ -184,7 +207,7 @@ with `@`: `'@endAt' = keep` addresses that custom field, while
 names and regex comparisons are rejected; the sidebar retains its last valid
 filter and a rule does not match. Filtering does not archive or delete cards.
 
-## Pick a date range without an expression
+### Pick a date range without an expression
 
 Under **Filter by date**, choose a **Date field**, enter **From** and/or
 **Through**, and press **Apply**. The picker supports creation, last modification,
@@ -207,7 +230,7 @@ Bundled extensions can add controls through the
 [filter provider API](Providers.md), including query, reset and saved-state
 integration.
 
-## Relative creation and modification dates
+### Relative creation and modification dates
 
 Under **Filter by date**, the **Created** and **Modified** selectors apply
 immediately. Select the last 24 hours, 7 days, 30 days, or more than 30 days ago.
@@ -221,7 +244,7 @@ including the explicit date range. They refresh every minute while active,
 remain selected when the sidebar closes or the board changes, and make no card
 writes. **Any time** disables that field; the final clear button resets both.
 
-## Search all card text
+### Search all card text
 
 **Filter card text** matches a case-insensitive literal substring in the title,
 description, checklist names, checklist item text or comments. Punctuation is
@@ -238,7 +261,7 @@ entered query shows no matches until its result arrives. The filter combines
 with labels, dates and other sidebar constraints and persists across board
 navigation; clearing its field or all filters disables it. No cards are edited.
 
-## Find cards moved during a historical interval
+### Find cards moved during a historical interval
 
 Under **Filter by date**, use **Moved during (recorded history)** and press
 **Apply**. Both selected local calendar days are included. Leave one endpoint
@@ -261,7 +284,7 @@ and deletions update matches, as do card placement and access changes. Local
 calendar endpoints are sent as exact instants, so the server's timezone does
 not reinterpret them. No cards or history records are written by the filter.
 
-## Due in the previous week or next month
+### Due in the previous week or next month
 
 **Due in the previous week** selects the complete calendar week before the
 current week, using your configured first day of the week. **Due next month**
@@ -275,7 +298,7 @@ their calendar boundaries
 every minute while active; they do not keep yesterday's week/month range after
 a calendar rollover. They combine with other filters and never archive cards.
 
-## Save a filter combination
+### Save a filter combination
 
 Signed-in users can use **Saved filters** at the top of the filter panel.
 Choose the filters, enter a name, and press **Save current filters**. The
@@ -297,3 +320,98 @@ to 80 characters. The board's current data and permissions still control the res
 not preserve access to removed cards, labels, fields or board membership.
 Saved choices disappear from your client when board access is revoked and are
 removed from storage when the board or owning account is normally deleted.
+
+## How the numbers are calculated
+
+- **Table view in lazy loading mode**: a server page holds 25 cards
+  (`TABLE_PAGE_SIZE` in
+  [server/lib/boardTablePage.js](../../../../server/lib/boardTablePage.js)); search,
+  sorting and swimlane grouping run over the whole authorized result before
+  paging.
+- **Hide old cards in a list** (`columnAgeSelector` in
+  [models/lib/cardListEntry.js](../../../../models/lib/cardListEntry.js)): the
+  cutoff is now less N x 86,400,000 ms (N whole days, from 1 to 365,000; the
+  form starts at 30). A card of that list is hidden when its `listEnteredAt` is
+  before the cutoff; cards of other lists and cards with no entry date stay
+  visible. The cutoff refreshes once per minute. The startup backfill reads
+  cards in batches of 250
+  ([server/lib/cardListEntryBackfill.js](../../../../server/lib/cardListEntryBackfill.js)).
+- **Created and Modified** (`cardRecencySelector` in
+  [models/lib/cardDateRange.js](../../../../models/lib/cardDateRange.js)): the
+  last 24 hours, 7 days or 30 days are now less 1, 7 or 30 x 24 hours,
+  endpoints included and future times excluded; **more than 30 days ago** is
+  strictly before the 30-day cutoff.
+- **A date range** (`cardDateRangeSelector`, same file): from the start of the
+  **From** day to the end of the **Through** day, in the browser's local time
+  zone, both days included.
+- **Due in the previous week** is the whole calendar week before the current
+  one, from your first day of the week; **Due next month** the first to the
+  last day of the next calendar month ([client/lib/filter.js](../../../../client/lib/filter.js)).
+- **Limits**: card text up to 512 characters (other text fields up to 8,192)
+  ([models/lib/filterPresetState.js](../../../../models/lib/filterPresetState.js));
+  a saved filter's name up to 80 characters
+  ([server/filterPresets.js](../../../../server/filterPresets.js)); the text
+  search reads cards 250 at a time
+  ([server/lib/boardTextSearch.js](../../../../server/lib/boardTextSearch.js)).
+
+## How it works in WeKan
+
+The panel is
+[client/components/sidebar/sidebarFilters.jade](../../../../client/components/sidebar/sidebarFilters.jade)
+and [client/components/sidebar/sidebarFilters.js](../../../../client/components/sidebar/sidebarFilters.js).
+Every filter is a class of [client/lib/filter.js](../../../../client/lib/filter.js)
+(`DateFilter`, `CardDateRangeFilter`, `CardRecencyFilter`, `ColumnAgeFilter`,
+`StringFilter`, `SetFilter`, `LabelFilter`, `AdvancedFilter`), which build one
+Mongo selector over the cards already published to the browser. The text
+search and the moved-during search run on the server
+([server/lib/boardTextSearch.js](../../../../server/lib/boardTextSearch.js),
+[server/lib/boardMovementSearch.js](../../../../server/lib/boardMovementSearch.js))
+and send back only matching card IDs, after the board's visibility and
+assigned-only membership are applied. Advanced comparisons share their builder
+with the Rules ([server/lib/advancedFilterMatch.js](../../../../server/lib/advancedFilterMatch.js)).
+Saved combinations are stored per user and board by
+[server/filterPresets.js](../../../../server/filterPresets.js), validated by
+[models/lib/filterPresetState.js](../../../../models/lib/filterPresetState.js).
+Extensions add controls through
+[client/lib/filterProviders.js](../../../../client/lib/filterProviders.js).
+Tests include
+[tests/advancedFilterGrammar.test.cjs](../../../../tests/advancedFilterGrammar.test.cjs),
+[tests/advancedFilterCardDates.test.cjs](../../../../tests/advancedFilterCardDates.test.cjs),
+[tests/boardTextFilter.test.cjs](../../../../tests/boardTextFilter.test.cjs),
+[tests/cardMovementFilter.test.cjs](../../../../tests/cardMovementFilter.test.cjs),
+[tests/cardRecencyFilter.test.cjs](../../../../tests/cardRecencyFilter.test.cjs),
+[tests/filterPresets.test.cjs](../../../../tests/filterPresets.test.cjs) and
+[tests/filterProviders.test.cjs](../../../../tests/filterProviders.test.cjs).
+
+## Commits
+
+ - [Filters: the date-range forms are checked by WeKan, not refused by WebKit after Clear](https://github.com/wekan/wekan/commit/4ad13db5efb021f6b2c7547186c36a8c96148c9c)
+ - [Filters: a refused date range says why in the form, so Clear still works in Firefox](https://github.com/wekan/wekan/commit/c5f5ad2338c803507436618e32284641dd1f6515)
+ - [Use native checkbox and radio controls for board filters](https://github.com/wekan/wekan/commit/c5fc4ff61a0a621a65d9caa72738245b056d625d)
+ - [Register extensible card filters with versioned saved state](https://github.com/wekan/wekan/commit/5904f077a9328857a7e4aba5627563277937ff89)
+ - [Save private board filter combinations for each user](https://github.com/wekan/wekan/commit/16508a8fa77213f71f0ff87b01cd5587315941c1)
+ - [Filter cards by recorded historical movement dates](https://github.com/wekan/wekan/commit/c17305c2e8f4e17ba6f271e7bcdaff0ad2af7da3)
+ - [Filter cards by titles descriptions checklists and comments](https://github.com/wekan/wekan/commit/0bf2dc27be05b2b60f4b928c106df0236ccc8276)
+ - [Add rolling creation and modification date filters](https://github.com/wekan/wekan/commit/34ed467a435d432d24227888d786e0621cf0a48b)
+ - [Add native date range controls to card filters](https://github.com/wekan/wekan/commit/5527f8503d851f74bf1e03b697dab8a172dcf91e)
+ - [Filter native card dates in advanced expressions and rules](https://github.com/wekan/wekan/commit/930c5c67d5b74e5c9afecc34d5e2715ec9744ce9)
+ - [Track column entry time and filter old cards by list](https://github.com/wekan/wekan/commit/0542a239fd1015e76c29d2ebbd7c4dc4a24482c0)
+ - [Preserve decimal boundaries in advanced filters and rules](https://github.com/wekan/wekan/commit/43bf737e3e64d49ba86cc2a4b9047c938e44fa68)
+ - [Parse grouped and negated advanced filters safely](https://github.com/wekan/wekan/commit/2d0dea9126c2074ff58b37a2e236c65de7189efe)
+ - [Bind advanced filter comparisons to the named custom field](https://github.com/wekan/wekan/commit/17341c18c0c301008689f6aca7788f81769d797e)
+ - [Add current-board subtask filtering by parent card](https://github.com/wekan/wekan/commit/8ad064346aca4407651ebf10565c6e6452279405)
+ - [Add AND/OR label filtering and preserve reopened filter text](https://github.com/wekan/wekan/commit/6be31f5a2c74c06379cb447b117589908258927d)
+ - [Sync the board Filter sidebar's state back into the URL query params](https://github.com/wekan/wekan/commit/5ffecf7aab3a7941d862bdc2dd00b362e35714a2)
+ - [Add a "Filter by creator" filter, and keep member/assignee/creator/date filters active when switching boards](https://github.com/wekan/wekan/commit/f5829b2ed3931c7d7215a168491739cc31551cd3)
+ - [Add a three-state label filter: unfiltered -> include -> exclude -> clear](https://github.com/wekan/wekan/commit/b13a5af330d0617d4cbd7b19c05eb4c97b90a62e)
+ - [Fix #6483: 'Filter by date -> Overdue' listed cards with no due date](https://github.com/wekan/wekan/commit/b1d33c536239d45ae5df6139beb6b5548f7e03c0)
+ - [Fix #2989: Advanced Filter matches date custom fields](https://github.com/wekan/wekan/commit/66a19c4bd47100b3bdc3448bdfa83d0995c98127)
+ - [Fix #4881: Due this week / next week filter now respects the start day of week](https://github.com/wekan/wekan/commit/e5c844fca7190d158302472862bab380707ff3aa)
+ - [Red Strings: typed relations, color/icon, badge, filter, REST API, import/export, docs](https://github.com/wekan/wekan/commit/2a0d9cbf09a5a6fb424b790dedcbeb415bac9c3c)
+ - [Fix Filter](https://github.com/wekan/wekan/commit/06cdd459dbe7e11e971d91f75c4344386acb38ee)
+ - [Disable sidebar showing when filtering using keyboard shortcut](https://github.com/wekan/wekan/commit/ebece3f961d32084b06cd0676b12ba3e2712571b)
+ - [Fix due date filter for next and this week](https://github.com/wekan/wekan/commit/946c2889256957333fed30306f84b30f3e460d87)
+ - [Added 'next week' due date filter](https://github.com/wekan/wekan/commit/70de2d48bea2cc5a2fa0e5396e7b37f6f5791f38)
+ - [Add icon to Filter List by Title](https://github.com/wekan/wekan/commit/705e6d7e3ab4e97f8e4f9c40b623d4aeb659107f)
+ - [Try to fix : Filter List by Title - prevent showing only the list title - Hiding empty lists in Swimlane view](https://github.com/wekan/wekan/commit/6c83cb5b44d02ebe94732ac41ffcac691ef05742)
+ - [Fix : Filter List by Card Title](https://github.com/wekan/wekan/commit/e64bc389327fc315d9014d1e545e89a501e474e3)

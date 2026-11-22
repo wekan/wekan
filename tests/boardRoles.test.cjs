@@ -272,7 +272,11 @@ test('the table marks no gap, because there is none left', () => {
     'while still not being able to edit one - that is what made this a field-level '
     + 'policy rather than a table edit');
 
-  const gaps = doc.slice(doc.indexOf('## Known gaps'), doc.indexOf('## Setting a role'));
+  // The section runs to the next heading: Setting a role moved up to How to use
+  // it when the page took the shared feature-page structure, so Known gaps is
+  // now followed by Keeping this page honest.
+  const gapsAt = doc.indexOf('## Known gaps');
+  const gaps = doc.slice(gapsAt, doc.indexOf('\n#', gapsAt + 1));
   assert.ok(/None recorded/.test(gaps), 'the section says so plainly');
   assert.ok(!/isWorker/.test(gaps), 'and no longer carries the Worker entry');
 

@@ -1,5 +1,7 @@
 # Board roles — what each one may and may not do
 
+## What it is
+
 A board member has exactly one role. It is set from the board sidebar (click a
 member's avatar) or over the [REST API](../../../API/Role.md), and both write the
 same eight booleans on the member — `setMemberPermission` sets all of them in one
@@ -13,11 +15,52 @@ see [Keeping this page honest](#keeping-this-page-honest) at the end.
 > Panel administrator and is a different thing from a board's `board-admin` role.
 > A site admin has no special power *inside* a board they are not a member of.
 
-## The table
+## Read more
+
+- [Wikipedia: Role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control)
+- [Wikipedia: Principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
+- [Members and Permissions](Members.md)
+- [Change Role at Web UI and API](../../../API/Role.md)
+- [Admin Panel](../../Admin-Panel/Admin-Panel.md)
+- [List permissions](../../Lists/List-Permissions.md)
+
+## How to use it
+
+### Setting a role
+
+- **Web UI** — board sidebar, click a member's avatar, pick the role.
+- **REST API** — see [Role.md](../../../API/Role.md). Note that the API takes the
+  flags individually, so it is the one way to produce a combination the UI cannot.
+- **LDAP / OIDC** — group sync can set board membership; see
+  [LDAP](../../Login-Page/LDAP.md).
+
+A custom role is given the same way: click the member, then **Change
+permissions**, and pick it below the built-in roles (see *Custom roles*
+below).
+
+## How the numbers are calculated
+
+From [models/lib/boardRoleCapabilities.js](../../../../models/lib/boardRoleCapabilities.js):
+
+- **9 built-in roles** (`BOARD_ROLES`) and **8 member flags** (`ROLE_FLAGS`);
+  setting a role writes all eight in one update, exactly one `true`.
+- **5 capabilities** decide every check: sees all cards, comment, write,
+  manage the board and move a card. A custom role is built from 5 as well -
+  sees all cards, comment, write, move a card and invite to the board - and
+  never gets manage-board.
+- **Which role a member has** (`memberRoleOf`): none when the member is not
+  active; Board admin when `isAdmin`; the custom role when the member has one
+  that still exists; otherwise the first other flag that is set; otherwise
+  Normal.
+
+## How it works in WeKan
+
+### The table
 
 Everything below is what the **server** allows. The server is the authority: the
-UI can only hide buttons, and where the two disagree it is listed under
-[Where the UI is more generous than the server](#where-the-ui-is-more-generous-than-the-server).
+UI can only hide buttons, and where the two disagreed it is recorded under
+[Fixed](#fixed) (a disagreement not fixed yet belongs under
+[Known gaps](#known-gaps)).
 
 | Role | Member flag | Which cards they see | Comment | Create / edit cards, lists, swimlanes, checklists | Board settings, members, roles | Move a card, assign yourself |
 |---|---|---|---|---|---|
@@ -48,13 +91,13 @@ button, as the read-only *Roles Status* pane. It is rendered from
 `models/lib/boardRoleCapabilities.js`, which is also what the allow rules decide
 with — so the page cannot show a permission that is not enforced.
 
-## Per-list exceptions
+### Per-list exceptions
 
 A board admin can change what a role may do in ONE list - allow editing or
 commenting there, or refuse it - see [List permissions](../../Lists/List-Permissions.md)
 (#4527).
 
-## Custom roles
+### Custom roles
 
 An administrator can add named roles in **Admin Panel → People → Roles →
 Custom roles** (#3022). A custom role is built from these columns:
@@ -103,7 +146,7 @@ How it is enforced:
 
 `tests/customBoardRoles.test.cjs` checks every combination of capabilities.
 
-## Where each column comes from
+### Where each column comes from
 
 `models/lib/boardRoleCapabilities.js` is the table, in code. Everything reads it:
 
@@ -138,7 +181,7 @@ or an `$addToSet` / `$pull` of the caller's OWN id on `assignees`. Anything else
 a title, a label, somebody else's name, a whole-document replacement, an operator
 it does not recognise — is refused.
 
-## Roles in every board view
+### Roles in every board view
 
 A role is a property of the member on **the board**, not of the view they look
 at it through. Every board view, the API and every write ask the same question
@@ -155,7 +198,7 @@ in `models/lib/boardCardScope.js`, and the server applies it - the UI only
 decides what to draw. A view that has no server source of its own draws from the
 board's published cards, which are already narrowed.
 
-### Custom roles in every board view
+#### Custom roles in every board view
 
 A [custom role](#custom-roles) from **Admin Panel → People → Roles → Custom
 roles** is applied in every board view exactly as a built-in role is, because
@@ -199,7 +242,7 @@ nothing sets the flags without the custom role following.
 `server/lib/tests/customBoardRoles.tests.js` checks on a running server that
 turning **Sees all cards** off and on again reaches the member.
 
-### Which source each view reads
+#### Which source each view reads
 
 | Board view | Where its cards come from | For an assigned-only member |
 |---|---|---|
@@ -253,7 +296,7 @@ code of its own for this as long as it draws from those sources; one that adds
 a publication or method of its own must apply `assignedOnlyCardScope()` there,
 and the test will say so if it does not.
 
-## Fixed
+### Fixed
 
 Three roles used to do something other than what their name says. All three came
 from the same cause — the rule was written out as a list of flags in three
@@ -297,21 +340,12 @@ The UI helpers were part of the same drift — `canModifyCard()` did not exclude
 `isNoComments` nor `isWorker` — so each disagreement was a button offered to
 somebody whose write the server then refused. All three now ask the same table.
 
-## Known gaps
+### Known gaps
 
 None recorded. A new one belongs here, with the reason it is not fixed — not in
 the table as a softer word.
 
-## Setting a role
-
-- **Web UI** — board sidebar, click a member's avatar, pick the role.
-- **REST API** — see [Role.md](../../../API/Role.md). Note that the API takes the
-  flags individually, so it is the one way to produce a combination the UI cannot
-  (see gap 3).
-- **LDAP / OIDC** — group sync can set board membership; see
-  [LDAP](../../Login-Page/LDAP.md).
-
-## Keeping this page honest
+### Keeping this page honest
 
 `tests/boardRoles.test.cjs` reads this table and the code together, and fails when
 they drift: every role `Board.memberRole()` can return must have a row here, every
@@ -319,8 +353,12 @@ row's flag must be a real member flag in the board schema, and the "create / edi
 and "comment" columns must match the flag lists in the two `server/lib/utils.js`
 helpers. If you change a permission, this page is part of the change.
 
-## Related
+## Commits
 
-- [Members and Permissions](Members.md)
-- [Change Role at Web UI and API](../../../API/Role.md)
-- [Admin Panel](../../Admin-Panel/Admin-Panel.md)
+ - [Custom roles apply in every board view: verified, tested and documented](https://github.com/wekan/wekan/commit/1020cd7e86f80b0c12abeca5cffcbd0c50dedcf9)
+ - [Docs: how board roles apply to every board view](https://github.com/wekan/wekan/commit/63117b61d9276636f90149f8f24fe8360fec9952)
+ - [Boards every signed-in user may edit, per-list permissions, board keys and shared labels](https://github.com/wekan/wekan/commit/7595727917d436ea71969d6d74d166b42b38ed4e)
+ - [Custom board roles, and team memberships that leave with the team](https://github.com/wekan/wekan/commit/50bb989eb8d90ed9bfafbceb3f9f8e68e208116e)
+ - [Fix #3189: a Worker can move a card and assign themselves to it](https://github.com/wekan/wekan/commit/7b35cb5f03883f31c198171bc18e6d53ecc380fb)
+ - [Document what each board role may and may not do, as one table, read from the code](https://github.com/wekan/wekan/commit/744df4154407ad47ef6f50c955acc8da1c0c5669)
+ - [Board roles: one capability table, three roles fixed, and a Roles Status pane that shows it](https://github.com/wekan/wekan/commit/efa534fddf5a9fbec0d3b663d8cbbd77ca9b161d)
