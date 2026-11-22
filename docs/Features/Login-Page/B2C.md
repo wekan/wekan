@@ -1,10 +1,34 @@
-## Azure AD B2C using OAuth2
+# Azure AD B2C using OAuth2
 
-- Original issue: https://github.com/wekan/wekan/issues/5242
-- B2C feature added: https://github.com/wekan/wekan/commit/93be112a9454c894c1ce3146ed377e6a6aeca64a
-- Similar like [ADFS](./ADFS.md), but `email` is first of array `userinfo[emails]`
+## What it is
 
-## Snap
+Azure AD B2C (Microsoft's customer identity service) can sign users in to
+WeKan through WeKan's generic OAuth2 / OpenID Connect login. It is set up
+much like [ADFS](./ADFS.md): the claims come from the token instead of a
+userinfo endpoint. The difference is the email address, which B2C sends as
+the first entry of the `emails` array in the token.
+
+## Read more
+
+- [Microsoft: What is Azure Active Directory B2C?](https://learn.microsoft.com/en-us/azure/active-directory-b2c/overview)
+- [Microsoft: Web sign-in with OpenID Connect in Azure AD B2C](https://learn.microsoft.com/en-us/azure/active-directory-b2c/openid-connect)
+- [OpenID on Wikipedia](https://en.wikipedia.org/wiki/OpenID) and
+  [OAuth on Wikipedia](https://en.wikipedia.org/wiki/OAuth)
+- Original issue: [#5242](https://github.com/wekan/wekan/issues/5242)
+- WeKan: [OAuth2](OAuth2.md), [ADFS](ADFS.md), [Azure](Azure/Azure.md)
+
+## How to use it
+
+1. In Azure AD B2C, register WeKan as an application with the redirect URI
+   `https://<your WeKan ROOT_URL>/_oauth/oidc`, create a client secret, and
+   create the user flow (policy) WeKan should use. The tenant must release
+   the `emails` claim for the requested scopes.
+2. Set the settings below for your platform, replacing `B2C_TENANT_NAME` and
+   `B2C_POLICY_NAME`. The same settings can be overridden in
+   **Admin Panel / People / OAuth2** (`/admin/people/oidc`).
+3. Open WeKan at its `ROOT_URL` and click the OIDC button on the sign-in page.
+
+**Snap**
 
 ```
 sudo snap set wekan oauth2-enabled='true'
@@ -22,7 +46,7 @@ sudo snap set wekan oauth2-fullname-map='name'
 sudo snap set wekan oauth2-id-map='sub'
 ```
 
-## Docker
+**Docker**
 
 [docker-compose.yml](../../../docker-compose.yml)
 
@@ -42,6 +66,35 @@ sudo snap set wekan oauth2-id-map='sub'
       - OAUTH2_ID_MAP=sub
 ```
 
-## Others
+**Others** - similar like above Docker.
 
-Similar like above Docker.
+## How the numbers are calculated
+
+- The email is `emails[0]`, the first element of the token's `emails` array;
+  `OAUTH2_EMAIL_MAP` is not used for it while `OAUTH2_B2C_ENABLED=true`.
+- The session expiry is `now + 1000 * expires_in` milliseconds; a token
+  response without a usable `expires_in` counts as 3600 seconds
+  ([packages/wekan-oidc/oidc_server.js](../../../packages/wekan-oidc/oidc_server.js)).
+
+## How it works in WeKan
+
+- [packages/wekan-oidc/oidc_server.js](../../../packages/wekan-oidc/oidc_server.js):
+  with `OAUTH2_B2C_ENABLED=true` (like `OAUTH2_ADFS_ENABLED`) the claims are
+  decoded from the access token (`getTokenContent()`), not fetched from a
+  userinfo endpoint. Both `serviceData.email` and `profile.email` are set
+  from `userinfo.emails[0]`. A token without a non-empty `emails` array stops
+  the login with "the token carries no "emails" claim" (#5174) instead of a
+  TypeError.
+- The setting is field `b2cEnabled` of section `oidc` in
+  [models/lib/authConfigCatalog.js](../../../models/lib/authConfigCatalog.js),
+  resolved per login by [server/lib/authConfig.js](../../../server/lib/authConfig.js).
+- Tests: [tests/oidcNullUserinfo.test.cjs](../../../tests/oidcNullUserinfo.test.cjs)
+  (missing `emails` claim, undecodable token),
+  [tests/authConfigCatalog.test.cjs](../../../tests/authConfigCatalog.test.cjs).
+
+## Commits
+
+ - [Admin Panel / People / OAuth2 can override OAUTH2_B2C_ENABLED and the other OAuth2 settings](https://github.com/wekan/wekan/commit/eb49a4b1b6853650823434e924f5d0dc47a4fe5b)
+ - [Log in by full-page redirect by default](https://github.com/wekan/wekan/commit/ad51a03731ed2daf039204ccc7423dd05b3c9506)
+ - [A B2C token without the emails claim says so instead of failing on undefined](https://github.com/wekan/wekan/commit/a50b483ff92786886acf2faf99e7072e6b2c9607)
+ - [Add Azure AD B2C login: claims from the access token, email from emails[0]](https://github.com/wekan/wekan/commit/93be112a9454c894c1ce3146ed377e6a6aeca64a)
