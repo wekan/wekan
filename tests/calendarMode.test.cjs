@@ -71,7 +71,7 @@ test('the view is offered below Calendar, rendered by the board, and shows label
   assert.match(read('models/lib/instanceFeatures.js'), /views: \['board-view-cal', 'board-view-calendar-mode', 'board-view-multiboard-cal'\]/);
   // Set and read back without an account through BOARD_VIEWS (checked above).
   assert.match(read('client/lib/utils.js'), /setItem\('boardView', isKnownBoardView\(view\) \? view : DEFAULT_BOARD_VIEW\)/, 'set');
-  assert.match(read('client/lib/utils.js'), /return isKnownBoardView\(browserView\) \? browserView : DEFAULT_BOARD_VIEW;/, 'and read back');
+  assert.match(read('client/lib/utils.js'), /if \(isKnownBoardView\(browserView\)\) return browserView;/, 'and read back');
   assert.match(read('client/components/boards/boardHeader.js'), /'click \.js-open-calendar-mode-view'\(\) \{\s*Utils\.setBoardView\('board-view-calendar-mode'\);/);
   assert.match(read('client/components/boards/boardBody.jade'), /else if isViewCalendarMode\s*\n\s*\+calendarModeView/);
   const jade = read('client/components/boards/calendarModeView.jade');

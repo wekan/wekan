@@ -336,12 +336,18 @@ export const Utils = {
   // returned as it is. A view the instance disabled (#6736, Admin Panel /
   // Settings / Visibility / Features) is not offered either.
   boardView() {
-    const stored = Utils.storedBoardView();
     const board = Utils.getCurrentBoard();
-    return board ? resolveBoardView(board, stored, allowBoardView, Meteor.userId()) : stored;
+    if (!board) return Utils.storedBoardView();
+    // Somebody who never chose a view on this board - a visitor of a public
+    // board above all - gets the board's own default (Board Settings / Board
+    // View), not Swimlanes passed off as their choice: that made "Default on
+    // Public Board" do nothing for everybody who had not picked a view.
+    return resolveBoardView(board, Utils.storedBoardView({ chosenOnly: true }), allowBoardView, Meteor.userId());
   },
 
-  storedBoardView() {
+  // The view this person chose, or - unless only a choice is asked for -
+  // Swimlanes when they chose none.
+  storedBoardView({ chosenOnly = false } = {}) {
     const pendingChoice = pendingBoardView.get();
     // #6745: only the view fields. boardView() is read by every list's card
     // loop (listBody's idOrNull/containerSwimlaneId); reading the whole user here
@@ -379,7 +385,8 @@ export const Utils = {
     // lacked the four Scrum views, so a visitor's Product Backlog, Sprints,
     // Sprint Report or Velocity opened as Swimlanes.
     const browserView = window.localStorage.getItem('boardView');
-    return isKnownBoardView(browserView) ? browserView : DEFAULT_BOARD_VIEW;
+    if (isKnownBoardView(browserView)) return browserView;
+    return chosenOnly ? null : DEFAULT_BOARD_VIEW;
   },
 
   // `swimlaneId` scopes a BOARD-WIDE list's collapse state to the one

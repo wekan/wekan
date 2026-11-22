@@ -114,7 +114,7 @@ PER_MINICARD.forEach(([file, marker, field]) => {
 // document read here, one card open re-ran every list and Blaze re-evaluated
 // every minicard - 37,452 invalidations for 40 cards, 390 after.
 test('Utils.storedBoardView reads only the board-view fields', () => {
-  const body = bodyOf(read('client/lib/utils.js'), '  storedBoardView() {');
+  const body = bodyOf(read('client/lib/utils.js'), '  storedBoardView({ chosenOnly = false } = {}) {');
   // #4906 / #4256: the shared view and the per-board views, nothing else.
   assert.ok(/currentUserWith\(\['boardViewPreference', 'boardViewPreferences', 'profile\.boardView', 'profile\.boardViews'\]\)/.test(body));
   assert.ok(!WHOLE_USER.test(body), 'negative: not the whole user document');

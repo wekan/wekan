@@ -349,9 +349,11 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
 });
 
 test('Utils.boardView() resolves the stored choice through the current board', () => {
-  assert.ok(/boardView\(\) \{\s*const stored = Utils\.storedBoardView\(\);\s*const board = Utils\.getCurrentBoard\(\);\s*return board \? resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\) : stored;/.test(utilsJs), 'a view the instance disabled falls back too (#6736); the viewer decides public or private');
+  // On a board, only a view the person chose goes in; none is null, so the
+  // board's default applies (the last test of this file).
+  assert.ok(/boardView\(\) \{\s*const board = Utils\.getCurrentBoard\(\);\s*if \(!board\) return Utils\.storedBoardView\(\);[\s\S]{0,400}return resolveBoardView\(board, Utils\.storedBoardView\(\{ chosenOnly: true \}\), allowBoardView, Meteor\.userId\(\)\);/.test(utilsJs), 'a view the instance disabled falls back too (#6736); the viewer decides public or private');
   // #4906 / #4256: the stored choice is this board's own, else the shared one.
-  assert.ok(/storedBoardView\(\) \{\s*const pendingChoice = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
+  assert.ok(/storedBoardView\(\{ chosenOnly = false \} = \{\}\) \{\s*const pendingChoice = pendingBoardView\.get\(\);/.test(utilsJs), 'the previous body is the stored choice');
   assert.ok(utilsJs.includes("require('/models/lib/boardViewSettings')"));
 });
 
@@ -559,7 +561,7 @@ test('a public board shows its public views to visitors and its private views to
 test('the client resolves and draws the menu for the person looking', () => {
   const utils = read('client/lib/utils.js');
   const header = read('client/components/boards/boardHeader.js');
-  assert.match(utils, /resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\)/);
+  assert.match(utils, /resolveBoardView\(board, Utils\.storedBoardView\(\{ chosenOnly: true \}\), allowBoardView, Meteor\.userId\(\)\)/);
   assert.match(header, /boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView, Meteor\.userId\(\)\)/);
 });
 
@@ -604,3 +606,15 @@ test('every Board View entry links a guide that exists', () => {
 });
 
 console.log(`boardViewSettings: ${passed} passed`);
+
+// A visitor who never chose a view gets the board's "Default on Public
+// Board" - Swimlanes is not passed off as their choice, which made the public
+// default do nothing for everybody who had not picked a view.
+test('no view of one\'s own: the board\'s default; a choice of one\'s own: that choice', () => {
+  const board = { permission: 'public', members: [], defaultPublicBoardView: 'board-view-website' };
+  assert.strictEqual(bvs.resolveBoardView(board, null, () => true, null), 'board-view-website');
+  assert.strictEqual(bvs.resolveBoardView(board, 'board-view-lists', () => true, null), 'board-view-lists', 'a visitor\'s own choice wins');
+  const utils = read('client/lib/utils.js');
+  assert.match(utils, /resolveBoardView\(board, Utils\.storedBoardView\(\{ chosenOnly: true \}\), allowBoardView, Meteor\.userId\(\)\)/);
+  assert.match(utils, /return chosenOnly \? null : DEFAULT_BOARD_VIEW;/, 'negative: no choice is null, not Swimlanes');
+});

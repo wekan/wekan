@@ -119,7 +119,7 @@ test('the board view menu, rows, moves and fallback skip what the instance disab
 test('wiring: every place that draws or picks a board view asks the instance', () => {
   // ...and the viewer, deliberately: a public board's visitors get its public
   // views, its members its private ones (boardViewAudience).
-  assert.match(read('client/lib/utils.js'), /resolveBoardView\(board, stored, allowBoardView, Meteor\.userId\(\)\)/);
+  assert.match(read('client/lib/utils.js'), /resolveBoardView\(board, Utils\.storedBoardView\(\{ chosenOnly: true \}\), allowBoardView, Meteor\.userId\(\)\)/);
   assert.match(read('client/components/boards/boardHeader.js'),
     /boardViewMenuEntries\(board, Utils\.boardView\(\), allowBoardView, Meteor\.userId\(\)\)/);
   const sidebar = read('client/components/sidebar/sidebar.js');

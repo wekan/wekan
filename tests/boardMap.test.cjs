@@ -39,7 +39,7 @@ assert.match(read('client/components/boards/boardHeader.js'), /'click \.js-open-
 // Stored and restored without an account: client/lib/utils.js checks the
 // browser's view against BOARD_VIEWS (above) rather than its own copy.
 assert.match(read('client/lib/utils.js'), /setItem\('boardView', isKnownBoardView\(view\) \? view : DEFAULT_BOARD_VIEW\)/, 'stored');
-assert.match(read('client/lib/utils.js'), /return isKnownBoardView\(browserView\) \? browserView : DEFAULT_BOARD_VIEW;/, 'and restored');
+assert.match(read('client/lib/utils.js'), /if \(isKnownBoardView\(browserView\)\) return browserView;/, 'and restored');
 assert.match(read('models/users.js'), /'board-view-size-cycle-time',\s*'board-view-map',/);
 const cards = read('models/cards.js');
 assert.match(cards, /mapX: \{[\s\S]*?type: Number,\s*optional: true,\s*min: 0,\s*max: 100,/);

@@ -196,7 +196,7 @@ test('the anonymous-user fallback (no logged-in profile) accepts every view', ()
   const known = require('../models/lib/boardViewSettings').isKnownBoardView;
   VIEWS.forEach(v => assert.ok(known(v.view), `${v.view} is in BOARD_VIEWS`));
   assert.match(utilsJs, /setItem\('boardView', isKnownBoardView\(view\) \? view : DEFAULT_BOARD_VIEW\)/, 'storing accepts every view');
-  assert.match(utilsJs, /return isKnownBoardView\(browserView\) \? browserView : DEFAULT_BOARD_VIEW;/, 'and so does reading it back');
+  assert.match(utilsJs, /if \(isKnownBoardView\(browserView\)\) return browserView;/, 'and so does reading it back');
   assert.ok(!utilsJs.includes("'board-view-product-backlog',"),
     'no hand-written view list is left to drift (negative)');
 });
