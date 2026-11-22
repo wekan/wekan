@@ -1,7 +1,15 @@
 # Starred: boards, and bookmarks to everything else
 
-The star group in the first header bar is a **bookmarks menu**. It reads, in
-order:
+## What it is
+
+The star group in the first header bar is a **bookmarks menu**: it keeps the
+places you come back to one click away. You can star a board, any other page
+of WeKan (All Boards / Remaining, a workspace, Admin Panel / Settings /
+Version ...), and, from their own menus, a swimlane, a list or a card. The
+stars are yours alone. They are listed in the header's dropdown, as tiles in
+All Boards / Starred, and on the full **Starred** page (`/starred-items`).
+
+The group reads, in order:
 
 ```
 ▾  7  ☆
@@ -18,7 +26,43 @@ get at it* worked on one kind of destination and was simply absent on the rest.
 Those pages have had their own addresses since the All Boards and Admin Panel
 URLs landed, which is what made bookmarking them possible at all.
 
-## Two kinds of starred thing
+## Read more
+
+- [Bookmark (digital)](https://en.wikipedia.org/wiki/Bookmark_(digital)) on
+  Wikipedia - the browser idea this follows: a saved address with a title.
+- [The HTML `<title>` element](https://en.wikipedia.org/wiki/HTML_element#title)
+  - what the browser tab, and so the bookmark's name, shows.
+- In WeKan: [Home](../All-Boards/Home.md), [All Boards](../All-Boards/All-Boards.md),
+  [All Boards URLs](../All-Boards/URLs.md), [the header](../Header-Bar/Header.md),
+  and the Star entries of the [swimlane](../Swimlanes/Star.md),
+  [list](../Lists/Star.md) and [card](../Cards/Watch-Star.md) menus.
+
+## How to use it
+
+**Star a board or a page**
+
+1. Open the board or the page you want to keep.
+2. Click the star at the end of the star group in the first header bar. It
+   fills in, its title says **Click to unstar this page.**, and the count goes
+   up by one.
+3. Click it again to unstar.
+
+**Open something you starred**
+
+1. Click the caret (or the count) of the star group. The dropdown lists the
+   starred boards, then **Starred Pages**, **Starred Swimlanes**, **Starred
+   Lists** and **Starred Cards**.
+2. Click a row to go there, or **See all starred items** for the full
+   **Starred** page. The same page is **Starred** in the member menu.
+
+**Manage the bookmark tiles**
+
+1. Open **All Boards / Starred**. Starred pages are tiles in the same grid as
+   the starred boards.
+2. Click a tile's own unstar button to remove a bookmark without going there.
+3. Drag a bookmark tile past another to reorder; the header dropdown follows.
+
+### Two kinds of starred thing
 
 A **board** is starred by id. That is the star that has always existed, it is
 shared with the board's other members' stars through the board's own counter,
@@ -34,10 +78,33 @@ A **page** is starred as a **bookmark**: a *relative URL* and a *title*. It has
 no id to star, and there is nothing on the page itself to hang a count from — a
 bookmark belongs to the one person who made it.
 
-The group is one list either way, so the **count is both**. A count that left
-the bookmarks out would say 2 above a dropdown showing five rows.
+Swimlanes, lists and cards are starred by id from their own menus (**Star** /
+**Unstar**), each in its own profile array.
 
-## What a bookmark stores
+The group is one list either way, so the **count is all of them**. A count that
+left the bookmarks out would say 2 above a dropdown showing five rows.
+
+## How the numbers are calculated
+
+- **The count** beside the caret is `starredCount()` in
+  [models/users.js](../../../models/users.js): starred boards + starred pages +
+  starred swimlanes + starred lists + starred cards. Each part counts only the
+  entries that still resolve (an id whose board, swimlane, list or card is
+  gone, or a page entry that does not survive a round trip, is not counted).
+- **50 bookmarks** at most (`MAX_STARRED_PAGES` in
+  [models/lib/starredPages.js](../../../models/lib/starredPages.js)). When a
+  51st page is starred, the list keeps the last 50, dropping from the front.
+- **5 per kind** in the header dropdown for swimlanes, lists and cards, the
+  most recently starred first (`DROPDOWN_ITEMS_PER_TYPE` in
+  [client/components/main/header.js](../../../client/components/main/header.js));
+  the Starred page shows all.
+- **Reordering** moves one entry to the position of the target entry
+  (`moveStarredPage`): the moved entry is taken out, and put back in front of
+  the target; with no target it goes to the end.
+
+## How it works in WeKan
+
+### What a bookmark stores
 
 **A relative URL.** What is stored has to survive the site moving to another
 host, and an absolute URL pins a bookmark to the hostname it was made on. It is
@@ -48,12 +115,12 @@ slash, so a naive `startsWith('/')` lets it through.
 
 **The title from the browser tab.** That is what the dropdown lists, and a row
 saying `/allboards/remaining` would make the reader parse a path to find out
-where it goes.
+where it goes. An empty title falls back to the URL, so a row is never blank.
 
 The query string comes with the path. `/allboards/workspaces/engineering` and
 the same page with a filter on are two different things to bookmark.
 
-## The browser tab says where you are
+### The browser tab says where you are
 
 ```html
 <title>Product name - All Boards / Remaining</title>
@@ -78,7 +145,7 @@ before its own template was registered and threw.
 
 A board page is unchanged: `Board title - Product name`.
 
-## The tiles in All Boards / Starred
+### The tiles in All Boards / Starred
 
 Starred is *the list of places you keep*, so the bookmarks are drawn there too,
 as **tiles in the same grid** as the starred boards rather than as a list
@@ -99,7 +166,7 @@ Each tile has its own **unstar** button. The star in the header bar stars the
 page you are *on*, so a bookmark for somewhere else would otherwise have no way
 off the list except going there to un-star it — a trip for nothing.
 
-## Reordering
+### Reordering
 
 Drag a bookmark tile past another and they swap. **The order is the reader's,
 and it is one order**: the tiles and the rows of the header dropdown are two
@@ -118,7 +185,7 @@ from `dataTransfer.types` rather than with `getData()`, because a target has to
 decide whether to accept a drop in `dragover`, where the data store is still in
 protected mode.
 
-## Limits and rules
+### Limits and rules
 
 - **50 bookmarks.** This is a dropdown; a list that grows without limit quietly
   stops being useful. The cap drops from the **front**, which is the bookmark
@@ -127,9 +194,11 @@ protected mode.
 - Starring a page that is already starred **removes** it, whatever title is
   passed — the button is one button, and matching on the URL is what makes the
   second click predictable.
-- Re-starring is never how a title is refreshed into a different position: an
-  entry keeps its place, because moving it would reorder a list the reader has
-  learned.
+- An entry keeps its place in the list; re-starring is never how an entry is
+  moved, because moving it would reorder a list the reader has learned. (The
+  source comment of `toggleStarredPage` speaks of re-starring with a new title
+  keeping the place and taking the new title; the code itself removes an
+  already starred URL, so a renamed page is starred again after that.)
 - Entries that do not survive a round trip — written by an older version, or
   hand-edited into the profile — are **dropped rather than drawn**.
 
@@ -137,24 +206,47 @@ protected mode.
 caller's own profile, check their arguments before anything else, and re-apply
 the same pure rules the client used.
 
-## Related files
+### Swimlanes, lists and cards
+
+`toggleSwimlaneStar`, `toggleListStar` and `toggleCardStar`
+([server/models/users.js](../../../server/models/users.js)) add or remove an id
+in `profile.starredSwimlanes`, `profile.starredLists` or `profile.starredCards`.
+One function, `starredItemsByType()` in
+[client/components/main/header.js](../../../client/components/main/header.js),
+resolves them for both the dropdown and the Starred page
+([client/components/main/starredItems.jade](../../../client/components/main/starredItems.jade)).
+
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
 | `models/lib/starredPages.js` | `.js` module, pure | Every rule: what can be starred, the toggle, the cap, the reorder, and the tab's title. No Meteor, so it runs the same on both sides. |
 | `models/users.js` | `.js` collection | `starredPages()`, `hasStarredPage()`, `starredCount()`, and the profile schema. |
-| `server/models/users.js` | `.js` methods | `toggleStarredPage` and `moveStarredPage`. |
-| `client/components/main/header.js` | `.js` client | The group's count, whether this page is starrable, the click that stars it, and publishing the path. |
-| `client/components/main/header.jade` | `.jade` template | The caret / count / star group, and the dropdown's two sections. |
+| `server/models/users.js` | `.js` methods | `toggleStarredPage` and `moveStarredPage`, and the swimlane, list and card star toggles. |
+| `client/components/main/header.js` | `.js` client | The group's count, whether this page is starrable, the click that stars it, publishing the path, and `starredItemsByType()`. |
+| `client/components/main/header.jade` | `.jade` template | The caret / count / star group, and the dropdown's sections. |
+| `client/components/main/starredItems.jade` | `.jade` template | The full Starred page, `/starred-items`. |
 | `client/lib/headerPathVar.js` | `.js` client, leaf | The path the header computes, for whoever else needs it. |
 | `client/lib/utils.js` | `.js` client | The browser tab's title. |
 | `client/components/boards/boardsList.js` | `.js` client | The bookmark tiles, unstarring one, and the reorder drag. |
 | `client/components/boards/boardsList.css` | `.css` | The tile: the border, the theme colour, the URL line. |
 | `tests/starredPages.test.cjs` | `.cjs` Node test | The rules, the refusals, the tile, the reorder and what the server checks. |
+| `tests/starredItems.test.cjs` | `.cjs` Node test | The swimlane, list and card stars and the Starred page. |
 
-## Related
+### Related
 
 - [Home](../All-Boards/Home.md) — the other mark on a board, and the other drag with a type of its own
 - [All Boards](../All-Boards/All-Boards.md) — the page the tiles are on
 - [All Boards URLs](../All-Boards/URLs.md) — the addresses that made bookmarking possible
 - [The header](../Header-Bar/Header.md) — the bar the group sits in
+
+## Commits
+
+ - [Show private starred boards in the header Favorites popup](https://github.com/wekan/wekan/commit/bcf2305448429fdfab5baff29ac24744b12846e7)
+ - [Keep public board favorites across reloads](https://github.com/wekan/wekan/commit/a0c14a4c7f6ca19d4ed97d1f5a3bf660dbf11d3d)
+ - [Star swimlanes, lists and cards, a Starred page and a header bookmarks section for them](https://github.com/wekan/wekan/commit/c5740e8046e23bf26a31c2b97c563498007dec0e)
+ - [Remove the starred header group's border](https://github.com/wekan/wekan/commit/0bf5b7bdae4f90a450fa54e6256b377450b5abcd)
+ - [Drag boards from Remaining to Starred](https://github.com/wekan/wekan/commit/3edc723f2d702e4832093aa249297308f1cb9e36)
+ - [Starred: bookmarks to any page, not only boards](https://github.com/wekan/wekan/commit/1f2044219a0625a4d8d2de752dd4da2b4c5e5078)
+ - [The starred boards popup gets a title and a close button](https://github.com/wekan/wekan/commit/1a4e87c19fe63d6444a65cbd52ddecc81b24ad0f)
+ - [One star group in the header bar](https://github.com/wekan/wekan/commit/f62258b5cbcd58c1366ae8e67929e56724385ec9)
