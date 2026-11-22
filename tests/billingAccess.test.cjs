@@ -323,7 +323,9 @@ test('negative: every status, line kind and decision the server writes is one it
   for (const status of lib.INVOICE_STATUSES) assert.ok(allowed(model, 'billingInvoices', 'status').includes(status), status);
   for (const status of lib.QUOTE_STATUSES) assert.ok(allowed(model, 'billingQuotes', 'status').includes(status), status);
   assert.deepEqual(allowed(model, 'billingExpenses', 'category'), [...lib.EXPENSE_CATEGORIES]);
-  for (const kind of ['time', 'fee', 'expense']) assert.ok(allowed(model, 'billingInvoices', 'lines.$.kind').includes(kind), kind);
+  // 2026-11-22: a Board View / Shop line is a product - the schema takes
+  // exactly the library's kinds, so neither can gain one the other refuses.
+  assert.deepEqual(allowed(model, 'billingInvoices', 'lines.$.kind'), [...lib.INVOICE_LINE_KINDS]);
   assert.deepEqual(allowed(entries, 'timeEntries', 'approval'), ['approved', 'rejected']);
   // And every status literal the methods write is one of the library's.
   for (const m of SOURCE.matchAll(/status: '([a-z]+)'/g)) {

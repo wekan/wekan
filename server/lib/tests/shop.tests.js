@@ -164,7 +164,8 @@ describe('Shop view', function () {
       assert.equal(invoice.paymentReference, guestOrder.reference, 'the same reference as the order card');
       assert.equal(invoice.reference, guestOrder.number);
       assert.equal(invoice.totalMinor, 1500);
-      assert.deepEqual(invoice.lines.map(l => [l.kind, l.cardId, l.amountMinor]), [['fee', 'mug', 1500]]);
+      // A product line (models/lib/billing.js INVOICE_LINE_KINDS): 3 mugs at 5 EUR.
+      assert.deepEqual(invoice.lines.map(l => [l.kind, l.cardId, l.quantity, l.unitMinor, l.amountMinor]), [['product', 'mug', 3, 500, 1500]]);
       const guestCard = await Cards.findOneAsync({ boardId: ordersBoard, title: { $regex: `^${guestOrder.number}` } });
       assert.ok(guestCard.description.includes(invoice.number), 'the order card names its invoice');
       assert.equal((await ShopOrders.findOneAsync({ number: guestOrder.number, boardId: shopBoard })).invoiceId, invoice._id);
