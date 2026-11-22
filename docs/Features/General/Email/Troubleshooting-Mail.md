@@ -1,4 +1,55 @@
-## Configure email in Admin Panel
+# Troubleshooting mail
+
+## What it is
+
+WeKan sends email for notifications, invitations, password resets and
+verification. This page is the guide to setting up the mail server, in the
+Admin Panel or with `MAIL_URL`, with examples for common providers, and to
+finding out why email does not arrive: queues, timeouts, logs and the usual
+error messages.
+
+## Read more
+
+- [Simple Mail Transfer Protocol](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)
+  and [STARTTLS](https://en.wikipedia.org/wiki/STARTTLS) on Wikipedia.
+- [Meteor Email](https://docs.meteor.com/api/email.html) and
+  [Nodemailer SMTP](https://nodemailer.com/smtp), which send WeKan's mail.
+- WeKan pages: [Bounces](Bounces.md), [Email to card](Email-To-Card.md),
+  [Notification delivery](../Notifications/Notification-Delivery.md),
+  [Recovery](../../Admin-Panel/Problems/Recovery.md#email-delivery-queue).
+
+## How to use it
+
+1. Open **Admin Panel / People / E-mail**, tick **Enable below email
+   settings**, choose the provider (or custom SMTP), enter its credentials and
+   the From address, and save.
+2. Click **Send SMTP test email**.
+3. If it fails, read the error and look it up under "Error Messages" below; see
+   the provider examples for the right `MAIL_URL`.
+4. Check Admin Panel / Problems / Recovery for queued or stopped notification
+   email.
+
+## How the numbers are calculated
+
+- **Retries:** up to 12 attempts per cycle for a temporary failure, with
+  increasing delays and jitter (`MAX_EMAIL_ATTEMPTS` in
+  [server/lib/emailRetryPolicy.js](../../../../server/lib/emailRetryPolicy.js)).
+- **Shared capacity:** 4 delivery reservations across all processes, renewed
+  every 15 s and expiring after 60 s
+  ([server/lib/emailSendSlots.js](../../../../server/lib/emailSendSlots.js)).
+- **Receipts:** detailed metadata kept 30 days (`EMAIL_RECEIPT_METADATA_DAYS`,
+  1-3650); the sweep runs every 60 s (`EMAIL_RECEIPT_SWEEP_INTERVAL_MS`,
+  1000-86400000) and handles at most 100 jobs and 100 control requests a pass
+  ([server/lib/emailReceiptRetention.js](../../../../server/lib/emailReceiptRetention.js)).
+- **Timeouts:** DNS, connection and greeting 30000 ms each, socket idle
+  120000 ms, each settable from 1000 to 900000 ms; the whole send at most
+  `MAIL_TOTAL_TIMEOUT_MS`, default 120000, 1000-300000 ms
+  ([server/lib/mailTransport.js](../../../../server/lib/mailTransport.js),
+  [server/lib/smtpDeadline.js](../../../../server/lib/smtpDeadline.js)).
+
+## How it works in WeKan
+
+### Configure email in Admin Panel
 
 Before using the environment-variable examples below, open **Admin Panel /
 People / E-mail**. Enable **Enable below email settings** to choose custom SMTP
@@ -22,7 +73,7 @@ summaries and lets an administrator pause, resume, retry failed messages or canc
 See [the recovery guide](../../Admin-Panel/Problems/Recovery.md#email-delivery-queue).
 
 
-## Shared notification delivery capacity
+### Shared notification delivery capacity
 
 Queued notifications share four delivery reservations across all WeKan
 processes using the same database. A sender reserves a place before recording
@@ -43,7 +94,7 @@ bound is on live reservations: SMTP servers cannot fence stale connections
 from paused hosts, and an already accepted message cannot be recalled. Delivery
 therefore remains at least once.
 
-## Completed notification receipts
+### Completed notification receipts
 
 Completed and cancelled notification jobs, and completed or superseded control
 requests, retain detailed metadata for 30 days by default. Set
@@ -66,7 +117,7 @@ completion dates and inconsistent identities are retained for investigation.
 A storage failure leaves replay protection in place and is retried on a later
 sweep; it does not stop maintenance of the other receipt collection.
 
-## SMTP timeouts
+### SMTP timeouts
 
 SMTP connections configured through `MAIL_URL`, TLS certificate overrides or
 Admin Panel provider settings use these process environment variables:
@@ -110,7 +161,7 @@ this policy. SMTP acknowledgement loss can still cause duplicate delivery.
 
 [Uberspace Email](https://github.com/wekan/wekan/issues/2009#issuecomment-1017630758)
 
-## Newest Wekan
+### Newest Wekan
 
 Newest WeKan versions have two ways to configure outgoing email:
 
@@ -134,7 +185,7 @@ describe the environment-variable method, which remains supported.
 
 - For any errors like SSLv3 and STARTTLS, check [newest AWS SES info](#example-aws-ses) and use similar settings, other SSLv3/STARTTLS info could be outdated.
 
-## Gmail
+### Gmail
 
 [Source](https://github.com/wekan/wekan-snap/issues/151)
 
@@ -144,12 +195,12 @@ This maybe requires setting per-application password in Google Account settings 
 sudo snap set wekan mail-url='smtp://user@gmail.com:password@smtp.gmail.com:587'
 ```
 
-## OAuth2 proxy
+### OAuth2 proxy
 
 - Google will disable all but OAuth for IMAP, SMTP and POP starting Sept. 30 2024 https://workspaceupdates.googleblog.com/2023/09/winding-down-google-sync-and-less-secure-apps-support.html
 - https://news.ycombinator.com/item?id=39052196 , where is this: "If you can’t switch to OAuth, you can use my proxy to allow any IMAP (or POP/SMTP) client to be used with a “modern” email provider, regardless of whether the client supports OAuth 2.0 natively: https://github.com/simonrob/email-oauth2-proxy . No need for your client to know about OAuth at all." https://news.ycombinator.com/item?id=39052409
 
-## ProtonMail Bridge
+### ProtonMail Bridge
 
 [Source](https://github.com/wekan/wekan/issues/4887)
 
@@ -157,7 +208,7 @@ sudo snap set wekan mail-url='smtp://user@gmail.com:password@smtp.gmail.com:587'
 sudo snap set wekan mail-url='smtp://USER%40DOMAIN:PASSWORD@127.0.0.1:1025?ignoreTLS=true&tls={rejectUnauthorized:false}&secure=false'
 ```
 
-## Some more test code
+### Some more test code
 
 ```
 let htmlText = Assets.getText("emailTemplate.html");
@@ -170,11 +221,11 @@ await Email.sendAsync({
         });
 ```
 
-## Debugging your SMTP mail server
+### Debugging your SMTP mail server
 
 If you can't get your email server working with smtp/stmps or MAIL_SERVICE, look is there more config options for your email server at https://nodemailer.com docs, and add new issue about your email server to https://github.com/wekan/wekan/issues or [pull request](../Editor/Emoji.md#how-you-could-add-another-plugin).
 
-For example, for https://nodemailer.com/smtp/ 
+For example, for https://nodemailer.com/smtp 
 
 1) Install node.js 12.x
 2) Add to top of code example: `var nodemailer = require('nodemailer');`
@@ -206,7 +257,7 @@ let info = transporter.sendMail({
 
 If with some code example sending email works, xet7 can add it to wekan, like in [Wekan v5.52](../../../../CHANGELOG.md#v552-2021-08-26-wekan-release) xet7 added direct nodemailer usage for MAIL_SERVICE.
 
-## MAIL_SERVICE environment variables
+### MAIL_SERVICE environment variables
 
 For new configurations, first try **Admin Panel / People / E-mail**, enable
 **Enable below email settings**, and select the provider there. The Admin Panel
@@ -218,7 +269,7 @@ configuration method.
 
 a) If you use smtps or smtp, please do not add any MAIL_SERVICE settings. For example, AWS SES and Postfix works with only MAIL_URL and MAIL_FROM.
 
-b) If smtps or smtp does not work, in Wekan v5.52 and newer, you can try these additional MAIL_SERVICE settings. This may still also require MAIL_URL to be valid, while it only uses MAIL_SERVICE settings of [Well Known email services](https://nodemailer.com/smtp/well-known/) that are these:
+b) If smtps or smtp does not work, in Wekan v5.52 and newer, you can try these additional MAIL_SERVICE settings. This may still also require MAIL_URL to be valid, while it only uses MAIL_SERVICE settings of [Well Known email services](https://nodemailer.com/smtpwell-known/) that are these:
 
 126, 163, 1und1, AOL, DebugMail, DynectEmail, FastMail, GandiMail, Gmail, Godaddy, GodaddyAsia, GodaddyEurope, hot.ee, Hotmail, iCloud, mail.ee, Mail.ru, Maildev, Mailgun, Mailjet, Mailosaur, Mandrill, Naver, OpenMailBox, Outlook365, Postmark, QQ, QQex, SendCloud, SendGrid, SendinBlue, SendPulse, SES, SES-US-EAST-1, SES-US-WEST-2, SES-EU-WEST-1, Sparkpost, Yahoo, Yandex, Zoho, qiye.aliyun
 
@@ -253,13 +304,13 @@ export MAIL_SERVICE_USER=firstname.lastname@hotmail.com
 export MAIL_SERVICE_PASSWORD=SecretPassword      
 ```
 
-## Special Characters
+### Special Characters
 
 **If you have special characters in username or password**, sometimes you need to urlencode them. Not for AWS SES.
 You can convert special characters of your password at https://www.url-encode-decode.com
 and copy converted characters to your password.
 
-## Example: Microsoft Office 365
+### Example: Microsoft Office 365
 
 - Microsoft will disable Basic authentication for SMTP AUTH by default on existing Microsoft 365 tenants at the end of December 2026, and it is unavailable by default on tenants created after that date. An administrator can still turn it back on for an existing tenant. Timeline: https://techcommunity.microsoft.com/blog/exchange/updated-exchange-online-smtp-auth-basic-authentication-deprecation-timeline/4489835
 - The example below uses Basic authentication. Microsoft's alternatives for devices and applications that send mail are at https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365
@@ -275,7 +326,7 @@ sudo snap set wekan mail-url='smtp://support%40example.com:password@mail.example
 
 sudo snap set wekan mail-from='Wekan Team Boards <info@example.com>'
 ```
-## Example: AWS SES
+### Example: AWS SES
 
 Related https://github.com/wekan/wekan/discussions/5518
 
@@ -325,7 +376,7 @@ MAIL_FROM='Wekan Boards <boards@example.com>'
 MAIL_URL='smtp://username:password@email-smtp.eu-west-1.amazonaws.com:587?tls={ciphers:"SSLv3"}&secureConnection=false'
 ```
 
-## Example: AWS SES sending email with command line
+### Example: AWS SES sending email with command line
 
 [Source](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-smtp-client-command-line.html)
 
@@ -372,7 +423,7 @@ Then you can run them like this:
 ./password-to-base64.sh
 ```
 
-## Example: Gmail
+### Example: Gmail
 [Source](https://github.com/wekan/wekan/issues/3529#issuecomment-792724239)
 ```
 sudo snap set wekan mail-url='smtps://username@domain.com:password@smtp.gmail.com:465'
@@ -380,33 +431,33 @@ sudo snap set wekan mail-from='Wekan Team Boards <info@example.com>'
 ```
 Convert password via this service https://www.url-encode-decode.com and everything will work.
 
-### If you get SSLv3 protocol error
+#### If you get SSLv3 protocol error
 
 Do instead this `smtp://` and ignoreTLS etc, and at click your right top username / Admin Panel / Email, with TLS support NOT enabled:
 ```
 sudo snap set wekan mail-url='smtp://username:password@email-smtp.eu-west-1.amazonaws.com:587?ignoreTLS=true&tls={rejectUnauthorized:false}&secure=false'
 sudo snap set wekan mail-from='Wekan Team Boards <info@example.com>'
 ```
-### If you use some other snap like wekan-gantt-gpl
+#### If you use some other snap like wekan-gantt-gpl
 
 Change part `sudo snap set wekan` to `sudo snap set wekan-gantt-gpl`
 
-## Example: UCS
+### Example: UCS
 
-### In admin panel (within admin account on Wekan app itself)
+#### In admin panel (within admin account on Wekan app itself)
 - SMTP Host: `smtp.example.com:25/?ignoreTLS=true&tls={rejectUnauthorized:false}&secure=false`
 - SMTP Port: `25`
 - Username: `webadmin%40example.com`
 - [_] TLS Support UNCHECKED
 - From: `Wekan Admin <webadmin@example.com>`
  
-### Settings in Wekan App settings in UCS dashboard
+#### Settings in Wekan App settings in UCS dashboard
 - URL settings: `https://www.example.com/wekan`
 - LDAP Settings: `(&(objectClass=person)(mailPrimaryAddress=*)(!(shadowExpire=*))(sambaBadPasswordTime=0)(wekanActivated=TRUE)(uid=<some_user_name>))`
 - Mail URL: `smtp://webadmin%40example.com:password@example.com:25/?ignoreTLS=true&tls={rejectUnauthorized:false}&secure=false`
 - Mail From: `Wekan Notifications <webadmin@example.com>`
 
-## Example: username contains @
+### Example: username contains @
 
 Below `@` is urlencoded to `%40`
 
@@ -427,19 +478,19 @@ There at bottom add these. Optional is to add to end of snap command `2>&1` to d
 06 01 * * * sudo snap set wekan mail-from='Boards Support <user@provider.com>'
 ```
 
-## Check is username and password required
+### Check is username and password required
 
 If your email server does not require authentication like username and password, [don't include them in MAIL_URL](https://github.com/wekan/wekan/issues/2106). For example, IBM Notes does not require username and password.
 
-## Config
+### Config
 
 Mail configuration if done by settings of `MAIL_URL` & `MAIL_FROM` environment parameters. Way of setting is due your instalation method e.g. [snap](https://github.com/wekan/wekan-snap/wiki/Install#6-email-and-other-settings), in docker-compose.yml file etc.
 
-## No mail server
+### No mail server
 
 You can choose to _NOT_ configure a mail server, by not providing the `MAIL_URL` & `MAIL_FROM` environment parameters. Instead the mail message will be send to the terminal output. See [FAQ](../../../FAQ/FAQ.md#show-mails-with-a-docker-image-without-mail-configuration) for more info.
 
-## Email servers: SMTP or Exchange
+### Email servers: SMTP or Exchange
 
 Standalone Wekan uses SMTP server for sending email invitations etc.
 
@@ -453,7 +504,7 @@ Wekan Email settings are required in both MAIL_URL and Admin Panel.
 
 If you want to receive Email to Wekan, use [Huginn](https://github.com/wekan/wekan/issues/1160) to get E-mail from mailserver and have Huginn to use Wekan REST API to add card to Wekan board.
 
-## Postfix
+### Postfix
 
 If you want to configure a mail server, you could use a mail server out-side of your machine (like the example  above). Or you could start another Docker container which runs Postfix (try the [`marvambass/versatile-postfix`](https://hub.docker.com/r/marvambass/versatile-postfix/) Docker image).
 
@@ -473,11 +524,11 @@ And finally add the Docker IP range (172.17.x.x) to the Postfix trusted networks
 mynetworks = 127.0.0.0/8 172.17.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128  
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 Email is quite important in Wekan, as without it you can't send password reset links nor can you verify your e-mail address. Here are some ways to figure out what is wrong with your mail server settings in WeKan.
 
-## Log Files
+### Log Files
 Firstly, make sure you're logged into your server and following your log files.
 
     @:~$ tail -f path/to/wekan.log
@@ -490,10 +541,10 @@ If you're using a snap package, you'll get the logs with
 
     @:~$ journalctl -u snap.wekan.wekan
 
-## Error Messages
+### Error Messages
 Once you've got the log files in front of you, go to the WeKan frontend and send a password reset link, or try to register. This will try to send an e-mail, and you should see any error messages in the log file.
 
-### Wrong Port
+#### Wrong Port
 If you see an error message like the following one, your port number is wrong. If you're using plain old SMTP or STARTTLS, your port should be 25. If you're using TLS, you may need to change your port to 465. Some mail servers may use port 587 instead of the two above.
 
 ```
@@ -520,7 +571,7 @@ wekan_1      |     at exports._exceptionWithHostPort (util.js:930:20)
 wekan_1      |     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1081:14)
 ```
 
-### Wrong Protocol
+#### Wrong Protocol
 If you have the "Enable TLS support for SMTP server", but your does not directly support TLS (it may use STARTTLS instead), then you'll get the following error. Just uncheck the checkbox in the Admin Panel.
 
 ```
@@ -546,7 +597,7 @@ wekan_1      |
 wekan_1      |     at Error (native)
 ```
 
-### STARTTLS Sending test email failed
+#### STARTTLS Sending test email failed
 
 ```
 Sending email failed
@@ -583,12 +634,12 @@ TXT: mail.example.com & & TXT: example.com
 v=spf1 a mx ipv4:123.123.123.123/32 include:_spf.google.com include:example.com include:mail.example.com include:_spf.google.com ~all
 ```
 
-### Self-signed Certificate
+#### Self-signed Certificate
 Unfortunately at this stage, WeKan does not support self-signed certificates. You will see the following error if your SMTP server is using a self-signed certificate. Ways to remedy to this are (by order of preference):
 * disable TLS on your SMTP server. For postfix juste add "smtpd_user_tls = no" to main.cf. !!! Unless doing this, wekan will try to connect with STARTTLS !!!
 * to get a certificate from a CA, or
-* to add "?tls={rejectUnauthorized:false}" to the end of the [MAIL_URL environment variable](https://nodemailer.com/smtp/), or
-* to add "?ignoreTLS=true" to the end of the [MAIL_URL environment variable](https://nodemailer.com/smtp/), or
+* to add "?tls={rejectUnauthorized:false}" to the end of the [MAIL_URL environment variable](https://nodemailer.com/smtp), or
+* to add "?ignoreTLS=true" to the end of the [MAIL_URL environment variable](https://nodemailer.com/smtp), or
 * to remove the TLS certificate completely.
 
 ```
@@ -614,7 +665,7 @@ wekan_1      |
 wekan_1      |     at Error (native)
 ```
 
-### Incorrect TLS Certificate
+#### Incorrect TLS Certificate
 Lastly, if you see the following error message it is because the certificate has not been correctly installed on the SMTP server.
 
 ```
@@ -644,20 +695,20 @@ wekan_1      |     at TLSSocket._init.ssl.onclienthello.ssl.oncertcb.TLSSocket._
 wekan_1      |     at TLSWrap.ssl.onclienthello.ssl.oncertcb.ssl.onnewsession.ssl.onhandshakedone (_tls_wrap.js:453:38)
 ```
 
-## No News Is Good News
+### No News Is Good News
 Of course, if you don't see any of these errors in your WeKan log file, then the problem is not in WeKan. Check your SMTP server's mail logs (if you can) to get a better idea of what might be going wrong.
 
 
 ***
 
-## BELOW IS NOT TESTED YET DOCS
+### BELOW IS NOT TESTED YET DOCS
 
 They are moved here from https://github.com/wekan/wekan/issues/961
 
-### Configure Wekan
+#### Configure Wekan
 
 Sample:
-### Wekan with TLS/SSL
+#### Wekan with TLS/SSL
 To run Wekan secured with TLS/SSL do the following steps:
 1. Setup a Web-Server/-Proxy with TLS/SSL support that maps requests to wekan.
 2. Set protocol to http**s**. 
@@ -666,7 +717,7 @@ To run Wekan secured with TLS/SSL do the following steps:
 `export PORT=54321`
 4. Restart and run Wekan. 
 
-### Wekan at subpath
+#### Wekan at subpath
 To run Wekan to appear at a subpath of your domain:
 1. Setup a Web-Server/-Proxy that maps requests to wekan.
 2. Append subpath to domain, without trailing slash. 
@@ -675,17 +726,17 @@ To run Wekan to appear at a subpath of your domain:
 `export PORT=54321`
 4. Restart and run Wekan. 
 
-### SMTP with TLS/SSL
+#### SMTP with TLS/SSL
 To enable Wekan sending Mail from a mail server with TLS/SSL:
 1. Set Wekan to the specified port (465 / 587). 
 `export MAIL_URL='smtp://user:password@example.com:587/'`
 2. Restart and run Wekan. 
 
-### Mail Sender
+#### Mail Sender
 To define a sender name for the mails automatically sent by Wekan. 
 1. ...`export MAIL_FROM='Thomas Anderson <neo@matrix.org>'`
 
-## Using mail service from zoho
+### Using mail service from zoho
 If you have your personal mail on zoho for your domain example.com, then follow these steps to add MAIL_URL.
 Let's assume following username
 username=user1@example.com
@@ -705,3 +756,16 @@ By default zoho uses port number 465 with TLS enabled.
 Step 3: form MAIL_FROM
 
 MAIL_FROM=Wekan Notifications <user1@example.com>
+
+## Commits
+
+ - [Compact terminal email metadata while keeping replay receipts](https://github.com/wekan/wekan/commit/765e2c305d8ff66561066ac16e6b5b9ece5adf8a)
+ - [Share notification delivery slots across workers](https://github.com/wekan/wekan/commit/7efa8ca37fbf28f8468a4b6de9f438ebc6421add)
+ - [Native Meteor SMTP deadlines, keeping message plugins](https://github.com/wekan/wekan/commit/7a450190ac4a6e7d22d92bebae966246b4c42ef4)
+ - [Cancel custom SMTP sends at a per-message deadline](https://github.com/wekan/wekan/commit/e037b423d1dc5b2dc97e6c825ea1a6c2b4d68fb5)
+ - [Bound SMTP connection phases and idle waits](https://github.com/wekan/wekan/commit/9758886cfaea1ef0463e3bca4c0f4b0a378515f3)
+ - [Bound email retries and expose stopped delivery](https://github.com/wekan/wekan/commit/0457e0dfd46ad1baa218f7314b1521d347d48969)
+ - [Administrator recovery controls for queued email](https://github.com/wekan/wekan/commit/20b47995b27f666ed640759632580dd9a97d5f41)
+ - [Persist notification email jobs and resume after restart](https://github.com/wekan/wekan/commit/d828411bf6e110e4edb0c3028a8a864a9594d327)
+ - [Admin Panel Nodemailer service settings](https://github.com/wekan/wekan/commit/395f10e030e573ba3362e46a5916f1ea75651501)
+ - [Trust a certificate instead of disabling verification](https://github.com/wekan/wekan/commit/032722fcc4c87ec7946e1446865ab4739e49e4f1)

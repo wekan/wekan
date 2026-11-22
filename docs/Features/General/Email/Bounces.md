@@ -1,5 +1,53 @@
 # Email bounces
 
+## What it is
+
+Email that WeKan sends sometimes comes back: a mistyped invitation address, a
+full mailbox, an out-of-office reply, a spam complaint. Bounce handling lets
+WeKan read those reports itself and act on them - stop emailing a dead address,
+tell whoever sent an invitation that it did not arrive - instead of leaving them
+in the inbox of WeKan's From address.
+
+## Read more
+
+- [Bounce message](https://en.wikipedia.org/wiki/Bounce_message) and
+  [SMTP server return codes](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes)
+  on Wikipedia.
+- [listmonk bounce settings](https://listmonk.app/docs/bounces/), which this
+  follows, and
+  [Amazon SES notifications](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity-using-notifications.html).
+- WeKan pages: [Email to card](Email-To-Card.md),
+  [Reply by email](Reply-By-Email.md),
+  [Troubleshooting mail](Troubleshooting-Mail.md).
+
+## How to use it
+
+1. Open **Admin Panel → E-mail → Bounces**.
+2. For each kind (hard, soft, automatic reply, spam complaint) choose the
+   actions and after how many bounces they run.
+3. Connect the sending service that reports bounces (see "Where bounces come
+   from" below).
+4. Watch the list of addresses that bounced; click **Clear** to start emailing
+   an address again.
+
+## How the numbers are calculated
+
+From `DEFAULT_RULES` in [models/lib/emailBounce.js](../../../../models/lib/emailBounce.js):
+
+- Each address keeps a count per kind; the kind's actions run once that count
+  reaches the kind's threshold.
+- Defaults: hard bounce after **1** (stop emailing, tell the inviter); soft
+  bounce after **5** (stop emailing); automatic reply **ignored**; spam
+  complaint after **1** (stop emailing).
+- A hard bounce is an SMTP `5.x.x` status, a soft bounce `4.x.x`; an
+  automatic reply is recognised by the `Auto-Submitted` header (RFC 3834) and
+  common vendor headers.
+- A threshold an admin saves must be 1 to 100 (`cleanBounceRules()`);
+  `Ignore` together with another action is dropped, and no action left means
+  `List it`.
+
+## How it works in WeKan
+
 Email that WeKan sends sometimes comes back. Without bounce handling these
 messages land in the inbox of whoever owns WeKan's From address:
 
@@ -38,9 +86,9 @@ it. **Clear** forgets an address's bounces.
 A bounce or an automatic reply never becomes a card or a comment, even when it
 arrives at a [board address](Email-To-Card.md).
 
-## Where bounces come from
+### Where bounces come from
 
-### Amazon SES
+#### Amazon SES
 
 Amazon SES reports bounces and complaints through Amazon SNS, and can also
 *receive* email. Set up both:
@@ -79,7 +127,7 @@ A message that fails either check is refused and shows in Admin Panel → Proble
 The endpoint works even when the REST API is turned off (`WITH_API`), as the
 email-to-card webhook does.
 
-### Other sending services
+#### Other sending services
 
 If WeKan sends through one of these services, WeKan can take their bounce and
 spam-complaint webhooks directly. Turn the service on in **Bounces → Other
@@ -124,7 +172,7 @@ back to a browser.
 
 These endpoints work even when the REST API is turned off (`WITH_API`).
 
-### Any other mail system
+#### Any other mail system
 
 Bounces also arrive as email, as delivery status notifications (RFC 3464,
 `multipart/report`) from `MAILER-DAEMON`, or as older text-only "failure notice"
@@ -144,7 +192,7 @@ So with Gmail, Microsoft 365, Mailgun or Postfix, point WeKan's From address
 (or its Return-Path) at a mailbox WeKan reads, and the bounces are handled
 the same way.
 
-## When something goes wrong
+### When something goes wrong
 
 What goes wrong *sending or receiving* email is listed in **Admin Panel →
 Problems → Email**:
@@ -158,7 +206,7 @@ Problems → Email**:
 Attempts are listed in Problems → Security Report instead: a guessed board address, a
 wrong webhook secret, a forged SNS message.
 
-## Files
+### Files
 
 | File | |
 | --- | --- |
@@ -169,3 +217,9 @@ wrong webhook secret, a forged SNS message.
 | `models/lib/mailProblems.js`, `server/lib/mailProblems.js` | Problems → Email |
 | `tests/emailBounce.test.cjs` | Node tests |
 | `server/lib/tests/emailBounces.tests.js`, `emailSendReceive.tests.js` | Runtime tests: signed SNS over HTTP, local SMTP and IMAP servers, a real Maildir |
+
+## Commits
+
+ - [BounceBleed: a forged bounce report no longer stops email to any address](https://github.com/wekan/wekan/commit/81ca7b868bfc9c06f3246fe988981b0f87158ffe)
+ - [Bounces from Mailgun, SendGrid, Postmark, Brevo, Mailjet, SparkPost, Mandrill and Resend](https://github.com/wekan/wekan/commit/57e05c4304ea34a082e88326c8221cc5cc768dee)
+ - [Email bounces with Amazon SES, Problems -> Email, and runtime tests](https://github.com/wekan/wekan/commit/79ac3016751a4633f9efb1eda2102dcb798378b4)
