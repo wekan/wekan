@@ -177,11 +177,11 @@ REM ===========================================================================
 :menu_tests
 echo.
 echo -- Tests --   ^(0 = Back^)
-echo   1^) EVERYTHING two-worker: one stage at a time, two Playwright workers
-echo       per browser; every database and all FerretDB tests remain sequential.
+echo   1^) EVERYTHING one by one: one stage and one Playwright worker at a time
+echo       for minimum RAM usage; database and FerretDB stages stay sequential.
 echo       Logs in .tools\log\^<datetime^>\
-echo   2^) EVERYTHING one by one: one stage and one Playwright worker at a time
-echo       for minimum RAM usage; database and FerretDB stages stay sequential
+echo   2^) EVERYTHING two-worker: one stage at a time, two Playwright workers
+echo       per browser; every database and all FerretDB tests remain sequential
 echo   3^) EVERYTHING at once: WeKan test jobs concurrently; database and
 echo       FerretDB stages remain sequential
 echo   4^) Mocha ^(server-side^)
@@ -207,8 +207,8 @@ echo  19^) Playwright single spec: one spec on the browsers you choose; builds a
 echo       starts the test server when none is running on :3000
 set "choice="
 set /p "choice=Choose: "
-if "%choice%"=="1"  goto test_everything_two
-if "%choice%"=="2"  goto test_everything_one
+if "%choice%"=="1"  goto test_everything_one
+if "%choice%"=="2"  goto test_everything_two
 if "%choice%"=="3"  goto test_everything_all
 if "%choice%"=="4"  goto test_mocha
 if "%choice%"=="5"  goto test_import

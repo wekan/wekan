@@ -298,9 +298,10 @@ test('everything can be run in one go, from either build script', () => {
   // The entries of this menu only: up to the ';;' that closes the "Tests" case.
   const entries = [...menu.slice(0, menu.indexOf('\n\t\t\t;;'))
     .matchAll(/^\s*"([^"|]+)\|([^"]*)"/gm)].map(m => [m[1], m[2]]);
+  // One by one first since 2026-11-23, as the maintainer asked.
   assert.deepStrictEqual(entries.slice(0, 3).map(([label]) => label), [
-    'EVERYTHING two-worker',
     'EVERYTHING one by one',
+    'EVERYTHING two-worker',
     'EVERYTHING at once',
   ], 'the first three Tests entries must be complete execution modes');
   for (const [label, description] of entries.slice(0, 3)) {

@@ -633,7 +633,9 @@ test('build.bat cannot fail the same way', () => {
   const everything = bat.slice(start, bat.indexOf('\nREM ===', start));
   assert.ok(/bash \.\/releases\/run-everything\.sh/.test(everything),
     'the .bat EVERYTHING delegates to the shared script');
-  for (const [choice, label] of [['1', 'two'], ['2', 'one'], ['3', 'all']]) {
+  // One by one is option 1 since 2026-11-23 (the maintainer's choice: the
+  // least RAM first), two-worker option 2.
+  for (const [choice, label] of [['1', 'one'], ['2', 'two'], ['3', 'all']]) {
     assert.ok(new RegExp(`if "%choice%"=="${choice}"\\s+goto test_everything_${label}`).test(bat),
       `EVERYTHING mode ${choice} is reached by number, not by matching a sentence`);
   }
@@ -686,9 +688,10 @@ test('the first three Tests options are complete bounded execution modes', () =>
   const testsMenu = sh.slice(sh.indexOf('choose "Tests"'));
   const labels = [...testsMenu.matchAll(/^\s*"(EVERYTHING [^|"\n]+)\|/gm)]
     .slice(0, 3).map((match) => match[1]);
+  // One by one first since 2026-11-23, as the maintainer asked.
   assert.deepStrictEqual(labels, [
-    'EVERYTHING two-worker',
     'EVERYTHING one by one',
+    'EVERYTHING two-worker',
     'EVERYTHING at once',
   ]);
 
