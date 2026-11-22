@@ -1,5 +1,7 @@
 # Bots
 
+## What it is
+
 Board Settings → **Bots**, below **Workflow view**, is the [Rules](Rules/Rules.md)
 page's view for **bots**: runners on your own server that this board hands
 cards to. A runner can be an AI coding agent, a CI job or a script. The view
@@ -7,6 +9,34 @@ looks and works like kanbots, in the board's own theme, Font Awesome icons and
 drag and drop. Like the rest of the Rules page it is for **board admins only**.
 It is not a board view: it is not in the Board View menu and can never be a
 public view.
+
+## Read more
+
+- [Software agent](https://en.wikipedia.org/wiki/Software_agent) and
+  [Continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
+  on Wikipedia - the kinds of runner a board hands cards to.
+- [Webhook](https://en.wikipedia.org/wiki/Webhook) - how WeKan tells the runner
+  about a card, and
+  [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) - how
+  the runner works on the board.
+- [Server-side request forgery](https://en.wikipedia.org/wiki/Server-side_request_forgery)
+  - what the webhook queue's SSRF guard prevents.
+- In WeKan: [Rules (Automation)](Rules/Rules.md),
+  [outgoing requests through a proxy](../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Proxy.md),
+  [webhook data](../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md).
+
+## How to use it
+
+1. Open the board's right sidebar → **Board Settings** → **Bots** (below
+   **Workflow view**). You must be a board admin.
+2. In the rail, click **Add bot** and fill in **Bot name**, **Runner address**
+   and, optionally, **Signing token (optional)**.
+3. Open a card from the columns. In the drawer, pick the bot and click **Hand
+   to bot**. Or make a Rule with the action **Hand the card to bot**.
+4. Follow the run in the card's state, in **Live runs** and in **Activity**.
+   When the bot asks a question, click one of the answers on the card, or type
+   in **Reply to the bot** and click **Send**.
+5. Click **Stop** to stop a run.
 
 ```
 ┌ Bots ───────────┬ Dev / Bots              2 running · 1 waiting for you ─┬ Fix login ─────┐
@@ -32,7 +62,26 @@ public view.
   order. **Hand to bot** gives the card to a bot, **Stop** stops the run, and
   the reply box answers the bot.
 
-## A bot has no rights of its own
+## How the numbers are calculated
+
+- The header line **N running · M waiting for you** (`bots-summary`) counts
+  this board's runs whose status is `running`, and those whose status is
+  `awaiting_input` (`runningCount`, `waitingCount` in
+  [client/components/rules/rulesBots.js](../../../client/components/rules/rulesBots.js)).
+- A run keeps its **last 50 events** (`MAX_EVENTS`); a text is cut at 4,000
+  characters (`MAX_TEXT`), a tool name and an option at 200, a question at
+  1,000, and at most 8 answer options are kept (`MAX_OPTIONS`), all in
+  [models/lib/botRuns.js](../../../models/lib/botRuns.js).
+- `tokens` and `costUsd` must be finite numbers from 0 to 10^12; they are
+  shown as reported (e.g. `$0.12`), not computed by WeKan.
+- A dispatch carries at most the card's **last 20 comments**; a reply is cut
+  at 65,536 characters ([server/bots.js](../../../server/bots.js)).
+- The Bots view is sent at most the **300 most recently updated runs** of the
+  board (`botRuns` publication).
+
+## How it works in WeKan
+
+### A bot has no rights of its own
 
 Bots are like Rules and workflows: they act only through what WeKan already
 allows, and override no WeKan permission.
@@ -52,7 +101,7 @@ allows, and override no WeKan permission.
 - **Answers and replies** are the admin's own card comments, written under
   their right to comment in that list, and the bot is told.
 
-## The runner's side
+### The runner's side
 
 The dispatch is a JSON `POST` to the runner's address:
 
@@ -80,7 +129,7 @@ The runner reports at `report` with its own API token
 finished, the last 50 events are kept, and texts are bounded. Later the runner
 receives `bot.answer` (`value`, `text`), `bot.reply` (`text`) and `bot.stop`.
 
-## Files
+### Files
 
 | File | |
 | --- | --- |
@@ -89,3 +138,14 @@ receives `bot.answer` (`value`, `text`), `bot.reply` (`text`) and `bot.stop`.
 | `models/lib/botRuns.js` | A run's states and what may change them. No Meteor code |
 | `models/botRuns.js` | The runs, written by the server only, published to board admins |
 | `tests/botRuns.test.cjs`, `server/lib/tests/bots.tests.js` | The tests |
+
+A card already with a bot keeps its active run: handing it over again returns
+the same run (`dispatchToBot`). Handing over, answering, replying, stopping and
+the `botRuns` publication all check that the caller is a board admin
+(`allowIsBoardAdmin`); an answer or reply is also checked with
+`canCommentInList`.
+
+## Commits
+
+ - [Board Settings / Bots: hand cards to external runners, as kanbots does](https://github.com/wekan/wekan/commit/aa48a2b71dea95842cba4daa908e6e236aaef1dd)
+ - [File the Bots page under Rules, the way the WeKan menus are](https://github.com/wekan/wekan/commit/b7589737f5730ce1ba83244946e158519528a783)
