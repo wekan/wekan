@@ -143,3 +143,12 @@ See [OAuth providers](OAuth-Providers.md), [LDAP](LDAP.md), [SAML](SAML.md),
 [CAS](CAS.md), [passwordless login](Passwordless.md),
 [two-factor authentication](Two-Factor-Authentication.md), and
 [header login](Header-Login.md) for deployment settings.
+
+## Commits
+
+ - [SAML's one Issuer in the login provider tests](https://github.com/wekan/wekan/commit/121f37be912e87e72732fea1d827722d1b8940a3)
+ - [Every provider login by full-page redirect in the suite](https://github.com/wekan/wekan/commit/ad51a03731ed2daf039204ccc7423dd05b3c9506)
+ - [SAML account binding to immutable assertion subjects, with its tests](https://github.com/wekan/wekan/commit/c0c6aa5414fd9fa28cef07ea89908670c424e2e9)
+ - [Choose which SAML signatures are required, with its tests](https://github.com/wekan/wekan/commit/d6503b43f5beed6a9587d1eec5ae9def9b9af24e)
+ - [Fix Firefox password login submit replay](https://github.com/wekan/wekan/commit/79cd465585b5d26cae55ea27ec0dea4598b16907)
+ - [Verify login provider exchanges against local identity servers, and fix the failures they found](https://github.com/wekan/wekan/commit/4f7d28637e3c68d20c8c8462dfaea1289210c861)

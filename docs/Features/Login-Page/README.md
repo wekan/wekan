@@ -1,12 +1,20 @@
 # Login page
 
+## What it is
+
 The sign-in, sign-up and forgot-password forms (`userFormsLayout` in
 `client/components/main/layouts.jade`) and every way of signing in that they
 offer. Which methods appear is set by the administrator in
 [Admin Panel / People / Login](../Admin-Panel/People/Login.md); a method only
 shows when it is configured.
 
-## Signing in on the page
+## How to use it
+
+Find the way of signing in you want in the tables below and open its page.
+Each page says what the method is, how to set it up step by step, its numbers
+and defaults, how WeKan implements it, and its commits. See the pages below.
+
+### Signing in on the page
 
 | Method | Guide | Implementation |
 | --- | --- | --- |
@@ -16,7 +24,7 @@ shows when it is configured.
 | One-time code by email | [Passwordless](Passwordless.md) | `server/lib/passwordlessTokenConsumption.cjs` |
 | SQRL | [SQRL](SQRL.md) | `server/sqrl.js` |
 
-## Identity providers
+### Identity providers
 
 | Provider | Guide | Implementation |
 | --- | --- | --- |
@@ -29,7 +37,7 @@ shows when it is configured.
 | Reverse-proxy header | [Header Login](Header-Login.md), [Let's Encrypt and Google Auth](Let's-Encrypt-and-Google-Auth.md) | `server/header-login.js` |
 | Windows SSO (Kerberos / NTLM) | [Windows SSO](WindowsSSO.md) | `server/windowsSso.js` |
 
-## Accounts and sessions
+### Accounts and sessions
 
 - [Brute force protection: accounts lockout](Accounts-Lockout.md) (`packages/wekan-accounts-lockout`)
 - [Session cookies](Session-Cookies.md)

@@ -1,4 +1,6 @@
-## Login with Google, GitHub, Facebook, Twitter, Meteor, Weibo and Meetup
+# Login with Google, GitHub, Facebook, Twitter, Meteor, Weibo and Meetup
+
+## What it is
 
 Meteor's accounts system ships a login package for each of these providers
 (`accounts-google`, `accounts-github`, `accounts-facebook`, `accounts-twitter`,
@@ -30,7 +32,20 @@ app id and the secret. Both kinds can be on at the same time.
     |<--------------------------|                              |
 ```
 
-## Register the app at the provider
+## Read more
+
+- [OAuth at Wikipedia](https://en.wikipedia.org/wiki/OAuth)
+- [Meteor accounts documentation](https://docs.meteor.com/api/accounts.html),
+  the `accounts-*` packages used here
+- [OAuth2 / OIDC](OAuth2.md) for any OpenID Connect server
+- [Passwordless](Passwordless.md) for the one-time code by email
+- [Google login](Google-login.md), the older Google notes
+- [Disable Password Login](Disable-Password-Login.md)
+
+
+## How to use it
+
+### Register the app at the provider
 
 Every provider wants an "OAuth app" created on its developer site, and every
 one of them asks for the *callback URL* (also called redirect URI or
@@ -58,7 +73,7 @@ Google also needs the OAuth consent screen filled in, and GitHub wants a
 "Homepage URL", which is simply `ROOT_URL`. Meetup and Weibo may take a
 few days to approve a new app.
 
-## Environment variables
+### Environment variables
 
 Each provider has the same four variables. `<PROVIDER>` is `GOOGLE`,
 `GITHUB`, `FACEBOOK`, `TWITTER`, `METEOR_DEVELOPER`, `WEIBO` or `MEETUP`.
@@ -106,10 +121,11 @@ secrets:
 with the callback URL `https://boards.example.com/_oauth/google` registered in
 the Google Cloud console.
 
-## Admin Panel overrides
+### Admin Panel overrides
 
-Admin Panel / People / Login has a section per provider with the same
-fields, plus the login style, the merge switch and passwordless. A value saved
+Admin Panel / People / **OAuth login providers** has a section per provider
+with the same fields, plus the login style, the merge switch and the allowed
+email domains; passwordless is in Admin Panel / People / **Passwordless login**. A value saved
 there wins over the environment variable, so an administrator can enable a
 provider, or rotate a secret, without restarting WeKan. Leave a field empty in
 the Admin Panel to fall back to the environment variable. This is how the
@@ -121,7 +137,7 @@ field (the secret only as "is set"), `PUT /api/admin/oauth-providers/:providerKe
 saves one provider and `PUT /api/admin/passwordless` switches passwordless -
 see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passwordless).
 
-## What the user sees
+### What the user sees
 
 - The login page shows one button per enabled provider under the password
   form. Hide the password form with `PASSWORD_LOGIN_ENABLED=false` when the
@@ -133,9 +149,47 @@ see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passw
 - Google, GitHub, Facebook and Meteor Developer return a (verified) email;
   Twitter, Weibo and Meetup may not, in which case the user gets no email and
   must add one in Member Settings before notifications work.
-- Registration rules apply: if Admin Panel / People / Registration is set to
-  invite-only, a provider login for an unknown email is refused the same way a
+- Registration rules apply: if Admin Panel / People / Login has **Self-Registration**
+  unticked (invite-only), a provider login for an unknown email is refused the same way a
   password sign-up would be.
+
+## How the numbers are calculated
+
+The providers have no numbers of their own. Their defaults and rules:
+
+- `OAUTH_<PROVIDER>_ENABLED`, `OAUTH_PROVIDERS_MERGE_EXISTING_USERS` default
+  `false`; `OAUTH_PROVIDERS_LOGIN_STYLE` defaults to `redirect`.
+- `OAUTH_PROVIDERS_ALLOWED_EMAIL_DOMAINS` is split at commas, trimmed and
+  lower-cased; the login's email domain must be exactly one of them. A
+  malformed domain in the list refuses every login rather than silently
+  allowing all (`models/lib/emailDomainPolicy.js`).
+- The username of a new account is the first non-empty of: the provider's
+  username, screen name, login, the email's local part, the name without
+  spaces in lower case, the provider's id; otherwise a random id
+  (`deriveUsername` in `models/lib/oauthProviders.js`). The initials are the
+  first letters of the words of the full name.
+
+## How it works in WeKan
+
+- [models/lib/oauthProviders.js](../../../models/lib/oauthProviders.js) - pure
+  catalog of the seven providers (service name, variables, login method,
+  icon), how a secret file is read, whether a provider is enabled, and the
+  merge rule. No secret is returned to a client from here.
+- [server/lib/oauthProviders.js](../../../server/lib/oauthProviders.js) -
+  writes Meteor's `ServiceConfiguration` for each enabled provider, creates or
+  links the user (`onCreateProviderUser`, called from `Accounts.onCreateUser`
+  in `server/models/users.js`), refuses logins of a disabled provider and of a
+  disallowed email domain on every login, and guards passwordless.
+- [server/models/settings.js](../../../server/models/settings.js) - reports the
+  enabled providers to the sign-in page.
+- [models/lib/loginOriginMismatch.js](../../../models/lib/loginOriginMismatch.js) -
+  the sign-in page's warning when WeKan was opened at another address than
+  `ROOT_URL`.
+- Tests: [tests/oauthProviders.test.cjs](../../../tests/oauthProviders.test.cjs),
+  [tests/oauthProvidersAdminOverride.test.cjs](../../../tests/oauthProvidersAdminOverride.test.cjs),
+  [tests/oauthProvidersPlatformEnv.test.cjs](../../../tests/oauthProvidersPlatformEnv.test.cjs),
+  [tests/oauthProviderEmailDomains.test.cjs](../../../tests/oauthProviderEmailDomains.test.cjs),
+  [tests/loginOriginMismatch.test.cjs](../../../tests/loginOriginMismatch.test.cjs).
 
 ## Troubleshooting
 
@@ -164,14 +218,18 @@ see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passw
   in the Admin Panel, or the Admin Panel has it explicitly switched off (an
   Admin Panel value wins over the environment).
 
-## Related
-
-- [OAuth2 / OIDC](OAuth2.md) for any OpenID Connect server
-- [Passwordless](Passwordless.md) for the one-time code by email
-- [Google login](Google-login.md), the older Google notes
-- [Disable Password Login](Disable-Password-Login.md)
-
 ## Integration tests
 
 See [local login protocol tests](Testing.md) for example identities, actual
 request/response checks, failure cases and deployment limitations.
+
+## Commits
+
+ - [Log in by full-page redirect by default](https://github.com/wekan/wekan/commit/ad51a03731ed2daf039204ccc7423dd05b3c9506)
+ - [Restrict OAuth login providers to email domains](https://github.com/wekan/wekan/commit/fe609114087165dd3c4fa1b29075e9c19f4bcc9c)
+ - [Keep a merged account on its boards](https://github.com/wekan/wekan/commit/29bca6f757d0adc33348d25f0f0aef1acd48b2de)
+ - [Verify login provider exchanges and fix authentication failures](https://github.com/wekan/wekan/commit/4f7d28637e3c68d20c8c8462dfaea1289210c861)
+ - [REST API for the OAuth login provider settings](https://github.com/wekan/wekan/commit/bbcd98d9d83b874200ba45b2cbc2a495585031d9)
+ - [Admin Panel: override the OAuth login provider variables](https://github.com/wekan/wekan/commit/d1b5d0a75cf598dd7b079a290a6498059d638e94)
+ - [The login providers in every platform's settings](https://github.com/wekan/wekan/commit/61806605fc98449c976e42366bef92cc65153e39)
+ - [Add Google, GitHub, Facebook, X, Meteor Developer, Weibo and Meetup login](https://github.com/wekan/wekan/commit/83d2a7fc753d1790a2f166b04e470801fe114ced)

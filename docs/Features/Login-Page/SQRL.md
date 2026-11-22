@@ -1,23 +1,37 @@
 # SQRL
 
-[#2460](https://github.com/wekan/wekan/issues/2460).
+## What it is
 
 [SQRL](https://www.grc.com/sqrl/sqrl.htm) ("Secure Quick Reliable Login") signs
 you in with a SQRL app on your phone or a SQRL client on your computer, instead
 of a password. Your SQRL client makes a separate identity for each site from
 your one SQRL identity; WeKan keeps only that identity's public key, so there
-is nothing at WeKan that would let anybody sign in as you.
+is nothing at WeKan that would let anybody sign in as you. Added for
+[\#2460](https://github.com/wekan/wekan/issues/2460).
 
-## Turning it on
+## Read more
 
-Admin Panel → Settings → Features → **Sign in with SQRL**. It is
-off by default. WeKan must be at an `https://` address (`ROOT_URL`): SQRL's
-identity is per site, and over plain http the challenge could be read on the
-way.
+- [SQRL at Wikipedia](https://en.wikipedia.org/wiki/SQRL)
+- [SQRL at GRC](https://www.grc.com/sqrl/sqrl.htm), the specification and
+  clients
+- [EdDSA (Ed25519) at Wikipedia](https://en.wikipedia.org/wiki/EdDSA), the
+  signature SQRL uses
+- [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator), which
+  draws the QR code
+- [Passkeys](Passkeys.md), another way to sign in without a password
+
+## How to use it
+
+**Turn it on (administrator)**
+
+1. Admin Panel → Settings → Features → **Sign in with SQRL**. It is off by
+   default.
+2. WeKan must be at an `https://` address (`ROOT_URL`): SQRL's identity is per
+   site, and over plain http the challenge could be read on the way.
 
 SQRL is not offered on Sandstorm, where Sandstorm signs you in.
 
-## Using it
+**Use it (member)**
 
 - **Add your identity once:** sign in as usual, then Member Settings → **SQRL**
   → **Add my SQRL identity**. Scan the code with your SQRL app, or press **Open
@@ -32,7 +46,18 @@ SQRL is not offered on Sandstorm, where Sandstorm signs you in.
 An identity WeKan does not know cannot make an account or sign in: it has to be
 added from Member Settings first, by somebody who is already signed in.
 
-## How it works
+## How the numbers are calculated
+
+- **Session lifetime: ten minutes** (`SESSION_MS = 10 * 60 * 1000` in
+  `models/lib/sqrl.js`); every nut of a session is used once.
+- **Polling: every two seconds** the sign-in page asks whether the session is
+  complete (`POLL_MS = 2000` in `client/lib/sqrl.js`).
+- **Request size**: a client request body is at most 8 KiB
+  (`MAX_BODY_BYTES = 8 * 1024`).
+- **TIF**: each reply carries SQRL's transaction information flags, a bit set
+  written in hexadecimal (`tif`), as the SQRL protocol defines.
+
+## How it works in WeKan
 
 The sign-in page asks the server for a session, and shows its `sqrl://` link
 and QR code. Your SQRL client posts signed requests to `/sqrl`; the page asks
@@ -55,6 +80,21 @@ session's secret, which only that page has.
 The QR code is drawn by
 [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT),
 pinned in `package.json`.
+
+Files:
+
+- [models/lib/sqrl.js](../../../models/lib/sqrl.js) - pure: the protocol
+  (name=value encoding, nuts, TIF bits, request handling with injected store
+  and verifier).
+- [server/sqrl.js](../../../server/sqrl.js) - the `/sqrl` endpoint, the
+  sessions, Ed25519 checks with Node.js `crypto`, the login handler and the
+  `validateLoginAttempt` that enforces `sqrlonly`.
+- [client/lib/sqrl.js](../../../client/lib/sqrl.js) - the sign-in page's
+  polling; the Member Settings popup is `sqrlPopup` in
+  [client/components/users/userHeader.jade](../../../client/components/users/userHeader.jade);
+  the switch is in
+  [client/components/settings/settingBody.jade](../../../client/components/settings/settingBody.jade).
+- Test: [tests/sqrl.test.cjs](../../../tests/sqrl.test.cjs).
 
 ## Locking the account to SQRL
 
@@ -81,3 +121,9 @@ Ways back, on purpose:
   Features). Then no account is locked.
 - **An admin can still** change your e-mail address, set your password and
   create a token for you; the admin is the last resort.
+
+## Commits
+
+ - [Admin Panel: the SQRL switch is in the Features group](https://github.com/wekan/wekan/commit/0bac415d87911ad24c0a358e9627fbb046a05b50)
+ - [sqrlonly and hardlock lock an account to SQRL](https://github.com/wekan/wekan/commit/a539429fce594ad3423627a7471a142836a71f8d)
+ - [Sign in with SQRL, from a phone or a computer](https://github.com/wekan/wekan/commit/c940b3e30131ed6675c5767468bdab56ab7852eb)

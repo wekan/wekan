@@ -1,17 +1,30 @@
 # Windows single sign-on (Kerberos / NTLM)
 
-[#5758](https://github.com/wekan/wekan/issues/5758).
+## What it is
 
 Members who are already signed in to their Windows domain account can sign in
 to WeKan with **Sign in with Windows**, without typing a password. The browser
 proves who they are with Kerberos or NTLM ("Integrated Windows Authentication"),
 through [node-expose-sspi](https://github.com/jlguenego/node-expose-sspi).
+Added for [\#5758](https://github.com/wekan/wekan/issues/5758).
 
 **Status:** built without a Windows domain to test against. The decisions it
 makes (which accounts are allowed, which WeKan account they sign in to) are
 tested; the handshake itself has not been run. Reports are welcome in #5758.
 
-## Requirements
+## Read more
+
+- [Integrated Windows Authentication at Wikipedia](https://en.wikipedia.org/wiki/Integrated_Windows_Authentication)
+- [Kerberos at Wikipedia](https://en.wikipedia.org/wiki/Kerberos_(protocol)),
+  [NTLM at Wikipedia](https://en.wikipedia.org/wiki/NTLM) and
+  [SPNEGO (Negotiate) at Wikipedia](https://en.wikipedia.org/wiki/SPNEGO)
+- [Security Support Provider Interface (SSPI) at Wikipedia](https://en.wikipedia.org/wiki/Security_Support_Provider_Interface)
+- [node-expose-sspi](https://github.com/jlguenego/node-expose-sspi)
+- [Header login](Header-Login.md) and [LDAP](LDAP.md), the choices off Windows
+
+## How to use it
+
+**Requirements**
 
 - WeKan running **on Windows**, as a member of the domain (the
   [Windows bundle](../../Platforms/Propietary/OS/Windows/Offline.md) with
@@ -34,7 +47,7 @@ tested; the handshake itself has not been run. Reports are welcome in #5758.
   Without it, WeKan logs `Windows SSO: ... node-expose-sspi is not installed`
   and does not show the button.
 
-## Settings
+**Settings**
 
 In `start-wekan.bat`:
 
@@ -63,7 +76,23 @@ add it to the **Local intranet** zone (Internet Options, or the
 `network.negotiate-auth.trusted-uris` (and `network.automatic-ntlm-auth.trusted-uris`
 for NTLM) in Firefox.
 
-## How it works
+**Sign in**
+
+1. Open WeKan's sign-in page in a browser on a computer signed in to the
+   domain.
+2. Click **Sign in with Windows**. The browser sends the Windows sign-in
+   without asking for a password, and WeKan opens signed in.
+
+## How the numbers are calculated
+
+- **Sign-in token**: random, kept only as its SHA-256, valid for one minute
+  (`TOKEN_MS = 60000` in `server/windowsSso.js`) and used once.
+- **New usernames**: the Windows username, then `alice-2`, `alice-3` ... up
+  to `alice-50`; when all 50 are taken the sign-in is refused
+  (`windows-sso-username-taken`, `models/lib/windowsSso.js`).
+- **Domains**: an empty `WINDOWS_SSO_DOMAINS` allows nobody.
+
+## How it works in WeKan
 
 1. The sign-in page shows **Sign in with Windows**, a link to `/sso/windows`.
 2. There, WeKan answers with `401 WWW-Authenticate: Negotiate`, and the browser
@@ -85,3 +114,21 @@ for NTLM) in Firefox.
 
 If something goes wrong, the sign-in page says "Windows sign-in failed". Set
 `DEBUG=true` to see the reason in WeKan's log.
+
+Files:
+
+- [models/lib/windowsSso.js](../../../models/lib/windowsSso.js) - pure: the
+  allowed domains, machine accounts, which member a Windows account is
+  (`resolveMember`), where node-expose-sspi is looked for.
+- [server/windowsSso.js](../../../server/windowsSso.js) - the `/sso/windows`
+  route, the `windowsSsoTokens` collection and the `windowsSso` login handler.
+- The sign-in page signs in with the token in
+  [client/components/main/layouts.js](../../../client/components/main/layouts.js).
+- The settings are `windowsSso` in
+  [models/lib/authConfigCatalog.js](../../../models/lib/authConfigCatalog.js),
+  listed for `start-wekan.bat` only.
+- Test: [tests/windowsSso.test.cjs](../../../tests/windowsSso.test.cjs).
+
+## Commits
+
+ - [Windows single sign-on with Kerberos or NTLM](https://github.com/wekan/wekan/commit/a594a58117cab01f52fce2da78b78a288c4df3c1)
