@@ -139,6 +139,46 @@ WebApp.handlers.use(async function authenticateSandstormApiKey(req, res, next) {
 });
 
 // ---------------------------------------------------------------------------
+// 4c. No REST API at the Cloud Panel's address without a login
+// (docs/Features/Admin-Panel/Cloud-Panel.md, models/lib/cloudPanel.js
+// cloudRestDecision): only when CLOUD is set, only at that host. The
+// browser's own exports carry their login in ?authToken= or the login cookie
+// rather than a bearer token, so those are asked too before refusing.
+// ---------------------------------------------------------------------------
+WebApp.handlers.use(async function cloudHostRestGate(req, res, next) {
+  const { cloudDomainFromEnv, cloudRestDecision } = require('/models/lib/cloudPanel');
+  const cloudDomain = cloudDomainFromEnv(process.env);
+  if (!cloudDomain) return next();
+  let host = '';
+  try {
+    const tenants = require('/models/lib/tenants');
+    host = tenants.requestHost(req.headers, { trustProxy: tenants.trustsProxyHost(process.env) });
+  } catch (e) {
+    host = '';
+  }
+  const ask = signedIn => cloudRestDecision({ cloudDomain, host, url: req.url, signedIn });
+  if (ask(true) === 'pass' && ask(false) === 'pass') return next();
+  let signedIn = !!req.userId;
+  if (!signedIn && ask(true) === 'pass') {
+    try {
+      signedIn = !!(await require('/server/lib/requestUser').getUserIdFromRequest(req));
+    } catch (e) {
+      signedIn = false;
+    }
+  }
+  if (ask(signedIn) === 'pass') return next();
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authn.cloud-rest-off', action: 'blocked', req,
+      source: `rest:${req.method} ${String(req.url || '').split('?')[0].slice(0, 100)}`,
+      detail: 'The REST API at the Cloud Panel address, without a login',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+  res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+  return res.end('There is no REST API at this address.\n');
+});
+
+// ---------------------------------------------------------------------------
 // 4b. API usage counting (Admin Panel -> Problems -> API)
 // ---------------------------------------------------------------------------
 // After authentication, so a call has an account, and in front of the routes, so

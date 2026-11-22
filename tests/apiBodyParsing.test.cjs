@@ -23,6 +23,8 @@ function install(WebApp) {
       if (name === 'meteor/accounts-base') return { Accounts: { _hashLoginToken: token => token } };
       if (name === '/server/lib/apiResponseHelpers') return { safeJsonStringify: JSON.stringify };
       if (name === '/server/lib/apiUsageLog') return { apiUsageMiddleware: (_req, _res, next) => next() };
+      // The Cloud Panel's REST gate (pure; without CLOUD it lets every request through).
+      if (name === '/models/lib/cloudPanel') return require(path.join(root, 'models/lib/cloudPanel.js'));
       throw Object.assign(new Error(`Undeclared dependency: ${name}`), { code: 'MODULE_NOT_FOUND' });
     },
   }, { filename: 'server/apiMiddleware.js' });
