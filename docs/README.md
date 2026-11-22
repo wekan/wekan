@@ -53,6 +53,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Allow private boards only: Disable Public Boards](Features/Admin-Panel/Settings/Appearance.md)
 * [Security Disclosure and details of Security in Wekan](../SECURITY.md)
 * [Password Hashing](./Features/Login-Page/Password-Hashing.md)
+* [Laws and standards: GDPR, NIS2, ISO 27001, HIPAA, CRA and others - what WeKan has and what is missing](Compliance/README.md), with the [official sources](Compliance/Sources.md)
 
 # <a name="Scaling"></a>Scaling
 

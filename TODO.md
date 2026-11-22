@@ -36,8 +36,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   overview. Every topic in one folder at the `docs/Features/` level: the
   `General/` level goes, its folders move up into the same-named folders, and
   the folders of `# Moved` stubs are removed, with every link updated.
-- The compliance reports move to `docs/Compliance/`, and accessibility gets a
-  top-level folder of its own, `docs/Accessibility/`.
+- Everything about accessibility in one folder, `docs/Features/Accessibility/`
+  (from `General/Accessibility/` and the Admin Panel's Accessibility page).
 - Accessibility: every missing WCAG 2.2 AA feature added, and the accessibility
   tests extended to every page, popup and Admin Panel pane - axe with the WCAG
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
@@ -46,7 +46,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   against what WeKan already has; what is missing is added where it belongs in
   the menus: a complete admin audit log, retention for login and address data,
   a personal-data inventory, complete erasure, a personal-data export, legal
-  pages with accepted versions, and the rest of the gap analysis.
+  pages with accepted versions, and the rest of the gap analysis in
+  `docs/Compliance/`.
 - Board View Shop: the products on a board's cards as a web shop, which a
   public board can show instead of the kanban as Website can, with Board
   Settings / Shop choosing the payment methods WeKan already has.
