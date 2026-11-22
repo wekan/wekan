@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.27 2026-11-22 WeKan ® release
 
 **In short:** **CodeQL** alert #611 is fixed: the **autolink rules** find the
 links already in a card's text in linear time, so a description built of

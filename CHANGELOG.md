@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.27 2026-11-22 WeKan ® release
 
 **CodeQL** alert #611 is fixed: the **autolink rules** find the
 links already in a card's text in linear time, so a description built of
 thousands of brackets no longer takes seconds to render.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.27](CHANGELOG-big.md#v1327-2026-11-22-wekan--release)
 
 # v13.26 2026-11-22 WeKan ® release
 
@@ -53,17 +53,3 @@ products under the company's name: **37signals**, **Atlassian**, **Google** and
 **Microsoft**.
 
 [All changes in v13.23](CHANGELOG-big.md#v1323-2026-11-20-wekan--release)
-
-# v13.22 2026-11-20 WeKan ® release
-
-Repeating tasks of **Taskwarrior**, **Microsoft To Do**,
-**Todoist**, **TickTick**, **Tasks.org**, **Vikunja**, **Super Productivity**,
-**iCalendar**, **Org mode** and **Obsidian Kanban** now repeat in WeKan, and
-their exports write the repeat back. **Release All**
-builds and pushes **wekan**, **wekan-ondra** and **wekan-gantt-gpl** to every
-Snap Store channel, and **Release All Missing** adds what a release lacks,
-snaps included. A **WeKan board** imported from its own export keeps all of
-its Board Settings and card fields, and **Rocket.Chat** and **Fizzy** are
-imported and exported.
-
-[All changes in v13.22](CHANGELOG-big.md#v1322-2026-11-20-wekan--release)
