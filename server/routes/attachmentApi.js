@@ -59,6 +59,21 @@ async function authenticateApiRequest(req) {
   return userId;
 }
 
+// server/apiMiddleware.js runs express.json() for every path before these
+// routes, so a JSON body has already been read when a route starts listening
+// for it: the request's 'end' is over and never comes again, and the route
+// waited until its own timeout (list-lock-attachments.e2e.js: copy and move
+// never answered). Hand the parsed body to the route's own data/end listeners,
+// so a body arrives the same way whichever middleware read it first.
+function replayParsedBody(req) {
+  if (req._body !== true && !req.readableEnded) return;
+  const text = typeof req.body === 'string' ? req.body : JSON.stringify(req.body ?? {});
+  process.nextTick(() => {
+    req.emit('data', Buffer.from(text));
+    req.emit('end');
+  });
+}
+
 // Helper function to send JSON response
 function sendJsonResponse(res, statusCode, data) {
   res.writeHead(statusCode, { 'Content-Type': 'application/json' });
@@ -242,6 +257,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
         body += chunk.toString();
       });
 
+      replayParsedBody(req);
       req.on('end', async () => {
         if (bodyComplete) return; // Already processed
         bodyComplete = true;
@@ -425,6 +441,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
         body += chunk.toString();
       });
 
+      replayParsedBody(req);
       req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
@@ -847,6 +864,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
         }
       });
 
+      replayParsedBody(req);
       req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
@@ -1033,6 +1051,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
         }
       });
 
+      replayParsedBody(req);
       req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
