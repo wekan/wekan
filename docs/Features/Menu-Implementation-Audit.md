@@ -102,3 +102,12 @@ Confirmed limitations requiring further implementation:
 contract, including loss accounting; it is not evidence that those promises are
 already implemented. For disaster recovery use the
 [full backup documentation](../Backup/Backup.md).
+
+## Commits
+
+ - [File docs/Features the way the WeKan menus are](https://github.com/wekan/wekan/commit/b7589737f5730ce1ba83244946e158519528a783)
+ - [Audit the attached cards in the inventories](https://github.com/wekan/wekan/commit/821519119739c257e41ccbf364005c5bec661b05)
+ - [Audit the board announcement popup's Save](https://github.com/wekan/wekan/commit/a8a78f54f98223d5fe55ca329f02ad7185aa25f5)
+ - [Re-run the browser audit failures and update F14](https://github.com/wekan/wekan/commit/101984009771cc6f34c8c1f5f90d2178e8a42861)
+ - [Record the menu audit results and strengthen imported content checks](https://github.com/wekan/wekan/commit/6d9fdf8b285bca8443db2b08bb65928c79255c60)
+ - [Audit menu actions and repair import data loss and policy enforcement](https://github.com/wekan/wekan/commit/9289edc3ecf03fee957f3e3da2e99c07337beb9f)

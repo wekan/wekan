@@ -118,3 +118,9 @@ The [local login audit](Login-Page/Testing.md) adds real LDAP, OAuth, SAML, CAS,
 SMTP, proxy and Sandstorm exchanges, including positive and rejected logins.
 Its focused passing results do not erase the unrelated baseline failures
 above or certify live external identity-provider deployments.
+
+## Commits
+
+ - [Re-run the 2026-09-23 browser audit failures: none reproduces](https://github.com/wekan/wekan/commit/101984009771cc6f34c8c1f5f90d2178e8a42861)
+ - [Record the menu audit results](https://github.com/wekan/wekan/commit/6d9fdf8b285bca8443db2b08bb65928c79255c60)
+ - [Audit menu actions and repair import data loss and policy enforcement](https://github.com/wekan/wekan/commit/9289edc3ecf03fee957f3e3da2e99c07337beb9f)
