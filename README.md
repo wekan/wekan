@@ -157,7 +157,9 @@ that by providing one-click installation on various platforms.
   - Admin Panel
     - Settings
       - Version
-      - Features: which features this WeKan offers, Card fields, Feature profiles
+      - Features: which features this WeKan offers, Card fields, Feature profiles,
+        [Turn off all webhooks](docs/Features/Admin-Panel/Settings/Turn-Off-All-Webhooks.md) at once: every webhook screen hidden,
+        nothing sent and no webhook added or changed on the server, the saved ones kept
       - Appearance: What is shown/hidden, Whitelabeling
       - Announcement
       - Accessibility
@@ -190,6 +192,7 @@ that by providing one-click installation on various platforms.
       - Security: shows any attempted attacks based on names from https://wekan.fi/hall-of-fame/ like built-in SIEM with country flag and city based of location of IP address based on location headers like CloudFlare etc
       - Impersonation
       - Performance, Speed, Tests, CPU usage, Instrumentation, Broken Cards, Files, Rules, Boards, Recovery, Offices, API, Database problems, Filesystem integrity
+      - [Webhooks](docs/Features/Admin-Panel/Problems/Webhooks.md): every webhook, its board or Global, the user who added it and what it sends, tokens hidden
 - [Platforms](https://wekan.fi/install/):
   - Windows/Mac/Linux bundle .zip
   - Linux [Snap](https://snapcraft.io/wekan): Automatic updates

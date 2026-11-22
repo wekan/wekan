@@ -22,7 +22,7 @@ they may do is [People](../People/README.md); what is going wrong is
 | --- | --- | --- | --- |
 | Settings / Version | `version` | [Version.md](Version.md) | What this instance is running: WeKan, Meteor, Node, the database and how it is reached. |
 | Settings / Appearance | `appearance` | [Appearance.md](Appearance.md) | How this WeKan looks: what All Boards shows, dates, the card details width, the URLs and autolinks, the product name, colours and logos. Was Visibility; `visibility` redirects here. |
-| Settings / Features | `features` | [Features.md](Features.md) | Which optional features this WeKan offers, the card fields every board shows, SQRL, ActivityPub, Rules and the Optional APIs. |
+| Settings / Features | `features` | [Features.md](Features.md) | Which optional features this WeKan offers, the card fields every board shows, SQRL, ActivityPub, [Turn off all webhooks](Turn-Off-All-Webhooks.md), Rules and the Optional APIs. |
 | Settings / Feature profiles | `feature-profiles` | [Feature-Profiles.md](Feature-Profiles.md) | Hide some of those features from chosen users, teams and organizations. |
 | Settings / Security | `security` | [Security.md](Security.md) | What rich text may do, and what may be imported or exported. Was Problems / Security. |
 | Settings / Activities and notifications | `activities` | [Activities-and-Notifications.md](Activities-and-Notifications.md) | Turn off activities, notifications or watching. Was Problems / Notifications. |

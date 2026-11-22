@@ -79,6 +79,17 @@ it, as they see it.
 | Every other board view (calendar, time, overview, Gantt, flow charts, map, website, column sets) | Choosing the view (`setBoardView`). Nothing else: they read the cards the board already publishes and write ordinary card fields. | Disabled setting |
 | Search phrases, Daily standup timer, Retrospective board | Nothing - display only. A phrase becomes the search operators anybody may type; the timer runs in the browser and writes nothing; the retrospective board is an ordinary board anybody may make by hand. | - |
 
+**Admin Panel / Settings / Features / Turn off all webhooks**
+
+[Turn off all webhooks](Settings/Turn-Off-All-Webhooks.md) is a switch of its
+own, not a feature tick: no site administrator previews it and no pilot user
+is exempt, because what it stops is the server's own sending.
+
+| What | What the server does while it is on | Problems |
+| --- | --- | --- |
+| Adding or changing a webhook | Refused: a client `Integrations` insert or update (the board menu's Outgoing Webhooks, Global Webhooks, Board Settings / Bots), `POST /api/boards/:boardId/integrations`, `PUT /api/boards/:boardId/integrations/:intId` and both `.../activities` routes (403 `webhooks-disabled`), a webhook's own delivery settings (`setNotificationDelivery` with the `integration` scope) and the login and registration webhook (`saveAccountWebhook`). Removing a webhook is allowed. | Webhooks turned off |
+| Sending | Nothing is sent and nothing is logged: board and global webhooks, two-way webhooks, Mattermost direct messages, the grouped and scheduled queue, durable Sync webhooks, the login and registration webhook and bot dispatches. | - |
+
 **Already refused on the server before 2026-11-22**
 
 Audited and left as they were, because the server already refused them:

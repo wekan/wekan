@@ -121,6 +121,9 @@ as soon as they are switched, both off by default:
   `@board-<id>` at this WeKan's address, and new card activity reaches its
   followers. Read-only: nothing a fediverse server sends changes a board, and
   private boards are never published.
+- **Turn off all webhooks** - hides every webhook screen, and the server sends
+  no webhook and refuses to add or change one; saved webhooks are kept. Off by
+  default. See [Turn off all webhooks](Turn-Off-All-Webhooks.md).
 
 **Rules.** **Boards may show their Rules to members, read-only.** Saved when
 ticked. Off: only board admins see a board's Rules. On: a board admin can tick

@@ -9,6 +9,10 @@ happens, so a chat, an automation server or another tool can react.
 
 Each webhook has a URL, a type, and the token used to sign the request.
 
+The pane, its menu entry and every other webhook screen are hidden while
+[Turn off all webhooks](Turn-Off-All-Webhooks.md) is on, and the list of every
+webhook is [Admin Panel / Problems / All webhooks](../Problems/Webhooks.md).
+
 The same pane also holds **Internal destinations**, the hosts on WeKan's own
 network that any webhook may reach, and the
 [Login and registration webhook](Login-and-Registration-Webhook.md).
