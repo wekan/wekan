@@ -388,3 +388,11 @@ pages above, with the `axe-core` package of `tests/playwright`, and signs in
 with `loginWithToken` from `tests/playwright/helpers/auth.js`. Run it like the
 other Playwright specs. The original trial used `axe-core` 4.14.0 and the
 Chromium of the repository's Playwright cache (`.tools/ms-playwright`).
+
+## Commits
+
+ - [Every board theme and every chosen colour is readable](https://github.com/wekan/wekan/commit/8b2114cd0f9501867c01521c7a6f78a02e44d549)
+ - [Dark themes readable again (#6863)](https://github.com/wekan/wekan/commit/a6b10e3592368633a8b6042422b450c6e785e4d8)
+ - [The results of the fixes, page by page](https://github.com/wekan/wekan/commit/d9aa210012d3f496ef53f6ad80d10a62ba0fafa6)
+ - [Fix the findings in the default theme](https://github.com/wekan/wekan/commit/c8bcc4817d6ba94cfe4524de96a0ab20afd27f10)
+ - [The result of an automated axe-core audit of seven pages](https://github.com/wekan/wekan/commit/2dd25c733e42e10d99c507ffeec5e84dd0bb685b)
