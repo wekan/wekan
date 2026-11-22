@@ -706,6 +706,8 @@ Template.boardMenuPopup.events({
   'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
   'click .js-open-board-date-settings': Popup.open('boardDateSettings', { titleKey: 'date' }),
   'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),
+  // Board Settings / Shop (client/components/boards/shopView.js).
+  'click .js-open-board-shop-settings': Popup.open('boardShopSettings', { titleKey: 'board-view-shop' }),
   // #2489: WIP Limit Groups is reached from Board Settings / Swimlane now -
   // its click handler sits with the Swimlane popup's events below.
   // Board Settings / Card: Card Settings with no card. Overriding

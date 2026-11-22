@@ -33,6 +33,7 @@ whose entries are listed below with the page that describes each one.
 | Board View | [Visible views, defaults and menu order](Board-View.md) | Board admin |
 | Swimlane | [Height resize lock and WIP Limit Groups](Swimlane.md) | Board admin |
 | List | [Width resize lock, same width for all lists, and the flow policies: list policies, split lists, commitment point, WIP limit per person](List.md) | Board admin |
+| Shop | [The board's cards as a web shop: price, product code and stock fields, lists on sale, categories, Orders list, payment methods, and the Shop as the public board's view](Shop.md) | Board admin; hidden by its switch in Admin Panel / Settings / Features |
 | Card | [Field visibility and order, including the flow fields Blocked, Class of service, MoSCoW and WSJF](Card.md) | Board admin; personal Labels text remains available to members |
 | Export | [Export board content](Import-Export.md), in WeKan's own formats, some sixty other tools' and Sandstorm grain backups, under the same headings as Import - every format written a page of cards at a time | Export must be enabled |
 | Import | [Import into the board](Import-Export.md) | Write access; import must be enabled |
@@ -69,8 +70,8 @@ The menu is drawn by `boardMenuPopup` in
 and its clicks open the popups in
 [client/components/sidebar/sidebar.js](../../../../client/components/sidebar/sidebar.js).
 Who sees which entry is decided there: the Rules group, Scrum settings, the
-board's look, Board View, Swimlane, List, Notifications and Outgoing Webhooks
-are inside `currentUser.isBoardAdmin`; a member of a board that shows its Rules
+board's look, Board View, Swimlane, List, Shop, Notifications and Outgoing
+Webhooks are inside `currentUser.isBoardAdmin`; a member of a board that shows its Rules
 gets only **Rules** (`rulesReadable`); **Card** is shown to every logged-in
 user; **Export** needs `withApi` and is hidden by `exportDisabled`, and
 **Import** needs `canImportIntoBoard`; **Summary** and **Since your last visit**

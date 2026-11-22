@@ -813,6 +813,15 @@ template(name="boardMenuPopup")
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-trello
             | {{_ 'list'}}
+        //- Board Settings / Shop: the board's cards as a web shop - which custom
+          fields are the price, product code and stock, the lists on sale, the
+          Orders list and the payment methods (client/components/boards/shopView.*,
+          docs/Features/Board-Sidebar/Board-Settings/Shop.md).
+        if allowFeature 'views-shop'
+          li
+            a.js-open-board-shop-settings(title="{{_ 'board-view-shop'}}")
+              i.fa.fa-shopping-cart
+              | {{_ 'board-view-shop'}}
         //- "Scrum settings" was here. It is above Change color now, in a group
           of its own.
         //- "WIP Limit Groups" was here. It is a row of Board Settings /

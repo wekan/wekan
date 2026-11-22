@@ -99,6 +99,8 @@ const EXPECTED = [
   'js-open-board-view-settings',
   'js-open-board-swimlane-settings',
   'js-open-board-list-settings',
+  // Board Settings / Shop (2026-11-22), with the board's other admin settings.
+  'js-open-board-shop-settings',
   'js-open-board-card-settings',
   'hr',
   'js-export-board',
@@ -165,6 +167,9 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-board-date-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-board-info-on-my-boards'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-list-settings'), ['if currentUser', admin]);
+  // Board Settings / Shop: board admins, while Admin Panel / Settings /
+  // Features keeps the Shop view on (server/shop.js refuses it otherwise).
+  assert.deepStrictEqual(guardsOf('js-open-board-shop-settings'), ['if currentUser', admin, "if allowFeature 'views-shop'"]);
   // 2026-11-22: Scrum settings open the Sprints view, which the server refuses
   // while Admin Panel / Settings / Features turns the Scrum views off
   // (models/lib/featureServerGates.js), so the entry follows that tick too.
