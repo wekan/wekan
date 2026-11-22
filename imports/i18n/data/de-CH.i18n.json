@@ -5667,7 +5667,7 @@
   "gitea-delete-repo": "Dieses Repository und seine Dateien löschen",
   "gitea-delete-repo-confirm": "Dies löscht das Repository, sein Wiki und alle seine Daten endgültig aus dem Gitea-Ordner. Geben Sie zum Fortfahren owner/name ein:",
   "gitea-delete-repo-wrong-name": "Der eingegebene Name ist nicht owner/name des Repositorys. Es wurde nichts gelöscht.",
-  "gitea-exclude-too": "Es auch von der Synchronisierung ausschließen, damit die nächste Synchronisierung es nicht zurückbringt",
+  "gitea-exclude-too": "Es auch von der Synchronisierung ausschliessen, damit die nächste Synchronisierung es nicht zurückbringt",
   "gitea-packages-unlinked": "Damit verknüpfte Pakete bleiben beim Eigentümer, ohne Verknüpfung:",
   "gitea-deleted": "Gelöscht",
   "gitea-freed": "freigegeben",
