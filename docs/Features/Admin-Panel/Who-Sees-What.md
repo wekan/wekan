@@ -53,6 +53,11 @@ So a board view is in a user's Board View menu only when the instance offers it
 (or the user is a pilot), their feature profile (if any) does not hide it, and
 the board offers it.
 
+A layer that turns something off for the whole instance - a feature, a login
+method, import - is refused by the server too, not only hidden; the card
+field and board layers are display only on purpose. Which is which, and why:
+[Settings enforced on the server](Settings-Enforced-On-Server.md).
+
 ### Permission: may they do it?
 
 | Layer | Who sets it | Where | Decides |

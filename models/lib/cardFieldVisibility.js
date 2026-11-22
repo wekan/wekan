@@ -12,6 +12,12 @@
 // What an unticked field means:
 //   * VISIBILITY ONLY. The field is not drawn on any card or minicard of any
 //     board, and its row is not offered in any board's Board Settings / Card.
+//     Writes of the field are NOT refused, on purpose (decided 2026-11-22,
+//     docs/Features/Admin-Panel/Settings-Enforced-On-Server.md): its values
+//     are card data that the REST API, rules, imports and List Sync write,
+//     and refusing them would lose data while the field is hidden. The card
+//     helpers the server computes answer nothing while hidden
+//     (server/lib/assistGate.js boardForCardHelper).
 //   * Nothing is written: no card data and no board setting changes. Every
 //     board keeps its own choice, and ticking the field again shows each
 //     board exactly as it was set before.

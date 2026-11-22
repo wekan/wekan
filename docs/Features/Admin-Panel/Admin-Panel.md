@@ -16,6 +16,7 @@ access only to their permitted scope.
   [Slug (web publishing)](https://en.wikipedia.org/wiki/Slug_(web_publishing))
   on Wikipedia - the `/admin/<tab>/<pane>` addresses.
 - WeKan: [Who sees and can do what](Who-Sees-What.md),
+  [Settings enforced on the server](Settings-Enforced-On-Server.md),
   [Admin Panel URLs](Admin-Panel-URLs.md) and the
   [Validation report](Validation.md).
 

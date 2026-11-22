@@ -79,6 +79,41 @@ it, as they see it.
 | Every other board view (calendar, time, overview, Gantt, flow charts, map, website, column sets) | Choosing the view (`setBoardView`). Nothing else: they read the cards the board already publishes and write ordinary card fields. | Disabled setting |
 | Search phrases, Daily standup timer, Retrospective board | Nothing - display only. A phrase becomes the search operators anybody may type; the timer runs in the browser and writes nothing; the retrospective board is an ordinary board anybody may make by hand. | - |
 
+**Already refused on the server before 2026-11-22**
+
+Audited and left as they were, because the server already refused them:
+
+| Setting | Where the server refuses it |
+| --- | --- |
+| People / Login: Self-Registration unticked | `POST /users/register` (SignupBleed) and `onCreateUser` for every DDP sign-up (an invitation code is required); passwordless never creates an account then. |
+| People / Login: e-mail change not allowed | `setEmail` and `setUsernameAndEmail`; `emails` is never writable from the client. |
+| People / Login: passwordless sign-in off | `requestLoginTokenForUser` and the `passwordless` login attempt. |
+| People / Login: an OAuth provider, OIDC, CAS, SAML or LDAP off | Its service configuration is removed and its login attempt refused. |
+| People / Login: two-factor authentication required | No API token, and the browser is sent to set it up (`server/requireTwoFactor.js`). |
+| Settings / Security: Disable all export | Every export method and route. |
+| Settings / Activities and notifications | Activities, notifications and watching are not recorded or sent. |
+| Settings / Delete: permanent delete | The delete methods of boards, lists and cards. |
+| Settings / Features: Optional APIs | An API that is not ticked answers 404 (`server/compatApi/core.js`). |
+| Settings / Features: SQRL, ActivityPub | Their routes and login handler answer only while on. |
+| Attachments: uploads blocked | The upload pipeline (`models/attachments.server.js`). |
+| Board Settings / Card: Attachments off | The attachment REST API (`server/routes/attachmentApi.js`). |
+| Only admins can create boards, Allow private boards only, boards everybody may edit | The board insert and update rules and the board methods (CreateBleed, VisibilityBleed). |
+| People / Organizations and Teams: members only from the same organization or team | Adding a member (`server/lib/orgTeamRestriction.js`). |
+
+**Display only, on purpose**
+
+These change what the interface shows and nothing else. Each one is a
+decision, with its reason:
+
+| Setting | Why the server does not refuse anything |
+| --- | --- |
+| Settings / Features / Card fields (`models/lib/cardFieldVisibility.js`) | A hidden card field is not drawn on any board, and *nothing is written*: ticking it again shows every board exactly as before. Its values are ordinary card data that the REST API, rules, imports, the compatible APIs, List Sync and recurrence write, and refusing those writes would lose data while the field is hidden. The card helpers that the server computes (Similar cards, Forecast, Suggested members, ...) do answer nothing while their field is hidden (`boardForCardHelper` in `server/lib/assistGate.js`). |
+| Board Settings / Card (what one board shows on cards and minicards) | The same: what the board shows, not what may be written. Drawings, the whiteboard and cover images write card attachments while the Attachments row is off, so only the attachment REST API refuses (as before). |
+| Board Settings / Board View (the views one board offers) | Which views the board lists; whether a view exists at all is the instance feature above, which the server refuses. |
+| Settings / Features / Rules: read-only for members | It never grants a write: the rule methods keep their own board-admin checks. The rules are published to everybody who sees the board anyway, because the board and card rule buttons need them. |
+| Settings / Appearance: hide the logo, the card counter, the board member list, the date format, links as plain text, code as text | Presentation. The member list is published to the board's members regardless, as their cards name them. |
+| Search phrases, Daily standup timer, Retrospective board | See the Features table above. |
+
 ## How the numbers are calculated
 
 Problems counts every refused call once in the row of its kind; the actor
@@ -129,3 +164,10 @@ tally names the account (when the call had one) and the address it came from.
   (every catalog feature is decided, and every method and publication of a
   feature file asks the gate, so a new one cannot skip it) and
   [server/lib/tests/featureServerGates.tests.js](../../../server/lib/tests/featureServerGates.tests.js).
+
+## Commits
+
+- [Password login disabled and forgot password disabled are refused on the server](https://github.com/wekan/wekan/commit/24be123ee56ac546037be77ee01f7766d4688fe3)
+- [Own account deletion and username change follow their settings on the server, and the last admin stays](https://github.com/wekan/wekan/commit/57a24eb8ba321198ecee62df53fddc9b53d0b1d9)
+- [Admin Panel / Settings / Features: an unticked feature is refused on the server](https://github.com/wekan/wekan/commit/68dcfd14fef672cc025cae3bc84385a24dcceacb)
+- [Disable all import: the Trello API, iCalendar and Scrum transfer imports are refused too](https://github.com/wekan/wekan/commit/c5b3b597e8f07e9c58ae9664563de9dd37ed6a0f)
