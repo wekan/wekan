@@ -198,11 +198,16 @@ runOnServer(function () {
         const creator = new WekanCreator({ membersMode: req.query && req.query.membersMode, importFields: fields });
         creator.attachmentStream = attachmentStream;
         const { DDP } = require('meteor/ddp');
-        const tracked = require('/server/importRuns').trackImport({ userId: user._id, source: 'wekan-zip', creator,
-          execute: () => creator.create(doc, null) });
+        // The import STARTS inside the importer's method context, not merely is
+        // awaited in it: trackImport runs execute() at once, and everything it
+        // reaches - the people the file names becoming the importer
+        // (membersMode=me), the author of a row with none - asks Meteor.userId(),
+        // which outside a context threw, so every .zip that became a new board
+        // answered 500 (tests/importZipUserContext.test.cjs).
         const newBoardId = await DDP._CurrentMethodInvocation.withValue(
           { userId: user._id, isSimulation: false, connection: null },
-          () => tracked.promise,
+          () => require('/server/importRuns').trackImport({ userId: user._id, source: 'wekan-zip', creator,
+            execute: () => creator.create(doc, null) }).promise,
         );
         answer(200, { ok: true, boardId: newBoardId });
         return;

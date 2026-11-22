@@ -856,8 +856,16 @@ async function runJob(jobId) {
         });
         const creator = new TrelloCreator({ membersMapping });
         creator.attachmentStream = trelloAttachmentStreamer(creds.key, creds.token);
-        const newBoardId = await trackImport({ userId: job.userId, source: 'trello-api', creator,
-          execute: () => creator.create(sanitized, null) }).promise;
+        // As the user who asked for the import: TrelloCreator asks
+        // Meteor.userId() for the board's owner and for every Trello member
+        // nobody is mapped to, and a job has no method context of its own - the
+        // import threw before writing anything (tests/importZipUserContext.test.cjs).
+        const { DDP } = require('meteor/ddp');
+        const newBoardId = await DDP._CurrentMethodInvocation.withValue(
+          { userId: job.userId, isSimulation: false, connection: null },
+          () => trackImport({ userId: job.userId, source: 'trello-api', creator,
+            execute: () => creator.create(sanitized, null) }).promise,
+        );
 
         // The sanitized copy, like the creator above: the organization name is
         // stored as a workspace title, so it is imported text too.
