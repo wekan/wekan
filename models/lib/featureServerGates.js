@@ -42,6 +42,8 @@ const SERVER_PATHS = [
   { key: 'rule-suggestions', file: 'server/methods/ruleSuggestions.js' },
   { key: 'workload', file: 'server/workload.js' },
   { key: 'billing', file: 'server/billing.js' },
+  // Board View / Shop: its settings and its orders (models/lib/shop.js).
+  { key: 'views-shop', file: 'server/shop.js' },
 ];
 
 // Catalog features whose server side is a write of the board or a list

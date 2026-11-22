@@ -537,6 +537,8 @@ import '/server/scrum';
 import '/server/workload';
 // Budget and billing (docs/Features/Billing/Billing.md).
 import '/server/billing';
+// Board View / Shop: Board Settings / Shop and the orders (models/lib/shop.js).
+import '/server/shop';
 // Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md).
 import '/server/cloudPanel';
 // Time entries: a card's time by day (server/timeEntries.js).

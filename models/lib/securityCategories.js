@@ -343,6 +343,22 @@ const CATALOG = {
   // The REST API at the CLOUD address, without a login: POST /users/login,
   // /users/register and /api/ are not there at all (server/apiMiddleware.js).
   'authn.cloud-rest-off': { category: 'authn', bleed: 'CloudPanelBleed', severity: 'medium', cwe: 'CWE-306', blocksAccount: false },
+  // Board View / Shop (server/shop.js). Board Settings / Shop saved by
+  // somebody who is not an admin of the board, an Orders list named on a board
+  // they do not administer, or a client write of a board's shopSettings past
+  // the method that checks it. No screen offers any of these. blocksAccount:
+  // false - an admin demoted while the popup was open still saves.
+  'authz.shop-settings': { category: 'authz', bleed: 'Shop', severity: 'medium', cwe: 'CWE-863', blocksAccount: false },
+  // An order the shop does not take: the shop closed, a visitor without an
+  // account where only accounts order, a payment method the shop does not
+  // offer, a board the caller can not read - the Shop view offers no checkout
+  // then. 'detected': a cart line carrying a price, which is not read.
+  // blocksAccount: false - a visitor has no account, and a tab open since the
+  // shop closed still sends.
+  'authz.shop-order': { category: 'authz', bleed: 'Shop', severity: 'medium', cwe: 'CWE-602', blocksAccount: false },
+  // More orders to one shop in an hour than it takes (server/shop.js
+  // MAX_ORDERS_PER_HOUR): the shop is being flooded with orders.
+  'dos.shop-orders': { category: 'dos', bleed: 'Shop', severity: 'medium', cwe: 'CWE-770', blocksAccount: false },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };
