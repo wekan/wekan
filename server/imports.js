@@ -112,6 +112,8 @@ import '/server/lib/cpuMonitor';
 // Siblings of the CPU monitor: memory and swap, and each filesystem WeKan
 // writes to (docs/Features/Admin-Panel/Problems/RAM-usage.md, Disk-usage.md).
 import '/server/lib/ramMonitor';
+// docs/Compliance/README.md WP-2: sign-in addresses expire.
+import '/server/lib/loginAddressRetention';
 import '/server/lib/diskMonitor';
 import '/server/lib/selfChecks';
 import '/server/models/actions';

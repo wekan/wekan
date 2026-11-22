@@ -911,6 +911,8 @@ REM # WEKAN_IMPORT_RUN_STALE_MS: Milliseconds after which an import with no prog
 REM SET WEKAN_IMPORT_RUN_STALE_MS=600000
 REM # EVENTLOG_RETENTION_DAYS: Days after which an Admin Panel / Problems event is deleted by the daily sweep, so resolved problems age out; a recurring problem keeps a recent date and stays. Default 90, 0 = keep forever.
 REM SET EVENTLOG_RETENTION_DAYS=90
+REM # LOGIN_ADDRESS_RETENTION_DAYS: Days a sign-in address is kept on the account, in loginAddresses and in shortPasswordLogins after its last use. Default 365; 0 keeps them.
+REM SET LOGIN_ADDRESS_RETENTION_DAYS=365
 REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/Attachments.md
 REM SET ATTACHMENTS_RETENTION_DAYS=730
 REM SET ATTACHMENTS_RETENTION_MODE=uploaded

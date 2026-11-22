@@ -994,6 +994,9 @@ services:
       # is deleted by the daily sweep, so resolved problems age out; a recurring
       # problem keeps a recent date and stays. Default 90, 0 = keep forever.
       #- EVENTLOG_RETENTION_DAYS=90
+      # LOGIN_ADDRESS_RETENTION_DAYS : Days a sign-in address is kept after its last
+      # use, on the account and in the login reports. Default 365; 0 keeps them.
+      #- LOGIN_ADDRESS_RETENTION_DAYS=365
       #---------------------------------------------------------------
       # ATTACHMENT RETENTION (models/lib/attachmentRetention.js). Off unless set.
       # ATTACHMENTS_RETENTION_DAYS : once a night, delete card attachments older

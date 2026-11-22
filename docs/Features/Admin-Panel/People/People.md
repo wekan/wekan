@@ -87,7 +87,10 @@ people into teams.
   tallied login addresses located in it; unknown (`XX`), Tor (`T1`) and
   malformed country codes are left out, and a country's rows are sorted by
   count, most first ([models/lib/loginTally.js](../../../../models/lib/loginTally.js)).
-  At most 200 users are asked for at once.
+  At most 200 users are asked for at once. A login address is kept until
+  `LOGIN_ADDRESS_RETENTION_DAYS` (default 365, 0 = for good) after its last
+  use, then removed from the account and the address reports once a day
+  ([models/lib/loginAddressRetention.js](../../../../models/lib/loginAddressRetention.js)).
 - **Status (locked)**: locked while any source address of the account has an
   unlock time in the future ([models/lib/accountLockout.js](../../../../models/lib/accountLockout.js));
   the **Locked Users Only** filter uses the newest unlock time stored for

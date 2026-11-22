@@ -250,6 +250,8 @@
       #export WEKAN_IMPORT_RUN_STALE_MS=600000
       # EVENTLOG_RETENTION_DAYS: Days after which an Admin Panel / Problems event is deleted by the daily sweep, so resolved problems age out; a recurring problem keeps a recent date and stays. Default 90, 0 = keep forever.
       #export EVENTLOG_RETENTION_DAYS=90
+      # LOGIN_ADDRESS_RETENTION_DAYS: Days a sign-in address is kept on the account, in loginAddresses and in shortPasswordLogins after its last use. Default 365; 0 keeps them.
+      #export LOGIN_ADDRESS_RETENTION_DAYS=365
       # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
       #export ATTACHMENTS_RETENTION_DAYS=730
       #export ATTACHMENTS_RETENTION_MODE=uploaded
