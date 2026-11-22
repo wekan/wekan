@@ -56,8 +56,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   ListLockMoveBleed, the help button, the Shop's Product line kind, the
   Meteor 3 hosting localhost limit, the Omi and WeLite translation keys, and
   the translation rule for the prototypes.
-- The Latvian catalog (`lv`) has Lithuanian words in it: to be replaced with
-  Latvian once the help-text translators are done with that file.
+- The Latvian catalog (`lv`) has Lithuanian words in it, and the Estonian one
+  (`et-EE`) calls a board "juhatus" (a company's management board) in "Board
+  Settings" and "Board View": both to be corrected once the help-text
+  translators are done with those files.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
