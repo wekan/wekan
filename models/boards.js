@@ -1818,6 +1818,10 @@ Boards.helpers({
     if (!selection.labels) this.labels = [];
     delete this._id;
     delete this.slug;
+    // Board Settings / Shop: the copy's shop is closed and has no Orders list,
+    // so a copy - a board template too - never takes orders into the source
+    // board's Orders list (models/lib/shop.js copiedShopSettings).
+    if (this.shopSettings) this.shopSettings = require('/models/lib/shop').copiedShopSettings(this.shopSettings);
     this.title = await this.copyTitle();
     const _id = await Boards.insertAsync(this);
 

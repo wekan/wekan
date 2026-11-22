@@ -24,6 +24,8 @@ import CustomFields from '/models/customFields';
 import ShopOrders from '/models/shopOrders';
 import { featureOnFor, requireFeature } from '/server/lib/assistGate';
 import { canReadBoard } from '/models/lib/boardVisibility';
+import { createOrderInvoice, removeOrderInvoice } from '/server/lib/shopInvoice';
+import { sendOrderConfirmation } from '/server/lib/shopEmail';
 
 const shop = require('/models/lib/shop');
 const { isFeatureAvailable } = require('/models/lib/instanceFeatures');
@@ -66,6 +68,8 @@ async function shopFeatureOn(userId, source) {
 async function translator(userId) {
   const user = userId ? await Meteor.users.findOneAsync(userId, { fields: { 'profile.language': 1 } }) : null;
   const language = (user && user.profile && user.profile.language) || 'en';
+  // The server has only English loaded until a language is asked for.
+  try { await TAPi18n.ensureLanguageLoaded(language); } catch (e) { /* English, then */ }
   return {
     language,
     t: key => {
@@ -191,6 +195,8 @@ Meteor.methods({
       contact: Object,
       paymentMethodId: String,
       expectedTotalMinor: Match.Optional(Match.Integer),
+      // The buyer's language, for the confirmation e-mail.
+      language: Match.Optional(String),
     });
     const userId = this.userId || null;
     const source = 'ddp:shopPlaceOrder';
@@ -271,10 +277,18 @@ Meteor.methods({
       createdAt: new Date(),
     }));
     let restoreStock = async () => {};
+    let invoice = null;
+    const full = { ...order, lines: priced.lines };
     try {
       if (settings.decrementStock && settings.stockFieldId) restoreStock = await takeStock(settings, cards, priced.lines);
+      // Budget and billing on for the shop's owner, who is still an admin of
+      // the shop's board: the order is also an invoice of that board, with the
+      // order's own payment reference. Off: no invoice at all.
+      if (activeAdmin(board, ownerId) && await featureOnFor(ownerId, 'billing')) {
+        invoice = await createOrderInvoice({ boardId: board._id, ownerId, order: full, contact });
+        await ShopOrders.updateAsync({ _id: orderId }, { $set: { invoiceId: invoice.invoiceId, invoiceNumber: invoice.number } });
+      }
       const { t, language } = await translator(ownerId);
-      const full = { ...order, lines: priced.lines };
       const swimlane = await ordersBoard.getDefaultSwimlineAsync();
       if (!swimlane) throw new Meteor.Error('shop-no-orders-list');
       const last = await Cards.findOneAsync({ listId: ordersList._id, archived: false }, { sort: { sort: -1 }, fields: { sort: 1 } });
@@ -283,6 +297,7 @@ Meteor.methods({
         title: shop.orderCardTitle(full, contact),
         description: shop.orderCardDescription({
           order: full, contact, method: methodLabel, t, money: minor => formatMoney(minor, priced.currency, language),
+          invoiceNumber: invoice ? invoice.number : '',
         }),
         listId: ordersList._id,
         boardId: ordersBoard._id,
@@ -295,9 +310,16 @@ Meteor.methods({
       await ShopOrders.updateAsync({ _id: orderId }, { $set: { cardId } });
     } catch (e) {
       await restoreStock();
+      if (invoice) await removeOrderInvoice(invoice.invoiceId).catch(() => {});
       await ShopOrders.removeAsync({ _id: orderId }).catch(() => {});
       throw e;
     }
+    const payment = shop.orderPaymentInstructions(method, order, settings.title);
+    // The buyer's receipt. It never fails the order: a failure is recorded in
+    // Admin Panel / Problems and the order stands.
+    const language = shop.isLanguageTag(request.language) ? request.language : 'en';
+    const emailed = await sendOrderConfirmation({ settings, shopTitle: board.title, to: contact.email, language, order: full, payment, method,
+      money: (minor, lang) => formatMoney(minor, priced.currency, lang) });
     return {
       number: order.number,
       reference: order.reference,
@@ -307,7 +329,9 @@ Meteor.methods({
       vatPercent: order.vatPercent,
       totalMinor: order.totalMinor,
       lines: priced.lines,
-      payment: shop.orderPaymentInstructions(method, order, settings.title),
+      payment,
+      invoiceNumber: invoice ? invoice.number : '',
+      emailed: emailed === 'sent',
     };
   },
 });

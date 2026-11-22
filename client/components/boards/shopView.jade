@@ -181,6 +181,8 @@ template(name="shopOrderDone")
               a(href=safeLink target="_blank" rel="noopener noreferrer") {{safeLink}}
     if order.reference
       p {{_ 'billing-payment-reference'}}: {{formattedReference}}
+    if order.invoiceNumber
+      p.shop-invoice-number {{_ 'billing-invoice'}}: {{order.invoiceNumber}}
     a.js-shop-home(href="?") {{_ 'shop-continue'}}
 
 //- Board Settings / Shop (docs/Features/Board-Sidebar/Board-Settings/Shop.md).
@@ -248,6 +250,9 @@ template(name="boardShopSettingsPopup")
     label.shop-check
       input(type="checkbox" name="guestCheckout" checked=draft.guestCheckout)
       |  {{_ 'shop-guest-checkout'}}
+    label.shop-check
+      input(type="checkbox" name="confirmationEmail" checked=draft.confirmationEmail)
+      |  {{_ 'shop-confirmation-email'}}
     label(for="shop-set-terms") {{_ 'shop-terms-url'}}
     input#shop-set-terms(type="url" name="termsUrl" maxlength="2000" value=draft.termsUrl placeholder="https://")
     label.shop-check

@@ -91,6 +91,7 @@ function defaultShopSettings() {
     pricesIncludeVat: true,
     referenceType: 'rf',
     decrementStock: true,
+    confirmationEmail: true,
     paymentMethods: [],
   };
 }
@@ -190,6 +191,7 @@ function normalizeShopSettings(input) {
     pricesIncludeVat: bool(input.pricesIncludeVat, 'pricesIncludeVat', d.pricesIncludeVat),
     referenceType,
     decrementStock: bool(input.decrementStock, 'decrementStock', d.decrementStock),
+    confirmationEmail: bool(input.confirmationEmail, 'confirmationEmail', d.confirmationEmail),
     paymentMethods,
   };
 }
@@ -517,7 +519,7 @@ function orderCardTitle(order, contact) {
  * payment method and reference, and the buyer's details. `t(key)` gives the
  * labels in the shop owner's language and `money(minor)` an amount.
  */
-function orderCardDescription({ order, contact, method, t, money }) {
+function orderCardDescription({ order, contact, method, t, money, invoiceNumber = '' }) {
   const label = key => markdownText(t(key));
   const out = [];
   out.push(`**${label('board-view-shop')}** ${markdownText(order.number)}`, '');
@@ -534,6 +536,9 @@ function orderCardDescription({ order, contact, method, t, money }) {
   out.push(`**${label('billing-total')}: ${markdownText(money(order.totalMinor))}**`, '');
   out.push(`${label('billing-method')}: ${markdownText(method)}  `);
   if (order.reference) out.push(`${label('billing-payment-reference')}: ${markdownText(order.reference)}  `);
+  // The Budget and billing invoice of the order, by its number (Member menu /
+  // Budget and billing lists it under the shop's board).
+  if (invoiceNumber) out.push(`${label('billing-invoice')}: ${markdownText(invoiceNumber)}  `);
   out.push('');
   out.push(`${label('fullname')}: ${markdownText(contact.name)}  `);
   out.push(`${label('email')}: ${markdownText(contact.email)}  `);
@@ -564,6 +569,91 @@ function suggestedMapping({ customFields = [], lists = [] } = {}) {
   const orders = lists.find(l => l && !l.archived && ORDERS_LIST.test(str(l.title).trim()));
   if (orders) out.ordersListId = orders._id;
   return out;
+}
+
+// ---------------------------------------------------------------- the invoice
+
+/**
+ * The order's lines as Budget and billing invoice lines: a fixed-price line
+ * each (kind 'fee', the kind an invoice already has for a price that is not
+ * hours), naming the product card, the quantity and the product code. No
+ * feeId or feeKey: it is no fee of the board's own.
+ */
+function invoiceLinesOf(order) {
+  return (order.lines || []).map(line => ({
+    kind: 'fee',
+    cardId: line.cardId,
+    title: `${line.quantity} × ${str(line.title)}${line.sku ? ` (${str(line.sku)})` : ''}`.slice(0, 500),
+    amountMinor: line.lineMinor,
+  }));
+}
+
+// ---------------------------------------------------------------- the confirmation email
+
+// A language tag as WeKan names its translations (fi, pt-BR, ca@valencia,
+// zh_SG): anything else is not a language the buyer's browser could have.
+function isLanguageTag(value) {
+  return typeof value === 'string' && /^[A-Za-z]{2,3}(?:[-_@][A-Za-z0-9]{2,10})?$/.test(value);
+}
+
+/**
+ * The buyer's order confirmation: { subject, text }, plain text in the
+ * buyer's language. Every text in it - the shop's title, the products'
+ * titles, the payment details - is TEXT: the HTML part is made from it by
+ * the account e-mail layout (models/lib/accountEmailHtml.js), which escapes
+ * everything first. The subject is one line.
+ *
+ * @param {Object} payment  models/lib/paymentCodes.js paymentInstructions(): { lines, link, error }
+ */
+function orderEmail({ order, payment, methodLabel, shopTitle, t, money }) {
+  const oneLine = value => str(value).replace(/[\r\n\u0000-\u001f\u007f]+/g, ' ').trim();
+  const subject = oneLine(t('shop-email-subject', { number: order.number, shop: oneLine(shopTitle) })).slice(0, 300);
+  const out = [];
+  out.push(oneLine(t('shop-order-placed', { number: order.number })), '');
+  for (const line of order.lines || []) {
+    const sku = line.sku ? ` (${oneLine(line.sku)})` : '';
+    out.push(`${line.quantity} × ${oneLine(line.title)}${sku}: ${money(line.lineMinor)}`);
+  }
+  out.push('');
+  if (order.vatMinor) {
+    out.push(`${t('billing-net')}: ${money(order.netMinor)}`);
+    out.push(`${t('billing-vat')} ${order.vatPercent} %: ${money(order.vatMinor)}`);
+  }
+  out.push(`${t('billing-total')}: ${money(order.totalMinor)}`, '');
+  out.push(`${t('shop-email-pay')}`);
+  out.push(`${t('billing-method')}: ${oneLine(methodLabel)}`);
+  if (order.reference) out.push(`${t('billing-payment-reference')}: ${order.reference}`);
+  if (payment && !payment.error) {
+    for (const line of payment.lines || []) if (oneLine(line)) out.push(oneLine(line));
+    if (payment.link && /^https:\/\//i.test(payment.link)) out.push('', payment.link);
+  }
+  out.push('', oneLine(shopTitle));
+  return { subject, text: out.join('\n') };
+}
+
+// ---------------------------------------------------------------- a copy of the board
+
+/**
+ * Board Settings / Shop on a COPY of a board (models/boards.js copy, board
+ * templates): the copy's shop is closed, and its Orders list, the custom
+ * fields and lists it maps - all of the source board's - are cleared, so a
+ * copy never takes an order into the source's Orders list nor prices from
+ * the source's fields. The look and the payment methods are kept for the
+ * admin who opens it. Nothing for a board without shop settings.
+ */
+function copiedShopSettings(stored) {
+  if (!stored || typeof stored !== 'object') return undefined;
+  const s = shopSettingsOf({ shopSettings: stored });
+  return {
+    ...s,
+    enabled: false,
+    ordersBoardId: '',
+    ordersListId: '',
+    priceFieldId: '',
+    skuFieldId: '',
+    stockFieldId: '',
+    saleListIds: [],
+  };
 }
 
 // ---------------------------------------------------------------- the public view
@@ -627,4 +717,8 @@ module.exports = {
   publicShopModifier,
   showsShopOnPublic,
   cartStorageKey,
+  invoiceLinesOf,
+  isLanguageTag,
+  orderEmail,
+  copiedShopSettings,
 };

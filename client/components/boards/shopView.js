@@ -289,6 +289,8 @@ Template.shopCheckout.events({
         },
         paymentMethodId: method ? method.value : '',
         expectedTotalMinor: totals.totalMinor,
+        // The confirmation e-mail is written in the buyer's language.
+        language: language() || 'en',
       });
       saveCart([]);
       placedOrder.set(order);
@@ -344,7 +346,12 @@ Template.boardShopSettingsPopup.onCreated(function () {
     lists: b ? (ReactiveCache.getLists({ boardId: b._id, archived: false }) || []) : [],
   });
   const stored = b && b.shopSettings;
-  this.draft = new ReactiveVar(stored ? current : { ...current, ...suggested, ordersBoardId: suggested.ordersListId ? b._id : '' });
+  // A copied board's shop keeps its look but not the source's fields and
+  // Orders list (models/lib/shop.js copiedShopSettings): suggest those too.
+  const fill = {};
+  for (const key of ['priceFieldId', 'skuFieldId', 'stockFieldId']) if (!current[key] && suggested[key]) fill[key] = suggested[key];
+  if (!current.ordersListId && suggested.ordersListId) Object.assign(fill, { ordersListId: suggested.ordersListId, ordersBoardId: b._id });
+  this.draft = new ReactiveVar(stored ? { ...current, ...fill } : { ...current, ...suggested, ordersBoardId: suggested.ordersListId ? b._id : '' });
   this.methods = new ReactiveVar(current.paymentMethods.slice());
   this.methodType = new ReactiveVar('sepa');
   this.targets = new ReactiveVar([]);
@@ -440,6 +447,7 @@ Template.boardShopSettingsPopup.events({
       skuFieldId: el.skuFieldId.value,
       stockFieldId: el.stockFieldId.value,
       decrementStock: el.decrementStock.checked,
+      confirmationEmail: el.confirmationEmail.checked,
       vatPercent: el.vatPercent.value === '' ? 0 : Number(el.vatPercent.value),
       pricesIncludeVat: el.pricesIncludeVat.checked,
       referenceType: el.referenceType.value,
