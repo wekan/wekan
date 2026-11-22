@@ -4779,6 +4779,1294 @@
     {
       "key": "shop-email-pay",
       "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-swimlanes-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-swimlanes-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-lists-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-lists-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-table-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-table-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-cal-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-cal-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-calendar-mode-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-calendar-mode-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-multiboard-cal-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-multiboard-cal-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-time-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-time-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-timeline-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-timeline-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-stats-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-stats-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-group-by-assignee-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-group-by-assignee-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-gantt-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-gantt-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-product-backlog-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-product-backlog-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-sprints-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-sprints-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-sprint-report-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-sprint-report-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-burndown-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-burndown-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-roadmap-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-roadmap-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-dashboard-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-dashboard-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-bigboard-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-bigboard-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-flow-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-flow-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-reports-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-reports-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-map-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-map-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-email-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-email-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-chat-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-chat-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-version-control-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-version-control-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-column-sets-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-column-sets-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-website-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-website-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-shop-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-view-shop-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-filter-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-filter-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-search-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-search-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-multiselection-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-multiselection-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-custom-fields-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-custom-fields-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-archives-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-archives-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-original-positions-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-original-positions-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-summary-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-summary-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-since-last-visit-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-sidebar-since-last-visit-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-visibility-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-visibility-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-watch-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-watch-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-sort-cards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-sort-cards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-color-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-color-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-announcement-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-announcement-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-background-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-background-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-date-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-date-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-all-boards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-all-boards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-board-view-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-board-view-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-swimlane-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-swimlane-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-list-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-list-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-shop-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-shop-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-card-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-card-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-import-export-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-import-export-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-notifications-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-notifications-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-webhooks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-webhooks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-scrum-meetings-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-scrum-meetings-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-wip-limit-groups-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-wip-limit-groups-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-subtasks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-board-settings-subtasks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-rules-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-rules-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-settings-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-settings-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-edit-profile-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-edit-profile-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-settings-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-settings-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-color-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-color-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-font-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-font-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-avatar-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-avatar-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-password-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-password-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-passkeys-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-passkeys-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-sqrl-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-sqrl-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-two-factor-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-two-factor-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-hidden-boards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-hidden-boards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-language-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-change-language-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-invite-people-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-invite-people-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-date-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-member-date-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-bookmarks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-bookmarks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-similar-cards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-similar-cards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-activities-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-activities-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-labels-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-labels-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-dates-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-dates-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-members-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-members-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-fields-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-fields-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-time-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-time-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-custom-fields-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-custom-fields-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-planning-poker-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-planning-poker-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-scrum-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-scrum-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-description-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-description-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-checklists-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-checklists-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-subtasks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-subtasks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-attachments-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-attachments-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-comments-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-comments-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-stickers-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-stickers-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-locations-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-locations-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-dependencies-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-dependencies-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-action-items-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-action-items-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-history-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-history-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-qr-code-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-qr-code-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-move-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-move-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-copy-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-copy-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-recurrence-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-recurrence-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-copy-many-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-copy-many-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-color-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-color-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-drawing-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-drawing-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-more-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-more-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-create-board-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-create-board-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-link-to-board-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-link-to-board-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-actions-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-card-actions-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-version-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-version-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-appearance-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-appearance-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-features-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-features-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-feature-profiles-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-feature-profiles-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-security-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-security-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-activities-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-activities-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-delete-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-delete-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-announcement-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-announcement-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-accessibility-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-accessibility-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-translation-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-translation-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-pwa-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-pwa-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-global-webhooks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-global-webhooks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-shared-labels-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-shared-labels-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-email-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-email-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-notifications-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-notifications-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-domains-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-domains-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-organizations-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-organizations-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-teams-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-teams-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-people-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-people-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-locked-users-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-locked-users-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-audit-log-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-audit-log-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-roles-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-roles-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-shared-templates-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-shared-templates-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-login-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-login-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-saml-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-saml-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-ldap-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-ldap-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-oauth2-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-oauth2-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-cas-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-cas-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-header-login-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-header-login-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-oauth-providers-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-oauth-providers-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-passwordless-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-passwordless-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-backup-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-backup-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-attachments-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-attachments-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-summary-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-summary-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-security-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-security-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-impersonation-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-impersonation-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-password-length-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-password-length-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-performance-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-performance-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-speed-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-speed-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-tests-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-tests-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-cpu-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-cpu-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-ram-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-ram-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-disk-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-disk-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-instrumentation-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-instrumentation-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-broken-cards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-broken-cards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-files-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-files-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-rules-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-rules-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-webhooks-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-webhooks-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-boards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-boards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-cards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-cards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-recovery-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-recovery-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-offices-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-offices-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-api-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-api-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-database-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-database-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-integrity-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-problems-integrity-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-cloud-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-admin-cloud-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-all-boards-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-all-boards-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-workload-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-workload-how-it-works-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-billing-what-it-is-description",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "help-billing-how-it-works-description",
+      "since": "2026-11-22"
     }
   ]
 }
