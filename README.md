@@ -94,7 +94,13 @@ that by providing one-click installation on various platforms.
     - Swimlanes, Lists
       - Minicard: At list there is card, that has not been not opened yet
       - Card: Opened card popup of minicard
-        - Attachments viewer for PDF and Office documents
+        - Attachments viewer for PDF and Office documents, and a slideshow that reads only what is on the screen -
+          also of text, CSV, code, ZIP and tar listings, calendars, Outlook .msg and OpenDocument
+        - [Search inside attachments](docs/Features/Cards/Attachments/Attachment-Search-And-Integrity.md) with Filter,
+          Search and Search All Boards; every attachment's SHA-256 is checked when it is read, with a warning in
+          Admin Panel / Problems when a file changed behind WeKan's back
+        - The [card details width](docs/Features/Cards/Card-Details-Width.md) is remembered per user, and an admin
+          sets the default as a percentage of the browser window
         - Kanban and Scrum flow fields: Blocked, Class of service, MoSCoW priority, WSJF score
       - List policies, Definition of Ready, commitment point, WIP limit per person,
         lists split into Doing and Done
