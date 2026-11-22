@@ -4571,6 +4571,158 @@
     {
       "key": "import-board-instruction-substack",
       "since": "2026-11-21"
+    },
+    {
+      "key": "board-view-shop",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "feature-views-shop",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "feature-views-shop-desc",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-open",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-closed",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-intro",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-price-field",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-sku-field",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-stock-field",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-decrement-stock",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-prices-include-vat",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-sale-lists",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-category-labels",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-orders-list",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-orders-private",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-guest-checkout",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-terms-url",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-show-on-public",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-show-on-public-note",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-not-chosen",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-all-categories",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-add-to-cart",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-cart",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-cart-empty",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-continue",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-checkout",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-place-order",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-quantity",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-product-code",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-sold-out",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-in-stock",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-empty",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-login-to-order",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-accept-terms",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-privacy-note",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-price-changed",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-note",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-order-placed",
+      "since": "2026-11-22"
     }
   ]
 }
