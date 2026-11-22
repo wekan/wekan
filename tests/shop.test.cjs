@@ -304,7 +304,7 @@ test('the server enforces every setting, and records the refusals no screen prod
   // The keys are in the Admin Panel -> Problems catalog, and never disable an account.
   const catalog = read('models/lib/securityCategories.js');
   for (const key of ['authz.shop-settings', 'authz.shop-order', 'dos.shop-orders']) {
-    assert.match(catalog, new RegExp(`'${key.replace('.', '\\.')}': \\{ category: '\\w+', bleed: 'Shop', severity: '\\w+', cwe: 'CWE-\\d+', blocksAccount: false \\}`));
+    assert.match(catalog, new RegExp(`'${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}': \\{ category: '\\w+', bleed: 'Shop', severity: '\\w+', cwe: 'CWE-\\d+', blocksAccount: false \\}`));
   }
 });
 
