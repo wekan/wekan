@@ -93,6 +93,16 @@ test('the customer login: only at the CLOUD address, only for a listed name, nev
   const twice = { ...own, _id: 'd4', domain: 'customer4.example.com' };
   assert.deepEqual(C.customerLoginPlan({ ...base, domains: [own, twice], userQuery: { username: 'anna' } }), { handle: true, refuse: 'ambiguous' },
     'negative: two domains listing one name are not guessed between');
+  // username_customerdomain picks the domain, and asks it for the username alone.
+  assert.deepEqual(C.customerLoginPlan({ ...base, domains: [own, twice], userQuery: { username: 'anna_customer4.example.com' } }),
+    { handle: true, domain: twice, name: 'anna', byEmail: false });
+  assert.deepEqual(C.customerLoginPlan({ ...base, domains: [own, twice], userQuery: { username: 'Anna_Customer1.example.com' } }).domain, own);
+  assert.deepEqual(C.qualifiedLoginName('john_doe_c.fi'), { name: 'john_doe', domain: 'c.fi' }, 'the LAST underscore separates');
+  assert.equal(C.qualifiedLoginName('anna_nodot'), null, 'a suffix that is no domain is part of the name');
+  assert.equal(C.customerLoginPlan({ ...base, domains: [own, twice], userQuery: { username: 'anna_customer9.example.com' } }).reason, 'unlisted',
+    'negative: a domain that does not list the username is not asked');
+  assert.equal(C.customerLoginPlan({ ...base, userQuery: { username: 'anna_customer2.example.com' } }).handle, false,
+    'negative: nor a shared domain, which has no database');
 });
 
 test('the customer\'s account in their own database: one, enabled, with a password', () => {
@@ -103,7 +113,9 @@ test('the customer\'s account in their own database: one, enabled, with a passwo
   assert.equal(C.foreignAccountDecision([ok, { ...ok, _id: 'v' }]).reason, 'ambiguous', 'negative: two of them');
   assert.equal(C.foreignAccountDecision([{ ...ok, loginDisabled: true }]).reason, 'disabled', 'negative: disabled in their own WeKan');
   assert.equal(C.foreignAccountDecision([{ ...ok, services: {} }]).reason, 'no-password', 'negative: no password there (LDAP, OAuth)');
-  assert.equal(C.shadowUsername('Anna K', 'customer1.example.com'), 'anna-k-customer1.example.com');
+  // username_customerdomain: the same username at another domain is another name.
+  assert.equal(C.shadowUsername('Anna K', 'customer1.example.com'), 'anna-k_customer1.example.com');
+  assert.equal(C.shadowUsername('john_doe', 'c.fi'), 'john-doe_c.fi', 'an underscore of the username never looks like the separator');
 });
 
 test('the support board: Cloud Admins its board admins, customers Comment only - never more', () => {

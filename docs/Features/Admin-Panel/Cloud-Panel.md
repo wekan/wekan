@@ -186,8 +186,13 @@ mongosh wekan --eval 'db.cloudSettings.updateOne({ _id: "cloud" }, { $unset: { a
 ## The customer login
 
 A customer whose domain has **its own WeKan and database** signs in at the
-`CLOUD` address with the **username (or e-mail address) and password they have
-in their own WeKan**. The panel checks the password directly against that
+`CLOUD` address with the **password they have in their own WeKan**, and as the
+name **`username_customerdomain`** - their username there, an underscore, and
+their domain, for example `anna_customer1.example.com`. So the same username at
+two domains is two customers: the part after the last underscore picks the
+domain, and only that domain's database is asked about the username before it.
+The panel's account for them has the same name. A bare username (or the
+customer e-mail address) also works while exactly one domain lists it. The panel checks the password directly against that
 customer's database - the password hash in `users.services.password`, with the
 same bcrypt or Argon2 that Meteor's accounts-password uses there, and the
 customer's two-factor code when their account has one.
@@ -197,8 +202,9 @@ It does that only:
 - when `CLOUD` is set, at the `CLOUD` address;
 - for a name the domain lists - **Customers who sign in here**, or its
   customer e-mail address. A name no domain lists is not looked up anywhere: no
-  customer's database is ever searched for a stranger, and a name two domains
-  list is refused rather than guessed;
+  customer's database is ever searched for a stranger, and a bare name two
+  domains list is refused rather than guessed - `username_customerdomain`
+  says which one;
 - when no account of the panel's own has that name. A Cloud Admin always signs
   in with the panel's own password, and no customer database can stand in for
   it;

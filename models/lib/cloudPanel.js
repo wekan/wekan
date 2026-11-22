@@ -360,11 +360,33 @@ function loginName(userQuery) {
  * Returns { handle: false } (the ordinary password login decides) or
  * { handle: true, domain, name, byEmail } or { handle: true, refuse }.
  */
+// A customer's name at the panel is their username with their domain,
+// `username_customerdomain` (shadowUsername), so two customers both called
+// anna at two domains are two names: the part after the LAST underscore is
+// the domain when it is one, and the part before it is the username their own
+// WeKan knows. Returns { name, domain } or null for a name with no domain.
+function qualifiedLoginName(name) {
+  const at = String(name || '').lastIndexOf('_');
+  if (at <= 0) return null;
+  const domain = name.slice(at + 1);
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(domain)) return null;
+  return { name: name.slice(0, at), domain };
+}
+
 function customerLoginPlan({ cloudDomain, host, userQuery, localUser, domains }) {
   if (!isCloudHost(host, cloudDomain)) return { handle: false, reason: 'not-cloud' };
-  const { name, byEmail } = loginName(userQuery);
+  const typed = loginName(userQuery);
+  let { name } = typed;
+  const { byEmail } = typed;
   if (!name || name.length > 254) return { handle: false, reason: 'no-name' };
   if (localUser && !isCloudCustomer(localUser)) return { handle: false, reason: 'local-account' };
+  // username_customerdomain: only that domain, asked for the username alone.
+  const qualified = byEmail ? null : qualifiedLoginName(name);
+  if (qualified) {
+    const at = (domains || []).filter(d => d && d.mode === 'own' && d.database
+      && String(d.domain || '').toLowerCase() === qualified.domain && listsCustomer(d, qualified.name));
+    if (at.length === 1) return { handle: true, domain: at[0], name: qualified.name, byEmail: false };
+  }
   const listing = (domains || []).filter(d => d && d.mode === 'own' && d.database && listsCustomer(d, name));
   if (!listing.length) return { handle: false, reason: 'unlisted' };
   if (listing.length > 1) return { handle: true, refuse: 'ambiguous' };
@@ -391,11 +413,13 @@ function foreignAccountDecision(users) {
   return { ok: true, user };
 }
 
-// The local username of a customer's account here: theirs, with the domain,
-// so two customers both called anna are two accounts.
+// The local username of a customer's account here, and the name they sign in
+// with: `username_customerdomain` - theirs, then an underscore, then their
+// domain - so the same username at two domains is two accounts
+// (qualifiedLoginName reads it back).
 function shadowUsername(username, domain) {
-  const base = String(username || 'customer').toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'customer';
-  return `${base}-${String(domain || '').toLowerCase()}`.slice(0, 200);
+  const base = String(username || 'customer').toLowerCase().replace(/[^a-z0-9.-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'customer';
+  return `${base}_${String(domain || '').toLowerCase()}`.slice(0, 200);
 }
 
 // ---------------------------------------------------------------- REST API
@@ -645,7 +669,7 @@ module.exports = {
   DOMAIN_MODES, INVOICE_STATUSES, IMPORT_COLLECTIONS,
   cloudDomainFromEnv, normalizeCloudflare, normalizeCaddy, normalizeDatabase, normalizeDomain,
   mongoUrlOf, redactDatabase, redactDomain, isCloudHost, isCloudAdmin, isCloudCustomer, listsCustomer, customerDomains, isActiveOn,
-  loginName, customerLoginPlan, passwordHashOf, foreignAccountDecision, shadowUsername,
+  loginName, customerLoginPlan, qualifiedLoginName, passwordHashOf, foreignAccountDecision, shadowUsername,
   cloudRestDecision, SUPPORT_LISTS, TICKET_STATES, supportBoardTitle, supportMembers, normalizeTicket,
   caddyfile, dnsPlan, normalizeCloudInvoice, normalizeChatMessage, importedChatMessages, accountPlan, remapIds,
 };

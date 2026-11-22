@@ -428,7 +428,7 @@ test('the customer login: their own WeKan\'s password, checked against their own
   assert.equal(shadow.services.password, undefined, 'negative: no password of its own here');
   assert.deepEqual([shadow.services.cloudCustomer.domainId, shadow.services.cloudCustomer.username, shadow.services.cloudCustomer.foreignUserId],
     [id, 'bob', 'srcBob']);
-  assert.equal(shadow.username, 'bob-customer1.example.com');
+  assert.equal(shadow.username, 'bob_customer1.example.com');
   assert.equal(shadow.profile.fullname, 'Bob B');
   const checkedAs = passwordChecks.slice(before);
   assert.ok(checkedAs.length === 1 && checkedAs.every(x => /^cloud-customer-check:/.test(x)),

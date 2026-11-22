@@ -901,7 +901,12 @@ async function shadowUser(domain, foreign) {
     'services.cloudCustomer.foreignUserId': cloudCustomer.foreignUserId }, { fields: { _id: 1 } });
   const fullname = (foreign.profile && foreign.profile.fullname) || foreign.username || '';
   if (existing) {
-    await Meteor.users.updateAsync(existing._id, { $set: { 'services.cloudCustomer': cloudCustomer, isAdmin: false } });
+    // A customer account made with the older username-domain form takes the
+    // username_customerdomain name they sign in with, when it is free.
+    const wanted = C.shadowUsername(foreign.username || emails[0], domain.domain);
+    const set = { 'services.cloudCustomer': cloudCustomer, isAdmin: false };
+    if (!(await Meteor.users.findOneAsync({ username: wanted, _id: { $ne: existing._id } }, { fields: { _id: 1 } }))) set.username = wanted;
+    await Meteor.users.updateAsync(existing._id, { $set: set });
     return existing._id;
   }
   let username = C.shadowUsername(foreign.username || emails[0], domain.domain);
@@ -938,7 +943,11 @@ async function customerLogin(invocation, options) {
   } catch (e) {
     return undefined;
   }
-  const domains = await CloudDomains.find({ $or: [{ customerUsernames: name }, { customerEmail: name }] },
+  // username_customerdomain names its domain (C.qualifiedLoginName); a bare
+  // name is looked up as itself.
+  const qualified = C.qualifiedLoginName(name);
+  const domains = await CloudDomains.find({ $or: [{ customerUsernames: name }, { customerEmail: name },
+    ...(qualified ? [{ domain: qualified.domain, customerUsernames: qualified.name }] : [])] },
     { fields: { domain: 1, mode: 1, database: 1, customerUsernames: 1, customerEmail: 1, support: 1 }, limit: 10 }).fetchAsync();
   const plan = C.customerLoginPlan({ cloudDomain, host: hostOf(invocation.connection), userQuery: options.user, localUser, domains });
   if (!plan.handle) return undefined;
