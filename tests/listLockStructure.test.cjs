@@ -55,6 +55,10 @@ test('a swimlane with cards in a refusing list, or a refusing list bound to it, 
   await assert.rejects(gate.assertSwimlaneListsWritable('member', board, 'lane'), e => e.error === 'not-authorized');
   await assert.rejects(gate.assertSwimlaneListsNotRefused('member', board, 'lane', 'rest:swimlane-delete'), e => e.statusCode === 403);
   assert.deepStrictEqual(records.map(r => [r.key, r.source]), [['authz.list-locked', 'rest:swimlane-delete']]);
+  // The REST swimlane move is ListLockMoveBleed in Admin Panel -> Problems.
+  await assert.rejects(gate.assertSwimlaneListsNotRefused('member', board, 'lane', 'rest:swimlane-move', 'authz.list-locked-move'),
+    e => e.statusCode === 403);
+  assert.deepStrictEqual(records.slice(-1).map(r => [r.key, r.source]), [['authz.list-locked-move', 'rest:swimlane-move']]);
 });
 
 test('negative: an open swimlane, the board admin and a missing swimlane pass', async () => {
@@ -91,8 +95,47 @@ test('every list and swimlane path asks before it writes', () => {
   const lanes = read('server/models/swimlanes.js');
   const del = lanes.slice(lanes.indexOf("delete('/api/boards/:boardId/swimlanes/:swimlaneId'"));
   before(del, "assertSwimlaneListsNotRefused(", 'Swimlanes.removeAsync(', 'REST swimlane delete');
+  // GHSA-394w-8q99-q4qx: the REST move was the one swimlane path left asking
+  // only for board write access, so the locked list's cards moved to lists on
+  // another board that carry no exceptions.
+  const mv = lanes.slice(lanes.indexOf("'/api/boards/:boardId/swimlanes/:swimlaneId/move'"));
+  before(mv, "assertSwimlaneListsNotRefused(", 'swimlane.move(', 'REST swimlane move');
+  before(mv, "'rest:swimlane-move'", 'swimlane.move(', 'REST swimlane move records its source');
   const pub = read('server/publications/swimlanes.js');
   before(pub.slice(pub.indexOf('async moveSwimlane(')), 'assertSwimlaneListsWritable(', 'swimlane.move(', 'moveSwimlane');
+});
+
+test('negative: no server code moves a swimlane without asking the list gate first', () => {
+  // The shape of GHSA-394w-8q99-q4qx, anywhere: a call of a swimlane's move()
+  // whose handler has not asked assertSwimlaneListsNotRefused (REST) or
+  // assertSwimlaneListsWritable (methods) before it.
+  const walk = dir => fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap(e => {
+    const rel = path.join(dir, e.name);
+    if (e.isDirectory()) return /^(node_modules|tests|_build.*|\.build)$/.test(e.name) ? [] : walk(rel);
+    return /\.js$/.test(e.name) && !/\.tests?\.js$/.test(e.name) ? [rel] : [];
+  });
+  const unguarded = [];
+  for (const file of walk('server')) {
+    const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    const re = /\b\w*[sS]wimlane\w*\.move\(/g;
+    let m;
+    while ((m = re.exec(src))) {
+      // The handler the call is in: back to the nearest route or method start.
+      const head = src.slice(0, m.index);
+      const start = Math.max(head.lastIndexOf('JsonRoutes.add('), head.lastIndexOf('WebApp.handlers.'),
+        head.lastIndexOf('\n  async '));
+      const handler = head.slice(start < 0 ? 0 : start);
+      if (!/assertSwimlaneLists(NotRefused|Writable)\(/.test(handler)) {
+        unguarded.push(`${file}:${head.split('\n').length}`);
+      }
+    }
+  }
+  assert.deepStrictEqual(unguarded, [], 'a swimlane move that does not ask the per-list gate');
+});
+
+test('negative: the detector flags an unguarded move', () => {
+  const src = "JsonRoutes.add('post', '/x', async () => { await swimlane.move(b); });";
+  assert.ok(!/assertSwimlaneLists(NotRefused|Writable)\(/.test(src.slice(0, src.indexOf('swimlane.move('))));
 });
 
 test('client writes are refused the same way, and the menu does not offer them', () => {

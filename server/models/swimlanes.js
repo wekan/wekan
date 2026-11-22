@@ -323,18 +323,28 @@ WebApp.handlers.post(
 WebApp.handlers.post(
   '/api/boards/:boardId/swimlanes/:swimlaneId/move',
   async function(req, res) {
-    const paramBoardId = req.params.boardId;
-    const paramSwimlaneId = req.params.swimlaneId;
-    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-    const toBoardId = req.body.toBoardId || paramBoardId;
-    await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
-    const swimlane = await ReactiveCache.getSwimlane({ _id: paramSwimlaneId, boardId: paramBoardId });
-    if (!swimlane) {
-      sendJsonResult(res, { code: 404, data: { error: 'Swimlane not found' } });
-      return;
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramSwimlaneId = req.params.swimlaneId;
+      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      const toBoardId = req.body.toBoardId || paramBoardId;
+      await Authentication.checkBoardWriteAccess(req.userId, toBoardId);
+      const swimlane = await ReactiveCache.getSwimlane({ _id: paramSwimlaneId, boardId: paramBoardId });
+      if (!swimlane) {
+        sendJsonResult(res, { code: 404, data: { error: 'Swimlane not found' } });
+        return;
+      }
+      // Moving a swimlane moves its cards, to lists on the other board that
+      // carry no exceptions: a list holding them that refuses this role
+      // refuses it, as the delete above and the moveSwimlane method do
+      // (decided 2026-11-18, #4527; GHSA-394w-8q99-q4qx).
+      await require('/server/lib/listPermissionGate').assertSwimlaneListsNotRefused(req.userId,
+        await ReactiveCache.getBoard(paramBoardId), paramSwimlaneId, 'rest:swimlane-move', 'authz.list-locked-move');
+      await swimlane.move(toBoardId, null, 'below', req.body.title || '');
+      await repositionSwimlane(paramSwimlaneId, toBoardId, req.body.position);
+      sendJsonResult(res, { code: 200, data: { _id: paramSwimlaneId } });
+    } catch (error) {
+      sendJsonResult(res, publicErrorData(error));
     }
-    await swimlane.move(toBoardId, null, 'below', req.body.title || '');
-    await repositionSwimlane(paramSwimlaneId, toBoardId, req.body.position);
-    sendJsonResult(res, { code: 200, data: { _id: paramSwimlaneId } });
   },
 );

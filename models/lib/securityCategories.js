@@ -247,6 +247,11 @@ const CATALOG = {
   // REST bulk delete and bulk label routes, which take their cards from the
   // body. No screen calls them, so a refusal is an attempt. Medium.
   'authz.list-locked-bulk': { category: 'authz', bleed: 'ListLockBulkBleed', severity: 'medium', cwe: 'CWE-863' },
+  // ListLockMoveBleed (GHSA-394w-8q99-q4qx): the same list refusal, for the
+  // REST swimlane move, which carried a locked list's cards to lists on another
+  // board with no exceptions. The board's menu refuses the move to such a
+  // member, so a refusal here is an attempt. Medium: recorded, never disables.
+  'authz.list-locked-move': { category: 'authz', bleed: 'ListLockMoveBleed', severity: 'medium', cwe: 'CWE-863' },
   // Decided 2026-11-18 (TODO.md): a rule action that would write into a list
   // refusing the triggering user's role is skipped, and the rest of the rule
   // runs. Not an attack - a rule a board admin wrote met a list somebody locked

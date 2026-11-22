@@ -41,10 +41,10 @@ export async function canCommentInList(userId, board, listId) {
  * (tests/listPermissions.test.cjs), and the refusal is recorded in Admin
  * Panel -> Problems: no screen offers such a write, so it is an attempt.
  */
-export async function assertListNotRefused(userId, board, listId, capability = 'write', source = 'rest:list-locked') {
+export async function assertListNotRefused(userId, board, listId, capability = 'write', source = 'rest:list-locked', key = 'authz.list-locked') {
   if ((await listException(userId, board, listId, capability)) !== false) return;
   try {
-    require('/server/lib/securityLog').record({ key: 'authz.list-locked', action: 'blocked', source, userId,
+    require('/server/lib/securityLog').record({ key, action: 'blocked', source, userId,
       detail: `A REST ${capability} in a list whose exception refuses the caller's role.` });
   } catch (e) { /* logging must never break the guard */ }
   const { Meteor } = require('meteor/meteor');
@@ -112,9 +112,13 @@ export async function assertSwimlaneListsWritable(userId, board, swimlaneId) {
   await assertListsWritable(userId, board, await swimlaneRefusingListIds(userId, board, swimlaneId));
 }
 
-/** The REST half: 403, recorded as ListLockBleed (assertListNotRefused). */
-export async function assertSwimlaneListsNotRefused(userId, board, swimlaneId, source) {
+/**
+ * The REST half: 403, recorded as ListLockBleed (assertListNotRefused), or
+ * under the key given - the swimlane move is ListLockMoveBleed
+ * (GHSA-394w-8q99-q4qx).
+ */
+export async function assertSwimlaneListsNotRefused(userId, board, swimlaneId, source, key) {
   for (const listId of await swimlaneRefusingListIds(userId, board, swimlaneId)) {
-    await assertListNotRefused(userId, board, listId, 'write', source);
+    await assertListNotRefused(userId, board, listId, 'write', source, key);
   }
 }

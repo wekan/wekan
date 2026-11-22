@@ -3249,7 +3249,14 @@ Cards.helpers({
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
 
-    if (Meteor.isServer && typeof Meteor.userId === 'function' && Meteor.userId()) {
+    // Outside a method - a REST request, a migration - Meteor.userId() throws
+    // on the server, which turned every REST swimlane or card move into a 500
+    // after the first card had already moved (found with GHSA-394w-8q99-q4qx).
+    let moverId = null;
+    if (Meteor.isServer) {
+      try { moverId = Meteor.userId(); } catch (e) { moverId = null; }
+    }
+    if (moverId) {
       try {
         // #6478 fixed this for list moves and missed the card path, so Ctrl+Z
         // after dragging a card went on doing nothing. The guard used to be
@@ -3269,7 +3276,7 @@ Cards.helpers({
         // write path. Keep only the legacy position store during transition.
         const UserPositionHistory = require('/models/userPositionHistory').default;
         UserPositionHistory.trackChange({
-          userId: Meteor.userId(),
+          userId: moverId,
           boardId: this.boardId,
           entityType: 'card',
           entityId: this._id,

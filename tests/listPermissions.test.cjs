@@ -185,7 +185,10 @@ test('negative: every REST write that names a card asks the list (ListLockBleed)
 test('the refusal is recorded in Admin Panel -> Problems, and never breaks the guard (ListLockBleed)', () => {
   const gate = read('server/lib/listPermissionGate.js');
   const fn = gate.slice(gate.indexOf('export async function assertListNotRefused('));
-  assert.match(fn, /record\(\{ key: 'authz\.list-locked', action: 'blocked'/);
+  // The key is a parameter since GHSA-394w-8q99-q4qx, so the REST swimlane
+  // move can be ListLockMoveBleed; every other caller keeps ListLockBleed's.
+  assert.match(fn, /key = 'authz\.list-locked'\) \{/);
+  assert.match(fn, /record\(\{ key, action: 'blocked'/);
   assert.match(fn, /catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/);
   // Recorded only on the refusal: after the early return of an allowed write.
   assert.ok(fn.indexOf("!== false) return;") < fn.indexOf('record('), 'an allowed write records nothing');
