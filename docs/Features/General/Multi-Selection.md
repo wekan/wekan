@@ -1,39 +1,91 @@
 # Design: Multi-Selection
 
-Multi-Selection is a **header-bar toggle that opens the right sidebar**, and the
-sidebar is where the things you can do to a selection live. That is true on a
-board and on All Boards, and it is the *same button* in both — one template,
-included twice.
+## What it is
 
-## The control
+Multi-Selection lets you tick several cards on a board, or several boards on
+All Boards, and then do one thing to all of them at once: set a label or a
+member, change the colour, move, copy or archive cards; star, set as Home,
+archive, duplicate or export boards. The actions are rows of the right sidebar.
 
-| | |
-| --- | --- |
-| Template | `headerMultiSelectionButton` in `client/components/boards/boardHeader.jade` |
-| Class | `a.board-header-btn.js-multiselection-activate` |
-| Icon | `fa-check-square-o` |
-| Label | `multi-selection`, or `multi-selection-on` while it is on |
-| On state | `.emphasis` |
-| Nested ✕ | `a.board-header-btn-close.js-multiselection-reset`, only while it is on |
+## Read more
 
-`isActive` is **passed in**, because the two pages select different things and
-so keep different selection objects:
+- [Selection (user interface)](https://en.wikipedia.org/wiki/Selection_(user_interface))
+  and [Checkbox](https://en.wikipedia.org/wiki/Checkbox) on Wikipedia.
+- WeKan pages: [Search](../Board-Header/Search.md),
+  [All Boards](../All-Boards/All-Boards.md),
+  [Keyboard shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md) (number keys
+  add or remove labels on the selection).
+
+## How to use it
+
+**On a board** (needs permission to change the board):
+
+1. Click **Multi-Selection** in the board header. The right sidebar opens on
+   **What do you want to do?**
+2. Tick the cards' checkboxes. Or, with a filter on, click **Filter to
+   selection** in the Filter sidebar to select the cards the filter shows.
+3. Choose an action: **Set label for selection**, **Set member for selection**,
+   **Selection Color**, **Move selection**, **Copy selection** or **Move
+   selection to Archive**.
+4. Click the ✕ beside the header button, **Turn Multi-Selection off**, to end.
+
+**On All Boards:**
+
+1. Open the right sidebar (the hamburger) and click **Multi-Selection**.
+2. Tick boards, or click **Select All** / **Select None** above the board icons.
+3. Choose a row: **Star** / **Unstar**, **Set as Home board (opened after
+   login)**, **Move Board to Archive**, **Duplicate Board**, **Export selected
+   boards**.
+4. Click **Turn Multi-Selection off** to end.
+
+## How the numbers are calculated
+
+Multi-Selection has no numbers of its own. The star row follows a three-case
+rule (none, some or all of the selection starred) in
+[models/lib/selectedStars.js](../../../models/lib/selectedStars.js), described
+below. **Set as Home board** needs exactly one selected board. The number keys
+`1`-`9` act on the selection with the board's labels in their board order.
+
+## How it works in WeKan
+
+Multi-Selection turns on a mode in which you tick several things and then act
+on all of them at once, from the right sidebar. On a board it is a **header-bar
+toggle** that selects cards; on All Boards it is a row of the All Boards right
+sidebar that selects boards. Either way the sidebar is where the things you can
+do to a selection live.
+
+### The control
+
+An older version of this page said the two were the *same button*, one
+`headerMultiSelectionButton` template included twice. That template no longer
+exists: the board draws its own button, and All Boards turns the mode on from
+its sidebar.
+
+| | Board | All Boards |
+| --- | --- | --- |
+| Where | `boardHeaderButtons` in `client/components/boards/boardHeader.jade`, only when `canModifyBoard` | `allBoardsHomeSidebar` in `client/components/boards/allBoardsSidebar.jade`, only when `canMultiSelectBoards` |
+| Class | `a.board-header-btn.js-multiselection-activate` | `a.js-all-boards-sidebar-multiselection` |
+| Icon | `fa-check-square-o` | `fa-check-square-o` |
+| Label | `multi-selection` (title `multi-selection-on` while it is on) | `multi-selection` |
+| On state | `.emphasis` | the sidebar stays on its Multi-Selection view |
+| Way out | nested ✕ `a.board-header-btn-close.js-multiselection-reset`, only while it is on | the sidebar row `js-multiselection-reset` |
+
+The two pages select different things and so keep different selection objects:
 
 | Page | Selection object | What is selected |
 | --- | --- | --- |
 | Board | `MultiSelection` (`client/lib/multiSelection.js`) | cards |
 | All Boards | `BoardMultiSelection` (`client/lib/boardMultiSelection.js`) | boards |
 
-Everything else — icon, label, on state, the nested ✕ — is one copy. It was two,
-and they had already drifted: the ✕ said `filter-clear` ("Clear filter") on the
-board header, which is what a different control does. It says
-`multi-selection-off` in both now.
+The ✕ once said `filter-clear` ("Clear filter") on the board header, which is
+what a different control does. It says `multi-selection-off` ("Turn
+Multi-Selection off") now.
 
 The nested ✕ must `stopPropagation()`: it sits *inside* the activate button, so
 without it the click bubbles and immediately re-activates what it just turned
 off.
 
-## The All Boards multi-selection view
+### The All Boards multi-selection view
 
 `allBoardsMultiSelectionSidebar`. Turning Multi-Selection on opens it; turning
 it off closes it, because its only content is a panel of actions on a selection
@@ -75,7 +127,8 @@ named board section.
 | Star / Unstar | `fa-star` | A toggle over the whole selection — see below. |
 | Set as Home board | `fa-home` | Makes the one selected board the Home board. |
 | Move Board to Archive | `fa-archive` | Archives every selected board, after a confirm. |
-| Duplicate Board | `fa-clipboard` | Copies every selected board, after a confirm. |
+| Duplicate Board | `fa-clipboard` | Opens a popup to choose which parts to copy (all ticked by default), then copies every selected board. Shown only when the user may create boards. |
+| Export selected boards | `fa-download` | Downloads the selected boards in one chosen format. |
 | Turn Multi-Selection off | `fa-times-thin` | Ends the selection and closes the panel. |
 
 The two that only *mark* a board come first, the two that change what boards
@@ -83,7 +136,7 @@ exist come after a rule. These were four icon-only buttons crowded into the
 header bar; as sidebar rows each has its name written beside it, which is what
 the board does with its own selection actions.
 
-### The star row is a toggle
+#### The star row is a toggle
 
 It only ever *added* stars — it walked the selection and starred whatever was
 not starred yet — so once every selected board was starred it did nothing at all
@@ -115,7 +168,7 @@ is unstarred, `set-selected-unstarred` once they all are. Label and click read
 > sizes, because a sidebar button is white text that needs a themed background
 > under it.
 
-## The board multi-selection view
+### The board multi-selection view
 
 `multiselectionSidebar`, in `client/components/sidebar/sidebarFilters.jade` —
 labels, members, and the board-admin actions (colour, copy, move, archive) for
@@ -129,7 +182,7 @@ card to that board and validates the complete selection before archiving the
 first card. Success closes Multi-Selection; failure shows the server error and
 keeps the cards selected so the action can be retried.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -145,7 +198,24 @@ keeps the cards selected so the action can be retried.
 | `tests/playwright/specs/03-cards-operations.e2e.js` | `.js` browser test | Selects a list, archives it and verifies two cards disappear. |
 | `tests/selectedStars.test.cjs` | `.cjs` Node test | The star toggle's three cases, and that the click and the label ask one function. |
 
-## Related
+### Related
 
 - [Search](../Board-Header/Search.md) — the other shared control
 - [All Boards](../All-Boards/All-Boards.md)
+
+## Commits
+
+ - [Pickers show the name without a number in front](https://github.com/wekan/wekan/commit/bc5bf3c25edef7063f5bbf706611944719e06473)
+ - [Import and export many boards at once](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Fix archived board deletion and bulk card archiving](https://github.com/wekan/wekan/commit/0aad02722cc77b65f3879e86951b9ddf5094233c)
+ - [Duplicating boards moved into the selection actions](https://github.com/wekan/wekan/commit/5dbb9167fd686fa54b9836ad16236bae64564f5c)
+ - [Set a custom card colour on all selected cards](https://github.com/wekan/wekan/commit/fdfa94321278b7d46eacec54340c7845d7efbd1e)
+ - [Mixed multi-selection moves and collapsed drop targets](https://github.com/wekan/wekan/commit/b0c8acc987ff84e197215cf079085887a6829f1c)
+ - [Fix multi-selection label and member popup actions](https://github.com/wekan/wekan/commit/059c3311deddadd0607cd4d34cf13d36d0b810bd)
+ - [Turn Multi-Selection off from the sidebar close button](https://github.com/wekan/wekan/commit/782200a0dad80907e417012dc27ab79ac1622579)
+ - [The board's second header bar is gone](https://github.com/wekan/wekan/commit/0461de062fe111b930c1d39f159039464190ccc5)
+ - [All Boards keeps its controls in its sidebar](https://github.com/wekan/wekan/commit/bce972e35f802b0abb82d54a31210e5f2999714e)
+ - [The actions on a selection move into the header bar](https://github.com/wekan/wekan/commit/f56254e71fa5d5c9543ce70cc739bc6eb668b21a)
+ - [Search and Multi-Selection become the header's controls](https://github.com/wekan/wekan/commit/fcfed1fd3721ae9cee271adf12d8a96d860f824c)
+ - [The Selected star is a toggle, and every button is named](https://github.com/wekan/wekan/commit/2537a52ec2405e0a522426d47f8e246531832af3)
+ - [Multi-Selection button looks the same as in Swimlanes View](https://github.com/wekan/wekan/commit/c6aa769bc0a8b01706e0f45a19b8ba8c66c77498)

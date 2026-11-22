@@ -1,12 +1,82 @@
 # Design: Universal change History (view + restore) — the basis for Undo/Redo
 
+## What it is
+
+History is the list of every change made to a card, a list, a swimlane or a
+whole board: who changed what, when, from which value to which. Any row (or
+several) can be selected and **restored**, and `Ctrl+Z` / `Ctrl+Y` undo and
+redo your own last change from the same store. Rows are append-only and
+hash-chained per board, so a changed or removed row is detected rather than
+trusted.
+
+## Read more
+
+- [Undo](https://en.wikipedia.org/wiki/Undo),
+  [Version control](https://en.wikipedia.org/wiki/Version_control),
+  [Audit trail](https://en.wikipedia.org/wiki/Audit_trail),
+  [Append-only](https://en.wikipedia.org/wiki/Append-only),
+  [Hash chain](https://en.wikipedia.org/wiki/Hash_chain) and
+  [SHA-2](https://en.wikipedia.org/wiki/SHA-2) on Wikipedia.
+- WeKan pages: [Undo / Redo](../Undo/Undo.md), [Table Page](../Table.md),
+  [Version Control view](../../Board-Header/Board-Views/Version-Control-View.md),
+  [Original positions](../Original-Positions/Original-Positions.md).
+
+## How to use it
+
+**Open a History.**
+
+1. A card: open the card, open its hamburger menu and click **History**.
+2. A list: open the list's hamburger menu and click **History**.
+3. A swimlane: open the swimlane's hamburger menu and click **History**.
+4. The whole board: Board → View → **Version Control**, which shows the board's
+   History (and each card's).
+
+**Find and restore a change.**
+
+1. Type in **Search** to narrow the rows.
+2. Click a contributor's avatar on the left to see only that person's changes
+   (the number beside it is how many of the rows are theirs); **History** shows
+   everyone again.
+3. Page with the arrows; the footer reads *page / pages*.
+4. Tick one or more rows and click **Restore**. Several rows are restored oldest
+   to newest as one change, which can itself be undone.
+
+**Undo and redo your own last change.** Press `Ctrl+Z` (`Cmd+Z`) to undo, and
+`Ctrl+Y` or `Ctrl+Shift+Z` (`Cmd+Shift+Z`) to redo. If the answer does not come,
+a notice offers **Try again** and **Forget it**.
+
+## How the numbers are calculated
+
+- **Rows per page.** The History table asks for 25 rows per page (`PAGE_SIZE`
+  in [client/components/history/historyTable.js](../../../../client/components/history/historyTable.js));
+  the server accepts 1 to 200 (`MAX_PAGE_SIZE` in
+  [server/models/changeHistory.js](../../../../server/models/changeHistory.js))
+  and uses 25 when none is given. This is not the app-wide
+  `TABLE_PAGE_ROWS_PER_PAGE` of 10 that the [Table Page](../Table.md) describes.
+- **Pages.** `pages = max(1, ceil(total / 25))`; a page number past the end is
+  clamped to the last page (`pageInfo()` in
+  [models/lib/tablePage.js](../../../../models/lib/tablePage.js)).
+- **Total and contributor counts** count only the rows the reader may read and
+  that match the search: rows are read newest first in batches of 100, checked
+  for permission, then counted (`scanHistoryPage()` in
+  [server/lib/historyPageScan.js](../../../../server/lib/historyPageScan.js));
+  contributors are sorted by their count, highest first. This is an exact count,
+  so it scans the whole scope.
+- **Undo and redo** pick from your latest 50 rows on the board that are not
+  undone (undo) or are undone (redo), newest first.
+- **Integrity.** `integrityHash` is SHA-256 over a canonical serialization of the
+  restore-relevant fields plus `previousHash`, the previous row's hash, which
+  makes one chain per board (see below).
+
+## How it works in WeKan
+
 > **This page uses the shared [Table Page](../Table.md) design.**
 > Layout, search, pagination, column spec, per-page data loading and RTL rules are
 > defined there and are not repeated here. Below is only what is specific to
 > History: its store, its scopes, and restore/undo.
 
 Status: **Phase 1 implemented · phases 2-6 outstanding** · Owner: xet7 · Related: card details
-view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/Undo.md`
+view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/General/Undo/Undo.md`
 
 > **What is live.** Phases 1-3, 5 and 6 of §10, and the write half of 2.
 >
@@ -75,7 +145,7 @@ view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/
 > the inert recording in the appendix. Applying a change lives in
 > `server/models/changeHistory.js`, which nothing imports.
 
-## Tamper-evident undo and redo
+### Tamper-evident undo and redo
 
 Every immutable history row carries `previousHash` and `integrityHash`. The latter
 is SHA-256 over a canonical serialization of the restore-relevant fields plus the
@@ -102,7 +172,7 @@ exercise valid undo/redo so integrity enforcement cannot become a feature outage
 
 ---
 
-## 1. Goal (from the request)
+### 1. Goal (from the request)
 
 On the card open-details view, each group menu gains an option **History**. Clicking it opens a
 big popup:
@@ -125,7 +195,7 @@ big popup:
   history — on **both** the source contributor's history *and* the restorer's history (who restored
   what to become current). History is **append-only**: you can restore *from* it, but never edit it.
 
-## 2. The core blocker (why this is more than a UI)
+### 2. The core blocker (why this is more than a UI)
 
 WeKan already logs actions in the **`Activities`** collection, but that collection records *what
 happened* (an `activityType` plus references: `cardId`, `listId`, `memberId`, …) — **not the
@@ -144,7 +214,7 @@ Therefore the feature splits into two efforts:
    invasive part; prerequisite for restore).
 2. The **history viewer + restore UI**.
 
-## 3. Groups and change types
+### 3. Groups and change types
 
 "Group" maps to the sections of the card details view. Proposed coverage (phase order later):
 
@@ -166,7 +236,7 @@ Change types are a small closed set with i18n keys, e.g. `history-change-added`,
 `history-change-restored`. Added to `imports/i18n/data/en.i18n.json` only (translations follow via
 Transifex; see the translation-pull auto-heal note in the changelog).
 
-## 4. Data model
+### 4. Data model
 
 One new append-only Mongo collection **`changeHistory`** (working name) covering **every** change,
 whatever the entity. One document per change:
@@ -238,7 +308,7 @@ Notes:
   `Activities` is deliberately schemaless/high-volume and drives notifications/webhooks; overloading
   it risks those paths. A dedicated collection keeps concerns separate and independently cappable.
 
-## 5. Write side (recording every change)
+### 5. Write side (recording every change)
 
 Record on the **server**, in **every** mutation path (not only card groups), capturing the value
 **before** and **after**. A single helper:
@@ -261,7 +331,7 @@ create/rename/move/archive, board-level changes). Position **moves** come in via
   next to `Activities.insert` (with the extra before/after content) avoids sprinkling calls
   everywhere. Evaluate during phase 1.
 
-## 6. Read side (one paginated/searchable method for all three views)
+### 6. Read side (one paginated/searchable method for all three views)
 
 Only the current page is loaded. One method (not a naive reactive publication of the whole log)
 serves the card-group view, the per-user Member-settings view, and any filter combination:
@@ -296,7 +366,7 @@ The server turns `{scope, scopeId}` into the id-column filter (`board`→`boardI
   pure helpers are `matchesSearch(row, term)` and `selectionToIds(selected)`, in `models/lib/…`
   with tests, mirroring `models/lib/undoRedoSelection.js`.
 
-## 7. UI
+### 7. UI
 
 A [table page](../Table.md) inside one popup opened from the group menu's
 **History** item. Only the History-specific parts are listed here:
@@ -311,7 +381,7 @@ A [table page](../Table.md) inside one popup opened from the group menu's
 - **State** — current `group`, `userId` filter, `search`, `page` and the `Set` of selected row ids
   live in a `ReactiveDict` on the template instance, **not** on the Blaze data context (#6479).
 
-## 7a. Scoped views (card / member / board / swimlane / list / …)
+### 7a. Scoped views (card / member / board / swimlane / list / …)
 
 Every non-card-group surface in the table above is **the same `historyTable`** with a different
 `changeHistory.page` scope; there is **one** implementation, parametrised by scope. They share the
@@ -331,7 +401,7 @@ columns, search, pagination, RTL, and restore (+ dual re-logging) of section 7/8
 Concretely, adding "History" to a new menu = (1) a menu item that opens `historyPopup` with a scope,
 (2) — nothing else. No new method, table, or restore code.
 
-## 7c. Undo / Redo = restore the last own change
+### 7c. Undo / Redo = restore the last own change
 
 `Ctrl+Z` / `Ctrl+Y` are the keyboard front-end to this history for the **current user on the current
 board**:
@@ -350,7 +420,7 @@ selected row" (History UI) and "undo last" (keyboard) are the **same operation**
 > and the restore is itself appended to history (see section 8) — so undo is auditable and itself
 > undoable/redoable.
 
-## 8. Restore
+### 8. Restore
 
 `Meteor.call('cardGroupHistory.restore', historyId)`:
 
@@ -368,14 +438,14 @@ selected row" (History UI) and "undo last" (keyboard) are the **same operation**
 Per-change-type restore functions live next to each group's setter (description/labels/dates/…), so
 each knows how to re-apply its own `previousContent`.
 
-## 9. Security & integrity
+### 9. Security & integrity
 
 - All read/restore methods gate on board access (`requireBoardVisible` / write access), like
   `updateListSort` and `userPositionHistory.*`.
 - No client-exposed update/delete on `cardGroupHistory` (append-only invariant).
 - Retention cap per card/board via a server cron (reuse the `userPositionHistory.cleanup` pattern).
 
-## 9a. Append-only is what makes two copies of a database mergeable
+### 9a. Append-only is what makes two copies of a database mergeable
 
 This section is here because the snap now depends on it (#6583, #6585). It is a
 consequence of section 9's invariant, not a new rule.
@@ -431,7 +501,7 @@ says so, which is the behaviour #6583 arrived at the hard way.
    collection exists — the list is the only place the snap learns which
    collections carry history.
 
-## 10. Phasing (each phase verified live before the next)
+### 10. Phasing (each phase verified live before the next)
 
 1. **`changeHistory` model + write helper + pure helpers (paging/search/selection/pick undo-redo) +
    unit tests.** Migrate the shipped position undo/redo onto it: point
@@ -451,7 +521,7 @@ says so, which is the behaviour #6583 arrived at the hard way.
 6. **"History" menu item** wired into every card group menu (and the Member-settings menu from
    step 4).
 
-## 11. Open questions (need product decisions)
+### 11. Open questions (need product decisions)
 
 - Scope of "content of change" for non-text groups (label = its name/color? member = avatar+name?
   attachment = filename?). Proposal above; confirm.
@@ -465,12 +535,12 @@ says so, which is the behaviour #6583 arrived at the hard way.
 
 ---
 
-## 12. Attachments: soft delete, history, restore, purge
+### 12. Attachments: soft delete, history, restore, purge
 
 Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
 `tests/attachmentSoftDelete*.test.cjs` pin each one.
 
-### 12.1 Deleting an attachment from a card is a soft delete
+#### 12.1 Deleting an attachment from a card is a soft delete
 
 - "Delete" on an attachment in the opened card calls `attachments.softDelete`. It sets
   `deletedAt`, `deletedBy` and `deleteBatchId` on the attachment document (the same three
@@ -489,7 +559,7 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
 - The `deleteAttachment` **activity** is still written (same actor rules as before, #5504), so
   the card's activity feed and the outgoing webhooks see the delete as they always did.
 
-### 12.2 The card history shows who deleted it, and restores it
+#### 12.2 The card history shows who deleted it, and restores it
 
 - The soft delete records a `changeHistory` row: `entityType: 'attachment'`, `group:
   'lifecycle'`, `changeType: 'removed'`, `userId` = who deleted it, `createdAt` = when. The
@@ -515,7 +585,7 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
   `js-add-background-image`: only a live attachment on a card can be a cover or a board
   background, and the history row is not a place to set either.
 
-### 12.3 There is no per-attachment hard delete
+#### 12.3 There is no per-attachment hard delete
 
 - No board member, board admin, or global admin can permanently delete one attachment from a
   card, a board, the Files report, the REST API, or the DDP API. Every one of those paths is
@@ -534,7 +604,7 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
   and the CollectionFS export in `attachmentBulkMove.js` converts a storage format and keeps
   the file. A source-reading test lists these and fails on any other.
 
-### 12.4 The only hard delete: Admin Panel / Settings / Delete → archive → delete
+#### 12.4 The only hard delete: Admin Panel / Settings / Delete → archive → delete
 
 - With **Enable permanent delete** on (Admin Panel / Settings / Delete, `enablePermanentDelete`),
   a global admin can archive a board and then delete it from the archive
@@ -543,7 +613,7 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
   storage backend, through `boardRemover`. That is the one place attachment bytes are ever
   removed, and it is recorded in Recovery like the board deletion itself.
 
-### Appendix: lessons already banked from this session
+#### Appendix: lessons already banked from this session
 
 - **Import your collection helpers.** `userPositionHistory` recording was dead because
   `trackChange` was guarded by `typeof … !== 'undefined'` without importing the collection (fixed in
@@ -553,7 +623,7 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
 - **Pagination/search/selection as pure functions** (à la `models/lib/undoRedoSelection.js`) so the
   logic is unit-testable without the Meteor/Blaze runtime.
 
-## Dependency history for flow reports
+### Dependency history for flow reports
 
 The card field map also records `cardDependencies`, including dependencies on
 newly inserted cards. This uses the existing timestamped before/after rows and
@@ -563,7 +633,7 @@ blocked intervals. No second history collection is introduced. Links created
 before recording began retain unknown starts instead of fabricated dates.
 
 
-### Move reasons and retained time records (#1598)
+#### Move reasons and retained time records (#1598)
 
 Card moves now record one whole position in the central collection update hook,
 including `lastMoveReason`. Direct REST card updates call that same recorder
@@ -624,7 +694,7 @@ creation and trigger updates synchronize this metadata too. Undo/redo restores
 the matching trigger and button metadata together, so restored manual buttons
 reappear and redoing an automatic trigger removes them again.
 
-### Interrupted Scrum redo after a newer edit
+#### Interrupted Scrum redo after a newer edit
 
 A pending Scrum checkpoint identifies the interrupted operation; it does not
 make a superseded redo eligible again. If a newer ordinary change invalidates
@@ -646,7 +716,7 @@ operation-level writer coordination and a resolution workflow for superseded
 partial restores remain unfinished. Do not discard the checkpoint merely to
 make the conflict disappear.
 
-### Checkpoint ownership during Scrum recovery
+#### Checkpoint ownership during Scrum recovery
 
 Legacy checkpoints without an operation ID acquire one with a conditional
 update of the captured identity, before/after values and revisions. Concurrent
@@ -667,7 +737,7 @@ not serialize simultaneous workers on the same unchanged plan or make separate
 entity and checkpoint writes atomic. Shared operation-level coordination is
 still required for those guarantees.
 
-### Revision evidence for already-applied Scrum writes
+#### Revision evidence for already-applied Scrum writes
 
 Recovery no longer treats matching target values alone as proof that a saved
 step is complete. It also requires the operation's expected revision: unchanged
@@ -689,7 +759,7 @@ validation and mutation still require stronger operation-level coordination.
 The existing conditional update guards remain in place, and this change does
 not claim cross-document atomicity.
 
-### Confirming persisted restoration results
+#### Confirming persisted restoration results
 
 A successful collection update reply is not enough to acknowledge a Scrum
 restoration. Each applied write is read back and checked against its captured
@@ -709,7 +779,7 @@ verification, not a database snapshot or transaction: another writer can still
 change a target after its readback. Multi-process operation fencing and atomic
 entity/History/checkpoint changes remain unfinished.
 
-### Conditional placement and content checks
+#### Conditional placement and content checks
 
 Scrum restoration updates now include the captured Scrum values and revision
 in their database predicate. Non-board metadata also matches its board ID;
@@ -732,7 +802,7 @@ Permissions stored in other documents and fields added by writers outside the
 revision protocol still require shared operation-level coordination. These
 predicates do not provide a multi-document transaction.
 
-### Preflight before resuming a compound restoration
+#### Preflight before resuming a compound restoration
 
 Before writing another target, Scrum recovery inspects every target in the
 saved batch under checkpoint/source checks. Each must be either still at its
@@ -751,3 +821,31 @@ Preflight does not replace conditional writes or post-write confirmation:
 other workers may change data after the scan. Those checks still run at each
 write and before finalization. Full operation serialization and atomic
 cross-document changes remain unfinished.
+
+## Commits
+
+ - [Clearing a card title or description can be undone and redone](https://github.com/wekan/wekan/commit/aacb2fd4d68c4873bd01685dceee172c24e48379)
+ - [Indexes for History by entity and hash](https://github.com/wekan/wekan/commit/8dc77a89d8b2ac27c2b5f5c8f2d2f58be8905640)
+ - [History on FerretDB: date paths stored as strings](https://github.com/wekan/wekan/commit/01968fc6376064bdc97d1e5a49fec4742a704f49)
+ - [Two changes at once no longer fork a board's History chain](https://github.com/wekan/wekan/commit/66dd9b0938459e4d6662f0dad94d8c826bf28797)
+ - [Close and undo very large sprints in the background](https://github.com/wekan/wekan/commit/600fc3b4dec22351b78874c9ee4c5730d5eb294b)
+ - [Link Sync History rows to the chain when they are written](https://github.com/wekan/wekan/commit/76f6eba249ee8719b9efb13d29af59511e671782)
+ - [Apply a raced undo or redo once](https://github.com/wekan/wekan/commit/f2af24351209b8465c62fa43bb1232626a05672a)
+ - [Bind keyed Scrum undo and redo to their original selection](https://github.com/wekan/wekan/commit/6b44f61b2a684cfe5b2cc1524e6b9d68a21372e1)
+ - [Admin-only custom fields hidden in History too](https://github.com/wekan/wekan/commit/89a65ee7ce765217b57f9c6be35422b9f3d9a3c4)
+ - [Route History records through persistent writer admission](https://github.com/wekan/wekan/commit/1442809b4b8390a0fdc8008432a0af9f34a14bd7)
+ - [Stream History pages through bounded permission batches](https://github.com/wekan/wekan/commit/6465fd28e12fd10c82bb44b4a171e8053365b5e3)
+ - [Preserve nested dates in History field snapshots](https://github.com/wekan/wekan/commit/0da7d2d41efa2e2257e13b4d421ae3e8dae866bb)
+ - [Card activities and History only after matched writes](https://github.com/wekan/wekan/commit/96dba34609be949e211ba06b49bdf69be82c51dd)
+ - [Scrum changes in recoverable History undo and redo](https://github.com/wekan/wekan/commit/ceb19bc77c91a5aeb2b3e0b374729338edf3e3c2)
+ - [Current access enforced when reading and restoring History](https://github.com/wekan/wekan/commit/285c1db24f6def03a8aa5771f41d85f974db5729)
+ - [Rule configuration changes in undoable board History](https://github.com/wekan/wekan/commit/539aef4aa58ec26308d364b864e16002af8b92c8)
+ - [Restore list deletion batches through undo and redo](https://github.com/wekan/wekan/commit/08a164661805c2aa9b09e44f9a1d6c156202198b)
+ - [Time history kept and move reasons recorded reversibly](https://github.com/wekan/wekan/commit/6d99ad73c4361a44a0445cf396ddaaf697575833)
+ - [Reversible dependency history for flow analytics](https://github.com/wekan/wekan/commit/0b411b54769db56f6a5a2d9473e11e70dec9300f)
+ - [Attachments: soft delete, restore from the card history](https://github.com/wekan/wekan/commit/dce28983820f99927b2cb3626e586488c962e084)
+ - [Verified low-load recovery and integrity audits](https://github.com/wekan/wekan/commit/506c2697a009a66264a86eafbb861a05f35bfbf6)
+ - [Restore the version you picked, not the one before it](https://github.com/wekan/wekan/commit/4286186a9d309078601d212df32c0a23d47bd57b)
+ - [Make History work when it is opened](https://github.com/wekan/wekan/commit/92b5ce8614de59cb5379d5853370f992adf75ffd)
+ - [Record every group, and one History table for every scope](https://github.com/wekan/wekan/commit/1fe46c60442233b59d01da1b4b2a32fe50d66d64)
+ - [Build the universal change history, and put undo on top of it](https://github.com/wekan/wekan/commit/898643eea9612616f3cd9c30f6180fa62fa0aad9)

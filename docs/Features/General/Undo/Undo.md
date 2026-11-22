@@ -1,5 +1,60 @@
 # Feature: Undo / Redo (position moves) + high-impact confirmation
 
+## What it is
+
+Undo takes back your last change on the board and Redo puts it back, with
+`Ctrl+Z` and `Ctrl+Y`. It began (v1, #6478) as undo for moving a card, list or
+swimlane, together with a confirmation before the riskiest move, a list to
+another swimlane on a touch screen; today it undoes any change the
+[History](../History/History.md) records. The second half of this page is the
+soft delete design: a delete only marks things deleted, so a delete can be
+undone too.
+
+## Read more
+
+- [Undo](https://en.wikipedia.org/wiki/Undo) on Wikipedia.
+- WeKan pages: [History](../History/History.md),
+  [Keyboard shortcuts](../Keyboard-Shortcuts/Keyboard-Shortcuts.md),
+  [Drag and drop](../DragDrop/Drag-Drop.md).
+
+## How to use it
+
+**Undo and redo.**
+
+1. On a board, make a change - for example drag a card to another list.
+2. Press `Ctrl+Z` (`⌘Z` on a Mac) to undo it.
+3. Press `Ctrl+Y` or `Ctrl+Shift+Z` (`⌘⇧Z`) to redo it.
+4. Inside a text field the keys are the browser's own text undo and redo, so
+   typing is not affected.
+
+Undo works only for someone who may change the board (`Utils.canModifyBoard()`).
+A new change of your own clears what could be redone.
+
+**The confirmation.** On a touch or small screen, dropping a list into a
+different swimlane asks **Move this list and all its cards to the other
+swimlane?** Answer Cancel to put the list back where it was.
+
+**Undo a deleted list.** Delete a list and press `Ctrl+Z`; the list and the
+cards deleted with it come back.
+
+## How the numbers are calculated
+
+- **Which change is undone.** The newest of your rows on this board that is not
+  a checkpoint and not undone; redo takes the row with the newest `undoneAt`
+  (`pickUndo` / `pickRedo` in
+  [models/lib/undoRedoSelection.js](../../../../models/lib/undoRedoSelection.js)).
+  The server looks at your latest 50 such rows.
+- **Retention of the old position history.** `userPositionHistory` keeps the
+  newest 1000 non-checkpoint rows per user and board; the cleanup runs daily at
+  4:15 am when the CPU is quiet (it waits up to 55 minutes for that), unless
+  `Meteor.settings.public.enableHistoryCleanup` is `false`
+  ([server/models/userPositionHistory.js](../../../../server/models/userPositionHistory.js)).
+- The confirmation has no threshold: it is asked for every list move to a
+  different swimlane when `Utils.isMiniScreen()` or
+  `Utils.isTouchScreenOrShowDesktopDragHandles()` is true.
+
+## How it works in WeKan
+
 Status: **Implemented (v1)** in #6478 · Owner: xet7 · Related: `userPositionHistory`,
 card/list/swimlane drag-and-drop, `docs/Features/General/History/History.md`
 
@@ -28,14 +83,14 @@ impact") — which covered **position moves** (card / list / swimlane) only.
 
 ---
 
-## 1. Motivation
+### 1. Motivation
 
 A user accidentally dragged a **list** into another swimlane on mobile, merging it with an existing
 list, and spent ~15 minutes recovering — there was **no confirmation** and **no undo**. This feature
 adds both for the move operations, using the already-present (but previously **inert**) position
 history.
 
-## 2. What ships in v1
+### 2. What ships in v1
 
 - **Undo** with `Ctrl+Z` (`⌘Z`) and **Redo** with `Ctrl+Y` / `Ctrl+Shift+Z` (`⌘⇧Z`) for the last
   **position change** on the current board: moving a **card**, **list**, or **swimlane**.
@@ -43,7 +98,7 @@ history.
   screens** (the exact, card-re-homing accident). Declining reverts the drag. Everyday same-swimlane
   reordering is unaffected.
 
-## 3. Data model — `userPositionHistory`
+### 3. Data model — `userPositionHistory`
 
 Pre-existing collection (`models/userPositionHistory.js`), one document per position change:
 
@@ -61,7 +116,7 @@ Helper methods on a document:
 - `undo()` — restore the **previous** position (per entityType).
 - `redo()` — **added in #6478**: re-apply the **new** position (mirror of `undo()`).
 
-## 4. The bug that made undo inert (fixed in #6478)
+### 4. The bug that made undo inert (fixed in #6478)
 
 `UserPositionHistory.trackChange(...)` is server-only, but callers referenced it as an **assumed
 global** guarded by `typeof UserPositionHistory !== 'undefined'`. It is an ES-module default export,
@@ -74,7 +129,7 @@ nothing. Fix: **import the collection** where `trackChange` is called.
 > nothing happens, and there is no error anywhere. A recording path therefore needs a test
 > that asks whether it CAN run, not a reviewer who sees that the call is there.
 
-## 5. Recording changes (write side)
+### 5. Recording changes (write side)
 
 `trackChange({ userId, boardId, entityType, entityId, actionType, previousState, newState })` inserts
 a history row. Wired at:
@@ -103,7 +158,7 @@ a history row. Wired at:
 
 Recording is **best-effort**: a failure to record never fails the move (wrapped in try/catch).
 
-## 6. Undo / redo stack semantics
+### 6. Undo / redo stack semantics
 
 The undo stack is the board's real (non-checkpoint) changes in `createdAt` order; the redo stack is
 the changes that have been undone.
@@ -124,7 +179,7 @@ Both gate on `requireBoardVisible`. The selection rule is a **pure, unit-tested*
 `models/lib/undoRedoSelection.js` (`pickUndo` / `pickRedo`, tests in
 `tests/undoRedoSelection.test.cjs`); the server applies the same rule via Mongo `sort`/`limit`.
 
-## 7. Client bindings
+### 7. Client bindings
 
 `client/lib/keyboard.js` binds `ctrl+z, command+z` → `undoLast` and
 `ctrl+y, ctrl+shift+z, command+shift+z` → `redoLast`, calling the method for
@@ -132,7 +187,7 @@ Both gate on `requireBoardVisible`. The selection rule is a **pure, unit-tested*
 already disables shortcuts inside inputs / textareas / contentEditable, so **native text undo/redo
 keeps working** while typing.
 
-## 8. High-impact confirmation
+### 8. High-impact confirmation
 
 In `client/components/swimlanes/swimlanes.js` `saveSorting` (the list-drop handler): when the drop
 is a move to a **different** swimlane (`isDifferentSwimlane`) **and** the viewport is touch/small
@@ -145,12 +200,12 @@ riskiest, hardest-to-notice action).
 > bound to a swimlane on a nudge, so this confirm only fires for genuinely swimlane-scoped list moves
 > across swimlanes.
 
-## 9. Retention
+### 9. Retention
 
 `userPositionHistory.cleanup` (server cron) caps history per user/board (keeps ~1000 newest
 non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
 
-## 10. Limitations / not in v1
+### 10. Limitations / not in v1
 
 - Undo/redo covers **position moves only** — not text edits, labels, members, dates, etc. Those need
   before/after content versioning (see `docs/Features/General/History/History.md`).
@@ -161,13 +216,13 @@ non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
   entity meanwhile, the restore uses this history row's previous values (last-writer-wins, as
   elsewhere in WeKan).
 
-## 11. Tests
+### 11. Tests
 
 - `tests/undoRedoSelection.test.cjs` — pure `pickUndo`/`pickRedo` incl. LIFO symmetry, checkpoint
   and already-undone skipping, and the redo-by-`undoneAt` order.
 - Runtime paths (keyboard, Meteor methods, Blaze) require a live app to verify.
 
-## 12. Extension checklist (adding a new undoable move)
+### 12. Extension checklist (adding a new undoable move)
 
 1. In the mutation path, capture `previousState` **before** the write and call
    `UserPositionHistory.trackChange({ … })` **after** — importing the collection, wrapped in
@@ -177,7 +232,7 @@ non-checkpoint rows). Toggle via `Meteor.settings.public.enableHistoryCleanup`.
 
 ---
 
-# Soft delete (delete = mark, never destroy)
+## Soft delete (delete = mark, never destroy)
 
 Status: **Lists implemented (v1) · rest design** · Owner: xet7 · Related: #1023 ("undo button for
 deleted lists etc"), History.md, the `archived` flag, `userPositionHistory`
@@ -200,7 +255,7 @@ deleted lists etc"), History.md, the `archived` flag, `userPositionHistory`
 > only behind **one narrow, guarded purge path** (below). This is the foundation that makes
 > **undoing a deletion** possible (#1023): if nothing is destroyed, anything can be restored.
 
-## 13. Why this exists / relation to undo & history
+### 13. Why this exists / relation to undo & history
 
 Undo v1 (§1–§12) restores **positions**. It cannot bring back a **deleted** list/card/swimlane
 because the delete path physically `removeAsync`-es the rows — there is nothing left to restore. Soft
@@ -213,7 +268,7 @@ delete closes that gap: a delete becomes a reversible state change, so:
 - A **Recycle Bin** view can list soft-deleted items per board/user for explicit restore, independent
   of the keyboard undo stack.
 
-## 14. `archived` vs `deleted` — two distinct states
+### 14. `archived` vs `deleted` — two distinct states
 
 WeKan already has **archive** (`archived: true` + `archivedAt`) as a *user-visible, first-class*
 "put it aside" state with its own UI (the Archive). **Soft delete is a separate, deeper state** —
@@ -234,7 +289,7 @@ deletedBy   (String userId, optional)
 deleteBatchId (String, optional)     // groups a cascade (list + its cards) into one restorable unit
 ```
 
-## 15. Scope — what gets soft delete, what is exempt
+### 15. Scope — what gets soft delete, what is exempt
 
 **Soft-deletable (user content):** Boards, Swimlanes, Lists, Cards (incl. subtasks), Checklists,
 ChecklistItems, CardComments, Attachments, Rules/Triggers/Actions, Labels, CustomFields,
@@ -247,7 +302,7 @@ them would only bloat storage with no restore value. `log()`-style note: exempti
 not accidental — each exempt `removeAsync` should carry a short `// hard-delete OK: transient` comment
 so the audit is greppable.
 
-## 16. The one narrow purge path (the only permanent delete)
+### 16. The one narrow purge path (the only permanent delete)
 
 Physical `removeAsync` of user content is allowed from **exactly two** places, both guarded and
 audited:
@@ -258,7 +313,7 @@ audited:
 2. **Explicit Global-Admin "Permanently delete"** — an admin action on a soft-deleted item (or
    "empty Recycle Bin") that consciously destroys it, **gated by an Admin Panel setting** (below).
 
-### 16a. Admin Panel / Features / Delete → "Enable permanent delete for Global Admin"
+#### 16a. Admin Panel / Features / Delete → "Enable permanent delete for Global Admin"
 
 > **Where this pane would live has changed since this was written.** The Admin Panel
 > **Features** tab no longer exists — its last three panes moved to
@@ -290,7 +345,7 @@ Admin Panel
   content; it hard-fails unless `isAdmin && enablePermanentDelete`, and logs an audit `Activity`
   (`activityType: 'permanentDelete'`).
 
-### 16b. The Delete panel is a History-style category table
+#### 16b. The Delete panel is a History-style category table
 
 **Admin Panel / Features / Delete** is not just the toggle — it renders a **History-design table**
 (same layout as History.md: paginated, searchable, actor avatar, timestamp, RTL-aware) that lists
@@ -309,7 +364,7 @@ Columns: category · title/description · board · deleted by (avatar) · delete
 feeds it with the same pagination discipline as the activities feed (#2539) — only the visible page
 is loaded, so a huge trash never slows the panel.
 
-### 16c. GDPR categories — what a Global Admin may permanently delete, and what each purge must include
+#### 16c. GDPR categories — what a Global Admin may permanently delete, and what each purge must include
 
 The category table is organized around the data classes GDPR erasure and data-minimization actually
 require an operator to be able to remove. **Permanently deleting a category deletes the whole object
@@ -346,7 +401,7 @@ Everything else **must** soft-delete. To keep this enforceable:
   erasure — the "one narrow purge path" decision, chosen over a retention-window auto-purge, so
   nothing ever disappears on a timer.
 
-## 17. Mechanism — a `softRemove` helper + query default
+### 17. Mechanism — a `softRemove` helper + query default
 
 Replace user-content `removeAsync` call sites (see the ~40 sites in `models/` and `server/models/`)
 with a soft-delete helper that mirrors today's cascade but *marks* instead of destroys:
@@ -374,7 +429,7 @@ Reads must hide soft-deleted docs **by default**. Two enforcement layers:
 Restore is the inverse: `$unset` the three fields for the whole `deleteBatchId` (so restoring a list
 brings back exactly the cards deleted with it, not ones deleted separately later).
 
-## 18. Undo/redo & History integration
+### 18. Undo/redo & History integration
 
 - **Undo of a delete:** `trackChange({ actionType: 'delete' })` on soft-remove; `undo()` gains a
   `delete` case that clears the delete mark for the `deleteBatchId`; `redo()` re-applies it. This
@@ -382,7 +437,7 @@ brings back exactly the cards deleted with it, not ones deleted separately later
 - **History:** delete/restore appear in History.md's unified feed with actor avatar + timestamp; the
   Recycle Bin is essentially a History view filtered to `actionType: 'delete'` with a Restore button.
 
-## 19. Migration
+### 19. Migration
 
 1. Add `deletedAt`/`deletedBy`/`deleteBatchId` to the soft-deletable schemas (nullable; no backfill
    needed — absent ⇒ live).
@@ -394,7 +449,7 @@ brings back exactly the cards deleted with it, not ones deleted separately later
 4. Add the Recycle Bin view + the admin purge action + GDPR erasure purge.
 5. Wire `delete`/`restore` into undo and History.
 
-## 20. Risks / notes
+### 20. Risks / notes
 
 - **Storage growth** is accepted (the chosen trade for "never lose data"); the admin purge and GDPR
   erasure are the only relief valves. Document this for operators.
@@ -406,3 +461,16 @@ brings back exactly the cards deleted with it, not ones deleted separately later
   re-acquire on restore or get suffixed).
 - **Third-party storage (Attachments):** soft-deleting an attachment keeps the blob in S3/GridFS;
   only the admin purge / GDPR erasure removes the physical bytes.
+
+## Commits
+
+ - [Restore list deletion batches through History undo and redo](https://github.com/wekan/wekan/commit/08a164661805c2aa9b09e44f9a1d6c156202198b)
+ - [Position-history cleanup once per installation](https://github.com/wekan/wekan/commit/d481bffdfe920f4a8a2d9e814d8533a78b092d94)
+ - [No client-written history, and undo stays within the entry's boards](https://github.com/wekan/wekan/commit/3d080956be3b3d70ec55f26a6476bdbc30fa9e56)
+ - [Record card moves in history, so undo of a drag does something](https://github.com/wekan/wekan/commit/dc4110e6fe10e76a0204bfa339e3254d20ad7ce3)
+ - [Build the universal change history, and put undo on top of it](https://github.com/wekan/wekan/commit/898643eea9612616f3cd9c30f6180fa62fa0aad9)
+ - [Soft delete for lists: restorable and undoable](https://github.com/wekan/wekan/commit/46924985f88b473e054158ecae68af6d7cce3556)
+ - [Soft delete design](https://github.com/wekan/wekan/commit/58344db0d7e3ed9e4f8ca638e0b3e00d2813ac63)
+ - [Tests for the high-impact confirmation](https://github.com/wekan/wekan/commit/8287865b238f3ed90e60e4624e98b383e896beee)
+ - [Undo / redo and confirmation feature doc](https://github.com/wekan/wekan/commit/f3354f5cc8577cda46d2789230e8d30939bd927d)
+ - [Undo and redo for card, list and swimlane moves, and the confirmation on touch](https://github.com/wekan/wekan/commit/4ca33d29f78bd81cecc931faa5164f862823ad52)

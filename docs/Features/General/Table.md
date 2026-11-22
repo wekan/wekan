@@ -1,5 +1,50 @@
 # Design: the Table Page
 
+## What it is
+
+The Table Page is the one layout every paginated table in WeKan is drawn with:
+a title (outside the Admin Panel), an optional status line, a controls row with
+search, filters, actions, the total and the pager, and then the rows. Admin
+Panel / People and every Admin Panel / Problems report, Translation, All Boards'
+Table view and Public Boards use it, so they look and behave alike.
+
+## Read more
+
+- [Table (information)](https://en.wikipedia.org/wiki/Table_(information)) and
+  [Pagination](https://en.wikipedia.org/wiki/Pagination) on Wikipedia.
+- WeKan pages: [Left Menu](../All-Boards/Left-Menu.md),
+  [Admin Panel](../Admin-Panel/Admin-Panel.md),
+  [Public Boards](../All-Boards/Public.md), [History](History/History.md).
+
+## How to use it
+
+On any table page:
+
+1. Type in the search field and press **Enter**; there is no separate Search
+   button.
+2. Choose a filter from a dropdown, when the page has one.
+3. Use the page's action buttons (for example add a user), when it has any.
+4. Read the total beside the controls.
+5. Move between pages with the previous and next arrows at the end of the
+   controls row.
+
+## How the numbers are calculated
+
+From [models/lib/tablePage.js](../../../models/lib/tablePage.js):
+
+- **Rows per page** is `TABLE_PAGE_ROWS_PER_PAGE = 10` (see the exception below,
+  History with 25).
+- `pageInfo(total, page, perPage)`: `totalPages = max(1, ceil(total / perPage))`;
+  the page is clamped to `1 .. totalPages`; `skip = (page - 1) * perPage` and
+  `limit = perPage`, which the server uses to load one page.
+- `adjacentPage()` moves one page at a time and never past the first or last.
+- `columnWidthPercent(n)` gives each of `n` columns `100 / n` percent, rounded to
+  four decimals (`100%` for a bad count).
+- The total is counted on the server, by a `get...Count` method or `eventLogCount`
+  for each report.
+
+## How it works in WeKan
+
 One design, one implementation, for every paginated table in WeKan: a title, an
 optional status line, a controls row (search + pagination) and a table of rows.
 
@@ -8,7 +53,7 @@ A page-specific design doc describes only what is different about *that* page an
 links back here — it must not restate the layout, the controls or the paging
 rules, because they are defined once, here and in one template.
 
-## Related files
+### Related files
 
 Everything that makes a table page work. Paths are from the repository root.
 
@@ -35,7 +80,7 @@ Everything that makes a table page work. Paths are from the repository root.
 | `models/eventLog.js` | `.js` model + methods | The Security / Speed / Tests / CPU usage streams: `eventLogPage`, `eventLogCount`, and the `{stream, at}` index that keeps them fast. |
 | `tests/tablePage.test.cjs` | `.cjs` Node test | The **one** suite for all of the above: the pure helpers, the template, the layout rules this page promises, the themed pager, that paging stays server-side and index-backed, and the "one implementation" guarantee. It also checks that every path in this table still exists. |
 
-## Pages that do not use this design
+### Pages that do not use this design
 
 Pages with a paginated table that are **not** built from this design, and why.
 Listed so nobody has to re-derive the answer by reading the code, and so the gap
@@ -49,9 +94,9 @@ People is fully converted: its four table panes render through this design, and 
 search, filter dropdown, action buttons and total are the shared controls row. Its
 separate Search button is gone — every table page searches on Enter.
 
-## Pages that use this design
+### Pages that use this design
 
-### Admin Panel
+#### Admin Panel
 
 Menu path is what you click to reach the page.
 
@@ -77,26 +122,31 @@ Menu path is what you click to reach the page.
 | Recovery | Admin Panel / Problems / Recovery | Database recovery events with severity, database and detail. |
 | Translation | Admin Panel / Settings / Translation | The custom translation strings: language, source text, translation. Interactive rows (an Edit link and the ⋯ menu) and one template header, the "New" link. |
 
-### Elsewhere in WeKan
+#### Elsewhere in WeKan
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
 | All Boards (Table view) | `/board` → the view menu → Table | Every board of the selected section: **Edit**, board title and board description. EDITABLE, which is what separates it from Public Boards below - the Edit cell opens the same board-title popup the Swimlanes view opens. Its rows carry their board's colour. See [All-Boards](../All-Boards/All-Boards.md). |
 | Public Boards | `/public` | The boards anybody may open: title and description, ten per page. Read-only — a row's only action is to open its board — and the page is nothing but the table. Its rows carry their board's colour and background image, so a board is recognised here the way it is on All Boards. See [Public](../All-Boards/Public.md). |
 
-### Card, board and member history
+#### Card, board and member history
 
-Designed, not yet implemented — see [History](History/History.md).
+See [History](History/History.md). The card, list, swimlane and board
+scopes are implemented, as one `historyTable` template
+(`client/components/history/historyTable.jade`) with its own search, contributor
+pane, pager and Restore; it shows 25 rows per page, not the ten below. The
+Member settings scope is served by the server but no menu opens it yet, and the
+board's History opens from the Version Control view rather than Board Settings.
 
 | Table name | Menu path | Description |
 | --- | --- | --- |
 | Card history | Card / hamburger menu / History | Every change to this card, restorable. |
-| Member history | Member settings / History | One user's changes, across the boards the caller can see. |
-| Board history | Board Settings / History | Every change on the board and everything inside it. |
+| Member history | Member settings / History (not opened by any menu yet) | One user's changes, across the boards the caller can see. |
+| Board history | Board → View → Version Control | Every change on the board and everything inside it. |
 | Swimlane history | Swimlane menu / History | Changes to the swimlane and its lists and cards. |
 | List history | List menu / History | Changes to the list and its cards. |
 
-## Layout
+### Layout
 
 Rows, top to bottom. This order is fixed, and is defined once in
 `client/components/settings/tablePage.jade`:
@@ -162,7 +212,7 @@ buttons — a control that keeps that margin is centred higher than one that doe
 not, which is exactly how People's "Unlock all users" ended up lower than "Teams"
 beside it.
 
-## Data loading
+### Data loading
 
 **A table page loads one page of rows, never the whole collection.**
 
@@ -178,7 +228,7 @@ beside it.
   cannot change because you moved to the next page, and recounting there added a
   second round trip to every click.
 
-### Rows per page — one number, `TABLE_PAGE_ROWS_PER_PAGE`, for the whole app
+#### Rows per page — one number, `TABLE_PAGE_ROWS_PER_PAGE`, for the whole app
 
 **Every paginated page in WeKan loads ten rows at a time.** The number lives once,
 as `TABLE_PAGE_ROWS_PER_PAGE` in `models/lib/tablePage.js`, and every page reads it
@@ -195,6 +245,10 @@ it uses:
 | The search pages (`CardSearchPaged`: global search, due cards, broken cards) | `resultsPerPage` |
 | Archived boards | `ARCHIVED_BOARDS_PER_PAGE` |
 
+One page with a pager of its own does not read it: the History table
+(`client/components/history/historyTable.js`) asks for `PAGE_SIZE = 25` rows,
+which the server caps at `MAX_PAGE_SIZE = 200`.
+
 Two deliberate exceptions, both of which have no pager and are therefore not
 paginated pages: the **activity feed**, which is infinite scroll and whose page size
 is a live-cursor cost decision (see the note in
@@ -204,7 +258,7 @@ for*, not a page size. `PER_PAGE_DEFAULT` in that same module is the same ten,
 written out rather than imported because a plain-node test `require()`s the file;
 `tests/tablePage.test.cjs` pins the two together.
 
-## Columns
+### Columns
 
 A page differs from another **only** in its column list:
 
@@ -225,7 +279,7 @@ template iterates. Both are pure functions in `models/lib/tablePage.js` with uni
 tests, so a row can never end up with fewer cells than the header — which is how a
 hand-written table gets its columns shifted by one.
 
-### Interactive rows and headers
+#### Interactive rows and headers
 
 Some panes cannot be expressed as text cells: their rows carry inline checkboxes
 and edit links, and their headers carry controls. Two slots cover that without
@@ -242,7 +296,7 @@ Everything else — layout, paging, search, the themed pager, the total — is s
 either way. Prefer the column spec; reach for these only when the pane is genuinely
 interactive.
 
-## Controls
+### Controls
 
 The controls row holds, in reading order: the search field, any **filters**, any
 **actions**, the **total**, and the pagination pushed to the end side.
@@ -284,7 +338,7 @@ Because the class names are shared, the handlers are shared too: the page being
 acted on is identified by which report is open, not by a per-page class. Adding a
 table page therefore adds **no** new event handler, no new markup and no new CSS.
 
-## Theme
+### Theme
 
 **A table page never invents a colour.** Its buttons and counter follow whatever
 theme is in force:
@@ -327,14 +381,14 @@ The rest of the page inherits: the title and cell text take the surrounding text
 colour, and the counter uses `color: inherit` so it stays readable in both the
 light and the dark theme rather than being pinned to a hard-coded grey.
 
-## RTL and dates
+### RTL and dates
 
 - The layout is plain block order plus logical properties (`margin-inline-start`,
   `text-align: start`), so it mirrors under `dir=rtl` without duplicated markup.
 - Datetime columns use the app's configured date format helper, so a table page
   matches the rest of the UI.
 
-## Adding a table page
+### Adding a table page
 
 1. Add the column list.
 2. Point it at a publication that honours `limit`/`skip` and a count method.
@@ -343,3 +397,17 @@ light and the dark theme rather than being pinned to a hard-coded grey.
 Nothing else: no template, no CSS, no handlers, no paging code.
 
 The files are listed at the top of this page.
+
+## Commits
+
+ - [Share bounded page movement](https://github.com/wekan/wekan/commit/eb0e347865bae598e7446e0bdc8a8f04c4afbac1)
+ - [Resolve authorized linked dates for lazy Table pages](https://github.com/wekan/wekan/commit/c273b12e233f66c06f4adad7055e8ea01050f6c7)
+ - [Admin Panel avatars are avatar-sized](https://github.com/wekan/wekan/commit/580b03e1727f4c6880d15ff240a00f91ea58b29c)
+ - [Wrapping names in Admin Panel user cells](https://github.com/wekan/wekan/commit/37b7eb06aa00a4bc257455f355cfe71ef5e7d3fc)
+ - [A location in an Admin Panel table opens a map](https://github.com/wekan/wekan/commit/ebe985d4532fd06daab507f443cbb35d96b381eb)
+ - [Pager: stop wiping the gradient](https://github.com/wekan/wekan/commit/081e4e2881a5e736a49204cb5787b39695337049)
+ - [Implemented designs move to docs/Features](https://github.com/wekan/wekan/commit/daaf5639107f19235c0142b9db1565706e622b8b)
+ - [Paginate the admin lists honestly: one page of ten, index-backed](https://github.com/wekan/wekan/commit/c1add5bc5e5537e3cc8f96076164ebdf4328b0e8)
+ - [Row and header slots, and Organizations converted](https://github.com/wekan/wekan/commit/13f40bf3ab95aff85f6004cd721a01a49a19f020)
+ - [Filters, actions and total in the shared controls row](https://github.com/wekan/wekan/commit/7e2f33387ed8b2e0b203d23315448aad9907d30d)
+ - [Table pages: one design, one implementation, and a layout that fits the window](https://github.com/wekan/wekan/commit/9791993d59850a09f3b7efe109663c95ad74833c)

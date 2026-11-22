@@ -1,5 +1,42 @@
 # Design: linking to a swimlane, a list, or a card
 
+## What it is
+
+Every swimlane, list and card has its own address (URL). Copy it, paste it in a
+chat or an e-mail, and whoever opens it lands on the board with that swimlane or
+list scrolled into view and briefly outlined, or with that card open. Before
+this, only cards had an address.
+
+## Read more
+
+- [URL](https://en.wikipedia.org/wiki/URL),
+  [Permalink](https://en.wikipedia.org/wiki/Permalink) and
+  [Deep linking](https://en.wikipedia.org/wiki/Deep_linking) on Wikipedia.
+- WeKan pages: [The header](../Header-Bar/Header.md),
+  [Archive](../All-Boards/Archive.md).
+
+## How to use it
+
+1. Open the hamburger menu of a swimlane, of a list, or of an opened card (the
+   card details menu).
+2. Click the first row, **Copy link to clipboard** (the link icon). It is there
+   for everybody who can read the board, also read-only members.
+3. Paste the link where you want. Opening it shows the board with the swimlane
+   or list scrolled into view and outlined for a moment, or opens the card.
+
+The list's **More** popup (`listMorePopup`) also shows the list's address in a
+box.
+
+## How the numbers are calculated
+
+There are no counts. The timings are in
+[client/lib/revealBoardItem.js](../../../client/lib/revealBoardItem.js): WeKan
+looks for the swimlane or list every 100 ms (`RETRY_MS`), gives up after 8000 ms
+(`GIVE_UP_MS`), and removes the outline 2000 ms after it is drawn. A swimlane or
+list address has five path segments, a card address four.
+
+## How it works in WeKan
+
 Every one of the three has an address, and following it lands on the thing the
 address names.
 
@@ -10,7 +47,7 @@ scroll down*. Worse, `List.absoluteUrl()` answered with the URL of whichever
 a list link (`listMorePopup`) showed a card's address, and an empty box for an
 empty list.
 
-## The shape
+### The shape
 
 ```
 /b/<boardId>/<slug>/<cardId>              a card      (unchanged)
@@ -36,7 +73,7 @@ reason: on the server `board()` is async and returns a Promise, so a caller ther
 passes the already-awaited board. A thenable is never read from — doing that is
 what emitted `/b/undefined/board/...` in [#6427](https://github.com/wekan/wekan/issues/6427).
 
-## Following the link reveals the thing
+### Following the link reveals the thing
 
 For a card that already worked: the route opens it. For a swimlane or a list
 there is nothing to open, so the link has to **bring it into view**, or the
@@ -78,7 +115,7 @@ sign of *which* of the things now on screen the link was about. It is an
 nothing by a pixel, and `prefers-reduced-motion` gets the outline without the
 fade — the point is to say which one, and that does not need movement.
 
-## Copying a link
+### Copying a link
 
 All three are copied the same way, from the same kind of menu: the **first row**
 of the hamburger popup — swimlane, list, and the card details menu — with the
@@ -99,7 +136,7 @@ board and stays guarded.
 `absoluteUrl()`, not the relative path: what lands in the clipboard is pasted
 into a chat or an email, and a relative path is only a link inside this page.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -114,7 +151,13 @@ into a chat or an email, and a relative path is only a link inside this page.
 | `client/components/swimlanes/swimlanes.css` | `.css` | The reveal outline. |
 | `tests/boardItemLinks.test.cjs` | `.cjs` Node test | The URLs, that no address matches the wrong route, the reveal, the three copy rows, and the translations. |
 
-## Related
+### Related
 
 - [The header](../Header-Bar/Header.md) — where the card's copy button used to be
 - [Archive](../All-Boards/Archive.md) — the other page a board menu row navigates to
+
+## Commits
+
+ - [A permalink to comments and activities](https://github.com/wekan/wekan/commit/612be137639b3e0b44cb0c571356127378185517)
+ - [Implemented designs move to docs/Features](https://github.com/wekan/wekan/commit/daaf5639107f19235c0142b9db1565706e622b8b)
+ - [Link to a swimlane or a list, the way you can link to a card](https://github.com/wekan/wekan/commit/e755b60b37009783effe5515d208b142003128e7)
