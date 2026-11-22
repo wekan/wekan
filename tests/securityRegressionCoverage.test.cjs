@@ -176,6 +176,7 @@ const GUARDED = {
   portraitbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
   relicavatarbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
   replybleed: ['tests/inboundEmailUserMatch.test.cjs', 'tests/inboundEmailReplyToken.test.cjs'],
+  bouncebleed: ['tests/bounceBleed.test.cjs', 'server/lib/tests/inboundEmailRoute.tests.js'],
   cachebleed: ['tests/fileCacheHeaders.test.cjs', 'tests/playwright/specs/attachment-thumbnail.e2e.js'],
   syncbleed: ['tests/syncBleed.test.cjs', 'tests/playwright/specs/list-sync-source.e2e.js'],
   relaybleed: ['tests/relayBleed.test.cjs'],
@@ -380,7 +381,8 @@ test('the whole published list is accounted for', () => {
   // 146 -> 147: ListLockBleed (GHSA-4734-8vrg-8j3w, 2026-11-09), guarded.
   // 147 -> 148: ListLockAttachBleed (by email, GHSA awaited, 2026-11-11), guarded.
   // 149 -> 150: ListLockBulkBleed (GHSA-83w9-74mx-7v83, 2026-11-18), guarded.
-  assert.strictEqual(total, 150, 'the Hall of Fame and this list disagree on how many there are');
+  // 150 -> 151: BounceBleed (GHSA-7w85-38ph-c96v, 2026-11-22), guarded.
+  assert.strictEqual(total, 151, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
