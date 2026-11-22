@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Vai tiešām vēlaties izdzēst šo darbvietu?",
   "allboards.delete-workspace-confirm-check": "Apstiprināt darbvietas dzēšanu",
   "multi-selection-active": "Noklikšķiniet uz izvēles rūtiņām, lai atlasītu tāfeles",
-  "archive-permanent-delete-disabled-hint": "Ja administratora panelī / Problēmas / Dzēšana ir atzīmēta pastāvīgās dzēšanas iespējošana globālajam administratoram, šeit būs redzama poga Dzēst.",
+  "archive-permanent-delete-disabled-hint": "Ja administratora panelī / Iestatījumi / Dzēšana ir atzīmēta pastāvīgās dzēšanas iespējošana globālajam administratoram, šeit būs redzama poga Dzēst.",
   "no-boards-selected": "Jūs neesat atlasījis nevienu dēli.",
   "select-only-one-board": "Lūdzu, atlasiet tikai vienu dēli",
   "selected-label": "Atlasīts:",

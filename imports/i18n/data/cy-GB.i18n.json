@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ydych chi'n siŵr eich bod am ddileu'r man gwaith hwn?",
   "allboards.delete-workspace-confirm-check": "Cadarnhau dileu man gwaith",
   "multi-selection-active": "Cliciwch blychau ticio i ddewis byrddau",
-  "archive-permanent-delete-disabled-hint": "Os yw Galluogi dileu parhaol ar gyfer y Gweinyddwr Byd-eang wedi'i ddewis yn y Panel Gweinyddol / Problemau / Dileu, bydd y botwm Dileu yn weladwy yma.",
+  "archive-permanent-delete-disabled-hint": "Os yw Galluogi dileu parhaol ar gyfer y Gweinyddwr Byd-eang wedi'i ddewis yn y Panel Gweinyddol / Gosodiadau / Dileu, bydd y botwm Dileu yn weladwy yma.",
   "no-boards-selected": "Ni ddewisoch unrhyw fyrddau.",
   "select-only-one-board": "Dewiswch un bwrdd yn unig",
   "selected-label": "Wedi dewis:",

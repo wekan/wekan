@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "An bhfuil tú cinnte gur mhaith leat an spás oibre seo a scriosadh?",
   "allboards.delete-workspace-confirm-check": "Deimhnigh scriosadh an spáis oibre",
   "multi-selection-active": "Cliceáil ticbhoscaí chun cláir a roghnú",
-  "archive-permanent-delete-disabled-hint": "Má tá Cumasaigh scriosadh buan don Riarthóir Domhanda ticáilte sa Phainéal Riaracháin / Fadhbanna / Scrios, beidh cnaipe Scrios le feiceáil anseo.",
+  "archive-permanent-delete-disabled-hint": "Má tá Cumasaigh scriosadh buan don Riarthóir Domhanda ticáilte sa Phainéal Riaracháin / Socruithe / Scrios, beidh cnaipe Scrios le feiceáil anseo.",
   "no-boards-selected": "Níor roghnaigh tú aon chlár.",
   "select-only-one-board": "Ná roghnaigh ach clár amháin",
   "selected-label": "Roghnaithe:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "ᎤᏙᎯᏳᎯᏯ ᎯᏚᎵ ᎯᎲᏍᏗ ᎯᎠ ᎠᏛᏁᏗ ᎦᏙᎯ?",
   "allboards.delete-workspace-confirm-check": "ᎠᏛᏁᏗ ᎦᏙᎯ ᎠᎲᏍᏗ ᎯᏙᎯᏳᎯ",
   "multi-selection-active": "ᏗᎪᎵᏰᏗ ᏗᏍᏚᎢᏍᏗ ᏗᎦᏍᎩᎸ ᏗᏑᏰᏍᏗ",
-  "archive-permanent-delete-disabled-hint": "ᎢᏳᏃ ᎤᎵᏍᏙᏗ ᎠᏓᏅᏙ / ᏗᎵᏍᏙᏗ / ᎠᎲᏍᏗ ᎭᏑᏰᏍᏔᏅ ᏱᎩ ᏂᎪᎯᎸ ᎠᎲᏍᏗ ᎤᏍᏚᎢᏍᏗ ᎡᎶᎯ ᎤᎵᏍᏙᏗ ᎠᏓᏅᏙ, ᎠᎲᏍᏗ ᎦᏗ ᎠᏂ ᏛᎾᏄᎪᏥ.",
+  "archive-permanent-delete-disabled-hint": "ᎢᏳᏃ ᎤᎵᏍᏙᏗ ᎠᏓᏅᏙ / ᏗᏄᏬᏍᏗ / ᎠᎲᏍᏗ ᎭᏑᏰᏍᏔᏅ ᏱᎩ ᏂᎪᎯᎸ ᎠᎲᏍᏗ ᎤᏍᏚᎢᏍᏗ ᎡᎶᎯ ᎤᎵᏍᏙᏗ ᎠᏓᏅᏙ, ᎠᎲᏍᏗ ᎦᏗ ᎠᏂ ᏛᎾᏄᎪᏥ.",
   "no-boards-selected": "Ꮭ ᏗᎦᏍᎩᎸ ᏱᏣᏑᏰᏒ.",
   "select-only-one-board": "ᏌᏊᏉ ᎦᏍᎩᎸ ᎯᏑᏰᏍᏙᏗ",
   "selected-label": "ᎦᏑᏰᏒ:",

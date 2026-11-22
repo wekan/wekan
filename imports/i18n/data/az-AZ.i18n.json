@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Bu iş yerini silmək istədiyinizə əminsiniz?",
   "allboards.delete-workspace-confirm-check": "İş sahəsinin silinməsini təsdiqləyin",
   "multi-selection-active": "Lövhələri seçmək üçün onay qutularına klikləyin",
-  "archive-permanent-delete-disabled-hint": "İdarəetmə paneli / Problemlər / Sil bölməsində Qlobal inzibatçı üçün həmişəlik silməni aktivləşdir seçilərsə, burada Sil düyməsi görünəcək.",
+  "archive-permanent-delete-disabled-hint": "İdarəetmə paneli / Parametrlər / Sil bölməsində Qlobal inzibatçı üçün həmişəlik silməni aktivləşdir seçilərsə, burada Sil düyməsi görünəcək.",
   "no-boards-selected": "Heç bir lövhə seçmədiniz.",
   "select-only-one-board": "Yalnız bir lövhə seçin",
   "selected-label": "Seçildi:",

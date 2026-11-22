@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ziur zaude lan-eremu hau ezabatu nahi duzula?",
   "allboards.delete-workspace-confirm-check": "Berretsi lan-eremuaren ezabatzea",
   "multi-selection-active": "Klikatu kontrol laukiak arbelak hautatzeko",
-  "archive-permanent-delete-disabled-hint": "Administrazio-panelean / Arazoak / Ezabatu atalean Administratzaile globalarentzako behin betiko ezabatzea gaitu markatuta badago, hemen Ezabatu botoia ikusgai egongo da.",
+  "archive-permanent-delete-disabled-hint": "Administrazio-panelean / Ezarpenak / Ezabatu atalean Administratzaile globalarentzako behin betiko ezabatzea gaitu markatuta badago, hemen Ezabatu botoia ikusgai egongo da.",
   "no-boards-selected": "Ez duzu taularik hautatu.",
   "select-only-one-board": "Hautatu taula bakarra",
   "selected-label": "Hautatuta:",

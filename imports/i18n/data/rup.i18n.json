@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Eshti sigur cã vrei s-ashteardzi aestu spatsiu di lucru?",
   "allboards.delete-workspace-confirm-check": "Adiverea ashtirdzearea a spatsiului di lucru",
   "multi-selection-active": "Fã clic pi cãsutsili di bifari ta s-aledz tabeli",
-  "archive-permanent-delete-disabled-hint": "Ma s-hibã bifatã tu Panelu di administrari / Probleme / Ashtirdzeari optsiunea Activeadzã ashtirdzearea permanentã trã administratorlu global, atumtsea aoa va s-veadã butonlu Ashteardzi.",
+  "archive-permanent-delete-disabled-hint": "Ma s-hibã bifatã tu Panelu di administrari / Sitãri / Ashtirdzeari optsiunea Activeadzã ashtirdzearea permanentã trã administratorlu global, atumtsea aoa va s-veadã butonlu Ashteardzi.",
   "no-boards-selected": "Nu aleapsish nitsiunã tabelã.",
   "select-only-one-board": "Ti pãlãcãrsescu, aleadzi mash unã tabelã",
   "selected-label": "Aleapti:",

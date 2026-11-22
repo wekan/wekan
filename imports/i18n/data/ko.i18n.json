@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "이 워크스페이스를 삭제하시겠습니까?",
   "allboards.delete-workspace-confirm-check": "워크스페이스 삭제 확인",
   "multi-selection-active": "체크박스를 클릭하여 보드를 선택하세요",
-  "archive-permanent-delete-disabled-hint": "관리자 패널 / 문제 / 삭제에서 전역 관리자의 영구 삭제 활성화를 선택하면 여기에 삭제 버튼이 표시됩니다.",
+  "archive-permanent-delete-disabled-hint": "관리자 패널 / 설정 / 삭제에서 전역 관리자의 영구 삭제 활성화를 선택하면 여기에 삭제 버튼이 표시됩니다.",
   "no-boards-selected": "보드를 선택하지 않았습니다.",
   "select-only-one-board": "보드를 하나만 선택해 주세요",
   "selected-label": "선택됨:",

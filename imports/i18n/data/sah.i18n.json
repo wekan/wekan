@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Бу үлэ сирин сотуоххун баҕараргын бигэргэтэҕин дуо?",
   "allboards.delete-workspace-confirm-check": "Үлэ сирэ сотулларын бигэргэт",
   "multi-selection-active": "Дуоскалары таларга бэлиэ оҥорор квадраттары баттаа",
-  "archive-permanent-delete-disabled-hint": "Admin Panel / Problems / Delete диэн сиргэ Global Admin туһунан Enable permanent delete бэлиэтэммит буоллаҕына, манна Delete тимэҕэ көстүө.",
+  "archive-permanent-delete-disabled-hint": "Admin Panel / Settings / Delete диэн сиргэ Global Admin туһунан Enable permanent delete бэлиэтэммит буоллаҕына, манна Delete тимэҕэ көстүө.",
   "no-boards-selected": "Эн ханнык да дуосканы талбатаҕын.",
   "select-only-one-board": "Бука диэн, биир эрэ дуосканы тал",
   "selected-label": "Талылынна:",

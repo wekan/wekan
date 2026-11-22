@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "A o netefatsa gore o batla go phumola lefelo leno la tiro?",
   "allboards.delete-workspace-confirm-check": "Netefatsa go phumolwa ga lefelo la tiro",
   "multi-selection-active": "Tobetsa mabokoso go tlhopha diboto",
-  "archive-permanent-delete-disabled-hint": "Fa kwa Phanele ya Motsamaisi / Mathata / Phumola go tlhophilwe kgontsha phumolo ya leruri ya Motsamaisi wa Lefatshe, konopo ya Phumola e tla bonala fano.",
+  "archive-permanent-delete-disabled-hint": "Fa kwa Phanele ya Motsamaisi / Dipeakanyo / Phumola go tlhophilwe kgontsha phumolo ya leruri ya Motsamaisi wa Lefatshe, konopo ya Phumola e tla bonala fano.",
   "no-boards-selected": "Ga o a tlhopha boto epe.",
   "select-only-one-board": "Tsweetswee tlhopha boto e le nngwe fela",
   "selected-label": "Tse di tlhophilweng:",

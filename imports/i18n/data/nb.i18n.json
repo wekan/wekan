@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Er du sikker på at du vil slette dette arbeidsområdet?",
   "allboards.delete-workspace-confirm-check": "Bekreft sletting av arbeidsområde",
   "multi-selection-active": "Klikk på avmerkingsboksene for å velge tavler",
-  "archive-permanent-delete-disabled-hint": "Hvis Aktiver permanent sletting for global administrator er merket under Administrasjonspanel / Problemer / Sletting, vises Slett-knappen her.",
+  "archive-permanent-delete-disabled-hint": "Hvis Aktiver permanent sletting for global administrator er merket under Administrasjonspanel / Innstillinger / Sletting, vises Slett-knappen her.",
   "no-boards-selected": "Du har ikke valgt noen tavler.",
   "select-only-one-board": "Velg bare én tavle",
   "selected-label": "Valgt:",

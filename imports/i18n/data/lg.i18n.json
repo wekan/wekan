@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "okakasa ggwe yagala eri sangula kino ekifo-ky'emirimu?",
   "allboards.delete-workspace-confirm-check": "Kakasa ekifo-ky'emirimu deletion",
   "multi-selection-active": "Click checkboxes eri londa mbaawo",
-  "archive-permanent-delete-disabled-hint": "Singa ku Omuddukanya Panel / Bizibu / Sangula kiri checked Sobozesa permanent sangula ku lwa Global Omuddukanya olwo here kijja become kirabika ppeesa ku lwa Sangula.",
+  "archive-permanent-delete-disabled-hint": "Singa ku Omuddukanya Panel / Entegeka / Sangula kiri checked Sobozesa permanent sangula ku lwa Global Omuddukanya olwo here kijja become kirabika ppeesa ku lwa Sangula.",
   "no-boards-selected": "Ggwe did si londa kyonna mbaawo.",
   "select-only-one-board": "londa kyokka one lubaawo",
   "selected-label": "Kilondeddwa:",

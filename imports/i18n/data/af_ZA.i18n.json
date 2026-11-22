@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Is jy seker jy wil hierdie werkspasie uitvee?",
   "allboards.delete-workspace-confirm-check": "Bevestig die uitvee van werkspasie",
   "multi-selection-active": "Klik merkblokkies om borde te kies",
-  "archive-permanent-delete-disabled-hint": "As Aktiveer permanente skrapping vir die Globale Administrateur by Administrasiepaneel / Probleme / Skrap gemerk is, sal die Skrap-knoppie hier sigbaar word.",
+  "archive-permanent-delete-disabled-hint": "As Aktiveer permanente skrapping vir die Globale Administrateur by Administrasiepaneel / Instellings / Skrap gemerk is, sal die Skrap-knoppie hier sigbaar word.",
   "no-boards-selected": "Jy het geen borde gekies nie.",
   "select-only-one-board": "Kies asseblief net een bord",
   "selected-label": "Gekies:",

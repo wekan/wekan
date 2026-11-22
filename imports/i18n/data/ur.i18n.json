@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "کیا آپ واقعی یہ ورک اسپیس حذف کرنا چاہتے ہیں؟",
   "allboards.delete-workspace-confirm-check": "ورک اسپیس کے حذف کی تصدیق کریں",
   "multi-selection-active": "بورڈز منتخب کرنے کے لیے چیک باکسز پر کلک کریں",
-  "archive-permanent-delete-disabled-hint": "اگر ایڈمن پینل / مسائل / حذف میں \"عالمی منتظم کے لیے مستقل حذف فعال کریں\" نشان زد ہو تو یہاں حذف کا بٹن نظر آئے گا۔",
+  "archive-permanent-delete-disabled-hint": "اگر ایڈمن پینل / ترتیبات / حذف میں \"عالمی منتظم کے لیے مستقل حذف فعال کریں\" نشان زد ہو تو یہاں حذف کا بٹن نظر آئے گا۔",
   "no-boards-selected": "آپ نے کوئی بورڈ منتخب نہیں کیا۔",
   "select-only-one-board": "براہ کرم صرف ایک بورڈ منتخب کریں",
   "selected-label": "منتخب شدہ:",

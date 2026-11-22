@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Site sicuru di vulè squassà stu spaziu di travagliu?",
   "allboards.delete-workspace-confirm-check": "Cunfirmà a squassatura di u spaziu di travagliu",
   "multi-selection-active": "Cliccate e caselle per sceglie e tavule",
-  "archive-permanent-delete-disabled-hint": "S’è Attivà a squassatura permanente per l’amministratore glubale hè marcatu in Pannellu d’amministrazione / Prublemi / Squassà, u buttone Squassà diventerà visibile quì.",
+  "archive-permanent-delete-disabled-hint": "S’è Attivà a squassatura permanente per l’amministratore glubale hè marcatu in Pannellu d’amministrazione / Parametri / Squassà, u buttone Squassà diventerà visibile quì.",
   "no-boards-selected": "Ùn avete sceltu nisuna tavula.",
   "select-only-one-board": "Selezziunà una sola tavula",
   "selected-label": "Scelte:",

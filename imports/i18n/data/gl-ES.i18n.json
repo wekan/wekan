@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Seguro que queres eliminar este espazo de traballo?",
   "allboards.delete-workspace-confirm-check": "Confirmar a eliminación do espazo de traballo",
   "multi-selection-active": "Fai clic nas caixas de verificación para seleccionar taboleiros",
-  "archive-permanent-delete-disabled-hint": "Se no Panel de administración / Problemas / Eliminar está marcada a opción Activar a eliminación permanente para o administrador global, aquí aparecerá o botón Eliminar.",
+  "archive-permanent-delete-disabled-hint": "Se no Panel de administración / Configuración / Eliminar está marcada a opción Activar a eliminación permanente para o administrador global, aquí aparecerá o botón Eliminar.",
   "no-boards-selected": "Non seleccionou ningún taboleiro.",
   "select-only-one-board": "Seleccione só un taboleiro",
   "selected-label": "Seleccionado:",

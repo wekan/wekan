@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Er du sikker på, at du vil slette dette arbejdsområde?",
   "allboards.delete-workspace-confirm-check": "Bekræft sletning af arbejdsområdet",
   "multi-selection-active": "Klik på tjekboksene for at vælge tavler",
-  "archive-permanent-delete-disabled-hint": "Hvis Aktivér permanent sletning for global administrator markeres under Administrationspanel / Problemer / Sletning, vises knappen Slet her.",
+  "archive-permanent-delete-disabled-hint": "Hvis Aktivér permanent sletning for global administrator markeres under Administrationspanel / Indstillinger / Sletning, vises knappen Slet her.",
   "no-boards-selected": "Du har ikke valgt nogen tavler.",
   "select-only-one-board": "Vælg kun én tavle",
   "selected-label": "Valgt:",

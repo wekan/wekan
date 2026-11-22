@@ -611,7 +611,7 @@ template(name="workspaceActionsPopup")
 //- and Multi-Selection still open the sidebar, straight into their own view.
 //-
 //- Each names itself beside its icon where the bar has room, and the one rule
-//- in header.css drops every label below 1100px, leaving the tooltips.
+//- in header.css drops every label at 1000px and narrower, leaving the tooltips.
 //- docs/Features/All-Boards/All-Boards.md
 template(name="allBoardsHeaderButtons")
   a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")

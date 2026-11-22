@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sei sicuro di voler eliminere chest spazio di lavoro?",
   "allboards.delete-workspace-confirm-check": "Conferme eliminezione dello spazio di lavoro",
   "multi-selection-active": "Clicca le caselle par selezionere le taulis",
-  "archive-permanent-delete-disabled-hint": "Se in Pannello di aministrazion / Problemi / Elimine è selezioneto Abilite l'eliminezione permanente par l'aministradôr globâl, qui verrà visualizzato il pulsante Elimine.",
+  "archive-permanent-delete-disabled-hint": "Se in Pannello di aministrazion / Impostazions / Elimine è selezioneto Abilite l'eliminezione permanente par l'aministradôr globâl, qui verrà visualizzato il pulsante Elimine.",
   "no-boards-selected": "No tu âs selezioneto alcuna taule.",
   "select-only-one-board": "Selezione una sola taule",
   "selected-label": "Selezionete:",

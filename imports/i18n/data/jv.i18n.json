@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Apa sampeyan yakin arep mbusak ruang kerja iki?",
   "allboards.delete-workspace-confirm-check": "Konfirmasi pambusakan ruang kerja",
   "multi-selection-active": "Klik kothak centhang kanggo milih papan",
-  "archive-permanent-delete-disabled-hint": "Yen ing Panel Admin / Masalah / Busak, Aktifake pambusakan permanen kanggo Admin Global dicenthang, tombol Busak bakal katon ing kene.",
+  "archive-permanent-delete-disabled-hint": "Yen ing Panel Admin / Setelan / Busak, Aktifake pambusakan permanen kanggo Admin Global dicenthang, tombol Busak bakal katon ing kene.",
   "no-boards-selected": "Sampeyan durung milih papan apa wae.",
   "select-only-one-board": "Mangga pilih mung siji papan",
   "selected-label": "Dipilih:",

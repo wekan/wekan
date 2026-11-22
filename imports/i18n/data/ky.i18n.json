@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Бул иш мейкиндигин чын эле өчүрөсүзбү?",
   "allboards.delete-workspace-confirm-check": "Иш мейкиндигин өчүрүүнү ырастоо",
   "multi-selection-active": "Такталарды тандоо үчүн белгилөө кутучаларын басыңыз",
-  "archive-permanent-delete-disabled-hint": "Эгер Администратор панели / Көйгөйлөр / Өчүрүү бөлүмүндө Global Admin үчүн туруктуу өчүрүүнү иштетүү белгиленсе, бул жерде Өчүрүү баскычы көрүнөт.",
+  "archive-permanent-delete-disabled-hint": "Эгер Администратор панели / Жөндөөлөр / Өчүрүү бөлүмүндө Global Admin үчүн туруктуу өчүрүүнү иштетүү белгиленсе, бул жерде Өчүрүү баскычы көрүнөт.",
   "no-boards-selected": "Эч бир такта тандалган жок.",
   "select-only-one-board": "Бир гана тактаны тандаңыз",
   "selected-label": "Тандалды:",

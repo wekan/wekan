@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Je i sigurt që dëshiron ta fshish këtë hapësirë pune?",
   "allboards.delete-workspace-confirm-check": "Konfirmo fshirjen e hapësirës së punës",
   "multi-selection-active": "Kliko kutitë e zgjedhjes për të përzgjedhur tabelat",
-  "archive-permanent-delete-disabled-hint": "Nëse te Paneli i administratorit / Problemet / Fshirja është aktivizuar fshirja e përhershme për Administratorin global, këtu do të shfaqet butoni Fshi.",
+  "archive-permanent-delete-disabled-hint": "Nëse te Paneli i administratorit / Cilësimet / Fshirja është aktivizuar fshirja e përhershme për Administratorin global, këtu do të shfaqet butoni Fshi.",
   "no-boards-selected": "Nuk ke zgjedhur asnjë tabelë.",
   "select-only-one-board": "Zgjidh vetëm një tabelë",
   "selected-label": "Të zgjedhura:",

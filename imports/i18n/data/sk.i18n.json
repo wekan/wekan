@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Naozaj chcete odstrániť tento pracovný priestor?",
   "allboards.delete-workspace-confirm-check": "Potvrdiť odstránenie pracovného priestoru",
   "multi-selection-active": "Kliknutím na zaškrtávacie políčka vyberte nástenky",
-  "archive-permanent-delete-disabled-hint": "Ak je v Paneli správcu / Problémy / Odstrániť označené Povoliť trvalé odstránenie pre globálneho správcu, zobrazí sa tu tlačidlo Odstrániť.",
+  "archive-permanent-delete-disabled-hint": "Ak je v Paneli správcu / Nastavenia / Odstrániť označené Povoliť trvalé odstránenie pre globálneho správcu, zobrazí sa tu tlačidlo Odstrániť.",
   "no-boards-selected": "Nevybrali ste žiadne tabule.",
   "select-only-one-board": "Vyberte iba jednu tabuľu",
   "selected-label": "Vybrané:",

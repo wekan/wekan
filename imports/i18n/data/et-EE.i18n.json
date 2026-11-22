@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Kas oled kindel, et soovid selle tööruumi kustutada?",
   "allboards.delete-workspace-confirm-check": "Kinnita tööruumi kustutamine",
   "multi-selection-active": "Klõpsa märkeruutudel tahvlite valimiseks",
-  "archive-permanent-delete-disabled-hint": "Kui halduspaneeli jaotises Probleemid / Kustutamine on märgitud Luba globaalsel administraatoril jäädavalt kustutada, muutub siin nähtavaks nupp Kustuta.",
+  "archive-permanent-delete-disabled-hint": "Kui halduspaneeli jaotises Seaded / Kustutamine on märgitud Luba globaalsel administraatoril jäädavalt kustutada, muutub siin nähtavaks nupp Kustuta.",
   "no-boards-selected": "Te ei valinud ühtegi tahvlit.",
   "select-only-one-board": "Valige ainult üks tahvel",
   "selected-label": "Valitud:",

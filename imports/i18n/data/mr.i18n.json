@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "हे कार्यस्थान हटवायचे आहे याची खात्री आहे का?",
   "allboards.delete-workspace-confirm-check": "कार्यस्थान हटवण्याची पुष्टी करा",
   "multi-selection-active": "फलक निवडण्यासाठी चेकबॉक्सवर क्लिक करा",
-  "archive-permanent-delete-disabled-hint": "प्रशासक पॅनेल / समस्या / हटवा येथे जागतिक प्रशासकासाठी कायमस्वरूपी हटवणे सक्षम करा निवडले असल्यास येथे हटवा बटण दिसेल.",
+  "archive-permanent-delete-disabled-hint": "प्रशासक पॅनेल / सेटिंग्ज / हटवा येथे जागतिक प्रशासकासाठी कायमस्वरूपी हटवणे सक्षम करा निवडले असल्यास येथे हटवा बटण दिसेल.",
   "no-boards-selected": "तुम्ही कोणताही फलक निवडला नाही.",
   "select-only-one-board": "कृपया फक्त एक फलक निवडा",
   "selected-label": "निवडलेले:",

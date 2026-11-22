@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Yu sua se yu wantem diletem wokples ia?",
   "allboards.delete-workspace-confirm-check": "Konfemem se yu diletem wokples",
   "multi-selection-active": "Klik ol bokis blong jusum ol bod",
-  "archive-permanent-delete-disabled-hint": "Sapos long Admin Panel / Problems / Diletem oli tikim Mekem i wok diletem olgeta blong Global Admin, bambae baton blong Diletem i soemaot long ples ia.",
+  "archive-permanent-delete-disabled-hint": "Sapos long Admin Panel / Ol seting / Diletem oli tikim Mekem i wok diletem olgeta blong Global Admin, bambae baton blong Diletem i soemaot long ples ia.",
   "no-boards-selected": "Yu no jusum eni bod.",
   "select-only-one-board": "Plis jusum wan bod nomo",
   "selected-label": "Jusum finis:",

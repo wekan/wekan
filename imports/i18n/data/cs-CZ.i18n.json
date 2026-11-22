@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Opravdu chcete smazat tento pracovní prostor?",
   "allboards.delete-workspace-confirm-check": "Potvrdit smazání pracovního prostoru",
   "multi-selection-active": "Klepnutím na zaškrtávací políčka vyberte tabla",
-  "archive-permanent-delete-disabled-hint": "Pokud je v Panel správce / Problémy / Odstranění zaškrtnuto Povolit trvalé odstranění globálnímu správci, zobrazí se zde tlačítko Odstranit.",
+  "archive-permanent-delete-disabled-hint": "Pokud je v Panel správce / Nastavení / Odstranění zaškrtnuto Povolit trvalé odstranění globálnímu správci, zobrazí se zde tlačítko Odstranit.",
   "no-boards-selected": "Nevybrali jste žádnou nástěnku.",
   "select-only-one-board": "Vyberte pouze jednu nástěnku",
   "selected-label": "Vybráno:",

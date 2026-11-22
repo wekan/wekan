@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Bu iş ýerini pozmak isleýändigiňize ynanýarsyňyzmy?",
   "allboards.delete-workspace-confirm-check": "Iş ýeriniň öçürilmegini tassyklaň",
   "multi-selection-active": "Tagtalary saýlamak üçin bellik gutusyna basyň",
-  "archive-permanent-delete-disabled-hint": "Dolandyryş paneli / Meseleler / Pozmak bölüminde Global administrator üçin hemişelik pozmagy işletmek bellenen bolsa, şu ýerde Pozmak düwmesi görüner.",
+  "archive-permanent-delete-disabled-hint": "Dolandyryş paneli / Sazlamalar / Pozmak bölüminde Global administrator üçin hemişelik pozmagy işletmek bellenen bolsa, şu ýerde Pozmak düwmesi görüner.",
   "no-boards-selected": "Hiç bir tagta saýlamadyňyz.",
   "select-only-one-board": "Diňe bir tagtany saýlaň",
   "selected-label": "Saýlanan:",

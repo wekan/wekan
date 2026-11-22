@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "هل أنت متأكد أنك تريد حذف مساحة العمل هذه؟",
   "allboards.delete-workspace-confirm-check": "تأكيد حذف مساحة العمل",
   "multi-selection-active": "انقر على مربعات الاختيار لتحديد اللوحات",
-  "archive-permanent-delete-disabled-hint": "إذا حُدِّد خيار تمكين الحذف الدائم للمسؤول العام في لوحة الإدارة / المشكلات / الحذف، فسيظهر زر الحذف هنا.",
+  "archive-permanent-delete-disabled-hint": "إذا حُدِّد خيار تمكين الحذف الدائم للمسؤول العام في لوحة الإدارة / الإعدادات / الحذف، فسيظهر زر الحذف هنا.",
   "no-boards-selected": "لم تحدد أي لوحة.",
   "select-only-one-board": "يرجى تحديد لوحة واحدة فقط",
   "selected-label": "المحدد:",

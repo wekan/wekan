@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sigurado ka ba nga karuyag mo paraon ini nga workspace?",
   "allboards.delete-workspace-confirm-check": "Kumpirmaha an pagpara han workspace",
   "multi-selection-active": "I-klik an mga checkbox basi mapili an mga board",
-  "archive-permanent-delete-disabled-hint": "Kon ginpili an pagtugot han permanente nga pagtanggal para ha Global Admin ha Panel han Admin / Mga problema / Pagtanggal, makikita dinhi an buton han pagtanggal.",
+  "archive-permanent-delete-disabled-hint": "Kon ginpili an pagtugot han permanente nga pagtanggal para ha Global Admin ha Panel han Admin / Mga Setting / Pagtanggal, makikita dinhi an buton han pagtanggal.",
   "no-boards-selected": "Waray ka pumili hin bisan ano nga board.",
   "select-only-one-board": "Pagpili la hin usa nga board",
   "selected-label": "Napili:",

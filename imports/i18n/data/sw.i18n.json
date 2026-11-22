@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Je, una uhakika unataka kufuta nafasi hii ya kazi?",
   "allboards.delete-workspace-confirm-check": "Thibitisha ufutaji wa nafasi ya kazi",
   "multi-selection-active": "Bofya visanduku vya kuteua ili kuchagua mbao",
-  "archive-permanent-delete-disabled-hint": "Ikiwa kwenye Paneli ya Msimamizi / Matatizo / Futa umechagua Wezesha ufutaji wa kudumu kwa Msimamizi Mkuu, kitufe cha Futa kitaonekana hapa.",
+  "archive-permanent-delete-disabled-hint": "Ikiwa kwenye Paneli ya Msimamizi / Mipangilio / Futa umechagua Wezesha ufutaji wa kudumu kwa Msimamizi Mkuu, kitufe cha Futa kitaonekana hapa.",
   "no-boards-selected": "Hukuchagua ubao wowote.",
   "select-only-one-board": "Tafadhali chagua ubao mmoja tu",
   "selected-label": "Imechaguliwa:",

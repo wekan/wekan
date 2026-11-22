@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sei sicuro di voler eliminare questo spazio di lavoro?",
   "allboards.delete-workspace-confirm-check": "Conferma eliminazione dello spazio di lavoro",
   "multi-selection-active": "Clicca le caselle per selezionare le bacheche",
-  "archive-permanent-delete-disabled-hint": "Se in Pannello di amministrazione / Problemi / Elimina è selezionato Abilita l'eliminazione permanente per l'amministratore globale, qui verrà visualizzato il pulsante Elimina.",
+  "archive-permanent-delete-disabled-hint": "Se in Pannello di amministrazione / Impostazioni / Elimina è selezionato Abilita l'eliminazione permanente per l'amministratore globale, qui verrà visualizzato il pulsante Elimina.",
   "no-boards-selected": "Non hai selezionato alcuna bacheca.",
   "select-only-one-board": "Seleziona una sola bacheca",
   "selected-label": "Selezionate:",

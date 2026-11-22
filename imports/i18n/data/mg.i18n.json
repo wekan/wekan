@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Tena hamafa ity toeram-piasana ity ve ianao?",
   "allboards.delete-workspace-confirm-check": "Hamafiso ny famafana ny toeram-piasana",
   "multi-selection-active": "Kitiho ny efajoro hisafidianana solaitra",
-  "archive-permanent-delete-disabled-hint": "Raha voamarika ao amin'ny Tontonana mpitantana / Olana / Fafao ny Alefaso ny famafana maharitra ho an'ny Mpitantana manerantany, dia hiseho eto ny bokotra Fafao.",
+  "archive-permanent-delete-disabled-hint": "Raha voamarika ao amin'ny Tontonana mpitantana / Fandrindrana / Fafao ny Alefaso ny famafana maharitra ho an'ny Mpitantana manerantany, dia hiseho eto ny bokotra Fafao.",
   "no-boards-selected": "Tsy nisafidy solaitra ianao.",
   "select-only-one-board": "Solaitra iray ihany no fidio",
   "selected-label": "Voafidy:",

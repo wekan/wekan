@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Uqinisekile ufuna ukucima le ndawo yokusebenza?",
   "allboards.delete-workspace-confirm-check": "Qinisekisa ukucinywa kwendawo yokusebenza",
   "multi-selection-active": "Cofa iibhokisi zokukhangela ukukhetha iibhodi",
-  "archive-permanent-delete-disabled-hint": "Ukuba kwiPhaneli yoLawulo / Iingxaki / Cima kukhethwe Vumela ukucima ngokusisigxina kuMlawuli Jikelele, iqhosha lokucima liza kubonakala apha.",
+  "archive-permanent-delete-disabled-hint": "Ukuba kwiPhaneli yoLawulo / Iisetingi / Cima kukhethwe Vumela ukucima ngokusisigxina kuMlawuli Jikelele, iqhosha lokucima liza kubonakala apha.",
   "no-boards-selected": "Awukhethanga zibhodi.",
   "select-only-one-board": "Nceda ukhethe ibhodi enye kuphela",
   "selected-label": "Okukhethiweyo:",

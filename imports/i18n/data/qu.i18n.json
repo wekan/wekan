@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "¿Chiqaqtachu kay llamkana pachata pichayta munanki?",
   "allboards.delete-workspace-confirm-check": "Llamkana pacha pichayta takyachiy",
   "multi-selection-active": "Chiqaqchana kahunkunata ñit'iy pirqakunata akllanaykipaq",
-  "archive-permanent-delete-disabled-hint": "Kamachiq Panel / Sasachakuykuna / Pichaypi \"Wiñaypaq pichayta atichiy Hatun Kamachiqpaq\" chiqaqchasqa kaptinqa, kaypi Pichay butón rikhurinqa.",
+  "archive-permanent-delete-disabled-hint": "Kamachiq Panel / Allichaykuna / Pichaypi \"Wiñaypaq pichayta atichiy Hatun Kamachiqpaq\" chiqaqchasqa kaptinqa, kaypi Pichay butón rikhurinqa.",
   "no-boards-selected": "Manam ima pirqatapas akllarqankichu.",
   "select-only-one-board": "Ama hina kaspa, huk pirqallata akllay",
   "selected-label": "Akllasqa:",

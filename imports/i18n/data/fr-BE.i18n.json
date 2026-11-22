@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
   "allboards.delete-workspace-confirm-check": "Confirmer la suppression de l'espace de travail",
   "multi-selection-active": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
-  "archive-permanent-delete-disabled-hint": "Si l'option Activer la suppression définitive pour l'administrateur global est cochée dans Panneau d'administration / Problèmes / Suppression, le bouton Supprimer apparaîtra ici.",
+  "archive-permanent-delete-disabled-hint": "Si l'option Activer la suppression définitive pour l'administrateur global est cochée dans Panneau d'administration / Paramètres / Suppression, le bouton Supprimer apparaîtra ici.",
   "no-boards-selected": "Vous n'avez sélectionné aucun tableau.",
   "select-only-one-board": "Veuillez ne sélectionner qu'un seul tableau",
   "selected-label": "Sélectionné :",

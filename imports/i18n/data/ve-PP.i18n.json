@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Tahod-ik heitta necen tötilan?",
   "allboards.delete-workspace-confirm-check": "Vahvištoita tötilan heittand",
   "multi-selection-active": "Paina valičuznellikid, miše valita laudoid",
-  "archive-permanent-delete-disabled-hint": "Ku Administratoran paneliš / Problemad / Heitand om valitud “Pane päle igäine heitand Globaližele administratorale”, ka täs tuleb nägubale Heitä-painim.",
+  "archive-permanent-delete-disabled-hint": "Ku Administratoran paneliš / Valičused / Heitand om valitud “Pane päle igäine heitand Globaližele administratorale”, ka täs tuleb nägubale Heitä-painim.",
   "no-boards-selected": "Sinä ed valinu ni üht laudad.",
   "select-only-one-board": "Vali vaiše üks' laud, ole hüvä",
   "selected-label": "Valitud:",

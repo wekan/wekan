@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "למחוק את מרחב העבודה הזה?",
   "allboards.delete-workspace-confirm-check": "אישור מחיקת מרחב עבודה",
   "multi-selection-active": "יש לסמן את התיבות כדי לבחור לוחות",
-  "archive-permanent-delete-disabled-hint": "אם האפשרות הפעלת מחיקה לצמיתות למנהל הכללי מסומנת בלוח הניהול / בעיות / מחיקה, לחצן המחיקה יופיע כאן.",
+  "archive-permanent-delete-disabled-hint": "אם האפשרות הפעלת מחיקה לצמיתות למנהל הכללי מסומנת בלוח הניהול / הגדרות / מחיקה, לחצן המחיקה יופיע כאן.",
   "no-boards-selected": "לא בחרת לוחות.",
   "select-only-one-board": "נא לבחור לוח אחד בלבד",
   "selected-label": "נבחר:",

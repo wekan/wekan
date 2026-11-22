@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "¿Seguro que quieres borrar iste espacio de trabajo?",
   "allboards.delete-workspace-confirm-check": "Confirmar la eliminación d'o espacio de trabajo",
   "multi-selection-active": "Fe clic en as caixetas ta trigar tableros",
-  "archive-permanent-delete-disabled-hint": "Si se marca Activar la eliminación permanente ta el administrador global en Panel de administración / Problemas / Borrar, aquí aparecerá el botón Borrar.",
+  "archive-permanent-delete-disabled-hint": "Si se marca Activar la eliminación permanente ta el administrador global en Panel de administración / Configuración / Borrar, aquí aparecerá el botón Borrar.",
   "no-boards-selected": "No has triau garra tablero.",
   "select-only-one-board": "Tría nomás un tablero, por favor",
   "selected-label": "Trigaus:",

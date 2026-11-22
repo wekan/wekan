@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Tem certeza de que deseja excluir esta área de trabalho?",
   "allboards.delete-workspace-confirm-check": "Confirmar exclusão da área de trabalho",
   "multi-selection-active": "Clique nas caixas de seleção para selecionar os quadros",
-  "archive-permanent-delete-disabled-hint": "Se Ativar exclusão permanente para o administrador global estiver marcado em Painel de Administração / Problemas / Excluir, o botão Excluir ficará visível aqui.",
+  "archive-permanent-delete-disabled-hint": "Se Ativar exclusão permanente para o administrador global estiver marcado em Painel de Administração / Configurações / Excluir, o botão Excluir ficará visível aqui.",
   "no-boards-selected": "Você não selecionou nenhum quadro.",
   "select-only-one-board": "Selecione apenas um quadro",
   "selected-label": "Selecionado:",

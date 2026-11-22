@@ -226,7 +226,9 @@ Template.listHeader.helpers({
   showCardsCountForList(count) {
     const currentUser = ReactiveCache.getCurrentUser();
     const limit = currentUser ? currentUser.getLimitToShowCardsCount() : false;
-    return limit >= 0 && count >= limit;
+    // "Show cards count if list contains more than N": more than, as it says
+    // (it showed at N as well).
+    return limit >= 0 && count > limit;
   },
 
   cardsCountForListIsOne(count) {

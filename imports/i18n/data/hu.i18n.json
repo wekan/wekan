@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Biztosan törölni szeretnéd ezt a munkaterületet?",
   "allboards.delete-workspace-confirm-check": "Munkaterület törlésének megerősítése",
   "multi-selection-active": "Kattints a jelölőnégyzetekre a táblák kijelöléséhez",
-  "archive-permanent-delete-disabled-hint": "Ha az Adminisztrációs panel / Problémák / Törlés részen be van jelölve a végleges törlés engedélyezése a globális adminisztrátornak, itt megjelenik a Törlés gomb.",
+  "archive-permanent-delete-disabled-hint": "Ha az Adminisztrációs panel / Beállítások / Törlés részen be van jelölve a végleges törlés engedélyezése a globális adminisztrátornak, itt megjelenik a Törlés gomb.",
   "no-boards-selected": "Nem választott ki egyetlen táblát sem.",
   "select-only-one-board": "Kérjük, csak egy táblát válasszon",
   "selected-label": "Kijelölve:",

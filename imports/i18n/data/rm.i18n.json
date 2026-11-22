@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Vuls ti propi stizzar quest spazi da lavur?",
   "allboards.delete-workspace-confirm-check": "Confermar il stizzar dal spazi da lavur",
   "multi-selection-active": "Cliccar sin las chaschellas da selecziun per tscherner tabellas",
-  "archive-permanent-delete-disabled-hint": "Sche l’opziun per activar il stizzar permanent per l’administratur global è tschernida sut Panel d’administraziun / Problems / Stizzar, daventa il buttun Stizzar visibel qua.",
+  "archive-permanent-delete-disabled-hint": "Sche l’opziun per activar il stizzar permanent per l’administratur global è tschernida sut Panel d’administraziun / Parameters / Stizzar, daventa il buttun Stizzar visibel qua.",
   "no-boards-selected": "Ti n'has tschernì nagina tabella.",
   "select-only-one-board": "Per plaschair tscherna mo ina tabella",
   "selected-label": "Tschernì:",

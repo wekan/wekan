@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "A bheil thu cinnteach gu bheil thu airson an t-àite-obrach seo a sguabadh às?",
   "allboards.delete-workspace-confirm-check": "Dearbhaich sguabadh às an àite-obrach",
   "multi-selection-active": "Briog air bogsaichean-dearbhaidh gus bùird a thaghadh",
-  "archive-permanent-delete-disabled-hint": "Ma tha Dèan comasach sguabadh às maireannach airson Rianaire Cruinneil air a thaghadh ann am Pannal Rianachd / Duilgheadasan / Sguab às, nochdaidh putan Sguab às an seo.",
+  "archive-permanent-delete-disabled-hint": "Ma tha Dèan comasach sguabadh às maireannach airson Rianaire Cruinneil air a thaghadh ann am Pannal Rianachd / Roghainnean / Sguab às, nochdaidh putan Sguab às an seo.",
   "no-boards-selected": "Cha do thagh thu bòrd sam bith.",
   "select-only-one-board": "Na tagh ach aon bhòrd",
   "selected-label": "Air a thaghadh:",

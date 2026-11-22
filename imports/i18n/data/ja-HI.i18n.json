@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "このワークスペースを削除してもよろしいですか?",
   "allboards.delete-workspace-confirm-check": "ワークスペースの削除を確認",
   "multi-selection-active": "チェックボックスをクリックしてボードを選択",
-  "archive-permanent-delete-disabled-hint": "管理パネル / 問題 / 削除で「グローバル管理者の完全削除を有効にする」を選択すると、ここに「削除」ボタンが表示されます。",
+  "archive-permanent-delete-disabled-hint": "管理パネル / 設定 / 削除で「グローバル管理者の完全削除を有効にする」を選択すると、ここに「削除」ボタンが表示されます。",
   "no-boards-selected": "ボードが選択されていません。",
   "select-only-one-board": "ボードを1つだけ選択してください",
   "selected-label": "選択中:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Os ta sur bos hwans dhis dilea an le ober ma?",
   "allboards.delete-workspace-confirm-check": "Afydhya dileans an le ober",
   "multi-selection-active": "Klyckya boxys checkya rag dewis estyllennow",
-  "archive-permanent-delete-disabled-hint": "Mar nyns yw Enable permanent delete for Global Admin checkys yn Admin Panel / Problems / Delete, yma an boton Dilea ow tos yn gwel yma.",
+  "archive-permanent-delete-disabled-hint": "Mar nyns yw Enable permanent delete for Global Admin checkys yn Admin Panel / Settings / Delete, yma an boton Dilea ow tos yn gwel yma.",
   "no-boards-selected": "Ny dhewisys ta estyllen vyth.",
   "select-only-one-board": "Dewis estyllen unn hepken, mar pleg",
   "selected-label": "Dewisys:",

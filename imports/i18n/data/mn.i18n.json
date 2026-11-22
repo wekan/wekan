@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Энэ ажлын талбарыг устгахдаа итгэлтэй байна уу?",
   "allboards.delete-workspace-confirm-check": "Ажлын талбар устгахыг баталгаажуулах",
   "multi-selection-active": "Самбар сонгохын тулд чагтлах нүдийг дарна уу",
-  "archive-permanent-delete-disabled-hint": "Админ самбар / Асуудал / Устгах хэсэгт глобал админд бүрмөсөн устгахыг идэвхжүүлсэн бол энд Устгах товч харагдана.",
+  "archive-permanent-delete-disabled-hint": "Админ самбар / Тохиргоо / Устгах хэсэгт глобал админд бүрмөсөн устгахыг идэвхжүүлсэн бол энд Устгах товч харагдана.",
   "no-boards-selected": "Та ямар ч самбар сонгоогүй.",
   "select-only-one-board": "Зөвхөн нэг самбар сонгоно уу",
   "selected-label": "Сонгосон:",

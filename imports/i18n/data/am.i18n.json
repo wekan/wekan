@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "ይህን የሥራ ቦታ መሰረዝ እርግጠኛ ነዎት?",
   "allboards.delete-workspace-confirm-check": "የሥራ ቦታ መሰረዝን አረጋግጥ",
   "multi-selection-active": "ሰሌዳዎችን ለመምረጥ የማረጋገጫ ሳጥኖቹን ጠቅ ያድርጉ",
-  "archive-permanent-delete-disabled-hint": "በአስተዳዳሪ ፓነል / ችግሮች / ሰርዝ ውስጥ ለዓለም አቀፍ አስተዳዳሪ ቋሚ ስረዛን አንቃ ከተመረጠ፣ የሰርዝ አዝራሩ እዚህ ይታያል።",
+  "archive-permanent-delete-disabled-hint": "በአስተዳዳሪ ፓነል / ቅንብሮች / ሰርዝ ውስጥ ለዓለም አቀፍ አስተዳዳሪ ቋሚ ስረዛን አንቃ ከተመረጠ፣ የሰርዝ አዝራሩ እዚህ ይታያል።",
   "no-boards-selected": "ምንም ሰሌዳ አልመረጡም።",
   "select-only-one-board": "አንድ ሰሌዳ ብቻ ይምረጡ",
   "selected-label": "የተመረጡ፦",

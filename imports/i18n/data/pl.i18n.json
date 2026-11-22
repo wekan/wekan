@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Czy na pewno chcesz usunąć tę przestrzeń roboczą?",
   "allboards.delete-workspace-confirm-check": "Potwierdź usunięcie przestrzeni roboczej",
   "multi-selection-active": "Kliknij pola wyboru, aby zaznaczyć tablice",
-  "archive-permanent-delete-disabled-hint": "Jeśli w Panel administratora / Problemy / Usuwanie zaznaczono Włącz trwałe usuwanie dla administratora globalnego, pojawi się tutaj przycisk Usuń.",
+  "archive-permanent-delete-disabled-hint": "Jeśli w Panel administratora / Ustawienia / Usuwanie zaznaczono Włącz trwałe usuwanie dla administratora globalnego, pojawi się tutaj przycisk Usuń.",
   "no-boards-selected": "Nie wybrano żadnej tablicy.",
   "select-only-one-board": "Wybierz tylko jedną tablicę",
   "selected-label": "Zaznaczone:",

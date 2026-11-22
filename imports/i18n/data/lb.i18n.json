@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Möchten Dir diesen Aarbechtsberäich wierklech läschen?",
   "allboards.delete-workspace-confirm-check": "Läschen vum Aarbechtsberäichs bestätegen",
   "multi-selection-active": "Wähle Kontrollkëschten um Boards auszuwählen",
-  "archive-permanent-delete-disabled-hint": "Wann unter Administratiounsberäich / Probleme / Läschen déi Option Dauerhaftes Läschen fir globale Administrateuren aktivéieren ausgewielt ass, gëtt hei déi Knäppchen Läschen ugewisen.",
+  "archive-permanent-delete-disabled-hint": "Wann unter Administratiounsberäich / Astellungen / Läschen déi Option Dauerhaftes Läschen fir globale Administrateuren aktivéieren ausgewielt ass, gëtt hei déi Knäppchen Läschen ugewisen.",
   "no-boards-selected": "Du hast keng Boards ausgewielt.",
   "select-only-one-board": "W.e.g. wähle nëmmen ein Board aus",
   "selected-label": "Ausgewielt:",

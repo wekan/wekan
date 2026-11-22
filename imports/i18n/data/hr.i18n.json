@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Jeste li sigurni da želite izbrisati ovaj radni prostor?",
   "allboards.delete-workspace-confirm-check": "Potvrdi brisanje radnog prostora",
   "multi-selection-active": "Kliknite potvrdne okvire za odabir ploča",
-  "archive-permanent-delete-disabled-hint": "Ako je u Administracijskoj ploči / Problemi / Brisanje označeno Omogući trajno brisanje za globalnog administratora, ovdje će postati vidljiv gumb Izbriši.",
+  "archive-permanent-delete-disabled-hint": "Ako je u Administracijskoj ploči / Postavke / Brisanje označeno Omogući trajno brisanje za globalnog administratora, ovdje će postati vidljiv gumb Izbriši.",
   "no-boards-selected": "Niste odabrali nijednu ploču.",
   "select-only-one-board": "Odaberite samo jednu ploču",
   "selected-label": "Odabrano:",

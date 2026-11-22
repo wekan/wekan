@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Бұл жұмыс кеңістігін шынымен жойғыңыз келе ме?",
   "allboards.delete-workspace-confirm-check": "Жұмыс кеңістігін жоюды растау",
   "multi-selection-active": "Тақталарды таңдау үшін құсбелгілерді басыңыз",
-  "archive-permanent-delete-disabled-hint": "Әкімші тақтасы / Мәселелер / Жою бөлімінде Жаһандық әкімші үшін біржола жоюды қосу белгіленсе, мұнда Жою түймесі көрінеді.",
+  "archive-permanent-delete-disabled-hint": "Әкімші тақтасы / Баптаулар / Жою бөлімінде Жаһандық әкімші үшін біржола жоюды қосу белгіленсе, мұнда Жою түймесі көрінеді.",
   "no-boards-selected": "Ешбір тақта таңдалмады.",
   "select-only-one-board": "Тек бір тақтаны таңдаңыз",
   "selected-label": "Таңдалды:",

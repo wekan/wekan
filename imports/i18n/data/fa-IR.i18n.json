@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "آیا مطمئن هستید که می‌خواهید این فضای کاری را حذف کنید؟",
   "allboards.delete-workspace-confirm-check": "تأیید حذف فضای کاری",
   "multi-selection-active": "برای انتخاب بردها روی کادرهای علامت کلیک کنید",
-  "archive-permanent-delete-disabled-hint": "اگر در پنل مدیریت / مشکلات / حذف، حذف دائمی برای مدیر سراسری فعال باشد، دکمه حذف در اینجا نمایش داده می‌شود.",
+  "archive-permanent-delete-disabled-hint": "اگر در پنل مدیریت / تنظمات / حذف، حذف دائمی برای مدیر سراسری فعال باشد، دکمه حذف در اینجا نمایش داده می‌شود.",
   "no-boards-selected": "هیچ تابلویی را انتخاب نکرده‌اید.",
   "select-only-one-board": "لطفاً فقط یک تابلو را انتخاب کنید",
   "selected-label": "انتخاب‌شده:",

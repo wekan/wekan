@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sigur doriți să ștergeți acest spațiu de lucru?",
   "allboards.delete-workspace-confirm-check": "Confirmă ștergerea spațiului de lucru",
   "multi-selection-active": "Bifați casetele pentru a selecta panouri",
-  "archive-permanent-delete-disabled-hint": "Dacă în Panoul de administrare / Probleme / Ștergere este bifată opțiunea Activează ștergerea permanentă pentru administratorul global, butonul Ștergere va deveni vizibil aici.",
+  "archive-permanent-delete-disabled-hint": "Dacă în Panoul de administrare / Setări / Ștergere este bifată opțiunea Activează ștergerea permanentă pentru administratorul global, butonul Ștergere va deveni vizibil aici.",
   "no-boards-selected": "Nu ați selectat niciun panou.",
   "select-only-one-board": "Selectați un singur panou",
   "selected-label": "Selectat:",

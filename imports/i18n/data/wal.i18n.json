@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Neeni ha oosuwaa sohuwaa xayssanaw amanettiyye?",
   "allboards.delete-workspace-confirm-check": "Oosuwaa sohuwaa xayssiyoogaa geeshshidi era",
   "multi-selection-active": "Bookkiyata dooranaw malaataa wottiyo saaxinetuwaa qoxxa",
-  "archive-permanent-delete-disabled-hint": "Alaafiyaa sohuwaa / Metota / Xayssa giddon \"Ubbaa alaafiyaassi merinaa xayssiyoogaa oottissa\" malaatettiko, hagaan Xayssa qoxxiyaabay bettana.",
+  "archive-permanent-delete-disabled-hint": "Alaafiyaa sohuwaa / Giigissuwaa / Xayssa giddon \"Ubbaa alaafiyaassi merinaa xayssiyoogaa oottissa\" malaatettiko, hagaan Xayssa qoxxiyaabay bettana.",
   "no-boards-selected": "Neeni aybi bookkiyakka doorabeekka.",
   "select-only-one-board": "Issi bookkiya xalaala doorite",
   "selected-label": "Doorettidaageeta:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ert tú vís/ur í, at tú vilt strika hetta arbeiðsøkið?",
   "allboards.delete-workspace-confirm-check": "Vátta striking av arbeiðsøki",
   "multi-selection-active": "Trýst á valrútarnar fyri at velja talvur",
-  "archive-permanent-delete-disabled-hint": "Um Vinn fyrisitingarborð / Trupulleikar / Strika er frámerkt Virkja varandi striking fyri høvuðsumsitara, verður knappurin Strika sjónligur her.",
+  "archive-permanent-delete-disabled-hint": "Um Vinn fyrisitingarborð / Stillingar / Strika er frámerkt Virkja varandi striking fyri høvuðsumsitara, verður knappurin Strika sjónligur her.",
   "no-boards-selected": "Tú valdi onga talvu.",
   "select-only-one-board": "Vel bert eina talvu",
   "selected-label": "Valt:",

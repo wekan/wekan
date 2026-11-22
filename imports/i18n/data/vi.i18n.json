@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Bạn có chắc chắn muốn xóa không gian làm việc này không?",
   "allboards.delete-workspace-confirm-check": "Xác nhận xóa không gian làm việc",
   "multi-selection-active": "Bấm vào các ô đánh dấu để chọn bảng",
-  "archive-permanent-delete-disabled-hint": "Nếu chọn Bật xóa vĩnh viễn cho Quản trị viên toàn cục trong Bảng quản trị / Sự cố / Xóa, nút Xóa sẽ xuất hiện tại đây.",
+  "archive-permanent-delete-disabled-hint": "Nếu chọn Bật xóa vĩnh viễn cho Quản trị viên toàn cục trong Bảng quản trị / Cài đặt / Xóa, nút Xóa sẽ xuất hiện tại đây.",
   "no-boards-selected": "Bạn chưa chọn bảng nào.",
   "select-only-one-board": "Vui lòng chỉ chọn một bảng",
   "selected-label": "Đã chọn:",

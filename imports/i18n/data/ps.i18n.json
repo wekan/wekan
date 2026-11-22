@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "ډاډه ياست چې دا کاري ځای ړنګول غواړئ؟",
   "allboards.delete-workspace-confirm-check": "د کاري ځای ړنګول تاييد کړئ",
   "multi-selection-active": "د تختو ټاکلو لپاره پر نښه‌خانو ټک وکړئ",
-  "archive-permanent-delete-disabled-hint": "که په Admin Panel / Problems / Delete کې Enable permanent delete for Global Admin نښه شوې وي، دلته به د Delete تڼۍ ښکاره شي.",
+  "archive-permanent-delete-disabled-hint": "که په Admin Panel / Settings / Delete کې Enable permanent delete for Global Admin نښه شوې وي، دلته به د Delete تڼۍ ښکاره شي.",
   "no-boards-selected": "تاسو هېڅ تخته نه ده ټاکلې.",
   "select-only-one-board": "مهرباني وکړئ يوازې يوه تخته وټاکئ",
   "selected-label": "ټاکل شوي:",

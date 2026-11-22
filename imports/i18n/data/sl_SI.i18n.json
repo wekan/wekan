@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ali ste prepričani, da želite izbrisati ta delovni prostor?",
   "allboards.delete-workspace-confirm-check": "Potrdi brisanje delovnega prostora",
   "multi-selection-active": "Kliknite potrditvena polja za izbiro tabel",
-  "archive-permanent-delete-disabled-hint": "Če je v Skrbniški plošči / Težave / Brisanje označeno Omogoči trajno brisanje za globalnega skrbnika, bo tukaj viden gumb Izbriši.",
+  "archive-permanent-delete-disabled-hint": "Če je v Skrbniški plošči / Nastavitve / Brisanje označeno Omogoči trajno brisanje za globalnega skrbnika, bo tukaj viden gumb Izbriši.",
   "no-boards-selected": "Niste izbrali nobene table.",
   "select-only-one-board": "Izberite samo eno tablo",
   "selected-label": "Izbrano:",

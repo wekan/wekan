@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sei sicuro di voler eliminare chisto spazio di lavoro?",
   "allboards.delete-workspace-confirm-check": "Cunferma eliminazione d' 'o spazio di lavoro",
   "multi-selection-active": "Clicca le caselle pe selezionare le tavule",
-  "archive-permanent-delete-disabled-hint": "Se in Pannello di amministrazione / Problemi / Scancella è selezionato Abilita l'eliminazione permanente pe l'amministratore globale, ccà verrà visualizzato il pulsante Scancella.",
+  "archive-permanent-delete-disabled-hint": "Se in Pannello di amministrazione / Mpustaziune / Scancella è selezionato Abilita l'eliminazione permanente pe l'amministratore globale, ccà verrà visualizzato il pulsante Scancella.",
   "no-boards-selected": "Nun hai selezionato alcuna tavula.",
   "select-only-one-board": "Sceglie una sola tavula",
   "selected-label": "Selezionate:",

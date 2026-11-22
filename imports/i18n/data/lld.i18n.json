@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ies sëgur de vulëi scancelé chësc spazi de lëur?",
   "allboards.delete-workspace-confirm-check": "Cunfermé de scancelé l spazi de lëur",
   "multi-selection-active": "Cliché sun i ciaselins per cernì tofles",
-  "archive-permanent-delete-disabled-hint": "Sce tl Panel de aministrazion / Problems / Scancelé ie marcà Ativé l scancelamënt definitif per l aministradëur global, ie ciò l bot per Scancelé.",
+  "archive-permanent-delete-disabled-hint": "Sce tl Panel de aministrazion / Impostazions / Scancelé ie marcà Ativé l scancelamënt definitif per l aministradëur global, ie ciò l bot per Scancelé.",
   "no-boards-selected": "Ne te es cernù deguna tofl.",
   "select-only-one-board": "Per plajëi cërn mé una tofl",
   "selected-label": "Cernudes:",

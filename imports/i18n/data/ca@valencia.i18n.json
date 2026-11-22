@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Segur que voleu esborrar aquest espai de treball?",
   "allboards.delete-workspace-confirm-check": "Confirmeu l'eliminació de l'espai de treball",
   "multi-selection-active": "Feu clic a les caselles per seleccionar taulers",
-  "archive-permanent-delete-disabled-hint": "Si al Tauler d'administració / Problemes / Suprimeix està marcada l'opció Activa la supressió permanent per a l'administrador global, ací es farà visible el botó Suprimeix.",
+  "archive-permanent-delete-disabled-hint": "Si al Tauler d'administració / Configuració / Suprimeix està marcada l'opció Activa la supressió permanent per a l'administrador global, ací es farà visible el botó Suprimeix.",
   "no-boards-selected": "No heu seleccionat cap tauler.",
   "select-only-one-board": "Seleccioneu només un tauler",
   "selected-label": "Seleccionats:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa fhethu uhu ha mushumo?",
   "allboards.delete-workspace-confirm-check": "Khwaṱhisedza u bvisa fhethu ha mushumo",
   "multi-selection-active": "Kiḽikani zwibogisi zwa u swaya u nanga bodo dza Kanban",
-  "archive-permanent-delete-disabled-hint": "Arali kha Phanele ya Mulanguli / Thaidzo / U Bvisa ho tendelwa u bvisa lwa tshoṱhe kha Mulanguli Muhulwane, buthupu ya U Bvisa i ḓo vhonala hafha.",
+  "archive-permanent-delete-disabled-hint": "Arali kha Phanele ya Mulanguli / Nzudzanyo / U Bvisa ho tendelwa u bvisa lwa tshoṱhe kha Mulanguli Muhulwane, buthupu ya U Bvisa i ḓo vhonala hafha.",
   "no-boards-selected": "A no ngo nanga bodo na nthihi.",
   "select-only-one-board": "Ni khou humbelwa uri ni nange bodo nthihi fhedzi",
   "selected-label": "Zwo nangwaho:",

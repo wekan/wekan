@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "une chokwadi here you want ku dzima this nzvimbo yebasa?",
   "allboards.delete-workspace-confirm-check": "simbisa nzvimbo yebasa deletion",
   "multi-selection-active": "Click checkboxes ku sarudza mabhodhi",
-  "archive-permanent-delete-disabled-hint": "If pa mukuru Panel / Problems / dzima iri checked batidza permanent dzima for Global mukuru then here will become visible button for dzima.",
+  "archive-permanent-delete-disabled-hint": "If pa mukuru Panel / Marongero / dzima iri checked batidza permanent dzima for Global mukuru then here will become visible button for dzima.",
   "no-boards-selected": "You did kwete sarudza chero mabhodhi.",
   "select-only-one-board": "Please sarudza chete one bhodhi",
   "selected-label": "zvasarudzwa:",

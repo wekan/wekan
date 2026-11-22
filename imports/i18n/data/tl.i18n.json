@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Sigurado ka ba ikaw want sa tanggalin ito workspace?",
   "allboards.delete-workspace-confirm-check": "Kumpirmahin workspace deletion",
   "multi-selection-active": "Click checkboxes sa piliin pisaras",
-  "archive-permanent-delete-disabled-hint": "Kung sa Panel ng Tagapangasiwa / Mga problema / Tanggalin ay may tsek Paganahin permanente tanggalin para sa Pangkalahatang Tagapangasiwa then here ay become nakikita button para sa Tanggalin.",
+  "archive-permanent-delete-disabled-hint": "Kung sa Panel ng Tagapangasiwa / Mga setting / Tanggalin ay may tsek Paganahin permanente tanggalin para sa Pangkalahatang Tagapangasiwa then here ay become nakikita button para sa Tanggalin.",
   "no-boards-selected": "Ikaw did hindi piliin any pisaras.",
   "select-only-one-board": "Mangyaring piliin lamang one pisara",
   "selected-label": "Napili:",

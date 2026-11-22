@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ha sur oc’h e fell deoc’h dilemel an egor labour-mañ ?",
   "allboards.delete-workspace-confirm-check": "Kadarnaat dilemel an egor labour",
   "multi-selection-active": "Klikit war ar c’hestoù da gevaskañ evit diuzañ taolennoù",
-  "archive-permanent-delete-disabled-hint": "Mar bez kevreet Gweredekaat an dilemel da viken evit ar Merour Hollek e Panel ar merour / Kudennoù / Dilemel, e vo gwelet amañ ar bouton Dilemel.",
+  "archive-permanent-delete-disabled-hint": "Mar bez kevreet Gweredekaat an dilemel da viken evit ar Merour Hollek e Panel ar merour / Arventennoù / Dilemel, e vo gwelet amañ ar bouton Dilemel.",
   "no-boards-selected": "N'hoc'h eus diuzet taolenn ebet.",
   "select-only-one-board": "Diuzit un daolenn hepken",
   "selected-label": "Diuzet:",

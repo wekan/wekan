@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Na isto chcesz wyciepać tã przestrzyń roboczŏ?",
   "allboards.delete-workspace-confirm-check": "Potwierdź usunięcie placu roboty",
   "multi-selection-active": "Kliknij pola wyboru, aby zaznaczyć tabule",
-  "archive-permanent-delete-disabled-hint": "Jeśli we Panel administratora / Problemy / Wyciepowanie zaznaczono Załōncz trwałe wyciepowanie dlŏ administratora globalnego, pojawi sie sam knefel Wyciep.",
+  "archive-permanent-delete-disabled-hint": "Jeśli we Panel administratora / Sztelōnki / Wyciepowanie zaznaczono Załōncz trwałe wyciepowanie dlŏ administratora globalnego, pojawi sie sam knefel Wyciep.",
   "no-boards-selected": "Niy wybrano żadnej tabule.",
   "select-only-one-board": "Ôbier ino jedną tabula",
   "selected-label": "Zaznaczone:",

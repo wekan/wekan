@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "کیاہ تُہۍ چھواہ یقین یِہ کٲم جاے مٹاون؟",
   "allboards.delete-workspace-confirm-check": "کٲم جاے مٹاونچ تصدیق کریو",
   "multi-selection-active": "بورڈ ژارنہٕ خٲطرٕ چیک باکسن پؠٹھ کلک کریو",
-  "archive-permanent-delete-disabled-hint": "اگر ایڈمن پینل / مسئلہٕ / مٹاون منٛز گلوبل ایڈمن خٲطرٕ مستقل مٹاون فعال چھُ نشان زد، تیٚلہِ ییہِ یَتھ مٹاون بٹن نظر۔",
+  "archive-permanent-delete-disabled-hint": "اگر ایڈمن پینل / ترتیبات / مٹاون منٛز گلوبل ایڈمن خٲطرٕ مستقل مٹاون فعال چھُ نشان زد، تیٚلہِ ییہِ یَتھ مٹاون بٹن نظر۔",
   "no-boards-selected": "تُہۍ آو نہٕ کانٛہہ بورڈ ژارنہٕ۔",
   "select-only-one-board": "مہربٲنی کٔرِتھ صرف اکھ بورڈ ژٲریو",
   "selected-label": "ژارنہٕ آمُت:",

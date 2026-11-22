@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "की अहाँ ई कार्यस्थान मेटेबाक लेल निश्चित छी?",
   "allboards.delete-workspace-confirm-check": "कार्यस्थान मेटेबाक पुष्टि करू",
   "multi-selection-active": "बोर्ड चुनबाक लेल चेकबॉक्स पर क्लिक करू",
-  "archive-permanent-delete-disabled-hint": "यदि व्यवस्थापक पैनल / समस्या / मेटाउ मे वैश्विक प्रशासक लेल स्थायी रूपसँ मेटाउ सक्षम करू चुनल अछि, तँ एतय मेटाउ बटन देखाइत।",
+  "archive-permanent-delete-disabled-hint": "यदि व्यवस्थापक पैनल / सेटिंग / मेटाउ मे वैश्विक प्रशासक लेल स्थायी रूपसँ मेटाउ सक्षम करू चुनल अछि, तँ एतय मेटाउ बटन देखाइत।",
   "no-boards-selected": "अहाँ कोनो बोर्ड नहि चुनलहुँ।",
   "select-only-one-board": "कृपया केवल एक बोर्ड चुनू",
   "selected-label": "चुनल गेल:",

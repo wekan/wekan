@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Haqiqatan ham bu ish joyini oʻchirib tashlamoqchimisiz?",
   "allboards.delete-workspace-confirm-check": "Ish joyini o'chirishni tasdiqlang",
   "multi-selection-active": "Doskalarni tanlash uchun katakchalarni bosing",
-  "archive-permanent-delete-disabled-hint": "Agar Administrator paneli / Muammolar / O‘chirish bo‘limida Global administrator uchun butunlay o‘chirishni yoqish belgilansa, bu yerda O‘chirish tugmasi ko‘rinadi.",
+  "archive-permanent-delete-disabled-hint": "Agar Administrator paneli / Sozlamalar / O‘chirish bo‘limida Global administrator uchun butunlay o‘chirishni yoqish belgilansa, bu yerda O‘chirish tugmasi ko‘rinadi.",
   "no-boards-selected": "Hech qanday taxta tanlamadingiz.",
   "select-only-one-board": "Faqat bitta taxtani tanlang",
   "selected-label": "Tanlangan:",

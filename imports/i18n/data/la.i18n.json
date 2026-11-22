@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Certusne es te hoc spatium laboris delere velle?",
   "allboards.delete-workspace-confirm-check": "Confirma deletionem spatii laboris",
   "multi-selection-active": "Preme quadrata electionis ut tabulas eligas",
-  "archive-permanent-delete-disabled-hint": "Si in Tabula administrationis / Problemata / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
+  "archive-permanent-delete-disabled-hint": "Si in Tabula administrationis / Optiones / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
   "no-boards-selected": "Nullas tabulas elegisti.",
   "select-only-one-board": "Quaeso, unam tantum tabulam elige",
   "selected-label": "Electae:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ertu viss um að þú viljir eyða þessu vinnusvæði?",
   "allboards.delete-workspace-confirm-check": "Staðfesta eyðingu vinnusvæðis",
   "multi-selection-active": "Smelltu á gátreiti til að velja töflur",
-  "archive-permanent-delete-disabled-hint": "Ef hakað er við Virkja varanlega eyðingu fyrir yfirkerfisstjóra í Stjórnborði / Vandamál / Eyða verður Eyða-hnappur sýnilegur hér.",
+  "archive-permanent-delete-disabled-hint": "Ef hakað er við Virkja varanlega eyðingu fyrir yfirkerfisstjóra í Stjórnborði / Stillingar / Eyða verður Eyða-hnappur sýnilegur hér.",
   "no-boards-selected": "Þú valdir engar töflur.",
   "select-only-one-board": "Veldu aðeins eina töflu",
   "selected-label": "Valið:",

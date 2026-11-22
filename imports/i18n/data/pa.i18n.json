@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ 'ਤੇ ਇਸ ਵਰਕਸਪੇਸ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "allboards.delete-workspace-confirm-check": "ਵਰਕਸਪੇਸ ਮਿਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
   "multi-selection-active": "ਬੋਰਡਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਚੈੱਕਬਾਕਸ 'ਤੇ ਕਲਿੱਕ ਕਰੋ",
-  "archive-permanent-delete-disabled-hint": "ਜੇ ਐਡਮਿਨ ਪੈਨਲ / ਸਮੱਸਿਆਵਾਂ / ਮਿਟਾਓ ਵਿੱਚ ਗਲੋਬਲ ਐਡਮਿਨ ਲਈ ਪੱਕਾ ਮਿਟਾਉਣਾ ਸਮਰੱਥ ਕਰੋ ਚੁਣਿਆ ਹੈ, ਤਾਂ ਇੱਥੇ ਮਿਟਾਓ ਬਟਨ ਦਿਖਾਈ ਦੇਵੇਗਾ।",
+  "archive-permanent-delete-disabled-hint": "ਜੇ ਐਡਮਿਨ ਪੈਨਲ / ਸੈਟਿੰਗਾਂ / ਮਿਟਾਓ ਵਿੱਚ ਗਲੋਬਲ ਐਡਮਿਨ ਲਈ ਪੱਕਾ ਮਿਟਾਉਣਾ ਸਮਰੱਥ ਕਰੋ ਚੁਣਿਆ ਹੈ, ਤਾਂ ਇੱਥੇ ਮਿਟਾਓ ਬਟਨ ਦਿਖਾਈ ਦੇਵੇਗਾ।",
   "no-boards-selected": "ਤੁਸੀਂ ਕੋਈ ਬੋਰਡ ਨਹੀਂ ਚੁਣਿਆ।",
   "select-only-one-board": "ਕਿਰਪਾ ਕਰਕੇ ਸਿਰਫ਼ ਇੱਕ ਬੋਰਡ ਚੁਣੋ",
   "selected-label": "ਚੁਣਿਆ ਗਿਆ:",

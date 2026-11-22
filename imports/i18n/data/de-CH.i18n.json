@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Möchten Sie diesen Arbeitsplatz wirklich löschen?",
   "allboards.delete-workspace-confirm-check": "Löschen des Arbeitsplatzes bestätigen",
   "multi-selection-active": "Wähle Kontrollkästchen um Bretter auszuwählen",
-  "archive-permanent-delete-disabled-hint": "Wenn unter Administrationsbereich / Probleme / Löschen die Option Dauerhaftes Löschen für globale Administratoren aktivieren ausgewählt ist, wird hier die Schaltfläche Löschen angezeigt.",
+  "archive-permanent-delete-disabled-hint": "Wenn unter Administrationsbereich / Einstellungen / Löschen die Option Dauerhaftes Löschen für globale Administratoren aktivieren ausgewählt ist, wird hier die Schaltfläche Löschen angezeigt.",
   "no-boards-selected": "Du hast keine Boards ausgewählt.",
   "select-only-one-board": "Bitte wähle nur ein Board aus",
   "selected-label": "Ausgewählt:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Jes të gwës, że chcesz rëmnąc nã robòczą rumã?",
   "allboards.delete-workspace-confirm-check": "Pòcwierdzë rëmniãcé robòczi rëmë",
   "multi-selection-active": "Klëkni pòla wëbiérkù, żebë wëbrac tôfle",
-  "archive-permanent-delete-disabled-hint": "Jeśli w Panel administratora / Problemy / Usuwanié zaznaczono Włącz trwałe usuwanié dla administratora globalnego, pojawi się tutaj przycisk Rëmôj.",
+  "archive-permanent-delete-disabled-hint": "Jeśli w Panel administratora / Ùstôwë / Usuwanié zaznaczono Włącz trwałe usuwanié dla administratora globalnego, pojawi się tutaj przycisk Rëmôj.",
   "no-boards-selected": "Nie wëbróné niżódné tôfle.",
   "select-only-one-board": "Wëbierzë blós jedną tôflã",
   "selected-label": "Wëbróné:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Suliffik una piiassallugu qulakkeerpiuk?",
   "allboards.delete-workspace-confirm-check": "Suliffiup piiaanera uppernarsaruk",
   "multi-selection-active": "Ilisarnaatit toqqorniarlugit checkboxit tooruk",
-  "archive-permanent-delete-disabled-hint": "Aqutsisut paneliat / Ajornartorsiutit / Piiaaneq-mi Nunarsuaq tamakkerlugu aqutsisumut ataavartumik piiaaneq atulersinneqarpat, Piiaaneq-mut toortagaq maani takuneqarsinnaalissaaq.",
+  "archive-permanent-delete-disabled-hint": "Aqutsisut paneliat / Aaqqissuussaanerit / Piiaaneq-mi Nunarsuaq tamakkerlugu aqutsisumut ataavartumik piiaaneq atulersinneqarpat, Piiaaneq-mut toortagaq maani takuneqarsinnaalissaaq.",
   "no-boards-selected": "Ilisarnaammik toqqagaqanngilatit.",
   "select-only-one-board": "Ilisarnaat ataasiinnaq toqqaruk",
   "selected-label": "Toqqakkat:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Iddoo hojii kana haquu akka barbaaddu mirkaneeffatteettaa?",
   "allboards.delete-workspace-confirm-check": "Haqamuu iddoo hojii mirkaneessi",
   "multi-selection-active": "Gabateewwan filachuuf sanduuqawwan filannoo cuqaasi",
-  "archive-permanent-delete-disabled-hint": "Paanaalii Bulchiinsaa / Rakkoolee / Haqi keessatti Bulchaa Waliigalaaf haquu dhaabbataa dandeessisi yoo filatame, asitti qabduun Haqi ni mul'ata.",
+  "archive-permanent-delete-disabled-hint": "Paanaalii Bulchiinsaa / Qindaa'inoota / Haqi keessatti Bulchaa Waliigalaaf haquu dhaabbataa dandeessisi yoo filatame, asitti qabduun Haqi ni mul'ata.",
   "no-boards-selected": "Gabatee tokko illee hin filanne.",
   "select-only-one-board": "Maaloo gabatee tokko qofa fili",
   "selected-label": "Filatame:",

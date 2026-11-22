@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ses seguru de chèrrere cantzellare custu ispàtziu de traballu?",
   "allboards.delete-workspace-confirm-check": "Cunfirma sa cantzelladura de s'ispàtziu de traballu",
   "multi-selection-active": "Craca sas casellas pro seletzionare sas tàulas",
-  "archive-permanent-delete-disabled-hint": "Si in Pannellu de s'amministradore / Problemas / Cantzella est marcadu \"Ativa sa cantzelladura permanente pro s'amministradore globale\", inoghe at a èssere visìbile su butone Cantzella.",
+  "archive-permanent-delete-disabled-hint": "Si in Pannellu de s'amministradore / Impostatziones / Cantzella est marcadu \"Ativa sa cantzelladura permanente pro s'amministradore globale\", inoghe at a èssere visìbile su butone Cantzella.",
   "no-boards-selected": "No as seletzionadu peruna tàula.",
   "select-only-one-board": "Seletziona una tàula ebbia",
   "selected-label": "Seletzionadas:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Är du säker på att du vill ta bort den här arbetsytan?",
   "allboards.delete-workspace-confirm-check": "Bekräfta borttagning av arbetsyta",
   "multi-selection-active": "Klicka i kryssrutor för att välja tavlor",
-  "archive-permanent-delete-disabled-hint": "Om Aktivera permanent borttagning för global administratör markeras under Adminpanel / Problem / Ta bort visas knappen Ta bort här.",
+  "archive-permanent-delete-disabled-hint": "Om Aktivera permanent borttagning för global administratör markeras under Adminpanel / Inställningar / Ta bort visas knappen Ta bort här.",
   "no-boards-selected": "Du har inte valt några tavlor.",
   "select-only-one-board": "Välj endast en tavla",
   "selected-label": "Valda:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Haluatko varmasti poistaa tämän työtilan?",
   "allboards.delete-workspace-confirm-check": "Varmista työtilan poisto",
   "multi-selection-active": "Valitse taulut napsauttamalla valintaruutuja",
-  "archive-permanent-delete-disabled-hint": "Jos kohdassa Ylläpitopaneeli / Ongelmat / Poistaminen valitaan Ota pysyvä poistaminen käyttöön pääylläpitäjälle, Poista-painike tulee näkyviin tähän.",
+  "archive-permanent-delete-disabled-hint": "Jos kohdassa Ylläpitopaneeli / Asetukset / Poistaminen valitaan Ota pysyvä poistaminen käyttöön pääylläpitäjälle, Poista-painike tulee näkyviin tähän.",
   "no-boards-selected": "Et valinnut yhtään taulua.",
   "select-only-one-board": "Valitse vain yksi taulu",
   "selected-label": "Valitut:",

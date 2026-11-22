@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Èske ou sèten ou vle efase espas travay sa a?",
   "allboards.delete-workspace-confirm-check": "Konfime efasman espas travay la",
   "multi-selection-active": "Klike kaz yo pou chwazi tablo",
-  "archive-permanent-delete-disabled-hint": "Si nan Panèl Administrasyon / Pwoblèm / Efase opsyon Pèmèt efasman pèmanan pou Administratè Global la make, bouton Efase a ap vin vizib isit la.",
+  "archive-permanent-delete-disabled-hint": "Si nan Panèl Administrasyon / Paramèt / Efase opsyon Pèmèt efasman pèmanan pou Administratè Global la make, bouton Efase a ap vin vizib isit la.",
   "no-boards-selected": "Ou pa chwazi okenn tablo.",
   "select-only-one-board": "Tanpri chwazi yon sèl tablo",
   "selected-label": "Chwazi:",

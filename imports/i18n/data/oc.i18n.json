@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Volètz vertadièrament suprimir aqueste espaci de trabalh ?",
   "allboards.delete-workspace-confirm-check": "Confirmar la supression de l’espaci de trabalh",
   "multi-selection-active": "Clicatz sus las casas de marcar per seleccionar de tablèus",
-  "archive-permanent-delete-disabled-hint": "Se dins lo Panèl d'administracion / Problèmas / Suprimir es marcada l'opcion Activar la supression permanenta per l'administrator global, lo boton Suprimir serà visible aicí.",
+  "archive-permanent-delete-disabled-hint": "Se dins lo Panèl d'administracion / Paramètres / Suprimir es marcada l'opcion Activar la supression permanenta per l'administrator global, lo boton Suprimir serà visible aicí.",
   "no-boards-selected": "Avètz pas seleccionat cap de tablèu.",
   "select-only-one-board": "Seleccionatz un sol tablèu",
   "selected-label": "Seleccionat :",

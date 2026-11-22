@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Bu çalışma alanını silmek istediğinizden emin misiniz?",
   "allboards.delete-workspace-confirm-check": "Çalışma alanı silme işlemini onayla",
   "multi-selection-active": "Panoları seçmek için onay kutularına tıklayın",
-  "archive-permanent-delete-disabled-hint": "Yönetici Paneli / Sorunlar / Sil bölümünde Genel Yönetici için kalıcı silmeyi etkinleştir seçilirse Sil düğmesi burada görünür.",
+  "archive-permanent-delete-disabled-hint": "Yönetici Paneli / Ayarlar / Sil bölümünde Genel Yönetici için kalıcı silmeyi etkinleştir seçilirse Sil düğmesi burada görünür.",
   "no-boards-selected": "Hiçbir pano seçmediniz.",
   "select-only-one-board": "Lütfen yalnızca bir pano seçin",
   "selected-label": "Seçilen:",

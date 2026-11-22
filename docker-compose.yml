@@ -419,7 +419,7 @@ services:
       #- DEBUG=true
       #---------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/autologin.md
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
       # OIDC RP-initiated logout endpoint (end_session_endpoint). When set, the
       # "Log Out" menu redirects to this endpoint so the identity provider session
@@ -511,7 +511,7 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: redirect (default) or popup.
       #- OAUTH2_LOGIN_STYLE=redirect

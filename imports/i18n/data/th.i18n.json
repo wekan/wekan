@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "คุณแน่ใจหรือไม่ว่าต้องการลบเวิร์กสเปซนี้?",
   "allboards.delete-workspace-confirm-check": "ยืนยันการลบเวิร์กสเปซ",
   "multi-selection-active": "คลิกช่องทำเครื่องหมายเพื่อเลือกบอร์ด",
-  "archive-permanent-delete-disabled-hint": "หากในแผงผู้ดูแลระบบ / ปัญหา / การลบ ได้เลือกเปิดใช้การลบถาวรสำหรับผู้ดูแลระบบส่วนกลาง ปุ่มลบจะแสดงที่นี่",
+  "archive-permanent-delete-disabled-hint": "หากในแผงผู้ดูแลระบบ / การตั้งค่า / การลบ ได้เลือกเปิดใช้การลบถาวรสำหรับผู้ดูแลระบบส่วนกลาง ปุ่มลบจะแสดงที่นี่",
   "no-boards-selected": "คุณยังไม่ได้เลือกบอร์ดใด",
   "select-only-one-board": "โปรดเลือกเพียงหนึ่งบอร์ด",
   "selected-label": "เลือกแล้ว:",

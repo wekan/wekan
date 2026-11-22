@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Uqinisekile ukuthi ufuna ukususa le ndawo yokusebenza?",
   "allboards.delete-workspace-confirm-check": "Qinisekisa ukususwa kwendawo yokusebenza",
   "multi-selection-active": "Chofoza amabhokisi okuhlola ukuze ukhethe amabhodi",
-  "archive-permanent-delete-disabled-hint": "Uma kuPhaneli Yomlawuli / Izinkinga / Susa kukhethwe ukuvumela ukususa unomphela koMlawuli Omkhulu, inkinobho ethi Susa izovela lapha.",
+  "archive-permanent-delete-disabled-hint": "Uma kuPhaneli Yomlawuli / Izilungiselelo / Susa kukhethwe ukuvumela ukususa unomphela koMlawuli Omkhulu, inkinobho ethi Susa izovela lapha.",
   "no-boards-selected": "Awukhethanga noma yiliphi ibhodi.",
   "select-only-one-board": "Sicela ukhethe ibhodi elilodwa kuphela",
   "selected-label": "Okukhethiwe:",

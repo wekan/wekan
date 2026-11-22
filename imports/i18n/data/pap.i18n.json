@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "¿Seguro ku kieres kita e espasio di trabou?",
   "allboards.delete-workspace-confirm-check": "Confirmar e eliminashon di e espasio di trabou",
   "multi-selection-active": "Hasi clic den e casiyas pa selektá tablanan",
-  "archive-permanent-delete-disabled-hint": "Si se marca Actibar e eliminashon permanente pa e atministradó global den Panel di administrashon / Problemas / Kita, aki apareserá e botón Kita.",
+  "archive-permanent-delete-disabled-hint": "Si se marca Actibar e eliminashon permanente pa e atministradó global den Panel di administrashon / Konfigurashon / Kita, aki apareserá e botón Kita.",
   "no-boards-selected": "No has selecsionado ningún tabla.",
   "select-only-one-board": "Selecsiona solamente un tabla",
   "selected-label": "Selecsionados:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "¿Seguro que quieres eliminar este espacio de trabajo?",
   "allboards.delete-workspace-confirm-check": "Confirmar la eliminación del espacio de trabajo",
   "multi-selection-active": "Haz clic en las casillas para seleccionar tableros",
-  "archive-permanent-delete-disabled-hint": "Si se marca Activar la eliminación permanente para el administrador global en Panel de administración / Problemas / Eliminar, aquí aparecerá el botón Eliminar.",
+  "archive-permanent-delete-disabled-hint": "Si se marca Activar la eliminación permanente para el administrador global en Panel de administración / Configuración / Eliminar, aquí aparecerá el botón Eliminar.",
   "no-boards-selected": "No has seleccionado ningún tablero.",
   "select-only-one-board": "Selecciona solo un tablero",
   "selected-label": "Seleccionados:",

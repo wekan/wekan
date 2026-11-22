@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ar tikrai norite ištrinti šią darbo sritį?",
   "allboards.delete-workspace-confirm-check": "Patvirtinkite darbo srities ištrynimą",
   "multi-selection-active": "Spustelėkite žymimuosius laukelius, kad pasirinktumėte lentas",
-  "archive-permanent-delete-disabled-hint": "Jei Administravimo skydelyje / Problemos / Šalinimas pažymėta Įjungti visuotinį šalinimą visuotiniam administratoriui, čia bus rodomas mygtukas Šalinti.",
+  "archive-permanent-delete-disabled-hint": "Jei Administravimo skydelyje / Nustatymai / Šalinimas pažymėta Įjungti visuotinį šalinimą visuotiniam administratoriui, čia bus rodomas mygtukas Šalinti.",
   "no-boards-selected": "Nepasirinkote nė vienos lentos.",
   "select-only-one-board": "Pasirinkite tik vieną lentą",
   "selected-label": "Pasirinkta:",

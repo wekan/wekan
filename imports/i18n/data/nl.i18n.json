@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Weet je zeker dat je deze werkruimte wilt verwijderen?",
   "allboards.delete-workspace-confirm-check": "Bevestig werkruimte verwijdering",
   "multi-selection-active": "Vink de checkboxen om borden te selecteren",
-  "archive-permanent-delete-disabled-hint": "Als onder Beheerpaneel / Problemen / Verwijderen de optie Permanent verwijderen voor globale beheerder inschakelen is aangevinkt, wordt hier de knop Verwijderen zichtbaar.",
+  "archive-permanent-delete-disabled-hint": "Als onder Beheerpaneel / Instellingen / Verwijderen de optie Permanent verwijderen voor globale beheerder inschakelen is aangevinkt, wordt hier de knop Verwijderen zichtbaar.",
   "no-boards-selected": "Je hebt geen borden geselecteerd.",
   "select-only-one-board": "Selecteer slechts één bord",
   "selected-label": "Geselecteerd:",

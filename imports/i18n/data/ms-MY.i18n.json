@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Adakah anda pasti mahu memadam ruang kerja ini?",
   "allboards.delete-workspace-confirm-check": "Sahkan pemadaman ruang kerja",
   "multi-selection-active": "Klik kotak semak untuk pilih papan",
-  "archive-permanent-delete-disabled-hint": "Jika Dayakan pemadaman kekal untuk Pentadbir Global ditandai dalam Panel Pentadbir / Masalah / Padam, butang Padam akan kelihatan di sini.",
+  "archive-permanent-delete-disabled-hint": "Jika Dayakan pemadaman kekal untuk Pentadbir Global ditandai dalam Panel Pentadbir / Tetapan / Padam, butang Padam akan kelihatan di sini.",
   "no-boards-selected": "Anda tidak memilih sebarang papan.",
   "select-only-one-board": "Sila pilih satu papan sahaja",
   "selected-label": "Dipilih:",

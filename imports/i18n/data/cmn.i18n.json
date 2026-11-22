@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "您确定要删除此工作区吗？",
   "allboards.delete-workspace-confirm-check": "确认工作区删除",
   "multi-selection-active": "单击复选框以选择板",
-  "archive-permanent-delete-disabled-hint": "如果在“管理面板 / 问题 / 删除”中勾选“为全局管理员启用永久删除”，此处将显示“删除”按钮。",
+  "archive-permanent-delete-disabled-hint": "如果在“管理面板 / 设置 / 删除”中勾选“为全局管理员启用永久删除”，此处将显示“删除”按钮。",
   "no-boards-selected": "您尚未选择任何看板。",
   "select-only-one-board": "请仅选择一个看板",
   "selected-label": "已选择：",

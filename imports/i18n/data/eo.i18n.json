@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Ĉu vi certas, ke vi volas forigi ĉi tiun laborspacon?",
   "allboards.delete-workspace-confirm-check": "Konfirmi forigon de laborspaco",
   "multi-selection-active": "Alklaku la markobutonojn por elekti tabulojn",
-  "archive-permanent-delete-disabled-hint": "Se en Administra Panelo / Problemoj / Forigo estas markita Ebligi konstantan forigon por Tutmonda Administranto, tiam la butono Forigi aperos ĉi tie.",
+  "archive-permanent-delete-disabled-hint": "Se en Administra Panelo / Agordoj / Forigo estas markita Ebligi konstantan forigon por Tutmonda Administranto, tiam la butono Forigi aperos ĉi tie.",
   "no-boards-selected": "Vi elektis neniun tabulon.",
   "select-only-one-board": "Bonvolu elekti nur unu tabulon",
   "selected-label": "Elektita:",

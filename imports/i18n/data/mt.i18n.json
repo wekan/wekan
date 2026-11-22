@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "Żgur you want għal delete dan spazju tax-xogħol?",
   "allboards.delete-workspace-confirm-check": "Ikkonferma spazju tax-xogħol deletion",
   "multi-selection-active": "Click checkboxes għal select bordijiet",
-  "archive-permanent-delete-disabled-hint": "If fi Amministratur Panel / Problems / Ħassar huwa checked Attiva permanent delete għal Global Amministratur then here will become visible button għal Ħassar.",
+  "archive-permanent-delete-disabled-hint": "If fi Amministratur Panel / Konfigurazzjoni / Ħassar huwa checked Attiva permanent delete għal Global Amministratur then here will become visible button għal Ħassar.",
   "no-boards-selected": "You did mhux select any bordijiet.",
   "select-only-one-board": "Jekk jogħġbok select biss one bord",
   "selected-label": "Magħżula:",

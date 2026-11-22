@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "¿De xuru que quies eliminar esti espaciu de trabayu?",
   "allboards.delete-workspace-confirm-check": "Confirmar la eliminación del espaciu de trabayu",
   "multi-selection-active": "Calca les caxelles pa seleicionar tableros",
-  "archive-permanent-delete-disabled-hint": "Si nel Panel d'alministración / Problemes / Desaniciar ta marcada la opción Activar el desaniciu permanente pal alministrador global, equí va apaecer el botón Desaniciar.",
+  "archive-permanent-delete-disabled-hint": "Si nel Panel d'alministración / Preferencias / Desaniciar ta marcada la opción Activar el desaniciu permanente pal alministrador global, equí va apaecer el botón Desaniciar.",
   "no-boards-selected": "Nun seleicionasti nengún tableru.",
   "select-only-one-board": "Seleiciona namái un tableru",
   "selected-label": "Seleicionaos:",

@@ -119,7 +119,7 @@
   "allboards.delete-workspace-confirm": "এই কৰ্মস্থান মচিবলৈ আপুনি নিশ্চিত নে?",
   "allboards.delete-workspace-confirm-check": "কৰ্মস্থান মচাটো নিশ্চিত কৰক",
   "multi-selection-active": "ব'ৰ্ড বাছিবলৈ চেকবাকচত ক্লিক কৰক",
-  "archive-permanent-delete-disabled-hint": "প্ৰশাসন পেনেল / সমস্যা / মচক ত গ্ল'বেল প্ৰশাসকৰ বাবে স্থায়ীভাৱে মচা সক্ষম কৰক চিহ্নিত কৰিলে ইয়াত মচক বুটামটো দেখা যাব।",
+  "archive-permanent-delete-disabled-hint": "প্ৰশাসন পেনেল / ছেটিংছ / মচক ত গ্ল'বেল প্ৰশাসকৰ বাবে স্থায়ীভাৱে মচা সক্ষম কৰক চিহ্নিত কৰিলে ইয়াত মচক বুটামটো দেখা যাব।",
   "no-boards-selected": "আপুনি কোনো ব'ৰ্ড বাছনি কৰা নাই।",
   "select-only-one-board": "অনুগ্ৰহ কৰি কেৱল এটা ব'ৰ্ড বাছনি কৰক",
   "selected-label": "বাছনি কৰা হৈছে:",
