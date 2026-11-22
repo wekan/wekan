@@ -428,3 +428,68 @@ export class GrowingView {
     this.scroller.remove();
   }
 }
+
+// A scroll area over rows whose number is known and that are fetched by their
+// index (a converted preview, attachmentRecords.js): the scrollbar is exactly
+// the rows, and only the visible ones are fetched and drawn.
+// rowsAt(first, count) resolves to the rows [first, first + count).
+export class IndexedView {
+  constructor(container, { count, rowsAt, renderRows, className, viewportHeight, rowPx }) {
+    Object.assign(this, frame(container, className));
+    this.count = count;
+    this.rowsAt = rowsAt;
+    this.renderRows = renderRows;
+    this.fixedViewport = viewportHeight;
+    this.generation = 0;
+    const probe = this.doc.createElement('div');
+    probe.className = 'attachment-window-row';
+    probe.textContent = 'M';
+    this.viewport.appendChild(probe);
+    this.rowPx = rowPx || rowHeight(probe);
+    probe.remove();
+    this.onScroll = () => { this.update().catch(() => {}); };
+    this.scroller.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+
+  visibleCount() {
+    const h = this.fixedViewport || this.scroller.clientHeight || 600;
+    return Math.ceil(h / this.rowPx) + 1;
+  }
+
+  layout() {
+    const viewportPx = this.visibleCount() * this.rowPx;
+    const total = Math.min(MAX_SCROLL_PX, this.count * this.rowPx);
+    this.maxScroll = Math.max(0, total - viewportPx);
+    this.spacer.style.height = `${this.maxScroll}px`;
+  }
+
+  // The first visible row for a scroll position: by pixels, or - for more rows
+  // than a browser scrolls - by the fraction of the scrollbar.
+  firstAt(scrollTop) {
+    const n = this.visibleCount();
+    const last = Math.max(0, this.count - n + 1);
+    if (this.count * this.rowPx <= MAX_SCROLL_PX) return Math.min(last, Math.floor(scrollTop / this.rowPx));
+    return Math.min(last, Math.round((this.maxScroll ? scrollTop / this.maxScroll : 0) * last));
+  }
+
+  async start() {
+    this.layout();
+    await this.update();
+  }
+
+  async update() {
+    const generation = ++this.generation;
+    const first = this.firstAt(this.scroller.scrollTop);
+    const rows = await this.rowsAt(first, Math.min(this.visibleCount(), this.count - first));
+    if (generation !== this.generation) return;
+    this.first = first;
+    this.visible = rows;
+    this.renderRows(rows, this.viewport, first);
+  }
+
+  destroy() {
+    this.generation += 1;
+    this.scroller.removeEventListener('scroll', this.onScroll);
+    this.scroller.remove();
+  }
+}

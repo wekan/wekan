@@ -105,13 +105,15 @@ const filetime = iso => {
   return [Number(ticks & 0xffffffffn), Number(ticks >> 32n)];
 };
 
-function sampleMsg({ subject = 'Quarterly plan', id = '<plan@contoso.com>', inReplyTo = '', big = 6000 } = {}) {
+function sampleMsg({ subject = 'Quarterly plan', id = '<plan@contoso.com>', inReplyTo = '', big = 6000,
+  body = 'Here is the plan.\r\nComments welcome.', html = null } = {}) {
   const [low, high] = filetime('2026-11-20T09:30:00.000Z');
   const attachment = new Uint8Array(big).map((_, i) => i % 251);
   return writeCompoundFile({
     '__properties_version1.0': fixed(32, [[0x00390040, low, high]]),
     ...Object.fromEntries([prop('0037', subject), prop('0C1A', 'Megan Bowen'), prop('5D01', 'Megan@Contoso.com'),
-      prop('1000', 'Here is the plan.\r\nComments welcome.'), prop('1035', id), ...(inReplyTo ? [prop('1042', inReplyTo)] : [])]),
+      ...(body === null ? [] : [prop('1000', body)]), prop('1035', id), ...(inReplyTo ? [prop('1042', inReplyTo)] : [])]),
+    ...(html === null ? {} : { '__substg1.0_10130102': new Uint8Array(Buffer.from(html, 'utf8')) }),
     '__recip_version1.0_#00000000': { '__properties_version1.0': fixed(8, [[0x0c150003, 1, 0]]),
       ...Object.fromEntries([prop('3001', 'Alex Wilber'), prop('39FE', 'alex@contoso.com')]) },
     '__recip_version1.0_#00000001': { '__properties_version1.0': fixed(8, [[0x0c150003, 2, 0]]),

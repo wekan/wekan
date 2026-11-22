@@ -211,4 +211,16 @@ if (Meteor.isServer) {
   });
 }
 
+// The slideshow's converted previews (server/lib/attachmentPreviewStore.js) are
+// a cache of the file: they go with it.
+if (Meteor.isServer) {
+  Attachments.collection.after.remove((userId, doc) => {
+    try {
+      require('/server/lib/attachmentPreviewStore').removePreviews(doc && doc._id);
+    } catch (error) {
+      console.error('Failed to remove attachment previews:', error);
+    }
+  });
+}
+
 export default Attachments;

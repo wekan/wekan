@@ -264,6 +264,265 @@ export function readOutlookMsg(input) {
   };
 }
 
+// ------------------------------------------------- read a piece at a time ---
+
+// The CFB metadata (FAT, directory, mini FAT) a ranged read keeps in memory;
+// the streams themselves are read a piece at a time.
+export const MAX_CFB_METADATA_BYTES = 64 * 1024 * 1024;
+const RUN_BYTES = 64 * 1024;
+
+// A Compound File through read(offset, length) -> Promise<Uint8Array>, for a
+// file of any size: only its metadata is read whole. Streams are read by
+// pieces(entry), runs of consecutive sectors of up to 64 KB, or whole by
+// readAll(entry, max) when they are small. The same layout rules as
+// readCompoundFile above.
+export async function openCompoundFile(read, size) {
+  const header = await read(0, 512);
+  if (!isMsg(header)) throw new Error('Not an Outlook .msg file: it is not a Compound File');
+  const hv = new DataView(header.buffer, header.byteOffset, header.byteLength);
+  const sectorSize = 1 << hv.getUint16(0x1e, true);
+  const miniSize = 1 << hv.getUint16(0x20, true);
+  if (sectorSize !== 512 && sectorSize !== 4096) throw new Error('Not an Outlook .msg file: its sector size is not 512 or 4096');
+  const cutoff = hv.getUint32(0x38, true);
+  const sectors = Math.ceil(size / sectorSize) - 1;
+  const offset = n => (n + 1) * sectorSize;
+  let metadata = 0;
+  const readSector = async n => {
+    metadata += sectorSize;
+    if (metadata > MAX_CFB_METADATA_BYTES) throw new Error('The Outlook .msg file is damaged: its tables are too large');
+    const data = await read(offset(n), sectorSize);
+    return new DataView(data.buffer, data.byteOffset, data.byteLength);
+  };
+  const words = (view, count) => Array.from({ length: Math.min(count, view.byteLength / 4) }, (_, i) => view.getUint32(i * 4, true));
+
+  const fatSectors = [];
+  for (let i = 0; i < 109; i += 1) { const s = hv.getUint32(0x4c + i * 4, true); if (s < sectors) fatSectors.push(s); }
+  let difat = hv.getUint32(0x44, true);
+  const per = sectorSize / 4 - 1;
+  for (let guard = 0; difat < sectors && guard < sectors; guard += 1) {
+    const w = words(await readSector(difat), sectorSize / 4);
+    for (let i = 0; i < per; i += 1) if (w[i] < sectors) fatSectors.push(w[i]);
+    difat = w[per];
+  }
+  const fat = [];
+  for (const s of fatSectors) fat.push(...words(await readSector(s), sectorSize / 4));
+  const chain = (start, table) => {
+    const out = [];
+    const seen = new Set();
+    for (let s = start; s !== END && s !== FREE && s < table.length; s = table[s]) {
+      if (seen.has(s)) throw new Error('The Outlook .msg file is damaged: a sector chain loops');
+      seen.add(s);
+      out.push(s);
+    }
+    return out;
+  };
+
+  const entries = [];
+  for (const s of chain(hv.getUint32(0x30, true), fat)) {
+    const view = await readSector(s);
+    for (let i = 0; i < sectorSize / 128; i += 1) {
+      const at = i * 128;
+      if (at + 128 > view.byteLength) break;
+      const nameLength = Math.min(64, view.getUint16(at + 64, true));
+      let name = '';
+      for (let c = 0; c + 2 < nameLength; c += 2) name += String.fromCharCode(view.getUint16(at + c, true));
+      entries.push({ name, type: view.getUint8(at + 66), left: view.getUint32(at + 68, true), right: view.getUint32(at + 72, true),
+        child: view.getUint32(at + 76, true), start: view.getUint32(at + 116, true), size: view.getUint32(at + 120, true) });
+    }
+  }
+  const root = entries[0];
+  if (!root || root.type !== 5) throw new Error('The Outlook .msg file is damaged: no root entry');
+  const miniFat = [];
+  for (const s of chain(hv.getUint32(0x3c, true), fat)) miniFat.push(...words(await readSector(s), sectorSize / 4));
+  const miniChain = chain(root.start, fat); // the big sectors that hold the mini stream
+
+  // Runs of bytes [{ at, length }] -> pieces of up to RUN_BYTES, consecutive
+  // runs read in one request.
+  async function* readRuns(runs) {
+    let i = 0;
+    while (i < runs.length) {
+      let at = runs[i].at;
+      let length = runs[i].length;
+      i += 1;
+      while (i < runs.length && runs[i].at === at + length && length + runs[i].length <= RUN_BYTES) {
+        length += runs[i].length;
+        i += 1;
+      }
+      const data = await read(at, length);
+      if (!data.length) return;
+      yield data;
+    }
+  }
+  const bigRuns = (start, size) => {
+    const runs = [];
+    let left = size;
+    for (const s of chain(start, fat)) {
+      if (left <= 0) break;
+      const take = Math.min(sectorSize, left);
+      runs.push({ at: offset(s), length: take });
+      left -= take;
+    }
+    return runs;
+  };
+  const miniRuns = (start, size) => {
+    const runs = [];
+    let left = size;
+    for (const m of chain(start, miniFat)) {
+      if (left <= 0) break;
+      const byteInMini = m * miniSize;
+      const big = miniChain[Math.floor(byteInMini / sectorSize)];
+      if (big === undefined) break;
+      const take = Math.min(miniSize, left);
+      runs.push({ at: offset(big) + (byteInMini % sectorSize), length: take });
+      left -= take;
+    }
+    return runs;
+  };
+  const pieces = entry => readRuns(entry.size < cutoff ? miniRuns(entry.start, entry.size) : bigRuns(entry.start, entry.size));
+  const readAll = async (entry, max = MAX_MSG_ATTACHMENT_BYTES) => {
+    if (entry.size > max) return null;
+    const out = new Uint8Array(entry.size);
+    let at = 0;
+    for await (const piece of pieces(entry)) { out.set(piece.subarray(0, out.length - at), at); at += piece.length; }
+    return out.subarray(0, Math.min(at, out.length));
+  };
+  const childrenOf = entry => {
+    const out = [];
+    const seen = new Set();
+    const stack = [entry.child];
+    while (stack.length) {
+      const id = stack.pop();
+      if (id === NOSTREAM || id >= entries.length || seen.has(id)) continue;
+      seen.add(id);
+      out.push(entries[id]);
+      stack.push(entries[id].left, entries[id].right);
+    }
+    return out;
+  };
+  const storage = entry => {
+    const node = { streams: new Map(), storages: new Map() };
+    for (const child of childrenOf(entry)) {
+      if (child.type === 2) node.streams.set(child.name, child);
+      else if (child.type === 1) node.storages.set(child.name, child);
+    }
+    node.read = async (name, max) => (node.streams.has(name) ? readAll(node.streams.get(name), max) : null);
+    node.pieces = name => (node.streams.has(name) ? pieces(node.streams.get(name)) : null);
+    node.open = name => (node.storages.has(name) ? storage(node.storages.get(name)) : null);
+    return node;
+  };
+  return storage(root);
+}
+
+const SMALL_PROP = 1024 * 1024;
+
+async function stringPropAsync(node, id) {
+  const unicode = await node.read(`__substg1.0_${hex4(id)}001F`, SMALL_PROP);
+  if (unicode) return utf16(unicode);
+  const eight = await node.read(`__substg1.0_${hex4(id)}001E`, SMALL_PROP);
+  return eight ? ascii(eight) : '';
+}
+
+async function fixedPropsAsync(node, headerSize) {
+  const data = await node.read('__properties_version1.0', SMALL_PROP);
+  const out = new Map();
+  if (!data) return out;
+  const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
+  for (let at = headerSize; at + 16 <= data.length; at += 16) {
+    const tag = view.getUint32(at, true);
+    out.set(tag >>> 16, { type: tag & 0xffff, low: view.getUint32(at + 8, true), high: view.getUint32(at + 12, true) });
+  }
+  return out;
+}
+
+// Text a piece at a time -> display rows of at most `width` characters.
+export function lineSplitter(emit, width = 1000) {
+  let rest = '';
+  const out = async line => {
+    const clean = line.replace(/\r$/, '');
+    if (clean.length <= width) await emit(clean);
+    else for (let at = 0; at < clean.length; at += width) await emit(clean.slice(at, at + width));
+  };
+  return {
+    async push(text) {
+      const parts = (rest + text).split('\n');
+      rest = parts.pop();
+      for (const p of parts) await out(p);
+      if (rest.length > width * 4) { await out(rest); rest = ''; }
+    },
+    async end() { if (rest) await out(rest); rest = ''; },
+  };
+}
+
+// An Outlook .msg as display rows, read a piece at a time through
+// read(offset, length): { k: 'field', l: 'subject' | 'from' | 'to' | 'cc' |
+// 'date', v }, { k: 'file', v: name, size }, then { k: 'text', v } rows of its
+// body. An attachment's data is never read. Parser is htmlparser2's, for an
+// HTML-only body, which is turned into text as it streams.
+export async function outlookMsgRows(read, size, emit, { Parser } = {}) {
+  const root = await openCompoundFile(read, size);
+  const props = await fixedPropsAsync(root, 32);
+  const recipients = [];
+  const files = [];
+  for (const [name] of root.storages) {
+    if (name.startsWith('__recip_version1.0_')) {
+      const r = root.open(name);
+      const kind = (await fixedPropsAsync(r, 8)).get(0x0c15);
+      recipients.push({ name: await stringPropAsync(r, 0x3001),
+        address: address(await stringPropAsync(r, 0x39fe), await stringPropAsync(r, 0x3003)), type: kind ? kind.low : 1 });
+    } else if (name.startsWith('__attach_version1.0_')) {
+      const a = root.open(name);
+      const fileName = (await stringPropAsync(a, 0x3707)) || (await stringPropAsync(a, 0x3704))
+        || (await stringPropAsync(a, 0x3001)) || 'attachment';
+      const data = a.streams.get('__substg1.0_37010102');
+      files.push({ name: fileName, size: data ? data.size : 0 });
+    }
+  }
+  const people = type => {
+    const seen = new Set();
+    return recipients.filter(r => r.type === type && r.address && !seen.has(r.address) && seen.add(r.address))
+      .map(r => (r.name && r.name !== r.address ? `${r.name} <${r.address}>` : r.address)).join(', ');
+  };
+  const fromName = await stringPropAsync(root, 0x0c1a);
+  const fromAddress = address(await stringPropAsync(root, 0x5d01), await stringPropAsync(root, 0x0c1f));
+  const fields = [['subject', await stringPropAsync(root, 0x0037)],
+    ['from', fromName && fromAddress && fromName !== fromAddress ? `${fromName} <${fromAddress}>` : fromName || fromAddress],
+    ['to', people(1)], ['cc', people(2)],
+    ['date', filetime(props.get(0x0039)) || filetime(props.get(0x0e06))]];
+  for (const [l, v] of fields) if (v) await emit({ k: 'field', l, v });
+  for (const f of files) await emit({ k: 'file', v: f.name, size: f.size });
+
+  const lines = lineSplitter(v => emit({ k: 'text', v }));
+  const plain = root.pieces('__substg1.0_1000001F');
+  const plain8 = root.pieces('__substg1.0_1000001E');
+  const html = root.pieces('__substg1.0_10130102') || root.pieces('__substg1.0_1013001F');
+  if (plain || plain8) {
+    // UTF-16LE (or 8-bit) a piece at a time; a character split between
+    // pieces is carried over.
+    const decoder = new TextDecoder(plain ? 'utf-16le' : 'utf-8');
+    for await (const piece of plain || plain8) await lines.push(decoder.decode(piece, { stream: true }).replace(/\u0000+$/, ''));
+    await lines.push(decoder.decode());
+  } else if (html && Parser) {
+    const unicode = !root.streams.has('__substg1.0_10130102');
+    const decoder = new TextDecoder(unicode ? 'utf-16le' : 'utf-8');
+    let skip = 0;
+    let pending = '';
+    const BLOCK = /^(p|div|li|tr|h[1-6]|table|ul|ol|blockquote)$/i;
+    const parser = new Parser({
+      onopentag(name) { if (/^(head|style|script)$/i.test(name)) skip += 1; else if (/^br$/i.test(name)) pending += '\n'; },
+      onclosetag(name) { if (/^(head|style|script)$/i.test(name)) skip = Math.max(0, skip - 1); else if (BLOCK.test(name)) pending += '\n'; },
+      ontext(text) { if (!skip) pending += text; },
+    }, { decodeEntities: true });
+    for await (const piece of html) {
+      parser.write(decoder.decode(piece, { stream: true }));
+      const text = pending; pending = '';
+      if (text) await lines.push(text.replace(/[ \t]+\n/g, '\n'));
+    }
+    parser.end();
+    if (pending) await lines.push(pending);
+  }
+  await lines.end();
+}
+
 // ------------------------------------------------------------------ export ---
 
 const fileName = (title, n) => {

@@ -28,6 +28,7 @@ import { DocumentPreviews, indexDocumentText } from '/server/lib/documentGif';
 import { boundedStreamBuffer, gifCacheKey } from '/server/lib/imageGif';
 import { convertImageBufferToThumbnail, cachedThumbnail, rememberThumbnail } from '/server/lib/imageThumbnail';
 const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/attachmentThumbnail');
+const { previewPartOf } = require('/models/lib/attachmentPreviewPath');
 // CacheBleed (GHSA-w3qg-pf27-g68r): files are served after an access check, so never shared-cacheable.
 const { setPrivateFileCacheHeaders, privateFileCacheHeaders } = require('/models/lib/fileCacheHeaders');
 const { parseRange, partialContentHeaders, ifRangeAllows } = require('/models/lib/httpRange');
@@ -565,7 +566,57 @@ if (Meteor.isServer) {
   // #3275: a thumbnail is a WebP of at most THUMBNAIL_EDGE pixels. Cached as
   // the original is (CacheBleed): it is readable by the same people as the
   // original, which is not everybody, and revalidated so a revocation holds.
-  function sendThumbnail(req, res, attachment, key, buffer) {
+  // The parts of an attachment's converted preview, with HTTP Range: meta (how
+// many rows), index (where each row starts) and rows. Made on the first
+// request, a piece at a time, from the original's own storage.
+async function serveAttachmentPreview(req, res, attachment, part) {
+  const { attachmentRichKind } = require('/models/lib/attachmentKind');
+  const { ensurePreview, PREVIEW_KINDS } = require('/server/lib/attachmentPreviewStore');
+  const kind = attachmentRichKind(attachment);
+  if (!PREVIEW_KINDS.has(kind) || attachment?.meta?.source === 'legacy') {
+    res.writeHead(404);
+    res.end('No preview for this attachment');
+    return;
+  }
+  let preview;
+  try {
+    preview = await ensurePreview(attachment, attachmentStoreFactory.getFileStrategy(attachment, 'original'), kind);
+  } catch (error) {
+    console.error('Attachment preview could not be made:', error && error.message);
+    res.writeHead(422);
+    res.end('The attachment could not be read for a preview');
+    return;
+  }
+  const headers = {
+    'Cache-Control': 'private, max-age=0, must-revalidate',
+    'X-Content-Type-Options': 'nosniff',
+    'Content-Security-Policy': "default-src 'none'; sandbox;",
+  };
+  if (part === 'meta') {
+    const body = JSON.stringify({ kind: preview.info.kind, count: preview.info.count, truncated: !!preview.info.truncated });
+    res.writeHead(200, { ...headers, 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(body) });
+    res.end(body);
+    return;
+  }
+  const file = part === 'index' ? preview.index : preview.rows;
+  const size = fs.statSync(file).size;
+  const range = parseRange(req.headers.range, size);
+  if (range === 'unsatisfiable') {
+    res.writeHead(416, { 'Content-Range': `bytes */${size}`, 'Accept-Ranges': 'bytes' });
+    res.end();
+    return;
+  }
+  const typed = { ...headers, 'Content-Type': 'application/octet-stream', 'Accept-Ranges': 'bytes' };
+  if (range) {
+    res.writeHead(206, { ...typed, ...partialContentHeaders(range, size) });
+    fs.createReadStream(file, { start: range.start, end: range.end }).pipe(res);
+  } else {
+    res.writeHead(200, { ...typed, 'Content-Length': String(size) });
+    fs.createReadStream(file).pipe(res);
+  }
+}
+
+function sendThumbnail(req, res, attachment, key, buffer) {
     const etag = `"${attachment._id}-thumbnail-${key.slice(0, 16)}"`;
     if (req.headers['if-none-match'] === etag) {
       res.writeHead(304, { ETag: etag, ...privateFileCacheHeaders() });
@@ -685,6 +736,16 @@ if (Meteor.isServer) {
           res.end('Reading from this storage backend is disabled by administrator');
           return;
         }
+      }
+
+      // /cdn/storage/attachments/<id>/preview-<meta|index|rows>: the slideshow's
+      // converted preview of a file whose content is scattered through it
+      // (server/lib/attachmentPreviewStore.js). Everything above has been
+      // applied, so the preview is readable exactly when the original is.
+      const previewPart = previewPartOf((req.url || '').replace(/^\/cdn\/storage\/attachments(?=\/)/, ''));
+      if (previewPart) {
+        await serveAttachmentPreview(req, res, attachment, previewPart);
+        return;
       }
 
       // #3275: /cdn/storage/attachments/<id>/thumbnail - everything above

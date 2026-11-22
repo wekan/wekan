@@ -42,7 +42,10 @@ const FILES = [
     'SUMMARY:Sprint review', 'DTSTART:20261201T090000Z', 'DTEND:20261201T100000Z', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n')) },
   { ext: 'tgz', type: 'application/gzip', body: Buffer.from(gzipSync(tar([['src/app.js', 'x'], ['<img onerror=alert(1)>.txt', 'y']]))) },
   { ext: 'odt', type: 'application/vnd.oasis.opendocument.text',
-    body: Buffer.from(zipSync({ mimetype: strToU8('application/vnd.oasis.opendocument.text'), 'content.xml': strToU8(ODT) })) },
+    // The mimetype entry stored, first and uncompressed, as the OpenDocument
+    // standard requires and LibreOffice writes: deflated, WeKan's type detection
+    // rightly reads the file as a plain ZIP and names it so.
+    body: Buffer.from(zipSync({ mimetype: [strToU8('application/vnd.oasis.opendocument.text'), { level: 0 }], 'content.xml': strToU8(ODT) })) },
 ];
 
 test('the slideshow shows Markdown, CSV, code, iCalendar, tar.gz and OpenDocument attachments as text', async ({ page, adminUser, user, board }) => {
@@ -109,8 +112,9 @@ test('the slideshow shows Markdown, CSV, code, iCalendar, tar.gz and OpenDocumen
     await page.locator('#viewer-close').click();
 
     await openPreview('odt');
-    await expect(rich.locator('h3')).toHaveText('Project plan');
-    await expect(rich.locator('p').first()).toHaveText('<script>alert(1)</script> first step');
+    await expect(rich.locator('.attachment-preview-heading')).toHaveText('Project plan');
+    await expect(rich.locator('.attachment-window-row', { hasText: 'first step' })).toHaveText('<script>alert(1)</script> first step');
+    await expect(rich.locator('script')).toHaveCount(0);
     await page.locator('#viewer-close').click();
 
     // Negative: nothing any of these files contained ran.
@@ -172,6 +176,56 @@ test('a large CSV is read windowed: only the screen is fetched and drawn, the sc
     expect(sent).toBeLessThan(body.length / 2);
     await page.locator('#viewer-close').click();
     await expect(page.locator('#rich-viewer .attachment-csv-row')).toHaveCount(0);
+  } finally {
+    db.deleteOne('attachments', { _id: id });
+    fs.rmSync(filename, { force: true });
+  }
+});
+
+// An Outlook .msg - its content scattered through a Compound File - is
+// converted once on the server, a piece at a time, into rows; the slideshow
+// fetches only the visible rows of that preview, never the .msg itself.
+test('an Outlook .msg is shown from its server-converted rows: only the screen is fetched, the scrollbar is exact', async ({ page, request, adminUser, user, board }) => {
+  const { sampleMsg } = require('../../lib/outlookMsgFixture.cjs');
+  const directory = path.join(process.env.WEKAN_FILES_PATH, 'attachments');
+  fs.mkdirSync(directory, { recursive: true });
+  const card = db.findOne('cards', { boardId: board.boardId });
+  const id = db.uid('richmsg');
+  const name = `${id}.msg`;
+  const body = Buffer.from(sampleMsg({ big: 4 * 1024 * 1024,
+    body: Array.from({ length: 100000 }, (_, i) => `Mail line ${i}`).join('\r\n') }));
+  const filename = path.join(directory, name);
+  fs.writeFileSync(filename, body);
+  try {
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    const storage = await page.evaluate(() => Meteor.callAsync('getAttachmentStoragePaths'));
+    db.insertOne('attachments', { _id: id, name, extension: 'msg', type: 'application/vnd.ms-outlook', size: body.length,
+      meta: { boardId: board.boardId, cardId: card._id },
+      versions: { original: { storage: 'fs', path: `${storage.attachments}/${name}`, size: body.length, extension: 'msg', type: 'application/vnd.ms-outlook' } } });
+    await loginWithToken(page, user.id, user.token);
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}/${card._id}`);
+    const fetched = [];
+    page.on('response', response => {
+      const url = response.url();
+      if (url.includes(`/cdn/storage/attachments/${id}`)) fetched.push({ url, status: response.status(), range: response.request().headers().range || '' });
+    });
+    await page.locator(`.open-preview[data-attachment-id="${id}"]`).click();
+    const rich = page.locator('#rich-viewer');
+    await expect(rich.locator('.attachment-preview-field').first()).toContainText('Quarterly plan');
+    await expect(rich.locator('.attachment-window-row', { hasText: 'Mail line 0' })).toHaveCount(1);
+    expect(await rich.locator('.attachment-window-row').count()).toBeLessThan(80);
+    await rich.locator('.attachment-window').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    await expect(rich.locator('.attachment-window-row').last()).toHaveText('Mail line 99999');
+    expect(await rich.locator('.attachment-window-row').count()).toBeLessThan(80);
+    // Only the preview's parts, ranged; the .msg itself is never downloaded.
+    expect(fetched.length).toBeGreaterThan(0);
+    expect(fetched.every(f => /\/preview-(meta|index|rows)$/.test(f.url))).toBe(true);
+    expect(fetched.filter(f => !f.url.endsWith('/preview-meta')).every(f => f.status === 206 && f.range)).toBe(true);
+    // Without signing in the preview is refused, as the original is.
+    expect((await request.get(`/cdn/storage/attachments/${id}/preview-meta`)).status()).toBe(403);
+    expect((await request.get(`/cdn/storage/attachments/${id}/preview-rows`)).status()).toBe(403);
+    await page.locator('#viewer-close').click();
+    await expect(rich.locator('.attachment-window-row')).toHaveCount(0);
   } finally {
     db.deleteOne('attachments', { _id: id });
     fs.rmSync(filename, { force: true });

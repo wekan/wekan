@@ -11,12 +11,14 @@
 //       request and indexed exactly; Markdown and JSON of that size are
 //       formatted (a larger one is shown as its text, as formatting needs the
 //       whole document).
-//   tar and tar.gz, iCalendar, OpenDocument   read in order, as far as they are
-//       scrolled: infinite scroll downwards. Compressed data cannot be read from
-//       its middle. An OpenDocument's content.xml is found through the ZIP
-//       central directory and only it is read (zipAttachmentViewer.js).
-//   Outlook .msg   a little file system scattered through the file: read whole,
-//       as before, up to the preview limit, and its text shown windowed.
+//   tar and tar.gz, iCalendar   read in order, as far as they are scrolled:
+//       infinite scroll downwards. Compressed data cannot be read from its
+//       middle.
+//   Outlook .msg, OpenDocument   their content is scattered through the file
+//       (a Compound File's sectors, a ZIP's compressed content.xml), so the
+//       server converts each once, a piece at a time, into rows with an index
+//       (server/lib/attachmentPreviewStore.js); the scrollbar is exactly those
+//       rows, and only the visible ones are fetched (attachmentRecords.js).
 //
 // Only the visible rows are in the page. Everything a file contains reaches it
 // as text (textContent) - except highlight.js's output, escaped text in
@@ -24,10 +26,9 @@
 // the caller renders through WeKan's own markdown helper with every setting
 // the card description has.
 
-import { RangeReader, ByteRows, WindowView, GrowingView, splitRows, CHUNK_BYTES, MAX_ROW_BYTES }
+import { RangeReader, ByteRows, WindowView, GrowingView, IndexedView, splitRows, CHUNK_BYTES, MAX_ROW_BYTES }
   from './attachmentWindow.js';
-import { ZipDirectory } from './zipAttachmentViewer.js';
-import { assertSourceSize } from './attachmentPreviewSource.js';
+import { PreviewRecords } from './attachmentRecords.js';
 
 export const MAX_COLUMNS = 1024;
 export const MAX_COMPONENT_BYTES = 1024 * 1024;
@@ -348,158 +349,48 @@ async function* calendarStream(reader) {
   yield* ics.push(decoder.decode(), true);
 }
 
-// --- OpenDocument -------------------------------------------------------------
+// --- converted previews: Outlook .msg, OpenDocument -----------------------------
 
-const ODF_NS = {
-  text: 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
-  table: 'urn:oasis:names:tc:opendocument:xmlns:table:1.0',
-  draw: 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
-};
-
-// content.xml's blocks in document order, from SAX events as it streams in:
-// { kind: 'heading' | 'paragraph', text }, { kind: 'row', cells, count },
-// { kind: 'page', name } for a sheet or a slide. Repeated rows are one block
-// with a count, given out one at a time only as they are scrolled to, so a
-// sheet whose last row repeats a million times to the edge of the grid costs
-// nothing; trailing empty cells and rows are the grid, not content.
-export class OdfBlocks {
-  constructor() {
-    this.queue = [];
-    this.scopes = [{}];
-    this.para = null;
-    this.heading = false;
-    this.note = 0;
-    this.row = null;
-    this.cell = null;
-    this.emptyRows = 0;
-  }
-
-  // Prefixes are resolved through the xmlns declarations in scope, so a file
-  // that names the namespaces differently is read the same.
-  resolve(qname, attrs) {
-    const map = Object.assign({}, this.scopes[this.scopes.length - 1]);
-    for (const [k, v] of Object.entries(attrs || {})) if (k.startsWith('xmlns:')) map[k.slice(6)] = v;
-    this.scopes.push(map);
-    const at = qname.indexOf(':');
-    return { ns: at > 0 ? map[qname.slice(0, at)] : '', local: at > 0 ? qname.slice(at + 1) : qname, map };
-  }
-
-  attr(attrs, map, ns, local) {
-    for (const [k, v] of Object.entries(attrs || {})) {
-      const at = k.indexOf(':');
-      if (at > 0 && map[k.slice(0, at)] === ns && k.slice(at + 1) === local) return v;
-    }
-    return undefined;
-  }
-
-  addText(text) {
-    if (!this.note && this.para !== null) this.para += text;
-  }
-
-  open(qname, attrs) {
-    const { ns, local, map } = this.resolve(qname, attrs);
-    if (ns === ODF_NS.text) {
-      if (local === 'note') this.note += 1;
-      // A footnote's own paragraphs are not the text's: they would end the
-      // paragraph the note sits in.
-      else if (this.note) return;
-      else if (local === 'p' || local === 'h') { this.para = ''; this.heading = local === 'h'; }
-      else if (local === 's') this.addText(' '.repeat(Math.min(Number(this.attr(attrs, map, ODF_NS.text, 'c')) || 1, 1000)));
-      else if (local === 'tab') this.addText('\t');
-      else if (local === 'line-break') this.addText('\n');
-    } else if (ns === ODF_NS.table) {
-      if (local === 'table') {
-        const name = this.attr(attrs, map, ODF_NS.table, 'name');
-        if (name) this.queue.push({ kind: 'page', name });
-        this.emptyRows = 0;
-      } else if (local === 'table-row') {
-        const count = Math.max(1, Number(this.attr(attrs, map, ODF_NS.table, 'number-rows-repeated')) || 1);
-        this.row = { cells: [], count };
-      } else if ((local === 'table-cell' || local === 'covered-table-cell') && this.row) {
-        const repeat = Number(this.attr(attrs, map, ODF_NS.table, 'number-columns-repeated')) || 1;
-        this.cell = { parts: [], repeat: Math.max(1, Math.min(repeat, MAX_COLUMNS)) };
+function recordRenderer(doc, labels) {
+  const field = { subject: labels.subject, from: labels.from, to: labels.to, cc: labels.cc, date: labels.date };
+  return (rows, viewport) => {
+    viewport.replaceChildren(...rows.map(row => {
+      if (!row) return element(doc, 'div', '', 'attachment-window-row');
+      if (row.k === 'row') return cellsRow(doc, (row.c || []).map(String));
+      if (row.k === 'field' || row.k === 'file') {
+        const el = element(doc, 'div', undefined, 'attachment-window-row attachment-preview-field');
+        el.appendChild(element(doc, 'span', row.k === 'file' ? labels.attachments : (field[row.l] || row.l), 'attachment-preview-label'));
+        el.appendChild(element(doc, 'span', row.k === 'field' && row.l === 'date' ? localDate(row.v) : String(row.v ?? '')));
+        return el;
       }
-    } else if (ns === ODF_NS.draw && local === 'page') {
-      this.queue.push({ kind: 'page', name: this.attr(attrs, map, ODF_NS.draw, 'name') || '' });
-    }
-  }
-
-  close(qname) {
-    const map = this.scopes.pop() || {};
-    const at = qname.indexOf(':');
-    const ns = at > 0 ? map[qname.slice(0, at)] : '';
-    const local = at > 0 ? qname.slice(at + 1) : qname;
-    if (ns === ODF_NS.text) {
-      if (local === 'note') this.note = Math.max(0, this.note - 1);
-      else if (this.note) return;
-      else if ((local === 'p' || local === 'h') && this.para !== null) {
-        if (this.cell) this.cell.parts.push(this.para);
-        else if (this.para.trim()) this.queue.push({ kind: this.heading ? 'heading' : 'paragraph', text: this.para });
-        this.para = null;
-      }
-    } else if (ns === ODF_NS.table) {
-      if ((local === 'table-cell' || local === 'covered-table-cell') && this.cell && this.row) {
-        const text = this.cell.parts.join('\n');
-        for (let i = 0; i < this.cell.repeat && this.row.cells.length < MAX_COLUMNS; i += 1) this.row.cells.push(text);
-        this.cell = null;
-      } else if (local === 'table-row' && this.row) {
-        const cells = this.row.cells;
-        while (cells.length && !cells[cells.length - 1]) cells.pop();
-        if (!cells.length) this.emptyRows += this.row.count;
-        else {
-          if (this.emptyRows) this.queue.push({ kind: 'row', cells: [], count: this.emptyRows });
-          this.emptyRows = 0;
-          this.queue.push({ kind: 'row', cells, count: this.row.count });
-        }
-        this.row = null;
-      } else if (local === 'table') {
-        this.emptyRows = 0;
-      }
-    }
-  }
-
-  // The next block - a repeated row one at a time - or null when none is queued.
-  take() {
-    const head = this.queue[0];
-    if (!head) return null;
-    if (head.kind === 'row' && head.count > 1) {
-      head.count -= 1;
-      return { kind: 'row', cells: head.cells, count: 1 };
-    }
-    return this.queue.shift();
-  }
+      const cls = { h: 'attachment-preview-heading', page: 'attachment-preview-page', more: 'attachment-preview-more' }[row.k] || '';
+      return element(doc, 'div', String(row.v ?? ''), `attachment-window-row ${cls}`.trim());
+    }));
+  };
 }
 
-async function* odfStream(reader) {
-  const zip = await new ZipDirectory(reader).open();
-  let entry = null;
-  for await (const e of zip.entries()) if (e.name === 'content.xml') { entry = e; break; }
-  if (!entry) throw new Error('Not an OpenDocument file: no content.xml');
-  if (entry.method !== 0 && entry.method !== 8) throw new Error('Unsupported compression in content.xml');
-  const start = await zip.dataStart(entry);
-  const [{ Inflate }, { Parser }] = await Promise.all([import('fflate'), import('htmlparser2')]);
-  const blocks = new OdfBlocks();
-  const parser = new Parser({
-    onopentag: (name, attrs) => blocks.open(name, attrs),
-    ontext: text => blocks.addText(text),
-    onclosetag: name => blocks.close(name),
-  }, { xmlMode: true, decodeEntities: true });
-  const decoder = new TextDecoder('utf-8');
-  const feed = data => parser.write(decoder.decode(data, { stream: true }));
-  const inflate = entry.method === 8 ? new Inflate(data => feed(data)) : null;
-  // Small pieces, so a content.xml that inflates enormously is read a little
-  // at a time, only as far as it is scrolled.
-  for await (const chunk of reader.stream(start, start + entry.compressedSize)) {
-    for (let at = 0; at < chunk.length; at += FEED_BYTES) {
-      const piece = chunk.subarray(at, at + FEED_BYTES);
-      if (inflate) inflate.push(piece, false);
-      else feed(piece);
-      for (let b = blocks.take(); b; b = blocks.take()) yield b;
-    }
+async function openRecords({ container, url, signal, fetchImpl, labels, viewportHeight }) {
+  const records = await new PreviewRecords(url, { signal, fetchImpl }).open();
+  if (signal && signal.aborted) return { destroy() {} };
+  container.replaceChildren();
+  if (!records.count) {
+    container.textContent = labels.empty;
+    return { records, destroy() { container.replaceChildren(); } };
   }
-  if (inflate) inflate.push(new Uint8Array(0), true);
-  parser.end();
-  for (let b = blocks.take(); b; b = blocks.take()) yield b;
+  // A preview the server's disk guard ended (attachmentPreviewStore.js
+  // MAX_PREVIEW_BYTES) ends with a row that says so, without words.
+  const extra = records.meta.truncated ? 1 : 0;
+  const view = new IndexedView(container, {
+    count: records.count + extra, viewportHeight, className: 'attachment-preview-records',
+    rowsAt: async (first, n) => {
+      const rows = await records.rowsAt(first, Math.min(n, records.count - first));
+      if (extra && first + n > records.count) rows.push({ k: 'more', v: '\u22ef' });
+      return rows;
+    },
+    renderRows: recordRenderer(container.ownerDocument, labels),
+  });
+  await view.start();
+  return { view, records, destroy() { view.destroy(); container.replaceChildren(); } };
 }
 
 // --- opening ------------------------------------------------------------------
@@ -566,41 +457,8 @@ export async function openRichAttachment({ container, rich, extension, language,
         } });
     }
     case 'opendocument':
-      container.replaceChildren();
-      return openGrowing({ container, viewportHeight, emptyText: labels.empty, className: 'attachment-preview-odf',
-        next: batches(odfStream(reader)),
-        renderRow: block => {
-          if (block.kind === 'heading') return element(doc, 'h3', block.text);
-          if (block.kind === 'paragraph') return element(doc, 'p', block.text);
-          if (block.kind === 'page') return element(doc, 'h2', block.name, 'attachment-preview-page');
-          return cellsRow(doc, block.cells);
-        } });
-    case 'outlook': {
-      // A Compound File's streams are scattered through it: it is read whole.
-      assertSourceSize(reader.size);
-      const bytes = await reader.bytes(0, reader.size);
-      const { readOutlookMsg } = await import('../../models/lib/outlookMsgFormat.js');
-      const msg = readOutlookMsg(bytes);
-      if (signal && signal.aborted) return { destroy() {} };
-      container.replaceChildren();
-      const people = list => (list || []).map(p => (p.name && p.address ? `${p.name} <${p.address}>` : p.name || p.address))
-        .filter(Boolean).join(', ');
-      const dl = element(doc, 'dl', undefined, 'attachment-preview-fields');
-      for (const [label, value] of [[labels.from, people([msg.from])], [labels.to, people(msg.to)],
-        [labels.cc, people(msg.cc)], [labels.subject, msg.subject], [labels.date, localDate(msg.date)],
-        [labels.attachments, (msg.files || []).map(f => f.name).join(', ')]]) {
-        if (!value) continue;
-        dl.appendChild(element(doc, 'dt', label));
-        dl.appendChild(element(doc, 'dd', value));
-      }
-      container.appendChild(dl);
-      const body = element(doc, 'div', undefined, 'attachment-preview-mail-body');
-      container.appendChild(body);
-      const view = new WindowView(body, { all: rowsOfText(msg.text || ''), size: 0, viewportHeight,
-        renderRows: textRenderer(doc, null), className: 'attachment-preview-text' });
-      await view.start();
-      return { view, destroy() { view.destroy(); container.replaceChildren(); } };
-    }
+    case 'outlook':
+      return openRecords({ container, url, signal, fetchImpl, labels, viewportHeight });
     default:
       throw new TypeError(`No viewer for ${rich}`);
   }

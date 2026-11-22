@@ -494,6 +494,22 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
   border-block-start: 1px solid #c1c7d0;
   padding-block-start: 0.5em;
 }
+.attachment-preview-field .attachment-preview-label {
+  display: inline-block;
+  min-width: 8em;
+  font-weight: bold;
+  font-family: inherit;
+}
+.attachment-preview-records .attachment-window-row {
+  font-family: inherit;
+}
+.attachment-preview-heading {
+  font-weight: bold;
+}
+.attachment-preview-records .attachment-preview-page {
+  font-weight: bold;
+  border-block-start: 1px solid #c1c7d0;
+}
 .attachment-preview-markdown {
   height: 100%;
   overflow: auto;

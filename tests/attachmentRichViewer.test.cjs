@@ -109,7 +109,10 @@ test('lazy: the slideshow loads the viewer, and the viewer its libraries, only w
   assert.match(card, /import\('\/client\/lib\/attachmentRichViewer'\)/);
   const src = read('client/lib/attachmentRichViewer.js');
   assert.doesNotMatch(src, /^import .*(papaparse|highlight\.js|dompurify|fflate|htmlparser2|icalendarFormat|outlookMsgFormat)/m);
-  for (const lib of ['papaparse', 'highlight.js/lib/common', 'dompurify', 'fflate', 'htmlparser2']) {
+  // Outlook .msg and OpenDocument are converted on the server: the client
+  // loads no parser for them.
+  assert.doesNotMatch(src, /htmlparser2|outlookMsgFormat/);
+  for (const lib of ['papaparse', 'highlight.js/lib/common', 'dompurify', 'fflate']) {
     assert.ok(src.includes(`import('${lib}')`), lib);
   }
   const jade = read('client/components/cards/attachments.jade');
@@ -262,14 +265,61 @@ test('iCalendar: events and tasks as rows, read as far as scrolled', async () =>
   await assert.rejects(open('calendar', 'not a calendar\r\n'), /iCalendar/);
 });
 
-test('Outlook .msg: who, what and when, the attachments\' names, and the text windowed', async () => {
-  const { container } = await open('outlook', sampleMsg());
-  const fields = texts(container.querySelectorAll('dt, dd'));
-  assert.ok(fields.includes('Subject') && fields.includes('Quarterly plan'), fields.join('|'));
-  assert.ok(fields.includes('Attachments'));
-  assert.ok(fields.some(f => /megan@contoso\.com/i.test(f)), fields.join('|'));
-  assert.match(container.querySelector('.attachment-preview-mail-body').textContent, /Here is the plan/);
-  await assert.rejects(open('outlook', new Uint8Array(1024)));
+// Outlook .msg and OpenDocument are converted on the server
+// (server/lib/attachmentPreviewStore.js); the slideshow reads the converted rows
+// through <link>/preview-meta, -index and -rows, with Range.
+const os = require('node:os');
+const PREVIEW_TMP = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'wekan-richpreview-'));
+process.env.WRITABLE_PATH = PREVIEW_TMP;
+test.after(() => fs.rmSync(PREVIEW_TMP, { recursive: true, force: true }));
+const previewStore = require('../server/lib/attachmentPreviewStore.js');
+let previews = 0;
+
+async function openPreview(rich, bytes, extra = {}) {
+  const strategy = { getReadStream: r => require('node:stream').Readable.from([Buffer.from(bytes.subarray(r.start, r.end + 1))]) };
+  const made = await previewStore.ensurePreview({ _id: `p${(previews += 1)}`, size: bytes.length }, strategy, rich);
+  const log = { requests: 0, sent: 0 };
+  const fetchImpl = async (url, { headers = {} } = {}) => {
+    log.requests += 1;
+    const part = /\/preview-(meta|index|rows)$/.exec(url)[1];
+    if (part === 'meta') return new Response(JSON.stringify({ kind: made.info.kind, count: made.info.count, truncated: made.info.truncated }));
+    const file = fs.readFileSync(part === 'index' ? made.index : made.rows);
+    const m = /^bytes=(\d+)-(\d+)$/.exec(headers.Range || '');
+    const slice = file.subarray(Number(m[1]), Number(m[2]) + 1);
+    log.sent += slice.length;
+    return new Response(slice, { status: 206 });
+  };
+  const container = dom.window.document.createElement('div');
+  const preview = await viewer.openRichAttachment({ container, rich, url: '/cdn/storage/attachments/x', size: bytes.length,
+    signal: { aborted: false }, labels: LABELS, fetchImpl, viewportHeight: 400, ...extra });
+  return { container, preview, view: preview.view, log, made };
+}
+
+test('Outlook .msg: who, what and when, the attachments\' names, and the text, from the server\'s converted rows', async () => {
+  const { container } = await openPreview('outlook', sampleMsg());
+  const rows = [...container.querySelectorAll('.attachment-preview-field')].map(r => texts(r.children));
+  assert.ok(rows.some(([l, v]) => l === 'Subject' && v === 'Quarterly plan'), JSON.stringify(rows));
+  assert.ok(rows.some(([l, v]) => l === 'From' && /megan@contoso\.com/i.test(v)));
+  assert.ok(rows.some(([l, v]) => l === 'Attachments' && v === 'plan.xlsx'));
+  assert.ok(texts(container.querySelectorAll('.attachment-window-row')).includes('Here is the plan.'));
+});
+
+test('a converted preview of any length: the scrollbar is exactly its rows, and only the visible ones are fetched', async () => {
+  const body = Array.from({ length: 200000 }, (_, i) => `Line ${i}`).join('\r\n');
+  const { container, view, log, made } = await openPreview('outlook', sampleMsg({ body, big: 10 }));
+  assert.equal(view.count, made.info.count);
+  const shown = () => texts(container.querySelectorAll('.attachment-window-row'));
+  assert.ok(container.querySelectorAll('.attachment-window-row').length <= view.visibleCount(), 'only the visible rows are drawn');
+  const rowsFile = fs.statSync(made.rows).size;
+  view.scroller.scrollTop = Math.round(view.maxScroll / 2);
+  await view.update();
+  const middle = view.first;
+  assert.ok(Math.abs(middle - (made.info.count - view.visibleCount() + 1) / 2) <= 2, `the middle of the scrollbar is the middle row (${middle})`);
+  assert.ok(shown().some(t => /^Line \d+$/.test(t)));
+  view.scroller.scrollTop = view.maxScroll;
+  await view.update();
+  assert.equal(shown().pop(), 'Line 199999', 'the end is the last row');
+  assert.ok(log.sent < rowsFile / 20, `only windows of the rows were fetched (${log.sent} of ${rowsFile})`);
 });
 
 const ODF = (body, prefix = 'text') => `<?xml version="1.0" encoding="UTF-8"?>
@@ -277,53 +327,30 @@ const ODF = (body, prefix = 'text') => `<?xml version="1.0" encoding="UTF-8"?>
  xmlns:${prefix}="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
  xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0"
  xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"><office:body>${body}</office:body></office:document-content>`;
-const odfFile = (xml, extra = {}) => zipSync({ mimetype: [strToU8('application/vnd.oasis.opendocument.text'), { level: 0 }],
-  ...extra, 'content.xml': strToU8(xml) });
+const odfFile = xml => zipSync({ mimetype: [strToU8('application/vnd.oasis.opendocument.text'), { level: 0 }], 'content.xml': strToU8(xml) });
 
-test('OpenDocument: text, sheets and slides from content.xml alone, read as far as scrolled', async () => {
-  const odt = ODF('<office:text><text:h>Plan</text:h><text:p>One<text:s text:c="3"/>two<text:tab/>three'
-    + '<text:line-break/>&lt;b&gt;four&lt;/b&gt;<text:note><text:p>footnote</text:p></text:note></text:p><text:p/></office:text>');
-  // A 5 MB picture beside it is never downloaded.
-  const file = odfFile(odt, { 'Pictures/big.png': [new Uint8Array(5 * 1024 * 1024).map((_, i) => (i * 7919) % 251), { level: 0 }] });
-  const text = await open('opendocument', file);
-  assert.equal(text.container.querySelector('h3').textContent, 'Plan');
-  assert.equal(text.container.querySelector('p').textContent, 'One   two\tthree\n<b>four</b>');
-  assert.equal(text.container.querySelector('b'), null);
-  assert.ok(text.log.sent < 1024 * 1024, `only the directory and content.xml were read (${text.log.sent} of ${file.length})`);
-
-  // Another prefix for the same namespace is read the same.
-  const renamed = await open('opendocument', odfFile(ODF('<office:text><t:p>Renamed</t:p></office:text>', 't')));
-  assert.equal(renamed.container.querySelector('p').textContent, 'Renamed');
-
-  const ods = ODF('<office:spreadsheet><table:table table:name="Sheet1"><table:table-row>'
-    + '<table:table-cell><text:p>a</text:p></table:table-cell><table:table-cell table:number-columns-repeated="2"><text:p>b</text:p></table:table-cell>'
-    + '<table:table-cell table:number-columns-repeated="16000"/></table:table-row>'
-    + '<table:table-row table:number-rows-repeated="3"><table:table-cell><text:p>same</text:p></table:table-cell></table:table-row>'
-    + '<table:table-row table:number-rows-repeated="1048570"><table:table-cell table:number-columns-repeated="16384"/></table:table-row>'
-    + '</table:table></office:spreadsheet>');
-  const sheet = await open('opendocument', odfFile(ods));
-  assert.equal(sheet.container.querySelector('h2').textContent, 'Sheet1');
-  assert.deepEqual([...sheet.container.querySelectorAll('.attachment-csv-row')].map(r => texts(r.children)),
-    [['a', 'b', 'b'], ['same'], ['same'], ['same']], 'repeated rows each shown; the empty rest of the grid is not content');
-
-  const odp = ODF('<office:presentation><draw:page draw:name="Intro"><draw:frame><draw:text-box>'
-    + '<text:p>Welcome</text:p></draw:text-box></draw:frame></draw:page><draw:page draw:name="Next"/></office:presentation>');
-  const slides = await open('opendocument', odfFile(odp));
-  assert.deepEqual(texts(slides.container.querySelectorAll('h2')), ['Intro', 'Next']);
-  assert.equal(slides.container.querySelector('p').textContent, 'Welcome');
-
-  // 50,000 paragraphs: no limit, read as far as scrolled.
-  const long = ODF(`<office:text>${Array.from({ length: 50000 }, (_, i) => `<text:p>p${i}</text:p>`).join('')}</office:text>`);
-  const doc = await open('opendocument', odfFile(long));
-  assert.ok(doc.view.rows.length < 50000, 'not all read at once');
-  for (let i = 0; i < 400 && !doc.view.done; i += 1) await scrollTo(doc.view, doc.view.totalPx());
-  assert.equal(doc.view.rows.length, 50000);
-  assert.ok(doc.container.querySelectorAll('p').length < 60, 'only the visible paragraphs are in the page');
+test('OpenDocument: headings, paragraphs, sheets and slides as rows - text, never markup', async () => {
+  const xml = ODF('<office:text><text:h>Plan</text:h><text:p>&lt;b&gt;four&lt;/b&gt;</text:p>'
+    + '<table:table table:name="Sheet1"><table:table-row><table:table-cell><text:p>a</text:p></table:table-cell>'
+    + '<table:table-cell table:number-columns-repeated="2"><text:p>b</text:p></table:table-cell></table:table-row></table:table>'
+    + '<draw:page draw:name="Intro"/></office:text>');
+  const { container } = await openPreview('opendocument', odfFile(xml));
+  assert.equal(container.querySelector('.attachment-preview-heading').textContent, 'Plan');
+  assert.ok(texts(container.querySelectorAll('.attachment-window-row')).includes('<b>four</b>'));
+  assert.equal(container.querySelector('b'), null);
+  assert.deepEqual(texts(container.querySelectorAll('.attachment-csv-row')[0].children), ['a', 'b', 'b']);
+  assert.deepEqual(texts(container.querySelectorAll('.attachment-preview-page')), ['Sheet1', 'Intro']);
+  const renamed = await openPreview('opendocument', odfFile(ODF('<office:text><t:p>Renamed</t:p></office:text>', 't')));
+  assert.ok(texts(renamed.container.querySelectorAll('.attachment-window-row')).includes('Renamed'), 'another prefix, the same namespace');
 });
 
-test('negative: an OpenDocument without content.xml is refused', async () => {
-  await assert.rejects(open('opendocument', zipSync({ mimetype: strToU8('x') })), /content\.xml/);
-  await assert.rejects(open('opendocument', new Uint8Array(100)), /ZIP/);
+test('negative: a preview the server cannot make, or refuses, is an error - not a blank slide', async () => {
+  const container = dom.window.document.createElement('div');
+  const fetchImpl = async () => new Response('', { status: 422 });
+  await assert.rejects(viewer.openRichAttachment({ container, rich: 'opendocument', url: '/x', size: 10, fetchImpl,
+    signal: { aborted: false }, labels: LABELS }), /422/);
+  await assert.rejects(previewStore.ensurePreview({ _id: 'bad', size: 100 },
+    { getReadStream: () => require('node:stream').Readable.from([Buffer.alloc(100)]) }, 'opendocument'), /ZIP/);
 });
 
 test('negative: a refused download, and a slide already left, are not rendered', async () => {
@@ -338,6 +365,6 @@ test('negative: a refused download, and a slide already left, are not rendered',
 test('negative: no row, entry or size limit is left in the viewers', () => {
   const src = read('client/lib/attachmentRichViewer.js') + read('client/lib/zipAttachmentViewer.js');
   assert.doesNotMatch(src, /MAX_TABLE_ROWS|MAX_ARCHIVE_ENTRIES|MAX_ZIP_ENTRIES|MORE_MARK|readBoundedResponse/);
-  // Only the Outlook reader, whose format is scattered through the file, reads it whole.
-  assert.equal((src.match(/assertSourceSize\(/g) || []).length, 1);
+  // Nothing reads a file whole any more: the scattered formats are converted on the server.
+  assert.equal((src.match(/assertSourceSize\(/g) || []).length, 0);
 });
