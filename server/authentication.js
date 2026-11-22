@@ -316,7 +316,9 @@ export async function reconfigureOidc() {
         // claims read from the ID token rather than a userinfo endpoint.
         ...(() => {
           const mode = require('/models/lib/oidcProviderMode');
-          const env = { OAUTH2_RESPONSE_MODE: authEnv('OAUTH2_RESPONSE_MODE'), OAUTH2_CLAIMS_IN_ID_TOKEN: authEnv('OAUTH2_CLAIMS_IN_ID_TOKEN'),
+          // The two provider quirks are environment-only (tests/envVarCoverage.test.cjs
+          // ENV_ONLY): Apple's are set by itself; these are for another provider.
+          const env = { OAUTH2_RESPONSE_MODE: process.env.OAUTH2_RESPONSE_MODE, OAUTH2_CLAIMS_IN_ID_TOKEN: process.env.OAUTH2_CLAIMS_IN_ID_TOKEN,
             OAUTH2_ADFS_ENABLED: authEnv('OAUTH2_ADFS_ENABLED'), OAUTH2_B2C_ENABLED: authEnv('OAUTH2_B2C_ENABLED') };
           const serverUrl = authEnv('OAUTH2_SERVER_URL');
           return {

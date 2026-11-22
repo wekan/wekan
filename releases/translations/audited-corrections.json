@@ -217810,5 +217810,26 @@
     "before": "S3 rarmeH Daq port mI'",
     "after": "S3 rarmeH Daq lojmIt mI'",
     "reason": "Replace French, German, English or mixed text with Klingon (tlhIngan Hol)."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "假使勒“管理面板 / 问题 / 删除”里向勾选“畀全局管理员启用永久删除”，搿搭就会显示“删除”按钮。",
+    "after": "假使勒“管理面板 / 设置 / 删除”里向勾选“畀全局管理员启用永久删除”，搿搭就会显示“删除”按钮。",
+    "reason": "2026-11-22: the Enable permanent delete switch is in Admin Panel / Settings / Delete, not Problems / Delete; the menu path only is corrected."
+  },
+  {
+    "locale": "co",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "S’è Attivà a squassatura permanente per l’amministratore glubale hè marcatu in Pannellu d’amministrazione / Prublemi / Squassà, u buttone Squassà diventerà visibile quì.",
+    "after": "S’è Attivà a squassatura permanente per l’amministratore glubale hè marcatu in Pannellu d’amministrazione / Parametri / Squassà, u buttone Squassà diventerà visibile quì.",
+    "reason": "2026-11-22: the Enable permanent delete switch is in Admin Panel / Settings / Delete, not Problems / Delete; the menu path only is corrected."
+  },
+  {
+    "locale": "la",
+    "key": "archive-permanent-delete-disabled-hint",
+    "before": "Si in Tabula administrationis / Problemata / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
+    "after": "Si in Tabula administrationis / Optiones / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
+    "reason": "2026-11-22: the Enable permanent delete switch is in Admin Panel / Settings / Delete, not Problems / Delete; the menu path only is corrected."
   }
 ]

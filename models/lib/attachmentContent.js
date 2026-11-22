@@ -72,7 +72,14 @@ function decodeText(bytes) {
 function plainSearchText(value, { markup = false } = {}) {
   let text = String(value || '');
   if (markup) {
-    text = text.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ').replace(/<[^>]*>/g, ' ')
+    // Until nothing more is removed: a single pass leaves the tag that two
+    // overlapping ones join into (tests/tagStrippingFixedPoint.test.cjs).
+    let before;
+    do {
+      before = text;
+      text = text.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>|<[^>]*>/gi, ' ');
+    } while (text !== before);
+    text = text
       .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
       .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
   }

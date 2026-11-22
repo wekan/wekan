@@ -205,6 +205,7 @@ const ELSEWHERE = [
   [/^PASSWORDLESS_ENABLED$/, 'People / Passwordless login'],
   [/^ACCOUNTS_LOCKOUT_/, 'People / Locked Users (lockoutSettings)'],
   [/^INTERNAL_LOG_LEVEL$/, 'deprecated, has no effect'],
+  [/^OAUTH2_(RESPONSE_MODE|CLAIMS_IN_ID_TOKEN)$/, 'environment-only OIDC provider quirks; Sign in with Apple sets both by itself (models/lib/oidcProviderMode.js, tests/envVarCoverage.test.cjs ENV_ONLY)'],
 ];
 const LOGIN_NAME = /^(LDAP|OAUTH2|OIDC|CAS|CASE|HEADER_LOGIN|ORACLE_OIM|PASSWORD_LOGIN|PROPAGATE_OIDC|ACCOUNTS_COMMON)_[A-Z0-9_]+$/;
 

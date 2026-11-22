@@ -64,7 +64,8 @@ test('disabled permanent delete replaces the selection hint and Delete button', 
   );
   assert.strictEqual(
     en['archive-permanent-delete-disabled-hint'],
-    'If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.',
+    // The switch is in Admin Panel / Settings / Delete (it moved from Problems).
+    'If at Admin Panel / Settings / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.',
   );
 });
 

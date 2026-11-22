@@ -54,7 +54,7 @@ assert.deepEqual(tokens(cornish['activity-checklist-completed-card']),
 assert.equal(cornish['allboards.workspaces'], 'Leow ober');
 assert.match(cornish['allboards.edit-workspace-icon'], /markdown/);
 assert.match(cornish['archive-permanent-delete-disabled-hint'],
-  /Admin Panel.*Problems.*Delete/);
+  /Admin Panel.*Settings.*Delete/); // the switch moved from Problems to Settings
 assert.match(cornish['archive-permanent-delete-disabled-hint'],
   /Enable permanent delete for Global Admin/);
 assert.deepEqual(tokens(cornish['activity-dueDate']), ['%s', '%s']);

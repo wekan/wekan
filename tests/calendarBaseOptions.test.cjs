@@ -46,7 +46,9 @@ test('an untranslated label falls back to English, never the key (negative)', ()
 });
 
 test('both views build on it and set only what differs', () => {
-  for (const [file, editable] of [['client/components/boards/boardBody.js', true],
+  // The board's calendar writes only for who may write on the board
+  // (tests/calendarWriteGate.test.cjs); the multi-board one never does.
+  for (const [file, editable] of [['client/components/boards/boardBody.js', 'Utils\\.canModifyBoard\\(\\)'],
     ['client/components/boards/multiboardCalendarView.js', false]]) {
     const src = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
     assert.match(src, /\.\.\.calendarBaseOptions\(\{/, `${file} uses the shared options`);

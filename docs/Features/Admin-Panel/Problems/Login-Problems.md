@@ -24,7 +24,7 @@ causes.
   `ROOT_URL`, which must match the address users open.
 - [Lightweight Directory Access Protocol](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) -
   the directory server whose connection limit can be exhausted.
-- [Sandstorm](https://sandstorm.io/) - the platform whose grains authenticate
+- [Sandstorm](https://sandstorm.org/) - the platform whose grains authenticate
   asynchronously.
 - WeKan: [Migrations](Migrations.md), [CPU usage](CPU-usage.md),
   [Snap](Snap.md), [Summary](Summary.md).
