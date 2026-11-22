@@ -85,6 +85,9 @@ export const NOT_COPIED = {
   subtasksDefaultSwimlaneId: 'a swimlane of another board of the exporting WeKan',
   dateSettingsDefaultBoardId: 'another board of the exporting WeKan',
   dateSettingsDefaultListId: 'a list of another board of the exporting WeKan',
+  // Board Settings / Shop names custom fields, lists, an orders board and its
+  // admin of the exporting WeKan, and a shop opens only when an admin saves it.
+  shopSettings: 'the shop names custom fields, lists and an orders board of the exporting WeKan; a board admin sets it up on the new board',
 };
 
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
