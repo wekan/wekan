@@ -1,5 +1,7 @@
 # Design: the header
 
+## What it is
+
 WeKan has **one** header bar. It is always on screen, it says where you are, and
 it holds the controls of whatever page you are on.
 
@@ -10,7 +12,103 @@ few that still have something only it can hold, and `#header` is not rendered at
 all where a page has none — it is a coloured block with a height of its own, so
 leaving it in painted a tall empty strip under the first bar.
 
-## What the bar says
+## Read more
+
+- [Navigation bar](https://en.wikipedia.org/wiki/Navigation_bar),
+  [Breadcrumb navigation](https://en.wikipedia.org/wiki/Breadcrumb_navigation)
+  and [Hamburger button](https://en.wikipedia.org/wiki/Hamburger_button) on
+  Wikipedia - the page title's path and the sidebar toggle.
+- [Fullscreen API](https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API)
+  on MDN - what the full screen button uses.
+- [flex-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap),
+  [display](https://developer.mozilla.org/en-US/docs/Web/CSS/display) (for
+  `display: contents`), [CSS logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values)
+  and [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+  - how the bar wraps, mirrors and measures itself.
+- [WCAG 2.1: Label in Name](https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html)
+  - why every button shows its name.
+- In WeKan: [Starred](../Pages/Starred.md), [Board key](Board-Title/Board-Key.md),
+  [Admin Panel URLs](../Admin-Panel/Admin-Panel-URLs.md),
+  [All Boards URLs](../All-Boards/URLs.md).
+
+## How to use it
+
+1. Click the **house** at the start of the bar to go to All Boards.
+2. Click the **collapse control** right after the house to hide the icons from
+   the phone/desktop toggle through the notification bell; click it again to
+   show them.
+3. Read the page title after it; hover it to see the whole path, e.g.
+   *All Boards / Workspaces / Engineering / Backend*.
+4. On a board, as a board admin, click the board's **title** to rename it (and
+   to change its [board key](Board-Title/Board-Key.md)).
+5. Click the full screen button to the right of the logo (**Maximize**); click
+   it again (**Minimize**) or press Esc to leave full screen.
+6. On a board, click the **caret** before the board's controls to fold Private,
+   Muted, Sort Cards, Filter, Search, Show dependencies and Multi-Selection away,
+   and again to bring them back.
+7. Use the **star group**: the caret and count open your starred items, the
+   star stars or unstars what you are looking at. See [Starred](../Pages/Starred.md).
+8. Click **Filter** or **Search** to open the sidebar on that view, and again to
+   close it (Filter stays open while a filter is on).
+9. At the end of the bar: help, your **avatar and name** (the member menu), and
+   the **hamburger** that opens the page's sidebar where the page has one.
+
+## How the numbers are calculated
+
+### Where the bar starts
+
+The All Boards **house** is the first thing on the page, and it starts on the
+same vertical line as the **left menu's rows** below it — **22px** — at *every*
+window width. One line down the left edge of the page.
+
+That 22px is a **sum**, and the whole of it is:
+
+- **12px** — `--wekan-header-gutter`, the bar's own padding. It is on the BAR
+  rather than on its first item because the bar wraps: padding applies to every
+  row it wraps onto, while a margin on the first item would indent the first row
+  and leave the second starting at the edge.
+- **4px** — `.home-icon`'s inline-start margin, the same 4px every item in the
+  bar carries.
+- **6px** — the `.header-home-link`'s own padding, which is its hover target,
+  not an inset.
+
+The left menu reaches the same 22px its own way: 4px of row margin plus 18px of
+row padding (`boardsList.css`, `settingBody.css`), and both menus indent alike.
+
+**Nothing else may add to that sum at some widths only.** Two things did, which
+is why the house sat at a different X on a phone, a tablet, a desktop and a large
+display:
+
+- `#header` had side padding of its own — 8px ≤800px, 16px at 768–1024px, none
+  between, 8px at ≥1920px. It has **none** now, at any width: the inset is the
+  bar's gutter, once.
+- `.allBoards` is the **same element** as `.home-icon` (`span.home-icon.allBoards`),
+  so its side padding lands between the icon's margin and the link — and it was
+  15px on a desktop against 6px on a phone. It carries `padding-block` only now.
+  Its 15px was also the gap to the logo beside it; that gap is the 4 + 4 of the
+  two margins, like every other pair of neighbours in this bar.
+
+The rules for the link itself all start it at the same 6px, phone rules included:
+a bigger tap target on a small screen grows at the **end**, not at the start.
+
+`tests/headerBars.test.cjs` pins both halves — the sum, and that no rule at any
+width adds to it.
+
+### Spacing, sizes and the height below the bar
+
+- Every item has **4px** on each side, so two neighbours are **8px** apart.
+- The bell, a fixed **28px** square elsewhere, sizes to its content in this bar
+  so its label fits.
+- On narrow screens the username is `font-size: 0` except on All Boards and the
+  Admin Panel, because a full name is easily 100px of a 375px bar.
+- `--wekan-header-height` is the bottom of the lowest header bar present (not a
+  sum of heights), kept current by one `ResizeObserver` per bar in
+  `client/lib/utils.js`.
+- The fold state lasts the session (`client/lib/foldState.js`).
+
+## How it works in WeKan
+
+### What the bar says
 
 The header starts with the **Home icon**, the **collapse control**, then
 **the page you are on**. The collapse control sits immediately to the right of
@@ -38,7 +136,7 @@ a board called "settings" is not the Admin Panel.
 A route nobody has added answers with nothing and the bar shows nothing — better
 than naming the wrong page.
 
-### …and the path, in its tooltip
+#### …and the path, in its tooltip
 
 Two pages are several places under one name. The bar shows the **root** —
 `All Boards`, `Admin Panel` — and the whole path is the title's **tooltip**:
@@ -80,7 +178,7 @@ aborted every module after it, which is why `client/lib/pageTitleSources.js`
 exists — it registers no template and touches no DOM, so it is safe to load
 early.
 
-## What the bar holds
+### What the bar holds
 
 In source order: the house and the page title, the logo, the full screen button,
 the phone/desktop toggle, the drag-handles toggle, and then everything else.
@@ -206,7 +304,7 @@ way. Its own stylesheet makes it a fixed 28px *square*, which is right for a lon
 icon and clips a word, so in this bar it sizes to its content; scoped to this
 bar, because elsewhere the toggle is still just a bell.
 
-### The username
+#### The username
 
 `header-keeps-text` marks All Boards and the Admin Panel, where the **username**
 stays at every width. Elsewhere the narrow-screen rules collapse it to
@@ -221,13 +319,13 @@ widest of them carry `.iphone-device`, which outweighs an id and a class on its
 own, so a single short override would lose on exactly the narrow screens this is
 about.
 
-### The star group
+#### The star group
 
 Two buttons, drawn as one thing with a rounded outline of its own:
 
 | | |
 | --- | --- |
-| caret + **count** | how many boards you have starred — opens the list of them |
+| caret + **count** | how many things you have starred — boards, pages, swimlanes, lists and cards — opens the list of them |
 | **star** | whether *this* board is one of them; clicking it toggles |
 
 The dropdown used to carry a star icon as well, so with the board's own star
@@ -241,14 +339,17 @@ shows against it, while these buttons sit on the bar's own colour and need a
 light one. Without any outline the two read as unrelated icons that happen to be
 adjacent.
 
-The dropdown's popup is **titled** "Starred Boards" and so has a header, and the
+The dropdown's popup is **titled** "Starred" and so has a header, and the
 header is what carries the close button — a titleless pop-over renders `no-title`
-with nothing to shut it but clicking away.
+with nothing to shut it but clicking away. (It was "Starred Boards" while the
+list held boards only.)
 
-The title reuses `starred-boards`, the key the app **already** has for that
-phrase, through a `titleKey` option on `Popup.open`. The convention is
+The title reuses `allboards.starred`, the key the app **already** has for that
+word (it used `starred-boards` before bookmarks to pages were added), through a
+`titleKey` option on `Popup.open`. The convention is
 `<popupName>-title`, which is right when a title is that popup's own words and
-wrong here: it would put a second copy of one phrase into all 147 language files,
+wrong here: it would put a second copy of one phrase into every language file (147 then,
+246 now),
 English in every one at first, so most languages would show English for something
 they have already translated.
 
@@ -258,7 +359,7 @@ this bar can place it here rather than among the board's other controls further
 along — a Blaze event map only sees events inside its own template, so its
 helpers and its click came with its markup.
 
-### Filter and Search shut what they opened
+#### Filter and Search shut what they opened
 
 Clicking either while the sidebar is already showing its view **closes** it — the
 control that opened the panel is the one you reach for to shut it, and they only
@@ -284,7 +385,7 @@ checked in every combination without a DOM.
 a shade darker. Darker rather than equal: hovering the tab you are already on has
 to still look like a hover.
 
-### It wraps
+#### It wraps
 
 `#header-quick-access` is `flex-wrap: wrap` with a row gap, and **every** height
 on it is a minimum. It used to be one row with `overflow: hidden`, so a button
@@ -301,46 +402,7 @@ contributes nothing without a special case — and each bar has its own
 `ResizeObserver`, because the first one wrapping to a second row is a resize of
 that element and of nothing else. `client/lib/utils.js` keeps it current.
 
-## Where the bar starts
-
-The All Boards **house** is the first thing on the page, and it starts on the
-same vertical line as the **left menu's rows** below it — **22px** — at *every*
-window width. One line down the left edge of the page.
-
-That 22px is a **sum**, and the whole of it is:
-
-- **12px** — `--wekan-header-gutter`, the bar's own padding. It is on the BAR
-  rather than on its first item because the bar wraps: padding applies to every
-  row it wraps onto, while a margin on the first item would indent the first row
-  and leave the second starting at the edge.
-- **4px** — `.home-icon`'s inline-start margin, the same 4px every item in the
-  bar carries.
-- **6px** — the `.header-home-link`'s own padding, which is its hover target,
-  not an inset.
-
-The left menu reaches the same 22px its own way: 4px of row margin plus 18px of
-row padding (`boardsList.css`, `settingBody.css`), and both menus indent alike.
-
-**Nothing else may add to that sum at some widths only.** Two things did, which
-is why the house sat at a different X on a phone, a tablet, a desktop and a large
-display:
-
-- `#header` had side padding of its own — 8px ≤800px, 16px at 768–1024px, none
-  between, 8px at ≥1920px. It has **none** now, at any width: the inset is the
-  bar's gutter, once.
-- `.allBoards` is the **same element** as `.home-icon` (`span.home-icon.allBoards`),
-  so its side padding lands between the icon's margin and the link — and it was
-  15px on a desktop against 6px on a phone. It carries `padding-block` only now.
-  Its 15px was also the gap to the logo beside it; that gap is the 4 + 4 of the
-  two margins, like every other pair of neighbours in this bar.
-
-The rules for the link itself all start it at the same 6px, phone rules included:
-a bigger tap target on a small screen grows at the **end**, not at the start.
-
-`tests/headerBars.test.cjs` pins both halves — the sum, and that no rule at any
-width adds to it.
-
-## The sidebar, and the hamburger
+### The sidebar, and the hamburger
 
 A page's controls used to live in its own second header bar beside its `h1`. The
 title moved here and the controls moved into a **right sidebar**, so a page is its
@@ -359,7 +421,7 @@ click away. A board is deliberately not in that list: what its sidebar holds —
 members, labels, activities, settings — is not in the bar and has nowhere else to
 be opened from.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -381,3 +443,33 @@ be opened from.
 - [All Boards URLs](../All-Boards/URLs.md) — the sections, workspaces and their title path
 - [All Boards](../All-Boards/All-Boards.md) — the four controls this bar holds there
 - [Linking to a swimlane, list or card](../General/Board-Item-Links.md) — where the card's copy button went
+
+## Commits
+
+ - [The opened card covers the header bar on an iPad](https://github.com/wekan/wekan/commit/006d24502cb75db95c02c1be3898efeefff6ccaf)
+ - [The full screen button says Minimize while the page is in full screen](https://github.com/wekan/wekan/commit/f6fc97e77abc2acbee52ed41755d1a980e5452d5)
+ - [A full screen button in the header bar, to the right of the logo](https://github.com/wekan/wekan/commit/f25957dcf3d5b695522e929df5666ac661a01054)
+ - [Move the header collapse control beside Home](https://github.com/wekan/wekan/commit/8cfee938301c1eee5b269d50e26c03ecfe8ed61e)
+ - [Fix regressions from the header-icons collapse toggle](https://github.com/wekan/wekan/commit/d985994bd91ca61c65d47b0450c5e72bb3c4a0c4)
+ - [Add a header-icons collapse toggle](https://github.com/wekan/wekan/commit/d1b01924e1ecedac6bf3e6d0e6b23eb774a0c6f9)
+ - [Remove the starred header group's border](https://github.com/wekan/wekan/commit/0bf5b7bdae4f90a450fa54e6256b377450b5abcd)
+ - [The board's controls fold into one caret](https://github.com/wekan/wekan/commit/7d0396ebec899e0ade36d78cf6a19ad8f6fba4ff)
+ - [Edit a board's title where it is written, in the header bar](https://github.com/wekan/wekan/commit/c6ad79562955d1993d703e9d57885ae5db20088f)
+ - [The All Boards house starts at the same X at every window width](https://github.com/wekan/wekan/commit/93042642f4fe3ae91d0b54e988a97d7ddcebdd5d)
+ - [The first header bar starts where the left menus start](https://github.com/wekan/wekan/commit/28a5973c6b00d85a4c2a24e608e6dfd777a36df4)
+ - [The username, the pencil, the avatar, and the gap after the house](https://github.com/wekan/wekan/commit/b2114f276317a5a974fc0fdebfb36711a994346a)
+ - [Your account and the sidebar toggle sit at the end](https://github.com/wekan/wekan/commit/259aa81e2e4410c11592aaf0db0aa72c1233e34f)
+ - [The logo gets the same space on both sides as everything else](https://github.com/wekan/wekan/commit/b064a509fbe7ed38962c8cf6ef5b393819bd2c87)
+ - [The board's controls wrap one button at a time, not as a block](https://github.com/wekan/wekan/commit/2fb4f471204935e92156c4756e1705aef790dc88)
+ - [One run of items from the start, and every button keeps its name](https://github.com/wekan/wekan/commit/3a391ea813ade764926c623057d89a42d9fd1035)
+ - [Keep the username, name the bell](https://github.com/wekan/wekan/commit/51b04f660b2d115d436b24dd315ab2b65b6feb78)
+ - [Show the root, put the path in its tooltip](https://github.com/wekan/wekan/commit/145d76c286babd0325d34c26e89cb5a73aa6cc46)
+ - [Search shuts the panel it opened](https://github.com/wekan/wekan/commit/574c72370f2aca08abfd5d73b7b1af571be7d9db)
+ - [Fill each row before starting the next](https://github.com/wekan/wekan/commit/9a1463d7e044b598a85bcfc1aac38e3144a1666b)
+ - [One star group, named view menus, and a Filter button that shuts](https://github.com/wekan/wekan/commit/f62258b5cbcd58c1366ae8e67929e56724385ec9)
+ - [First header bar: wrap rather than clip, and say where you are](https://github.com/wekan/wekan/commit/49f4e77aae4db4f3eec37ce376057db132c00f21)
+ - [The board's second header bar is gone](https://github.com/wekan/wekan/commit/0461de062fe111b930c1d39f159039464190ccc5)
+ - [Starred boards are a dropdown, not a row of links](https://github.com/wekan/wekan/commit/af6cdf7dc0f111532303ca1f75a17e374d7f17fe)
+ - [A page's controls move into a right sidebar](https://github.com/wekan/wekan/commit/705bed741368874e111a6441cca1ccf5ad137b38)
+ - [One colour, the page's own name, and one hamburger](https://github.com/wekan/wekan/commit/ffacc9a7dcf1dfc15f3bea1539458395d7c3c239)
+ - [Remove the 100% zoom feature from the header](https://github.com/wekan/wekan/commit/2f0445102b15ba62fabe4bb0fb5615045bf7e988)
