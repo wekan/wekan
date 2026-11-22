@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foḽuda ine ha ḓo vhulungwa khayo (nḓila yo fhelelaho, kha disiki iṅwe, vhuvhulungo ho kovhiwaho kha netiweke kana vhuvhulungo ha rclone ho ṱumanywaho)",
   "continuous-backup-include": "Itani bakapu ya",
   "continuous-backup-database": "Databeisi",
+  "wekan-data-no-database": "A hu na databeisi ya WeKan i vhalaeaho yo wanalaho.",
   "continuous-backup-logs": "Rekhodo dza mishumo",
   "continuous-backup-engine": "Nzhini ya databeisi",
   "continuous-backup-engine-auto": "Nga u ḓiitela",

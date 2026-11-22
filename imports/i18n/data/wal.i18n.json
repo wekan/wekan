@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Wottiyo maappiyaa (kumetta ogiyaa, hara diskkiyan, shaakettida gathuwa sa’an woykko rclone gathetettan)",
   "continuous-backup-include": "Naagiyo nusukaa medhdha",
   "continuous-backup-database": "Paayduwaa",
+  "wekan-data-no-database": "Nabbabettiya WeKan paayduwaa demettibeenna.",
   "continuous-backup-logs": "Mazgabata",
   "continuous-backup-engine": "Paayduwaa oottissiya miishshaa",
   "continuous-backup-engine-auto": "Bana giidi",

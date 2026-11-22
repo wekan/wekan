@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Málmappa (full leið á einum øðrum diski, einum felags netøki ella einum øki, sum er knýtt við rclone)",
   "continuous-backup-include": "Ger trygdaravrit",
   "continuous-backup-database": "Dátugrunnur",
+  "wekan-data-no-database": "Eingin lesiligur WeKan-dátugrunnur varð funnin.",
   "continuous-backup-logs": "Loggar",
   "continuous-backup-engine": "Dátugrunnsmotorur",
   "continuous-backup-engine-auto": "Sjálvvirkandi",

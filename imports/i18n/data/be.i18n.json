@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Мэтавы каталог (абсалютны шлях на іншым дыску, у агульным сеткавым рэсурсе або ў сховішчы, падключаным праз rclone)",
   "continuous-backup-include": "Уключыць у рэзервовую копію",
   "continuous-backup-database": "База даных",
+  "wekan-data-no-database": "Не знойдзена чытэльная база даных WeKan.",
   "continuous-backup-logs": "Журналы",
   "continuous-backup-engine": "Рухавік базы даных",
   "continuous-backup-engine-auto": "Аўтаматычна",

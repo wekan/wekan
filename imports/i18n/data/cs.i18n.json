@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cílový adresář (absolutní cesta na jiném disku, v síťovém sdílení nebo v úložišti připojeném pomocí rclone)",
   "continuous-backup-include": "Zálohovat",
   "continuous-backup-database": "Databáze",
+  "wekan-data-no-database": "Nebyla nalezena žádná čitelná databáze WeKan.",
   "continuous-backup-logs": "Protokoly",
   "continuous-backup-engine": "Databázový stroj",
   "continuous-backup-engine-auto": "Automaticky",

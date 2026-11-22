@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Katalog docélowi (całownô stegna, na jinym diskù, w dzélonym môlu w sécë abò pùnktce mòntowaniô rclone)",
   "continuous-backup-include": "Zrobi kòpiã zapasową",
   "continuous-backup-database": "Baza pòdôwków",
+  "wekan-data-no-database": "Nie nalazłô sã żódnô czëtnô baza pòdôwków WeKan.",
   "continuous-backup-logs": "Dzénniczi",
   "continuous-backup-engine": "Mòtór bazë pòdôwków",
   "continuous-backup-engine-auto": "Aùtomatno",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ulbmilmáhppa (ollislaš bálggis eará skearrus, fierpmádatjuogus dahje čatnon rclone-vuorkás)",
   "continuous-backup-include": "Várrehukse",
   "continuous-backup-database": "Diehtovuođđu",
+  "wekan-data-no-database": "Ii gávdnon WeKan-diehtovuođđu man sáhttá lohkat.",
   "continuous-backup-logs": "Loggat",
   "continuous-backup-engine": "Diehtovuođđomohtor",
   "continuous-backup-engine-auto": "Automáhtalaččat",

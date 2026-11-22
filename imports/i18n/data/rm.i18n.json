@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ordinatur da destinaziun (via absoluta, sin in auter disc, ina resursa cundividida da rait u in punct da montadi rclone)",
   "continuous-backup-include": "Crear ina copia da segirezza da",
   "continuous-backup-database": "Banca da datas",
+  "wekan-data-no-database": "Nagina banca da datas WeKan legibla n'è vegnida chattada.",
   "continuous-backup-logs": "Protocols",
   "continuous-backup-engine": "Motor da la banca da datas",
   "continuous-backup-engine-auto": "Automaticamain",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "د موخې پوښۍ (په بل ډيسک، د شبکې په شريک ځای يا د rclone په نښلول شوي ځای کې بشپړه لار)",
   "continuous-backup-include": "شاتړ واخلئ",
   "continuous-backup-database": "ډيټابېس",
+  "wekan-data-no-database": "د لوستلو وړ د WeKan ډيټابېس ونه موندل شو.",
   "continuous-backup-logs": "ثبتونه",
   "continuous-backup-engine": "د ډيټابېس انجن",
   "continuous-backup-engine-auto": "په اتومات ډول",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ciljni imenik (absolutna pot na drugem disku, v omrežni skupni rabi ali v shrambi, priklopljeni z rclone)",
   "continuous-backup-include": "Varnostno kopiraj",
   "continuous-backup-database": "Podatkovna zbirka",
+  "wekan-data-no-database": "Ni bilo najdene berljive podatkovne zbirke WeKan.",
   "continuous-backup-logs": "Dnevniki",
   "continuous-backup-engine": "Pogon podatkovne zbirke",
   "continuous-backup-engine-auto": "Samodejno",

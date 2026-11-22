@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "پوشهٔ مقصد (مسیر مطلق روی دیسکی دیگر، منبع اشتراکی شبکه یا فضای ذخیره‌سازی متصل‌شده با rclone)",
   "continuous-backup-include": "موارد پشتیبان‌گیری",
   "continuous-backup-database": "پایگاه داده",
+  "wekan-data-no-database": "هیچ پایگاه دادهٔ خوانای WeKan پیدا نشد.",
   "continuous-backup-logs": "گزارش‌ها",
   "continuous-backup-engine": "موتور پایگاه داده",
   "continuous-backup-engine-auto": "خودکار",

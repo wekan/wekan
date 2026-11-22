@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Waqaychana pata (hunt'asqa ñan, huk discopi, llikapi rakisqa waqaychanapi utaq t'inkisqa rclone waqaychanapi)",
   "continuous-backup-include": "Amachana copiata ruray",
   "continuous-backup-database": "Willay pirwa",
+  "wekan-data-no-database": "Manam ñawinchay atina WeKan willay pirwa tarikunchu.",
   "continuous-backup-logs": "Llamkay qillqakuna",
   "continuous-backup-engine": "Willay pirwapa llamkachiqnin",
   "continuous-backup-engine-auto": "Kikinmanta akllan",

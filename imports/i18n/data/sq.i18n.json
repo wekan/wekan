@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Dosja e synuar (shteg absolut në një disk tjetër, në një burim të përbashkët rrjeti ose në një hapësirë ruajtjeje të montuar me rclone)",
   "continuous-backup-include": "Përfshi në kopjen rezervë",
   "continuous-backup-database": "Baza e të dhënave",
+  "wekan-data-no-database": "Nuk u gjet asnjë bazë të dhënash WeKan e lexueshme.",
   "continuous-backup-logs": "Regjistrat",
   "continuous-backup-engine": "Motori i bazës së të dhënave",
   "continuous-backup-engine-auto": "Automatik",

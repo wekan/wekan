@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Teikengids (absolute pad op ’n ander skyf, ’n gedeelde netwerkhulpbron of berging wat met rclone gekoppel is)",
   "continuous-backup-include": "Sluit by rugsteun in",
   "continuous-backup-database": "Databasis",
+  "wekan-data-no-database": "Geen leesbare WeKan-databasis is gevind nie.",
   "continuous-backup-logs": "Logboeke",
   "continuous-backup-engine": "Databasis-enjin",
   "continuous-backup-engine-auto": "Outomaties",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "लक्षित डाइरेक्टरी (अर्को डिस्क, साझा नेटवर्क स्रोत वा rclone मार्फत माउन्ट गरिएको भण्डारणमा निरपेक्ष पथ)",
   "continuous-backup-include": "जगेडामा समावेश गर्नुहोस्",
   "continuous-backup-database": "डेटाबेस",
+  "wekan-data-no-database": "पढ्न मिल्ने कुनै WeKan डेटाबेस फेला परेन।",
   "continuous-backup-logs": "लगहरू",
   "continuous-backup-engine": "डेटाबेस इन्जिन",
   "continuous-backup-engine-auto": "स्वचालित",

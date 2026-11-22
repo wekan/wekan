@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ifolda ekujoliswe kuyo (indlela epheleleyo kwenye idiski, kwindawo ekwabelwana ngayo kuthungelwano okanye kwindawo eqhagamshelwe nge-rclone)",
   "continuous-backup-include": "Yenza ugcino lokhuselo",
   "continuous-backup-database": "Isiseko sedatha",
+  "wekan-data-no-database": "Akukho siseko sedatha se-WeKan esifundekayo esifunyenweyo.",
   "continuous-backup-logs": "Iirekhodi",
   "continuous-backup-engine": "Injini yesiseko sedatha",
   "continuous-backup-engine-auto": "Ngokuzenzekelayo",

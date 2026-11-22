@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ifolda lapho kutawugcinwa khona (indlela lephelele, kulenye idiski, endzaweni leyabiwe kunethiwekhi noma endzaweni lehlanganiswe nge-rclone)",
   "continuous-backup-include": "Yenta ikhophi yesipele ye",
   "continuous-backup-database": "Sisekelo sedatha",
+  "wekan-data-no-database": "Akutfolakalanga sisekelo sedatha se-WeKan lesifundzekako.",
   "continuous-backup-logs": "Emarekhodi",
   "continuous-backup-engine": "Injini yesisekelo sedatha",
   "continuous-backup-engine-auto": "Kutikhetsela",

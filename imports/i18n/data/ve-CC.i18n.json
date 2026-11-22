@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Carteła de destinassion (percorso asoluto, su n'altro disco, na condivision de rete o un ponto de montajo rclone)",
   "continuous-backup-include": "Fa na copia de sicuressa de",
   "continuous-backup-database": "Banca de dati",
+  "wekan-data-no-database": "No xe stà catà nissuna banca de dati WeKan leżibiłe.",
   "continuous-backup-logs": "Registri",
   "continuous-backup-engine": "Motor de ła banca de dati",
   "continuous-backup-engine-auto": "Sełession automàtega",

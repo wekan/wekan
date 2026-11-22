@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Direktori tujuan (dalan absolut ing disk liyane, papan sing dienggo bareng liwat jaringan utawa papan sing dipasang nganggo rclone)",
   "continuous-backup-include": "Gawe serep",
   "continuous-backup-database": "Basis data",
+  "wekan-data-no-database": "Ora ana basis data WeKan sing bisa diwaca.",
   "continuous-backup-logs": "Log cathetan",
   "continuous-backup-engine": "Mesin basis data",
   "continuous-backup-engine-auto": "Otomatis",

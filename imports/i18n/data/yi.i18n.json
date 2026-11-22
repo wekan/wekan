@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ציל־קאַטאַלאָג (אַבסאָלוטער פּאַט אויף אַן אַנדער דיסק, אַ געטיילטן נעץ־אָרט אָדער אַן אָרט פֿאַרבונדן דורך rclone)",
   "continuous-backup-include": "מאַכן אַ רעזערוו־קאָפּיע",
   "continuous-backup-database": "דאַטן־באַזע",
+  "wekan-data-no-database": "קיין לייענבאַרע WeKan דאַטן־באַזע איז ניט געפֿונען געוואָרן.",
   "continuous-backup-logs": "זשורנאַלן",
   "continuous-backup-engine": "דאַטן־באַזע־מאָטאָר",
   "continuous-backup-engine-auto": "אויטאָמאַטיש",

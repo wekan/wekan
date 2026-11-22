@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Restren amkan (hyns dien, war disk aral, kevrenn rosweyth po gwithva rclone junys)",
   "continuous-backup-include": "Gul kopia diogel a",
   "continuous-backup-database": "Databas",
+  "wekan-data-no-database": "Ny veu kevys databas WeKan redyadow.",
   "continuous-backup-logs": "Kovadhow",
   "continuous-backup-engine": "Jynn databas",
   "continuous-backup-engine-auto": "Yn awtomatek",

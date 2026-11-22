@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Mērķa direktorijs (absolūtais ceļš citā diskā, tīkla koplietojumā vai ar rclone pievienotā krātuvē)",
   "continuous-backup-include": "Dublēt",
   "continuous-backup-database": "Datubāze",
+  "wekan-data-no-database": "Netika atrasta nolasāma WeKan datubāze.",
   "continuous-backup-logs": "Žurnāli",
   "continuous-backup-engine": "Datubāzes dzinis",
   "continuous-backup-engine-auto": "Automātiski",

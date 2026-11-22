@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "መዕለቢ ማህደር (ምሉእ መንገዲ፣ ኣብ ካልእ ዲስክ፣ ናይ መርበብ ሓባራዊ መኽዘን ወይ ዝተተሓሓዘ rclone መኽዘን)",
   "continuous-backup-include": "መተካእታ ቅዳሕ ግበር",
   "continuous-backup-database": "ዳታቤዝ",
+  "wekan-data-no-database": "ክንብቦ ዝከኣል ናይ WeKan ዳታቤዝ ኣይተረኽበን።",
   "continuous-backup-logs": "መዝገባት",
   "continuous-backup-engine": "ሞተር ዳታቤዝ",
   "continuous-backup-engine-auto": "ብኣውቶማቲክ",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Упрамалли папка (тулли ҫул: урӑх диск ҫинче, тетелри пӗрлӗх упранӑвӗнче е ҫыхӑнтарнӑ rclone упранӑвӗнче)",
   "continuous-backup-include": "Запас копи тӑвас",
   "continuous-backup-database": "Палӑрту бази",
+  "wekan-data-no-database": "Вулама май пур WeKan палӑрту бази тупӑнмарӗ.",
   "continuous-backup-logs": "Журналсем",
   "continuous-backup-engine": "Палӑрту базин движокӗ",
   "continuous-backup-engine-auto": "Автоматла",

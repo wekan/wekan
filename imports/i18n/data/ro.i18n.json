@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Director destinație (cale absolută, pe alt disc, într-o resursă de rețea partajată sau într-un spațiu de stocare montat prin rclone)",
   "continuous-backup-include": "Copiază în copia de rezervă",
   "continuous-backup-database": "Bază de date",
+  "wekan-data-no-database": "Nu a fost găsită nicio bază de date WeKan care să poată fi citită.",
   "continuous-backup-logs": "Jurnale",
   "continuous-backup-engine": "Motor de baze de date",
   "continuous-backup-engine-auto": "Automat",

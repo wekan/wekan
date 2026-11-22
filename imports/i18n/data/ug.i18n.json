@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "نىشان مۇندەرىجە (باشقا دىسكا، تور ھەمبەھىر ساقلىغۇچى ياكى rclone ئۇلانغان ئورۇندىكى مۇتلەق يول)",
   "continuous-backup-include": "زاپاسلىنىدىغان مەزمۇن",
   "continuous-backup-database": "ساندان",
+  "wekan-data-no-database": "ئوقۇغىلى بولىدىغان WeKan ساندانى تېپىلمىدى.",
   "continuous-backup-logs": "خاتىرىلەر",
   "continuous-backup-engine": "ساندان ماتورى",
   "continuous-backup-engine-auto": "ئاپتوماتىك",

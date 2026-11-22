@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foulutā ke tauhi ki ai (hala kakato, ʻi ha toe tisiki, tauʻanga vahevahe ʻi he netiueka pe feituʻu ʻoku fakahoko ʻe rclone)",
   "continuous-backup-include": "Tauhi ha tatau malu ʻo e",
   "continuous-backup-database": "Tauʻanga fakamatala",
+  "wekan-data-no-database": "ʻOku ʻikai maʻu ha tauʻanga fakamatala WeKan ʻe lava ke lau.",
   "continuous-backup-logs": "Ngaahi lekooti",
   "continuous-backup-engine": "Mīsini ʻo e tauʻanga fakamatala",
   "continuous-backup-engine-auto": "Fili fakahangatonu",

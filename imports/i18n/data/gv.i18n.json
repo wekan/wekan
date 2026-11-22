@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Lioar-choyrt deynagh (raad slane, er disk elley, stoyr rheynnit er y voggyl ny stoyr rclone ta kianglt)",
   "continuous-backup-include": "Jean coip sauçhey jeh",
   "continuous-backup-database": "Stoor-fysseree",
+  "wekan-data-no-database": "Cha row stoor-fysseree WeKan lhaihoil er ny gheddyn.",
   "continuous-backup-logs": "Recortyssyn",
   "continuous-backup-engine": "Greie stoor-fysseree",
   "continuous-backup-engine-auto": "Dy hene-obbragh",

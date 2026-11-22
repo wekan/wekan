@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "લક્ષ્ય ડિરેક્ટરી (બીજી ડિસ્ક, નેટવર્ક પરના વહેંચાયેલા સંસાધન અથવા rclone દ્વારા માઉન્ટ કરેલા સંગ્રહમાં સંપૂર્ણ પાથ)",
   "continuous-backup-include": "બેકઅપમાં સામેલ કરો",
   "continuous-backup-database": "ડેટાબેસ",
+  "wekan-data-no-database": "વાંચી શકાય તેવો કોઈ WeKan ડેટાબેસ મળ્યો નથી.",
   "continuous-backup-logs": "લૉગ નોંધો",
   "continuous-backup-engine": "ડેટાબેસ એન્જિન",
   "continuous-backup-engine-auto": "સ્વચાલિત",

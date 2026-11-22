@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Doelmap (folslein paad op in oare skiif, in dielde netwurklokaasje of in mei rclone oankeppele lokaasje)",
   "continuous-backup-include": "Meitsje in reservekopy",
   "continuous-backup-database": "Databank",
+  "wekan-data-no-database": "Gjin lêsbere WeKan-databank fûn.",
   "continuous-backup-logs": "Lochboeken",
   "continuous-backup-engine": "Databankmotor",
   "continuous-backup-engine-auto": "Automatysk",

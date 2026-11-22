@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foldara leyi ku yaka eka yona (ndlela leyi heleleke eka disiki yin'wana, ndhawu leyi avelaniwaka eka netiweke kumbe ndhawu leyi hlanganisiweke hi rclone)",
   "continuous-backup-include": "Endla khopi ya vuhlayiselo",
   "continuous-backup-database": "Vuhlayiselo bya datha",
+  "wekan-data-no-database": "Ku hava vuhlayiselo bya datha bya WeKan lebyi hlayekaka lebyi kumiweke.",
   "continuous-backup-logs": "Tirhekhodo",
   "continuous-backup-engine": "Njhini ya vuhlayiselo bya datha",
   "continuous-backup-engine-auto": "Hi ku tirhela hi yoxe",

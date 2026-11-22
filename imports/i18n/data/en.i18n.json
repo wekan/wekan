@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Target directory (absolute path, on another disk, a network share or an rclone mount)",
   "continuous-backup-include": "Back up",
   "continuous-backup-database": "Database",
+  "wekan-data-no-database": "No readable WeKan database was found.",
   "continuous-backup-logs": "Logs",
   "continuous-backup-engine": "Database engine",
   "continuous-backup-engine-auto": "Automatic",

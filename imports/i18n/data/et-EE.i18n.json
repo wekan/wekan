@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Sihtkataloog (absoluutne tee teisel kettal, võrgu ühiskasutuses või rclone’i abil ühendatud salvestusruumis)",
   "continuous-backup-include": "Varunda",
   "continuous-backup-database": "Andmebaas",
+  "wekan-data-no-database": "Loetavat WeKani andmebaasi ei leitud.",
   "continuous-backup-logs": "Logid",
   "continuous-backup-engine": "Andmebaasimootor",
   "continuous-backup-engine-auto": "Automaatne",

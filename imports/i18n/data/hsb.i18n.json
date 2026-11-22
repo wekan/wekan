@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cilowy rjadowak (absolutna šćežka, na druhim disku, syćowym dźělenym składowaku abo přiwjazanskim dypku rclone)",
   "continuous-backup-include": "Zawěsćić",
   "continuous-backup-database": "Datowa banka",
+  "wekan-data-no-database": "Čitajomna datowa banka WeKan njeje so namakała.",
   "continuous-backup-logs": "Protokole",
   "continuous-backup-engine": "Motor datoweje banki",
   "continuous-backup-engine-auto": "Awtomatisce",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folder nga kakadtoan (bug-os nga dalan, ha lain nga disk, ginbabahin nga tipiganan ha network o ginmount nga rclone)",
   "continuous-backup-include": "Paghimo hin reserba nga kopya han",
   "continuous-backup-database": "Tipiganan hin datos",
+  "wekan-data-no-database": "Waray nakita nga nababasa nga tipiganan hin datos han WeKan.",
   "continuous-backup-logs": "Mga rekord",
   "continuous-backup-engine": "Makina han database",
   "continuous-backup-engine-auto": "Awtomatiko",

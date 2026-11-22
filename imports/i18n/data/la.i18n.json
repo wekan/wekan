@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Directorium destinatum (semita absoluta in alio disco, loco retis communi vel loco per rclone adnexo)",
   "continuous-backup-include": "Exemplaria subsidiaria confice",
   "continuous-backup-database": "Basis datorum",
+  "wekan-data-no-database": "Nulla basis datorum WeKan legibilis inventa est.",
   "continuous-backup-logs": "Diaria",
   "continuous-backup-engine": "Machina basis datorum",
   "continuous-backup-engine-auto": "Automatice",

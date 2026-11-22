@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Direktori sasaran (laluan mutlak pada cakera lain, perkongsian rangkaian atau storan yang dipasang melalui rclone)",
   "continuous-backup-include": "Sandarkan",
   "continuous-backup-database": "Pangkalan data",
+  "wekan-data-no-database": "Tiada pangkalan data WeKan yang boleh dibaca ditemui.",
   "continuous-backup-logs": "Log aktiviti",
   "continuous-backup-engine": "Enjin pangkalan data",
   "continuous-backup-engine-auto": "Automatik",

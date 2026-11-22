@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Mappi toqqorsivissaq (aqqut tamakkiisoq, diskimi allami, attaveqaammi ataatsimoorussamik toqqorsivimmi imaluunniit rclone-p atassutaani)",
   "continuous-backup-include": "Backup-eruk",
   "continuous-backup-database": "Paasissutissanik toqqorsivik",
+  "wekan-data-no-database": "WeKan-ip paasissutissanik toqqorsivia atuarneqarsinnaasoq nassaarineqanngilaq.",
   "continuous-backup-logs": "Log-it",
   "continuous-backup-engine": "Paasissutissanik toqqorsiviup ingerlatitsissutaa",
   "continuous-backup-engine-auto": "Nammineq toqqarneqassaaq",

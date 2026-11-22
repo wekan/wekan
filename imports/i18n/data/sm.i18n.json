@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Faila e teu ai (ala atoa, i se isi tisiki, se nofoaga fefaasoaaʻi i le fesootaiga po o se nofoaga ua faapipii i le rclone)",
   "continuous-backup-include": "Fai kopi faaleoleo o",
   "continuous-backup-database": "Nofoaga o faamatalaga",
+  "wekan-data-no-database": "E leʻi maua se nofoaga o faamatalaga WeKan e mafai ona faitau.",
   "continuous-backup-logs": "Faamaumauga o galuega",
   "continuous-backup-engine": "Afi o le nofoaga o faamatalaga",
   "continuous-backup-engine-auto": "Filifili otometi",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ไดเรกทอรีปลายทาง (พาธสัมบูรณ์บนดิสก์อื่น ทรัพยากรที่ใช้ร่วมกันบนเครือข่าย หรือพื้นที่เก็บข้อมูลที่เมานต์ด้วย rclone)",
   "continuous-backup-include": "ข้อมูลที่จะสำรอง",
   "continuous-backup-database": "ฐานข้อมูล",
+  "wekan-data-no-database": "ไม่พบฐานข้อมูล WeKan ที่อ่านได้",
   "continuous-backup-logs": "บันทึกเหตุการณ์",
   "continuous-backup-engine": "เอนจินฐานข้อมูล",
   "continuous-backup-engine-auto": "อัตโนมัติ",

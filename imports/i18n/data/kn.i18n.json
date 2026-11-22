@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ಗುರಿ ಡೈರೆಕ್ಟರಿ (ಬೇರೆ ಡಿಸ್ಕ್, ಜಾಲದಲ್ಲಿ ಹಂಚಿಕೊಂಡ ಸಂಪನ್ಮೂಲ ಅಥವಾ rclone ಮೂಲಕ ಮೌಂಟ್ ಮಾಡಿದ ಸಂಗ್ರಹಣೆಯಲ್ಲಿನ ಸಂಪೂರ್ಣ ಪಥ)",
   "continuous-backup-include": "ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ಸೇರಿಸಿ",
   "continuous-backup-database": "ಡೇಟಾಬೇಸ್",
+  "wekan-data-no-database": "ಓದಬಹುದಾದ ಯಾವುದೇ WeKan ಡೇಟಾಬೇಸ್ ಕಂಡುಬಂದಿಲ್ಲ.",
   "continuous-backup-logs": "ಲಾಗ್‌ಗಳು",
   "continuous-backup-engine": "ಡೇಟಾಬೇಸ್ ಎಂಜಿನ್",
   "continuous-backup-engine-auto": "ಸ್ವಯಂಚಾಲಿತ",

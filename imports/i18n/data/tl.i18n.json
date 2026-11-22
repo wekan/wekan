@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Patutunguhang direktoryo (ganap na landas sa ibang disk, nakabahaging mapagkukunan sa network o imbakan na naka-mount gamit ang rclone)",
   "continuous-backup-include": "Isama sa reserbang kopya",
   "continuous-backup-database": "Kalipunan ng datos",
+  "wekan-data-no-database": "Walang nakitang nababasang kalipunan ng datos ng WeKan.",
   "continuous-backup-logs": "Mga tala",
   "continuous-backup-engine": "Makina ng database",
   "continuous-backup-engine-auto": "Awtomatiko",

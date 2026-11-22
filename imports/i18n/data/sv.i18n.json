@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Målkatalog (absolut sökväg på en annan disk, en nätverksresurs eller en rclone-montering)",
   "continuous-backup-include": "Säkerhetskopiera",
   "continuous-backup-database": "Databas",
+  "wekan-data-no-database": "Ingen läsbar WeKan-databas hittades.",
   "continuous-backup-logs": "Loggar",
   "continuous-backup-engine": "Databasmotor",
   "continuous-backup-engine-auto": "Automatisk",

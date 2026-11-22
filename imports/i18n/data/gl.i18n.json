@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Directorio de destino (ruta absoluta noutro disco, nun recurso compartido de rede ou nun almacenamento montado con rclone)",
   "continuous-backup-include": "Incluír na copia de seguranza",
   "continuous-backup-database": "Base de datos",
+  "wekan-data-no-database": "Non se atopou ningunha base de datos de WeKan lexible.",
   "continuous-backup-logs": "Rexistros",
   "continuous-backup-engine": "Motor de base de datos",
   "continuous-backup-engine-auto": "Automático",

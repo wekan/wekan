@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Tlapiyalizcalli campa motitlaniz (mochi ohtli, ipan occe disco, tlapiyalizcalli tlen tlanechicoliztli quimopanoltia, noso rclone tlanamictilli)",
   "continuous-backup-include": "Xicpiya",
   "continuous-backup-database": "Tlahtolpixcalli",
+  "wekan-data-no-database": "Amo monexti WeKan tlahtolpixcalli tlen hueli mopohua.",
   "continuous-backup-logs": "Tlahcuiloltin",
   "continuous-backup-engine": "Tlahtolpixcalli itequichihualoni",
   "continuous-backup-engine-auto": "Icel mopehpena",

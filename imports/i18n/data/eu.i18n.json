@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Helburuko direktorioa (bide absolutua beste disko batean, sareko baliabide partekatu batean edo rclone bidez muntatutako biltegian)",
   "continuous-backup-include": "Babeskopian sartu",
   "continuous-backup-database": "Datu-basea",
+  "wekan-data-no-database": "Ez da WeKan datu-base irakurgarririk aurkitu.",
   "continuous-backup-logs": "Egunkariak",
   "continuous-backup-engine": "Datu-basearen motorra",
   "continuous-backup-engine-auto": "Automatikoa",

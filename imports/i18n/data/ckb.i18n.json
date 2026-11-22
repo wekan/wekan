@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "بوخچەی ئامانج (ڕێڕەوی تەواو لەسەر دیسکێکی تر، شوێنێکی هاوبەشی تۆڕ یان شوێنێکی بە rclone پەیوەستکراو)",
   "continuous-backup-include": "پاشەکەوت بکە",
   "continuous-backup-database": "بنکەدراوە",
+  "wekan-data-no-database": "هیچ بنکەدراوەیەکی WeKanی خوێندنەوەگونجاو نەدۆزرایەوە.",
   "continuous-backup-logs": "تۆمارەکان",
   "continuous-backup-engine": "بزوێنەری بنکەدراوە",
   "continuous-backup-engine-auto": "خۆکار",

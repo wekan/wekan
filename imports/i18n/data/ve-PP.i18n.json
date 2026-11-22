@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Tähtkatalog (täuz' te, toižel diskal, verkon ühtežel kaicendal libo rclone-ličtundas)",
   "continuous-backup-include": "Tege varmkopii",
   "continuous-backup-database": "Andmbaz",
+  "wekan-data-no-database": "Lugetavad WeKan-andmbazad ei ole löutud.",
   "continuous-backup-logs": "Žurnalad",
   "continuous-backup-engine": "Andmbazan motor",
   "continuous-backup-engine-auto": "Avtomatižesti",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "లక్ష్య డైరెక్టరీ (వేరొక డిస్క్, నెట్‌వర్క్‌లో పంచుకున్న వనరు లేదా rclone ద్వారా మౌంట్ చేసిన నిల్వలోని పూర్తి పథం)",
   "continuous-backup-include": "బ్యాకప్‌లో చేర్చండి",
   "continuous-backup-database": "డేటాబేస్",
+  "wekan-data-no-database": "చదవగలిగే WeKan డేటాబేస్ ఏదీ దొరకలేదు.",
   "continuous-backup-logs": "లాగ్‌లు",
   "continuous-backup-engine": "డేటాబేస్ ఇంజిన్",
   "continuous-backup-engine-auto": "స్వయంచాలకంగా",

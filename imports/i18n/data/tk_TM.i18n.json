@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Maksat bukjasy (başga diskdäki, toruň umumy ýerindäki ýa-da rclone arkaly birikdirilen ýerdäki doly ýol)",
   "continuous-backup-include": "Ätiýaçlyk nusgasyny dörediň",
   "continuous-backup-database": "Maglumat bazasy",
+  "wekan-data-no-database": "Okalyp bolýan WeKan maglumat bazasy tapylmady.",
   "continuous-backup-logs": "Žurnallar",
   "continuous-backup-engine": "Maglumat bazasynyň hereketlendirijisi",
   "continuous-backup-engine-auto": "Awtomatik",

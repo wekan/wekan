@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folder teumpat keubah (jalur peunoh, bak disk laén, teumpat keubah nyang geubagi bak jaringan atawa mount rclone)",
   "continuous-backup-include": "Peugot saleunan",
   "continuous-backup-database": "Pangkai data",
+  "wekan-data-no-database": "Hana meuteumèe pangkai data WeKan nyang jeuet geubaca.",
   "continuous-backup-logs": "Catatan",
   "continuous-backup-engine": "Mèsén pangkai data",
   "continuous-backup-engine-auto": "Jipileh keudroe",

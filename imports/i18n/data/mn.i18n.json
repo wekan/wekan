@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Зорилтот хавтас (өөр диск, сүлжээний хуваалцсан нөөц эсвэл rclone-оор холбосон хадгалах сан дахь үнэмлэхүй зам)",
   "continuous-backup-include": "Нөөцлөлтөд оруулах",
   "continuous-backup-database": "Өгөгдлийн сан",
+  "wekan-data-no-database": "Уншигдах WeKan өгөгдлийн сан олдсонгүй.",
   "continuous-backup-logs": "Бүртгэлүүд",
   "continuous-backup-engine": "Өгөгдлийн сангийн хөдөлгүүр",
   "continuous-backup-engine-auto": "Автоматаар",

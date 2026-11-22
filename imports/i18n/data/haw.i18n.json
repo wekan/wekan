@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Papa kuhikuhi waihona e mālama ai (ala piha, ma kekahi pā hōkeo ʻē aʻe, kahi kaʻana like ma ka pūnaewele a i ʻole kahi i hoʻohui ʻia me rclone)",
   "continuous-backup-include": "E kope mālama i",
   "continuous-backup-database": "Waihona ʻikepili",
+  "wekan-data-no-database": "ʻAʻole i loaʻa kekahi waihona ʻikepili WeKan hiki ke heluhelu ʻia.",
   "continuous-backup-logs": "Nā moʻolelo hana",
   "continuous-backup-engine": "ʻEnekini waihona ʻikepili",
   "continuous-backup-engine-auto": "Koho ʻakomi",

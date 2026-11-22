@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "대상 디렉터리 (다른 디스크, 네트워크 공유 또는 rclone으로 마운트한 저장소의 절대 경로)",
   "continuous-backup-include": "백업 대상",
   "continuous-backup-database": "데이터베이스",
+  "wekan-data-no-database": "읽을 수 있는 WeKan 데이터베이스를 찾지 못했습니다.",
   "continuous-backup-logs": "로그",
   "continuous-backup-engine": "데이터베이스 엔진",
   "continuous-backup-engine-auto": "자동",

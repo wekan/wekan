@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ᑐᕌᒐᐅᔪᖅ ᑎᑎᖅᑲᖃᐅᑦ (ᐊᖅᑯᑖ ᑕᒪᒃᑭᖅᑐᖅ, ᐊᓯᐊᓂ ᑐᖅᑯᐃᕕᒻᒥ, ᐊᕕᒃᑕᐅᖃᑎᒌᑦᑐᒥ ᐅᕝᕙᓘᓐᓃᑦ rclone ᐊᑕᔪᒥ)",
   "continuous-backup-include": "ᑐᖅᑯᖅᑕᐅᔪᙳᐊᓕᐅᕐᓗᒋᑦ",
   "continuous-backup-database": "ᑐᑭᓯᒋᐊᒐᓴᖃᕐᕕᒃ",
+  "wekan-data-no-database": "WeKan ᑐᑭᓯᒋᐊᒐᓴᖃᕐᕕᒃ ᐅᖃᓕᒫᒐᒃᓴᖅ ᓇᓂᔭᐅᖏᑦᑐᖅ.",
   "continuous-backup-logs": "ᐱᓕᕆᓂᕐᒧᑦ ᑎᑎᖅᑲᑦ",
   "continuous-backup-engine": "ᑐᑭᓯᒋᐊᒐᓴᖃᕐᕕᐅᑉ ᐃᖏᕐᕋᑎᑦᑎᔾᔪᑎᖓ",
   "continuous-backup-engine-auto": "ᐃᒻᒥᓂᒃ",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ngoQ polDaq (He naQ; latlh De' jengva', De'wI' pat polDaq lulo'bogh latlhpu', pagh rclone rarDaq)",
   "continuous-backup-include": "De' choqmeH velqa' yIchenmoH",
   "continuous-backup-database": "qawHaq",
+  "wekan-data-no-database": "WeKan qawHaq laDlaHbogh tu'lu'be'.",
   "continuous-backup-logs": "tamey",
   "continuous-backup-engine": "qawHaq Qu' ta'bogh pat",
   "continuous-backup-engine-auto": "nIteb wIvlu'",

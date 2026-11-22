@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Kohdehakemisto (absoluuttinen polku toisella levyllä, verkkojaossa tai rclone-liitoksessa)",
   "continuous-backup-include": "Varmuuskopioi",
   "continuous-backup-database": "Tietokanta",
+  "wekan-data-no-database": "Luettavaa WeKan-tietokantaa ei löytynyt.",
   "continuous-backup-logs": "Lokit",
   "continuous-backup-engine": "Tietokantamoottori",
   "continuous-backup-engine-auto": "Automaattinen",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folda blong sevem (ful rod, long narafala disk, wan ples blong serem long netwok o wan ples we rclone i joenem)",
   "continuous-backup-include": "Mekem bekap blong",
   "continuous-backup-database": "Databes",
+  "wekan-data-no-database": "I no gat WeKan databes we yu save ridim.",
   "continuous-backup-logs": "Ol rekod blong wok",
   "continuous-backup-engine": "Enjin blong databes",
   "continuous-backup-engine-auto": "Jusum hem wan",

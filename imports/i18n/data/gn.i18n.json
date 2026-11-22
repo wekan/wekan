@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ñongatuha ojeipotáva (tape henyhẽva, ambue disco-pe, ñongatuha oñemboja'óva ñandutípe térã rclone ñongatuha oñembojoajúvape)",
   "continuous-backup-include": "Eñongatu jo'a",
   "continuous-backup-database": "Marandu ryru",
+  "wekan-data-no-database": "Ndojejuhúi WeKan marandu ryru ikatúva ojelee.",
   "continuous-backup-logs": "Tembiapo jehaipy",
   "continuous-backup-engine": "Marandu ryru omomba'apóva",
   "continuous-backup-engine-auto": "Ijeheguínte",

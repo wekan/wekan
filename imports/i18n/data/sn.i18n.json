@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Forodha yekuenda (nzira yakazara pane rimwe dhisiki, panzvimbo inogovaniswa panetiweki kana panzvimbo yakabatanidzwa ne-rclone)",
   "continuous-backup-include": "Gadzira kopi yekuchengetedza",
   "continuous-backup-database": "Dura remashoko",
+  "wekan-data-no-database": "Hapana dura remashoko reWeKan rinoverengeka rawanikwa.",
   "continuous-backup-logs": "Zvinyorwa zvezviitiko",
   "continuous-backup-engine": "Injini yedura remashoko",
   "continuous-backup-engine-auto": "Zvinoitika zvega",

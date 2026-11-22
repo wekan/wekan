@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Célkönyvtár (abszolút elérési út egy másik lemezen, hálózati megosztáson vagy rclone-nal csatolt tárhelyen)",
   "continuous-backup-include": "Mentendő adatok",
   "continuous-backup-database": "Adatbázis",
+  "wekan-data-no-database": "Nem található olvasható WeKan-adatbázis.",
   "continuous-backup-logs": "Naplók",
   "continuous-backup-engine": "Adatbázismotor",
   "continuous-backup-engine-auto": "Automatikus",

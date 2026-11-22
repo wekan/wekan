@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Peldanka armancê (rêya tam li ser dîskeke din, cîhekî hevpar ê torê an cîhekî bi rclone ve girêdayî)",
   "continuous-backup-include": "Hilanîna piştgir çêke",
   "continuous-backup-database": "Danegeh",
+  "wekan-data-no-database": "Danegeheke WeKan a xwendinbar nehat dîtin.",
   "continuous-backup-logs": "Tomar",
   "continuous-backup-engine": "Motora danegehê",
   "continuous-backup-engine-auto": "Bixweber",

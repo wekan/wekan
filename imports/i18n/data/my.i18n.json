@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ဦးတည်ရာ ဖိုင်တွဲ (အခြားဒစ်၊ ကွန်ရက်မျှဝေနေရာ သို့မဟုတ် rclone ဖြင့် ချိတ်ဆက်ထားသောနေရာရှိ လမ်းကြောင်းအပြည့်အစုံ)",
   "continuous-backup-include": "အရန်သိမ်းရန်",
   "continuous-backup-database": "ဒေတာဘေ့စ်",
+  "wekan-data-no-database": "ဖတ်ရှုနိုင်သော WeKan ဒေတာဘေ့စ် မတွေ့ပါ။",
   "continuous-backup-logs": "မှတ်တမ်းများ",
   "continuous-backup-engine": "ဒေတာဘေ့စ် အင်ဂျင်",
   "continuous-backup-engine-auto": "အလိုအလျောက်",

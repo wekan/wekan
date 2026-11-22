@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "المجلد اللي غادي يتخزن فيه النسخ (المسار الكامل فقرص آخر، فبلاصة مشتركة فالشبكة ولا فبلاصة مربوطة بـ rclone)",
   "continuous-backup-include": "دير نسخة احتياطية",
   "continuous-backup-database": "قاعدة البيانات",
+  "wekan-data-no-database": "ما تلقات حتى قاعدة بيانات ديال WeKan اللي تقدر تتقرا.",
   "continuous-backup-logs": "السجلات",
   "continuous-backup-engine": "محرك قاعدة البيانات",
   "continuous-backup-engine-auto": "بشكل تلقائي",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Imaña chiqawja (phuqhat thakhi, yaqha discon, llika taypin jaljata imañan jan ukax chikañchata rclone imañan)",
   "continuous-backup-include": "Jark'aqawi copia luraña",
   "continuous-backup-database": "Yatiyawi pirwa",
+  "wekan-data-no-database": "Janiw WeKan yatiyawi pirwa liyt’añjam jikxatatäkiti.",
   "continuous-backup-logs": "Lurawi qillqatanaka",
   "continuous-backup-engine": "Yatiyawi pirwan lurayiripa",
   "continuous-backup-engine-auto": "Jupapachpaw ajlli",

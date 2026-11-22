@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Kavlec'h pal (treug dizave, war ur bladenn all, ur rann rouedad pe ur poent stagañ rclone)",
   "continuous-backup-include": "Gwarediñ",
   "continuous-backup-database": "Bank-roadennoù",
+  "wekan-data-no-database": "N'eus bet kavet bank-roadennoù WeKan lennus ebet.",
   "continuous-backup-logs": "Marilhoù",
   "continuous-backup-engine": "Keflusker ar bank-roadennoù",
   "continuous-backup-engine-auto": "Emgefreek",

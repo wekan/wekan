@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartele di destinazion (percors assolût, suntun altri disc, une risorse condividude di rêt o un pont di montaç rclone)",
   "continuous-backup-include": "Fâ une copie di sigurece di",
   "continuous-backup-database": "Base di dâts",
+  "wekan-data-no-database": "No je stade cjatade nissune base di dâts WeKan che si pues lei.",
   "continuous-backup-logs": "Regjistris",
   "continuous-backup-engine": "Motôr de base di dâts",
   "continuous-backup-engine-auto": "Selezion automatiche",

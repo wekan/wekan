@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Repètwa destinasyon (chemen absoli sou yon lòt disk, yon resous pataje sou rezo a oswa yon espas depo ki monte ak rclone)",
   "continuous-backup-include": "Mete nan sovgad la",
   "continuous-backup-database": "Baz done",
+  "wekan-data-no-database": "Yo pa jwenn okenn baz done WeKan ki ka li.",
   "continuous-backup-logs": "Jounal",
   "continuous-backup-engine": "Motè baz done",
   "continuous-backup-engine-auto": "Otomatik",

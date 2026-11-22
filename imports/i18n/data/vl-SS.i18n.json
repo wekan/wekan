@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Doelmap (absoluut pad op een andere schijf, een netwerkshare of een rclone-koppeling)",
   "continuous-backup-include": "Opnemen in de back-up",
   "continuous-backup-database": "Gegevensbank",
+  "wekan-data-no-database": "Er is geen leesbare WeKan-gegevensbank gevonden.",
   "continuous-backup-logs": "Logboeken",
   "continuous-backup-engine": "Database-engine",
   "continuous-backup-engine-auto": "Automatisch",

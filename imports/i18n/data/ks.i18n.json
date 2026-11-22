@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "منزل فولڈر (پوٗرٕ پتہٕ، بؠیس ڈسکس پؠٹھ، نیٹ ورک مشترکہ ذخیرس منٛز یا rclone ماؤنٹس منٛز)",
   "continuous-backup-include": "بیک اپ کریو",
   "continuous-backup-database": "ڈیٹابیس",
+  "wekan-data-no-database": "کانٛہہ پرنہٕ لایق WeKan ڈیٹابیس آو نہٕ لبنہٕ۔",
   "continuous-backup-logs": "لاگ",
   "continuous-backup-engine": "ڈیٹابیس انجن",
   "continuous-backup-engine-auto": "خودکار",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Diretório de destino (caminho absoluto em outro disco, em um compartilhamento de rede ou em uma montagem rclone)",
   "continuous-backup-include": "Incluir no backup",
   "continuous-backup-database": "Banco de dados",
+  "wekan-data-no-database": "Nenhum banco de dados WeKan legível foi encontrado.",
   "continuous-backup-logs": "Registros",
   "continuous-backup-engine": "Mecanismo do banco de dados",
   "continuous-backup-engine-auto": "Automático",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartela de destinazion (troi cumpleto, sun n auter disc, na cartela spartida tla rëi o n mount rclone)",
   "continuous-backup-include": "Fé na copia de segurëza de",
   "continuous-backup-database": "Banca dac",
+  "wekan-data-no-database": "Ne n'ie nia stata abineda deguna banca dac WeKan che se possa lieje.",
   "continuous-backup-logs": "Registri",
   "continuous-backup-engine": "Motor dla banca dac",
   "continuous-backup-engine-auto": "Scelta automatica",

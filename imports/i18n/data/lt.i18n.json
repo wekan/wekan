@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Paskirties katalogas (absoliutusis kelias kitame diske, bendrinamame tinklo ištekliuje arba naudojant rclone prijungtoje saugykloje)",
   "continuous-backup-include": "Kurti atsarginę kopiją",
   "continuous-backup-database": "Duomenų bazė",
+  "wekan-data-no-database": "Nerasta skaitomos WeKan duomenų bazės.",
   "continuous-backup-logs": "Žurnalai",
   "continuous-backup-engine": "Duomenų bazės variklis",
   "continuous-backup-engine-auto": "Automatiškai",

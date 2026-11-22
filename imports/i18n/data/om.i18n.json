@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Galmee itti kuufamu (daandii guutuu, diiskii biraa, kuusaa neetworkii waliinii ykn bakka rclone itti hidhame irratti)",
   "continuous-backup-include": "Duublagaa godhi",
   "continuous-backup-database": "Kuusdeetaa",
+  "wekan-data-no-database": "Kuusdeetaan WeKan dubbifamuu danda'u hin argamne.",
   "continuous-backup-logs": "Galmeewwan hojii",
   "continuous-backup-engine": "Injinii kuusdeetaa",
   "continuous-backup-engine-auto": "Ofumaan",

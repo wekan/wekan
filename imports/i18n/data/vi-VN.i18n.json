@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Thư mục đích (đường dẫn tuyệt đối trên đĩa khác, tài nguyên chia sẻ qua mạng hoặc bộ lưu trữ được gắn bằng rclone)",
   "continuous-backup-include": "Nội dung sao lưu",
   "continuous-backup-database": "Cơ sở dữ liệu",
+  "wekan-data-no-database": "Không tìm thấy cơ sở dữ liệu WeKan nào có thể đọc được.",
   "continuous-backup-logs": "Nhật ký",
   "continuous-backup-engine": "Bộ máy cơ sở dữ liệu",
   "continuous-backup-engine-auto": "Tự động",

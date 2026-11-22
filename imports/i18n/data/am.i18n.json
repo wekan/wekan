@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "የመድረሻ ማውጫ (በሌላ ዲስክ፣ በጋራ የአውታረ መረብ ማከማቻ ወይም በrclone በተገናኘ ማከማቻ ላይ ያለ ሙሉ ዱካ)",
   "continuous-backup-include": "ምትኬ የሚደረግላቸው",
   "continuous-backup-database": "የውሂብ ጎታ",
+  "wekan-data-no-database": "ሊነበብ የሚችል የWeKan የውሂብ ጎታ አልተገኘም።",
   "continuous-backup-logs": "መዝገቦች",
   "continuous-backup-engine": "የውሂብ ጎታ ሞተር",
   "continuous-backup-engine-auto": "ራስ-ሰር",

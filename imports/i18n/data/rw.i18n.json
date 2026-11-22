@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ububiko bwa dosiye bugenewe (inzira yuzuye ku yindi disiki, ahantu hasangiwe ku muyoboro cyangwa ahantu hahujwe na rclone)",
   "continuous-backup-include": "Kora kopi y'umutekano",
   "continuous-backup-database": "Ububikoshingiro",
+  "wekan-data-no-database": "Nta bubikoshingiro bwa WeKan busomeka bwabonetse.",
   "continuous-backup-logs": "Inyandiko z'ibyabaye",
   "continuous-backup-engine": "Moteri y'ububikoshingiro",
   "continuous-backup-engine-auto": "Byikora",

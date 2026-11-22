@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ଲକ୍ଷ୍ୟ ଡିରେକ୍ଟୋରୀ (ଅନ୍ୟ ଡିସ୍କ, ନେଟୱର୍କର ଅଂଶୀଦାର ସ୍ଥାନ କିମ୍ବା rclone ଦ୍ୱାରା ମାଉଣ୍ଟ ହୋଇଥିବା ସ୍ଥାନର ସମ୍ପୂର୍ଣ୍ଣ ପଥ)",
   "continuous-backup-include": "ବ୍ୟାକଅପ୍ କରନ୍ତୁ",
   "continuous-backup-database": "ଡାଟାବେସ୍",
+  "wekan-data-no-database": "ପଢ଼ିହେବା ଭଳି କୌଣସି WeKan ଡାଟାବେସ୍ ମିଳିଲା ନାହିଁ।",
   "continuous-backup-logs": "ଲଗ୍‌ଗୁଡ଼ିକ",
   "continuous-backup-engine": "ଡାଟାବେସ୍ ଇଞ୍ଜିନ୍",
   "continuous-backup-engine-auto": "ସ୍ୱୟଂଚାଳିତ",

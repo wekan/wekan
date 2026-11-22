@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foltara ye go išwago go yona (tsela ye e feletšego go tisiki ye nngwe, lefelong le le abelanwago la netweke goba lefelong le le kgokagantšwego ka rclone)",
   "continuous-backup-include": "Dira khophi ya polokelo",
   "continuous-backup-database": "Polokelo ya tshedimošo",
+  "wekan-data-no-database": "Ga go a hwetšwa polokelo ya tshedimošo ya WeKan yeo e balegago.",
   "continuous-backup-logs": "Direkhoto",
   "continuous-backup-engine": "Entšene ya polokelo ya tshedimošo",
   "continuous-backup-engine-auto": "Ka go itiriša",

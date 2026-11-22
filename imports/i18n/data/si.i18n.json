@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ඉලක්ක නාමාවලිය (වෙනත් තැටියක, හවුල් ජාල සම්පතක හෝ rclone මඟින් සම්බන්ධ කළ ගබඩාවක නිරපේක්ෂ මාර්ගය)",
   "continuous-backup-include": "උපස්ථයට ඇතුළත් කරන්න",
   "continuous-backup-database": "දත්ත සමුදාය",
+  "wekan-data-no-database": "කියවිය හැකි WeKan දත්ත සමුදායක් හමු නොවීය.",
   "continuous-backup-logs": "ලොග් සටහන්",
   "continuous-backup-engine": "දත්ත සමුදා එන්ජිම",
   "continuous-backup-engine-auto": "ස්වයංක්‍රීය",

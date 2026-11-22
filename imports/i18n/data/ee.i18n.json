@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Nudzraɖoƒe si woaɖo ɖe (mɔ blibo, le disk bubu, nudzraɖoƒe si wokpɔna ɖekae le kadodo dzi alo rclone nudzraɖoƒe si wode kpe ɖe eŋu)",
   "continuous-backup-include": "Dzra nu siawo ɖo ɖe megbe",
   "continuous-backup-database": "Nyatakakadzraɖoƒe",
+  "wekan-data-no-database": "Womekpɔ WeKan nyatakakadzraɖoƒe si woate ŋu axlẽ o.",
   "continuous-backup-logs": "Dɔwɔwɔ ƒe nuŋɔŋlɔwo",
   "continuous-backup-engine": "Nyatakakadzraɖoƒe ƒe mɔ̃",
   "continuous-backup-engine-auto": "Eya ŋutɔ nati",

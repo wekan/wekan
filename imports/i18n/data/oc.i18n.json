@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Repertòri de destinacion (camin absolut sus un autre disc, un espaci partejat en ret o un montatge rclone)",
   "continuous-backup-include": "Salvagardar",
   "continuous-backup-database": "Basa de donadas",
+  "wekan-data-no-database": "Cap de basa de donadas WeKan legibla pas trobada.",
   "continuous-backup-logs": "Jornals",
   "continuous-backup-engine": "Motor de basa de donadas",
   "continuous-backup-engine-auto": "Seleccion automatica",

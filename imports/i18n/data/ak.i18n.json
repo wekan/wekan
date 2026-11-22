@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Fael akorae a wɔde bɛkɔ (ɔkwan a edi mu wɔ disk foforo, nkitahodi so akorae anaa rclone akorae a wɔde abɔ ho so)",
   "continuous-backup-include": "Kora mfonini so",
   "continuous-backup-database": "Nsɛm siebea",
+  "wekan-data-no-database": "Wɔanhu WeKan nsɛm siebea biara a wotumi kenkan.",
   "continuous-backup-logs": "Dwumadi kyerɛwtohɔ",
   "continuous-backup-engine": "Nsɛm siebea dwumadi",
   "continuous-backup-engine-auto": "Ɛno ankasa paw",

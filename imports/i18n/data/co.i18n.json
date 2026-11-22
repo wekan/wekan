@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartulare di destinazione (percorsu assulutu nant'à un altru discu, un spaziu spartutu in reta o un muntagiu rclone)",
   "continuous-backup-include": "Fà una copia di sicurità",
   "continuous-backup-database": "Basa di dati",
+  "wekan-data-no-database": "Ùn hè stata truvata nisuna basa di dati WeKan leghjibile.",
   "continuous-backup-logs": "Registri",
   "continuous-backup-engine": "Mutore di a basa di dati",
   "continuous-backup-engine-auto": "In autumaticu",

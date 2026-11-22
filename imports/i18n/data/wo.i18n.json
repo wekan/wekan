@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Wayndare bi ñuy denc ci (yoon wu mat, ci beneen disk, barab bu ñu bokk ci lëkkale gi walla barab bu rclone lëkkal)",
   "continuous-backup-include": "Denc kopi bu wóor bu",
   "continuous-backup-database": "Dàttub xibaar yi",
+  "wekan-data-no-database": "Gisuñu benn dàttub xibaar WeKan bu ñu mën a jàng.",
   "continuous-backup-logs": "Bindu liggéey yi",
   "continuous-backup-engine": "Moteeru dàttub xibaar yi",
   "continuous-backup-engine-auto": "Tànn boppam",

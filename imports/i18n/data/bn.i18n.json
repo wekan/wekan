@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "লক্ষ্য ডিরেক্টরি (অন্য ডিস্কে, শেয়ার করা নেটওয়ার্ক রিসোর্সে বা rclone দিয়ে মাউন্ট করা স্টোরেজে সম্পূর্ণ পাথ)",
   "continuous-backup-include": "ব্যাকআপে অন্তর্ভুক্ত করুন",
   "continuous-backup-database": "ডেটাবেস",
+  "wekan-data-no-database": "পড়ার যোগ্য কোনো WeKan ডেটাবেস পাওয়া যায়নি।",
   "continuous-backup-logs": "লগ",
   "continuous-backup-engine": "ডেটাবেস ইঞ্জিন",
   "continuous-backup-engine-auto": "স্বয়ংক্রিয়",

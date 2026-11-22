@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Pasgan targaide (slighe iomlan, air diosg eile, co-roinn lìonraidh no puing munntachaidh rclone)",
   "continuous-backup-include": "Dèan lethbhreac-glèidhidh de",
   "continuous-backup-database": "Stòr-dàta",
+  "wekan-data-no-database": "Cha deach stòr-dàta WeKan a ghabhas leughadh a lorg.",
   "continuous-backup-logs": "Logaichean",
   "continuous-backup-engine": "Einnsean stòr-dàta",
   "continuous-backup-engine-auto": "Gu fèin-obrachail",

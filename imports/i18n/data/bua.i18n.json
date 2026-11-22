@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Хадагалха папка (ондоо диск дээрэхи, сүлжээнэй хамтын хадагалууриин гү, али холбоһон rclone хадагалууриин бүтэн зам)",
   "continuous-backup-include": "Нөөсэ хуулга хэхэ",
   "continuous-backup-database": "Үгэгдэлэй сан",
+  "wekan-data-no-database": "Уншаха аргатай WeKan үгэгдэлэй сан олдобогүй.",
   "continuous-backup-logs": "Ажалай тэмдэглэлнүүд",
   "continuous-backup-engine": "Үгэгдэлэй сангай хүдэлгүүр",
   "continuous-backup-engine-auto": "Автоматаар",

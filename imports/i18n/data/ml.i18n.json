@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ലക്ഷ്യ ഡയറക്ടറി (മറ്റൊരു ഡിസ്കിലോ നെറ്റ്‌വർക്കിൽ പങ്കിട്ട വിഭവത്തിലോ rclone ഉപയോഗിച്ച് മൗണ്ട് ചെയ്ത സംഭരണത്തിലോ ഉള്ള സമ്പൂർണ്ണ പാത)",
   "continuous-backup-include": "ബാക്കപ്പിൽ ഉൾപ്പെടുത്തുക",
   "continuous-backup-database": "ഡാറ്റാബേസ്",
+  "wekan-data-no-database": "വായിക്കാവുന്ന WeKan ഡാറ്റാബേസ് ഒന്നും കണ്ടെത്തിയില്ല.",
   "continuous-backup-logs": "ലോഗുകൾ",
   "continuous-backup-engine": "ഡാറ്റാബേസ് എഞ്ചിൻ",
   "continuous-backup-engine-auto": "സ്വയമേവ",

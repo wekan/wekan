@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ҷузвдони мақсад (роҳи мутлақ дар диски дигар, манбаи муштараки шабака ё нуқтаи васли rclone)",
   "continuous-backup-include": "Нусхаи эҳтиётӣ гирифтан",
   "continuous-backup-database": "Пойгоҳи додаҳо",
+  "wekan-data-no-database": "Пойгоҳи додаҳои хондашавандаи WeKan ёфт нашуд.",
   "continuous-backup-logs": "Сабтҳои рӯйдодҳо",
   "continuous-backup-engine": "Муҳаррики пойгоҳи додаҳо",
   "continuous-backup-engine-auto": "Худкор",

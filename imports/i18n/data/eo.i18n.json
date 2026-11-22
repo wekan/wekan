@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cela dosierujo (absoluta vojo sur alia disko, komuna reta rimedo aŭ konservejo muntita per rclone)",
   "continuous-backup-include": "Inkluzivi en la sekurkopio",
   "continuous-backup-database": "Datumbazo",
+  "wekan-data-no-database": "Neniu legebla WeKan-datumbazo troviĝis.",
   "continuous-backup-logs": "Protokoloj",
   "continuous-backup-engine": "Datumbaza motoro",
   "continuous-backup-engine-auto": "Aŭtomata",

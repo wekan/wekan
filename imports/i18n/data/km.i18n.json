@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ថតគោលដៅ (ផ្លូវពេញលេញនៅលើថាសផ្សេង ទីតាំងចែករំលែកលើបណ្តាញ ឬទីតាំងដែលភ្ជាប់ដោយ rclone)",
   "continuous-backup-include": "បម្រុងទុក",
   "continuous-backup-database": "មូលដ្ឋានទិន្នន័យ",
+  "wekan-data-no-database": "រកមិនឃើញមូលដ្ឋានទិន្នន័យ WeKan ដែលអាចអានបានទេ។",
   "continuous-backup-logs": "កំណត់ហេតុ",
   "continuous-backup-engine": "ម៉ាស៊ីនមូលដ្ឋានទិន្នន័យ",
   "continuous-backup-engine-auto": "ស្វ័យប្រវត្តិ",

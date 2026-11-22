@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Kato ni faile me maroroi kina (sala taucoko, ena dua tale na disiki, na vanua e wasei ena ilawalawa se na vanua e semati ena rclone)",
   "continuous-backup-include": "Cakava na ilavelave ni taqomaki ni",
   "continuous-backup-database": "Kato ni itukutuku",
+  "wekan-data-no-database": "E sega ni kune e dua na kato ni itukutuku ni WeKan e rawa ni wiliki.",
   "continuous-backup-logs": "iVolatukutuku",
   "continuous-backup-engine": "Idini ni kato ni itukutuku",
   "continuous-backup-engine-auto": "Digia vakataki koya",

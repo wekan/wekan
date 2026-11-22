@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Nchekwa faịlụ e lekwasịrị anya (ụzọ zuru ezu na diski ọzọ, ebe netwọk a na-ekekọrịta ma ọ bụ ebe ejikọrọ site na rclone)",
   "continuous-backup-include": "Mee ndabere",
   "continuous-backup-database": "Nchekwa data",
+  "wekan-data-no-database": "Ahụghị nchekwa data WeKan a pụrụ ịgụ.",
   "continuous-backup-logs": "Ndekọ",
   "continuous-backup-engine": "Injin nchekwa data",
   "continuous-backup-engine-auto": "Na-akpaghị aka",

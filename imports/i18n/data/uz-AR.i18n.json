@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "مقصد کتالاگی (باشقه دیسکدگی، ترماقدگی اومومی رېسورسدگی یاکی rclone آرقلی اولنگن خاطیره‌دگی مطلق یۉل)",
   "continuous-backup-include": "ذخیره نۇسخه‌گه کیریتی‌ش",
   "continuous-backup-database": "معلومات‌لر بازه‌سی",
+  "wekan-data-no-database": "اوقیله‌دیگن WeKan معلومات‌لر بازه‌سی تاپیلمه‌دی.",
   "continuous-backup-logs": "ژورنال‌لر",
   "continuous-backup-engine": "معلومات‌لر بازه‌سی مېخانیزمی",
   "continuous-backup-engine-auto": "آوتاماتیک",

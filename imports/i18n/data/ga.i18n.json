@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Sprioc-eolaire (conair absalóideach ar dhiosca eile, ar acmhainn chomhroinnte líonra nó i stóras gléasta le rclone)",
   "continuous-backup-include": "Cuir sa chúltaca",
   "continuous-backup-database": "Bunachar sonraí",
+  "wekan-data-no-database": "Níor aimsíodh bunachar sonraí WeKan inléite.",
   "continuous-backup-logs": "Logaí",
   "continuous-backup-engine": "Inneall bunachair sonraí",
   "continuous-backup-engine-auto": "Uathoibríoch",

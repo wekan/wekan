@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Целева директория (абсолютен път на друг диск, в споделен мрежов ресурс или в хранилище, монтирано чрез rclone)",
   "continuous-backup-include": "Архивирай",
   "continuous-backup-database": "База данни",
+  "wekan-data-no-database": "Не е намерена четима база данни на WeKan.",
   "continuous-backup-logs": "Журнали",
   "continuous-backup-engine": "Механизъм за база данни",
   "continuous-backup-engine-auto": "Автоматично",

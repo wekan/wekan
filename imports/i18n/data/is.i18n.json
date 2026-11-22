@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Markmappa (algild slóð á öðrum diski, samnýttu netdrifi eða geymslu sem er tengd með rclone)",
   "continuous-backup-include": "Taka öryggisafrit af",
   "continuous-backup-database": "Gagnagrunnur",
+  "wekan-data-no-database": "Enginn læsilegur WeKan-gagnagrunnur fannst.",
   "continuous-backup-logs": "Annálar",
   "continuous-backup-engine": "Gagnagrunnsvél",
   "continuous-backup-engine-auto": "Sjálfvirkt",

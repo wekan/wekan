@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Zielverzeichnis (absoluter Pfad auf einem anderen Datenträger, einer Netzwerkfreigabe oder einem rclone-Mount)",
   "continuous-backup-include": "Sichern",
   "continuous-backup-database": "Datenbank",
+  "wekan-data-no-database": "Es wurde keine lesbare WeKan-Datenbank gefunden.",
   "continuous-backup-logs": "Protokolle",
   "continuous-backup-engine": "Datenbank-Engine",
   "continuous-backup-engine-auto": "Automatisch",

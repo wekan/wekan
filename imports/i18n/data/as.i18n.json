@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "গন্তব্য ডাইৰেক্টৰী (অন্য ডিস্ক, নেটৱৰ্কৰ ভাগ-বতৰা কৰা স্থান বা rclone-এ মাউণ্ট কৰা স্থানত সম্পূৰ্ণ পথ)",
   "continuous-backup-include": "বেকআপ কৰক",
   "continuous-backup-database": "ডাটাবেছ",
+  "wekan-data-no-database": "পঢ়িব পৰা কোনো WeKan ডাটাবেছ পোৱা নগ'ল।",
   "continuous-backup-logs": "লগসমূহ",
   "continuous-backup-engine": "ডাটাবেছ ইঞ্জিন",
   "continuous-backup-engine-auto": "স্বয়ংক্ৰিয়",

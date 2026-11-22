@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Galka bartilmaameedka (waddo buuxda oo ku taal saxan kale, meel shabakadda laga wadaago ama meel rclone lagu xiray)",
   "continuous-backup-include": "Samee nuqul-kayd",
   "continuous-backup-database": "Kaydka xogta",
+  "wekan-data-no-database": "Lama helin kaydka xogta WeKan oo la akhrin karo.",
   "continuous-backup-logs": "Diiwaannada",
   "continuous-backup-engine": "Matoorka kaydka xogta",
   "continuous-backup-engine-auto": "Si toos ah",

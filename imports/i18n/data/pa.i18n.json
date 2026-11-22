@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ਟੀਚਾ ਡਾਇਰੈਕਟਰੀ (ਕਿਸੇ ਹੋਰ ਡਿਸਕ, ਸਾਂਝੇ ਨੈੱਟਵਰਕ ਸਰੋਤ ਜਾਂ rclone ਰਾਹੀਂ ਮਾਊਂਟ ਕੀਤੀ ਸਟੋਰੇਜ ਉੱਤੇ ਪੂਰਾ ਪਾਥ)",
   "continuous-backup-include": "ਬੈਕਅੱਪ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ",
   "continuous-backup-database": "ਡੇਟਾਬੇਸ",
+  "wekan-data-no-database": "ਪੜ੍ਹਨਯੋਗ ਕੋਈ WeKan ਡੇਟਾਬੇਸ ਨਹੀਂ ਮਿਲਿਆ।",
   "continuous-backup-logs": "ਲੌਗ",
   "continuous-backup-engine": "ਡੇਟਾਬੇਸ ਇੰਜਣ",
   "continuous-backup-engine-auto": "ਆਟੋਮੈਟਿਕ",

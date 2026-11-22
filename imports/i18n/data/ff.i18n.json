@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Runngere tiindorde (laawol timmungol, e diske goɗɗo, mooftorde lollinaande e laylaytol walla ceŋorde rclone)",
   "continuous-backup-include": "Danndit",
   "continuous-backup-database": "Ruttorde keɓe",
+  "wekan-data-no-database": "Alaa ruttorde keɓe WeKan janngotoonde yiytaa.",
   "continuous-backup-logs": "Loge",
   "continuous-backup-engine": "Motoor ruttorde keɓe",
   "continuous-backup-engine-auto": "E jaajol",

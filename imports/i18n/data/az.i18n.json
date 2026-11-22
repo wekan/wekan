@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Hədəf qovluq (başqa diskdə, paylaşılan şəbəkə resursunda və ya rclone ilə qoşulmuş yaddaşda mütləq yol)",
   "continuous-backup-include": "Ehtiyat nüsxəyə daxil et",
   "continuous-backup-database": "Verilənlər bazası",
+  "wekan-data-no-database": "Oxuna bilən WeKan verilənlər bazası tapılmadı.",
   "continuous-backup-logs": "Jurnallar",
   "continuous-backup-engine": "Verilənlər bazası mühərriki",
   "continuous-backup-engine-auto": "Avtomatik",

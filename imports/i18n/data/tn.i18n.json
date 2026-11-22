@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foldara e go yang kwa go yone (tsela e e feletseng mo disiking e nngwe, mo lefelong le le abelanwang la netweke kgotsa mo lefelong le le golagantsweng ka rclone)",
   "continuous-backup-include": "Dira bekapo",
   "continuous-backup-database": "Polokelotshedimosetso",
+  "wekan-data-no-database": "Ga go a bonwa polokelotshedimosetso ya WeKan e e balegang.",
   "continuous-backup-logs": "Direkoto",
   "continuous-backup-engine": "Enjene ya polokelotshedimosetso",
   "continuous-backup-engine-auto": "Ka boitiriso",

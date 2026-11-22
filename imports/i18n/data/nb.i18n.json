@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Målmappe (absolutt sti på en annen disk, en nettverksressurs eller en rclone-montering)",
   "continuous-backup-include": "Sikkerhetskopier",
   "continuous-backup-database": "Databasen",
+  "wekan-data-no-database": "Fant ingen lesbar WeKan-database.",
   "continuous-backup-logs": "Logger",
   "continuous-backup-engine": "Databasemotor",
   "continuous-backup-engine-auto": "Automatisk",

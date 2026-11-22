@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folda bilong putim bekap (fulpela rot long narapela disk, ples ol i serim long netwok o ples rclone i bin konektim)",
   "continuous-backup-include": "Mekim bekap",
   "continuous-backup-database": "Detabes",
+  "wekan-data-no-database": "I no gat WeKan detabes yu inap ridim.",
   "continuous-backup-logs": "Ol rekot",
   "continuous-backup-engine": "Enjin bilong detabes",
   "continuous-backup-engine-auto": "Em yet i makim",

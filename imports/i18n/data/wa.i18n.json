@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ridant di destinåcion (tchimin absolou, so on ôte plake, on pårtaedje rantoele ou on montaedje rclone)",
   "continuous-backup-include": "Fé ene copeye di såvrité di",
   "continuous-backup-database": "Båze di dnêyes",
+  "wekan-data-no-database": "Nole båze di dnêyes WeKan lijhåve n' a stî trovêye.",
   "continuous-backup-logs": "Djournås",
   "continuous-backup-engine": "Moteur del båze di dnêyes",
   "continuous-backup-engine-auto": "Otomatike",

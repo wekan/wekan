@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Babban fayil na manufa (cikakkiyar hanya a wata faifai, wurin rabawa na hanyar sadarwa ko wurin da aka haɗa da rclone)",
   "continuous-backup-include": "Yi madadi",
   "continuous-backup-database": "Ma'ajiyar bayanai",
+  "wekan-data-no-database": "Ba a sami ma’ajiyar bayanai ta WeKan da za a iya karantawa ba.",
   "continuous-backup-logs": "Rajistoci",
   "continuous-backup-engine": "Injin ma'ajiyar bayanai",
   "continuous-backup-engine-auto": "Ta atomatik",

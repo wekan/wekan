@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartella di distinazzioni (pircursu assulutu supra n'autru discu, nu spaziu spartutu di riti o nu muntaggiu rclone)",
   "continuous-backup-include": "Fari na copia di sicurizza",
   "continuous-backup-database": "Basi di dati",
+  "wekan-data-no-database": "Nun fu truvata nudda basi di dati WeKan liggìbbili.",
   "continuous-backup-logs": "Riggistri",
   "continuous-backup-engine": "Muturi dâ basi di dati",
   "continuous-backup-engine-auto": "Autumàticu",

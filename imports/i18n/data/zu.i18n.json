@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Ifolda okuya kuyo (indlela ephelele kwenye idiski, endaweni eyabiwe yenethiwekhi noma endaweni exhunywe nge-rclone)",
   "continuous-backup-include": "Yenza isipele",
   "continuous-backup-database": "Isizindalwazi",
+  "wekan-data-no-database": "Asikho isizindalwazi se-WeKan esifundekayo esitholakele.",
   "continuous-backup-logs": "Imibhalo yomlando",
   "continuous-backup-engine": "Injini yesizindalwazi",
   "continuous-backup-engine-auto": "Ngokuzenzakalela",

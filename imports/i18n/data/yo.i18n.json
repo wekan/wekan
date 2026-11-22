@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folda ibi-afẹde (ọna kikun lori disiki miiran, ibi pinpin nẹtiwọọki tabi ibi ti a so pọ nipasẹ rclone)",
   "continuous-backup-include": "Ṣe afẹyinti",
   "continuous-backup-database": "Ibi ipamọ data",
+  "wekan-data-no-database": "A kò rí ibi ìpamọ́ data WeKan tí a lè kà.",
   "continuous-backup-logs": "Awọn àkọọlẹ",
   "continuous-backup-engine": "Ẹrọ ibi ipamọ data",
   "continuous-backup-engine-auto": "Laifọwọyi",

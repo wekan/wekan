@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Նպատակային պանակ (բացարձակ ուղի այլ սկավառակի, ցանցային ընդհանուր ռեսուրսի կամ rclone-ով միացված պահոցի վրա)",
   "continuous-backup-include": "Ներառել պահուստային պատճենում",
   "continuous-backup-database": "Տվյալների բազա",
+  "wekan-data-no-database": "Ընթեռնելի WeKan տվյալների բազա չի գտնվել։",
   "continuous-backup-logs": "Մատյաններ",
   "continuous-backup-engine": "Տվյալների բազայի շարժիչ",
   "continuous-backup-engine-auto": "Ավտոմատ",

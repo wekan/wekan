@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Directorlu iu s-aspartu copiili (cali ãmplinã, pi altu discu, tu un locu di aspundiri ãmpãrtsãtu tu arãtsi o tu un mount rclone)",
   "continuous-backup-include": "Adarã copie di rezervã di",
   "continuous-backup-database": "Bazã di dati",
+  "wekan-data-no-database": "Nu s-aflã vãrã bazã di dati WeKan tsi s-poatã s-hibã ghivisitã.",
   "continuous-backup-logs": "Registre",
   "continuous-backup-engine": "Motorlu a bazãljei di dati",
   "continuous-backup-engine-auto": "S-aleadzi singur",

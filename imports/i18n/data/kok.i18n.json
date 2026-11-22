@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "लक्ष्य फोल्डर (दुसऱ्या डिस्काचेर, नेटवर्काच्या वांटून वापरपी जाग्यार वा rclone वरवीं जोडिल्ल्या जाग्यार पुराय मार्ग)",
   "continuous-backup-include": "बॅकअप करात",
   "continuous-backup-database": "म्हायतीकोश",
+  "wekan-data-no-database": "वाचूंक जाता असो खंयचोच WeKan म्हायतीकोश मेळ्ळो ना.",
   "continuous-backup-logs": "नोंदी",
   "continuous-backup-engine": "म्हायतीकोश इंजिन",
   "continuous-backup-engine-auto": "आपसूक",

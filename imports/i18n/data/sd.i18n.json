@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "منزل جي ڊائريڪٽري (ٻي ڊسڪ، نيٽ ورڪ تي گڏيل هنڌ يا rclone سان ڳنڍيل هنڌ تي مڪمل رستو)",
   "continuous-backup-include": "بيڪ اپ وٺو",
   "continuous-backup-database": "ڊيٽابيس",
+  "wekan-data-no-database": "پڙهڻ جوڳو ڪو به WeKan ڊيٽابيس نه مليو.",
   "continuous-backup-logs": "لاگ رڪارڊ",
   "continuous-backup-engine": "ڊيٽابيس انجڻ",
   "continuous-backup-engine-auto": "پاڻمرادو",

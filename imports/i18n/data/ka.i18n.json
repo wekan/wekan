@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "სამიზნე საქაღალდე (აბსოლუტური ბილიკი სხვა დისკზე, ქსელის გაზიარებულ რესურსზე ან rclone-ით მიერთებულ საცავში)",
   "continuous-backup-include": "სარეზერვო ასლში ჩასართავი მონაცემები",
   "continuous-backup-database": "მონაცემთა ბაზა",
+  "wekan-data-no-database": "წაკითხვადი WeKan მონაცემთა ბაზა ვერ მოიძებნა.",
   "continuous-backup-logs": "ჟურნალები",
   "continuous-backup-engine": "მონაცემთა ბაზის ძრავა",
   "continuous-backup-engine-auto": "ავტომატური",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "保存先ディレクトリ（別のディスク、ネットワーク共有、または rclone でマウントしたストレージ上の絶対パス）",
   "continuous-backup-include": "バックアップ対象",
   "continuous-backup-database": "データベース",
+  "wekan-data-no-database": "読み取り可能な WeKan データベースが見つかりませんでした。",
   "continuous-backup-logs": "ログ",
   "continuous-backup-engine": "データベースエンジン",
   "continuous-backup-engine-auto": "自動",

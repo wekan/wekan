@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Максат каталогы (башка дискта, челтәрнең уртак урынында яки rclone аша тоташтырылган урында тулы юл)",
   "continuous-backup-include": "Резерв күчермә ясарга",
   "continuous-backup-database": "Мәгълүмат базасы",
+  "wekan-data-no-database": "Укып булырлык WeKan мәгълүмат базасы табылмады.",
   "continuous-backup-logs": "Журналлар",
   "continuous-backup-engine": "Мәгълүмат базасы механизмы",
   "continuous-backup-engine-auto": "Автоматик рәвештә",

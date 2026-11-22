@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Lahatahiry kendrena (lalana feno amin'ny kapila hafa, toerana zaraina amin'ny tambajotra na toerana ampifandraisina amin'ny rclone)",
   "continuous-backup-include": "Manaova tahiry fiarovana",
   "continuous-backup-database": "Banky angona",
+  "wekan-data-no-database": "Tsy nisy banky angona WeKan azo vakiana hita.",
   "continuous-backup-logs": "Diarin'ny rafitra",
   "continuous-backup-engine": "Motera banky angona",
   "continuous-backup-engine-auto": "Mandeha ho azy",

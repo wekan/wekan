@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Direktori tujuan (jalur absolut pada disk lain, sumber daya jaringan bersama, atau penyimpanan yang dipasang dengan rclone)",
   "continuous-backup-include": "Cadangkan",
   "continuous-backup-database": "Basis data",
+  "wekan-data-no-database": "Tidak ditemukan basis data WeKan yang dapat dibaca.",
   "continuous-backup-logs": "Log aktivitas",
   "continuous-backup-engine": "Mesin basis data",
   "continuous-backup-engine-auto": "Otomatis",

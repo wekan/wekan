@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Целен директориум (апсолутна патека на друг диск, во споделен мрежен ресурс или во складиште монтирано преку rclone)",
   "continuous-backup-include": "Вклучи во резервната копија",
   "continuous-backup-database": "База на податоци",
+  "wekan-data-no-database": "Не е пронајдена читлива база на податоци на WeKan.",
   "continuous-backup-logs": "Дневници",
   "continuous-backup-engine": "Механизам за база на податоци",
   "continuous-backup-engine-auto": "Автоматски",

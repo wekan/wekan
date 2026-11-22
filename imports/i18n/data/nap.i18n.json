@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartella addó sarvà (percorso assoluto, ncopp'a n'ato disco, na cartella spartuta 'n rete o nu muntaggio rclone)",
   "continuous-backup-include": "Fa 'na còpia 'e sicurezza 'e",
   "continuous-backup-database": "Base 'e date",
+  "wekan-data-no-database": "Nun s'è truvata nisciuna base 'e date WeKan liggibbele.",
   "continuous-backup-logs": "Registre",
   "continuous-backup-engine": "Mutore d''a base 'e date",
   "continuous-backup-engine-auto": "Se sceglie 'a sulo",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "المجلد الهدف (مسار مطلق على قرص آخر أو مورد مشترك على الشبكة أو مساحة تخزين موصولة عبر rclone)",
   "continuous-backup-include": "محتويات النسخ الاحتياطي",
   "continuous-backup-database": "قاعدة البيانات",
+  "wekan-data-no-database": "لم يُعثر على قاعدة بيانات WeKan قابلة للقراءة.",
   "continuous-backup-logs": "السجلات",
   "continuous-backup-engine": "محرك قاعدة البيانات",
   "continuous-backup-engine-auto": "تلقائي",

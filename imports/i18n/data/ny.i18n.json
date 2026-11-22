@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Foda yopita (njira yonse pa disiki ina, malo ogawana pa netiweki kapena malo olumikizidwa ndi rclone)",
   "continuous-backup-include": "Sungani zobwezeretsera",
   "continuous-backup-database": "Nkhokwe ya data",
+  "wekan-data-no-database": "Palibe nkhokwe ya data ya WeKan yowerengeka yomwe yapezeka.",
   "continuous-backup-logs": "Zolemba za zochitika",
   "continuous-backup-engine": "Injini ya nkhokwe ya data",
   "continuous-backup-engine-auto": "Zochitika zokha",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Saraka lengwa (njia kamili kwenye diski nyingine, rasilimali ya mtandao inayoshirikiwa au hifadhi iliyounganishwa kwa rclone)",
   "continuous-backup-include": "Jumuisha katika nakala rudufu",
   "continuous-backup-database": "Hifadhidata",
+  "wekan-data-no-database": "Hakuna hifadhidata ya WeKan inayosomeka iliyopatikana.",
   "continuous-backup-logs": "Kumbukumbu",
   "continuous-backup-engine": "Injini ya hifadhidata",
   "continuous-backup-engine-auto": "Kiotomatiki",

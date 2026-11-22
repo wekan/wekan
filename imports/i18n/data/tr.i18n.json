@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Hedef dizin (başka bir diskte, ağ paylaşımında veya rclone ile bağlanmış bir depolama alanında mutlak yol)",
   "continuous-backup-include": "Yedeklenecek veriler",
   "continuous-backup-database": "Veritabanı",
+  "wekan-data-no-database": "Okunabilir bir WeKan veritabanı bulunamadı.",
   "continuous-backup-logs": "Günlükler",
   "continuous-backup-engine": "Veritabanı motoru",
   "continuous-backup-engine-auto": "Otomatik",

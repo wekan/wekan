@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Direutoriu de destín (ruta absoluta n'otru discu, nun recursu compartíu de rede o nun montaxe de rclone)",
   "continuous-backup-include": "Facer copia de seguridá",
   "continuous-backup-database": "Base de datos",
+  "wekan-data-no-database": "Nun s'atopó nenguna base de datos de WeKan que se pueda lleer.",
   "continuous-backup-logs": "Rexistros",
   "continuous-backup-engine": "Motor de base de datos",
   "continuous-backup-engine-auto": "Automáticu",

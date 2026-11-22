@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ለመቅሰድ ፋይላት መካን (ምሉእ ደርብ፣ እት ካልእ ዲስክ፣ እት ለትካፈለ ሸበከት መካን ወላ እት rclone ርክበት)",
   "continuous-backup-include": "ዕቁብ ንስኸት ውዴ",
   "continuous-backup-database": "ሐበሬ መካን",
+  "wekan-data-no-database": "ልትቀረእ ትቀድር ሐበሬ መካን WeKan ኢትረከበት።",
   "continuous-backup-logs": "መዝገባት",
   "continuous-backup-engine": "ለሐበሬ መካን ሞተር",
   "continuous-backup-engine-auto": "ብሮቱ",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Dosiye mara yɔrɔ (sira dafalen, disiki wɛrɛ kan, jɛkafɔ mara yɔrɔ kan rɛzo la, walima rclone mara yɔrɔ jɛlen na)",
   "continuous-backup-include": "Kɔpi mara",
   "continuous-backup-database": "Datakurun",
+  "wekan-data-no-database": "WeKan datakurun si ma sɔrɔ min bɛ se ka kalan.",
   "continuous-backup-logs": "Baara sɛbɛnw",
   "continuous-backup-engine": "Datakurun baarakɛlan",
   "continuous-backup-engine-auto": "A yɛrɛ bɛ sugandi",

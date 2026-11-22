@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Харайар паапка (толору суол, атын диискэҕэ, ситимҥэ бииргэ туттар харайар сиргэ эбэтэр холбоммут rclone харайар сиргэ)",
   "continuous-backup-include": "Саппаас куоппуйаны оҥор",
   "continuous-backup-database": "Дааннайдар баазалара",
+  "wekan-data-no-database": "Ааҕыллар WeKan дааннайдарын баазата көстүбэтэ.",
   "continuous-backup-logs": "Үлэ суруйуулара",
   "continuous-backup-engine": "Дааннайдар баазаларын үлэлэтээччи",
   "continuous-backup-engine-auto": "Бэйэтэ таллар",

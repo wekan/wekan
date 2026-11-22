@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Folda ew'okutereka (ekkubo erijjuvu, ku disiki endala, mu tterekero erigabanyizibwa ku mukutu oba ekifo ekiyungiddwa ne rclone)",
   "continuous-backup-include": "Kola kopi y'obukuumi ya",
   "continuous-backup-database": "Etterekero ly'amawulire",
+  "wekan-data-no-database": "Tewali tterekero ly'amawulire erya WeKan esobola okusomebwa ezuuliddwa.",
   "continuous-backup-logs": "Ebiwandiiko by'emirimu",
   "continuous-backup-engine": "Yingini y'etterekero ly'amawulire",
   "continuous-backup-engine-auto": "Okweroboza yokka",

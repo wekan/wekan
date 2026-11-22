@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "இலக்குக் கோப்பகம் (வேறொரு வட்டு, பிணையப் பகிர்வு அல்லது rclone மூலம் இணைக்கப்பட்ட சேமிப்பகத்தில் உள்ள முழுமையான பாதை)",
   "continuous-backup-include": "காப்புப்பிரதியில் சேர்க்கவும்",
   "continuous-backup-database": "தரவுத்தளம்",
+  "wekan-data-no-database": "படிக்கக்கூடிய WeKan தரவுத்தளம் எதுவும் காணப்படவில்லை.",
   "continuous-backup-logs": "பதிவுகள்",
   "continuous-backup-engine": "தரவுத்தள இயந்திரம்",
   "continuous-backup-engine-auto": "தானியங்கி",

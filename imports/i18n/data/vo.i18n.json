@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Map zeilik (veg lölik, su plak votik, in dakipöp retoda koböfik u in yümöp rclone)",
   "continuous-backup-include": "Bekapön",
   "continuous-backup-database": "Nünodem",
+  "wekan-data-no-database": "Nünodem WeKan reidovik no petuvon.",
   "continuous-backup-logs": "Registars",
   "continuous-backup-engine": "Cin nünodema",
   "continuous-backup-engine-auto": "Automato",

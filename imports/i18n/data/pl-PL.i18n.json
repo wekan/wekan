@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Katalog docelowy (ścieżka bezwzględna na innym dysku, w udziale sieciowym lub w zasobie zamontowanym przez rclone)",
   "continuous-backup-include": "Uwzględnij w kopii zapasowej",
   "continuous-backup-database": "Baza danych",
+  "wekan-data-no-database": "Nie znaleziono czytelnej bazy danych WeKan.",
   "continuous-backup-logs": "Dzienniki",
   "continuous-backup-engine": "Silnik bazy danych",
   "continuous-backup-engine-auto": "Automatycznie",

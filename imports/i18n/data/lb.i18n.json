@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Zildossier (absolute Wee op engem aneren Disk, enger gedeeltener Netzwierkressource oder engem Späicher, dee mat rclone agebonnen ass)",
   "continuous-backup-include": "An d’Sicherung ophuelen",
   "continuous-backup-database": "Datebank",
+  "wekan-data-no-database": "Keng liesbar WeKan-Datebank fonnt.",
   "continuous-backup-logs": "Protokoller",
   "continuous-backup-engine": "Datebankmotor",
   "continuous-backup-engine-auto": "Automatesch",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "منزل کی ڈائریکٹری (کسی دوسری ڈسک، نیٹ ورک شیئر یا rclone کے ذریعے منسلک اسٹوریج پر مکمل راستہ)",
   "continuous-backup-include": "بیک اپ میں شامل کریں",
   "continuous-backup-database": "ڈیٹابیس",
+  "wekan-data-no-database": "پڑھنے کے قابل کوئی WeKan ڈیٹابیس نہیں ملا۔",
   "continuous-backup-logs": "لاگز",
   "continuous-backup-engine": "ڈیٹابیس انجن",
   "continuous-backup-engine-auto": "خودکار",

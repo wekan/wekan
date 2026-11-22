@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "मंजिल के डायरेक्टरी (दोसरा डिस्क, नेटवर्क पर साझा जगह चाहे rclone से जोड़ल जगह पर पूरा पथ)",
   "continuous-backup-include": "बैकअप लीं",
   "continuous-backup-database": "डेटाबेस",
+  "wekan-data-no-database": "पढ़े लायक कवनो WeKan डेटाबेस ना मिलल।",
   "continuous-backup-logs": "लॉग सभ",
   "continuous-backup-engine": "डेटाबेस इंजन",
   "continuous-backup-engine-auto": "अपने-आप",

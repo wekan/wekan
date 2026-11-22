@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Direttorju fil-mira (mogħdija assoluta fuq diska oħra, riżorsa kondiviża tan-netwerk jew ħażna mmuntata permezz ta’ rclone)",
   "continuous-backup-include": "Inkludi fil-kopja ta’ riżerva",
   "continuous-backup-database": "Bażi tad-data",
+  "wekan-data-no-database": "Ma nstabet ebda bażi tad-data ta' WeKan li tista' tinqara.",
   "continuous-backup-logs": "Reġistri",
   "continuous-backup-engine": "Magna tad-database",
   "continuous-backup-engine-auto": "Awtomatiku",

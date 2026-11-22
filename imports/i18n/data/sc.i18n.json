@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cartella de destinatzione (percursu assolutu in un'àteru discu, in un'ispàtziu cumpartzidu de rete o in unu montàgiu rclone)",
   "continuous-backup-include": "Fàghere una còpia de seguresa",
   "continuous-backup-database": "Base de datos",
+  "wekan-data-no-database": "No est istada agatada peruna base de datos WeKan leghìbile.",
   "continuous-backup-logs": "Registros",
   "continuous-backup-engine": "Motore de sa base de datos",
   "continuous-backup-engine-auto": "Automàticu",

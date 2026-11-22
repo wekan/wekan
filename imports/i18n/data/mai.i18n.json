@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "गंतव्य डायरेक्टरी (दोसर डिस्क, नेटवर्कक साझा स्थान वा rclone सँ जोड़ल स्थानपर पूर्ण पथ)",
   "continuous-backup-include": "बैकअप लिअ",
   "continuous-backup-database": "डेटाबेस",
+  "wekan-data-no-database": "पढ़ल जा सकय बला कोनो WeKan डेटाबेस नहि भेटल।",
   "continuous-backup-logs": "लॉगसभ",
   "continuous-backup-engine": "डेटाबेस इंजन",
   "continuous-backup-engine-auto": "स्वचालित रूपेँ",

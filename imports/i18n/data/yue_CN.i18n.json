@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "目標目錄（另一個磁碟、網絡共用位置或者 rclone 掛載位置嘅絕對路徑）",
   "continuous-backup-include": "要備份嘅內容",
   "continuous-backup-database": "資料庫",
+  "wekan-data-no-database": "搵唔到可以讀取嘅 WeKan 資料庫。",
   "continuous-backup-logs": "日誌",
   "continuous-backup-engine": "資料庫引擎",
   "continuous-backup-engine-auto": "自動",

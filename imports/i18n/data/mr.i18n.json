@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "लक्ष्य निर्देशिका (दुसऱ्या डिस्कवरील, सामायिक नेटवर्क संसाधनावरील किंवा rclone ने माउंट केलेल्या संचयनावरील संपूर्ण पथ)",
   "continuous-backup-include": "बॅकअपमध्ये समाविष्ट करा",
   "continuous-backup-database": "डेटाबेस",
+  "wekan-data-no-database": "वाचता येईल असा कोणताही WeKan डेटाबेस सापडला नाही.",
   "continuous-backup-logs": "लॉग नोंदी",
   "continuous-backup-engine": "डेटाबेस इंजिन",
   "continuous-backup-engine-auto": "स्वयंचलित",

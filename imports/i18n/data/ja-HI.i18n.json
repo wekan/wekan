@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "ほぞんさきでぃれくとり（べつのでぃすく、ねっとわーくきょうゆう、または rclone でまうんとしたすとれーじじょうのぜったいぱす）",
   "continuous-backup-include": "ばっくあっぷたいしょう",
   "continuous-backup-database": "でーたべーす",
+  "wekan-data-no-database": "よみとれる WeKan でーたべーすが みつかりませんでした。",
   "continuous-backup-logs": "ろぐ",
   "continuous-backup-engine": "でーたべーすえんじん",
   "continuous-backup-engine-auto": "じどう",

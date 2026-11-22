@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Docylowy katalog (połnŏ cesta, na inkszym dysku, we spōłdzielōnym placu w necu abo punkcie mōntowaniŏ rclone)",
   "continuous-backup-include": "Zrōb kopijõ zapasowõ",
   "continuous-backup-database": "Baza danych",
+  "wekan-data-no-database": "Niy szło znojś żodnyj czytelnyj bazy danych WeKan.",
   "continuous-backup-logs": "Logi",
   "continuous-backup-engine": "Motor bazy danych",
   "continuous-backup-engine-auto": "Autōmatycznie",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Whaiaronga ūnga (ara pūmau, ki tētahi atu kōpae, tētahi putunga tiritahi whatunga, tētahi whakairinga rclone rānei)",
   "continuous-backup-include": "Pūruatia",
   "continuous-backup-database": "Pātengi raraunga",
+  "wekan-data-no-database": "Kāore i kitea he pātengi raraunga WeKan ka taea te pānui.",
   "continuous-backup-logs": "Ngā rangitaki",
   "continuous-backup-engine": "Pūkaha pātengi raraunga",
   "continuous-backup-engine-auto": "Aunoa",

@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "目标目录（其他磁盘、网络共享或通过 rclone 挂载的存储空间中的绝对路径）",
   "continuous-backup-include": "备份内容",
   "continuous-backup-database": "数据库",
+  "wekan-data-no-database": "未找到可读取的 WeKan 数据库。",
   "continuous-backup-logs": "日志",
   "continuous-backup-engine": "数据库引擎",
   "continuous-backup-engine-auto": "自动",

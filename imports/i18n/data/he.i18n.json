@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "תיקיית יעד (נתיב מוחלט בדיסק אחר, בשיתוף רשת או באחסון המחובר באמצעות rclone)",
   "continuous-backup-include": "תוכן לגיבוי",
   "continuous-backup-database": "מסד נתונים",
+  "wekan-data-no-database": "לא נמצא מסד נתונים קריא של WeKan.",
   "continuous-backup-logs": "יומנים",
   "continuous-backup-engine": "מנוע מסד נתונים",
   "continuous-backup-engine-auto": "אוטומטי",

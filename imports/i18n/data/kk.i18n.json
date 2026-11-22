@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Мақсатты каталог (басқа дискідегі, ортақ желілік ресурстағы немесе rclone арқылы қосылған қоймадағы абсолютті жол)",
   "continuous-backup-include": "Сақтық көшірмеге қосу",
   "continuous-backup-database": "Дерекқор",
+  "wekan-data-no-database": "Оқылатын WeKan дерекқоры табылмады.",
   "continuous-backup-logs": "Журналдар",
   "continuous-backup-engine": "Дерекқор қозғалтқышы",
   "continuous-backup-engine-auto": "Автоматты",

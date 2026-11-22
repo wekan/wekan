@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Maqsad katalogi (boshqa diskdagi, tarmoqdagi umumiy resursdagi yoki rclone orqali ulangan xotiradagi mutlaq yo‘l)",
   "continuous-backup-include": "Zaxira nusxaga kiritish",
   "continuous-backup-database": "Ma’lumotlar bazasi",
+  "wekan-data-no-database": "O‘qiladigan WeKan ma’lumotlar bazasi topilmadi.",
   "continuous-backup-logs": "Jurnallar",
   "continuous-backup-engine": "Ma’lumotlar bazasi mexanizmi",
   "continuous-backup-engine-auto": "Avtomatik",

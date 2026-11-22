@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Κατάλογος προορισμού (απόλυτη διαδρομή σε άλλον δίσκο, σε κοινόχρηστο πόρο δικτύου ή σε χώρο αποθήκευσης προσαρτημένο μέσω rclone)",
   "continuous-backup-include": "Δημιουργία αντιγράφων ασφαλείας για",
   "continuous-backup-database": "Βάση δεδομένων",
+  "wekan-data-no-database": "Δεν βρέθηκε αναγνώσιμη βάση δεδομένων WeKan.",
   "continuous-backup-logs": "Αρχεία καταγραφής",
   "continuous-backup-engine": "Μηχανή βάσης δεδομένων",
   "continuous-backup-engine-auto": "Αυτόματα",

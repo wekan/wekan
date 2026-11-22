@@ -2973,6 +2973,7 @@
   "continuous-backup-target": "Cyfeiriadur targed (llwybr absoliwt ar ddisg arall, adnodd rhwydwaith a rennir neu storfa wedi’i mowntio drwy rclone)",
   "continuous-backup-include": "Cynnwys yn y copi wrth gefn",
   "continuous-backup-database": "Cronfa ddata",
+  "wekan-data-no-database": "Ni chanfuwyd cronfa ddata WeKan ddarllenadwy.",
   "continuous-backup-logs": "Logiau",
   "continuous-backup-engine": "Peiriant cronfa ddata",
   "continuous-backup-engine-auto": "Awtomatig",
