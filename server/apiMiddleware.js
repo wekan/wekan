@@ -147,7 +147,7 @@ WebApp.handlers.use(async function authenticateSandstormApiKey(req, res, next) {
 // ---------------------------------------------------------------------------
 WebApp.handlers.use(async function cloudHostRestGate(req, res, next) {
   const { cloudDomainFromEnv, cloudRestDecision } = require('/models/lib/cloudPanel');
-  const cloudDomain = cloudDomainFromEnv(process.env);
+  const cloudDomain = cloudDomainFromEnv({ CLOUD: process.env.CLOUD });
   if (!cloudDomain) return next();
   let host = '';
   try {

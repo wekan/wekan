@@ -48,7 +48,7 @@ You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth
    `OAUTH2_TOKEN_ENDPOINT`, `OAUTH2_USERINFO_ENDPOINT`, the claim maps
    `OAUTH2_ID_MAP`, `OAUTH2_USERNAME_MAP`, `OAUTH2_FULLNAME_MAP`,
    `OAUTH2_EMAIL_MAP`, and `OAUTH2_REQUEST_PERMISSIONS`, in the environment
-   (Snap: `sudo snap set wekan oauth2-...`) or in **Admin Panel / People /
+   (Snap: `sudo snap set wekan oauth2-client-id=...`, and the same for each setting) or in **Admin Panel / People /
    OAuth2**, where a saved value wins over the environment and applies to the
    next login without a restart.
 3. Click **Sign in with Oidc** on the sign-in page. With `DEBUG=true` the

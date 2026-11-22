@@ -434,7 +434,7 @@ services:
       #- DEBUG=true
       #---------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/autologin.md
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
       # OIDC RP-initiated logout endpoint (end_session_endpoint). When set, the
       # "Log Out" menu redirects to this endpoint so the identity provider session
@@ -526,7 +526,7 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
-      # https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: redirect (default) or popup.
       #- OAUTH2_LOGIN_STYLE=redirect
@@ -984,6 +984,10 @@ services:
       # WEKAN_RAM_MONITOR : false turns off the memory monitor of this server
       # (Admin Panel / Problems / Memory usage). Default on.
       #- WEKAN_RAM_MONITOR=false
+      # CLOUD : The Cloud Admin container's own domain, e.g. cloud.wekan.fi:
+      # only then is there a Cloud Panel (Admin Panel / Cloud), and only at that
+      # address. Empty: none. Never set from the browser.
+      #- CLOUD=cloud.example.com
       # WEKAN_IMPORT_RUN_STALE_MS : Milliseconds after which an import with no
       # progress counts as interrupted and can be resumed or discarded (at least
       # 60000).

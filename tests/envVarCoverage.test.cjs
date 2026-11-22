@@ -49,6 +49,8 @@ const ENV_ONLY = {
   // The Cloud Panel's way back in for an operator locked out by its allowed
   // addresses (docs/Features/Admin-Panel/Cloud-Panel.md): set for one restart,
   // never kept, and never something the browser may switch.
+  // The Cloud Admin container's domain (models/lib/cloudPanel.js cloudDomainFromEnv): CloudPanelBleed.
+  CLOUD: { platforms: true, reason: 'the Cloud Panel exists only with it, and only the server may set it - a browser setting was the hole (CloudPanelBleed)' },
   CLOUD_ADMIN_ANY_ADDRESS: { platforms: false, reason: 'a one-off recovery switch for a Cloud Panel locked out by its own allowed addresses; a setting in the browser could not reach a locked-out operator' },
   NEXTCLOUD_EXAPP: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   NEXTCLOUD_URL: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },

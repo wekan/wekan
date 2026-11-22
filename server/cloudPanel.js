@@ -71,7 +71,7 @@ function recordRefusal(key, source, detail) {
 // The panel's own domain, from the environment, read on every call: there is
 // no other place it can come from.
 function cloudDomainNow() {
-  return C.cloudDomainFromEnv(process.env);
+  return C.cloudDomainFromEnv({ CLOUD: process.env.CLOUD });
 }
 
 /**

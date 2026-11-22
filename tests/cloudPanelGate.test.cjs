@@ -83,7 +83,7 @@ test('...and it is behind the CLOUD gate in the very function that builds it', (
   const gate = withSource.indexOf('requireCloud(');
   assert.ok(gate !== -1 && gate < withSource.search(BUILDS_A_CLIENT), 'the gate comes first, whoever calls it');
   // The gate is the environment, read on every call - nothing stored.
-  assert.match(functionBody(src, 'function cloudDomainNow('), /return C\.cloudDomainFromEnv\(process\.env\);/);
+  assert.match(functionBody(src, 'function cloudDomainNow('), /return C\.cloudDomainFromEnv\(\{ CLOUD: process\.env\.CLOUD \}\);/);
   const requireCloud = functionBody(src, 'function requireCloud(');
   assert.match(requireCloud, /cloudDomainNow\(\)/);
   assert.match(requireCloud, /recordRefusal\('authz\.cloud-panel-off'/, 'an attempt is recorded in Admin Panel / Problems');
@@ -121,7 +121,8 @@ test('the REST API at the CLOUD address: refused without a login, in front of ev
   assert.ok(gate > mw.indexOf('function authenticateByToken('), 'after the token is read, so a signed-in export still works');
   assert.ok(gate < mw.indexOf("require('/server/lib/apiUsageLog')"), 'before the usage counting and every route');
   const body = mw.slice(gate, mw.indexOf('\n});', gate));
-  assert.match(body, /cloudDomainFromEnv\(process\.env\)/);
+  // The server's own environment, by name, where tests/envVarCoverage.test.cjs sees it.
+  assert.match(body, /cloudDomainFromEnv\(\{ CLOUD: process\.env\.CLOUD \}\)/);
   assert.match(body, /if \(!cloudDomain\) return next\(\);/, 'negative: a WeKan without CLOUD is unchanged');
   assert.match(body, /key: 'authn\.cloud-rest-off', action: 'blocked'/);
   const imports = read('server/imports.js');
