@@ -67,6 +67,13 @@ test('editLabel unsets dueAt (rather than leaving a stale value) when none is su
   assert.match(match[1], /\$unset/);
 });
 
+test('editing only the due date of a label is saved: only ANOTHER label with the same name and colour refuses it', () => {
+  const match = boardsSrc.match(/async editLabel\(labelId, name, color, dueAt\) \{([\s\S]*?)\n  },/);
+  assert.match(match[1], /const same = this\.getLabel\(name, color\);\s*if \(!same \|\| same\._id === labelId\) \{/);
+  // Negative: the old check refused the label itself, so a due date change alone was lost.
+  assert.doesNotMatch(match[1], /^\s*if \(!this\.getLabel\(name, color\)\) \{/m);
+});
+
 test('the label popup form has a due-date input wired to the existing "due-date" i18n key', () => {
   assert.match(labelsJadeSrc, /\+calendarDateInput\(inputId="labelDueAt" fieldClass="js-label-due-at"/);
   assert.match(labelsJadeSrc, /\{\{_ 'due-date'\}\}/);

@@ -3030,7 +3030,11 @@ Boards.helpers({
   },
 
   async editLabel(labelId, name, color, dueAt) {
-    if (!this.getLabel(name, color)) {
+    // Refused only when ANOTHER label already has this name and colour: the
+    // label being edited has them itself whenever only its due date changes,
+    // and that change was silently not saved.
+    const same = this.getLabel(name, color);
+    if (!same || same._id === labelId) {
       const labelIndex = this.labelIndex(labelId);
       const update = {
         $set: {
