@@ -114,6 +114,10 @@ window.Popup = new (class {
         openerElement,
         hasPopupParent: clickFromPopup(evt),
         title: self._getTitle(popupName, openOptions.titleKey),
+        // Where the focus goes when Escape or Back leaves this popup for the
+        // one under it: the control that opened it, found again by selector
+        // because the popup under it is drawn anew (featureHelp.js).
+        returnFocusSelector: openOptions.returnFocusSelector || null,
         depth: self._stack.length,
         offset: self._getOffset(openerElement, popupName),
         dataContext: openOptions.dataContext || (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
@@ -210,9 +214,19 @@ window.Popup = new (class {
         // restore the old popup scroll position
         $contentWrapper.scrollTop(stack.scrollTop);
       }
-      for (let i = 0; i < n; i++) this._stack.pop();
+      let left = null;
+      for (let i = 0; i < n; i++) left = this._stack.pop();
       this._dep.changed();
-      this.focusCurrentPopup();
+      const selector = left && left.returnFocusSelector;
+      if (selector) {
+        Tracker.afterFlush(() => {
+          const target = document.querySelector(selector);
+          if (target) target.focus();
+          else this.focusCurrentPopup();
+        });
+      } else {
+        this.focusCurrentPopup();
+      }
     } else {
       this.close();
     }

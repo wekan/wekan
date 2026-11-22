@@ -53,6 +53,7 @@ import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
 import { isHexColor, isAllowedCardColor, toHex, contrastText, customColorsInUse } from '/models/lib/contrastColor';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
+import { cardSectionHelpId } from '/models/lib/featureHelp';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { Filter } from '/client/lib/filter';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
@@ -1158,6 +1159,14 @@ Template.registerHelper('attachmentCount', function attachmentCount() {
 // is the same control and must not point the other way in the same language.
 Template.registerHelper('sectionCaret', section =>
   caretClassFor(isCardSectionOpen(section)));
+
+// The section's ? (docs/Features/General/Help-Button.md): which help it shows
+// is models/lib/featureHelp.js CARD_SECTION_HELP.
+Template.cardSectionHeader.helpers({
+  sectionHelp() {
+    return cardSectionHelpId(this.section);
+  },
+});
 
 Template.cardSectionHeader.events({
   // A hamburger at the end of a heading opens that section's settings. Neither

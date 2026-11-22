@@ -3,6 +3,9 @@ import { Template } from 'meteor/templating';
 import { Tracker } from 'meteor/tracker';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+const { paneHelpId } = require('/models/lib/featureHelp');
 
 // Collapsing the left menu, for both pages that have one.
 //
@@ -27,6 +30,15 @@ import { Utils } from '/client/lib/utils';
 // docs/Features/All-Boards/Left-Menu.md
 
 Template.registerHelper('isLeftMenuCollapsed', () => Utils.getLeftMenuCollapseState());
+
+// The ? of the open pane (docs/Features/General/Help-Button.md): its help
+// depends on the page and on the open menu entry, which paneTitle() passes as
+// `paneId`.
+Template.paneTitle.helpers({
+  paneHelp() {
+    return paneHelpId(FlowRouter.getRouteName(), this && this.paneId);
+  },
+});
 
 Template.leftMenuCollapse.helpers({
   // What the control DOES, for the tooltip and for a screen reader - the same

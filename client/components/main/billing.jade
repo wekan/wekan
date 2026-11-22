@@ -7,7 +7,9 @@
 template(name="billing")
   if currentUser
     .billing-page
-      h1 {{_ 'billing-title'}}
+      h1.feature-help-title
+        | {{_ 'billing-title'}}
+        +featureHelp(id='billing')
       p.billing-intro {{_ 'billing-intro'}}
       if loading
         +spinner

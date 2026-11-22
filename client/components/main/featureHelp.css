@@ -1,0 +1,130 @@
+/* The ? of a feature place and its popup (featureHelp.jade,
+   docs/Features/General/Help-Button.md).
+
+   Every rule here uses the LOGICAL side - inline-end, inline-start - so the ?
+   that is at the right of a heading in English is at its left in Arabic or
+   Hebrew, from the same rule and with nothing written twice. */
+
+.feature-help-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  /* WCAG 2.2 target size: at least 24 by 24 CSS pixels. */
+  min-width: 28px;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+  box-shadow: none;
+}
+.feature-help-btn:hover {
+  opacity: 1;
+  background: rgba(127, 127, 127, 0.18);
+}
+/* Keyboard focus is always visible. */
+.feature-help-btn:focus-visible {
+  opacity: 1;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.feature-help-btn i.fa {
+  margin: 0;
+  font-size: inherit;
+}
+
+/* A heading with a ? at its end: a flex row, the ? pushed to the inline end. */
+.feature-help-title:has(> .feature-help-btn),
+.admin-pane-title:has(> .feature-help-btn),
+.sidebar-view-title:has(> .feature-help-btn) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feature-help-title > .feature-help-btn,
+.admin-pane-title > .feature-help-btn,
+.sidebar-view-title > .feature-help-btn {
+  margin-inline-start: auto;
+}
+
+/* A card section's heading: the ? takes the far end, and the section's
+   hamburger, which had it, follows the ? instead of splitting the space. */
+.card-details h3.card-details-item-title > .feature-help-btn {
+  margin-inline-start: auto;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
+}
+.card-details h3.card-details-item-title > .feature-help-btn ~ .card-details-section-menu {
+  margin-inline-start: 0;
+}
+
+/* The Board View menu in the header bar: beside the view's button. */
+.board-header-btn + .feature-help-btn {
+  margin-inline-start: 2px;
+}
+
+/* A popup's title bar places its maximize and close buttons absolutely at its
+   inline end (popup.css). The ? goes just before them - never over them -
+   and the title gives up the room it takes. */
+.pop-over .header .feature-help-btn {
+  position: absolute;
+  top: calc(6px * var(--wekan-ui-font-scale, 1));
+  inset-inline-end: 44px;
+}
+.pop-over .header:has(.popup-maximize-btn) .feature-help-btn {
+  inset-inline-end: 76px;
+}
+.pop-over .header:has(.feature-help-btn) .header-title {
+  margin-inline-end: 80px;
+}
+.pop-over .header:has(.feature-help-btn):has(.popup-maximize-btn) .header-title {
+  margin-inline-end: 112px;
+}
+@media screen and (max-width: 800px) {
+  /* The phone's popup header is the theme's colour with a larger close button. */
+  .pop-over .header .feature-help-btn {
+    top: calc(10px * var(--wekan-ui-font-scale, 1));
+    inset-inline-end: 54px;
+    color: #fff;
+  }
+  .pop-over .header:has(.popup-maximize-btn) .feature-help-btn {
+    inset-inline-end: 86px;
+  }
+  .pop-over .header:has(.feature-help-btn) .header-title {
+    margin-inline-end: 90px;
+  }
+  .pop-over .header:has(.feature-help-btn):has(.popup-maximize-btn) .header-title {
+    margin-inline-end: 122px;
+  }
+}
+
+/* The popup itself is 720px wide on a desktop - popup.css, with the other
+   wide popups, mirrored in client/lib/popupOffset.js WIDE_POPUP_WIDTHS; below
+   801px every popup is a full-screen sheet. */
+.feature-help-content {
+  padding-block-end: 8px;
+  line-height: 1.5;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+.feature-help-content .feature-help-heading {
+  margin: 18px 0 6px;
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
+  color: inherit;
+}
+.feature-help-content .feature-help-heading:first-child {
+  margin-top: 0;
+}
+.feature-help-content .feature-help-text {
+  margin: 0;
+  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
+  color: inherit;
+}

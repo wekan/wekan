@@ -23,6 +23,9 @@
         span.popup-drag-handle.js-popup-drag-handle(title="{{_ 'drag-to-move'}}")
           i.fa.fa-arrows(aria-hidden="true")
     span.header-title= title
+    //- The popup's ? (featureHelp.jade): after the title, before the maximize
+      and close buttons, never on top of them.
+    +featureHelp(id=popupHelp)
     if popupMaximizable
       if popupMaximized
         a.popup-maximize-btn.js-popup-minimize(href="#" role="button" title="{{_ 'minimize-window'}}" aria-label="{{_ 'minimize-window'}}")

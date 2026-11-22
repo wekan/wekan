@@ -86,6 +86,9 @@ function computePopupOffset(params) {
     boardChangeColorPopup: 720,  // Board Settings / Change Color
     // Stickers: the same, and more of them - a hundred and fifty icons.
     cardStickersPopup: 720,      // Card / Stickers
+    // The ? of a feature: two headings and their texts, read like a page
+    // (client/components/main/featureHelp.css).
+    featureHelpPopup: 720,
     // Board Settings / Card is placed above, as a centred panel (#6796).
   };
   // The export popups are one popup with one scope each (#1173): same panes,

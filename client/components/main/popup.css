@@ -362,6 +362,9 @@
 @media screen and (min-width: 801px) {
   .pop-over[data-popup='changeColorPopup'],
   .pop-over[data-popup='boardChangeColorPopup'],
+  /* The ? of a feature (featureHelp.css): two headings and their texts, read
+     like a page rather than a menu. */
+  .pop-over[data-popup='featureHelpPopup'],
   /* Stickers, for the same reason as the colours: the picker is a GRID, and
      width buys columns. At the default 380px it was eight icons per row and a
      hundred and fifty stickers made a column taller than the screen, so

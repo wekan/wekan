@@ -42,6 +42,7 @@ import '/client/components/main/myCards.css';
 // rules there, which otherwise leave a clicked pagination button black or grey.
 import '/client/components/main/paginationControls.css';
 import '/client/components/main/popup.css';
+import '/client/components/main/featureHelp.css';
 import '/client/components/main/spinner_bounce.css';
 import '/client/components/main/spinner_cube.css';
 import '/client/components/main/spinner_cube_grid.css';

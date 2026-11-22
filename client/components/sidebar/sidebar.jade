@@ -29,9 +29,11 @@ template(name="sidebar")
       //
         i.fa.fa-navicon
       unless isDefaultView
-        h2
+        h2.sidebar-view-title
           a.fa.fa-arrow-left.js-back-home(aria-label="{{_ 'go-back'}}")
           = getViewTitle
+          //- The open view's ? (featureHelp.jade), at the end of its heading.
+          +featureHelp(id=sidebarHelp)
       if isOpen
         +Template.dynamic(template=getViewTemplate)
 

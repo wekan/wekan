@@ -1101,6 +1101,10 @@ template(name="cardSectionHeader")
           else
             span.grid-icon
               i.fa.fa-th-large
+    //- The section's ? (featureHelp.jade), at the far end of the heading and
+      before the hamburger, which then follows it instead of being pushed
+      to the end itself (cardDetails.css).
+    +featureHelp(id=sectionHelp)
     //- A section whose settings live somewhere gets a hamburger at the far end
       of its heading, like the card's own and the minicard's. `menuClass` is the
       handler that opens them; the click must not reach the heading, or opening

@@ -87,7 +87,9 @@ export function paneTitle(items, activeId) {
   if (!active) {
     return {};
   }
-  return { titleKey: active.labelKey || '', label: active.label || '' };
+  // `paneId` is the open entry's own id, which picks the pane's ? help
+  // (models/lib/featureHelp.js paneHelpId).
+  return { titleKey: active.labelKey || '', label: active.label || '', paneId: String(active.id) };
 }
 
 // True when exactly one entry is active. Used by the test to prove a menu can

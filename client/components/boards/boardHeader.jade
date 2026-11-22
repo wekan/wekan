@@ -364,3 +364,5 @@ template(name="boardViewMenu")
       if $eq boardView 'board-view-stats'
         i.fa.fa-pie-chart
       span.board-header-btn-label= boardViewName
+    //- The open view's ? (featureHelp.jade), after the menu that names it.
+    +featureHelp(id=boardViewHelp)

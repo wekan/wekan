@@ -90,14 +90,21 @@ template(name="leftMenuResize")
 //- nothing left to unfold it.
 //-
 //- Data context: { titleKey } or { label } from paneTitle().
+//- The ? of the open pane is at the inline end of the title (featureHelp.css),
+//- chosen from the page and the pane: models/lib/featureHelp.js paneHelpId.
 template(name="paneTitle")
   if isLeftMenuCollapsed
     h1.admin-pane-title.admin-pane-title-folded
       +leftMenuCollapse(paneTitleKey=titleKey paneLabel=label)
+      +featureHelp(id=paneHelp)
   else if titleKey
-    h1.admin-pane-title {{_ titleKey}}
+    h1.admin-pane-title
+      | {{_ titleKey}}
+      +featureHelp(id=paneHelp)
   else if label
-    h1.admin-pane-title {{label}}
+    h1.admin-pane-title
+      | {{label}}
+      +featureHelp(id=paneHelp)
 
 //- The caret that folds the menu away.
 //-

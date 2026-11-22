@@ -1,8 +1,9 @@
 template(name="rulesList")
   .rules(class=currentBoard.colorClass)
-    h2
+    h2.feature-help-title
       i.fa.fa-magic
       | {{_ 'r-board-rules' }}
+      +featureHelp(id='rules')
 
     //- #2217: a board admin shows this board's Rules to its members, read-only,
       when Admin Panel / Settings / Visibility allows it.

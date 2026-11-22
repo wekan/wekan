@@ -938,9 +938,12 @@ test('paneTitle returns the ACTIVE entry label, in either of its two forms', () 
     { id: 'b', labelKey: 'teams' },
     { id: 'c', label: 'Sandstorm' },
   ];
-  assert.deepStrictEqual(lib.paneTitle(menu, 'b'), { titleKey: 'teams', label: '' });
+  // `paneId` too, since 2026-11-22: the pane title carries the ? of the open
+  // pane, and which help that is depends on the entry, not on its label (two
+  // pages have a pane labelled Backup, two a pane labelled Domains).
+  assert.deepStrictEqual(lib.paneTitle(menu, 'b'), { titleKey: 'teams', label: '', paneId: 'b' });
   // A literal label (a proper noun) comes back as a label, not as an i18n key.
-  assert.deepStrictEqual(lib.paneTitle(menu, 'c'), { titleKey: '', label: 'Sandstorm' });
+  assert.deepStrictEqual(lib.paneTitle(menu, 'c'), { titleKey: '', label: 'Sandstorm', paneId: 'c' });
 });
 
 test('paneTitle gives nothing rather than an empty heading (negative)', () => {

@@ -1,0 +1,28 @@
+//- The ? of a feature place (docs/Features/General/Help-Button.md).
+//-
+//- `+featureHelp(id='workload')` with an id of models/lib/featureHelp.js. An id
+//- that is not there draws nothing, so a place whose help is chosen at run time
+//- (the open view, popup, pane or card section) passes whatever it has and gets
+//- a ? only when there is a help for it.
+//-
+//- A real button in the header's own row, after its title and before its other
+//- controls end the row; featureHelp.css puts it at the inline END, which is
+//- the right in a left-to-right page and the left in Arabic, from the same rule.
+template(name="featureHelp")
+  if hasHelp
+    button.feature-help-btn.js-open-feature-help(
+      type="button"
+      data-feature-help=id
+      title="{{_ 'how-it-works'}}"
+      aria-label="{{_ 'how-it-works'}}"
+      aria-haspopup="dialog")
+      i.fa.fa-question-circle(aria-hidden="true")
+
+//- The texts as TEXT: double braces, never triple, so nothing in a translation
+//- can become markup. Title "How it works" comes from Popup's titleKey.
+template(name="featureHelpPopup")
+  .feature-help-content(dir="auto" data-feature-help=id)
+    h2.feature-help-heading {{_ 'what-it-is'}}
+    p.feature-help-text {{_ whatKey}}
+    h2.feature-help-heading {{_ 'how-it-works'}}
+    p.feature-help-text {{_ howKey}}

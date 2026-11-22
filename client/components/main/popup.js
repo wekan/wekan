@@ -4,6 +4,7 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
 import { keptInside } from '/client/lib/popupBounds';
+import { popupHelpId } from '/models/lib/featureHelp';
 
 // Anchor the opposite edge while dragging the bottom inline-end corner.
 function resizeDatePopup(element, width, height) {
@@ -73,6 +74,11 @@ Popup.template.helpers({
   },
   popupMaximizable() {
     return MAXIMIZABLE_POPUPS.has(this.popupName);
+  },
+  // The ? of this popup's feature, in its title bar
+  // (docs/Features/General/Help-Button.md): models/lib/featureHelp.js POPUP_HELP.
+  popupHelp() {
+    return popupHelpId(this.popupName);
   },
   popupMaximized() {
     return Template.instance().popupMaximized.get();

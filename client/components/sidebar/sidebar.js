@@ -8,6 +8,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { isSelectedSubtaskBoard, isSelectedSubtaskList } from '/models/lib/subtaskSettings';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
+import { sidebarViewHelpId } from '/models/lib/featureHelp';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 const {
@@ -348,6 +349,10 @@ Template.sidebar.helpers({
   },
   getViewTitle() {
     return Sidebar && Sidebar.getViewTitle();
+  },
+  // The open view's ? (docs/Features/General/Help-Button.md).
+  sidebarHelp() {
+    return Sidebar && sidebarViewHelpId(Sidebar.getView());
   },
   showTongueTitle() {
     return Sidebar && Sidebar.showTongueTitle();

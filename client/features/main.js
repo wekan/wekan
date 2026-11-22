@@ -19,6 +19,8 @@ import '/client/components/main/starredItems.jade';
 // / Problems / Offices. A .jade file is not picked up by being on disk.
 import '/client/components/main/mapProvider.jade';
 import '/client/components/main/popup.tpl.jade';
+// The ? of every feature place (docs/Features/General/Help-Button.md).
+import '/client/components/main/featureHelp.jade';
 import '/client/components/main/spinner.jade';
 import '/client/components/main/spinner_bounce.jade';
 import '/client/components/main/spinner_cube.jade';
@@ -46,6 +48,7 @@ import '/client/components/cloud/cloudPanel.css';
 
 import '/client/lib/keyboard';
 import '/client/lib/popup';
+import '/client/components/main/featureHelp.js';
 import '/client/lib/pageSidebar';
 import '/client/components/main/pageSidebar.js';
 import '/client/components/main/accessibility.js';

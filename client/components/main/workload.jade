@@ -26,7 +26,9 @@ template(name="workloadControls")
 template(name="workload")
   if currentUser
     .workload-page
-      h1 {{_ 'workload-title'}}
+      h1.feature-help-title
+        | {{_ 'workload-title'}}
+        +featureHelp(id='workload')
       p.workload-intro {{_ 'workload-intro'}}
       if loading
         +spinner
