@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.28 2026-11-23 WeKan ® release
 
 **In short:** A board can be a **Shop** with invoices and order email, the
 **Admin Panel** can be
