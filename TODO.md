@@ -31,7 +31,7 @@ details; WeKan's are below.
 | [wekango](https://github.com/wekan/wekango/blob/main/TODO.md) | The Windows and macOS fixes, checked on Linux only | Confirm the mongo-tools notice review |
 | [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password; close the rack Dependabot pull request |
 | [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | Rerun the Pages deploy; the CVE numbers into the Hall of Fame |
-| wekan-meteor3-html4 | - | Turn on the dependency graph, then rebase the Dependabot pull request |
+| [wekan-meteor3-html4](https://github.com/wekan/wekan-meteor3-html4/blob/main/TODO.md) | Left out for now | - |
 | wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64 |
 | wepica | Left out: too old | - |
 
@@ -102,9 +102,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   version is already on main), weror's rack-3.1.21 branch (main has rack
   3.2.9), nekan alert 207 and caddy-gitea-plugin alerts 1, 2, 4, 18, 24, 25
   and 37.
-- wekan-meteor3-html4: turn on the dependency graph (Settings, Security
-  analysis), then rebase its Dependabot pull request; its Dependency Review
-  cannot run without it.
 - wena: rerun Release all for haiku-amd64 (the Haiku VM never answered SSH);
   aros-i386 needs SDL's AHI audio driver off for i386, whose AROS toolchain has
   no AHI headers - not cloned or built here, as there is no Docker.
@@ -120,6 +117,9 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
 - wepica: too old; its failing Dependabot runs are not fixed (decided
   2026-11-22).
+- wekan-meteor3-html4: left out for now (decided 2026-11-22). Its failing
+  Dependency Review needs the dependency graph turned on in its settings; its
+  own TODO.md says so.
 - sandstorm-io/sandstorm under `.tools/sandstorm`: somebody else's project,
   cloned for reference only.
 
