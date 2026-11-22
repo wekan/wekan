@@ -94,6 +94,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/problems/broken-cards` | Broken Cards | `report-broken` |
 | `/admin/problems/files` | Files Report | `report-files` |
 | `/admin/problems/rules` | Rules Report | `report-rules` |
+| `/admin/problems/webhooks` | All webhooks | `report-webhooks` |
 | `/admin/problems/boards` | Boards Report | `report-boards` |
 | `/admin/problems/cards` | Cards Report | `report-cards` |
 | `/admin/problems/recovery` | Recovery | `report-recovery` |

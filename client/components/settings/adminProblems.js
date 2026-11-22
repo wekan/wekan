@@ -326,6 +326,9 @@ const PROBLEMS_MENU = [
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
   { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
+  // Every webhook, its board or Global, who added it and what it sends
+  // (webhooksReport.js). Tokens are never shown.
+  { id: 'report-webhooks', icon: 'fa-globe', labelKey: 'webhooks-report-title' },
   { id: 'report-boards', icon: 'fa-columns', labelKey: 'boardsReportTitle' },
   { id: 'report-cards', icon: 'fa-id-card-o', labelKey: 'cardsReportTitle' },
   { id: 'report-recovery', icon: 'fa-medkit', labelKey: 'recoveryReportTitle' },
@@ -534,6 +537,8 @@ const SELF_LOADING_PANES = [
   'report-database', 'report-integrity', 'report-office', 'report-api', 'report-mail',
   // passwordLengthReport.js loads its own rows and settings through methods.
   'report-password-length',
+  // webhooksReport.js loads its rows through the webhooksReportPage method.
+  'report-webhooks',
 ];
 
 function openReportPane(tmpl, targetID) {

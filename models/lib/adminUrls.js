@@ -126,6 +126,8 @@ const ADMIN_PAGES = {
       'broken-cards': 'report-broken',
       files: 'report-files',
       rules: 'report-rules',
+      // Every webhook and who added it (webhooksReport.js).
+      webhooks: 'report-webhooks',
       boards: 'report-boards',
       cards: 'report-cards',
       recovery: 'report-recovery',
@@ -227,6 +229,7 @@ const ADMIN_PANE_TITLES = {
     'broken-cards': { titleKey: 'broken-cards' },
     files: { titleKey: 'filesReportTitle' },
     rules: { titleKey: 'rulesReportTitle' },
+    webhooks: { titleKey: 'webhooks-report-title' },
     boards: { titleKey: 'boardsReportTitle' },
     cards: { titleKey: 'cardsReportTitle' },
     recovery: { titleKey: 'recoveryReportTitle' },

@@ -1,0 +1,49 @@
+//- Admin Panel / Problems / Webhooks (docs/Features/Admin-Panel/Problems/Webhooks.md):
+//- every board webhook and every global webhook, who added it and what it
+//- sends, through the shared table page (docs/Features/General/Table.md). The
+//- rows come from the site-admin method webhooksReportPage
+//- (server/webhooksSwitch.js); a token is never sent here, only whether one is
+//- set. Every value is text interpolation, so a title or URL is never markup.
+template(name="webhooksReport")
+  if reportOff
+    p.quiet.js-webhooks-report-off {{_ 'webhooks-disabled'}}
+  +tablePage(tablePageData)
+
+template(name="webhooksReportRow")
+  tr.js-webhooks-report-row(data-integration-id="{{_id}}")
+    td
+      if isGlobal
+        | {{_ 'webhooks-report-global'}}
+      else if boardMissing
+        | {{boardId}}
+      else
+        a.js-webhooks-report-board(href="{{boardPath}}") {{boardTitle}}
+    td
+      if ownerUsername
+        | {{ownerUsername}}
+        if ownerFullname
+          br
+          span.quiet {{ownerFullname}}
+      else
+        | {{ownerId}}
+    td {{title}}
+    td {{url}}
+    td
+      | {{_ typeKey}}
+      if mattermostDirectMessages
+        br
+        span.quiet Mattermost
+    td
+      if enabled
+        | {{_ 'webhooks-report-on'}}
+      else
+        | {{_ 'webhooks-report-off'}}
+    td
+      if allActivities
+        | {{_ 'webhook-activities-all'}}
+      else
+        | {{activitiesText}}
+    td
+      if tokenSet
+        | {{_ 'webhooks-report-token-set'}}
+    td.table-page-nowrap {{createdText}}

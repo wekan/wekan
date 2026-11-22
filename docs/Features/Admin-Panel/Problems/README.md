@@ -63,6 +63,7 @@ Admin Panel / Settings (see [The menu](#the-menu) below).
 | Problems / Broken Cards | `broken-cards` | [Broken-Cards.md](Broken-Cards.md) |
 | Problems / Files Report | `files` | [File-status.md](File-status.md) |
 | Problems / Rules Report | `rules` | [Rules-Report.md](Rules-Report.md) |
+| Problems / All webhooks | `webhooks` | [Webhooks.md](Webhooks.md) |
 | Problems / Boards Report | `boards` | [Boards-Report.md](Boards-Report.md) |
 | Problems / Cards Report | `cards` | [Cards-Report.md](Cards-Report.md) |
 | Problems / Recovery | `recovery` | [Recovery.md](Recovery.md) |
@@ -72,7 +73,7 @@ Admin Panel / Settings (see [The menu](#the-menu) below).
 | Problems / Filesystem integrity | `integrity` | [Filesystem-integrity.md](Filesystem-integrity.md) |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-0 of these 23 panes has no page of its own: every pane above links one. A pane
+0 of these 24 panes has no page of its own: every pane above links one. A pane
 added to the menu without a page gets a dash here and is counted in this
 sentence.
 
@@ -101,8 +102,8 @@ Their old `/admin/problems/...` addresses redirect there.
 
 **Reports** — Security Report, Impersonation Report, Password length,
 Performance, Speed, Tests, CPU usage, Memory usage, Disk usage,
-Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report, Cards
-Report, Recovery, Offices, API, Database problems, Filesystem integrity and
+Instrumentation, Broken Cards, Files Report, Rules Report, All webhooks, Boards
+Report, Cards Report, Recovery, Offices, API, Database problems, Filesystem integrity and
 Email. Report tables use the shared [table page](../../General/Table.md): a
 search box, the total, `page X / N`, prev/next, and one page of rows fetched
 from the server at a time. **Performance** sits with the Speed / Tests / CPU

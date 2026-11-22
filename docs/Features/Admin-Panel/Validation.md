@@ -128,6 +128,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Broken Cards (`broken-cards`) | [repairBrokenCards.js](../../../server/methods/repairBrokenCards.js) | Broken-card repair and reports, with administrator checks. |
 | Files (`files`) | [fileStatusAudit.js](../../../server/methods/fileStatusAudit.js) | Read-only file/status/type/history scans and report data. |
 | Rules (`rules`) | [rules.js](../../../server/publications/rules.js) | Rules report subscriptions, search and pagination. |
+| All webhooks (`webhooks`) | [webhooksSwitch.js](../../../server/webhooksSwitch.js) | Every integration through the site-admin method webhooksReportPage: board or Global, owner, type, status, activities, whether a token is set (never the token), with the On / Off filter, search and pagination. |
 | Boards (`boards`) | [boards.js](../../../server/publications/boards.js) | Board report with server-side visibility filtering. |
 | Cards (`cards`) | [cards.js](../../../server/publications/cards.js) | Card report with server-side counts and pagination. |
 | Recovery (`recovery`) | [recovery.js](../../../server/recovery.js) | Recorded maintenance/recovery events and actions; actual corruption recovery is a separate destructive scenario. |

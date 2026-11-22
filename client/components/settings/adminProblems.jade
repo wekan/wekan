@@ -54,6 +54,8 @@ template(name="adminProblems")
             +officeReport
           else if isPane 'report-password-length'
             +passwordLengthReport
+          else if isPane 'report-webhooks'
+            +webhooksReport
           else if tablePageData
             +tablePage(tablePageData)
 

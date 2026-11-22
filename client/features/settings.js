@@ -52,6 +52,9 @@ import '/client/components/settings/problemsSummary.jade';
 import '/client/components/settings/problemsSummary.js';
 import '/client/components/settings/passwordLengthReport.jade';
 import '/client/components/settings/passwordLengthReport.js';
+// Admin Panel / Problems / Webhooks: every webhook and who added it.
+import '/client/components/settings/webhooksReport.jade';
+import '/client/components/settings/webhooksReport.js';
 // Admin Panel / Settings / Privacy and security / Allowed addresses.
 import '/client/components/settings/adminPanelAddresses.jade';
 import '/client/components/settings/adminPanelAddresses.js';
