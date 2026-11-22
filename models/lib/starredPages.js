@@ -78,9 +78,8 @@ function isPageStarred(pages, url) {
 // because the button is one button: the reader clicks the star to put the page
 // in the list and clicks it again to take it out.
 //
-// A page that is starred again with a NEW title (the page was renamed, the
-// admin changed the product name) keeps its place in the list and takes the new
-// title - moving it to the end would reorder a list the reader has learned.
+// So a starred page clicked again is REMOVED, whatever title it has now; a
+// page starred after that goes to the end with its current title.
 function toggleStarredPage(pages, url, title) {
   const entry = pageEntry(url, title);
   if (!entry) return starredPagesOf(pages);
