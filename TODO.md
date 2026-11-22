@@ -56,10 +56,16 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   ListLockMoveBleed, the help button, the Shop's Product line kind, the
   Meteor 3 hosting localhost limit, the Omi and WeLite translation keys, and
   the translation rule for the prototypes.
-- The Latvian catalog (`lv`) has Lithuanian words in it, and the Estonian one
-  (`et-EE`) calls a board "juhatus" (a company's management board) in "Board
-  Settings" and "Board View": both to be corrected once the help-text
-  translators are done with those files.
+- Wrong-language and wrong-meaning words seen by the help-text translators,
+  to correct once they are done with those files: Latvian (`lv`) has
+  Lithuanian words; Estonian (`et-EE`) calls a board "juhatus" (a company's
+  management board) in "Board Settings" and "Board View"; Aromanian (`rup`)
+  and Sicilian (`scn`) have Italian menu names; Northern Sami (`se`) has two
+  Finnish values; Shona (`sn`) has half-English menu names; Brazilian
+  Portuguese (`pt-BR`) calls an assignee "Administrador"; Somali (`so`) calls
+  card recurrence an automatic reset; Pashto and Sindhi (`ps`, `sd`) have odd
+  "Check Version" and "WIP Limit Groups" terms; Serbian (`sr`) uses списи,
+  предмет and Управа for board, card and Admin Panel.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
