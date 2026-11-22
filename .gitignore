@@ -126,3 +126,6 @@ mongo-tools-patches/
 
 # Generated on the Windows single-EXE runner (releases/append-windows-payload.mjs --manifest)
 wekan-real-files.h
+
+# The Meteor 3 hosting menu's settings (docs/Platforms/FOSS/Container/Docker/Meteor3/build.sh): this machine's server name and directory.
+docs/Platforms/FOSS/Container/Docker/Meteor3/settings.ini

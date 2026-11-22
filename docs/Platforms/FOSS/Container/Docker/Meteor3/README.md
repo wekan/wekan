@@ -1,5 +1,32 @@
 # Meteor 3 WeKan: Hosting many WeKan kanban, websites, etc
 
+## The menu: build.sh
+
+Every script here is in one menu, [build.sh](build.sh):
+
+```
+./build.sh                      # the menu
+./build.sh backup.sh customer1  # one script, from cron or by hand
+./build.sh --list               # the scripts it knows
+```
+
+Its settings are in `settings.ini` beside it, and are set from the menu's
+**Settings**:
+
+| Setting | What it is |
+| --- | --- |
+| Server | a host name from `~/.ssh/config`, for example `c2` when `ssh c2` signs in with an SSH key. Empty: this machine |
+| Directory | where the scripts run on that server, for example `/root/wekan`: the directory with `admin.txt`, the customers' `<name>.txt` and `restore/<name>/` |
+| Copy the scripts | yes: before each run, this directory's scripts and templates are copied to the server's directory, so it always runs the version here |
+
+With a server set, **nothing runs on this machine**: every script runs on the
+server, over SSH, in its directory. The customers' database passwords stay in
+the files the scripts write on the server, and this machine keeps only the
+server's name and its SSH key - so the machine you run the menu from holds no
+passwords. `settings.ini`, `admin.txt` and the customers' files are never
+copied to the server. The menu can also open a shell on the server, in that
+directory.
+
 ## 1) Install WeKan exactly like this
 
 Use all settings and config files at this page and subdirectories.
