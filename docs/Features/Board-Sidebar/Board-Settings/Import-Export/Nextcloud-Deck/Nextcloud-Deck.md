@@ -1,12 +1,31 @@
 # Nextcloud Deck
 
+## What it is
+
 WeKan imports boards from [Nextcloud Deck](https://apps.nextcloud.com/apps/deck)
 and exports a board in the same shape. It reads a Deck board as Deck's REST
 API returns it: a board with its stacks, each stack carrying its cards. Stacks
 become lists and cards become cards. In WeKan's menus the tool is named
 **NextCloud Deck**.
 
-## How to import
+## Read more
+
+- [Wikipedia: Nextcloud, whose Deck app is a kanban board](https://en.wikipedia.org/wiki/Nextcloud)
+- [Deck REST API](https://deck.readthedocs.io/en/latest/API/): the board,
+  stack and card objects, the base URL and the `OCS-APIRequest` header
+- [Deck user documentation](https://deck.readthedocs.io/en/latest/User_documentation_en/):
+  `occ deck:import` and the sources it reads
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. Save the board from Deck's REST API
    ([API reference](https://deck.readthedocs.io/en/latest/API/)). The base URL
@@ -23,7 +42,7 @@ become lists and cards become cards. In WeKan's menus the tool is named
 2. Put the stacks into the board object as `stacks`, for example
    `jq --slurpfile s stacks.json '.stacks = $s[0]' board.json > deck.json`.
    `{ "board": {...}, "stacks": [...] }` is read too.
-3. In WeKan, go to **All Boards → New → Import → NextCloud Deck**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → NextCloud Deck**.
 4. Paste the JSON into the text box. Tick the parts to import.
 5. Click **Import**. Deck has no member-mapping step in WeKan, so the people
    in the file do not become card members; the card's owner is kept as
@@ -34,7 +53,7 @@ become lists and cards become cards. In WeKan's menus the tool is named
 Deck's own `occ deck:export` command writes a different file, based on Deck's
 database schema. WeKan does not read that file.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Deck JSON
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -47,7 +66,7 @@ database schema. WeKan does not read that file.
   `python3 api.py importboardsfrom deck FILE_OR_DIR ...` takes files,
   directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include:**, tick the parts to export.
@@ -59,7 +78,7 @@ database schema. WeKan does not read that file.
    [REST API](https://deck.readthedocs.io/en/latest/API/). The file is also
    what WeKan's own Deck import reads.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **NextCloud Deck**.
    This downloads one `.zip` with one Deck file per board you can
@@ -71,7 +90,85 @@ database schema. WeKan does not read that file.
 
 From a script: `python3 api.py exportallboards deck boards.zip`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom deck deck.json                 # POST /api/boards/import/deck
+python3 api.py importboardsfrom deck a.json b.json dir/       # one board per file
+python3 api.py exportboardformat BOARDID deck deck.json       # GET /api/boards/BOARDID/export/deck?authToken=TOKEN
+python3 api.py exportallboards deck boards.zip                # GET /api/export-all-boards/deck?authToken=TOKEN
+```
+
+`GET /api/export-all-boards/deck?authToken=TOKEN&boardIds=ID1,ID2` exports
+only the boards listed.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+The tests that pin it:
+[tests/deckImport.test.cjs](../../../../../../tests/deckImport.test.cjs),
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/importLossReport.test.cjs](../../../../../../tests/importLossReport.test.cjs),
+[tests/importedTaskPlan.test.cjs](../../../../../../tests/importedTaskPlan.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -103,7 +200,7 @@ What the current code does (`parseNextcloudDeck` in
 - A label keeps its color (Deck's hex `color`, such as `0082c9`); a label
   without one is created black.
 
-## What is kept
+### What is kept
 
 | Deck | WeKan |
 | --- | --- |
@@ -126,7 +223,25 @@ the end date as `done` (or `done: true` for a due date ticked done without an
 end date), the owner and further people as `assignedUsers`, the
 creator as `owner` and the comments.
 
-## Attachment files
+### What is not kept
+
+The import reports these on the loss report:
+
+- the board's `acl` sharing rules (board access is granted in WeKan, not by an
+  import);
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
+- an `attachmentCount` with no `attachments` list: nothing names the files
+  (`GET .../cards/{cardId}/attachments` lists them);
+- deleted stacks and cards, as a warning.
+
+Deck has no member mapping in WeKan, so assignees do not become card members.
+
+The export leaves out swimlanes (every card is in its list's stack),
+archived cards and lists, checklists, attachments, custom fields, start dates
+and dependencies.
+
+### Attachment files
 
 Each card's `attachments` list names its files; Deck's REST API documents
 `GET /index.php/apps/deck/api/v1.0/boards/{boardId}/stacks/{stackId}/cards/{cardId}/attachments/{attachmentId}`
@@ -151,37 +266,7 @@ Through the REST API (`POST /api/boards/import/<source>`), send the same as
 `"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
 `"board"`.
 
-## What is not kept
-
-The import reports these on the loss report:
-
-- the board's `acl` sharing rules (board access is granted in WeKan, not by an
-  import);
-- an attachment that could not be downloaded, and why (no sign-in given, a
-  refused address, an HTTP error);
-- an `attachmentCount` with no `attachments` list: nothing names the files
-  (`GET .../cards/{cardId}/attachments` lists them);
-- deleted stacks and cards, as a warning.
-
-Deck has no member mapping in WeKan, so assignees do not become card members.
-
-The export leaves out swimlanes (every card is in its list's stack),
-archived cards and lists, checklists, attachments, custom fields, start dates
-and dependencies.
-
-## REST API
-
-```bash
-python3 api.py importboardfrom deck deck.json                 # POST /api/boards/import/deck
-python3 api.py importboardsfrom deck a.json b.json dir/       # one board per file
-python3 api.py exportboardformat BOARDID deck deck.json       # GET /api/boards/BOARDID/export/deck?authToken=TOKEN
-python3 api.py exportallboards deck boards.zip                # GET /api/export-all-boards/deck?authToken=TOKEN
-```
-
-`GET /api/export-all-boards/deck?authToken=TOKEN&boardIds=ID1,ID2` exports
-only the boards listed.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/externalParsers.js` (`parseNextcloudDeck`) reads the file.
   `models/kanboardCreator.js` creates the board, and
@@ -196,12 +281,10 @@ only the boards listed.
   (importing the fixture through the page, refusing malformed JSON, the
   Recovery row of an import with losses, and the localized loss report).
 
-## Sources
+## Commits
 
-- [Deck REST API](https://deck.readthedocs.io/en/latest/API/): the board,
-  stack and card objects, the base URL and the `OCS-APIRequest` header
-- [Deck user documentation](https://deck.readthedocs.io/en/latest/User_documentation_en/):
-  `occ deck:import` and the sources it reads
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Every export is held to what its own import reads back: Asana time tracking, Deck's done tick, Kanboard colors](https://github.com/wekan/wekan/commit/1a02de4b5b398018bbe2076d98cba10b01639e5a)
+ - [Nextcloud Deck labels keep their colors](https://github.com/wekan/wekan/commit/22d000b9136b11a4f8030d0e5d42e77518a70f64)
+ - [Deck and Kanri exports are written a page at a time, each list around its cards](https://github.com/wekan/wekan/commit/21c64e092d8b067a9416a09a92c0ca1424b9da26)
+ - [Import: attachment files of Jira, Nextcloud Deck, OpenProject, Asana and GitLab](https://github.com/wekan/wekan/commit/51238ed8ad80179fa54517ab429b7a14c31510e8)
+ - [Import Nextcloud Deck assignees, comments, order and archive state](https://github.com/wekan/wekan/commit/5035b7aa2714bbfb1ca129103921ccfb9d601133)

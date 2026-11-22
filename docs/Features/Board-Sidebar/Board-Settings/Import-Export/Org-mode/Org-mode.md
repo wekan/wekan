@@ -1,5 +1,7 @@
 # Org mode
 
+## What it is
+
 WeKan imports and exports a board as an [Org mode](https://orgmode.org/manual/)
 outline: the `.org` text file that Emacs, Orgzly, Beorg and organice write.
 Top-level headings are lists and second-level headings are cards. TODO
@@ -7,12 +9,27 @@ keywords, priorities, tags, SCHEDULED, DEADLINE and CLOSED dates and their
 daily, weekly or monthly repeaters, properties, clocked time, body text and
 checkboxes are kept.
 
-## How to import
+## Read more
+
+- [Wikipedia: Org mode, the Emacs outline and planning mode](https://en.wikipedia.org/wiki/Org-mode)
+- [The Org Manual](https://orgmode.org/manual/): headlines, TODO keywords,
+  priorities, tags, timestamps, planning lines, drawers and checkboxes
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. Find the `.org` file. Org mode keeps its outlines as plain text files, so
    there is nothing to export: use the file Emacs, Orgzly, Beorg or organice
    saved. Where a mobile app keeps its files, see that app's documentation.
-2. In WeKan, go to **All Boards → New → Import → Org mode**.
+2. In WeKan, go to **All Boards → Add Board → Import → Import board → Org mode**.
 3. Open the file in a text editor, copy all of it and paste it into the text
    box.
 4. Click **Import**.
@@ -21,7 +38,7 @@ checkboxes are kept.
 
 Text without any heading line is refused, and no board is created.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose **Org mode**, then under **Import many boards**
    choose several `.org` files, or one `.zip` that holds them.
@@ -46,7 +63,7 @@ python3 api.py importboardsfrom orgmode FILE_OR_DIR ...
 
 Each argument is a file, a directory of files, or a `.zip` file.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Choose what to include, then under **JSON** choose **Org mode**. The board
@@ -57,7 +74,7 @@ Each argument is a file, a directory of files, or a `.zip` file.
 The Org mode entry is offered for a whole board only, not for a swimlane or a
 list.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. In WeKan, go to **All Boards**, open the sidebar and choose **Export all
    boards**, then **Org mode**.
@@ -73,7 +90,100 @@ From a script:
 python3 api.py exportallboards orgmode boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom orgmode board.org          # POST /api/boards/import/orgmode
+python3 api.py importboardsfrom orgmode FILE_OR_DIR ...   # several boards
+python3 api.py exportboardformat BOARDID orgmode board.org
+python3 api.py exportallboards orgmode boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/orgmode` with the file's text as `board`;
+- `GET /api/boards/:boardId/export/orgmode?authToken=…` returns the file as
+  `text/x-org`;
+- `GET /api/export-all-boards/orgmode?authToken=…` returns the `.zip`; add
+  `&boardIds=ID1,ID2` for only those boards.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- The Org file: at most 16,777,216 characters (16 MB of text). More stops the
+  import with an error. (`MAX_ORG_LENGTH` in
+  [models/lib/orgModeFormat.js](../../../../../../models/lib/orgModeFormat.js#L47))
+- At most 100,000 headings. More stops the import with an error.
+  (`MAX_ORG_HEADINGS` in
+  [models/lib/orgModeFormat.js](../../../../../../models/lib/orgModeFormat.js#L48))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/orgModeFormat.js](../../../../../../models/lib/orgModeFormat.js).
+
+The tests that pin it:
+[tests/importLossReport.test.cjs](../../../../../../tests/importLossReport.test.cjs),
+[tests/orgMode.test.cjs](../../../../../../tests/orgMode.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 The format is an [Org mode](https://orgmode.org/manual/) outline as Emacs,
 Orgzly, Beorg and organice write it: headlines with TODO keywords (including
@@ -145,7 +255,7 @@ What the export writes (`formatOrgMode` in the same module):
 
 Archived cards and archived lists are not exported.
 
-## What is kept
+### What is kept
 
 | Org mode | WeKan |
 | --- | --- |
@@ -167,7 +277,7 @@ Archived cards and archived lists are not exported.
 | `- [ ]` / `- [X]` checkboxes, level-3 headings without children | Checklist named after the card |
 | Level-3 heading with children | Checklist, its descendants the items |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report:
 
@@ -183,24 +293,7 @@ The import reports these on the loss report:
 The Org mode export does not write swimlanes, members, comments, spent time
 or attachments.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom orgmode board.org          # POST /api/boards/import/orgmode
-python3 api.py importboardsfrom orgmode FILE_OR_DIR ...   # several boards
-python3 api.py exportboardformat BOARDID orgmode board.org
-python3 api.py exportallboards orgmode boards.zip
-```
-
-The HTTP routes:
-
-- `POST /api/boards/import/orgmode` with the file's text as `board`;
-- `GET /api/boards/:boardId/export/orgmode?authToken=…` returns the file as
-  `text/x-org`;
-- `GET /api/export-all-boards/orgmode?authToken=…` returns the `.zip`; add
-  `&boardIds=ID1,ID2` for only those boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/orgModeFormat.js` reads and writes the outline.
   `models/import.js` sends the text to the parser, and
@@ -212,10 +305,11 @@ The HTTP routes:
   headings import with their keyword, priority, tags, deadline, body and
   checkboxes", and the export menu link for every format.
 
-## Sources
+## Commits
 
-- [The Org Manual](https://orgmode.org/manual/): headlines, TODO keywords,
-  priorities, tags, timestamps, planning lines, drawers and checkboxes
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Org mode: every property is kept, :ID: is the card's reference, LOGBOOK clocks are its spent time](https://github.com/wekan/wekan/commit/55c3f574f4d0ba3fce3e507679b8c9d467feea46)
+ - [Repeating tasks of other tools repeat in WeKan: daily, weekly and monthly as the card's recurrence](https://github.com/wekan/wekan/commit/24ac6b2bd2e55323fa1c6e52eb53ff3291fc80fb)
+ - [The Markdown, Obsidian, OPML and Org mode outlines and the Notion CSV are written a page of cards at a time](https://github.com/wekan/wekan/commit/ce40b56abdf5b166f523dab98a14414907809b1f)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Org mode outlines](https://github.com/wekan/wekan/commit/711303af323cea93827e9032e2f62df779a7a185)

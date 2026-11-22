@@ -1,13 +1,38 @@
 # Planka
 
+## What it is
+
 WeKan imports a board from [Planka](https://github.com/plankanban/planka),
 the self-hosted kanban app, by reading it from Planka's REST API. Planka v1
 and v2 are both read. Lists become lists and cards keep their description,
 due date, labels, members, task lists and comments.
 
-## How to import
+## Read more
 
-1. In WeKan, go to **All Boards → New → Import → Planka**.
+- [Wikipedia: kanban boards](https://en.wikipedia.org/wiki/Kanban_board)
+- [Planka](https://github.com/plankanban/planka): the app
+- [server/config/routes.js](https://github.com/plankanban/planka/blob/master/server/config/routes.js):
+  the REST routes
+- [boards/show.js](https://github.com/plankanban/planka/blob/master/server/api/controllers/boards/show.js):
+  what a board answer includes
+- [the models](https://github.com/plankanban/planka/tree/master/server/api/models):
+  `List.js` (list types), `Card.js`, `Label.js` (label colors), `TaskList.js`,
+  `Task.js`, `Comment.js`
+- [styles.module.scss](https://github.com/plankanban/planka/blob/master/client/src/styles.module.scss):
+  the colors Planka draws its labels with
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
+
+1. In WeKan, go to **All Boards → Add Board → Import → Import board → Planka**.
 2. Type the Planka address (for example `https://planka.example.com`), your
    Planka username (or e-mail address) and password. They are used for this
    fetch only and are not stored; the password field is cleared once sent.
@@ -25,24 +50,113 @@ unless the WeKan administrator allows its host in
 `API_IMPORT_ALLOWED_PRIVATE_HOSTS`. A Planka login that needs a two-factor
 code or accepting terms first cannot be used.
 
-## How to import many boards at once
+### How to import many boards at once
 
 Planka boards are fetched one at a time: press **Fetch** for each board and
 import it. Each becomes its own WeKan board.
 
-## How to export
+### How to export
 
 WeKan does not export to Planka. Planka has no import of its own format to
 read such a file with; it imports Trello boards, so a WeKan board can reach
 Planka through WeKan's **Trello** export (**Board Settings → Export → JSON →
 Trello**) and Planka's **Import from Trello**, with what that format keeps.
 
-## How to export all boards at once
+### How to export all boards at once
 
 WeKan does not export to Planka, so there is no all-boards export for it
 either. See [How to export](#how-to-export).
 
-## Format details
+### REST API
+
+The import page's **List** and **Fetch** are Meteor methods on the WeKan
+server (`server/apiImport.js`). The fetched JSON can also be imported without
+the page, by posting it to WeKan's import route:
+
+```bash
+python3 api.py importboardfrom planka planka.json      # POST /api/boards/import/planka
+```
+
+- `POST /api/boards/import/planka` with the fetched JSON as `board`.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- Comments are read for at most 5,000 cards; the rest are counted as skipped.
+  (`MAX_COMMENT_CARDS` in
+  [models/lib/apiImport/planka.js](../../../../../../models/lib/apiImport/planka.js#L16))
+- At most 100 pages of comments are read for one card. (`MAX_COMMENT_PAGES` in
+  [models/lib/apiImport/planka.js](../../../../../../models/lib/apiImport/planka.js#L17))
+- Comments are fetched 50 per request; a shorter page is the last. (`PAGE` in
+  [models/lib/apiImport/planka.js](../../../../../../models/lib/apiImport/planka.js#L18))
+- At most 20,000 cards. More stops the import with an error. (`MAX_PLANKA_CARDS`
+  in
+  [models/lib/plankaApiFormat.js](../../../../../../models/lib/plankaApiFormat.js#L20))
+- The id of what to import (a project or a board of the service) is at most 200
+  characters; a longer one is refused. (`MAX_ID_LENGTH` in
+  [server/apiImport.js](../../../../../../server/apiImport.js#L23))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+- **Reading from the service's API**: each request may take 30 seconds and
+  answer at most 32 MB, with no redirects followed
+  ([server/lib/apiImportRequest.js](../../../../../../server/lib/apiImportRequest.js));
+  each text field read is cut to 4,096 characters
+  ([models/lib/apiImportServices.js](../../../../../../models/lib/apiImportServices.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+This format's own code:
+[models/lib/apiImport/planka.js](../../../../../../models/lib/apiImport/planka.js),
+[models/lib/plankaApiFormat.js](../../../../../../models/lib/plankaApiFormat.js),
+[releases/live-tests/planka-import.mjs](../../../../../../releases/live-tests/planka-import.mjs),
+[server/apiImport.js](../../../../../../server/apiImport.js).
+
+The tests that pin it:
+[tests/plankaApiImport.test.cjs](../../../../../../tests/plankaApiImport.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 What is fetched (`models/lib/apiImport/planka.js`), with a Bearer token from
 `POST /api/access-tokens` (`{ emailOrUsername, password }`):
@@ -84,7 +198,7 @@ userId, createdAt }] }, commentUsers: { userId: { username, name } } }`, and
 
 Limit: 20,000 cards. Every card goes to the swimlane Default.
 
-## What is kept
+### What is kept
 
 | Planka | WeKan |
 | --- | --- |
@@ -104,7 +218,7 @@ Limit: 20,000 cards. Every card goes to the swimlane Default.
 | Comments | Comments, with author and date |
 | Cards in the `archive` list | Archived cards |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report:
 
@@ -120,19 +234,7 @@ Not read at all: board and card subscriptions, board backgrounds, the card
 cover image, the project itself, the activity history other than comments,
 a task's assignee or linked card, and Planka's notification settings.
 
-## REST API
-
-The import page's **List** and **Fetch** are Meteor methods on the WeKan
-server (`server/apiImport.js`). The fetched JSON can also be imported without
-the page, by posting it to WeKan's import route:
-
-```bash
-python3 api.py importboardfrom planka planka.json      # POST /api/boards/import/planka
-```
-
-- `POST /api/boards/import/planka` with the fetched JSON as `board`.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/apiImportServices.js` lists the service and the fields the page
   asks for; `models/lib/apiImport/planka.js` is the client and
@@ -153,18 +255,9 @@ python3 api.py importboardfrom planka planka.json      # POST /api/boards/import
   and parses the first one, and writes nothing to Planka except the login
   token it creates and deletes.
 
-## Sources
+## Commits
 
-- [Planka](https://github.com/plankanban/planka): the app
-- [server/config/routes.js](https://github.com/plankanban/planka/blob/master/server/config/routes.js):
-  the REST routes
-- [boards/show.js](https://github.com/plankanban/planka/blob/master/server/api/controllers/boards/show.js):
-  what a board answer includes
-- [the models](https://github.com/plankanban/planka/tree/master/server/api/models):
-  `List.js` (list types), `Card.js`, `Label.js` (label colors), `TaskList.js`,
-  `Task.js`, `Comment.js`
-- [styles.module.scss](https://github.com/plankanban/planka/blob/master/client/src/styles.module.scss):
-  the colors Planka draws its labels with
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Import and export Azure DevOps Boards, Microsoft Lists, Project, Outlook, Teams and OneNote](https://github.com/wekan/wekan/commit/01e88410cd7440b26c5f845d98ae058f93c16a85)
+ - [Planka 2: custom fields and stopwatch time come across](https://github.com/wekan/wekan/commit/0d65eec4f2f36ba6df3b0fcf2d26aa023a02fa75)
+ - [Live tests: no log line carries anything from a login (CodeQL #586)](https://github.com/wekan/wekan/commit/de95789e4568ea2424a471f2e5ceac3001f2d3f9)
+ - [Import: Planka, Microsoft To Do, KanbanFlow, Basecamp, Google Tasks and Google Keep from their APIs](https://github.com/wekan/wekan/commit/46e30f01e48f2676a47c0052007f5c4ea951a923)

@@ -1,5 +1,7 @@
 # Rules
 
+## What it is
+
 WeKan imports and exports a board's **rules** (its automation: a trigger and
 an action) in the **Import / Export rules** dialog of the Rules page. It
 writes and reads:
@@ -14,9 +16,32 @@ with its rules. What rules are and how they work is in
 [Rules (Automation)](../../../../Rules/Rules/Rules.md); this page is about
 moving them in and out.
 
-## How to import
+## Read more
 
-### Where the rules come from
+- [Wikipedia: rules engines](https://en.wikipedia.org/wiki/Business_rules_engine)
+- [Rules (Automation)](../../../../Rules/Rules/Rules.md): what rules,
+  triggers and actions are
+- [Wrike API v4: Workflows](https://developers.wrike.com/api/v4/workflows/):
+  the workflow JSON
+- [Trello workflow automation with Butler](https://www.atlassian.com/blog/trello/butler-power-up-trello-automation):
+  Trello's automation and its rules
+- [n8n: Export and import workflows](https://docs.n8n.io/workflows/export-import/):
+  the n8n workflow JSON
+- [Node-RED: Importing and exporting flows](https://nodered.org/docs/user-guide/editor/workspace/import-export):
+  the Node-RED flow JSON
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
+
+#### Where the rules come from
 
 - **WeKan rules**: from another WeKan board, with **Export rules to JSON** or
   **Export rules to CSV** in this same dialog (see
@@ -31,7 +56,7 @@ moving them in and out.
 - **Wrike workflow**: Wrike has no file export of workflows. Save the JSON its
   API returns; the steps are in [Wrike](../Wrike/Wrike.md#the-workflow-from-wrikes-api).
 
-### In WeKan
+#### In WeKan
 
 1. Open the board, then **Board Settings → Rules → Import / Export rules**
    (or **Import / Export rules** on the Rules page).
@@ -50,17 +75,17 @@ moving them in and out.
 
 Only board admins of the target board can import rules.
 
-A whole board with its rules imports through **All Boards → New → Import →
+A whole board with its rules imports through **All Boards → Add Board → Import → Import board →
 WeKan**, from a WeKan JSON export.
 
-## How to import many boards at once
+### How to import many boards at once
 
 The Rules dialog works on one target board at a time. To bring many boards in
 with their rules, import their **WeKan JSON** board exports: a WeKan board
 export already carries its rules, triggers and actions, and each imported
 board gets them.
 
-1. On the import page (**All Boards → New → Import → WeKan**), under **Import
+1. On the import page (**All Boards → Add Board → Import → Import board → WeKan**), under **Import
    many boards**, choose several WeKan JSON export files, or one `.zip` that
    holds them. Each file becomes its own board, with its rules, imported
    without member mapping (members can be mapped later).
@@ -76,7 +101,7 @@ To copy every board of another WeKan with its rules,
 `python3 api.py migratefromwekan REMOTE_URL REMOTE_USER REMOTE_PASS` exports
 each of that user's boards from the remote WeKan and imports it here.
 
-## How to export
+### How to export
 
 1. Open the board, then **Board Settings → Rules → Import / Export rules**.
 2. Under **Export**, click:
@@ -98,7 +123,7 @@ There is no export to Trello Butler, n8n or Node-RED.
 
 A whole board with its rules exports from **Board Settings → Export → JSON**.
 
-## How to export all boards at once
+### How to export all boards at once
 
 The rules dialog exports one board's rules. To export the rules of many
 boards, export the boards in **WeKan JSON**: each board's file carries its
@@ -119,9 +144,70 @@ rules.
 For Wrike, `python3 api.py exportallboards wrikeworkflow boards.zip` writes
 one Wrike workflow per board.
 
-## Format details
+### REST API
 
-### WeKan rules JSON
+The Rules dialog has no import or export route of its own. Rules move over
+REST with their board, or one rule at a time:
+
+```bash
+python3 api.py importboardfrom wekan board.json           # POST /api/boards/import/wekan
+python3 api.py importboardsfrom wekan a.json b.json
+python3 api.py importboard EXPORT.json                    # POST /api/boards/import
+python3 api.py exportboardformat BOARDID wrikeworkflow workflow.json
+python3 api.py exportallboards wekan boards.zip
+python3 api.py listrules BOARDID
+```
+
+- `POST /api/boards/import/wekan` imports one WeKan JSON board, with its
+  rules.
+- `GET /api/boards/:boardId/export?authToken=…` exports one board as WeKan
+  JSON, with its rules.
+- `GET /api/boards/:boardId/export/wrikeworkflow?authToken=…` exports the
+  board's lists and rules as a Wrike workflow.
+- `GET /api/export-all-boards/wekan?authToken=…` exports all boards you can
+  export; add `&boardIds=ID1,ID2` to export only those boards.
+- `GET`, `POST`, `PUT` and `DELETE` on `/api/boards/:boardId/rules` list,
+  add, edit and remove single rules; see
+  [Rules (Automation): REST API](../../../../Rules/Rules/Rules.md#rest-api).
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- A Wrike workflow or status name is at most 128 characters; a repeated name is
+  cut to make room for its " (2)". (`MAX_WRIKE_NAME` in
+  [models/lib/wrikeWorkflow.js](../../../../../../models/lib/wrikeWorkflow.js#L47))
+
+## How it works in WeKan
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[client/components/rules/rulesImportExport.jade](../../../../../../client/components/rules/rulesImportExport.jade),
+[client/components/rules/rulesImportExport.js](../../../../../../client/components/rules/rulesImportExport.js),
+[models/lib/wrikeWorkflow.js](../../../../../../models/lib/wrikeWorkflow.js),
+[server/rulesButton.js](../../../../../../server/rulesButton.js).
+
+The tests that pin it:
+[tests/playwright/specs/20-rules.e2e.js](../../../../../../tests/playwright/specs/20-rules.e2e.js),
+[tests/rulesJsonExportImportRoundTrip.test.cjs](../../../../../../tests/rulesJsonExportImportRoundTrip.test.cjs),
+[tests/wrikeWorkflow.test.cjs](../../../../../../tests/wrikeWorkflow.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### WeKan rules JSON
 
 `{ "_format": "wekan-rules-1.0.0", "boardId": "...", "rules": [ ... ] }`.
 Each rule is `{ title, trigger, action }`, with the full trigger and action
@@ -138,14 +224,14 @@ plain list of rules is also accepted.
   `*`, meaning any.
 - Importing the same file twice creates the rules twice.
 
-### WeKan rules CSV
+#### WeKan rules CSV
 
 Columns `title, triggerType, triggerFields, actionType, actionFields`. The
 trigger's `activityType` and the action's `actionType` are columns; the rest
 of each is a JSON cell. A row without a trigger type or action type is
 skipped. The CSV does not carry extra triggers and actions.
 
-### Trello Butler
+#### Trello Butler
 
 Best effort. One command per line. The recognized form is a rule like
 `when a card is added to list "X", move the card to the top` (or bottom),
@@ -154,7 +240,7 @@ bottom). The rule's title is the command line. The words are matched without
 regard to case, and the list name is kept as written, so the rule fires on a
 list whose name has capitals. Every other line is counted as not mapped.
 
-### n8n and Node-RED
+#### n8n and Node-RED
 
 Best effort. The format is detected from the JSON (an n8n workflow has
 `nodes` and `connections`; a Node-RED flow is a list or has `flows`), or
@@ -169,7 +255,7 @@ are recognized by their type and name:
 
 Other edges are counted as not mapped.
 
-### Wrike workflow
+#### Wrike workflow
 
 A Wrike workflow as its API's
 [Query Workflows](https://developers.wrike.com/api/v4/workflows/)
@@ -201,13 +287,13 @@ written by the board export and by that dialog (`models/lib/wrikeWorkflow.js`).
   Completed status are added when no list is one, as Wrike requires both. The
   Wrike Excel export writes the same workflow and status names.
 
-### Rules inside a board export
+#### Rules inside a board export
 
 A WeKan JSON board export holds `rules`, `triggers` and `actions`, including
 each rule's extra triggers and actions. The WeKan importer creates them on the
 new board with new ids and links each rule to its new trigger and action.
 
-## What is kept
+### What is kept
 
 | Source | WeKan |
 | --- | --- |
@@ -219,7 +305,7 @@ new board with new ids and links each rule to its new trigger and action.
 | Wrike workflow name | Reported back in the import message |
 | WeKan board export's rules | The imported board's rules |
 
-## What is not kept
+### What is not kept
 
 - **JSON and CSV:** rules without a trigger or action are skipped. The CSV
   has no extra triggers or actions.
@@ -238,33 +324,7 @@ new board with new ids and links each rule to its new trigger and action.
   complete and incomplete move rules have no Wrike counterpart.
 - **Export:** WeKan rules cannot be written as Trello Butler, n8n or Node-RED.
 
-## REST API
-
-The Rules dialog has no import or export route of its own. Rules move over
-REST with their board, or one rule at a time:
-
-```bash
-python3 api.py importboardfrom wekan board.json           # POST /api/boards/import/wekan
-python3 api.py importboardsfrom wekan a.json b.json
-python3 api.py importboard EXPORT.json                    # POST /api/boards/import
-python3 api.py exportboardformat BOARDID wrikeworkflow workflow.json
-python3 api.py exportallboards wekan boards.zip
-python3 api.py listrules BOARDID
-```
-
-- `POST /api/boards/import/wekan` imports one WeKan JSON board, with its
-  rules.
-- `GET /api/boards/:boardId/export?authToken=…` exports one board as WeKan
-  JSON, with its rules.
-- `GET /api/boards/:boardId/export/wrikeworkflow?authToken=…` exports the
-  board's lists and rules as a Wrike workflow.
-- `GET /api/export-all-boards/wekan?authToken=…` exports all boards you can
-  export; add `&boardIds=ID1,ID2` to export only those boards.
-- `GET`, `POST`, `PUT` and `DELETE` on `/api/boards/:boardId/rules` list,
-  add, edit and remove single rules; see
-  [Rules (Automation): REST API](../../../../Rules/Rules/Rules.md#rest-api).
-
-## How it is built and tested
+### How it is built and tested
 
 - `client/components/rules/rulesImportExport.jade` and
   `client/components/rules/rulesImportExport.js`: the dialog, the JSON and
@@ -282,18 +342,16 @@ python3 api.py listrules BOARDID
   Export dialog offers JSON and CSV export*, and *Import / Export applies a
   Wrike workflow as lists and rules, and exports one*.
 
-## Sources
+## Commits
 
-- [Rules (Automation)](../../../../Rules/Rules/Rules.md): what rules,
-  triggers and actions are
-- [Wrike API v4: Workflows](https://developers.wrike.com/api/v4/workflows/):
-  the workflow JSON
-- [Trello workflow automation with Butler](https://www.atlassian.com/blog/trello/butler-power-up-trello-automation):
-  Trello's automation and its rules
-- [n8n: Export and import workflows](https://docs.n8n.io/workflows/export-import/):
-  the n8n workflow JSON
-- [Node-RED: Importing and exporting flows](https://nodered.org/docs/user-guide/editor/workspace/import-export):
-  the Node-RED flow JSON
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Export Wrike Excel with Wrike's custom workflow statuses, and import and export Wrike workflows as lists and rules](https://github.com/wekan/wekan/commit/a78b4aa744b011fc385bbd462b83fb092b547efd)
+ - [Give the Rules page the board's right sidebar instead of its own](https://github.com/wekan/wekan/commit/40a4d9b171d82c81df605d564c7d5e90fae9abda)
+ - [Let a rule have several triggers (any fires it) and several actions (in order)](https://github.com/wekan/wekan/commit/69eeb00c84e2897e53ea96ef13df9524fc4d432a)
+ - [Add accessible external rules import](https://github.com/wekan/wekan/commit/ba2bb4af535e3adc133de13903eda888e269e9b3)
+ - [Add safe accessible HTML4 rules import](https://github.com/wekan/wekan/commit/31dc055d4e21fa0a961db64940e31867ce3c887b)
+ - [Add accessible HTML4 rules export](https://github.com/wekan/wekan/commit/c44f647e16398ed7c9d839fca268aab027e61199)
+ - [Isolate RuleBleed browser regression data](https://github.com/wekan/wekan/commit/6d50564c824f7d413cbb74eaf554f8dae567bc52)
+ - [Block unauthorized cross-board rule actions](https://github.com/wekan/wekan/commit/dffe85cce428749908c46ef1cae25fe3fb6edd07)
+ - [Keep action descriptions out of rule documents](https://github.com/wekan/wekan/commit/ea90023287d3c9bd0a2adbfad9669cac2bdb7f3e)
+ - [More Import Export and Rules features](https://github.com/wekan/wekan/commit/f0bce67a3bf301c21ded3eb97e84a3be0010290f)
+ - [Export/Import done for rules](https://github.com/wekan/wekan/commit/8cb132f492d3e4eb41b9f6766a59312942e345fa)

@@ -1,11 +1,36 @@
 # OpenProject
 
+## What it is
+
 WeKan imports boards from [OpenProject](https://www.openproject.org/) and
 exports a board in the same shape. It reads a work-packages collection from
 OpenProject's API v3 (HAL+JSON): statuses become lists and work packages
 become cards. Versions and sprints become Scrum releases and sprints.
 
-## How to import
+## Read more
+
+- [Wikipedia: OpenProject, the project management software](https://en.wikipedia.org/wiki/OpenProject)
+- [API v3 introduction](https://www.openproject.org/docs/api/introduction/):
+  HAL+JSON and the `apikey` basic authentication
+- [Collections](https://www.openproject.org/docs/api/collections/): paging
+  with `pageSize` and `offset`
+- [Resource schemas](https://www.openproject.org/docs/development/concepts/resource-schemas/):
+  custom-field names
+- [Work packages](https://www.openproject.org/docs/api/endpoints/work-packages/),
+  [Versions](https://www.openproject.org/docs/api/endpoints/versions/) and
+  [Sprints](https://www.openproject.org/docs/api/endpoints/sprints/): the
+  Scrum planning objects
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In OpenProject, create an API token in your account settings. API v3 takes
    it with basic authentication, with the user name `apikey`
@@ -21,7 +46,7 @@ become cards. Versions and sprints become Scrum releases and sprints.
    The file must hold every page you want: WeKan imports what is in the file.
    Comments, relations, watchers, attachments, versions and sprints are read
    only when they are embedded in the file (see Format details).
-3. In WeKan, go to **All Boards → New → Import → OpenProject**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → OpenProject**.
 4. Paste the JSON into the text box. Tick the parts to import. **Scrum
    settings** decides whether versions, sprints, position and story points are
    imported.
@@ -31,7 +56,7 @@ become cards. Versions and sprints become Scrum releases and sprints.
 6. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several OpenProject
   JSON files, or one `.zip` that holds them. Each file becomes its own board,
@@ -45,7 +70,7 @@ become cards. Versions and sprints become Scrum releases and sprints.
   `python3 api.py importboardsfrom openproject FILE_OR_DIR ...` takes files,
   directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include:**, tick the parts to export. Tick **Scrum
@@ -57,7 +82,7 @@ become cards. Versions and sprints become Scrum releases and sprints.
    [API documentation](https://www.openproject.org/docs/api/introduction/)).
    The file is also what WeKan's own OpenProject import reads.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. **All Boards → sidebar → Export all boards**, then choose **OpenProject**.
    This downloads one `.zip` with one OpenProject file per board you can
@@ -69,7 +94,88 @@ become cards. Versions and sprints become Scrum releases and sprints.
 
 From a script: `python3 api.py exportallboards openproject boards.zip`.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom openproject wp.json                  # POST /api/boards/import/openproject
+python3 api.py importboardsfrom openproject a.json b.json dir/      # one board per file
+python3 api.py exportboardformat BOARDID openproject wp.json        # GET /api/boards/BOARDID/export/openproject?authToken=TOKEN
+python3 api.py exportallboards openproject boards.zip               # GET /api/export-all-boards/openproject?authToken=TOKEN
+```
+
+`GET /api/export-all-boards/openproject?authToken=TOKEN&boardIds=ID1,ID2`
+exports only the boards listed.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[server/lib/scrumTransferImport.js](../../../../../../server/lib/scrumTransferImport.js).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/externalScrumPlanning.test.cjs](../../../../../../tests/externalScrumPlanning.test.cjs),
+[tests/importedTaskPlan.test.cjs](../../../../../../tests/importedTaskPlan.test.cjs),
+[tests/openProjectImport.test.cjs](../../../../../../tests/openProjectImport.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 From the [format coverage](../Format-Coverage.md) audit:
 
@@ -147,7 +253,7 @@ What the current code does (`parseOpenProject` in
   become labels.
 - The work package's `duration` is not read.
 
-## What is kept
+### What is kept
 
 | OpenProject | WeKan |
 | --- | --- |
@@ -176,7 +282,25 @@ author (the creator) and parent. Comments go out as `Activity::Comment`
 activities. With Scrum selected, it adds `position`, `version` and `sprint`
 links, and `_embedded.versions` and `_embedded.sprints`.
 
-## Attachment files
+### What is not kept
+
+The import reports these on the loss report:
+
+- an attachment that could not be downloaded, and why (no sign-in given, a
+  refused address, an HTTP error);
+- watchers who are not members of the new board;
+- version and sprint links whose records are not embedded, active sprints
+  (imported as planned) and completed sprints;
+- more than 50 custom fields, duplicate work package ids, and parents or
+  relations that point outside the file.
+
+OpenProject has no member mapping in WeKan, so assignees do not become card
+members.
+
+The export leaves out archived cards, lists and swimlanes, labels, end dates,
+watchers, relations, checklists and attachments.
+
+### Attachment files
 
 Each embedded attachment carries `_links.downloadLocation`, which the API v3
 documents as the direct download link, relative to the instance
@@ -201,37 +325,7 @@ Through the REST API (`POST /api/boards/import/<source>`), send the same as
 `"attachmentAuth": { "url": ..., "username": ..., "token": ... }` beside
 `"board"`.
 
-## What is not kept
-
-The import reports these on the loss report:
-
-- an attachment that could not be downloaded, and why (no sign-in given, a
-  refused address, an HTTP error);
-- watchers who are not members of the new board;
-- version and sprint links whose records are not embedded, active sprints
-  (imported as planned) and completed sprints;
-- more than 50 custom fields, duplicate work package ids, and parents or
-  relations that point outside the file.
-
-OpenProject has no member mapping in WeKan, so assignees do not become card
-members.
-
-The export leaves out archived cards, lists and swimlanes, labels, end dates,
-watchers, relations, checklists and attachments.
-
-## REST API
-
-```bash
-python3 api.py importboardfrom openproject wp.json                  # POST /api/boards/import/openproject
-python3 api.py importboardsfrom openproject a.json b.json dir/      # one board per file
-python3 api.py exportboardformat BOARDID openproject wp.json        # GET /api/boards/BOARDID/export/openproject?authToken=TOKEN
-python3 api.py exportallboards openproject boards.zip               # GET /api/export-all-boards/openproject?authToken=TOKEN
-```
-
-`GET /api/export-all-boards/openproject?authToken=TOKEN&boardIds=ID1,ID2`
-exports only the boards listed.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/externalParsers.js` (`parseOpenProject`) reads the file.
   `models/lib/externalScrumPlanning.js` reads versions and sprints.
@@ -247,18 +341,12 @@ exports only the boards listed.
   (importing the fixture through the page, refusing malformed JSON, and parent
   hierarchy and relations linking the imported cards).
 
-## Sources
+## Commits
 
-- [API v3 introduction](https://www.openproject.org/docs/api/introduction/):
-  HAL+JSON and the `apikey` basic authentication
-- [Collections](https://www.openproject.org/docs/api/collections/): paging
-  with `pageSize` and `offset`
-- [Resource schemas](https://www.openproject.org/docs/development/concepts/resource-schemas/):
-  custom-field names
-- [Work packages](https://www.openproject.org/docs/api/endpoints/work-packages/),
-  [Versions](https://www.openproject.org/docs/api/endpoints/versions/) and
-  [Sprints](https://www.openproject.org/docs/api/endpoints/sprints/): the
-  Scrum planning objects
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [OpenProject: remaining time is imported, and spent time is exported, so it survives a round trip](https://github.com/wekan/wekan/commit/9bd503a71b22cfcf46c6e75e159c5bf0f5417331)
+ - [Asana, OpenProject, Obsidian and Wrike exports carry what each card waits for](https://github.com/wekan/wekan/commit/c9da13b63e6f1fea86cb30b604093a8a120bcf53)
+ - [JSON exports whose cards are one array are written a page at a time: Trello, Jira, Asana, Zenkit, OpenProject, GitHub ](https://github.com/wekan/wekan/commit/f293ae4076092a387505b1909053cd66a62441c8)
+ - [Import: attachment files of Jira, Nextcloud Deck, OpenProject, Asana and GitLab](https://github.com/wekan/wekan/commit/51238ed8ad80179fa54517ab429b7a14c31510e8)
+ - [Import Scrum sprints and releases from GitLab, OpenProject and Asana](https://github.com/wekan/wekan/commit/958e9e13f3d200fe321bdeee09cdb127cfb6629a)
+ - [Import OpenProject watchers and Asana followers as card watchers](https://github.com/wekan/wekan/commit/d893d1791b8068b2d13486c758d88da6120b3d1f)
+ - [Import OpenProject custom fields, comments, hierarchy and relations](https://github.com/wekan/wekan/commit/29785fcd2f247bb146e1bdc313267bad2e8b1cf8)

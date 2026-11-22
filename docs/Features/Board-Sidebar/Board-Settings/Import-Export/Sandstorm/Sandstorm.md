@@ -1,5 +1,7 @@
 # Sandstorm
 
+## What it is
+
 WeKan imports the grain backups of [Sandstorm](https://sandstorm.org)
 ([source](https://github.com/sandstorm-io/sandstorm)) apps, and exports a board
 as a grain backup Sandstorm restores. The import page and the export menu list
@@ -20,11 +22,27 @@ them under the heading **Sandstorm**.
 | Gogs | issues of each repository, Open and Closed, with labels, milestone, assignee and comments | — |
 | WordPress | posts and pages by status, with categories, tags and approved comments | — |
 
-## How to import
+## Read more
+
+- [Sandstorm](https://sandstorm.org)
+- [Sandstorm source](https://github.com/sandstorm-io/sandstorm)
+- [grain.capnp (GrainInfo)](https://github.com/sandstorm-io/sandstorm/blob/master/src/sandstorm/grain.capnp)
+- [backup.c++](https://github.com/sandstorm-io/sandstorm/blob/master/src/sandstorm/backup.c++)
+- [Cap'n Proto encoding](https://capnproto.org/encoding.html)
+- [SocialCalc save format](https://github.com/marcelklehr/socialcalc)
+- [prologic/bitcask](https://git.mills.io/prologic/bitcask)
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Sandstorm, open the grain and choose **Download backup** in the grain's
    top bar. Sandstorm downloads the grain as a `.zip`.
-2. In WeKan, go to **All Boards → New → Import**, and under **Sandstorm**
+2. In WeKan, go to **All Boards → Add Board → Import → Import board**, and under **Sandstorm**
    choose the grain's app.
 3. Choose the `.zip`.
 4. Map the people to WeKan members, or leave them as they are.
@@ -33,7 +51,7 @@ them under the heading **Sandstorm**.
 A grain of another app than the one chosen is refused with the name of its app;
 a grain of an app WeKan cannot read (below) is refused with the reason.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose the app under **Sandstorm**, then under **Import
    many boards** choose several grain backups.
@@ -50,7 +68,7 @@ From a script:
 python3 api.py importboardsfrom sandstormyatl FILE_OR_DIR ...
 ```
 
-## How to export
+### How to export
 
 1. Open the board, then **Board Settings → Export**, and under **Sandstorm**
    choose the app. The board downloads as `<board>.zip`.
@@ -67,7 +85,7 @@ when its list is named Done or it is archived), a row of an EtherCalc sheet
 `<list>/<card>.md` with its attachments in `<list>/<card>/`, or a Hacker CMS
 page; the comments of every card are the messages of one SandChat room.
 
-## How to export all boards at once
+### How to export all boards at once
 
 1. In WeKan, go to **All Boards**, open the sidebar and choose **Export all
    boards**, then an app under **Sandstorm**.
@@ -79,7 +97,96 @@ From a script:
 python3 api.py exportallboards sandstormyatl boards.zip
 ```
 
-## Format details
+### REST API
+
+- Import: `POST /api/boards/import/<source>` with `{ "zipBase64": "..." }`,
+  where `<source>` is `sandstormwekan`, `sandstormprioritize`, `sandstormyatl`,
+  `sandstormmutodo`, `sandstormsandchat`, `sandstormethercalc`,
+  `sandstormradicalecalendar`, `sandstormradicalecontacts`, `sandstormdavros`,
+  `sandstormhackercms`, `sandstormgogs` or `sandstormwordpress`.
+- Export: `GET /api/boards/:boardId/export/<source>` for the apps WeKan writes.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 50,000 cards. More stops the import with an error.
+  (`MAX_SANDSTORM_CARDS` in
+  [models/lib/sandstorm/grainApps.js](../../../../../../models/lib/sandstorm/grainApps.js#L51))
+- The grain information: at most 1 MB. More stops the import with an error.
+  (`MAX_GRAIN_INFO_BYTES` in
+  [models/lib/sandstorm/grainInfo.js](../../../../../../models/lib/sandstorm/grainInfo.js#L20))
+- At most 5,000 files. Anything past it is left out. (`MAX_FILES` in
+  [server/lib/sandstormGrain.js](../../../../../../server/lib/sandstormGrain.js#L14))
+- One exported attachment: at most 256 MB. (`MAX_EXPORT_ATTACHMENT_BYTES` in
+  [server/lib/sandstormGrain.js](../../../../../../server/lib/sandstormGrain.js#L193))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/sandstorm/grainApps.js](../../../../../../models/lib/sandstorm/grainApps.js),
+[models/lib/sandstorm/grainInfo.js](../../../../../../models/lib/sandstorm/grainInfo.js),
+[server/lib/sandstormGrain.js](../../../../../../server/lib/sandstormGrain.js).
+
+The tests that pin it:
+[tests/sandstormGrain.test.cjs](../../../../../../tests/sandstormGrain.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 A grain backup (`src/sandstorm/backup.c++`) is a `.zip` of `metadata`, `log`
 (the grain's console) and the grain's `/var` as `data/`. `metadata` is a
@@ -106,13 +213,13 @@ storage (`models/lib/sandstorm/grainApps.js`, `server/lib/sandstormGrain.js`):
 A SQLite database is read with Node's own `node:sqlite`, from a copy in a
 directory of its own that is removed afterwards; it is never written back.
 
-## What is kept
+### What is kept
 
 What the table above lists for each app. Titles, descriptions, lists, labels,
 dates, people, comments and files go where each app has them; what an app has
 no place for is written in the card's custom fields when WeKan reads it back.
 
-## What is not kept
+### What is not kept
 
 - **WeKan, Gogs and WordPress are imported only.** A grain of theirs is a whole
   installation: WeKan's users there are the Sandstorm identities of that grain,
@@ -131,16 +238,7 @@ no place for is written in the card's custom fields when WeKan reads it back.
 What was left out is listed in the import's loss report, also in **Admin Panel
 → Problems → Recovery**.
 
-## REST API
-
-- Import: `POST /api/boards/import/<source>` with `{ "zipBase64": "..." }`,
-  where `<source>` is `sandstormwekan`, `sandstormprioritize`, `sandstormyatl`,
-  `sandstormmutodo`, `sandstormsandchat`, `sandstormethercalc`,
-  `sandstormradicalecalendar`, `sandstormradicalecontacts`, `sandstormdavros`,
-  `sandstormhackercms`, `sandstormgogs` or `sandstormwordpress`.
-- Export: `GET /api/boards/:boardId/export/<source>` for the apps WeKan writes.
-
-## How it is built and tested
+### How it is built and tested
 
 `tests/sandstormGrain.test.cjs` writes and reads `GrainInfo`, reads a grain's
 users from a SandChat grain's metadata with every name replaced; writes a board
@@ -151,12 +249,13 @@ WordPress grain made in the test; and refuses another app's grain, an
 unreadable app's, a backup without metadata, a damaged μTodo file and a path
 out of `data/`. The readers were also run on real grains of every app above.
 
-## Sources
+## Commits
 
-- [Sandstorm](https://sandstorm.org)
-- [Sandstorm source](https://github.com/sandstorm-io/sandstorm)
-- [grain.capnp (GrainInfo)](https://github.com/sandstorm-io/sandstorm/blob/master/src/sandstorm/grain.capnp)
-- [backup.c++](https://github.com/sandstorm-io/sandstorm/blob/master/src/sandstorm/backup.c++)
-- [Cap'n Proto encoding](https://capnproto.org/encoding.html)
-- [SocialCalc save format](https://github.com/marcelklehr/socialcalc)
-- [prologic/bitcask](https://git.mills.io/prologic/bitcask)
+ - [Website: import and export WordPress, Ghost, Blogger, static and HTML sites, and the board as a website at a public ](https://github.com/wekan/wekan/commit/2e8549032ea4b44e90a96eb53a4e1941f53a5261)
+ - [Fix CodeQL alerts #605-#608 in the OneNote and Sandstorm grain formats](https://github.com/wekan/wekan/commit/3f5e4f3f14adb42af5eb486fb393ec143833e392)
+ - [Sandstorm: EtherCalc's escaping in one pass, and Hacker CMS's title end tag with attributes](https://github.com/wekan/wekan/commit/c28f6de37891cb25197651a9bef1a60bd0012e4a)
+ - [Import and export Sandstorm grain backups](https://github.com/wekan/wekan/commit/6f3f6cc5a83df1b91a40d6afae261a74cf5b6507)
+ - [Archive only the importer's own board when a Sandstorm import replaces it](https://github.com/wekan/wekan/commit/fb93c5f430dc03c7e5623e9ce41f70376b5ddfbe)
+ - [Fix Sandstorm export board from web. - Fix Error when logging in to Wekan REST API when using Sandstorm Wekan.   ](https://github.com/wekan/wekan/commit/32f896f19d31f92b5c2e540d0960d00fbf1bf9c3)
+ - [Some fixes to Wekan import:   - isCommentOnly and isNoComments are now optional   - Turn off import error checking, so ](https://github.com/wekan/wekan/commit/4cf98134491b5870796de795418000c0a7c3a694)
+ - [Import boards in Sandstorm](https://github.com/wekan/wekan/commit/d2b1a837e677b62e10a14c1599c4ff59ee21ff34)

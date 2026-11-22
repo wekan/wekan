@@ -1,12 +1,35 @@
 # Plane
 
+## What it is
+
 WeKan imports boards from [Plane](https://plane.so), the open source project
 tracker. It reads Plane's issue export (work items, in Plane's current
 documentation): the `.zip` that Plane writes, an Excel file from inside it, or
 one JSON or CSV file from it. States become lists, projects become swimlanes,
 and issues become cards. WeKan does not export to Plane.
 
-## How to import
+## Read more
+
+- [Wikipedia: issue tracking systems](https://en.wikipedia.org/wiki/Issue_tracking_system)
+- [Plane: Export work items](https://docs.plane.so/core-concepts/export):
+  where the export is, its formats, and the 7-day download window
+- [`apps/api/plane/bgtasks/export_task.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/bgtasks/export_task.py):
+  how the `.zip` and its file names are written
+- [`apps/api/plane/utils/porters/serializers/issue.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/utils/porters/serializers/issue.py):
+  the exported fields
+- [`apps/api/plane/utils/porters/formatters.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/utils/porters/formatters.py):
+  how JSON, CSV and XLSX write those fields
+
+See also: [format coverage](../Format-Coverage.md),
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Plane, a workspace admin goes to **Workspace settings** and selects
    **Exports**.
@@ -14,7 +37,7 @@ and issues become cards. WeKan does not export to Plane.
    or **JSON**), and click **Export**. Plane packages the export into a `.zip`.
 3. Download the file from **Previous exports**. Plane keeps an export
    downloadable for 7 days; after that it shows as *Expired*.
-4. In WeKan, go to **All Boards → New → Import → Plane**.
+4. In WeKan, go to **All Boards → Add Board → Import → Import board → Plane**.
 5. Choose the `.zip` file, or one `.xlsx`, `.json` or `.csv` file from inside
    it, or paste the JSON or CSV text into the text box. Click **Import**.
    Members are not mapped on the way in; they can be mapped later.
@@ -24,7 +47,7 @@ and issues become cards. WeKan does not export to Plane.
 Prefer the **JSON** or **CSV** export: Plane's Excel export writes links,
 relations and comments as Python text, which WeKan does not read.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, under **Import many boards**, choose several files.
    Each file becomes its own board, imported without member mapping (members
@@ -48,18 +71,107 @@ python3 api.py importboardsfrom plane FILE_OR_DIR ...
 
 It takes files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 WeKan offers no Plane export. Plane's Community Edition has no import for its
 own export format, so there is no file WeKan could write that Plane would read
 back.
 
-## How to export all boards at once
+### How to export all boards at once
 
 There is no Plane export, so Plane is not offered under **Export all boards**
 either.
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom plane export.zip          # POST /api/boards/import/plane
+python3 api.py importboardsfrom plane a.zip b.zip
+```
+
+- `POST /api/boards/import/plane` imports one export. `api.py` sends a `.zip`
+  as `{zipBase64}`, an `.xlsx` as `{xlsxBase64}`, and a JSON or CSV file as
+  its text.
+
+There is no Plane export, so there are no export commands or routes.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 20,000 issues. More stops the import with an error.
+  (`MAX_PLANE_ISSUES` in
+  [models/lib/planeFormat.js](../../../../../../models/lib/planeFormat.js#L73))
+- The Plane text: at most 67,108,864 characters (64 MB of text). More stops the
+  import with an error. (`MAX_PLANE_TEXT` in
+  [models/lib/planeFormat.js](../../../../../../models/lib/planeFormat.js#L74))
+- The Plane .zip file: at most 64 MB. More stops the import with an error.
+  (`MAX_PLANE_ZIP_BYTES` in
+  [server/lib/planeArchive.js](../../../../../../server/lib/planeArchive.js#L18))
+- One Plane file: at most 64 MB. More stops the import with an error.
+  (`MAX_PLANE_FILE_BYTES` in
+  [server/lib/planeArchive.js](../../../../../../server/lib/planeArchive.js#L20))
+- The unpacked Plane .zip contents: at most 128 MB. (`MAX_PLANE_INFLATED_BYTES`
+  in
+  [server/lib/planeArchive.js](../../../../../../server/lib/planeArchive.js#L22))
+- At most 1,000 files in the archive. More stops the import with an error.
+  (`MAX_PLANE_ZIP_ENTRIES` in
+  [server/lib/planeArchive.js](../../../../../../server/lib/planeArchive.js#L24))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+This format's own code:
+[models/lib/planeFormat.js](../../../../../../models/lib/planeFormat.js),
+[server/lib/planeArchive.js](../../../../../../server/lib/planeArchive.js).
+
+The tests that pin it:
+[tests/planeFormat.test.cjs](../../../../../../tests/planeFormat.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 WeKan reads the issue export of [Plane](https://github.com/makeplane/plane)
 (Workspace Settings → Exports, CSV, JSON or XLSX), as Plane's own source code
@@ -103,7 +215,7 @@ Plane's [export documentation](https://docs.plane.so/core-concepts/export)
 also describes a *Custom Export* (a Pro feature) from a work item view. WeKan
 is tested with the workspace export described above.
 
-## What is kept
+### What is kept
 
 | Plane | WeKan |
 | --- | --- |
@@ -128,7 +240,7 @@ is tested with the workspace export described above.
 
 A relation that Plane lists on both issues is kept once.
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -151,20 +263,7 @@ silently:
 Plane's export has no state order or colors, so lists are ordered by first
 appearance and get no color.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom plane export.zip          # POST /api/boards/import/plane
-python3 api.py importboardsfrom plane a.zip b.zip
-```
-
-- `POST /api/boards/import/plane` imports one export. `api.py` sends a `.zip`
-  as `{zipBase64}`, an `.xlsx` as `{xlsxBase64}`, and a JSON or CSV file as
-  its text.
-
-There is no Plane export, so there are no export commands or routes.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/planeFormat.js` reads the issues in all three formats.
   `server/lib/planeArchive.js` opens the `.zip` and the workbook with bounded
@@ -177,16 +276,11 @@ There is no Plane export, so there are no export commands or routes.
   comment and fields*, and *Plane: a pasted JSON export imports, and broken
   text or a zip without export files is refused*.
 
-## Sources
+## Commits
 
-- [Plane: Export work items](https://docs.plane.so/core-concepts/export):
-  where the export is, its formats, and the 7-day download window
-- [`apps/api/plane/bgtasks/export_task.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/bgtasks/export_task.py):
-  how the `.zip` and its file names are written
-- [`apps/api/plane/utils/porters/serializers/issue.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/utils/porters/serializers/issue.py):
-  the exported fields
-- [`apps/api/plane/utils/porters/formatters.py`](https://github.com/makeplane/plane/blob/preview/apps/api/plane/utils/porters/formatters.py):
-  how JSON, CSV and XLSX write those fields
-
-See also: [format coverage](../Format-Coverage.md),
-[all formats](../External-Tools.md).
+ - [Docs: README and feature docs list what WeKan has now, by its menus](https://github.com/wekan/wekan/commit/4f022b8af6615b8b5ee9e0c968cdbc64c73112bb)
+ - [Import page uploads stream to the server's disk, checked against the free space and an Admin Panel limit](https://github.com/wekan/wekan/commit/32c24ed84e9d6c8080e89bdd4097f87a3b0b4b04)
+ - [Fix the code scanning and Dependabot alerts of 2026-10-10](https://github.com/wekan/wekan/commit/5ec6d9af18d99ab5514cd189fed6bf642e0bb3b2)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import boards from Plane issue exports](https://github.com/wekan/wekan/commit/d21a26339363181807908e26c2a5155e732b745e)

@@ -1,5 +1,7 @@
 # Redmine
 
+## What it is
+
 WeKan imports boards from [Redmine](https://www.redmine.org)'s issues CSV
 export and exports boards to a CSV file that Redmine's own issue import reads.
 Each issue status becomes a list and each issue a card. The tracker becomes a
@@ -7,7 +9,35 @@ label, the project a swimlane, and the parent task and related issues become a
 parent card and dependencies. Priority, category, target version, estimated
 time, % Done and Redmine's custom fields become custom fields.
 
-## How to import
+## Read more
+
+- [Wikipedia: Redmine, the project management and issue tracking app](https://en.wikipedia.org/wiki/Redmine)
+- [HowTo import issues](https://www.redmine.org/projects/redmine/wiki/HowTo_import_issues):
+  the import link, its options, the parent task references, statuses and
+  assignees
+- [app/views/issues/index.html.erb](https://github.com/redmine/redmine/blob/master/app/views/issues/index.html.erb):
+  the CSV link, the CSV export options dialog and the Import menu entry
+- [app/views/imports](https://github.com/redmine/redmine/tree/master/app/views/imports):
+  the import steps (file, options, fields mapping)
+- [query_to_csv in queries_helper.rb](https://github.com/redmine/redmine/blob/master/app/helpers/queries_helper.rb):
+  how Redmine writes the CSV
+- [lib/redmine/export/csv.rb](https://github.com/redmine/redmine/blob/master/lib/redmine/export/csv.rb):
+  the byte order mark, separator and decimal separator
+- [issue_import.rb](https://github.com/redmine/redmine/blob/master/app/models/issue_import.rb):
+  the importer's auto-mapped fields, Unique ID and relation columns
+- [en.yml](https://github.com/redmine/redmine/blob/master/config/locales/en.yml):
+  the English column labels
+
+See also the [format coverage table](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Redmine, set your language to English in **My account**. Redmine writes
    the CSV column names in the language of the user who exports, and WeKan
@@ -18,7 +48,7 @@ time, % Done and Redmine's custom fields become custom fields.
    **Description** (and **Last notes** if you want the newest note as a
    comment), choose **UTF-8** as the encoding (English's default is
    ISO-8859-1), and click **Export**.
-4. In WeKan, go to **All Boards → New → Import → Redmine**.
+4. In WeKan, go to **All Boards → Add Board → Import → Import board → Redmine**.
 5. Open the CSV file in a text editor, copy all of it and paste it into the
    text box. This source is read from the text box only; there is no file
    chooser for it.
@@ -34,7 +64,7 @@ A file with no English Redmine column name at all is refused, with a message
 that asks you to export again in English or to rename the headers to English
 (`#`, `Subject`, `Status`, ...).
 
-## How to import many boards at once
+### How to import many boards at once
 
 - On the import page, under **Import many boards**, choose several Redmine CSV
   files, or one `.zip` that holds them. Each file becomes its own board,
@@ -50,7 +80,7 @@ that asks you to export again in English or to rename the headers to English
 - From a script: `python3 api.py importboardsfrom redmine FILE_OR_DIR ...`
   (files, directories of files, or `.zip` files).
 
-## How to export
+### How to export
 
 1. In WeKan, open the board and go to **Board Settings → Export**.
 2. Choose what to include, then choose **Redmine** in the JSON group of the
@@ -72,7 +102,7 @@ workflow allows that status for new issues (**Administration → Workflow**).
 The assignee must be a Redmine user name. See Redmine's
 [HowTo import issues](https://www.redmine.org/projects/redmine/wiki/HowTo_import_issues).
 
-## How to export all boards at once
+### How to export all boards at once
 
 **All Boards → sidebar → Export all boards**, choose **Redmine**. It downloads
 one `.zip` with one CSV file per board you can export: boards you are a member
@@ -83,9 +113,91 @@ select the boards, then **Export**.
 
 From a script: `python3 api.py exportallboards redmine boards.zip`.
 
-## Format details
+### REST API
 
-### What WeKan reads
+```bash
+python3 api.py importboardfrom redmine issues.csv              # POST /api/boards/import/redmine
+python3 api.py importboardsfrom redmine a.csv b.csv exports/   # several boards
+python3 api.py exportboardformat BOARDID redmine board.csv     # GET /api/boards/BOARDID/export/redmine?authToken=...
+python3 api.py exportallboards redmine boards.zip              # GET /api/export-all-boards/redmine?authToken=...
+```
+
+The routes:
+
+- `POST /api/boards/import/redmine`
+- `GET /api/boards/:boardId/export/redmine?authToken=…`
+- `GET /api/export-all-boards/redmine?authToken=…`, with an optional
+  `&boardIds=ID1,ID2` for selected boards.
+
+## How the numbers are calculated
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/redmineCsvFormat.js](../../../../../../models/lib/redmineCsvFormat.js).
+
+The tests that pin it:
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js),
+[tests/redmineCsv.test.cjs](../../../../../../tests/redmineCsv.test.cjs).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### What WeKan reads
 
 Redmine's issues CSV (**Issues > Also available in: CSV**), as
 [query_to_csv](https://github.com/redmine/redmine/blob/master/app/helpers/queries_helper.rb)
@@ -117,7 +229,7 @@ column is refused too.
 Every column WeKan does not know becomes a custom field named after the
 column, because Redmine's custom fields are columns named after the field.
 
-### Relations
+#### Relations
 
 - **Related issues** holds every relation in one cell, as Redmine writes it:
   `Blocked by #12, Related to #7, Precedes (3 days) #9`.
@@ -132,7 +244,7 @@ column, because Redmine's custom fields are columns named after the field.
   dependency per pair of issues.
 - **Parent task** holds the parent's id alone (`#12` or `12`, or a Unique ID).
 
-### Dates and numbers
+#### Dates and numbers
 
 - Dates may be ISO (`%Y-%m-%d`), `%Y/%m/%d`, `%d.%m.%Y`, `%d-%m-%Y`, or
   `%m/%d/%Y` or `%d/%m/%Y`. Which slash order applies is decided for the whole
@@ -144,7 +256,7 @@ column, because Redmine's custom fields are columns named after the field.
 - Estimated time, % Done and Spent time are numbers such as `3.00`, or `3,00`
   where the locale's decimal separator is a comma.
 
-### What WeKan writes
+#### What WeKan writes
 
 - The English columns Redmine's importer auto-maps, with `,` as separator,
   `\r\n` line ends and a UTF-8 byte order mark, as Redmine writes UTF-8:
@@ -174,7 +286,7 @@ Redmine's importer does not map the Project (you choose the project in the
 mapping step), Author, Spent time, Created or Closed columns. WeKan writes them
 so that the file imports back into WeKan with them.
 
-## What is kept
+### What is kept
 
 | Redmine | WeKan |
 | --- | --- |
@@ -196,7 +308,7 @@ so that the file imports back into WeKan with them.
 | Estimated time, % Done | Number custom fields |
 | Any other column (Redmine custom fields) | Custom field named after the column |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -222,23 +334,7 @@ The Redmine export does not write labels after the first, further assignees,
 watchers, comments, checklists, attachments, card colors or the swimlane
 `Default`.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom redmine issues.csv              # POST /api/boards/import/redmine
-python3 api.py importboardsfrom redmine a.csv b.csv exports/   # several boards
-python3 api.py exportboardformat BOARDID redmine board.csv     # GET /api/boards/BOARDID/export/redmine?authToken=...
-python3 api.py exportallboards redmine boards.zip              # GET /api/export-all-boards/redmine?authToken=...
-```
-
-The routes:
-
-- `POST /api/boards/import/redmine`
-- `GET /api/boards/:boardId/export/redmine?authToken=…`
-- `GET /api/export-all-boards/redmine?authToken=…`, with an optional
-  `&boardIds=ID1,ID2` for selected boards.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/redmineCsvFormat.js` reads (`parseRedmineCsv`) and writes
   (`formatRedmineCsv`) the CSV. It is registered as `redmine` in
@@ -259,23 +355,9 @@ The routes:
   audit downloads **Redmine** from the export menu and checks that another
   user is refused.
 
-## Sources
+## Commits
 
-- [HowTo import issues](https://www.redmine.org/projects/redmine/wiki/HowTo_import_issues):
-  the import link, its options, the parent task references, statuses and
-  assignees
-- [app/views/issues/index.html.erb](https://github.com/redmine/redmine/blob/master/app/views/issues/index.html.erb):
-  the CSV link, the CSV export options dialog and the Import menu entry
-- [app/views/imports](https://github.com/redmine/redmine/tree/master/app/views/imports):
-  the import steps (file, options, fields mapping)
-- [query_to_csv in queries_helper.rb](https://github.com/redmine/redmine/blob/master/app/helpers/queries_helper.rb):
-  how Redmine writes the CSV
-- [lib/redmine/export/csv.rb](https://github.com/redmine/redmine/blob/master/lib/redmine/export/csv.rb):
-  the byte order mark, separator and decimal separator
-- [issue_import.rb](https://github.com/redmine/redmine/blob/master/app/models/issue_import.rb):
-  the importer's auto-mapped fields, Unique ID and relation columns
-- [en.yml](https://github.com/redmine/redmine/blob/master/config/locales/en.yml):
-  the English column labels
-
-See also the [format coverage table](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Ten more exports are written a page of cards at a time, their references read in a light first pass](https://github.com/wekan/wekan/commit/e2cbbe510457940b6db26c90b45307a6c539a0e7)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Redmine issue CSV](https://github.com/wekan/wekan/commit/6c9ffd63d44cb49519fa52e731cbcc7d8d6e5be3)

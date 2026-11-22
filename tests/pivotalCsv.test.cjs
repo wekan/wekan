@@ -211,7 +211,9 @@ async function main() {
     assert.match(read('client/components/boards/exportScope.js'), /key: 'pivotal'[^}]*path: 'export\/pivotal', ext: 'csv'/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Pivotal-Tracker/Pivotal-Tracker.md');
-    assert.match(docPage, /^## Format details$/m);
+    // The format details are a subsection of How it works in WeKan, since every
+    // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
+    assert.match(docPage, /^### Format details$/m);
     assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Pivotal\-Tracker\/Pivotal\-Tracker\.md\)/);
   });
 

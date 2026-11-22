@@ -267,7 +267,9 @@ async function main() {
       /\{ key: 'notion', icon: 'fa-table', label: 'Notion', path: 'export\/notion', ext: 'csv', scopes: BOARD_ONLY \}/);
     // Its details are on its own page, which the coverage index links.
     const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Notion/Notion.md');
-    assert.match(docPage, /^## Format details$/m);
+    // The format details are a subsection of How it works in WeKan, since every
+    // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
+    assert.match(docPage, /^### Format details$/m);
     assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Notion\/Notion\.md\)/);
     // No web addresses in the code comments of this format.
     for (const file of ['models/lib/notionFormat.js', 'server/lib/notionArchive.js']) {

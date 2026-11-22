@@ -1,18 +1,37 @@
 # Notion
 
+## What it is
+
 WeKan imports a [Notion](https://www.notion.com) database as a board, from
 Notion's **Markdown & CSV** export: the `.zip` file, or one database CSV from
 it. Rows become cards, the Status column becomes the lists, and each row's
 page text becomes the card description. WeKan exports a board as the CSV file
 that Notion's own CSV import, and a database's **Merge with CSV**, read.
 
-## How to import
+## Read more
+
+- [Wikipedia: Notion, the productivity app](https://en.wikipedia.org/wiki/Notion_(productivity_software))
+- [Export your content](https://www.notion.com/help/export-your-content):
+  the Markdown & CSV export, its views, subpages and folders
+- [Import data into Notion](https://www.notion.com/help/import-data-into-notion):
+  the CSV import, Merge with CSV, the header row, UTF-8 and the date format
+
+See also the [format coverage table](../Format-Coverage.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. In Notion, open the database as a full page.
 2. Click **•••** at the top right, choose **Export**, and pick
    **Markdown & CSV**. Turn on **Include subpages** to get the row pages, and
    click **Export**. Notion downloads a `.zip` file.
-3. In WeKan, go to **All Boards → New → Import → Notion**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → Notion**.
 4. Choose the `.zip` file, or one database `.csv` file from it. You can also
    paste the text of one database CSV into the text box.
 5. Click **Import**. Notion's people are not mapped to WeKan users here;
@@ -24,7 +43,7 @@ Notion exports only the database's current view or its default view, not all
 views. On Windows, turning off **Create folders for subpages** keeps the file
 paths short; WeKan reads both layouts.
 
-## How to import many boards at once
+### How to import many boards at once
 
 On the import page, under **Import many boards**, choose several export
 files, or one `.zip` that holds them. Each file becomes its own board,
@@ -57,7 +76,7 @@ python3 api.py importboardsfrom notion FILE_OR_DIR ...
 
 It takes files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board and go to **Board Settings → Export**.
 2. Choose what to include, then **Notion** in the JSON group of the export
@@ -72,7 +91,7 @@ It takes files, directories of files, or `.zip` files.
 Notion's CSV import adds rows; it does not update rows that are already
 there. It limits the file size by plan (see Notion's documentation).
 
-## How to export all boards at once
+### How to export all boards at once
 
 **All Boards → sidebar → Export all boards**, then choose **Notion**. This
 downloads one `.zip` with one file per board you can export: boards you are a
@@ -87,9 +106,117 @@ From a script:
 python3 api.py exportallboards notion boards.zip
 ```
 
-## Format details
+### REST API
 
-### What Notion's export is
+```bash
+python3 api.py importboardfrom notion export.zip          # or one database .csv
+python3 api.py importboardsfrom notion FILES...
+python3 api.py exportboardformat BOARDID notion board.csv
+python3 api.py exportallboards notion boards.zip
+```
+
+The HTTP routes are:
+
+- `POST /api/boards/import/notion`
+- `GET /api/boards/:boardId/export/notion?authToken=…`
+- `GET /api/export-all-boards/notion?authToken=…`, with an optional
+  `&boardIds=ID1,ID2` to export only those boards
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- One Notion database CSV: at most 33,554,432 characters (32 MB of text). More
+  stops the import with an error. (`MAX_NOTION_CSV_CHARS` in
+  [models/lib/notionFormat.js](../../../../../../models/lib/notionFormat.js#L62))
+- At most 50 databases. More stops the import with an error.
+  (`MAX_NOTION_DATABASES` in
+  [models/lib/notionFormat.js](../../../../../../models/lib/notionFormat.js#L63))
+- The Notion .zip file: at most 64 MB. More stops the import with an error.
+  (`MAX_NOTION_ZIP_BYTES` in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L26))
+- One Notion database CSV: at most 32 MB. (`MAX_NOTION_CSV_BYTES` in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L27))
+- One Notion page: at most 2 MB. (`MAX_NOTION_PAGE_BYTES` in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L28))
+- The unpacked Notion .zip contents: at most 96 MB. (`MAX_NOTION_INFLATED_BYTES`
+  in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L30))
+- At most 20,000 files in the archive. More stops the import with an error.
+  (`MAX_NOTION_ZIP_ENTRIES` in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L31))
+- At most 20,000 pages. More stops the import with an error. (`MAX_NOTION_PAGES`
+  in
+  [server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js#L32))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/notionFormat.js](../../../../../../models/lib/notionFormat.js),
+[server/lib/notionArchive.js](../../../../../../server/lib/notionArchive.js).
+
+The tests that pin it:
+[tests/notionFormat.test.cjs](../../../../../../tests/notionFormat.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
+
+#### What Notion's export is
 
 Notion's Markdown & CSV export, as
 [Export your content](https://www.notion.com/help/export-your-content)
@@ -102,7 +229,7 @@ describes it, is a `.zip` with:
 
 Instead of the `.zip`, one database CSV can be chosen or pasted.
 
-### What WeKan reads leniently
+#### What WeKan reads leniently
 
 Notion does not document these. They are known from third-party converters
 (low confidence), so WeKan reads them when they are there and never requires
@@ -125,7 +252,7 @@ them:
   `Property: value` line per non-empty property, a blank line, then the page
   body.
 
-### How the `.zip` is opened
+#### How the `.zip` is opened
 
 The server opens the `.zip` (`server/lib/notionArchive.js`) with the same
 guards as the Vikunja and Trello zip imports. Nothing is written to disk, no
@@ -160,7 +287,7 @@ How the files are found:
   zipped by hand, are ignored.
 - A `.zip` without any database CSV is refused.
 
-### Which column becomes what
+#### Which column becomes what
 
 A board view in Notion is only a view, and which property it groups by is not
 exported. So:
@@ -204,7 +331,7 @@ A row's page is matched to its row by the page's `# Title`, else by the file
 name. Notion shortens long file names, so a file name of at least 20
 characters that starts the title also matches.
 
-### The export
+#### The export
 
 The export writes the CSV that Notion's CSV import reads, as
 [Import data into Notion](https://www.notion.com/help/import-data-into-notion)
@@ -223,7 +350,7 @@ order they first appear.
 
 Notion decides the property types when it imports the file.
 
-## What is kept
+### What is kept
 
 | Notion | WeKan |
 | --- | --- |
@@ -259,7 +386,7 @@ The export writes, per card:
 | Swimlane (only when there are several) | Swimlane |
 | Custom fields | One column each |
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -285,23 +412,7 @@ Status column, or that there was none.
 The Notion export does not write comments, checklists, attachments, the
 creation or end date, Requested by, or dependencies.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom notion export.zip          # or one database .csv
-python3 api.py importboardsfrom notion FILES...
-python3 api.py exportboardformat BOARDID notion board.csv
-python3 api.py exportallboards notion boards.zip
-```
-
-The HTTP routes are:
-
-- `POST /api/boards/import/notion`
-- `GET /api/boards/:boardId/export/notion?authToken=…`
-- `GET /api/export-all-boards/notion?authToken=…`, with an optional
-  `&boardIds=ID1,ID2` to export only those boards
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/notionFormat.js` reads a database CSV and its row pages
   (`parseNotionExport`) and writes the export CSV (`formatNotionCsv`).
@@ -327,12 +438,12 @@ The HTTP routes are:
   - The export menu case downloads every format, Notion included, and checks
     that another user's token is refused.
 
-## Sources
+## Commits
 
-- [Export your content](https://www.notion.com/help/export-your-content):
-  the Markdown & CSV export, its views, subpages and folders
-- [Import data into Notion](https://www.notion.com/help/import-data-into-notion):
-  the CSV import, Merge with CSV, the header row, UTF-8 and the date format
-
-See also the [format coverage table](../Format-Coverage.md) and
-[all formats](../External-Tools.md).
+ - [Notion relations between rows of an export become "related to" dependencies](https://github.com/wekan/wekan/commit/f546ff238345dd267e568d75ce1fe25bf4fdbbb7)
+ - [The Markdown, Obsidian, OPML and Org mode outlines and the Notion CSV are written a page of cards at a time](https://github.com/wekan/wekan/commit/ce40b56abdf5b166f523dab98a14414907809b1f)
+ - [Import page uploads stream to the server's disk, checked against the free space and an Admin Panel limit](https://github.com/wekan/wekan/commit/32c24ed84e9d6c8080e89bdd4097f87a3b0b4b04)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import boards from Plane issue exports](https://github.com/wekan/wekan/commit/d21a26339363181807908e26c2a5155e732b745e)
+ - [Import and export boards as Notion Markdown & CSV exports](https://github.com/wekan/wekan/commit/b7d3274780989c8169549507e416c60316d70ccf)

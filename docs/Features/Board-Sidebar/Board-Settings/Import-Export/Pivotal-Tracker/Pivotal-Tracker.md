@@ -1,5 +1,7 @@
 # Pivotal Tracker
 
+## What it is
+
 WeKan imports boards from Pivotal Tracker's stories CSV file and exports
 boards in the CSV layout Tracker's import read. Pivotal Tracker shut down on
 2025-04-30; its CSV exports remain, and this is their way into WeKan. Each
@@ -7,14 +9,31 @@ story state becomes a list and stories become cards, with their type and
 labels, owners, requester, dates, comments, tasks and blockers. Estimates
 become Story points, and iterations become Scrum sprints.
 
-## How to import
+## Read more
+
+- [Wikipedia: Pivotal Tracker](https://en.wikipedia.org/wiki/Pivotal_Tracker)
+- [CSV import and export](https://web.archive.org/web/2024/https://www.pivotaltracker.com/help/articles/csv_import_export/)
+  (archived): the columns of the stories CSV, how Tracker exported and
+  imported it, and its date form
+
+See also the [format coverage](../Format-Coverage.md),
+[Scrum import recovery](../Scrum-Import-Recovery.md) and
+[all formats](../External-Tools.md).
+
+## How to use it
+
+Each task has its own steps below: importing one board, importing many
+boards at once, exporting one board, exporting all boards at once, and the
+same from a script through the REST API.
+
+### How to import
 
 1. Find the stories CSV you exported from Tracker while it was running. In
    Tracker, it was made from the project's **MORE** tab with **Export CSV**,
    or by selecting stories and choosing **Bulk Actions → CSV**. Tracker can no
    longer make new exports.
 2. Open the CSV file in a text editor and copy all of it.
-3. In WeKan, go to **All Boards → New → Import → Pivotal Tracker**.
+3. In WeKan, go to **All Boards → Add Board → Import → Import board → Pivotal Tracker**.
 4. Under **Select what to include**, keep **Scrum settings** ticked to import
    the iterations as sprints and the estimates as the board's Scrum estimate.
    Untick it to leave them out.
@@ -24,7 +43,7 @@ become Story points, and iterations become Scrum sprints.
 6. Read the loss report on the import page. It is also kept in **Admin Panel →
    Problems → Recovery**.
 
-## How to import many boards at once
+### How to import many boards at once
 
 1. On the import page, choose **Pivotal Tracker**, then under **Import many
    boards** choose several CSV files, or one `.zip` that holds them. Each file
@@ -47,7 +66,7 @@ python3 api.py importboardsfrom pivotal FILE_OR_DIR ...
 
 The arguments are files, directories of files, or `.zip` files.
 
-## How to export
+### How to export
 
 1. In WeKan, open the board, then **Board Settings → Export**.
 2. Under **Select what to include**, choose what to export, then click
@@ -60,7 +79,7 @@ The arguments are files, directories of files, or `.zip` files.
    [CSV import and export](https://web.archive.org/web/2024/https://www.pivotaltracker.com/help/articles/csv_import_export/)
    help page for how Tracker read it.
 
-## How to export all boards at once
+### How to export all boards at once
 
 In **All Boards**, open the sidebar and choose **Export all boards**, then
 **Pivotal Tracker**. This downloads one `.zip` with one `.csv` file per board
@@ -76,7 +95,97 @@ From a script:
 python3 api.py exportallboards pivotal boards.zip
 ```
 
-## Format details
+### REST API
+
+```bash
+python3 api.py importboardfrom pivotal stories.csv
+python3 api.py importboardsfrom pivotal stories1.csv stories2.csv
+python3 api.py exportboardformat BOARDID pivotal stories.csv
+python3 api.py exportallboards pivotal boards.zip
+```
+
+The HTTP routes:
+
+- `POST /api/boards/import/pivotal`: the body is `{"board": "<CSV text>"}`.
+- `GET /api/boards/:boardId/export/pivotal?authToken=…`
+- `GET /api/export-all-boards/pivotal?authToken=…`, with
+  `&boardIds=ID1,ID2` for selected boards only.
+
+## How the numbers are calculated
+
+The limits and conversions of this format, from its own code:
+
+- At most 5 owners of a story are read. (`MAX_OWNERS` in
+  [models/lib/pivotalCsvFormat.js](../../../../../../models/lib/pivotalCsvFormat.js#L65))
+
+The numbers every import has, this one included:
+
+- **How long an import may take**: `WEKAN_IMPORT_TIMEOUT_MS` (default 120,000
+  ms, two minutes; 0 turns the deadline off) plus 500 ms for each record of the
+  file. A record is an item of a top-level array, a line of a text file, or the
+  items of all top-level arrays of an object added together
+  ([models/lib/importDeadline.js](../../../../../../models/lib/importDeadline.js),
+  [models/import.js](../../../../../../models/import.js)).
+- **Many boards at once**: at most 500 files and 200 MB together
+  (`MAX_MANY_FILES`, `MAX_MANY_BYTES` in
+  [models/lib/importManyFiles.js](../../../../../../models/lib/importManyFiles.js)).
+- **One board per project**: at most 200 boards from one file
+  (`MAX_SPLIT_BOARDS` in
+  [models/lib/importSplit.js](../../../../../../models/lib/importSplit.js)).
+- **The loss report** counts what was not imported and the warnings, and lists
+  the first 20 of them, each cut to 200 characters, then "and N more"
+  ([models/lib/importLossReport.js](../../../../../../models/lib/importLossReport.js)).
+- **Every document** passes the one import and export boundary: at most 40
+  levels deep, 4,000,000 values, 100,000 items in one array and 4 MB in one
+  string
+  ([models/lib/importExportBoundary.js](../../../../../../models/lib/importExportBoundary.js)).
+
+## How it works in WeKan
+
+An import is sent to the `importBoard` Meteor method in
+[models/import.js](../../../../../../models/import.js). It checks the types of
+every argument first, refuses a caller who is not logged in (and records that
+attempt in Admin Panel → Problems), stops when Admin Panel has turned import off
+([models/lib/importExportSecurity.js](../../../../../../models/lib/importExportSecurity.js)),
+and asks
+[server/lib/boardCreationGuard.js](../../../../../../server/lib/boardCreationGuard.js)
+whether this user may create a board; an import into the current board replaces
+it only for a board admin. The import sources and their file types are described
+once, in
+[models/lib/importSources.js](../../../../../../models/lib/importSources.js).
+
+The file is read by this format's parser into one Kanboard-shaped board
+(`EXTERNAL_PARSERS` in
+[models/lib/externalParsers.js](../../../../../../models/lib/externalParsers.js)),
+which [models/kanboardCreator.js](../../../../../../models/kanboardCreator.js)
+writes as a WeKan board: the Boards, Swimlanes, Lists, Cards, Checklists,
+ChecklistItems, CardComments and Attachments collections.
+
+An export is a GET route of the REST API, the ones listed under REST API above:
+a board's export is served by
+[models/export.js](../../../../../../models/export.js)
+(`/api/boards/:boardId/export/<format>` for the formats of other tools) or by
+this format's own code below, and all boards at once by
+`/api/export-all-boards/<format>`
+([server/routes/exportAllBoards.js](../../../../../../server/routes/exportAllBoards.js)).
+They stop first when Admin Panel has turned export off, need a logged-in user,
+and export only a board that user may see; a member who sees only the cards
+assigned to them gets no board-wide export
+([models/lib/exportAccess.js](../../../../../../models/lib/exportAccess.js)).
+
+This format's own code:
+[models/lib/pivotalCsvFormat.js](../../../../../../models/lib/pivotalCsvFormat.js),
+[server/lib/scrumTransferImport.js](../../../../../../server/lib/scrumTransferImport.js).
+
+The tests that pin it:
+[tests/externalExportRoundTrip.test.cjs](../../../../../../tests/externalExportRoundTrip.test.cjs),
+[tests/externalScrumPlanning.test.cjs](../../../../../../tests/externalScrumPlanning.test.cjs),
+[tests/pivotalCsv.test.cjs](../../../../../../tests/pivotalCsv.test.cjs),
+[tests/playwright/specs/import-export-format-audit.e2e.js](../../../../../../tests/playwright/specs/import-export-format-audit.e2e.js).
+
+The details of the format, what is kept and how it is tested are below.
+
+### Format details
 
 What WeKan reads is the stories CSV of
 [Pivotal Tracker](https://web.archive.org/web/2024/https://www.pivotaltracker.com/help/articles/csv_import_export/)
@@ -139,7 +248,7 @@ From the current code (`models/lib/pivotalCsvFormat.js`):
   not run it. The import removes it, and the export adds it.
 - The board is named **Imported Pivotal Tracker**.
 
-### Scrum: iterations and estimates
+#### Scrum: iterations and estimates
 
 These come from `models/lib/externalScrumPlanning.js` and are imported only
 when **Scrum settings** is ticked on the import page. They are written through
@@ -175,7 +284,7 @@ then **Owned By** as often as the busiest card needs (at most five), then
 - a comment is written as `text (Author - Mon D, YYYY)` when it has both;
 - dates are written as `Mon D, YYYY`.
 
-## What is kept
+### What is kept
 
 | Pivotal Tracker | WeKan |
 | --- | --- |
@@ -202,7 +311,7 @@ through the REST API's `membersMapping`. The import page maps no one, so
 there they are not kept. A comment whose author is not mapped is posted by
 the importing user, with the author's name in front of the text.
 
-## What is not kept
+### What is not kept
 
 The import reports these on the loss report, rather than dropping them
 silently:
@@ -227,23 +336,7 @@ more than five owners, a due date on any type but release, the end date of a
 story that is not accepted, attachments, blockers, swimlanes, archived cards,
 and custom fields other than Story points (or Estimate) and Priority.
 
-## REST API
-
-```bash
-python3 api.py importboardfrom pivotal stories.csv
-python3 api.py importboardsfrom pivotal stories1.csv stories2.csv
-python3 api.py exportboardformat BOARDID pivotal stories.csv
-python3 api.py exportallboards pivotal boards.zip
-```
-
-The HTTP routes:
-
-- `POST /api/boards/import/pivotal`: the body is `{"board": "<CSV text>"}`.
-- `GET /api/boards/:boardId/export/pivotal?authToken=…`
-- `GET /api/export-all-boards/pivotal?authToken=…`, with
-  `&boardIds=ID1,ID2` for selected boards only.
-
-## How it is built and tested
+### How it is built and tested
 
 - `models/lib/pivotalCsvFormat.js` reads and writes the CSV, with the CSV
   reader of `models/lib/todoistCsvFormat.js`.
@@ -262,12 +355,9 @@ The HTTP routes:
   tasks*, and *every external export menu link returns text and refuses an
   unrelated user*.
 
-## Sources
+## Commits
 
-- [CSV import and export](https://web.archive.org/web/2024/https://www.pivotaltracker.com/help/articles/csv_import_export/)
-  (archived): the columns of the stories CSV, how Tracker exported and
-  imported it, and its date form
-
-See also the [format coverage](../Format-Coverage.md),
-[Scrum import recovery](../Scrum-Import-Recovery.md) and
-[all formats](../External-Tools.md).
+ - [Ten more exports are written a page of cards at a time, their references read in a light first pass](https://github.com/wekan/wekan/commit/e2cbbe510457940b6db26c90b45307a6c539a0e7)
+ - [Read every import source through one path and one file chooser, from one description of the sources](https://github.com/wekan/wekan/commit/c80a656901103bfd29b41843c7e255b4ed3bfa17)
+ - [Import and export many boards at once for every format, and document each format in its own directory](https://github.com/wekan/wekan/commit/7858d84e127c2c6cd92134166352b9a4245d4ec2)
+ - [Import and export boards as Pivotal Tracker stories CSV](https://github.com/wekan/wekan/commit/2e5fd9530e20087b8c9e80f4301b1c72fcc1c649)
