@@ -20,6 +20,24 @@ the changelog only says what changed.
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
 section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
+- A help button (?) at the top of every feature's place, mirrored for
+  right-to-left languages, opening "What is it?" and "How it works?" for that
+  feature as plain text without links, in every language. Done: the button,
+  the popup, 161 places and the English texts. Translating the 323
+  descriptions: 176 of the 232 non-English locales are done (2026-11-22),
+  the rest are being translated, a few languages at a time. Not yet run: the
+  Playwright spec `feature-help.e2e.js`.
+- The Meteor test build (`meteor test --full-app`) ran out of memory before
+  any test started after the help texts grew every locale file; the release
+  build (`meteor build`) still works. To find out why and fix it, then run
+  the Shop, webhooks and Admin Panel addresses server tests, and their
+  Playwright specs in Firefox and WebKit.
+- The changelog entries for what landed since the last changelog update:
+  ListLockMoveBleed, the help button, the Shop's Product line kind, the
+  Meteor 3 hosting localhost limit, the Omi and WeLite translation keys, and
+  the translation rule for the prototypes.
+- The Latvian catalog (`lv`) has Lithuanian words in it: to be replaced with
+  Latvian once the help-text translators are done with that file.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
@@ -32,20 +50,56 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
   target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has; what is missing is added where it belongs in
-  the menus: a complete admin audit log, retention for login and address data,
-  a personal-data inventory, complete erasure, a personal-data export, legal
-  pages with accepted versions, and the rest of the gap analysis in
-  `docs/Compliance/`.
-- A help button (?) at the top of every feature's place, mirrored for
-  right-to-left languages, opening "What is it?" and "How it works?" for that
-  feature as plain text without links, in every language.
+  against what WeKan already has (`docs/Compliance/`). Done: the complete admin
+  audit log (WP-1), retention of sign-in addresses (WP-2) and the
+  personal-data inventory (WP-3). Next: complete erasure (WP-4, the 40
+  collections the inventory lists), a personal-data export (WP-5), legal pages
+  with accepted versions (WP-6), then WP-7 to WP-14.
 - Found while documenting, to fix: the per-address login delay is never
   applied; Broken Cards counts unknown card types in its list but not in the
   Summary or its repair; the database, integrity and mail streams have no name
   in the Summary; the Recovery pane's text says it does not retry or cancel;
   the attachment retention form allows a larger per-run number than the
   retention applies.
+
+## For the maintainer: needs a person, not code
+
+- Push `main` here and in the `.tools/w/` repositories with local commits:
+  gitea-patches, omi, welite, wekan.fi, charts and caddy-wekan-plugin.
+- [GHSA-394w-8q99-q4qx](https://github.com/wekan/wekan/security/advisories/GHSA-394w-8q99-q4qx)
+  (ListLockMoveBleed) and
+  [GHSA-7w85-38ph-c96v](https://github.com/wekan/wekan/security/advisories/GHSA-7w85-38ph-c96v)
+  (BounceBleed): fixed in Upcoming; after the release, request the CVEs and
+  publish the advisories. The Hall of Fame says "CVE requested" for both.
+- The Snap Store push of v13.27 failed and waits for the Store's manual review
+  ([#6929](https://github.com/wekan/wekan/issues/6929)); nothing to change in
+  the code.
+- Dependabot pull requests and alerts to close by hand: the
+  go.opentelemetry.io/otel/sdk/log update in caddy-ferretdb-plugin and
+  caddy-wekan-plugin (Dependabot cannot resolve their local `replace`, and the
+  version is already on main), weror's rack-3.1.21 branch (main has rack
+  3.2.9), nekan alert 207 and caddy-gitea-plugin alerts 1, 2, 4, 18, 24, 25
+  and 37.
+- wekan-meteor3-html4: turn on the dependency graph (Settings, Security
+  analysis), then rebase its Dependabot pull request; its Dependency Review
+  cannot run without it.
+- wena: rerun Release all for haiku-amd64 (the Haiku VM never answered SSH);
+  aros-i386 needs SDL's AHI audio driver off for i386, whose AROS toolchain has
+  no AHI headers - not cloned or built here, as there is no Docker.
+- wekan.fi: rerun "Deploy static content to Pages", which failed with a 500
+  from GitHub's Pages API after its checks passed.
+- weror: decide whether the demo account `user@demo.test` may sign in with any
+  password, as its tests ask; restored as tested, and a risk if weror is
+  public.
+- wekango: confirm the review of the new mongo-tools license notices (only
+  permissive attributions changed).
+
+## Repositories left out, and why
+
+- wepica: too old; its failing Dependabot runs are not fixed (decided
+  2026-11-22).
+- sandstorm-io/sandstorm under `.tools/sandstorm`: somebody else's project,
+  cloned for reference only.
 
 ## Need the running app to reproduce/verify
 
