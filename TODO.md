@@ -37,9 +37,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   a personal-data inventory, complete erasure, a personal-data export, legal
   pages with accepted versions, and the rest of the gap analysis in
   `docs/Compliance/`.
-- Webhooks: one switch in Admin Panel / Settings / Visibility that turns every
-  webhook off, hidden and refused on the server, and an Admin Panel report of
-  every webhook, its owner and what it contains.
 - A help button (?) at the top of every feature's place, mirrored for
   right-to-left languages, opening "What is it?" and "How it works?" for that
   feature as plain text without links, in every language.

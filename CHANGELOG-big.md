@@ -97,7 +97,10 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** A board can be a **Shop**, the **Cloud Panel** exists only in a
+**In short:** A board can be a **Shop** with invoices and order email, the
+**Admin Panel** can be
+limited to chosen addresses, all **webhooks** can be turned off at once, the
+**Cloud Panel** exists only in a
 Cloud Admin container with the `CLOUD` variable (**CloudPanelBleed**), a forged
 bounce report can no longer stop email (**BounceBleed**), and every setting that
 turns something off is **refused on the server**. The **audit log**, **sign-in
@@ -335,6 +338,48 @@ limited per connection, address and shop.
 
 - [Products, cart, totals and orders computed from the cards](https://github.com/wekan/wekan/commit/0aa3d0b9d67330670e51bb118dae44fa40eaca8a). Thanks to xet7.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7b48bce2f106e97a8cb2e4343a2544b59023887">An order is also a Budget and billing invoice, the buyer gets a confirmation email, and a board copy closes its shop</a>. Thanks to xet7.</summary>
+
+With Budget and billing on, an order becomes an invoice numbered as billing
+numbers them, with the order's payment reference, and the order card names it;
+an order that fails takes the invoice and the stock back with it. The buyer is
+sent the order, its totals and how to pay in their own language, which a Board
+Settings / Shop tick can turn off; a failed send is in Admin Panel / Problems
+and never fails the order. A copied board's shop is closed and has no Orders
+list, so it cannot send orders to the original's.
+
+</details>
+
+**The Admin Panel** - who may use it, and the webhooks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f1226454209424d534326e499918a7e26206d74">Allowed addresses: from any other address the admin pages and the admin REST API refuse</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Privacy and security takes IPv4 and IPv6 addresses
+and ranges. From any other address a site administrator is an ordinary member
+on the server: every admin method, publication and REST API answer refuses,
+their own boards keep working, and the attempt is in Admin Panel / Problems.
+A list without the saver's own address is refused, and
+`ADMIN_PANEL_ALLOWED_IP_ADDRESSES` on the server wins over it (`any` turns it
+off) as the way back in. [Docs](docs/Features/Admin-Panel/Admin-Panel-Allowed-Addresses.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2b40f64df9eb4a7e3e4655e2b2fc646f72a2e3f">Turn off all webhooks: the server sends none and refuses to add or change one</a>. Thanks to xet7.</summary>
+
+One tick in Admin Panel / Settings / Features. Board, global, two-way, Sync,
+login and bot webhooks send nothing, adding or changing one is refused from the
+browser and the REST API and shown in Admin Panel / Problems, and the stored
+webhooks stay for when the tick is taken off. Queued notifications wait and are
+sent then. ntfy, CalDAV and the email-to-card address are not webhooks and stay.
+
+</details>
+
+- [Every webhook screen is hidden while they are turned off](https://github.com/wekan/wekan/commit/c90bbbcd30feaf0861ef25e241050ade0728381c). Thanks to xet7.
+- [Problems / All webhooks: every webhook, its board, owner and contents, with secrets masked](https://github.com/wekan/wekan/commit/df16bc55de63cbd35bab15276e6259da9bf958eb). Thanks to xet7.
+
 **Laws and standards** - what GDPR, NIS2, ISO 27001 and the others need, added
 where WeKan lacked it. [Gap analysis](docs/Compliance/README.md).
 
@@ -449,6 +494,8 @@ none.
 - [Personal-data inventory: table cells escape backslashes, and the shared-description guard knows it only names collections](https://github.com/wekan/wekan/commit/bad1407412c37dae2a94880eead4a66e8454c863). Thanks to xet7.
 - [Personal-data inventory: its generator is in the build-script guard, and the scan escapes a whole name](https://github.com/wekan/wekan/commit/e039e1716ae6f70193bda5cd4e7e70edb5f4ca22). Thanks to xet7.
 
+- [Shop tests: the invoice, the confirmation email and the board copy, and what each must never do](https://github.com/wekan/wekan/commit/1083b52a3602219a8adda299ddcb0e1820a9ec5e). Thanks to xet7.
+
 and has the following documentation:
 
 **Feature pages** - every page under `docs/Features/` in one shape: what it
@@ -502,6 +549,9 @@ and its commits; checked against the code, which corrected many pages.
 
 **Laws, standards and the new features** - and the pages of this release.
 
+- [Shop: the order as a Budget and billing invoice, the confirmation email, and a board copy](https://github.com/wekan/wekan/commit/9d44b3f3e2290cdcd3009028f784ba38007ae870). Thanks to xet7.
+- [Admin Panel allowed addresses](https://github.com/wekan/wekan/commit/030a9e4a295df0ba444590b3e62dcf89facc22ee). Thanks to xet7.
+- [Turn off all webhooks, and Admin Panel / Problems / All webhooks](https://github.com/wekan/wekan/commit/6fbbb83cd26500d9e943c6ffee65bb22b6639358). Thanks to xet7.
 - [Shop: in the feature list, the newest features, and the commits that built it](https://github.com/wekan/wekan/commit/9e8bdc5381f4b5f5c959c711cfd72dc4524bf91e). Thanks to xet7.
 - [Compliance - laws and standards against what WeKan has, with the official sources](https://github.com/wekan/wekan/commit/98b8a76bca3f919a7c0d1c011c96ba2357355d8e). Thanks to xet7.
 - [Settings enforced on the server - what each disabling setting refuses, and what is display only and why](https://github.com/wekan/wekan/commit/7377724b6bd88f4b9e684bf9d46d6b09885c753b). Thanks to xet7.
@@ -529,6 +579,14 @@ and updates the following translations:
 **Languages updated:** 232 languages.
 
 - [The Shop's 38 new strings in every language](https://github.com/wekan/wekan/commit/136fdebf969071d371b94c5b7646b10fb43a925a). Thanks to xet7.
+- [The Shop's confirmation email and its setting in every language](https://github.com/wekan/wekan/commit/9f22d02b5dd5cb734a241c591a39b7eab98fd13f). Thanks to xet7.
+
+**The Admin Panel** - its allowed addresses and the webhook switch.
+
+**Languages updated:** 244 languages.
+
+- [Allowed addresses in every language](https://github.com/wekan/wekan/commit/7f1226454209424d534326e499918a7e26206d74). Thanks to xet7.
+- [Turn off all webhooks and the All webhooks report in every language](https://github.com/wekan/wekan/commit/cdf4da3d8d383d41835b371a8e9251fef1b6b99f). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

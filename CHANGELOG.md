@@ -7,7 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-A board can be a **Shop**, the **Cloud Panel** exists only in a
+A board can be a **Shop** with invoices and order email, the
+**Admin Panel** can be
+limited to chosen addresses, all **webhooks** can be turned off at once, the
+**Cloud Panel** exists only in a
 Cloud Admin container with the `CLOUD` variable (**CloudPanelBleed**), a forged
 bounce report can no longer stop email (**BounceBleed**), and every setting that
 turns something off is **refused on the server**. The **audit log**, **sign-in
