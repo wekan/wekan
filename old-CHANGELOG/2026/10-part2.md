@@ -12,7 +12,178 @@ Releases per day:
 | --- | --- |
 | 08 | 2 |
 | 10 | 2 |
-| 11 | 1 |
+| 11 | 3 |
+
+# v12.30 2026-10-11 WeKan ® release
+
+**In short:** The **Import** page shows every source under "Import from:" at
+once, in columns, when the window is wide enough. A **Sandstorm** grain shows
+its please-wait page until WeKan is ready instead of an empty response, follows
+the open board in its URL and title again, and its **Powerbox** button adds a
+person to the open board. The **Windows** bundles no longer fail when
+Chocolatey's package feed is down: they use the 7-Zip the build machine already
+has.
+
+This release adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f44e52242c">The Import page shows every source under Import from: at once, in columns</a>. Thanks to xet7.</summary>
+
+The source list was one row per line, so a wide window showed WeKan, Trello and
+Jira and left the rest below the fold, beside a column of empty space. The
+source list and the "What to include" list now flow into as many 200px columns
+as fit (`columns: 200px`, a width rather than a count), so a phone keeps one
+column, and a row never splits between two columns.
+`tests/importPage.test.cjs` checks the column width and `break-inside: avoid`,
+and fails if the lists go back to one column.
+
+</details>
+
+and fixes the following bugs:
+
+**Sandstorm** - a grain that answers while it starts, a client that talks to the
+Sandstorm shell again, and Powerbox invitations to a board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e6b5d2e30">A Sandstorm grain shows its please-wait page until WeKan is ready, not an empty response</a>. Thanks to xet7.</summary>
+
+The grain log reached `[repairBoardsOnStartup] done`, but the browser showed
+`NS_ERROR_NET_EMPTY_RESPONSE`. `sandstorm-src/start.js` killed the please-wait
+bridge on port 4000 and then loaded `main.js`, and Meteor 3 awaits every
+`Meteor.startup` hook before it calls `listen`, so nothing answered on the port
+for all of WeKan's startup. sandstorm-http-bridge got connection-refused, which
+Sandstorm passes on as an empty response. Now the first `listen` on the app port
+waits for the bridge process to exit and then binds, and the grain log says
+`WeKan is listening on port 4000`. `tests/sandstormPortHandoff.test.cjs` runs
+the real bridge and the handoff on a free port and checks the port answers 503
+throughout startup and then WeKan's 200.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5502edfa">The grain's browser code runs again, so the URL and title follow the board</a>. Thanks to xet7.</summary>
+
+`sandstorm.js` was imported only by `server/imports.js` once `mainModule`
+turned eager loading off, so its browser half never ran in a grain: the grain
+URL and title stayed on the first page, the Powerbox picker could not open, and
+the `isSandstorm` helper was undefined, so the email, password, logout and
+avatar settings that Sandstorm handles itself were shown anyway. The server
+half - which loads the Cap'n Proto bridge client and `node:net` - is now
+`server/sandstorm.js`, and the client imports the shared `sandstorm.js`. Its
+shell listener ignores messages that are not its own replies, instead of
+throwing on every message another frame or extension posts.
+`tests/sandstormClientHalf.test.cjs` checks both imports and fails when the
+shared half picks up server-only code. Not yet tried in a live grain.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5502edfa">The Powerbox button is back and adds the person picked to the open board</a>. Thanks to xet7.</summary>
+
+[#2405](https://github.com/wekan/wekan/issues/2405) removed the members
+widget's Powerbox button because the identity it claimed was never attached to
+a board, and node-capnp could not redeem it on Node 26 anyway. Redeeming works
+again through `imports/sandstorm/bridgeClient.mjs`, and the button, shown only
+in a grain and only to people who may invite, now passes the open board: the
+claimed person is invited to it through `inviteUserToBoard`, with the member
+picker's own checks - board membership, the Admin Panel's invite roles and the
+organization and team restrictions. `tests/sandstormMultiBoardMembers.test.cjs`
+pins the button, the board it passes, and that the claim adds members only
+through `inviteUserToBoard`.
+
+</details>
+
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cb7e45b92">Windows bundles use the runner's 7-Zip instead of installing it from Chocolatey</a>. Thanks to xet7.</summary>
+
+v12.29's build-win64 failed before building anything, in `choco install -y
+7zip`: community.chocolatey.org answered `504 (Gateway Timeout)` and Chocolatey
+could not resolve `7zip.install`. The windows-latest image already has 7-Zip in
+`C:\Program Files\7-Zip`, so build-win64, build-win-arm64 and build-win32 use
+it and put it on PATH for their later `7z` steps, falling back to Chocolatey,
+retried five times, only on an image without it.
+`tests/releaseWindows7zip.test.cjs` checks all three jobs and fails when any
+workflow runs a bare `choco install` again.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v12.29 2026-10-11 WeKan ® release
+
+**In short:** **Sandstorm** notifications and the activity log work again, and
+Powerbox identity claims can be redeemed, without the Node 14 Cap'n Proto addon
+that had switched them off: WeKan now speaks Cap'n Proto to the grain's bridge
+in plain JavaScript, through a fork of **capnp-es** checked against the
+reference C++ implementation. A booting grain also stops logging two false
+warnings.
+
+This release fixes the following bugs:
+
+**Sandstorm** - Cap'n Proto to the grain's bridge without a native addon, and a
+quieter grain log.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee63d478e3">Activity events and Powerbox identity claims work again on Node 26</a>. Thanks to xet7.</summary>
+
+Sandstorm's notifications and activity log, and redeeming a Powerbox identity
+request, are Cap'n Proto calls on sandstorm-http-bridge's `/tmp/sandstorm-api`
+socket. The bridge's HTTP proxy has no route for either - it implements only
+`claim` for HTTP APIs and Bearer forwarding (sandstorm
+`src/sandstorm/bridge-proxy.c++`) - so they went through node-capnp
+(`capnp.node`), built for Node 14, and every grain on Node 26 ran without them.
+`imports/sandstorm/bridgeClient.mjs` now makes the same calls in plain
+JavaScript, with schema classes generated from Sandstorm's own `.capnp` files by
+`releases/sandstorm-capnp-schemas.sh`. The activity hook also reads the board
+from the activity instead of the hard-coded `sandstorm` board a multi-board
+grain no longer has, and a notification that cannot be sent no longer fails the
+change that caused it. The `.spk` drops the 33.6 MB `capnp.node`.
+`tests/sandstormCapnpRpc.test.cjs` sends an activity event and redeems an
+identity request against the reference C++ RPC implementation with Sandstorm's
+schemas, and checks that the session context and identities are released after
+use and that a forged request token is refused. Not yet tried on a live grain.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eec76b366">The capnp-es fork completes the Cap'n Proto RPC a C++ peer needs</a>. Thanks to xet7.</summary>
+
+capnp-es 0.0.16 is vendored as `npm-packages/capnp-es`, with its tarball SHA256
+recorded. Its experimental RPC could not talk to sandstorm-http-bridge: it
+ignored Resolve, Release and Disembargo, never released an import, left every
+call the C++ side forwarded back as a tail call pending forever, released
+question ids instead of export ids, answered bootstrap with a null capability,
+and lost a message whenever two arrived together. Its compiler also declared
+structs from other files twice, so the generated Sandstorm modules did not load.
+The fork fixes each, in `patches/wekan.patch`. The test drives every one of
+those messages from a hand-built peer and against the C++ implementation; on
+upstream 0.0.16 it hangs at the first case.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e25090e8f">A booting grain no longer logs two false warnings</a>. Thanks to xet7.</summary>
+
+Node 26 printed `ExperimentalWarning: localStorage is not available because
+--localstorage-file was not provided` into every grain log, because Node 25+
+has a global `localStorage` and server code merely probing for it triggers the
+warning. WeKan's server never uses Web Storage, so `start-memory.js` now adds
+`--no-experimental-webstorage` to `NODE_OPTIONS`. It also keeps an
+administrator's own heap size or Web Storage choice while adding whatever is
+missing, instead of computing nothing at all once `NODE_OPTIONS` was set. The
+ROOT_URL email warning of #6538 is skipped when `SANDSTORM=1`: a grain's
+ROOT_URL is always its loopback address behind sandstorm-http-bridge, and the
+grain has no SMTP of its own, so the advice to `snap set wekan root-url=...`
+never applied.
+`tests/sandstormNoShell.test.cjs` runs the launcher against a stub that touches
+`localStorage` and fails if the warning appears, and checks that the bare stub
+does print it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.28 2026-10-11 WeKan ® release
 

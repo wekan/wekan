@@ -7,10 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **attachment slideshow** shows more kinds of files directly -
-**Markdown**, **CSV**, **source code**, **iCalendar**, **Outlook .msg**,
-**tar.gz** and **OpenDocument** - and reads only what is on the screen: the
-scrollbar is the whole file, with **no row or size limit**.
+The **attachment slideshow** shows more kinds of files and reads
+only what is on the screen, and **Filter, Search and Search All Boards** find
+the text **inside attachments**, whose **SHA-256** is checked on every read.
+The opened card **remembers its width**, a forged bounce report can no longer
+stop email (**BounceBleed**), and the **Meteor 3 hosting scripts** have one
+menu that runs them on a server over SSH.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

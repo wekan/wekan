@@ -97,12 +97,38 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **attachment slideshow** shows more kinds of files directly -
-**Markdown**, **CSV**, **source code**, **iCalendar**, **Outlook .msg**,
-**tar.gz** and **OpenDocument** - and reads only what is on the screen: the
-scrollbar is the whole file, with **no row or size limit**.
+**In short:** The **attachment slideshow** shows more kinds of files and reads
+only what is on the screen, and **Filter, Search and Search All Boards** find
+the text **inside attachments**, whose **SHA-256** is checked on every read.
+The opened card **remembers its width**, a forged bounce report can no longer
+stop email (**BounceBleed**), and the **Meteor 3 hosting scripts** have one
+menu that runs them on a server over SSH.
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUE of [BounceBleed](https://wekan.fi/hall-of-fame/bouncebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81ca7b868bfc9c06f3246fe988981b0f87158ffe">A forged bounce report no longer stops email to any address</a>. Thanks to crypto-nidh and xet7.</summary>
+
+POST `/api/inbound-email` needs no secret by default, and every email it got
+was first checked for being a delivery status notification: one forged DSN
+naming any address was recorded as a hard bounce, which stops every email
+WeKan sends there - invitations, notifications, password resets - and only an
+administrator could undo it ([GHSA-7w85-38ph-c96v](https://github.com/wekan/wekan/security/advisories/GHSA-7w85-38ph-c96v),
+also filed as GHSA-2wcc-f289-3r95 and GHSA-735h-p955-fwxp). A bounce is now
+recorded only from a transport that proves who sent it: the webhook with its
+secret configured and matched, SES after its SNS signature is checked, an IMAP
+mailbox WeKan signs in to, and the Sandstorm grain mailbox. Elsewhere it is
+refused with 403, makes no card or comment, and shows in Admin Panel /
+Problems as BounceBleed. `tests/bounceBleed.test.cjs` requires every receiver
+to say whether it may carry a bounce and nothing to record one around the
+gate; `inboundEmailRoute.tests.js` posts the advisory's DSN over HTTP.
+
+</details>
+
+and adds the following new features:
+
+**The attachment slideshow** - more kinds of files, and only what is on the
+screen is read.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d842a5e2fe7242ade92ca19e2ce5a4f9081485d">The attachment slideshow shows Markdown, CSV, code, iCalendar, Outlook .msg, tar and OpenDocument files</a>. Thanks to xet7.</summary>
@@ -169,7 +195,109 @@ most 512 MB of disk, and it is removed with the attachment.
 
 </details>
 
+**Attachments** - searchable inside, and checked against their content.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b335c5df0718e10f064706de293237926de196d1">Each gets a SHA-256 and plain search text, checked on every read and searched by Filter, Search and Search All Boards</a>. Thanks to xet7.</summary>
+
+When it is added - or, for an older one, when it is first read whole - an
+attachment gets `contentHash` (SHA-256, size, time) and its plain search text
+with the time it was made: text, Markdown, CSV, code, JSON, HTML and e-mail as
+text, PDF and Office through the document extractor, `.msg` and OpenDocument
+from their slideshow rows. Its "Added" card history row carries the hash. A
+whole read hashes the bytes on their way out: a missing hash is stored, a hash
+the card history knows (an earlier version an undo or restore brought back)
+gets a new hash and search text, and anything else is a warning in Admin Panel
+/ Problems. Filter, the board's Search and Search All Boards find a card by its
+live attachments' text, never sent to the browser.
+`attachment-content-search.e2e.js` finds a file three ways, changes it on disk
+and reads it. [Docs](docs/Features/Cards/Attachments/Attachment-Search-And-Integrity.md).
+
+</details>
+
+**The card details window** - its width.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9372148915cff7824b64e06fca337d696e51e3df">It remembers the width each user drags it to, and an admin sets the default as a percentage</a>. Thanks to rmb82 and xet7.</summary>
+
+[\#6939](https://github.com/wekan/wekan/issues/6939): every card opened at
+520px however often it was widened. The dragged width is now kept per user -
+the profile, or a cookie for a reader who is not signed in - and Reset width in
+the card menu or a double-click on the handle forgets it. Admin Panel /
+Settings / Appearance / Card details default width is a percentage of the
+browser window, 30 to 95, at least 520px. The card opened as a popup takes the
+same width; mobile and maximized cards do not. A resize that ended with the
+mouse outside the card closed it; it no longer does.
+`card-details-width.e2e.js` drags the real handle in Chromium.
+[Docs](docs/Features/Cards/Card-Details-Width.md).
+
+</details>
+
+**Hosting** - the Meteor 3 Docker scripts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b530f5c1a42aceb803adb02b4ae3d44f652a7005">One menu, build.sh, for every script - run here or on a server over SSH</a>. Thanks to xet7.</summary>
+
+`docs/Platforms/FOSS/Container/Docker/Meteor3/build.sh` lists every script of
+the directory in groups and asks each one's parameters. Its `settings.ini`
+names the server - a host of `~/.ssh/config` such as `c2` - and the directory on
+it; with a server set, the scripts are copied there and run over `ssh -t`, so
+the machine the menu runs on keeps no passwords.
+`tests/meteor3BuildMenu.test.cjs`
+plays the server with a fake ssh.
+
+</details>
+
+and fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7cd22f94ca17a5702fa7f0c81e439c2df03cebc">A .zip that becomes a new board, and a Trello API import, run as the importing user</a>. Thanks to xet7.</summary>
+
+POST `/api/import/zip?newBoard=1` - All Boards / Import of a WeKan .zip, and
+"Import many boards" - answered 500 for every archive that named people:
+`trackImport()` starts the import at once, and only the await of its promise
+was inside the importer's method context, so `Meteor.userId()` threw. The
+Trello API import job had no context at all. Both now start inside it;
+`tests/importZipUserContext.test.cjs` requires that of every caller, and
+`gitea-backup-wekan-import.e2e.js` imports a .zip as a new board.
+
+</details>
+
+and has the following developer-facing changes:
+
+**The security download** - `releases/sec/download-github-security.sh` and its
+build logs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/689d53815215e47d90da767911f7fc578c2e9c05">The newest build logs too, to fix failing builds from the files</a>. Thanks to xet7.</summary>
+
+Per repository, `<datetime>/builds/` now holds the newest GitHub Actions runs
+and, for every workflow whose newest finished run failed, each failed job's
+log and its last 200 lines; SUMMARY.md lists the failing workflows first, with
+their failed jobs and steps. `--builds N` looks at the N newest runs, 0 at
+none.
+
+</details>
+
+- [A build log the log endpoint refuses is read through gh run view, and why it failed is kept](https://github.com/wekan/wekan/commit/4599e34518a20da55a996e6da9b93a69f9293fa1). Thanks to xet7.
+
+**Tests** - two guards that followed the changes above.
+
+- [The Meteor 3 menu's fake ssh gets the server directory from the environment](https://github.com/wekan/wekan/commit/3c6427cbfd590ae9f7d19568220e172f06d66fde). Thanks to xet7.
+- [BounceBleed is a guarded Hall of Fame vulnerability](https://github.com/wekan/wekan/commit/e5bfcf0d531a769ce8a13bf263b81f6d980a2c62). Thanks to crypto-nidh and xet7.
+
+and has the following documentation:
+
 - [Docs: the attachment slideshow - which files are shown, and how much is read](https://github.com/wekan/wekan/commit/53c0fbeba0aee9b4f0da335bd3dd22ed5546e97e). Thanks to xet7.
+- [README: attachment search and integrity, the slideshow, the card details width](https://github.com/wekan/wekan/commit/d7af7a3a665ee006bc0cb9188311c1274152ea3a). Thanks to xet7.
+
+and updates the following translations:
+
+**Card details width** - its four new strings.
+
+**Languages updated:** 245 languages.
+
+- [Card details width in every language](https://github.com/wekan/wekan/commit/9372148915cff7824b64e06fca337d696e51e3df). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -8358,173 +8486,5 @@ the placeholders and the keywords.
 
 - [Tigre: the import size message uses the attested plural for files](https://github.com/wekan/wekan/commit/52bcd74efa).
   Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.64 2026-10-24 WeKan ® release
-
-**In short:** a **database speed test** times the common WeKan queries on every
-database WeKan runs on, with twice a production WeKan of data, and checks they
-all answer the same; its findings made **FerretDB** several times faster and
-stopped MariaDB losing edits. Every platform runs the prebuilt
-**ferretdb-sqlite**
-FerretDB, the **Sandstorm .spk** carries only what a grain runs, and every build
-loads **collection2** before the models.
-
-This release adds the following new features:
-
-**Sandstorm** - a smaller .spk, built from what a grain actually uses.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e413cd4720">The .spk leaves out every login method but Sandstorm's, and FerretDB's other database handlers</a>. Thanks to xet7.</summary>
-
-A grain has one login (Sandstorm's), one database (FerretDB on SQLite) and one
-mailbox (the grain's own address), but the .spk carried every login package
-WeKan has and a FerretDB with the PostgreSQL, MySQL and SAP HANA handlers.
-`releases/sandstorm-slim-spk.sh`, now used by `sandstorm.yml` and
-`release-all.yml`, builds with a package profile
-(`releases/sandstorm-slim.mjs`) that drops accounts-password, 2FA,
-passwordless, lockout, OAuth2/OIDC, CAS, LDAP, SAML and the seven social logins
-for that one build. It always trims the bundle for a linux/x64 sockjs grain,
-verifies none of those packages got in and packs with `spk pack`.
-`sandstorm-src/build-deps.sh` builds FerretDB from source with
-`ferretdb_no_postgresql,ferretdb_no_mysql`. Under Sandstorm the Admin Panel
-hides the login panes, Database migration, the IMAP/webhook mail settings and
-the password fields, and the REST password login answers `sandstorm-sso-only`.
-Against wekan-12.63-sandstorm.spk the file is 3.8 MiB (2.1 %) smaller and
-unpacks 26.7 MiB smaller. Docker, Snap and the bundles are unchanged. (The
-FerretDB source build was replaced by the prebuilt SQLite-only binary, see
-FerretDB below.)
-`tests/sandstormSlim.test.cjs` and
-`tests/playwright/specs/sandstorm-slim.e2e.js` pin it. Design:
-[Smaller-wekan-spk.md](docs/Platforms/FOSS/Container/Sandstorm/Smaller-wekan-spk.md).
-
-</details>
-
-**FerretDB** - every platform takes the smaller SQLite-only build, prebuilt.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/89da0e5be7">Every platform runs the prebuilt SQLite-only ferretdb-sqlite binary from wekan/FerretDB</a>. Thanks to xet7.</summary>
-
-wekan/FerretDB now releases `ferretdb-sqlite-<arch>` beside `ferretdb-<arch>`:
-the same FerretDB with only the SQLite handler, about 5 MB smaller, and also
-as the `ferretdb-sqlite` image. `releases/ferretdb-asset.sh` chooses for every
-download: the newest release that has `ferretdb-sqlite-<arch>`, and until one
-does, the full `ferretdb-<arch>` of the newest release, which has the SQLite
-handler too. The log says which one was taken. It verifies the download
-against its `.sha256sum` and gives the tag, URL and checksum to the provenance
-table. All bundle jobs of `release-all.yml`, `release-all-missing.yml`,
-`bsd.yml`, the preflight and the local release bundle use it, so the Docker
-images, snap, AppImage, Flatpak, macOS and Windows packages get it too. No
-workflow builds FerretDB: the Sandstorm deps download the same binary. The
-default `docker-compose.yml` downloads `ferretdb-sqlite-<arch>`
-(`FERRETDB_BINARY`); the PostgreSQL, MySQL, MariaDB and SAP HANA compose files
-keep the full binary. `tests/ferretdbSqliteAsset.test.cjs` pins it. See
-[FerretDB v1](docs/Databases/FerretDB/1/README.md).
-
-</details>
-
-**Databases** - how fast each database answers WeKan, and whether the same.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/70485c38df">A database speed test: the common WeKan queries on every database, twice a production WeKan of data</a>. Thanks to xet7.</summary>
-
-`docs/Databases/FerretDB/1/SpeedTest/speedtest.sh` (build.sh / build.bat ->
-Tests -> Database speed test) loads 30,116 users, 92,306 boards, 221,038 lists,
-222,546 swimlanes and 615,070 cards - twice a production WeKan, skewed like a
-real one - with WeKan's own indexes into SQLite, PostgreSQL, MySQL and MariaDB
-through FerretDB v1, MongoDB 6, 7, 8 and 9 and FerretDB 2, one at a time, and
-times 18 queries as WeKan builds them. `Results.md` ranks the databases fastest
-first, and the run fails when any answer or stored write differs from MongoDB's.
-MongoDB 9 was fastest; FerretDB + SQLite, after the FerretDB fixes it led to
-(below), came next. The README says what was found, what was improved and what
-could still be: sorting in the database, multikey indexes beyond SQLite,
-MySQL/MariaDB reads through their index columns, SQLite's JSONB.
-
-</details>
-
-and fixes the following bugs:
-
-**Due Cards** - what the page reads to find them.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c64b3a3b1d">The page reads only the ids and members of the boards it may show</a>. Thanks to xet7.</summary>
-
-The publication fetched every board the user may see - every public board of
-the instance among them, whole - to read two fields, and wrapped its board list
-in an `$or` that neither MongoDB nor FerretDB could use an index for. It asks
-for
-`_id` and `members` only, and with no assigned-only board uses a plain `boardId`
-list; an assigned-only board still shows only the user's assigned cards. With
-FerretDB's fixes, Due Cards on FerretDB + SQLite went from 34 s to 12.8 s on the
-speed test. `tests/dbSpeedTest.test.cjs` checks both board scopes.
-
-</details>
-
-**FerretDB 2** - the compose file that runs WeKan on it.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f9e1e90131">Its compose file starts with the current DocumentDB image</a>. Thanks to xet7.</summary>
-
-`ghcr.io/ferretdb/postgres-documentdb:17` installs `pg_cron`, which may only be
-created in the database named `postgres`; with `POSTGRES_DB: ferretdb` the
-DocumentDB extension failed to install and the database never started.
-`docker-compose-ferretdb-v2-postgresql.yml` uses `postgres` now - found when the
-speed test started FerretDB 2 from that file's images.
-
-</details>
-
-**Collections** - which attachSchema the models get.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2699f4deea">Collection2 is loaded before the models, so every write is cleaned and given its defaults</a>. Thanks to xet7.</summary>
-
-Collection2's attachSchema is in its lazy main module, which only
-aldeed:schema-index loads, with an async `Collection2.load()`. The models
-attached their schemas with whichever attachSchema existed first: collection2's,
-or the bare shim in `imports/collectionHelpers.js`, which never cleans a write.
-The full build happened to load collection2 first. The smaller Sandstorm build
-reached the models sooner, so a new board's swimlane was stored without
-`archived`, `sort` and `type`, and the board opened empty. `server/main.js` now
-loads `meteor/aldeed:collection2/main` before the models in every build.
-Without accounts-password the server also no longer stops on
-`Accounts.emailTemplates` (`server/lib/accountsEmailTemplates.js`) or on
-useraccounts' "at least one account service". `tests/sandstormSlim.test.cjs`
-and the board, list and card test in `sandstorm-slim.e2e.js` pin it.
-
-</details>
-
-and has the following developer-tooling fix:
-
-- [The Sandstorm package-import guard escapes the whole package name in its pattern](https://github.com/wekan/wekan/commit/f1e447dd36). Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.63 2026-10-22 WeKan ® release
-
-**In short:** copying a card, linking it to another board or making one from a
-**card template** no longer fails when the card carries values of another
-board's **custom fields**, and no longer records AdminFieldBleed against the
-user who tried.
-
-This release fixes the following bugs:
-
-**Custom fields** - which values a card brings to the board it is copied or
-linked to.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/63ebdb9072">Copying or linking a card carries only the custom field values of its new board</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6800](https://github.com/wekan/wekan/issues/6800): a card made from a card
-template, linked from another board or copied - and each subtask copied with it
-- took its whole customFields array along: values of another board's fields,
-of deleted fields, and entries with no field id. The admin-only field guard
-could not match those to a field of the new board, refused the whole card and
-recorded AdminFieldBleed against the user. Copy, subtask copy and link now keep
-only values of fields defined on the destination board; an admin-only value of
-that board is kept, so the guard still decides it.
-`tests/copyForeignCustomFields.test.cjs` fails on the code before the fix.
-
-</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
