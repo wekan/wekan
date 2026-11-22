@@ -1,5 +1,54 @@
 # Force-pushing all local translations to Transifex
 
+## What it is
+
+Push all is the maintainer's explicit command that uploads every local
+translation, and the English source, to Transifex, replacing the values there
+whatever their dates. It is the opposite direction of the normal pull, which
+never publishes anything; use it only when the local catalogs are the ones to
+keep.
+
+## Read more
+
+- [Transifex](https://en.wikipedia.org/wiki/Transifex) on Wikipedia, the
+  [Transifex API v3](https://transifex.github.io/openapi/), its
+  [rate limits](https://developers.transifex.com/reference/rate-limit) and
+  [partially translated files](https://help.transifex.com/en/articles/6318456-uploading-translations).
+- WeKan pages: [Translations](Translations.md), [Translation audit](Audit.md).
+
+## How to use it
+
+1. Put a Transifex token in `TX_TOKEN` or `~/.transifexrc`.
+2. Check first, offline and without credentials:
+   `releases/translations/push-all-translations.sh --dry-run`.
+3. Upload: `releases/translations/push-all-translations.sh`.
+4. Read the failure list at the end (`None` when all succeeded), the JSON
+   report under `.tools/log/translations-push/<datetime>/report.json` and the
+   status log `.tools/log/push-all-translations_<datetime>.txt`.
+
+The details, and the language mappings, follow below.
+
+## How the numbers are calculated
+
+From `retryingRequest()` in
+[releases/translations/push-all-translations.mjs](../../../../releases/translations/push-all-translations.mjs):
+
+- A read that fails with HTTP 408, 500, 502, 503 or 504, a network failure or a
+  timeout is tried at most 6 times in all; the wait doubles from 2 s
+  (`2000 * 2^(attempt-1)` ms, at most 32 s).
+- HTTP 429 waits at least 60 s, or longer when `Retry-After` says so, within
+  the same 6 attempts.
+- A long wait prints progress at least every 30 s.
+- The offline dry run reports 241 distinct targets and the English source.
+
+## How it works in WeKan
+
+Files: [releases/translations/push-all-translations.sh](../../../../releases/translations/push-all-translations.sh)
+and [push-all-translations.mjs](../../../../releases/translations/push-all-translations.mjs).
+Tests: [tests/transifexForcePush.test.cjs](../../../../tests/transifexForcePush.test.cjs),
+[tests/transifexUploadRetry.test.cjs](../../../../tests/transifexUploadRetry.test.cjs),
+[tests/transifexPartialUpload.test.cjs](../../../../tests/transifexPartialUpload.test.cjs).
+
 Run the explicit upload operation from any directory:
 
 ```sh
@@ -130,3 +179,15 @@ Supported languages can be added to a project, which this script already tries.
 For an unsupported language, [request support from Transifex](https://help.transifex.com/en/articles/6208588-how-do-i-add-a-new-language)
 with its name, ISO/BCP47 code, aliases and authoritative Unicode plural rules.
 The maintainer submits that request; the script prints the instructions.
+
+## Commits
+
+ - [Allow untranslated source keys in target uploads](https://github.com/wekan/wekan/commit/81d4dc420d77a50b1fd897d07bcd70aeb531e757)
+ - [Readable datetimes for build and release log directories](https://github.com/wekan/wekan/commit/0d6be31986887e21b126fa0efc1ef7db3afe607e)
+ - [Retry transient upload status failures with progress](https://github.com/wekan/wekan/commit/7f24f80355562ff26d7a28e5d5d251b3961e5aab)
+ - [Verify retries when Transifex adds missing language support](https://github.com/wekan/wekan/commit/ad294f7073fb67cb147bc834a260d35d33128fda)
+ - [Report upload outcomes and Transifex language support](https://github.com/wekan/wekan/commit/637dbebd66d28b498640fb18f12786e59de28186)
+ - [Hyphenated Chinese script code for Transifex](https://github.com/wekan/wekan/commit/c2a9168c46c64eb84a58c489f3063b0d03104227)
+ - [Save upload terminal status to timestamped logs](https://github.com/wekan/wekan/commit/196c0addcf0d677f343bd4e97e063b85302c334a)
+ - [Fix the Russian Russia upload mapping](https://github.com/wekan/wekan/commit/e6aed7a8cd39c08b0817e7a760a8fe9d5a1c7657)
+ - [Force upload of all local translations, with missing-language registration and failure reports](https://github.com/wekan/wekan/commit/5290ee727189a94e949a645b1aeb965393400813)
