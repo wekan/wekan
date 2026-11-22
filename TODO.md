@@ -65,7 +65,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   Portuguese (`pt-BR`) calls an assignee "Administrador"; Somali (`so`) calls
   card recurrence an automatic reset; Pashto and Sindhi (`ps`, `sd`) have odd
   "Check Version" and "WIP Limit Groups" terms; Serbian (`sr`) uses списи,
-  предмет and Управа for board, card and Admin Panel.
+  предмет and Управа for board, card and Admin Panel; Macedonian (`mk`) has
+  Bulgarian values (Хора, Наблюдавай, Имейл, Описание, Разпределена от,
+  Поискан от); Luxembourgish (`lb`) is partly German; Punjabi and Odia (`pa`,
+  `or_IN`) call a swimlane "swimming"; Maltese (`mt`) has "Bord Ara" for
+  Board View.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
