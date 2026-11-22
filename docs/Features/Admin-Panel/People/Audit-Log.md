@@ -65,6 +65,13 @@ and backups, restores and data repairs. An administrator editing cards is a
 member editing cards and is not recorded. The list of actions is
 `AUDITED_METHODS` in [models/lib/adminAudit.js](../../../../models/lib/adminAudit.js).
 
+The Admin Panel's switches that are saved straight from the browser - Settings
+/ Appearance and Features, Announcement, Accessibility, Translation, Locked
+users, Account settings, the table visibility modes, the invite roles and the
+attachment storage settings - are recorded too, as the collection write they
+are (for example `/settings/update`, with the changed fields), and so is
+anonymising a user (`anonymizeUser`).
+
 A password or a secret is never recorded: values under a credential-named key,
 the arguments that are a password by position and a password inside a URL are
 shown as `[redacted]`.

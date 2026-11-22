@@ -55,11 +55,13 @@ const AUDITED_METHODS = [
 // users, the invite roles and the attachment storage settings - through
 // Meteor's own /<collection>/insert, /update and /remove methods, which only a
 // site administrator may call (their allow rules). Without these, most Admin
-// Panel switches changed the site with no trace in the audit log
+// Panel switches (also People / Account settings and the table visibility
+// modes) changed the site with no trace in the audit log
 // (GDPR Art. 5(2), NIS2 Art. 21(2), ISO/IEC 27001 A.8.15).
 const AUDITED_COLLECTIONS = [
   'settings', 'announcements', 'translation', 'accessibilitySettings',
   'lockoutSettings', 'inviteToBoardRolesSettings', 'attachmentStorageSettings',
+  'accountSettings', 'tableVisibilityModeSettings',
 ];
 const MUTATIONS = ['insert', 'update', 'remove'];
 function auditedMutationMethods() {
