@@ -44,3 +44,17 @@ Lists.deny({
   },
   fetch: ['boardId'],
 });
+
+// Admin Panel / Settings / Features: a list's policy text and its split into
+// Doing and Done are written only while the instance offers them; the list
+// header hides both otherwise (models/lib/featureServerGates.js). Clearing
+// them is always allowed.
+Lists.deny({
+  async update(userId, doc, fields, modifier) {
+    const { listWriteFeatures } = require('/models/lib/featureServerGates');
+    const keys = listWriteFeatures(modifier);
+    if (!keys.length) return false;
+    return require('/server/lib/assistGate').deniedByOffFeatures(userId, keys, 'ddp:lists.update-flow-policy');
+  },
+  fetch: [],
+});

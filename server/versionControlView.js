@@ -10,6 +10,8 @@
 // Both write through the ordinary collections, not `.direct`, so the change
 // history hooks (server/models/changeHistoryHooks.js) record them and the
 // History tab - the board's history table - can undo them like any other move.
+// Admin Panel / Settings / Features / Version Control view (models/lib/featureServerGates.js).
+import { requireFeature } from '/server/lib/assistGate';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -43,6 +45,7 @@ Meteor.methods({
     check(boardId, String);
     check(input, { title: String, body: Match.Optional(String), labelIds: Match.Optional([String]) });
     const userId = this.userId;
+    await requireFeature(userId, 'views-version-control', 'ddp:vcsCreateIssue');
     const board = await writableBoard(userId, boardId);
     let issue;
     try {
@@ -79,6 +82,7 @@ Meteor.methods({
     check(cardId, String);
     check(state, Match.OneOf('open', 'closed'));
     const userId = this.userId;
+    await requireFeature(userId, 'views-version-control', 'ddp:vcsSetIssueState');
     const card = await ReactiveCache.getCard(cardId);
     if (!card) throw new Meteor.Error('not-found');
     const board = await writableBoard(userId, card.boardId);

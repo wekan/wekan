@@ -1533,6 +1533,20 @@ Meteor.methods({
     check(boardId, Match.Optional(Match.Maybe(String)));
     const user = await ReactiveCache.getCurrentUser();
     if (!user) throw new Meteor.Error('not-authorized', 'Must be logged in');
+    // A view of an Admin Panel / Settings / Features entry that is off for this
+    // user is not offered by the View menu, so choosing it is refused here too
+    // (models/lib/featureServerGates.js). The board then shows its fallback.
+    const { isBoardViewAvailable } = require('/models/lib/instanceFeatures');
+    if (!isBoardViewAvailable(await ReactiveCache.getCurrentSetting(), user, view)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.disabled-setting', action: 'blocked', source: 'ddp:setBoardView', userId: user._id,
+          detail: `Admin Panel / Settings / Features: the board view ${view} is turned off.`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      const { FEATURE_DISABLED } = require('/models/lib/featureServerGates');
+      throw new Meteor.Error(FEATURE_DISABLED.error, FEATURE_DISABLED.reason);
+    }
     // Must be awaited: the helper returns Users.updateAsync(...), so without await the
     // method resolves (and the client reloads) before profile.boardView is written —
     // and a rejected schema/write never surfaces. This made switching the board view

@@ -6,6 +6,8 @@ What this WeKan offers. Address: `/admin/settings/features`. Site administrators
 only. A site administrator turns optional features - board views, helpers,
 Kanban and Scrum tools, card fields, SQRL, ActivityPub, read-only Rules and the
 Optional APIs - on or off for the whole instance. An unticked feature is hidden,
+and its server paths refuse it too
+([Settings enforced on the server](../Settings-Enforced-On-Server.md)); it is
 never deleted, and no permission changes. Until 2026-11-19 these groups were
 part of Settings / Visibility (now [Appearance](Appearance.md)).
 
@@ -48,7 +50,8 @@ Save. Who among your users sees a feature is decided one level down, by
    matches nobody.
 
 **Features.** Which optional features this WeKan offers. An unticked feature is
-hidden from everyone's interface; its data is kept and no permission changes.
+hidden from everyone's interface and refused by the server; its data is kept
+and no permission changes.
 The catalog, in page order: Table view, Calendar views, Time views, Overview
 views, Gantt views, Scrum views, Flow charts, Map view, Email view, Chat view,
 Website view, Version Control view, Column sets, Rule suggestions, Summary,

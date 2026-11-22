@@ -165,7 +165,10 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-board-date-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-board-info-on-my-boards'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-list-settings'), ['if currentUser', admin]);
-  assert.deepStrictEqual(guardsOf('js-open-board-scrum-settings'), [admin]);
+  // 2026-11-22: Scrum settings open the Sprints view, which the server refuses
+  // while Admin Panel / Settings / Features turns the Scrum views off
+  // (models/lib/featureServerGates.js), so the entry follows that tick too.
+  assert.deepStrictEqual(guardsOf('js-open-board-scrum-settings'), [admin, "if allowFeature 'views-scrum'"]);
   assert.deepStrictEqual(guardsOf('js-open-board-card-settings'), ['if currentUser'],
     'Card stays open to any board member for its personal Labels text row');
   assert.deepStrictEqual(guardsOf('js-export-board'), ['if withApi', 'unless exportDisabled']);

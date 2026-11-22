@@ -10,6 +10,9 @@
 // What a disabled feature means:
 //   * it is HIDDEN from the interface - its menu entries are not drawn, not
 //     greyed out - and a user who had it open is moved to what remains;
+//   * its server paths REFUSE it too (models/lib/featureServerGates.js): the
+//     methods and publications of the feature answer 'feature-disabled' or
+//     nothing, so hiding is never the only thing that stops it;
 //   * its data is untouched: enabling it again shows everything as it was;
 //   * it never changes permissions: availability is not access, so enabling
 //     a feature grants nobody a board, a card or an edit right.

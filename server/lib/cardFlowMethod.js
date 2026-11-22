@@ -36,8 +36,11 @@ export async function setCardFlowFor(userId, cardId, patch) {
   } catch (e) {
     throw new Meteor.Error(e.code || 'invalid-flow-patch');
   }
-  // Done here only in a list split into Doing and Done.
+  // Done here only in a list split into Doing and Done, and only while
+  // Admin Panel / Settings / Features offers split lists: the minicard draws no
+  // Done here toggle otherwise (models/lib/featureServerGates.js).
   if (patch.splitDone === true) {
+    await require('/server/lib/assistGate').requireFeature(userId, 'split-lists', 'ddp:setCardFlow-splitDone');
     const list = await Lists.findOneAsync(card.listId, { fields: { split: 1 } });
     if (!list || list.split !== true) throw new Meteor.Error('not-a-split-list');
   }

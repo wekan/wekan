@@ -225,3 +225,18 @@ Boards.deny({
   },
   fetch: [],
 });
+
+// Admin Panel / Settings / Features: the list policies, the commitment point,
+// the WIP limit per person and split lists are turned on per board in Board
+// Settings / List, which shows each only while the instance offers it. A
+// client write turning one on while it is off is refused
+// (models/lib/featureServerGates.js); turning one off is always allowed.
+Boards.deny({
+  async update(userId, doc, fields, modifier) {
+    const { boardWriteFeatures } = require('/models/lib/featureServerGates');
+    const keys = boardWriteFeatures(modifier);
+    if (!keys.length) return false;
+    return require('/server/lib/assistGate').deniedByOffFeatures(userId, keys, 'ddp:boards.update-flow-policy');
+  },
+  fetch: [],
+});

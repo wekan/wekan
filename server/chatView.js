@@ -17,6 +17,8 @@ import Boards from '/models/boards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { visibleAllBoards } from '/server/allBoardsFacets';
 const { notCurrentUser } = require('/server/lib/notCurrentUser');
+// Admin Panel / Settings / Features / Chat view (models/lib/featureServerGates.js).
+import { requireFeature, featureAllowed } from '/server/lib/assistGate';
 
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 
@@ -69,6 +71,7 @@ async function assignedCardIds(boardIds, userId) {
 Meteor.methods({
   async chatViewChannels() {
     if (!this.userId) throw new Meteor.Error('not-authorized');
+    await requireFeature(this.userId, 'views-chat', 'ddp:chatViewChannels');
     const { user, boards } = await visibleBoardsFor(this.userId);
     if (!user) return { boards: [], channels: [], swimlanes: [], lists: [] };
     const talking = boards.filter(b => readsComments(b, this.userId));
@@ -114,6 +117,7 @@ Meteor.methods({
   async chatViewBoardChannels(boardId) {
     check(boardId, String);
     if (!this.userId) throw new Meteor.Error('not-authorized');
+    await requireFeature(this.userId, 'views-chat', 'ddp:chatViewBoardChannels');
     const { boards } = await visibleBoardsFor(this.userId);
     const board = boards.find(b => b._id === boardId);
     if (!board) throw new Meteor.Error('not-authorized');
@@ -139,6 +143,7 @@ Meteor.methods({
 Meteor.publish('chatViewCardComments', async function (cardId) {
   check(cardId, String);
   if (!this.userId) return this.ready();
+  if (!(await featureAllowed(this.userId, 'views-chat', 'sub:chatViewCardComments'))) return this.ready();
   const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1, assignees: 1, members: 1 } });
   const board = card && await Boards.findOneAsync(card.boardId);
   if (!board || !(await board.isVisibleBy({ _id: this.userId })) || !readsComments(board, this.userId)) return this.ready();

@@ -8,11 +8,14 @@ import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import { canWriteInList } from '/server/lib/listPermissionGate';
+// Admin Panel / Settings / Features / Table view (models/lib/featureServerGates.js).
+import { requireFeature } from '/server/lib/assistGate';
 
 Meteor.methods({
   async tableViewAddCard(input) {
     check(input, { boardId: String, listId: String, swimlaneId: String, title: String });
     if (!this.userId) throw new Meteor.Error('not-authorized');
+    await requireFeature(this.userId, 'views-table', 'ddp:tableViewAddCard');
     const title = input.title.replace(/\s+/g, ' ').trim().slice(0, 1000);
     if (!title) throw new Meteor.Error('table-view-empty-title');
     const board = await Boards.findOneAsync(input.boardId);

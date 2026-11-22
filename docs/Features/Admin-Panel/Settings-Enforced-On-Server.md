@@ -51,6 +51,27 @@ Nothing to turn on: every setting below is enforced as soon as it is saved.
 | (always) The last site administrator | Deleting or anonymizing your own account when you are the only site administrator - it used to skip the check that deleting somebody else had. Not recorded: the buttons are there, so it is ordinary use. | - |
 | People / Login: Username Change unticked | A direct client write of your own `username` (`Users.update`), the way round the `setUsername` method, which already refused. E-mail addresses are never written that way. | Disabled setting |
 
+**Admin Panel / Settings / Features**
+
+An unticked feature is hidden, and the server paths of that feature refuse it:
+a method answers `feature-disabled`, a publication sends nothing. It is still
+never a permission - a feature that is on grants nobody a board - and its data
+is kept. A site administrator previewing features, and a pilot user, may use
+it, as they see it.
+
+| Feature | What the server refuses while it is off | Problems |
+| --- | --- | --- |
+| Table view | `tableViewAddCard`; choosing the view (`setBoardView`). | Disabled setting |
+| Chat view | `chatViewChannels`, `chatViewBoardChannels`, the `chatViewCardComments` publication; choosing the view. | Disabled setting |
+| Email view | `emailViewCount`, `sendBoardEmail`, the `emailViewPage` publication; choosing the view. | Disabled setting |
+| Version Control view | `vcsCreateIssue`, `vcsSetIssueState`; choosing the view. | Disabled setting |
+| Scrum views | Every Scrum method of the Sprints, Product backlog and report views (sprints, releases, events, a card's sprint, the sprint histories, Scrum import into a board); choosing the views. Not refused: `scrum.getBoardData` and `scrum.configure`, which the card details' Scrum fields use too, and the import and History recovery methods, which repair board data. Board Settings / Scrum settings is hidden too, since it opens in the Sprints view. | Disabled setting |
+| Summary, Since your last visit, Rule suggestions | Their methods answer nothing (they did already). `boards.markVisited` keeps recording visits, so the list is right when the feature is on again. | - |
+| Workload and capacity, Budget and billing | Every `workload*` and `billing*` method (they did already). | - |
+| List policies, Commitment point, WIP limit per person, Split lists | A client write turning one on: the board's `allowsListPolicies`, `commitmentListId`, `personWipLimit`, `allowsSplitLists`, a list's `policy` or `split` (Boards / Lists deny rules); a card marked *Done here* (`setCardFlow`). Turning one off is always allowed. | Disabled setting |
+| Every other board view (calendar, time, overview, Gantt, flow charts, map, website, column sets) | Choosing the view (`setBoardView`). Nothing else: they read the cards the board already publishes and write ordinary card fields. | Disabled setting |
+| Search phrases, Daily standup timer, Retrospective board | Nothing - display only. A phrase becomes the search operators anybody may type; the timer runs in the browser and writes nothing; the retrospective board is an ordinary board anybody may make by hand. | - |
+
 ## How the numbers are calculated
 
 Problems counts every refused call once in the row of its kind; the actor
@@ -73,6 +94,17 @@ tally names the account (when the call had one) and the address it came from.
   [server/models/users.js](../../../server/models/users.js). The username
   write is a `Users.deny` rule in
   [server/permissions/users.js](../../../server/permissions/users.js).
+- [models/lib/featureServerGates.js](../../../models/lib/featureServerGates.js)
+  lists every feature's server paths (`SERVER_PATHS`), the ones refused as
+  writes (`WRITE_GATED`) and the display-only ones with why (`DISPLAY_ONLY`).
+  [server/lib/assistGate.js](../../../server/lib/assistGate.js)
+  `requireFeature` / `featureAllowed` ask
+  [models/lib/instanceFeatures.js](../../../models/lib/instanceFeatures.js)
+  for the caller (feature profiles and previews included); the Scrum methods
+  are wrapped in one place in [server/scrum.js](../../../server/scrum.js), the
+  flow policies are deny rules in
+  [server/permissions/boards.js](../../../server/permissions/boards.js) and
+  [server/permissions/lists.js](../../../server/permissions/lists.js).
 - The Problems names are keys of
   [models/lib/securityCategories.js](../../../models/lib/securityCategories.js),
   recorded with `securityLog.record({ key, action: 'blocked', ... })`.
@@ -82,4 +114,8 @@ tally names the account (when the call had one) and the address it came from.
   (a DDP and a REST sign-in refused on a running server);
   [tests/selfAccountRemoval.test.cjs](../../../tests/selfAccountRemoval.test.cjs)
   (the rule, and every server file that removes or anonymizes users asks it)
-  and [server/lib/tests/selfAccountRemoval.tests.js](../../../server/lib/tests/selfAccountRemoval.tests.js).
+  and [server/lib/tests/selfAccountRemoval.tests.js](../../../server/lib/tests/selfAccountRemoval.tests.js);
+  [tests/featureServerGates.test.cjs](../../../tests/featureServerGates.test.cjs)
+  (every catalog feature is decided, and every method and publication of a
+  feature file asks the gate, so a new one cannot skip it) and
+  [server/lib/tests/featureServerGates.tests.js](../../../server/lib/tests/featureServerGates.tests.js).

@@ -158,3 +158,5 @@ import './webPush.tests';
 import './passwordLoginDisabled.tests';
 // Own account deletion follows the self delete setting on the server.
 import './selfAccountRemoval.tests';
+// Admin Panel / Settings / Features refused on the server while off.
+import './featureServerGates.tests';

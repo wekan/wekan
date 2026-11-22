@@ -18,6 +18,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
+// Admin Panel / Settings / Features / Email view (models/lib/featureServerGates.js).
+import { requireFeature, featureAllowed } from '/server/lib/assistGate';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Cards from '/models/cards';
 import { cardCreation } from '/models/cards';
@@ -74,7 +76,9 @@ const OptionsPattern = { folder: String, page: Match.Optional(Number), search: M
 // client subscribes again when the board's card count moves, so new mail
 // still appears.
 Meteor.publish('emailViewPage', async function emailViewPage(boardId, options) {
+  check(boardId, String);
   check(options, OptionsPattern);
+  if (!(await featureAllowed(this.userId, 'views-email', 'sub:emailViewPage'))) return this.ready();
   const board = await readableBoard(this.userId, boardId);
   if (!board) return this.ready();
   const selector = await selectorFor(board, this.userId, options.folder, options.search);
@@ -95,7 +99,9 @@ Meteor.publish('emailViewPage', async function emailViewPage(boardId, options) {
 
 Meteor.methods({
   async emailViewCount(boardId, options) {
+    check(boardId, String);
     check(options, OptionsPattern);
+    await requireFeature(this.userId, 'views-email', 'ddp:emailViewCount');
     const board = await readableBoard(this.userId, boardId);
     if (!board) throw new Meteor.Error('not-authorized');
     const total = await Cards.find(await selectorFor(board, this.userId, options.folder, options.search)).countAsync();
@@ -110,6 +116,7 @@ Meteor.methods({
     check(input, { to: [String], cc: Match.Optional([String]), subject: String, text: String,
       cardId: Match.Optional(String) });
     const userId = this.userId;
+    await requireFeature(userId, 'views-email', 'ddp:sendBoardEmail');
     const board = await ReactiveCache.getBoard(boardId);
     if (!userId || !board || !allowIsBoardMemberWithWriteAccess(userId, board)) throw new Meteor.Error('not-authorized');
     let email;

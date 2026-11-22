@@ -726,13 +726,16 @@ template(name="boardMenuPopup")
     //- Rules and its views are one group; the board's look starts below it.
     hr
     //- Scrum settings: how this board plans its work, above the group that
-      decides how the board looks, with a rule of its own between them.
-    ul.pop-over-list
-      li
-        a.js-open-board-scrum-settings
-          i.fa.fa-repeat
-          | {{_ 'scrum-settings'}}
-    hr
+      decides how the board looks, with a rule of its own between them. They
+      open in the Sprints view, so only while Admin Panel / Settings / Features
+      offers the Scrum views (the server refuses that view otherwise).
+    if allowFeature 'views-scrum'
+      ul.pop-over-list
+        li
+          a.js-open-board-scrum-settings
+            i.fa.fa-repeat
+            | {{_ 'scrum-settings'}}
+      hr
     ul.pop-over-list
       //- "Custom Fields" was here. The board's list of them is in the card's own
         menu now - Card menu / Custom Fields, whose Settings cog opens it - which
