@@ -1,5 +1,46 @@
 # Version Control view
 
+## What it is
+
+The Version Control view shows a board as a repository's issue tracker, laid
+out like GitHub and Gitea: cards are issues, labels are labels, labels with a
+due date are milestones, comments are the conversation and attachments are the
+files. It keeps no data of its own - everything is the board's own, so every
+change made here is an ordinary card change that the board's history records
+and can undo. It also imports and syncs issues from GitHub, GitLab, Gitea and
+Forgejo, and can import a whole GitHub organization.
+
+## Read more
+
+- [Issue tracking system](https://en.wikipedia.org/wiki/Issue_tracking_system)
+  and [Version control](https://en.wikipedia.org/wiki/Version_control) at
+  Wikipedia.
+- [Milestone (project management)](https://en.wikipedia.org/wiki/Milestone_(project_management))
+  and [Wiki](https://en.wikipedia.org/wiki/Wiki) at Wikipedia.
+- [GitHub Issues documentation](https://docs.github.com/en/issues), and
+  [Filtering and searching issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/filtering-and-searching-issues-and-pull-requests) -
+  the search words the Issues tab takes.
+- [Gitea documentation](https://docs.gitea.com/),
+  [GitLab issues](https://docs.gitlab.com/user/project/issues/) and
+  [Forgejo documentation](https://forgejo.org/docs/latest/).
+- [git-bug](https://github.com/git-bug/git-bug) - whose GitHub and GitLab
+  bridges use the same request patterns as the sync.
+- [isomorphic-git](https://isomorphic-git.org/) - the JavaScript git that
+  reads a GitHub wiki.
+- [Server-side request forgery](https://en.wikipedia.org/wiki/Server-side_request_forgery)
+  at Wikipedia - what the import's SSRF guard prevents.
+- WeKan: [change history](../../General/History/History.md),
+  [Labels with a due date](../../Board-Sidebar/Labels/Labels-Milestone-Due-Date.md),
+  [list sync](../../Board-Sidebar/Board-Settings/Import-Export/Sync.md),
+  [Board View settings](../../Board-Sidebar/Board-Settings/Board-View.md).
+
+## How to use it
+
+**Open it.** Board header → **Board View** → **Version Control**, in the menu's
+**Communication and code** group. A site admin can turn it off with "Version
+Control view" in
+[Admin Panel → Settings → Features](../../Admin-Panel/Settings/Features.md).
+
 Board → View → **Version Control** shows the board as a repository's issue
 tracker. It is laid out like GitHub and Gitea and drawn in the board's own
 theme. It uses the board's own data, and no second copy of anything is kept:
@@ -31,7 +72,7 @@ theme. It uses the board's own data, and no second copy of anything is kept:
 └──────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Tabs
+### Tabs
 
 - **Issues**: the issue list, with a search box that takes GitHub's search
   words: `is:open`, `is:closed`, `label:bug`, `-label:wontfix`,
@@ -66,7 +107,7 @@ theme. It uses the board's own data, and no second copy of anything is kept:
   as committed, by its author - and **Restore** brings an older text back.
   **Edit** opens the page's card.
 
-## Closing and reopening
+### Closing and reopening
 
 **Close issue** moves the card to the board's *Closed* list, or to the first
 list named like a closed one. A board without one gets a *Closed* list.
@@ -78,7 +119,7 @@ A **synced** issue (below) is closed and reopened in its own tracker, and the
 next sync brings the new state. Its card stays in its synced list, because
 moving it out would make the sync see the issue as gone.
 
-## Importing and syncing
+### Importing and syncing
 
 **Import** at the top opens the existing importers for
 [GitHub](../../Board-Sidebar/Board-Settings/Import-Export/GitHub/GitHub.md),
@@ -119,7 +160,7 @@ up. These are the same request patterns as git-bug's GitHub and GitLab
 bridges and Gitea's repository migrations. Gitea issues are fetched with
 `type=issues`, so pull requests are not downloaded only to be dropped.
 
-## GitHub organization
+### GitHub organization
 
 Import → GitHub → **Import a whole GitHub organization** imports every
 repository of an organization, or of a user (`wekan` or
@@ -155,7 +196,7 @@ again. When GitHub's rate limit is reached the job stops at that repository and
 can be continued later. Admin Panel → Features → Security can turn every
 import off, this one included.
 
-## Public boards
+### Public boards
 
 Like every view, Version Control can be offered on a public board, and be the
 view it opens in: Board Settings → [Board View](../../Board-Sidebar/Board-Settings/Board-View.md).
@@ -163,7 +204,63 @@ A visitor who is not logged in sees it read-only: the **New issue**, close,
 reopen, comment, import and sync controls are not drawn, and the server
 refuses them anyway.
 
-## Files
+
+## How the numbers are calculated
+
+From [models/lib/versionControlView.js](../../../../models/lib/versionControlView.js)
+unless named otherwise:
+
+- **State**: an issue is **closed** when its card is archived; otherwise, for
+  a synced issue, the state upstream; otherwise closed when its list's title
+  is *Closed*, *Done*, *Resolved*, *Merged* or *Wontfix* (case-insensitive),
+  and open in any other list.
+- **Issue number**: the number in an importer's `Source: #<n>` (or
+  `Source: group/project#<n>`) line at the end of the description, up to nine
+  digits; otherwise the card number when it is a positive whole number.
+- **Open / Closed counts** above the list: the issues that match the search
+  apart from its `is:` word, counted by state.
+- **Search**: every label, `milestone:`, `author:`, `assignee:` and `no:` word
+  must match, names compared case-insensitively; a `-label:` must not match;
+  other words must all appear in `#number title description`. An unknown
+  `key:value` is searched as text. The default order is `created-desc`; ties
+  are broken by the higher issue number first.
+- **Milestones**: a milestone's progress is
+  `round(closed × 100 / its issues)` percent (0 when it has none); it is
+  **overdue** when it has a due date in the past and at least one open issue.
+- **Labels**: each label's number is how many **open** issues carry it.
+- **New issue**: the title's whitespace runs are collapsed and it is trimmed;
+  it is required and at most 1 000 characters; the description is at most
+  65 536 characters; at most 50 labels.
+- **Files of an imported issue**: at most 50 per issue
+  ([models/lib/issueAttachments.js](../../../../models/lib/issueAttachments.js)
+  `MAX_ATTACHMENTS_PER_ISSUE`).
+- **Sync** ([models/lib/listSyncIssueDetails.js](../../../../models/lib/listSyncIssueDetails.js)):
+  at most 100 file downloads a run (`MAX_DOWNLOADS_PER_RUN`), runs every
+  15 minutes ([server/listSync.js](../../../../server/listSync.js)). The wait
+  after a rate limit (HTTP 403 or 429) is the `Retry-After` seconds, or the
+  time until `x-ratelimit-reset` / `RateLimit-Reset`, or 60 seconds for a bare
+  429; it is waited out once when it is under a minute.
+
+## How it works in WeKan
+
+- **Reading** needs nothing new: the cards, labels, comments and attachments
+  are the board's own, already published to whoever can see the board.
+- **Writing**: only two writes need the server, in
+  [server/versionControlView.js](../../../../server/versionControlView.js):
+  `vcsCreateIssue` (a card in the board's open list, for a board member with
+  write access) and `vcsSetIssueState` (Close / Reopen: the card moves to the
+  closed or open list, for those who may edit that card). Both write through
+  the ordinary collections, so the change history hooks record them and the
+  History tab can undo them like any other move. A board with no *Closed* or
+  *Open* list gets one, made last.
+- **Menu and feature switch**: `board-view-version-control` in
+  [models/lib/boardViewSettings.js](../../../../models/lib/boardViewSettings.js),
+  feature `views-version-control` in
+  [models/lib/instanceFeatures.js](../../../../models/lib/instanceFeatures.js).
+- **Browser test**:
+  [tests/playwright/specs/version-control-attachments.e2e.js](../../../../tests/playwright/specs/version-control-attachments.e2e.js).
+
+### Files
 
 | File | |
 | --- | --- |
@@ -176,3 +273,14 @@ refuses them anyway.
 | `models/lib/githubActionsRules.js`, `models/lib/workflowYaml.js`, `models/lib/cronSchedule.js` | GitHub Actions as Rules |
 | `models/lib/githubWiki.js`, `server/lib/githubWiki.js` | The wiki as cards |
 | `tests/versionControlView.test.cjs`, `tests/issueAttachments.test.cjs`, `tests/listSyncIssueDetails.test.cjs` | The tests |
+
+## Commits
+
+ - [Attachments open in the same viewer as on the card, more file kinds included](https://github.com/wekan/wekan/commit/6d842a5e2fe7242ade92ca19e2ce5a4f9081485d)
+ - [Close and reopen follow the list's role exception](https://github.com/wekan/wekan/commit/ba3d94390ba724344a2d5cfe50e9dee3cc6f8d89)
+ - [A new issue writes one "created" activity, not two](https://github.com/wekan/wekan/commit/5f3b211b37b4152e923f616110274ce96b9b46e6)
+ - [Board role permissions apply to this view too](https://github.com/wekan/wekan/commit/5b2ed17e6b31ff8416dbf26d8c178f0b979013f0)
+ - [Attachments have the card's controls, and open in the viewer](https://github.com/wekan/wekan/commit/132b341b8ddb509c14b7c553ad42926318c1451d)
+ - [Issue titles rendered as Markdown](https://github.com/wekan/wekan/commit/2cc6b93ed9e9b9bae03927acb627ac2f2e2b7d5d)
+ - [GitHub organization import: repositories, issues, releases, Actions and wiki](https://github.com/wekan/wekan/commit/935e68dfdd8a6918bf0d016e3929317c7b321e24)
+ - [The Version Control board view, issue files and synced issue details](https://github.com/wekan/wekan/commit/326d9bbf619ed811e9db92896a67f0ea6fa60b24)
