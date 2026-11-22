@@ -1,5 +1,63 @@
 # Design: Safe filename handling (display, upload, and existing files)
 
+## What it is
+
+Every file name WeKan shows, stores or serves is made safe and readable by the
+same small set of functions: invisible and look-alike characters, markup and
+other exploits are removed, a wrong extension is corrected to the real file
+type, and the name is kept short enough for any file system. The file content
+is cleaned of known exploits too, and the EICAR virus test file is refused.
+
+## Read more
+
+- [Filename](https://en.wikipedia.org/wiki/Filename),
+  [Unicode equivalence](https://en.wikipedia.org/wiki/Unicode_equivalence)
+  (NFKC), [IDN homograph attack](https://en.wikipedia.org/wiki/IDN_homograph_attack),
+  [Billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack),
+  [Directory traversal attack](https://en.wikipedia.org/wiki/Directory_traversal_attack),
+  [EICAR test file](https://en.wikipedia.org/wiki/EICAR_test_file) and
+  [Amiga Fast File System](https://en.wikipedia.org/wiki/Amiga_Fast_File_System)
+  on Wikipedia.
+- [file-type](https://github.com/sindresorhus/file-type), the type detector.
+- WeKan pages: [Admin Panel](../../Admin-Panel/Admin-Panel.md) (Problems and
+  the Files report).
+
+## How to use it
+
+There is nothing to switch on; it always applies.
+
+1. Upload a file to a card (or an avatar). A name with invisible characters, a
+   wrong extension or more than 30 characters is stored corrected; a name that
+   looks like an exploit, or an EICAR file, is refused.
+2. Open or download any file: the name shown and the download name are the
+   clean name, and an old file whose stored name was never corrected is
+   corrected the first time the server reads it.
+3. As an admin, see each correction in Admin Panel → Problems (Security
+   report, `action: sanitized`) with who uploaded it, why and where.
+
+## How the numbers are calculated
+
+- **Name length:** at most 30 characters, the extension kept
+  (`MAX_AMIGA_FILENAME_CHARS` in
+  [imports/lib/fileNameDisplay.js](../../../../imports/lib/fileNameDisplay.js)).
+- **Type detection** reads the first 64 KiB of a stored file (`HEADER_BYTES` in
+  [models/lib/fileTypeCorrection.js](../../../../models/lib/fileTypeCorrection.js)).
+- **Serving an existing file** sniffs the first 8192 bytes; a file that begins
+  like dangerous markup is buffered and cleaned only up to 8 MiB, larger ones
+  stream unchanged (`SNIFF_BYTES`, `MAX_SANITIZE_BYTES` in
+  [models/lib/serveFileSanitizer.js](../../../../models/lib/serveFileSanitizer.js)).
+  An SVG is served through the streaming SVG sanitizer of
+  [server/lib/svgResponse.js](../../../../server/lib/svgResponse.js), whatever
+  its size.
+- **Disk space:** a write needs the file's size plus a 16 MiB margin free
+  (`hasEnoughDiskSpace()` in [models/lib/diskSpace.js](../../../../models/lib/diskSpace.js));
+  unknown free space is allowed.
+- **Collisions** in a storage move get `-1`, `-2`, ... appended.
+- **Look-alike folding** applies only when the name without its extension is
+  mostly Latin letters.
+
+## How it works in WeKan
+
 Status: **Implemented** · Owner: xet7 · Related: `models/attachments.server.js`,
 `models/avatars.server.js`, `models/fileValidation.js`, `models/lib/fileStoreStrategy.js`,
 `imports/lib/fileNameDisplay.js`
@@ -15,9 +73,9 @@ bidi spoofing, homoglyph typosquatting, HTML/JS/XML markup, XML-loop "billion la
 traversal, oversized names, and even harmless-but-must-block virus test files). This subsystem
 handles all of that automatically.
 
-## 1. Requirements
+### 1. Requirements
 
-### Display (everywhere a filename is shown: card attachments, admin Files report, download headers)
+#### Display (everywhere a filename is shown: card attachments, admin Files report, download headers)
 
 1. **URL-decode** percent-encoded names when they decode cleanly.
 2. **Normalize to generally-used characters** — Unicode **NFKC** (fold fullwidth `ＡＢＣ`,
@@ -41,7 +99,7 @@ per-character Unicode descriptions; then a server-side "invisible-only" filter w
 and legend) were **removed**. There is no filter, warning, or description UI — every filename is
 just always shown clean.
 
-### Upload (attachments and avatars, all storage backends)
+#### Upload (attachments and avatars, all storage backends)
 
 6. **Reject exploit filenames** — a name that itself looks like an exploit (HTML/script markup, an
    XML doctype/entity, template injection, php/asp tags, `javascript:`/`data:` URIs, inline event
@@ -68,7 +126,7 @@ just always shown clean.
     and, on **any** write error, **stop immediately and remove the partial** output (source left
     intact).
 
-### Existing files (already uploaded before these rules existed)
+#### Existing files (already uploaded before these rules existed)
 
 13. **Show and download a compliant name lazily** — every read first applies the common sanitizer
     and 30-character rule. A server read/download also streams only a **small header** from the
@@ -80,7 +138,7 @@ just always shown clean.
     begins like a dangerous markup document (e.g. the start of an XML-loop tag `<!DOCTYPE`/
     `<!ENTITY`); if so, sanitize the (small) document; otherwise stream every byte through unchanged.
 
-### Migrations (attachment/avatar moves between storage backends)
+#### Migrations (attachment/avatar moves between storage backends)
 
 15. **Fix + sanitize the filename with the same general function** and **save the corrected name at
     the destination** storage: detect the real file type and correct the extension, strip
@@ -95,7 +153,7 @@ just always shown clean.
    `onAfterUpload`, so they get 6–11 automatically; the storage-move path `moveToStorage` /
    `copyFile` implements 15–17 directly.)
 
-## 2. The general functions (single sources of truth)
+### 2. The general functions (single sources of truth)
 
 | Function | Module | Used by |
 | --- | --- | --- |
@@ -110,7 +168,7 @@ just always shown clean.
 | `hasEnoughDiskSpace(dir, bytes)` | `models/lib/diskSpace.js` | `moveToStorage` |
 | `createServeSanitizer(name)` | `models/lib/serveFileSanitizer.js` | `httpStreamOutput` (single download choke point) |
 
-## 3. Data flow
+### 3. Data flow
 
 **Upload** (`Attachments.onAfterUpload` / `Avatars.onAfterUpload`): sanitize file-content exploits in
 place → reject exploit-looking filename → detect real MIME (small header → temp → `file` → delete
@@ -129,7 +187,7 @@ so subsequent reactive displays and every download use the same correct extensio
 **Correct existing extensions** (`correctFileExtensions.run`, admin-only, bounded): for each file →
 `correctedNameForStoredFile` (general detector) → `rename` if changed.
 
-## 3a. Admin Panel → Problems logging
+### 3a. Admin Panel → Problems logging
 
 Every time a filename or file **required sanitization** — on upload, migration, the
 existing-file corrector, or viewing/serving — it is recorded to the **Security**
@@ -151,7 +209,7 @@ rejections already use. Each row carries:
 Catalog keys: `file.sanitize` (name), `file.content` (content exploit removed),
 `file.malware` (EICAR). Logging is best-effort and never breaks the upload/view path.
 
-## 4. Security notes
+### 4. Security notes
 
 - Display sanitization is **defense in depth**, not the only boundary — Blaze escaping, the download
   `Content-Disposition` sanitizer, SVG CSP headers, and the upload content scan remain.
@@ -162,7 +220,7 @@ Catalog keys: `file.sanitize` (name), `file.content` (content exploit removed),
 - Homoglyph folding is intentionally conservative (Latin-majority base only) to avoid corrupting
   legitimate non-Latin filenames.
 
-## 5. Tests
+### 5. Tests
 
 - `tests/fileNameDisplay.test.cjs` — `cleanFileName` (decode, NFKC, homoglyph folding, invisible +
   exploit removal, non-Latin preservation), `sanitizeDownloadFileName`, and wiring guards.
@@ -175,3 +233,19 @@ Catalog keys: `file.sanitize` (name), `file.content` (content exploit removed),
   precheck + partial cleanup, and the serve-time XML-loop sniff.
 - `tests/playwright/specs/41-admin-newest-features.e2e.js` — Files report shows clean names (decoded,
   homoglyphs folded, invisible/exploit removed); no filter/warning/legend.
+
+## Commits
+
+ - [Every fixed vulnerability still fixed, siblings closed](https://github.com/wekan/wekan/commit/ebcd02be6fd4ccaeabf9f905b985b97dd891886d)
+ - [SVG of any size sanitized whole, streaming, on upload, validation and serve](https://github.com/wekan/wekan/commit/e7485598388d505c7f3990a3444bcea49f022155)
+ - [FileNameBleed: a percent-encoded name is not an exploit](https://github.com/wekan/wekan/commit/c7c541ccc53802accd358f44c753b912bbb136f1)
+ - [Full MIME detection across server platforms](https://github.com/wekan/wekan/commit/a990e7f2027a4d8063d2ddeea67bdce825717ba0)
+ - [Amiga-safe filenames on every read](https://github.com/wekan/wekan/commit/829d2a6c741a69c0fbd1a6e9ae2dd80f377a33bd)
+ - [Uploaded JFIF names become JPEG](https://github.com/wekan/wekan/commit/518a4d2fec487fef91f66224a9be8fc5f94e7527)
+ - [An attachment stuck as .bin](https://github.com/wekan/wekan/commit/a712db94737d6f1e49c7d773e2cc004911f39a80)
+ - [CodeQL multi-character sanitization fix](https://github.com/wekan/wekan/commit/e7159d337355417b8768ff7dee51a05e3211ebb5)
+ - [Log every filename and content sanitization to Problems](https://github.com/wekan/wekan/commit/fdb683892d11ec1ab2b2c75fa865ac2abea6bfe4)
+ - [Safe filename handling: display, upload, existing files, migrations](https://github.com/wekan/wekan/commit/81dbecfb8719ff99dac367e9921e44282c8b3ded)
+ - [Reusable safe filename and clean download names](https://github.com/wekan/wekan/commit/626d956ecce0505358703a6dbc4fbfb171d0d0fe)
+ - [Files report: invisible characters named inline](https://github.com/wekan/wekan/commit/fccc4a739886af6e3ac78104235c744f18182f52)
+ - [Files report: decode URL-encoded names and flag invisible characters](https://github.com/wekan/wekan/commit/0a4c2ed412619a10530330f2f42cd0ce00edab64)

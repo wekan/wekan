@@ -1,10 +1,47 @@
-## About markdown changes
+# Emoji
+
+## What it is
+
+Emoji codes such as `:rainbow:` or `:thumbsup:` are shown as the emoji itself
+(🌈 👍) wherever WeKan renders Markdown: card names, descriptions, comments and
+so on. It uses the GitHub list of emoji names. The second half of this page is
+a developer guide for adding another markdown-it plugin to WeKan.
+
+## Read more
+
+- [Emoji](https://en.wikipedia.org/wiki/Emoji) on Wikipedia.
+- [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) and its
+  [full list of names](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs);
+  [markdown-it](https://github.com/markdown-it/markdown-it) and
+  [marked](https://github.com/markedjs/marked), the renderer WeKan used before.
+- WeKan pages: [Markdown](Markdown/Markdown.md),
+  [Markdown editor](Markdown-Editor.md).
+
+## How to use it
+
+1. Open a card name, description, comment or another Markdown field.
+2. Type an emoji code between colons, for example `:rainbow: :thumbsup: :100:`.
+3. Save. The codes show as emoji. Typed emoticons such as `:-)` become emoji too
+   (the plugin's shortcuts).
+
+## How the numbers are calculated
+
+There are no numbers. The names come from the plugin's `full` set (about 1900
+names in `lib/data/full.mjs` of the installed markdown-it-emoji).
+
+## How it works in WeKan
+
+`markdownItEmoji.full` is loaded with `Markdown.use(emojiPlugin)` in
+[packages/markdown/src/template-integration.js](../../../../packages/markdown/src/template-integration.js),
+so every renderer that uses the `markdown` package shows emoji.
+
+### About markdown changes
 
 Wekan v4.29 changes markdown rendering from [marked](https://github.com/markedjs/marked) to [markdown-it](https://github.com/markdown-it/markdown-it).
 
-## About emoji
+### About emoji
 
-With markdown-it, also [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) plugin has been added, supporting [full list of GitHub emojis](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json).
+With markdown-it, also [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji) plugin has been added, supporting [full list of GitHub emojis](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs).
 
 Example emoji code, that you can add for example to card name, card description etc:
 ```
@@ -12,19 +49,19 @@ Example emoji code, that you can add for example to card name, card description 
 ```
 That shows emojis :rainbow: :thumbsup: :100:
 
-## About other markdown-it plugins
+### About other markdown-it plugins
 
 For markdown-it, there are also other [syntax extensions](https://github.com/markdown-it/markdown-it#syntax-extensions) where some are listed at that markdown-it page, and [others at npmjs.com](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
 
 For example, how to get some [mermaid plugin](https://www.npmjs.com/search?q=markdown-it-mermaid) working so that some syntax works for https://mermaid-js.github.io/mermaid/ ?
 
-## How you could add another plugin
+### How you could add another plugin
 
 Using newest Ubuntu amd64:
 
-# Meteor 2
+## Meteor 2
 
-### 1. Install git and configure it
+#### 1. Install git and configure it
 ```
 sudo apt -y install git
 
@@ -67,7 +104,7 @@ export PATH=~/.meteor:$PATH
 ```
 Save and Exit with Ctrl-o Enter Ctrl-x Enter
 
-### 2. Create fork of `https://github.com/wekan/wekan` at GitHub web page
+#### 2. Create fork of `https://github.com/wekan/wekan` at GitHub web page
 
 ```
 mkdir repos
@@ -78,7 +115,7 @@ git clone git@github.com:YourGithubUsername/wekan.git
 
 cd wekan
 ```
-### 3. Run the menu: Setup -> Install dependencies, Setup -> Build WeKan, Dev server -> localhost:3000
+#### 3. Run the menu: Setup -> Install dependencies, Setup -> Build WeKan, Dev server -> localhost:3000
 
 `build.sh` shows a two-level menu (`1) Setup 2) Dev server 3) Tests 4) Docker 5) Tools 6) Quit`); pick a category number, then the item number inside it.
 
@@ -102,18 +139,18 @@ That does: **Setup -> Install dependencies** installs dependencies, **Setup -> B
 
 And then [register and login](../../Login-Page/Adding-users.md) at http://localhost:3000
 
-### OPTIONAL, NOT NEEDED: 5. Add new plugin package
+#### OPTIONAL, NOT NEEDED: 5. Add new plugin package
 ```
 meteor npm install markdown-it-something --save
 ```
 
 Edit file `wekan/packages/markdown/src-integration.js` and add using that new package, using code example from that new plugin page, or similar like emoji plugin was added.
 
-### 7. Test
+#### 7. Test
 
 Test does that new plugin syntax work, for example in card title, card description etc on other input fields.
 
-### 8. If it works, create pull request
+#### 8. If it works, create pull request
 
 If normal markdown, emoji, and your new added plugin syntax all work, commit your changes:
 ```
@@ -125,7 +162,7 @@ git push
 ```
 And then at your GitHub for `https://github.com/YOUR-GITHUB-USERNAME/wekan` click `Create pull request`.
 
-# Meteor 3
+## Meteor 3
 
 At 2024-06-26, it looks like from https://nodejs.org/en that Node.js LTS version is 20.15.0 , so change to newest Node.js LTS, delete old Meteor:
 ```
@@ -165,7 +202,7 @@ Or try to run wekan:
 
 3
 ```
-# Updating
+## Updating
 
 There are usually updates both for npm packages and Meteor
 
@@ -208,3 +245,7 @@ If you are changing Meteor and Node.js versions, you may need to reset Meteor:
 meteor reset
 ```
 Or alternatively, delete wekan repo (if you did not need any changes you made), and clone wekan repo again, and then build etc.
+
+## Commits
+
+ - [Changed markdown from marked to markdown-it, and added emoji](https://github.com/wekan/wekan/commit/20b01771055ca4d8871d13abb559ab92ecee10f4)

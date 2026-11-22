@@ -1,5 +1,55 @@
 # Card Dependencies — "Red Strings" / PI Program Board
 
+## What it is
+
+WeKan can draw card-to-card dependencies as coloured, arrow-headed lines on top
+of the board - a SAFe PI-planning style **program board** ("Red Strings"). A
+line says that one card blocks, fixes, duplicates or relates to another, so the
+order of work across lists and sprints is visible at a glance.
+
+## Read more
+
+- [Dependency (project management)](https://en.wikipedia.org/wiki/Dependency_(project_management)),
+  [Dependency graph](https://en.wikipedia.org/wiki/Dependency_graph) and the
+  [Scaled agile framework](https://en.wikipedia.org/wiki/Scaled_agile_framework)
+  on Wikipedia.
+- Feature request [#3392](https://github.com/wekan/wekan/issues/3392).
+- WeKan pages: [Board and My Dependencies](Board-And-My-Dependencies.md),
+  [REST API](../../../../API/REST-API.md).
+
+## How to use it
+
+1. Click your avatar, open **Member Settings** and turn on **Show Board
+   Dependencies** (and/or **Show My Dependencies**).
+2. Open a card and, in its **Dependencies** section, click **Add dependency**;
+   or drag a minicard's connect handle onto another card.
+3. Click a line, or use the card's Dependencies section, to change its relation
+   type, colour and icon, or to remove it.
+
+Each of these, and filtering, importing, exporting and the REST API, is
+described step by step below.
+
+## How the numbers are calculated
+
+The minicard badge shows the number of the card's dependencies. Lines are drawn
+from the right edge of the prerequisite card to the left edge of the dependent
+card; the relation type decides which card that is (see the table below).
+Duplicate relations do not count as blockers in Blocker Analysis.
+
+## How it works in WeKan
+
+Each card keeps its lines in `cardDependencies` (Board Dependencies); a user's
+private lines are `profile.myDependencies`. Who may see and edit them is
+[models/lib/dependencyAccess.js](../../../../../models/lib/dependencyAccess.js),
+the methods and REST permission are
+[server/models/dependencies.js](../../../../../server/models/dependencies.js),
+and the overlay is
+[client/components/boards/dependencyOverlay.js](../../../../../client/components/boards/dependencyOverlay.js).
+Tests include [tests/dependencyAccess.test.cjs](../../../../../tests/dependencyAccess.test.cjs)
+and [tests/exportDependencies.test.cjs](../../../../../tests/exportDependencies.test.cjs).
+The full implementation table is in
+[Board and My Dependencies](Board-And-My-Dependencies.md).
+
 WeKan can visualize card-to-card dependencies as colored, arrow-headed
 connection lines drawn on top of the board — a SAFe PI-planning style **program
 board** ("Red Strings"). This is feature request
@@ -8,7 +58,7 @@ board** ("Red Strings"). This is feature request
 A card can depend on (be connected to) one or more other cards on the **same
 board**. Each dependency has a **relation type**, a **color** and an **icon**.
 
-## Relation types
+### Relation types
 
 | Type | Meaning | Arrow direction |
 |------|---------|-----------------|
@@ -28,9 +78,9 @@ with several dependencies draws all of them.
 > prerequisite card in any list/column (Sprint, week, phase) — WeKan does not
 > enforce "good" dependency ordering.
 
-## Web UI
+### Web UI
 
-### Add / edit / remove dependencies
+#### Add / edit / remove dependencies
 
 1. Open a card to its detail view.
 2. In the **Dependencies** section click **Add dependency**.
@@ -42,7 +92,7 @@ with several dependencies draws all of them.
 
 The colored **icon + count** also appears as a badge on the **minicard**.
 
-### Show the connection lines
+#### Show the connection lines
 
 Open **Member Settings** (your avatar) and turn on **Show Board Dependencies**,
 **Show My Dependencies**, or both. They are at the top of the menu and are off
@@ -56,7 +106,7 @@ dependencies. Before #6732 this was one board-wide toggle in the board header
 that only board admins could change. See
 [Board and My Dependencies](Board-And-My-Dependencies.md).
 
-### Drawing links by dragging
+#### Drawing links by dragging
 
 For a piplanning.io / Kendis / Miro-style experience, you can draw links directly
 on the board — **no mode to toggle, cards stay clickable**. When a dependency
@@ -74,11 +124,12 @@ Everything else on the board keeps working normally while you do this — only t
 handle starts a drag, and only the lines themselves are clickable; the rest of
 the overlay is click-through.
 
-#### Drawing a line from one card to another
+##### Drawing a line from one card to another
 
 ```text
-Step 1 — Turn the overlay on (board header: Show dependencies),
-         then hover a card. A connect handle (o) appears on its right edge.
+Step 1 — Turn the overlay on (Member Settings: Show Board Dependencies
+         or Show My Dependencies), then hover a card. A connect handle (o)
+         appears on its right edge.
 
    +----------------+
    |  PI Alpha      (o)         +----------------+
@@ -105,7 +156,7 @@ Step 3 — Release the mouse over the target card.
                                 +----------------+
 ```
 
-#### Changing a line's relation type, color and icon
+##### Changing a line's relation type, color and icon
 
 ```text
 Step 1 — Click the connection line itself.
@@ -137,12 +188,12 @@ Step 3 — The line updates on the board: its color, arrow direction
 > You can also add/edit/remove a dependency from the card detail's
 > **Dependencies** section (above) — both routes use the same data.
 
-### Filter
+#### Filter
 
 The board **Filter** sidebar has a **Filter by dependencies** section to show
 only cards that have a dependency of a given relation type.
 
-### Import / Export
+#### Import / Export
 
 - **Board Settings → Export** offers **Dependencies / JSON** and
   **Dependencies / SVG**. The SVG is a standalone diagram and is
@@ -158,7 +209,7 @@ a card** within the same board, and when you **export/import a whole board** as
 WeKan JSON (target card ids are remapped; dangling ones dropped). Moving a card
 to another board drops its now cross-board dependencies.
 
-### Importing from other trackers
+#### Importing from other trackers
 
 The **Dependencies (JSON/SVG)** importer accepts more than WeKan's own export.
 Cards are matched in the target board by `_id`, then **card number**, then
@@ -187,7 +238,7 @@ match.
 - **GitHub / GitLab and others**: no standard machine-readable dependency export,
   so use the generic JSON shape above.
 
-## REST API
+### REST API
 
 Base path: `/api/boards/:boardId`. All endpoints require a bearer token
 (`Authorization: Bearer <token>`). A dependency object is
@@ -209,7 +260,7 @@ FontAwesome 4.7 icon name without the `fa-` prefix (e.g. `link`).
 These operations are also documented in the generated OpenAPI docs (tag
 **Dependencies**).
 
-### Python CLI (`api.py`)
+#### Python CLI (`api.py`)
 
 ```bash
 python3 api.py listdependencies BOARDID
@@ -226,3 +277,16 @@ Duplicate relations identify another card representing the same work. They do
 not merge or archive cards, and do not count as blockers in Blocker Analysis.
 They use the existing type picker, directed overlay, color/icon settings, REST
 API, History undo/redo and native board transfer with remapped card IDs.
+
+## Commits
+
+ - [Directed duplicate relationships and Jira import mapping](https://github.com/wekan/wekan/commit/eb527dd13fee74de89381cfd9b07e088c641eaaa)
+ - [Dependency lines follow the card's list role exception](https://github.com/wekan/wekan/commit/da6d9d39b8bd209006fc02fe735f1c277a2be693)
+ - [Showing dependencies is each user's own choice, and My Dependencies](https://github.com/wekan/wekan/commit/cff80a9d7b89ab8e70b3bc1adfacb2db86527307)
+ - [Show dependencies on instance boards to every signed-in user](https://github.com/wekan/wekan/commit/2a75b8267fcd5a1ccb5a72ecb070daa2c342b0ef)
+ - [Lines do not bleed past a resized swimlane](https://github.com/wekan/wekan/commit/24199bb1df6fa6729fda0af5fdb999def8dbccd9)
+ - [Fix a DomRange error in the dependency overlay](https://github.com/wekan/wekan/commit/9f36ef8789fc5f2f18fae89bc3853afe02bc3fdf)
+ - [Drag-to-connect from a per-card handle](https://github.com/wekan/wekan/commit/cad7d77fce0f69519795b1b0f9f4aff79aab0a79)
+ - [Drag-to-connect, on-board line editing, Miro import](https://github.com/wekan/wekan/commit/cc41308a3f6edad850b17336b20bfc422275b64b)
+ - [Typed relations, colour and icon, badge, filter, REST API, import and export](https://github.com/wekan/wekan/commit/2a0d9cbf09a5a6fb424b790dedcbeb415bac9c3c)
+ - [Card dependency Red Strings lines and the PI program board](https://github.com/wekan/wekan/commit/b909f82f890661103364e591553e85a1edd2bf87)
