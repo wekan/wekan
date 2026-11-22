@@ -1,5 +1,7 @@
 # Card Settings
 
+## What it is
+
 **Card Settings is Board Settings / Card**: a popup opened from the board's
 cog menu (**Board Settings → Card**). It decides what **every opened card**
 and **every minicard** of the board shows, and in what order. The opened card
@@ -11,7 +13,44 @@ An opened card shows **every field its board shows on cards**, empty or not:
 an empty Due, an empty Members, an empty Custom Fields section are drawn,
 ready to be filled in ([Card fields](Card-Fields.md)).
 
-## One section model: Card Settings is what the card and the minicard draw
+## Read more
+
+- [Kanban board](https://en.wikipedia.org/wiki/Kanban_board) on Wikipedia -
+  the cards and minicards Card Settings lays out.
+- [Checklist](https://en.wikipedia.org/wiki/Checklist),
+  [Checkbox](https://en.wikipedia.org/wiki/Checkbox),
+  [Accordion (GUI)](https://en.wikipedia.org/wiki/Accordion_(GUI)) and
+  [Hamburger button](https://en.wikipedia.org/wiki/Hamburger_button) - the
+  pieces the panes are drawn with.
+- MDN: [Container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) -
+  how the panes go side by side or stacked.
+- In WeKan: [Card fields](Card-Fields.md),
+  [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) and
+  [Custom Fields](CustomFields/CustomFields.md).
+
+## How to use it
+
+1. Open the board's cog menu, **Board Settings**, then **Card**. The popup is
+   titled **Card Settings** and shows two panes, **Show on Minicard** and
+   **Show on Card**.
+2. Tick or untick a **row** to show or hide that field on the pane's side,
+   for every card of the board. Tick or untick a **section's checkbox** to
+   show or hide the whole section on that side.
+3. **Drag** a section or a row (by its handle, or by its icon and name when
+   drag handles are off) to change the order that side draws them in, or
+   focus it and press **Up** / **Down**.
+4. Open a **hamburger** where there is one: Card's holds **Ask for a reason
+   when moving cards** and the **Draggable** table, Subtasks' the **Subtask
+   settings**.
+5. Under **Custom Fields**, tick a field for the minicard or for every card,
+   open its hamburger to edit it, or click **+** to create one.
+6. Drag the **splitter** between the panes, or collapse a pane by its caret,
+   to make room. Close the popup; the cards and minicards follow at once.
+
+Only a board admin changes the checkboxes and drags; everybody else sees them
+disabled, except their own row (Labels text).
+
+### One section model: Card Settings is what the card and the minicard draw
 
 The **opened card** and the **minicard** draw exactly Card Settings'
 sections, in the order Card Settings shows them, and each section's fields in
@@ -36,7 +75,7 @@ the order of its rows (since 2026-10-28):
   dates line (Date and Time together, as Spent time always was), consecutive
   badges one badge strip. The title row and the cover under it are fixed.
 
-### The default section order
+#### The default section order
 
 A board that never dragged a section gets the order its surface drew before,
 as far as the grouping allows:
@@ -46,14 +85,14 @@ as far as the grouping allows:
 | Opened card | Labels, Date, Members, Card, Time, Custom Fields, Voting, Planning Poker, Description, Scrum settings, Checklists, Subtasks, Attachments, Comments |
 | Minicard | Scrum settings, Date, Time, Labels, Custom Fields, Members, Checklists, Card, Comments, Voting, Planning Poker, Attachments, Subtasks, Description |
 
-### Where each field of the opened card is
+#### Where each field of the opened card is
 
 | Section | Fields, in default order |
 | --- | --- |
 | Labels | Labels, Stickers, Location |
 | Date | Received, Start, Due, At risk, End, Forecast |
 | Members | Members, Assignee, Creator, Requested by, Assigned by |
-| Card | Dependencies, Card sorting by number, List (and Swimlane under it), Card buttons, Similar cards |
+| Card | Dependencies, Blocked, Class of service, MoSCoW, WSJF, Card sorting by number, List (and Swimlane under it), Card buttons, Similar cards |
 | Time | Spent time, Flowtime, Pomodoro |
 | Custom Fields | the card's custom fields |
 | Voting, Planning Poker | the question, the votes |
@@ -71,7 +110,7 @@ can: each field keeps its relative order inside its new section, and the old
 group keys (`dates`, `sort`, `voteAndPoker`, the minicard's `badges` ...)
 stand for their fields (`models/lib/cardFieldOrder.js`).
 
-## Top to bottom
+### Top to bottom
 
 ```
 Card Settings                                            [□] [X]   <- the popup's header
@@ -124,7 +163,7 @@ Subtasks, Attachments and Comments - are drawn like the card's
 A section with no row on a pane's side is left out of that pane, except Card,
 whose hamburger holds what is not a field.
 
-## The checkboxes
+### The checkboxes
 
 **A row's checkbox** says whether that field is **visible on the pane's
 side**, for every card of the board: in the Card pane it is the board's Show
@@ -147,7 +186,7 @@ and `cardSettingsHiddenOnMinicard` (lists of section ids), written by
 Every checkbox is a board admin's: for anybody else it is shown disabled,
 except their own row (Labels text).
 
-## A section with one row is one line
+### A section with one row is one line
 
 A section that has exactly **one row** on the pane's side - Subtasks, Voting,
 Planning Poker - is drawn as **one line**: one checkbox, its name, and the
@@ -159,7 +198,7 @@ row's own flag is on and the section is not hidden. Clicking it sets the
 row's own flag (through the row's own checkbox, kept in the line out of
 sight); turning it on also shows the section again if it was hidden whole.
 
-## Custom Fields
+### Custom Fields
 
 Custom Fields' items are the **board's custom fields** themselves, in their
 order (`sort`, the order the card and the minicard draw them in):
@@ -192,7 +231,7 @@ Fields hamburger, because a card may carry a field it was given on its own.
 The +, the checkboxes and the hamburgers are a board admin's; anybody else
 sees no + and disabled checkboxes.
 
-## Hamburgers
+### Hamburgers
 
 A hamburger is drawn **only when it has something in it**.
 
@@ -222,7 +261,7 @@ hamburger), **Show empty fields** (Card's), and **Select all / Select none**
 (every section's). Empty fields are always shown, and a section has its own
 checkbox.
 
-## Drag and drop, collapse
+### Drag and drop, collapse
 
 What a section or a row is dragged by follows the member's **drag handles**
 setting, as checklists do:
@@ -252,7 +291,31 @@ setting, as checklists do:
   checklist's caret does. Collapsed sections are the user's own, kept per
   board and per pane.
 
-## How it works
+## How the numbers are calculated
+
+- **A section's count `n/m`** ([client/components/sidebar/sidebar.js](../../../client/components/sidebar/sidebar.js)):
+  `m` is the number of the section's rows on that pane's side (for Custom
+  Fields, the board's custom fields), and `n` how many of them are ticked.
+  A field the administrator turned off in Admin Panel / Settings / Features
+  is not counted. The count stays while the section is hidden whole.
+- **The splitter** ([models/lib/cardSettingsSplit.js](../../../models/lib/cardSettingsSplit.js)):
+  the Minicard pane's share of the width, a fraction from 0 to 1, starts at
+  **0.5** (`DEFAULT_SPLIT`, half and half - a double-click goes back to it).
+  Neither pane is narrower than **16em** (`MIN_PANE_EM`); when the two
+  minimums do not fit, it is half and half. An arrow key moves it **0.05**
+  (`KEY_STEP`, 5 % of the width), Home and End to the narrowest and widest
+  Minicard pane. It is stored rounded to three decimals
+  (`profile.cardSettingsSplit`), and `aria-valuenow` is the share in percent.
+- **Side by side or stacked**: the panes go side by side when the popup's
+  content is at least **40em** wide (the `card-settings-panes` container
+  query in [client/components/cards/cardAddFields.css](../../../client/components/cards/cardAddFields.css)),
+  about 20em per pane.
+- **The popup's width** is `min(96vw, 1100px)`
+  ([client/components/main/popup.css](../../../client/components/main/popup.css),
+  mirrored as `CARD_SETTINGS_MAX_WIDTH` in
+  [client/lib/popupOffset.js](../../../client/lib/popupOffset.js)).
+
+## How it works in WeKan
 
 | File | What it is |
 | --- | --- |
@@ -276,3 +339,22 @@ setting, as checklists do:
 Card Settings itself reads the board as it is - its checkboxes show each
 row's own flag even while its section is hidden; only the opened card and the
 minicard read the side's view.
+
+## Commits
+
+ - [Flow fields Blocked, Class of service, MoSCoW and WSJF in the Card section](https://github.com/wekan/wekan/commit/0071dde0f36bb7c8582073a2c072159e15f41ceb)
+ - [Two panes; the card and the minicard follow their order; hamburgers open inline](https://github.com/wekan/wekan/commit/2bd5d1180a24bde1fb30acfe75617bb4c68f864e)
+ - [Hamburger menus open next to their button](https://github.com/wekan/wekan/commit/9c9742e09d743bbdabc451e23a51c6d12a4d0560)
+ - [A checkbox per section, every field always shown, only in Board Settings](https://github.com/wekan/wekan/commit/3e5bc58105d32b1ef9e2ed9424e2990b9da95220)
+ - [Board Settings / Card uses the same templates as the opened card's Card Settings](https://github.com/wekan/wekan/commit/52de57c844a750e2f4a0fb18d9fd81f04e5a1015)
+ - [Sections drawn as checklists](https://github.com/wekan/wekan/commit/c0ec28e82f04fafa1b5bebc52f113aa13ed019c1)
+ - [A Show on Card and a Show on Minicard list per section, reordered by drag and drop](https://github.com/wekan/wekan/commit/8224852de15e5c0019e999a8d85d12a1e80fb8e1)
+ - [Ask for a reason and Select all / Select none as Draggable's buttons](https://github.com/wekan/wekan/commit/37b3c8f599304768dc4d9fd9676fd85b1d83e6e9)
+ - [Select all and Select none per column, labels whole](https://github.com/wekan/wekan/commit/c8a15b514ff5f17c4de7e2d93725c83c41a6b194)
+ - [Opens on Card, with Show empty fields and the Show empty column](https://github.com/wekan/wekan/commit/1aa9df6075d93679f4781f57c8be605b2e670386)
+ - [Create Field and Link fields to another card as forms in the pane](https://github.com/wekan/wekan/commit/f33987931f1f4ffa0a3d1fc9c7e609e315bf2e7e)
+ - [Card first, Subtasks and Planning Poker as sections of their own](https://github.com/wekan/wekan/commit/c69f3fe25a0db118bdf258370ded4a330f7e0ffa)
+ - [Board Settings / Card and the opened card's + Add are one popup](https://github.com/wekan/wekan/commit/20e2273c075e376b983a5afce5fdc65da6fb98d9)
+ - [Rows of Board Settings / Card reordered by drag and drop](https://github.com/wekan/wekan/commit/2d80e6e4ee4afec3dff380e53fa90f419af450f2)
+ - [The default card and minicard field order is the order they had before](https://github.com/wekan/wekan/commit/859771a10ece44f1c48c371d182b4c079c84faad)
+ - [One Card field order heading over two lists](https://github.com/wekan/wekan/commit/15b2b6c5339979341d8237aa592ae37a5fd0607d)

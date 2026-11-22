@@ -1,10 +1,26 @@
 # Cards and minicards
 
+## What it is
+
+A card is one task or item on a board; its minicard is the small view of it
+in a list. This folder documents everything on and around a card: what the
+opened card shows, its sections, its menu and the helpers that work on it.
 Create a card in a list, then click its minicard to open its details. The
 opened card shows every field its board shows on cards, empty or not
 ([Card fields](Card-Fields.md)). Which fields, and in what order, on the
 opened card and on the minicard, is [Card Settings](Card-Settings.md) -
 [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md).
+
+## Read more
+
+- [Kanban board](https://en.wikipedia.org/wiki/Kanban_board) on Wikipedia.
+- See the pages below for each feature.
+
+## How to use it
+
+1. Find the place or the action in the tables below.
+2. Open its guide. Each guide says what the feature is, how to use it, how its
+   numbers are calculated and how it works in WeKan.
 
 | Place or action | Guide |
 | --- | --- |
@@ -41,8 +57,11 @@ separate tab.
 ## Card menu
 
 Card menu (☰ in the opened card's header, **Card Actions**), in menu order
-(`cardDetailsActionsPopup` in `client/components/cards/cardDetails.jade`).
-Who sees which entry is on each page.
+(`cardDetailsActionsPopup` in
+[client/components/cards/cardDetails.jade](../../../client/components/cards/cardDetails.jade)).
+The entries are grouped under the headings **Move and copy**, **Watch**,
+**Appearance**, **Share and history** and **Archive**. Who sees which entry
+is on each page.
 
 | Entry | Guide |
 | --- | --- |
@@ -55,8 +74,8 @@ Who sees which entry is on each page.
 | Watch / Unwatch, Star / Unstar | [Watch, Star](Watch-Star.md) |
 | Set color | [Set color](Set-Color.md) |
 | Drawing | [Drawing](Drawing.md) |
-| Card details width | [Card details width](Card-Details-Width.md) |
 | Create cards from action items | [Action items](Action-Items.md) |
+| Reset width (shown when you dragged a width of your own) | [Card details width](Card-Details-Width.md) |
 | Copy link to clipboard | [Board item links](../General/Board-Item-Links.md) |
 | Link to board | [Link to board](Link-To-Board.md) |
 | QR code | [QR code](QR-Code.md) |
@@ -65,3 +84,17 @@ Who sees which entry is on each page.
 | Move Card to Archive / Restore | [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md) |
 | More | [More](More.md) |
 | Create board from this card | [Create-Board-From-Card.md](Create-Board-From-Card.md) |
+
+## How the numbers are calculated
+
+See the pages above.
+
+## How it works in WeKan
+
+See the pages above.
+
+## Commits
+
+ - [The card menu's entries grouped under headings](https://github.com/wekan/wekan/commit/0d8f8b8d96b868a6d75b803ef105e50aad450977)
+ - [A docs page for every card menu entry](https://github.com/wekan/wekan/commit/a8fd080bc8ece74157e5f2e9e436fa2dafe76348)
+ - [The card menu in the maintainer's order](https://github.com/wekan/wekan/commit/65621f44cc03db9b2b98276ffd2c7bed8590b2fd)
