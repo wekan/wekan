@@ -234,6 +234,19 @@ export async function reconfigureOidc() {
         // default and every wiki example used to have - reached the provider as
         // the scope `'openid` … `email'` and Keycloak refused the request.
         requestPermissions: oauth2RequestPermissions(authEnv('OAUTH2_REQUEST_PERMISSIONS')),
+        // Sign in with Apple and other OIDC providers that need them
+        // (models/lib/oidcProviderMode.js): response_mode=form_post, and the
+        // claims read from the ID token rather than a userinfo endpoint.
+        ...(() => {
+          const mode = require('/models/lib/oidcProviderMode');
+          const env = { OAUTH2_RESPONSE_MODE: authEnv('OAUTH2_RESPONSE_MODE'), OAUTH2_CLAIMS_IN_ID_TOKEN: authEnv('OAUTH2_CLAIMS_IN_ID_TOKEN'),
+            OAUTH2_ADFS_ENABLED: authEnv('OAUTH2_ADFS_ENABLED'), OAUTH2_B2C_ENABLED: authEnv('OAUTH2_B2C_ENABLED') };
+          const serverUrl = authEnv('OAUTH2_SERVER_URL');
+          return {
+            responseMode: mode.responseMode({ serverUrl, env }),
+            claimsSource: mode.claimsSource({ serverUrl, userinfoEndpoint: authEnv('OAUTH2_USERINFO_ENDPOINT'), env }),
+          };
+        })(),
       },
     },
   );

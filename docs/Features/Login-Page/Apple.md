@@ -42,20 +42,16 @@ Apple's fixed, non-discoverable endpoints are:
 
 Apple has no public `userinfo_endpoint`; the user's identity is carried in the
 `id_token` (a signed JWT) that the token endpoint returns.
-`OAUTH2_USERINFO_ENDPOINT` may be left unset, and `OAUTH2_ADFS_ENABLED=true`
-(despite the name, this flag simply tells WeKan's OIDC client "read claims
-from the token instead of calling a userinfo endpoint" - the same mechanism
-ADFS and Azure AD B2C use) makes WeKan decode the claims (`sub`, `email`,
-`email_verified`, ...) out of the token response.
-
-> **Check this with your Apple account.** The code decodes the
-> `access_token` when the token response has one, and the `id_token` only when
-> there is no `access_token` (`token.access_token || token.id_token` in
-> [packages/wekan-oidc/oidc_server.js](../../../packages/wekan-oidc/oidc_server.js)).
-> Apple's token response carries both, and Apple documents its `access_token`
-> as an opaque token rather than a JWT. If the claims cannot be decoded, the
-> login has no `sub`/`email`. This page has not been verified end to end
-> against Apple's servers.
+`OAUTH2_USERINFO_ENDPOINT` is left unset: Apple has no userinfo endpoint, and
+its `access_token` is opaque. WeKan sees the Apple address in
+`OAUTH2_SERVER_URL` and reads the claims (`sub`, `email`, `email_verified`,
+...) from the `id_token` the token endpoint returns
+([models/lib/oidcProviderMode.js](../../../models/lib/oidcProviderMode.js)).
+The ID token comes straight from Apple's token endpoint over TLS, which
+OpenID Connect Core 3.1.3.7 accepts in place of checking its signature. Any
+other provider that keeps its claims in the ID token can ask for the same with
+`OAUTH2_CLAIMS_IN_ID_TOKEN=true`. A setup made from the earlier version of this
+page, with `OAUTH2_ADFS_ENABLED=true`, keeps working.
 
 **Docker**
 
@@ -70,20 +66,20 @@ ADFS and Azure AD B2C use) makes WeKan decode the claims (`sub`, `email`,
       - OAUTH2_SERVER_URL=https://appleid.apple.com
       - OAUTH2_AUTH_ENDPOINT=/auth/authorize
       - OAUTH2_TOKEN_ENDPOINT=/auth/token
-      - OAUTH2_ADFS_ENABLED=true
       - OAUTH2_ID_MAP=sub
       - OAUTH2_EMAIL_MAP=email
       - OAUTH2_FULLNAME_MAP=name
       - OAUTH2_REQUEST_PERMISSIONS=openid name email
 ```
 
-Apple's authorization endpoint requires the request to use
-`response_mode=form_post` whenever the `name`/`email` scopes are requested.
-WeKan's OIDC client does not send a `response_mode` parameter
-([packages/wekan-oidc/oidc_client.js](../../../packages/wekan-oidc/oidc_client.js)
-sends `response_type=code`, `redirect_uri`, `state` and `scope`). Keep the
-default `OAUTH2_LOGIN_STYLE=redirect`: the popup flow may not complete (see
-[OAuth2.md](./OAuth2.md)).
+Apple's authorization endpoint requires `response_mode=form_post` whenever the
+`name`/`email` scopes are requested. WeKan sends it for the Apple address by
+itself; `OAUTH2_RESPONSE_MODE` (`query`, `fragment` or `form_post`) sets it for
+any provider. Apple then POSTs the answer back, which Meteor's OAuth handler
+reads like a query. Keep the default `OAUTH2_LOGIN_STYLE=redirect`: the popup
+flow may not complete (see [OAuth2.md](./OAuth2.md)). This has not been
+verified end to end against Apple's servers; `tests/oidcProviderMode.test.cjs`
+pins the decisions and that the OIDC package uses them.
 
 **Others** - similar like above Docker; set the equivalent environment
 variables/snap config keys for your platform, following [OAuth2.md](./OAuth2.md).

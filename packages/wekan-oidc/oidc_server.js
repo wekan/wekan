@@ -91,6 +91,12 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   }
 
   var accessToken = token.access_token || token.id_token;
+  // Where the claims are (server/authentication.js, models/lib/oidcProviderMode.js):
+  // the userinfo endpoint, the access token (ADFS, B2C) or the ID token (Sign in
+  // with Apple, whose access_token is opaque and which has no userinfo).
+  var oidcConfig = await getConfiguration();
+  var claimsSource = (oidcConfig && oidcConfig.claimsSource) || '';
+  var idToken = token.id_token || null;
   if (!accessToken) {
     // A 200 with neither token in it: the provider answered, and what it
     // answered with is the useful part. Keys only - the values are secrets.
@@ -108,7 +114,15 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   var claimsInAccessToken = authEnv('OAUTH2_ADFS_ENABLED') === 'true' ||
                             authEnv('OAUTH2_B2C_ENABLED') === 'true';
 
-  if(claimsInAccessToken)
+  if (claimsSource === 'id_token')
+  {
+    if (!idToken) {
+      throw new Error('OIDC: the claims are expected in the ID token, and the token endpoint '
+        + 'returned no id_token. Ask for the openid scope (OAUTH2_REQUEST_PERMISSIONS).');
+    }
+    userinfo = getTokenContent(idToken);
+  }
+  else if(claimsInAccessToken)
   {
     // hack when using custom claims in the accessToken. On premise ADFS. And Azure AD B2C.
     userinfo = getTokenContent(accessToken);
@@ -186,7 +200,9 @@ OAuth.registerService('oidc', 2, null, async function (query) {
     userinfo["email_verified"] === true || userinfo["email_verified"] === "true";
 
   if (accessToken) {
-    var tokenContent = getTokenContent(accessToken);
+    // The whitelisted claims come from the ID token when it is where the claims
+    // are: an opaque access token has none to give.
+    var tokenContent = getTokenContent(claimsSource === 'id_token' && idToken ? idToken : accessToken);
     var config = await getConfiguration();
     if (tokenContent) {
       mergeWhitelistedClaims(

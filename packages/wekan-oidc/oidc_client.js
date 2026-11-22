@@ -51,6 +51,10 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
       if (config.loginStyle && config.loginStyle == 'popup') {
         options.display = 'popup';
       }
+      // Sign in with Apple requires form_post (models/lib/oidcProviderMode.js).
+      if (config.responseMode) {
+        options.response_mode = config.responseMode;
+      }
 
       var loginUrl = resolveOidcEndpoint(
         config.serverUrl,
