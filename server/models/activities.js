@@ -15,6 +15,8 @@ import { Notifications } from '/server/notifications/notifications';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { safeDeliver } from '/server/lib/webhookGuard';
 import { deliverActivityWebhook } from '/server/notifications/outgoing';
+// Admin Panel / Settings / Features / Turn off all webhooks.
+import { webhooksOff } from '/server/webhooksSwitch';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
@@ -528,6 +530,9 @@ Activities.after.insert(async (userId, doc) => {
   try { require('/server/activityPub').deliverActivityToFollowers(doc); }
   catch (error) { console.warn('ActivityPub delivery skipped'); }
 
+  // Admin Panel / Settings / Features / Turn off all webhooks: none is looked
+  // up (deliverActivityWebhook asks again before it sends).
+  if (await webhooksOff()) return;
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {
     params.watchers = watchers;

@@ -349,6 +349,12 @@ Settings.attachSchema(
       optional: true,
       blackbox: true,
     },
+    // Admin Panel / Settings / Features / Turn off all webhooks
+    // (models/lib/webhooksSwitch.js). Off by default: webhooks work.
+    webhooksDisabled: {
+      type: Boolean,
+      optional: true,
+    },
     // #2460: SQRL sign-in (server/sqrl.js). Off by default.
     sqrlEnabled: {
       type: Boolean,

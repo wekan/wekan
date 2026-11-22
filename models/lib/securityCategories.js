@@ -298,6 +298,13 @@ const CATALOG = {
   // vulnerability: settings that used to only hide their buttons.
   // blocksAccount: false - a page open from before the change still asks.
   'authz.disabled-setting': { category: 'authz', bleed: 'Disabled setting', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
+  // Admin Panel / Settings / Features / Turn off all webhooks
+  // (models/lib/webhooksSwitch.js): a webhook added or changed anyway - the
+  // Integrations allow/deny rules, the REST integration routes, a webhook's
+  // delivery settings, the login and registration webhook. Every screen that
+  // makes one is hidden while it is on. Not a Hall of Fame vulnerability.
+  // blocksAccount: false - a page open from before the switch still sends it.
+  'authz.webhooks-disabled': { category: 'authz', bleed: 'Webhooks turned off', severity: 'medium', cwe: 'CWE-284', blocksAccount: false },
   'authn.authentication-method': { category: 'authn', bleed: 'MembershipBleed', severity: 'high', cwe: 'CWE-200' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },

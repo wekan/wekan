@@ -38,7 +38,7 @@ const AUDITED_METHODS = [
   'saveAuthConfigSettings', 'saveSamlSettings', 'saveOauthProviderSettings',
   'savePasswordlessSettings', 'saveAdminMailSettings', 'setPermanentDeleteEnabled',
   'saveSqrlEnabled', 'saveInstanceFeatures', 'saveOptionalApis', 'saveRulesReadOnlyForMembers',
-  'saveWebhookInternalHosts', 'saveAccountWebhook', 'saveActivityPubEnabled',
+  'saveWebhookInternalHosts', 'saveAccountWebhook', 'saveWebhooksDisabled', 'saveActivityPubEnabled',
   'saveEmailBounceSettings', 'saveInboundMailSettings', 'setAdminNotifyDefault', 'uploadSiteLogo',
   'reloadAccountsLockout', 'saveAdminPanelAllowedAddresses',
   // Attachments, backups and data

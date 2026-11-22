@@ -19,6 +19,9 @@ function fixture({ load = async () => {}, translate = (key, params, language) =>
     TAPi18n: { ensureLanguageLoaded: load, __: (...args) => { translations.push(args); return translate(...args); } },
     // The senders call webhookFetch: fetchSafe off Sandstorm (server/sandstormEgress.js).
     webhookFetch: async (url, request) => { requests.push({ url, ...request }); return { status: 200 }; },
+    // Admin Panel / Settings / Features / Turn off all webhooks: on here
+    // (tests/hookBleedServerDelivery.test.cjs drives it off).
+    webhooksOff: async () => false,
     // #3695: the payload builder outgoing.js imports (stripped below).
     ...require('../models/lib/webhookPayload'), ...require('../models/lib/notificationDelivery'),
     // GHSA-r4gm-mjj9-g3x8: the card-opened notification asks the card rule.

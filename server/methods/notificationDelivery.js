@@ -114,6 +114,10 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized');
       }
     }
+    // Admin Panel / Settings / Features / Turn off all webhooks: a webhook's own
+    // form is hidden then, so its delivery is not changed either.
+    await require('/server/webhooksSwitch').refuseWebhookWriteWhenOff({ userId: this.userId,
+      source: 'setNotificationDelivery:integration', detail: `Changed the delivery of webhook ${targetId} while webhooks are turned off.` });
     const normalized = merged(integration.notificationDelivery?.webhook);
     await Integrations.updateAsync({ _id: targetId, boardId: integration.boardId }, modifierFor(normalized));
     return normalized;

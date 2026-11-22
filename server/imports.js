@@ -389,6 +389,9 @@ import '/server/bots';
 import '/server/webhookInternalHosts';
 // Admin Panel / Settings / Global Webhooks / Login and registration (#2290).
 import '/server/accountWebhook';
+// Admin Panel / Settings / Features / Turn off all webhooks, and Admin Panel /
+// Problems / Webhooks (models/lib/webhooksSwitch.js).
+import '/server/webhooksSwitch';
 // #1040: the JS Web Labels page for LibreJS.
 import '/server/jsWebLabels';
 // #1293: Android share target.

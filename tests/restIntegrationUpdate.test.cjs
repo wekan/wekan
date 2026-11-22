@@ -13,7 +13,7 @@ const { publicErrorData } = require('../server/lib/apiResponseHelpers');
 const route = '/api/boards/:boardId/integrations/:intId';
 const plain = value => JSON.parse(JSON.stringify(value));
 
-function fixture({ deny = false, lookupError, urlValid = false, internalAllowed = false } = {}) {
+function fixture({ deny = false, lookupError, urlValid = false, internalAllowed = false, webhooksOff = false } = {}) {
   const calls = [];
   const documents = [
     { _id: 'integration', boardId: 'board', title: 'Webhook', enabled: true, activities: ['all'] },
@@ -43,6 +43,14 @@ function fixture({ deny = false, lookupError, urlValid = false, internalAllowed 
       return 1;
     } } },
     normalizeDeliverySettings,
+    // Admin Panel / Settings / Features / Turn off all webhooks: the helper is
+    // above the sliced routes, so it is supplied here as the server would answer.
+    async refusedWhileWebhooksOff(req, res) {
+      if (!webhooksOff) return false;
+      calls.push(['refused']);
+      res.responses.push({ code: 403, data: { error: 'webhooks-disabled', reason: 'Webhooks are turned off' } });
+      return true;
+    },
     require(name) {
       assert.equal(name, '/server/webhookInternalHosts');
       return { async webhookHostIsInternalAllowed() { return internalAllowed; } };
@@ -102,6 +110,15 @@ for (const [name, params] of [
     }
   });
 }
+
+test('negative: while all webhooks are turned off, an update is refused after the checks and writes nothing', async () => {
+  const f = fixture({ webhooksOff: true, urlValid: true });
+  const before = plain(f.documents);
+  assert.deepEqual(await f.put({ title: 'Changed', url: 'https://hook.example/x', enabled: true }),
+    { code: 403, data: { error: 'webhooks-disabled', reason: 'Webhooks are turned off' } });
+  assert.deepEqual(f.calls, [['admin', 'admin', 'board'], ['lookup', { _id: 'integration', boardId: 'board' }], ['refused']]);
+  assert.deepEqual(f.documents, before);
+});
 
 test('board authorization precedes lookups for both existing and missing IDs', async () => {
   for (const intId of ['integration', 'missing']) {

@@ -33,6 +33,22 @@ async function integrationFieldsFor(userId, boardId) {
   return boardAdmin || siteAdmin ? { token: 0 } : { boardId: 1, enabled: 1, activities: 1 };
 }
 
+
+// Admin Panel / Settings / Features / Turn off all webhooks
+// (models/lib/webhooksSwitch.js): while it is on, these routes add and change
+// no webhook. Asked after the caller's board-admin check, so only somebody who
+// could otherwise write it is told - and recorded, because no screen offers
+// the write then. 403 'webhooks-disabled'. DELETE stays allowed: the cleanup.
+async function refusedWhileWebhooksOff(req, res, route) {
+  const { webhooksOff, recordWebhookWriteRefused } = require('/server/webhooksSwitch');
+  if (!(await webhooksOff())) return false;
+  recordWebhookWriteRefused({ userId: req.userId, source: `rest:${route}`,
+    detail: `REST ${route} on board ${req.params && req.params.boardId} while webhooks are turned off.` });
+  const { WEBHOOKS_DISABLED } = require('/models/lib/webhooksSwitch');
+  sendJsonResult(res, { code: 403, data: { ...WEBHOOKS_DISABLED } });
+  return true;
+}
+
 WebApp.handlers.get('/api/boards/:boardId/integrations', async function(req, res) {
   try {
     const paramBoardId = req.params.boardId;
@@ -78,6 +94,7 @@ WebApp.handlers.post('/api/boards/:boardId/integrations', async function(req, re
   try {
     const paramBoardId = req.params.boardId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    if (await refusedWhileWebhooksOff(req, res, 'POST /api/boards/:boardId/integrations')) return;
 
     // SSRF protection: block webhook URLs that resolve to private/loopback/
     // link-local addresses (e.g. cloud metadata at 169.254.169.254) before the
@@ -133,6 +150,7 @@ WebApp.handlers.put('/api/boards/:boardId/integrations/:intId', async function(r
     const paramIntId = req.params.intId;
     await Authentication.checkBoardAdmin(req.userId, paramBoardId);
     if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
+    if (await refusedWhileWebhooksOff(req, res, 'PUT /api/boards/:boardId/integrations/:intId')) return;
 
     // #3695: how this webhook delivers - { webhook: { text, fields, grouping,
     // schedule, ... } }, or null to inherit the board / Admin Panel default
@@ -225,6 +243,7 @@ WebApp.handlers.delete(
       const newActivities = req.body.activities;
       await Authentication.checkBoardAdmin(req.userId, paramBoardId);
       if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
+      if (await refusedWhileWebhooksOff(req, res, 'DELETE /api/boards/:boardId/integrations/:intId/activities')) return;
 
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },
@@ -253,6 +272,7 @@ WebApp.handlers.post(
       const newActivities = req.body.activities;
       await Authentication.checkBoardAdmin(req.userId, paramBoardId);
       if (!(await integrationOr404(res, paramBoardId, paramIntId))) return;
+      if (await refusedWhileWebhooksOff(req, res, 'POST /api/boards/:boardId/integrations/:intId/activities')) return;
 
       await Integrations.direct.updateAsync(
         { _id: paramIntId, boardId: paramBoardId },

@@ -10,6 +10,8 @@ import Integrations from '/models/integrations';
 import { buildWebhookBody, hideIdentityFields, memberHidesIdentity } from '/models/lib/webhookPayload';
 import { channelOf, resolveChannelSettings, webhookQueueTarget } from '/models/lib/notificationDelivery';
 import { assignedOnlyAllowsCard } from '/models/lib/boardCardScope';
+// Admin Panel / Settings / Features / Turn off all webhooks: nothing is sent.
+import { webhooksOff } from '/server/webhooksSwitch';
 
 const Lock = {
     _lock: {},
@@ -260,6 +262,10 @@ function storedIntegrationOf(integration) {
 // One webhook POST: from the stored integration, with params the caller has
 // already vetted. actorId is who did what is being reported.
 async function deliverWebhook(storedIntegration, description, params, actorId) {
+  // Turn off all webhooks (models/lib/webhooksSwitch.js): no request is built,
+  // queued or sent - the channel message, the Mattermost direct messages and a
+  // two-way reply alike.
+  if (await webhooksOff()) return undefined;
   const prepared = await prepareOutgoingWebhook({ integration: storedIntegration, description, params, actorId });
   if (!prepared) return;
   const { is2way } = prepared;
@@ -356,6 +362,7 @@ async function deliverWebhook(storedIntegration, description, params, actorId) {
 // stored one alone.
 export async function deliverActivityWebhook(integration, description, params, actorId) {
   if (!integration || typeof description !== 'string' || !params || typeof params !== 'object') return undefined;
+  if (await webhooksOff()) return undefined;
   const storedIntegration = await storedIntegrationOf(integration);
   if (!storedIntegration || storedIntegration.enabled === false) return undefined;
   return deliverWebhook(storedIntegration, description, structuredClone(params), actorId);
@@ -366,6 +373,9 @@ Meteor.methods({
       check(integration, Object);
       check(description, String);
       check(params, Object);
+      // Turn off all webhooks: the card-opened notification is not sent either.
+      // Not recorded: a card details page open from before the switch still calls.
+      if (await webhooksOff()) return undefined;
       if (this.userId) {
         this.unblock();
 

@@ -97,6 +97,13 @@ export async function captureStoredSyncWebhookPlan(input) {
 // attempt uses fetchSafe; receipts distinguish HTTP acceptance from reply effects.
 export async function runStoredSyncWebhooks(input) {
   const { saved, guard } = storedWebhookContext(input);
+  // Admin Panel / Settings / Features / Turn off all webhooks: this activity's
+  // webhooks are not sent, and the stage is complete - turning webhooks on
+  // again does not send a backlog of old activity.
+  if (await require('/server/webhooksSwitch').webhooksOff()) {
+    await input.assertCurrent();
+    return require('/server/lib/syncWebhookPlan').planId(saved._id);
+  }
   const plan = await ensureWebhookPlan({ plans: SyncWebhookPlans.rawCollection(), activity: saved, assertCurrent: guard,
     receipts: SyncWebhookCompletions.rawCollection(),
     build: activity => prepareActivityWebhookPlan({ activity, assertCurrent: guard }) });

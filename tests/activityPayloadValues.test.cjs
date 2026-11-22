@@ -32,6 +32,8 @@ function fixture() {
     ReactiveCache: { getIntegrations: async () => [{ _id: 'integration' }] },
     Notifications: { getUsers: async () => [{ _id: 'watcher' }], notify: (user, title, description, params) => notifications.push(structuredClone(params)) },
     safeDeliver: async fn => fn(), require: id => require(`..${id}`), process: { env: {} }, console,
+    // Admin Panel / Settings / Features / Turn off all webhooks: on here.
+    webhooksOff: async () => false,
   };
   vm.runInNewContext(source, context);
   const doc = value => ({ _id: 'activity', activityType: 'setCustomField',
@@ -80,6 +82,7 @@ async function outgoingPayload(params, type = 'outgoing', attributes) {
     // The senders call webhookFetch: fetchSafe off Sandstorm (server/sandstormEgress.js).
     webhookFetch: async (url, request) => { payload = JSON.parse(request.body); return { status: 200 }; },
     process: { env: attributes ? { WEBHOOKS_ATTRIBUTES: attributes } : {} },
+    webhooksOff: async () => false,
   };
   vm.runInNewContext(source, context);
   assert.equal(typeof method, 'function', 'the client method is still registered');

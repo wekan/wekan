@@ -32,6 +32,9 @@ function outbox() {
 }
 
 async function enqueue(bot, eventId, body) {
+  // Admin Panel / Settings / Features / Turn off all webhooks: a bot is sent
+  // nothing (the queue refuses too, server/lib/webhookOutbox.js).
+  if (await require('/server/webhooksSwitch').webhooksOff()) return;
   await outbox().enqueue({ integrationId: bot._id, eventId, groupKey: eventId, body, deliverAt: Date.now() });
 }
 
@@ -40,6 +43,10 @@ async function enqueue(bot, eventId, body) {
  * A card already with that bot keeps its run. Returns the run id.
  */
 export async function dispatchToBot({ integrationId, cardId, userId, source }) {
+  // No run is started for a bot that would never be told about it, and a
+  // Rule's other actions still run. Not recorded: a Rule made before the
+  // switch still dispatches.
+  if (await require('/server/webhooksSwitch').webhooksOff()) return null;
   const card = await ReactiveCache.getCard(cardId);
   if (!card) throw new Meteor.Error('not-found');
   const bot = await Integrations.findOneAsync({ _id: integrationId, boardId: card.boardId });
@@ -86,6 +93,10 @@ Meteor.methods({
     const card = await ReactiveCache.getCard(cardId);
     const board = card && await ReactiveCache.getBoard(card.boardId);
     if (!this.userId || !allowIsBoardAdmin(this.userId, board)) throw new Meteor.Error('not-authorized');
+    // The Bots view is hidden while webhooks are turned off.
+    if (await require('/server/webhooksSwitch').webhooksOff()) {
+      throw new Meteor.Error('webhooks-disabled', 'Webhooks are turned off');
+    }
     return dispatchToBot({ integrationId, cardId, userId: this.userId, source: 'button' });
   },
   async botAnswer(runId, value) {

@@ -45,7 +45,7 @@ const shouldBlockAccount = decision();
 // server/notifications/outgoing.js, run with what it needs: the stored
 // integration, the board, a webhookFetch that records what is sent, and a
 // securityLog that records what is logged - and whether it would block.
-function outgoing({ stored, member = true, fetch } = {}) {
+function outgoing({ stored, member = true, fetch, off = false } = {}) {
   let method;
   const requests = [], logged = [];
   const context = {
@@ -61,6 +61,8 @@ function outgoing({ stored, member = true, fetch } = {}) {
       getCard: async id => (id === 'card' ? { _id: 'card', boardId: 'board', listId: 'list', title: 'Card' } : null),
     },
     TAPi18n: { ensureLanguageLoaded: async () => {}, __: (key, params) => `${key} ${params && params.card || ''}` },
+    // Admin Panel / Settings / Features / Turn off all webhooks.
+    webhooksOff: async () => off,
     webhookFetch: async (url, request) => {
       if (fetch) return fetch(url, request);
       requests.push({ url, ...request });
@@ -91,6 +93,21 @@ test('a card move with a webhook enabled is delivered, logs nothing and blocks n
   assert.equal(f.requests[0].headers['X-Wekan-Token'], 'stored-token');
   assert.match(f.requests[0].body, /act-moveCard/);
   assert.deepEqual(f.logged, [], 'no HookBleed, so no account is disabled');
+});
+
+test('negative: with all webhooks turned off nothing is sent - activity, card-opened, two-way - and nothing is logged', async () => {
+  // Admin Panel / Settings / Features / Turn off all webhooks (models/lib/webhooksSwitch.js).
+  const f = outgoing({ stored: { ...HOOK, type: 'bidirectional-webhooks' }, off: true });
+  assert.equal(await f.deliver(HOOK, 'act-moveCard', MOVED, 'mover'), undefined);
+  assert.equal(await f.method.call(INHERITED, { _id: 'hook', boardId: 'board' }, 'CardSelected', { cardId: 'card' }), undefined);
+  // A forged call is not even looked at: the switch answers first.
+  await f.method.call(INHERITED, { _id: 'hook', boardId: 'board' }, 'act-moveCard', { text: 'phish' });
+  assert.deepEqual(f.requests, [], 'no request at all');
+  assert.deepEqual(f.logged, [], 'a webhook that is not sent is not a security event');
+  // The same calls with webhooks on do send (the positive half).
+  const on = outgoing({ stored: HOOK });
+  await on.deliver(HOOK, 'act-moveCard', MOVED, 'mover');
+  assert.equal(on.requests.length, 1);
 });
 
 test('the delivery is the same whatever method context it runs in (the inherited context of #6782)', async () => {

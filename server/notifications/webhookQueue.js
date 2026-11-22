@@ -6,6 +6,9 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 // the Powerbox grant a board admin gave this webhook, when there is one.
 import { webhookFetch } from '/server/sandstormEgress';
 const { createWebhookOutbox } = require('/server/lib/webhookOutbox');
+// Admin Panel / Settings / Features / Turn off all webhooks: nothing is queued
+// or sent while it is on; waiting jobs are kept.
+import { webhooksOff } from '/server/webhooksSwitch';
 
 // #3695: grouped and scheduled outgoing webhooks (server/lib/webhookOutbox.js).
 // Queued bodies are server-private: no client can read or write them.
@@ -20,6 +23,7 @@ export const webhookOutbox = createWebhookOutbox({
   leases: WebhookLeases.rawCollection(),
   getIntegration: id => Integrations.findOneAsync(id),
   oneWayType: Integrations.Const.ONEWAY,
+  webhooksOff,
   // The same SSRF-guarded transport as an immediate webhook (IntegrationBleed).
   post: async (url, request) => {
     try {

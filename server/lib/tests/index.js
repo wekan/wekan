@@ -153,6 +153,8 @@ import './notificationDelivery.tests';
 import './customFieldLinks.tests';
 import './passkeys.tests';
 import './sqrl.tests';
+// Turn off all webhooks, and Admin Panel / Problems / Webhooks.
+import './webhooksSwitch.tests';
 import './webPush.tests';
 // PASSWORD_LOGIN_ENABLED=false refused on the server, DDP and REST.
 import './passwordLoginDisabled.tests';

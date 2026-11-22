@@ -61,7 +61,9 @@ test('a bot has no rights of its own', () => {
   // Its own run only: the run must be on that board and card.
   assert.match(server, /BotRuns\.updateAsync\(\{ _id: runId, boardId, cardId \}/);
   // Handing over and answering are board admins'; a comment is the person's own.
-  assert.match(server, /if \(!this\.userId \|\| !allowIsBoardAdmin\(this\.userId, board\)\) throw new Meteor\.Error\('not-authorized'\);\s*return dispatchToBot/);
+  // The admin check comes first; then, since Turn off all webhooks
+  // (models/lib/webhooksSwitch.js), the refusal while every webhook is off.
+  assert.match(server, /if \(!this\.userId \|\| !allowIsBoardAdmin\(this\.userId, board\)\) throw new Meteor\.Error\('not-authorized'\);\s*(\/\/[^\n]*\n\s*)*if \(await require\('\/server\/webhooksSwitch'\)\.webhooksOff\(\)\) \{\s*throw new Meteor\.Error\('webhooks-disabled'[^\n]*\n\s*\}\s*return dispatchToBot/);
   assert.match(server, /if \(!card \|\| !\(await canCommentInList\(userId, board, card\.listId\)\)\) throw/);
   // A bot of another board can never be handed a card.
   assert.match(server, /Integrations\.findOneAsync\(\{ _id: integrationId, boardId: card\.boardId \}\)/);

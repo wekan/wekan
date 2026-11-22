@@ -60,6 +60,9 @@ function run(handlerUrl, verb, integrations, { deny = false, lookupError, remove
       },
     } },
     normalizeDeliverySettings: x => x,
+    // Turn off all webhooks: on here (tests/restIntegrationUpdate.test.cjs
+    // covers the refusal).
+    refusedWhileWebhooksOff: async () => false,
     publicErrorData,
     sendJsonResult(res, result) { res.responses.push(JSON.parse(JSON.stringify(result))); },
   };

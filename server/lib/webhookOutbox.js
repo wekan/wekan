@@ -14,6 +14,11 @@
 // The request goes to the webhook as it is AT DELIVERY: a deleted, disabled
 // or two-way webhook cancels its queued jobs, and the current URL and token
 // are used - a queued job never carries a credential of its own.
+//
+// `webhooksOff` (Admin Panel / Settings / Features / Turn off all webhooks,
+// models/lib/webhooksSwitch.js): while it answers true nothing is queued and
+// nothing is sent. A job already waiting is KEPT, not cancelled, and is sent
+// once webhooks are turned on again.
 const { createHash, randomUUID } = require('node:crypto');
 const { withSyncLease } = require('./syncLease');
 const { combineWebhookBodies } = require('../../models/lib/webhookPayload');
@@ -30,7 +35,7 @@ function retryDelayMs(attempts) {
 }
 
 function createWebhookOutbox({ jobs, leases, getIntegration, post, now = () => new Date(), oneWayType = 'outgoing-webhooks',
-  leaseOptions = {} }) {
+  leaseOptions = {}, webhooksOff = async () => false }) {
   // Store one prepared body. `deliverAt` is the time from the webhook's
   // schedule; `groupKey` the group it is sent with.
   async function enqueue({ integrationId, eventId, groupKey, body, deliverAt }) {
@@ -39,6 +44,7 @@ function createWebhookOutbox({ jobs, leases, getIntegration, post, now = () => n
       throw new Error('invalid-webhook-job');
     }
     if (Buffer.byteLength(JSON.stringify(body)) > MAX_BODY_BYTES) throw new Error('webhook-job-too-large');
+    if (await webhooksOff()) return null;
     const createdAt = now();
     const _id = jobIdFor(integrationId, eventId);
     const job = { _id, integrationId, eventId, groupKey, body, state: 'pending', attempts: 0, createdAt,
@@ -70,6 +76,11 @@ function createWebhookOutbox({ jobs, leases, getIntegration, post, now = () => n
         const ids = batch.map(job => job._id);
         await assertCurrent();
         await jobs.updateMany({ _id: { $in: ids }, state: 'pending' }, { $set: { attemptId } });
+        // Turned off since the pass began: release the jobs untouched.
+        if (await webhooksOff()) {
+          await jobs.updateMany({ _id: { $in: ids }, state: 'pending', attemptId }, { $unset: { attemptId: '' } });
+          return;
+        }
         const integration = await getIntegration(integrationId);
         await assertCurrent();
         if (!integration || integration.enabled === false || integration.type !== oneWayType || !integration.url) {
@@ -110,6 +121,7 @@ function createWebhookOutbox({ jobs, leases, getIntegration, post, now = () => n
   }
 
   async function drain() {
+    if (await webhooksOff()) return;
     const due = await jobs.aggregate([
       { $match: { state: 'pending', nextAttemptAt: { $lte: now() } } },
       { $group: { _id: '$integrationId', nextAttemptAt: { $min: '$nextAttemptAt' } } },

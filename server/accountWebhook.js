@@ -28,6 +28,8 @@ async function accountWebhookConfig() {
 function send(event, user, ip) {
   Meteor.defer(async () => {
     try {
+      // Admin Panel / Settings / Features / Turn off all webhooks.
+      if (await require('/server/webhooksSwitch').webhooksOff()) return;
       const config = await accountWebhookConfig();
       if (!sends(config, event)) return;
       const headers = { 'Content-Type': 'application/json' };
@@ -60,6 +62,9 @@ Meteor.methods({
   async saveAccountWebhook(input) {
     check(input, Object);
     await requireSiteAdmin(this.userId);
+    // Its pane is hidden while webhooks are turned off; the stored one is kept.
+    await require('/server/webhooksSwitch').refuseWebhookWriteWhenOff({ userId: this.userId,
+      source: 'saveAccountWebhook', detail: 'Changed the login and registration webhook while webhooks are turned off.' });
     const { value, error } = cleanAccountWebhook(input);
     if (error) throw new Meteor.Error(error);
     const setting = await Settings.findOneAsync({});
