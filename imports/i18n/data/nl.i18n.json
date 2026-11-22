@@ -5167,7 +5167,7 @@
   "billing-no-quotes": "Nog geen offertes.",
   "billing-line-fee": "Vergoeding",
   "billing-line-expense": "Onkosten",
-  "billing-line-product": "Product",
+  "billing-line-product": "Artikel",
   "time-entry-approved": "Goedgekeurd",
   "time-entry-rejected": "Teruggestuurd",
   "workload-utilization": "Factureerbaar __percent__ % (__hours__ h)",
