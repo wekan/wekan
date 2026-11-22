@@ -148,7 +148,8 @@ async function receiveFile(fs, path, maildir, name) {
     { skipImageLinks: true, skipTextLinks: true }));
   await routeToBoard(message);
   try {
-    await receiveEmail(message, { source: 'sandstorm-grain-email' });
+    // The grain's own mailbox, delivered by Sandstorm: it may carry bounces.
+    await receiveEmail(message, { source: 'sandstorm-grain-email', bounceAllowed: true });
   } finally {
     // Read once, whatever became of it: a refused email does not get better
     // by being read again every five seconds.

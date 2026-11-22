@@ -196,11 +196,15 @@ export async function receiveReplyEmail({ to, from, text }, { source = 'webhook'
 
 // One parsed email, to whichever use its recipients name: a board address
 // (email to card) or a reply address (comment).
-export async function receiveEmail(message, { source = 'webhook', fields = {} } = {}) {
+// bounceAllowed: the transport proved who sent it - only then may a bounce stop
+// email to an address (BounceBleed, server/emailBounces.js handleBounceEmail).
+export async function receiveEmail(message, { source = 'webhook', fields = {}, bounceAllowed = false } = {}) {
   // A bounce or an auto-reply is never a card or a comment: it goes to
   // Admin Panel -> E-mail -> Bounces (server/emailBounces.js).
   const { handleBounceEmail } = require('/server/emailBounces');
-  if (await handleBounceEmail(message, { source })) return { handled: true, code: 200, bounce: true };
+  const bounce = await handleBounceEmail(message, { source, trusted: bounceAllowed === true });
+  if (bounce === 'refused') return { handled: true, code: 403, error: 'Bounce reports need the inbound webhook secret' };
+  if (bounce) return { handled: true, code: 200, bounce: true };
   const { receiveBoardEmail } = require('/server/emailToCard');
   const board = await receiveBoardEmail(message, { source });
   if (board.handled) return board;
@@ -237,7 +241,8 @@ WebApp.handlers.post('/api/inbound-email', async function inboundEmailHandler(re
       return;
     }
     const source = (req.headers && req.headers['x-forwarded-for']) || req.socket?.remoteAddress;
-    const result = await receiveEmail(parsed.message, { source, fields: parsed.fields });
+    // A bounce is taken only when the secret was configured and matched above.
+    const result = await receiveEmail(parsed.message, { source, fields: parsed.fields, bounceAllowed: Boolean(expected) });
     if (!result.handled) {
       if (!process.env.INBOUND_EMAIL_HMAC_SECRET) {
         logRejectedInboundEmail(req, 'INBOUND_EMAIL_HMAC_SECRET not configured');

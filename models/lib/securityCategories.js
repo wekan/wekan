@@ -297,6 +297,11 @@ const CATALOG = {
   // of which a real reply produces. NOT logged: an expired or pre-fix token, a
   // disabled user or one who lost comment access - real people reach those.
   'authn.inbound-email': { category: 'authn', bleed: 'ReplyBleed', severity: 'medium', cwe: 'CWE-346' },
+  // BounceBleed (GHSA-7w85-38ph-c96v): a bounce report through the generic
+  // inbound webhook without its secret - one would stop every email WeKan sends
+  // to the address it names. Logged: no real mail provider's bounce comes that
+  // way once the secret is set, and until it is, the row says to set it.
+  'authn.inbound-bounce': { category: 'authn', bleed: 'BounceBleed', severity: 'medium', cwe: 'CWE-306' },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };

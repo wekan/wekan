@@ -82,7 +82,8 @@ async function pollAccount(account, password) {
         if (msg && msg.source && (!msg.size || msg.size <= maxMessageBytes())) {
           try {
             const message = fromParsedMail(await simpleParser(msg.source, { skipImageLinks: true, skipTextLinks: true }));
-            const result = await receiveEmail(message, { source: `imap:${account.id}` });
+            // A mailbox WeKan signed in to: it may carry bounces.
+            const result = await receiveEmail(message, { source: `imap:${account.id}`, bounceAllowed: true });
             handled = result.handled === true;
           } catch (e) {
             console.warn(`inbound IMAP ${account.id}: message ${uid} not processed:`, e && e.message);

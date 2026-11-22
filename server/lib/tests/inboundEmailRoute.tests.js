@@ -5,6 +5,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import CardComments from '/models/cardComments';
 import EventLog from '/models/eventLog';
+import { EmailBounces } from '/server/emailBounces';
 const { buildReplyToAddress } = require('/server/lib/inboundEmailReplyToken');
 
 // ReplyBleed (GHSA-mc7c-cv99-64h7), over real HTTP: a reply to Alice's
@@ -89,6 +90,22 @@ describe('Reply-by-email webhook (ReplyBleed)', function () {
       assert.equal((await post({ to, from: aliceMail, text: 'by header' }, { headers: { 'x-wekan-inbound-secret': 'provider-secret' } })).status, 200);
       assert.equal((await post({ to, from: aliceMail, text: 'by query' }, { query: '?secret=provider-secret' })).status, 200);
       assert.deepEqual((await comments()).map(row => row.userId), [alice, alice, alice]);
+
+      // BounceBleed (GHSA-7w85-38ph-c96v): a forged delivery report naming any
+      // address. Without the secret it is refused - no bounce row, nothing
+      // stopped, no card - and with the secret it is recorded.
+      const victim = `victim-${Random.id().toLowerCase()}@example.test`;
+      const dsn = { subject: 'delivery failure', text: `Final-Recipient: rfc822; ${victim}\nAction: failed\nStatus: 5.1.1` };
+      const bounces = () => EmailBounces.rawCollection().find({ email: victim }).toArray();
+      process.env.INBOUND_EMAIL_WEBHOOK_SECRET = '';
+      assert.equal((await post(dsn)).status, 403, 'no secret: the bounce is refused');
+      assert.deepEqual(await bounces(), [], 'and nothing is recorded or stopped');
+      process.env.INBOUND_EMAIL_WEBHOOK_SECRET = 'provider-secret';
+      assert.equal((await post(dsn)).status, 401, 'a secret is set: without it, nothing at all');
+      assert.deepEqual(await bounces(), []);
+      assert.equal((await post(dsn, { headers: { 'x-wekan-inbound-secret': 'provider-secret' } })).status, 200);
+      assert.equal((await bounces()).length, 1, 'with the secret, the provider\'s bounce is recorded');
+      await EmailBounces.rawCollection().deleteMany({ email: victim });
     } finally {
       process.env.INBOUND_EMAIL_WEBHOOK_SECRET = '';
       await CardComments.rawCollection().deleteMany({ cardId });

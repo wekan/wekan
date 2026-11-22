@@ -185,13 +185,34 @@ export async function recordBounces(bounces, { source = 'email', subject = '' } 
 }
 
 // An email that reached WeKan: a bounce or an auto-reply? Then it is handled
-// here and the caller makes no card of it. Returns true when it was one.
-export async function handleBounceEmail(message, { source = 'email' } = {}) {
+// here and the caller makes no card of it. Returns false when it was not one,
+// true when it was recorded, and 'refused' when it was one from a transport
+// that cannot vouch for who sent it.
+//
+// BounceBleed (GHSA-7w85-38ph-c96v): a bounce STOPS every email WeKan sends to
+// the address it names - invitations, notifications, password resets - and one
+// hard bounce is enough. The generic webhook took one from anybody when no
+// INBOUND_EMAIL_WEBHOOK_SECRET was set, which is the default, so a single
+// unauthenticated POST silenced any address. Only a transport that proves where
+// the mail came from may record one now (`trusted`): the webhook with its secret
+// checked, SES through a verified SNS signature, an IMAP mailbox WeKan signed in
+// to, and the Sandstorm grain's own mailbox. From anywhere else it is refused,
+// and it does not become a card or a comment either.
+export async function handleBounceEmail(message, { source = 'email', trusted = false } = {}) {
   const verdict = classifyEmail({
     headers: message.headers, from: message.from, subject: message.subject,
     text: message.text, deliveryStatus: message.deliveryStatus,
   });
   if (!verdict) return false;
+  if (trusted !== true) {
+    try {
+      require('/server/lib/securityLog').record({ key: 'authn.inbound-bounce', action: 'blocked', source,
+        detail: 'a bounce report without the inbound webhook secret; set INBOUND_EMAIL_WEBHOOK_SECRET or the Admin Panel webhook secret' });
+    } catch (e) {
+      // logging must never break the guard
+    }
+    return 'refused';
+  }
   await recordBounces(verdict.bounces, { source, subject: message.subject });
   return true;
 }
@@ -309,7 +330,8 @@ export async function handleSnsMessage(msg) {
     // SES knows the real envelope recipients.
     message.deliveredTo = [...(inner.receipt && inner.receipt.recipients || []), ...(message.deliveredTo || [])];
     const { receiveEmail } = require('/server/routes/inboundEmail');
-    const result = await receiveEmail(message, { source: 'ses' });
+    // Verified above: the SNS signature and a topic the Admin Panel lists.
+    const result = await receiveEmail(message, { source: 'ses', bounceAllowed: true });
     return { code: result.code || 200 };
   }
   return { code: 200 };

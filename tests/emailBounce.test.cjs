@@ -134,7 +134,9 @@ test('server: SNS signature and topic are checked, bounces never become cards, s
   assert.match(src, /if \(!settings\.sesTopicArns\.includes\(msg\.TopicArn\)\) \{\n\s*refuse\(/, 'only the topics the Admin Panel lists');
   assert.match(src, /SNS_HOST = \/\^sns\\\.\[a-z0-9-\]\+\\\.amazonaws\\\.com/, 'certificate and subscribe URLs only from amazonaws.com');
   assert.match(src, /Email\.hookSend\(email => \{/);
-  assert.match(read('server/routes/inboundEmail.js'), /if \(await handleBounceEmail\(message, \{ source \}\)\) return \{ handled: true, code: 200, bounce: true \};/);
+  // BounceBleed: a bounce is recorded only from a transport that vouches for it
+  // (tests/bounceBleed.test.cjs); one that is refused is not a card either.
+  assert.match(read('server/routes/inboundEmail.js'), /const bounce = await handleBounceEmail\(message, \{ source, trusted: bounceAllowed === true \}\);\n\s*if \(bounce === 'refused'\) return \{ handled: true, code: 403/);
   // The SES endpoint is reachable without the REST API, like the webhook.
   assert.match(read('server/apiMiddleware.js'), /INBOUND_EMAIL_PATHS = \['\/api\/inbound-email', '\/api\/inbound-email\/ses'\]/);
 });
