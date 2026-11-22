@@ -20,6 +20,7 @@ releases/sec/download-github-security.sh wekan
 | `--state open` | only the open alerts (default: all of them) |
 | `--out DIR` | write under DIR instead of `.tools/log/sec` |
 | `--include-archived`, `--include-forks` | archived repositories and forks too |
+| `--builds N` | look at the N newest GitHub Actions runs (at most 100, the default); `--builds 0` downloads no builds |
 | `--include-secret-values` | keep the secrets secret scanning found - they are redacted by default |
 
 ## What it writes
@@ -31,7 +32,19 @@ releases/sec/download-github-security.sh wekan
   code-scanning/             alerts.json, alert-<n>.json, alert-<n>.instances.json
   secret-scanning/           alerts.json, alert-<n>.json (secret redacted)
   security-advisories/       alerts.json, advisory-<GHSA>.json
+  builds/                    runs.json, the newest Actions runs
+    <workflow>/run-<id>/     for a workflow whose newest finished run failed:
+      jobs.json              its jobs and their steps
+      job-<id>-<name>.log    each failed job's whole log
+      job-<id>-<name>.tail.txt   its last 200 lines - usually where the error is
 ```
+
+**Builds.** SUMMARY.md ends with a table of every workflow's newest finished
+run - failed ones first, with the failed jobs, their failed steps and the path
+of each log - so all broken builds of an organization can be fixed from one
+download. A run still in progress is skipped, older runs of a workflow are not
+downloaded, and a successful job's log is not either. Reading Actions needs no
+scope beyond `repo` (`actions:read` for a fine-grained token).
 
 A kind GitHub does not answer for a repository - not enabled, or not visible to
 the account - gets `status.txt` with GitHub's reason, and the run goes on. Each
