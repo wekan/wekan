@@ -37,9 +37,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   a personal-data inventory, complete erasure, a personal-data export, legal
   pages with accepted versions, and the rest of the gap analysis in
   `docs/Compliance/`.
-- Board View Shop: the products on a board's cards as a web shop, which a
-  public board can show instead of the kanban as Website can, with Board
-  Settings / Shop choosing the payment methods WeKan already has.
+- Webhooks: one switch in Admin Panel / Settings / Visibility that turns every
+  webhook off, hidden and refused on the server, and an Admin Panel report of
+  every webhook, its owner and what it contains.
+- Admin Panel / Settings: the IPv4 and IPv6 addresses the Admin Panel and the
+  Admin API may be used from.
 - Found while documenting, to fix: the per-address login delay is never
   applied; Broken Cards counts unknown card types in its list but not in the
   Summary or its repair; the database, integrity and mail streams have no name

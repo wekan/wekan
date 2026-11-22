@@ -97,15 +97,12 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **attachment slideshow** shows more kinds of files and reads
-only what is on the screen, and **Filter, Search and Search All Boards** find
-the text **inside attachments**, whose **SHA-256** is checked on every read.
-The opened card **remembers its width**, a forged bounce report can no longer
-stop email (**BounceBleed**), the **Cloud Panel** exists only in a Cloud Admin
-container with the `CLOUD` variable (**CloudPanelBleed**), and every setting
-that turns something off is **refused on the server**, not only hidden. Every
-**feature page** of the docs now says what it is, how to use it, how its
-numbers are calculated, how it works and its commits.
+**In short:** A board can be a **Shop**, the **Cloud Panel** exists only in a
+Cloud Admin container with the `CLOUD` variable (**CloudPanelBleed**), a forged
+bounce report can no longer stop email (**BounceBleed**), and every setting that
+turns something off is **refused on the server**. The **audit log**, **sign-in
+address retention** and a **personal-data inventory** begin the missing law and
+standard features, and every **feature page** of the docs has one shape.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -302,6 +299,79 @@ plays the server with a fake ssh.
 
 - [CLOUD on every platform: the Dockerfile, start-wekan, every docker-compose file and the Snap](https://github.com/wekan/wekan/commit/f4439cb285562ed3c4cca3439b41a664fdec86c4). Thanks to xet7.
 
+**Shop** - a board's cards as a web shop.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04436a739da5d0f1c5326253c4c92310c4fdb983">Board View / Shop: the products on the cards as a web shop, with a cart and a checkout</a>. Thanks to xet7.</summary>
+
+A card in a list on sale whose price custom field holds a number is a product,
+its labels are the categories. A visitor fills a cart and orders; the order is
+a card on a private Orders board, numbered `ORD-<year>-<number>`, with the
+lines, totals with VAT, the payment method and its reference. A public board
+can show the Shop instead of the kanban, as it can show the Website.
+[Docs](docs/Features/Board-Header/Board-Views/Shop.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/493af449982c808b11e4d9e3ff138c635e05cc2a">Board Settings / Shop: open the shop, map the cards to products, choose the Orders list and the payment methods</a>. Thanks to xet7.</summary>
+
+The payment methods are the ones Budget and billing already has - SEPA QR, bank
+barcodes, Swish, Pix, UPI, PayPal.me, crypto addresses, cash and the rest - with
+the QR code or barcode made for the order's total. No card gateway or outside
+account is added. [Docs](docs/Features/Board-Sidebar/Board-Settings/Shop.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8892734fa987d89c0f455464dfdf7def84488850">Every Shop setting is enforced on the server, and refused attempts are in Admin Panel / Problems</a>. Thanks to xet7.</summary>
+
+Only a board admin saves the settings, and the Orders list must be on a private
+board they also administer. An order's prices come from the cards, never from
+the browser; a changed price or stock refuses the order, and orders are rate
+limited per connection, address and shop.
+
+</details>
+
+- [Products, cart, totals and orders computed from the cards](https://github.com/wekan/wekan/commit/0aa3d0b9d67330670e51bb118dae44fa40eaca8a). Thanks to xet7.
+
+**Laws and standards** - what GDPR, NIS2, ISO 27001 and the others need, added
+where WeKan lacked it. [Gap analysis](docs/Compliance/README.md).
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/377a7b3abc87257a6a9a11dc468cbd1a556e6b24">Audit log: the Admin Panel's own collection writes and user anonymisation are recorded</a>. Thanks to xet7.</summary>
+
+The Admin Panel saved settings, announcements, translations and the access
+settings through Meteor's collection methods, which the audit log did not see.
+Those writes, and anonymising a user, are now recorded with who did it and when.
+
+</details>
+
+- [Audit log: Account settings and the table visibility modes too](https://github.com/wekan/wekan/commit/94c598dd6bacca3fb0e52b079bdd6da1a94fd18a). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02baa650feef415248abe055f9284881e48483f5">Sign-in addresses expire: LOGIN_ADDRESS_RETENTION_DAYS, default 365 days</a>. Thanks to xet7.</summary>
+
+The addresses an account signed in from, the accounts behind an address and the
+short-password logins were capped in number but kept forever. Once a day an
+entry last used before the limit is removed; an address in use stays, and 0
+keeps everything as before.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bfd83d09b606b5fce72f2d4f3fa673f00227dd87">Personal-data inventory: every collection classified, with a generated Data-Inventory.md</a>. Thanks to xet7.</summary>
+
+All 185 collections, 128 holding personal data, each with its categories,
+purpose, retention and what erasure does to it. A test fails when a new
+collection is not classified, and lists the collections erasure does not
+clean yet, for the complete erasure that comes next.
+[Inventory](docs/Compliance/Data-Inventory.md).
+
+</details>
+
+- [Compliance: rows 2.1 and 2.2 point at the personal-data inventory](https://github.com/wekan/wekan/commit/70769674d6b1775ab83adc5270f194aefc5d0bf3). Thanks to xet7.
+
 and fixes the following bugs:
 
 **Import** - a .zip as a new board.
@@ -373,6 +443,12 @@ none.
 - [The suites the earlier fixes broke: the hint's tests, the calendar guard, the OIDC quirks, tag stripping](https://github.com/wekan/wekan/commit/4364c7d0084800a0abfda06499b3a2e47d4b4420). Thanks to xet7.
 - [Starred pages: the comment says what toggling does](https://github.com/wekan/wekan/commit/2dbc2a30bec2bbc86a47ca72da1cff079e0f4325). Thanks to xet7.
 
+- [Shop: tests of the products, the prices, the settings and the orders, and of what is refused](https://github.com/wekan/wekan/commit/0d74e6ec25a8d7f976cbb69f1a5c34763036cf25). Thanks to xet7.
+- [Shop: a product tile strips tags until none is left](https://github.com/wekan/wekan/commit/3a4e8899573ce745f4ed0d49afde3e646ae06c86). Thanks to xet7.
+- [Shop test: the Problems keys are escaped whole when matched](https://github.com/wekan/wekan/commit/f5181faf779aef0db4da7e51e580094556de0554). Thanks to xet7.
+- [Personal-data inventory: table cells escape backslashes, and the shared-description guard knows it only names collections](https://github.com/wekan/wekan/commit/bad1407412c37dae2a94880eead4a66e8454c863). Thanks to xet7.
+- [Personal-data inventory: its generator is in the build-script guard, and the scan escapes a whole name](https://github.com/wekan/wekan/commit/e039e1716ae6f70193bda5cd4e7e70edb5f4ca22). Thanks to xet7.
+
 and has the following documentation:
 
 **Feature pages** - every page under `docs/Features/` in one shape: what it
@@ -426,6 +502,7 @@ and its commits; checked against the code, which corrected many pages.
 
 **Laws, standards and the new features** - and the pages of this release.
 
+- [Shop: in the feature list, the newest features, and the commits that built it](https://github.com/wekan/wekan/commit/9e8bdc5381f4b5f5c959c711cfd72dc4524bf91e). Thanks to xet7.
 - [Compliance - laws and standards against what WeKan has, with the official sources](https://github.com/wekan/wekan/commit/98b8a76bca3f919a7c0d1c011c96ba2357355d8e). Thanks to xet7.
 - [Settings enforced on the server - what each disabling setting refuses, and what is display only and why](https://github.com/wekan/wekan/commit/7377724b6bd88f4b9e684bf9d46d6b09885c753b). Thanks to xet7.
 - [the Cloud Panel with CLOUD=<its domain>, its Cloud Admins, customer login, support boards, allowed addresses and no REST API](https://github.com/wekan/wekan/commit/2beb52cea864098923fd05977480931fbe84eb42). Thanks to xet7.
@@ -446,6 +523,12 @@ and updates the following translations:
 
 - [The Cloud Panel's new strings in every language](https://github.com/wekan/wekan/commit/04c5b399aa51002c4d819a8d8d57263adee6496c). Thanks to xet7.
 - [The Cloud Panel's support board in Bosnian and Tigre](https://github.com/wekan/wekan/commit/55ed7065ff84bd9e59db3ae35691c37ca412656a). Thanks to xet7.
+
+**Shop** - its new strings.
+
+**Languages updated:** 232 languages.
+
+- [The Shop's 38 new strings in every language](https://github.com/wekan/wekan/commit/136fdebf969071d371b94c5b7646b10fb43a925a). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

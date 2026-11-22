@@ -7,15 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **attachment slideshow** shows more kinds of files and reads
-only what is on the screen, and **Filter, Search and Search All Boards** find
-the text **inside attachments**, whose **SHA-256** is checked on every read.
-The opened card **remembers its width**, a forged bounce report can no longer
-stop email (**BounceBleed**), the **Cloud Panel** exists only in a Cloud Admin
-container with the `CLOUD` variable (**CloudPanelBleed**), and every setting
-that turns something off is **refused on the server**, not only hidden. Every
-**feature page** of the docs now says what it is, how to use it, how its
-numbers are calculated, how it works and its commits.
+A board can be a **Shop**, the **Cloud Panel** exists only in a
+Cloud Admin container with the `CLOUD` variable (**CloudPanelBleed**), a forged
+bounce report can no longer stop email (**BounceBleed**), and every setting that
+turns something off is **refused on the server**. The **audit log**, **sign-in
+address retention** and a **personal-data inventory** begin the missing law and
+standard features, and every **feature page** of the docs has one shape.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
