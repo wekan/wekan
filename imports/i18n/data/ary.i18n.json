@@ -5658,5 +5658,19 @@
   "gitea-token-set": "محدد",
   "gitea-token-not-set": "ماشي محدد",
   "gitea-bad-name": "هادي ماشي سمية صالحة ديال مالك ولا مستودع.",
-  "gitea-doer": "المستخدم ديال Gitea اللي كيتدار بيه الاستيراد"
+  "gitea-doer": "المستخدم ديال Gitea اللي كيتدار بيه الاستيراد",
+  "gitea-no-sync": "ما تبقاش تزامن هاد المستودع",
+  "gitea-sync-again": "رجعو تاني",
+  "gitea-excluded-saved": "ما بقاش كيتزامن:",
+  "gitea-included-saved": "تزامن تاني:",
+  "gitea-sync-exclude-file": "لائحة ديال المستودعات اللي github-to-gitea و Omi ما بقاوش كيزامنوها",
+  "gitea-delete-repo": "مسح هاد المستودع والملفات ديالو",
+  "gitea-delete-repo-confirm": "هادشي كيمسح المستودع، الويكي ديالو وكاع البيانات ديالو من الدوسي ديال Gitea نهائيا. كتب owner/name باش تكمل:",
+  "gitea-delete-repo-wrong-name": "السمية اللي تكتبات ماشي owner/name ديال المستودع. ما تمسح والو.",
+  "gitea-exclude-too": "حيدو حتى من المزامنة، باش المزامنة الجاية ما ترجعوش",
+  "gitea-packages-unlinked": "الباكيجات المربوطة بيه كيبقاو عند المالك، بلا ربط:",
+  "gitea-deleted": "تمسح",
+  "gitea-freed": "تحررات",
+  "gitea-deleted-list": "المستودعات الممسوحة",
+  "gitea-index-stale": "قديم من بعد شي مسح: عاود القياس باش تاخد الأحجام بالضبط."
 }

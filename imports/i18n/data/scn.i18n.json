@@ -5658,5 +5658,19 @@
   "gitea-token-set": "mpustatu",
   "gitea-token-not-set": "nun mpustatu",
   "gitea-bad-name": "Chistu nun è un nomu vàlidu di prupitariu o di dipòsitu.",
-  "gitea-doer": "Utenti di Gitea a nomu dû quali si fa la mpurtazzioni"
+  "gitea-doer": "Utenti di Gitea a nomu dû quali si fa la mpurtazzioni",
+  "gitea-no-sync": "Nun sincronizzari cchiù stu dipòsitu",
+  "gitea-sync-again": "Includiri arrè",
+  "gitea-excluded-saved": "Nun cchiù sincronizzatu:",
+  "gitea-included-saved": "Sincronizzatu arrè:",
+  "gitea-sync-exclude-file": "lista dî dipòsiti ca github-to-gitea e Omi nun sincronizzanu cchiù",
+  "gitea-delete-repo": "Cancillari stu dipòsitu e li sò file",
+  "gitea-delete-repo-confirm": "Chistu cancella pi sempri lu dipòsitu, la sò wiki e tutti li sò dati dâ cartedda di Gitea. Scrivi prupitariu/nomu pi jiri avanti:",
+  "gitea-delete-repo-wrong-name": "Lu nomu scrittu nun è lu prupitariu/nomu dû dipòsitu. Nun fu cancillatu nenti.",
+  "gitea-exclude-too": "Escludilu puru dâ sincronizzazzioni, accussì ca la prossima sincronizzazzioni nun lu porta arrè",
+  "gitea-packages-unlinked": "Li pacchetti liati a iddu restanu cû prupitariu, sliati:",
+  "gitea-deleted": "Cancillatu",
+  "gitea-freed": "libbirati",
+  "gitea-deleted-list": "Dipòsiti cancillati",
+  "gitea-index-stale": "Nun aggiurnatu di quannu ci fu na cancillazzioni: misura arrè pi granni esatti."
 }

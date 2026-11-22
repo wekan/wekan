@@ -5658,5 +5658,19 @@
   "gitea-token-set": "etọrọ",
   "gitea-token-not-set": "etọghị",
   "gitea-bad-name": "Nke ahụ abụghị aha onye nwe ma ọ bụ ebe nchekwa koodu ziri ezi.",
-  "gitea-doer": "Onye ọrụ Gitea a na-eji eme mbubata"
+  "gitea-doer": "Onye ọrụ Gitea a na-eji eme mbubata",
+  "gitea-no-sync": "Ejikọtala ebe nchekwa koodu a ọzọ",
+  "gitea-sync-again": "Tinye ọzọ",
+  "gitea-excluded-saved": "Anaghị ahazi ya ọzọ:",
+  "gitea-included-saved": "Ahazila ya ọzọ:",
+  "gitea-sync-exclude-file": "ndepụta ebe nchekwa koodu github-to-gitea na Omi anaghị ahazi ọzọ",
+  "gitea-delete-repo": "Hichapụ ebe nchekwa koodu a na faịlụ ya",
+  "gitea-delete-repo-confirm": "Nke a na-ehichapụ ebe nchekwa koodu ahụ, wiki ya na data ya niile site na nchekwa Gitea ruo mgbe ebighị ebi. Pịnye owner/name ka ịga n'ihu:",
+  "gitea-delete-repo-wrong-name": "Aha e pịnyere abụghị owner/name nke ebe nchekwa koodu ahụ. Ọ dịghị ihe e hichapụrụ.",
+  "gitea-exclude-too": "Wepụkwa ya na nhazi, ka nhazi ọzọ ghara ịlaghachite ya",
+  "gitea-packages-unlinked": "Ngwugwu jikọtara na ya na-anọgide n'aka onye nwe ya, na-enweghị njikọ:",
+  "gitea-deleted": "Ehichapụrụ",
+  "gitea-freed": "tọhapụrụ",
+  "gitea-deleted-list": "Ebe nchekwa koodu ehichapụrụ",
+  "gitea-index-stale": "Ọ dịkwaghị ọhụrụ kemgbe ihichapụ: tụọ ọzọ maka nha ziri ezi."
 }

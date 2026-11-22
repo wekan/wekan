@@ -5658,5 +5658,19 @@
   "gitea-token-set": "teeltaama",
   "gitea-token-not-set": "teeltaaka",
   "gitea-bad-name": "Ɗum wonaa innde jeyɗo walla mooftorde kod moƴƴere.",
-  "gitea-doer": "Kuutoro Gitea mo naatnugol waɗetee e innde mum"
+  "gitea-doer": "Kuutoro Gitea mo naatnugol waɗetee e innde mum",
+  "gitea-no-sync": "Hoto fottitin ndee mooftorde kod kadi",
+  "gitea-sync-again": "Naatnu kadi",
+  "gitea-excluded-saved": "Fottitaaka kadi:",
+  "gitea-included-saved": "Fottitaama kadi:",
+  "gitea-sync-exclude-file": "doggol mooftorde kod ɗe github-to-gitea e Omi fottitataa kadi",
+  "gitea-delete-repo": "Momtu ndee mooftorde kod e fiilde mayre",
+  "gitea-delete-repo-confirm": "Ɗum momtat mooftorde kod nde, wiki mayre e keɓe mayre fof iwde e dosiyee Gitea haa abada. Winndu owner/name ngam jokkude:",
+  "gitea-delete-repo-wrong-name": "Innde winndaande wonaa owner/name mooftorde kod nde. Hay huunde momtaaka.",
+  "gitea-exclude-too": "Ittu nde kadi e fottitgol, ngam fottitgol garoowol wata artir nde",
+  "gitea-packages-unlinked": "Paketeeji jokkondirɗi e mayre ina heddoo e jeyɗo oo, ko ceerti:",
+  "gitea-deleted": "Momtaama",
+  "gitea-freed": "rimɗinaama",
+  "gitea-deleted-list": "Mooftorde kod momtaaɗe",
+  "gitea-index-stale": "Ɓooyi gila momtagol: betu kadi ngam mawneeje goonga."
 }

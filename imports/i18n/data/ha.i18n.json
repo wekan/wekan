@@ -5658,5 +5658,19 @@
   "gitea-token-set": "an saita",
   "gitea-token-not-set": "ba a saita ba",
   "gitea-bad-name": "Wannan ba sunan mai shi ko rumbun lamba mai inganci ba ne.",
-  "gitea-doer": "Mai amfani da Gitea da ake shigo da su da sunansa"
+  "gitea-doer": "Mai amfani da Gitea da ake shigo da su da sunansa",
+  "gitea-no-sync": "Kada a sake daidaita wannan rumbun lamba",
+  "gitea-sync-again": "Sake sanyawa",
+  "gitea-excluded-saved": "Ba a daidaita shi kuma:",
+  "gitea-included-saved": "An sake daidaita shi:",
+  "gitea-sync-exclude-file": "jerin rumbunan lamba da github-to-gitea da Omi ba sa daidaitawa kuma",
+  "gitea-delete-repo": "Share wannan rumbun lamba da fayilolinsa",
+  "gitea-delete-repo-confirm": "Wannan yana share rumbun lamba, wiki dinsa da duk bayanansa daga babban fayil na Gitea har abada. Rubuta owner/name don ci gaba:",
+  "gitea-delete-repo-wrong-name": "Sunan da aka rubuta ba owner/name na rumbun lambar ba ne. Ba a share komai ba.",
+  "gitea-exclude-too": "Kuma cire shi daga daidaitawa, don daidaitawa ta gaba kada ta dawo da shi",
+  "gitea-packages-unlinked": "Fakitin da ke da alaƙa da shi suna zama tare da mai shi, ba tare da alaƙa ba:",
+  "gitea-deleted": "An share",
+  "gitea-freed": "an 'yanta",
+  "gitea-deleted-list": "Rumbunan lamba da aka share",
+  "gitea-index-stale": "Ya tsufa tun bayan sharewa: sake aunawa don girman daidai."
 }

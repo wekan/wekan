@@ -5658,5 +5658,19 @@
   "gitea-token-set": "wakichata",
   "gitea-token-not-set": "jan wakichata",
   "gitea-bad-name": "Akax janiw uwiyiri jan ukax imañ utan sutipäkiti.",
-  "gitea-doer": "Mantayañax kuna Gitea apnaqirin sutipamp luratäki"
+  "gitea-doer": "Mantayañax kuna Gitea apnaqirin sutipamp luratäki",
+  "gitea-no-sync": "Aka imañ utx jan juk'amp ch'amanchamti",
+  "gitea-sync-again": "Wasitat uchantaña",
+  "gitea-excluded-saved": "Janiw juk'amp ch'amanchatakiti:",
+  "gitea-included-saved": "Wasitat ch'amanchata:",
+  "gitea-sync-exclude-file": "github-to-gitea ukat Omi jan juk'amp ch'amanchki uka imañ utanak siqi",
+  "gitea-delete-repo": "Aka imañ ut qillqatanakapamp chhaqtayaña",
+  "gitea-delete-repo-confirm": "Akax wiñayatak imañ uta, wikipa ukhamarak taqi datonakap Gitea imañ q'ipit chhaqtayi. owner/name qillqt'am sarantañataki:",
+  "gitea-delete-repo-wrong-name": "Qillqt'at sutix janiw imañ utan owner/name ukäkiti. Janiw kunas chhaqtaykiti.",
+  "gitea-exclude-too": "Ch'amanchañat apsuraktaw, jutir ch'amanchañax jan kutt'ayañapataki",
+  "gitea-packages-unlinked": "Ukamp mayachata q'ipinakax uwiyirimp qhiparapxi, jan mayachata:",
+  "gitea-deleted": "Chhaqtayata",
+  "gitea-freed": "luqtata",
+  "gitea-deleted-list": "Chhaqtayat imañ utanaka",
+  "gitea-index-stale": "Mä chhaqtayañat jichhakam machaqäxiti: wasitat tupt'am chiqap jach'a tupunakataki."
 }

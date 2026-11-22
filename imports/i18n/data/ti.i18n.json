@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ተቐሚጡ",
   "gitea-token-not-set": "ኣይተቐመጠን",
   "gitea-bad-name": "እዚ ቅኑዕ ስም ዋና ወይ መኽዘን ኣይኮነን።",
-  "gitea-doer": "እቲ ምእታው ብኡ ዝካየድ ተጠቃሚ Gitea"
+  "gitea-doer": "እቲ ምእታው ብኡ ዝካየድ ተጠቃሚ Gitea",
+  "gitea-no-sync": "ነዚ መኽዘን ደጊም ኣይተሰማምዖ",
+  "gitea-sync-again": "ደጊምካ ኣእትው",
+  "gitea-excluded-saved": "ደጊም ኣይሰማማዕን:",
+  "gitea-included-saved": "ደጊሙ ተሰማሚዑ:",
+  "gitea-sync-exclude-file": "github-to-gitea ን Omi ን ደጊም ዘየሰማምዕዎም መኽዘናት ዝርዝር",
+  "gitea-delete-repo": "ነዚ መኽዘንን ፋይላቱን ደምስስ",
+  "gitea-delete-repo-confirm": "እዚ ነቲ መኽዘን፡ ዊኪኡን ኩሉ ዳታኡን ካብ ማህደር Gitea ንሓዋሩ ይድምስስ። ንምቕጻል ዋና/ስም ጽሓፍ:",
+  "gitea-delete-repo-wrong-name": "እቲ ዝተጻሕፈ ስም ናይቲ መኽዘን ዋና/ስም ኣይኮነን። ዝተደምሰሰ የለን።",
+  "gitea-exclude-too": "እቲ ዝቕጽል ምስምማዕ ከይመልሶ፡ ካብ ምስምማዕ እውን ኣግልሎ",
+  "gitea-packages-unlinked": "ምስኡ ዝተኣሳሰሩ ፓኬጃት ምስቲ ዋና ይተርፉ፡ ብዘይ ምትእስሳር:",
+  "gitea-deleted": "ተደምሲሱ",
+  "gitea-freed": "ተፈቲሑ",
+  "gitea-deleted-list": "ዝተደምሰሱ መኽዘናት",
+  "gitea-index-stale": "ካብ ምድምሳስ ጀሚሩ ዘይተሓደሰ: ንልክዕ ዓቐናት ደጊምካ ዓቅን።"
 }

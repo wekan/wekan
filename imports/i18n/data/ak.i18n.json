@@ -5658,5 +5658,19 @@
   "gitea-token-set": "wɔahyehyɛ",
   "gitea-token-not-set": "wɔnhyehyɛɛ",
   "gitea-bad-name": "Ɛnyɛ owura anaa kɔd akorabea din a ɛfata.",
-  "gitea-doer": "Gitea dwumadini a wɔde ne din fa nneɛma ba"
+  "gitea-doer": "Gitea dwumadini a wɔde ne din fa nneɛma ba",
+  "gitea-no-sync": "Mma wɔmmfa kɔd akorabea yi mmoa mu bio",
+  "gitea-sync-again": "Fa ka ho bio",
+  "gitea-excluded-saved": "Wɔmfa mmoa mu bio:",
+  "gitea-included-saved": "Wɔde aboa mu bio:",
+  "gitea-sync-exclude-file": "kɔd akorabea a github-to-gitea ne Omi mfa mmoa mu bio no din krataa",
+  "gitea-delete-repo": "Pepa kɔd akorabea yi ne ne fael",
+  "gitea-delete-repo-confirm": "Eyi pepa kɔd akorabea no, ne wiki ne ne data nyinaa fi Gitea fɔda no mu daa. Kyerɛw owner/name na toa so:",
+  "gitea-delete-repo-wrong-name": "Din a wɔakyerɛw no nnyɛ kɔd akorabea no owner/name. Wɔamfa biribiara amfi hɔ.",
+  "gitea-exclude-too": "Yi fi mmoa mu nso, sɛnea mmoa a edi hɔ no remfa mma bio",
+  "gitea-packages-unlinked": "Nneɛma kuo a ɛne no bɔ abusua no tena owura no nkyɛn, a wonni abusuabɔ:",
+  "gitea-deleted": "Wɔapepa",
+  "gitea-freed": "agye",
+  "gitea-deleted-list": "Kɔd akorabea a wɔapepa",
+  "gitea-index-stale": "Ɛnyɛ foforo bio fi pepa bi akyi: susuw bio na wunya kɛseyɛ pɔtee."
 }

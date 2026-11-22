@@ -5658,5 +5658,19 @@
   "gitea-token-set": "voapetraka",
   "gitea-token-not-set": "tsy voapetraka",
   "gitea-bad-name": "Tsy anarana tompony na tahiry manan-kery izany.",
-  "gitea-doer": "Mpampiasa Gitea anaovana ny fampidirana"
+  "gitea-doer": "Mpampiasa Gitea anaovana ny fampidirana",
+  "gitea-no-sync": "Aza ampifanarahana intsony ity tahiry ity",
+  "gitea-sync-again": "Ampidiro indray",
+  "gitea-excluded-saved": "Tsy ampifanarahana intsony:",
+  "gitea-included-saved": "Ampifanarahana indray:",
+  "gitea-sync-exclude-file": "lisitry ny tahiry tsy ampifanarahan'ny github-to-gitea sy Omi intsony",
+  "gitea-delete-repo": "Fafao ity tahiry ity sy ny rakitra ao aminy",
+  "gitea-delete-repo-confirm": "Mamafa mandrakizay ny tahiry, ny wiki-ny ary ny angona rehetra ao aminy avy amin'ny lahatahiry Gitea izany. Soraty ny owner/name raha hanohy:",
+  "gitea-delete-repo-wrong-name": "Tsy ny owner/name an'ny tahiry ny anarana nosoratana. Tsy nisy voafafa.",
+  "gitea-exclude-too": "Esory amin'ny fampifanarahana koa izy, mba tsy haverin'ny fampifanarahana manaraka",
+  "gitea-packages-unlinked": "Ny fonosana mifandray aminy dia mijanona eo amin'ny tompony, tsy mifandray:",
+  "gitea-deleted": "Voafafa",
+  "gitea-freed": "nafahana",
+  "gitea-deleted-list": "Tahiry voafafa",
+  "gitea-index-stale": "Efa tsy vaovao hatramin'ny famafana iray: refeso indray ho an'ny habe marina."
 }

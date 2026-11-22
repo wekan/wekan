@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ustawiony",
   "gitea-token-not-set": "nieustawiony",
   "gitea-bad-name": "To nie jest prawidłowa nazwa właściciela ani repozytorium.",
-  "gitea-doer": "Użytkownik Gitea, jako który wykonywany jest import"
+  "gitea-doer": "Użytkownik Gitea, jako który wykonywany jest import",
+  "gitea-no-sync": "Nie synchronizuj już tego repozytorium",
+  "gitea-sync-again": "Uwzględnij ponownie",
+  "gitea-excluded-saved": "Już nie jest synchronizowane:",
+  "gitea-included-saved": "Ponownie synchronizowane:",
+  "gitea-sync-exclude-file": "lista repozytoriów, których github-to-gitea i Omi już nie synchronizują",
+  "gitea-delete-repo": "Usuń to repozytorium i jego pliki",
+  "gitea-delete-repo-confirm": "To trwale usuwa repozytorium, jego wiki i wszystkie jego dane z folderu Gitea. Wpisz owner/name, aby kontynuować:",
+  "gitea-delete-repo-wrong-name": "Wpisana nazwa nie jest owner/name repozytorium. Nic nie zostało usunięte.",
+  "gitea-exclude-too": "Wyklucz je także z synchronizacji, aby następna synchronizacja go nie przywróciła",
+  "gitea-packages-unlinked": "Pakiety z nim powiązane pozostają u właściciela, bez powiązania:",
+  "gitea-deleted": "Usunięto",
+  "gitea-freed": "zwolniono",
+  "gitea-deleted-list": "Usunięte repozytoria",
+  "gitea-index-stale": "Nieaktualne od usunięcia: zmierz ponownie, aby uzyskać dokładne rozmiary."
 }

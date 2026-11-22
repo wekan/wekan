@@ -5658,5 +5658,19 @@
   "gitea-token-set": "gesat",
   "gitea-token-not-set": "net gesat",
   "gitea-bad-name": "Dat ass kee gültegen Numm fir en Eegentümer oder e Repository.",
-  "gitea-doer": "Gitea-Benotzer, als deen den Import gemaach gëtt"
+  "gitea-doer": "Gitea-Benotzer, als deen den Import gemaach gëtt",
+  "gitea-no-sync": "Dëse Repository net méi synchroniséieren",
+  "gitea-sync-again": "Nees opgeholl",
+  "gitea-excluded-saved": "Net méi synchroniséiert:",
+  "gitea-included-saved": "Nees synchroniséiert:",
+  "gitea-sync-exclude-file": "Lëscht vun de Repositoryen, déi github-to-gitea an Omi net méi synchroniséieren",
+  "gitea-delete-repo": "Dëse Repository a seng Fichieren läschen",
+  "gitea-delete-repo-confirm": "Dëst läscht de Repository, säi Wiki an all seng Donnéeë fir ëmmer aus dem Gitea-Dossier. Gitt owner/name an, fir weiderzemaachen:",
+  "gitea-delete-repo-wrong-name": "Den aginnenen Numm ass net den owner/name vum Repository. Näischt gouf geläscht.",
+  "gitea-exclude-too": "Och aus der Synchroniséierung ausschléissen, sou datt déi nächst Synchroniséierung en net zréckbréngt",
+  "gitea-packages-unlinked": "Packagen, déi domat verlinkt sinn, bleiwen beim Eegentümer, ouni Link:",
+  "gitea-deleted": "Geläscht",
+  "gitea-freed": "fräi gemaach",
+  "gitea-deleted-list": "Geläschte Repositoryen",
+  "gitea-index-stale": "Net méi aktuell zënter enger Läschung: nach eng Kéier moosse fir exakt Gréissten."
 }

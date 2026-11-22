@@ -5658,5 +5658,19 @@
   "gitea-token-set": "oñemboheko",
   "gitea-token-not-set": "noñembohekói",
   "gitea-bad-name": "Kóva ndaha'éi jára térã ñongatuha réra hekopete.",
-  "gitea-doer": "Gitea puruhára ojapóva gueru"
+  "gitea-doer": "Gitea puruhára ojapóva gueru",
+  "gitea-no-sync": "Ani reñemoĩjoja ko ñongatuha kódigo",
+  "gitea-sync-again": "Emoinge jey",
+  "gitea-excluded-saved": "Noñemoĩjojavéima:",
+  "gitea-included-saved": "Oñemoĩjoja jey:",
+  "gitea-sync-exclude-file": "ñongatuha lista github-to-gitea ha Omi ndojapovéima ñemoĩjoja",
+  "gitea-delete-repo": "Mboguete ko ñongatuha ha imarandurenda",
+  "gitea-delete-repo-confirm": "Kóva omboguete opa ára g̃uarã ñongatuha, iwiki ha opa imba'ekuaarã Gitea ñongatuhágui. Ehai owner/name rehokuévo tenonde:",
+  "gitea-delete-repo-wrong-name": "Téra ojehaíva ndaha'éi ñongatuha owner/name. Ni mba'eve noñemboguetéi.",
+  "gitea-exclude-too": "Enohẽ avei ñemoĩjojágui, ani hag̃ua ñemoĩjoja upeigua oguerujey",
+  "gitea-packages-unlinked": "Mba'e'aty ojoajúva hese opyta jára ndive, ojoaju'ỹre:",
+  "gitea-deleted": "Oñemboguete",
+  "gitea-freed": "oñemosãso",
+  "gitea-deleted-list": "Ñongatuha oñemboguetéva",
+  "gitea-index-stale": "Ndaha'evéima ko'ag̃agua peteĩ ñemboguete guive: eha'ã jey tuichakue hekopete hag̃ua."
 }

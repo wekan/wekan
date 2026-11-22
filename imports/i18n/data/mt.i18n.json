@@ -5658,5 +5658,19 @@
   "gitea-token-set": "issettjat",
   "gitea-token-not-set": "mhux issettjat",
   "gitea-bad-name": "Dak mhuwiex isem validu ta' sid jew repożitorju.",
-  "gitea-doer": "Utent ta' Gitea li bih issir l-importazzjoni"
+  "gitea-doer": "Utent ta' Gitea li bih issir l-importazzjoni",
+  "gitea-no-sync": "Tissinkronizzax aktar dan ir-repożitorju",
+  "gitea-sync-again": "Inkludi mill-ġdid",
+  "gitea-excluded-saved": "Mhux sinkronizzat aktar:",
+  "gitea-included-saved": "Sinkronizzat mill-ġdid:",
+  "gitea-sync-exclude-file": "lista ta' repożitorji li github-to-gitea u Omi ma jissinkronizzawx aktar",
+  "gitea-delete-repo": "Ħassar dan ir-repożitorju u l-fajls tiegħu",
+  "gitea-delete-repo-confirm": "Dan iħassar għal dejjem ir-repożitorju, il-wiki tiegħu u d-data kollha tiegħu mill-folder ta' Gitea. Ikteb owner/name biex tkompli:",
+  "gitea-delete-repo-wrong-name": "L-isem miktub mhuwiex l-owner/name tar-repożitorju. Xejn ma tħassar.",
+  "gitea-exclude-too": "Eskludih ukoll mis-sinkronizzazzjoni, biex is-sinkronizzazzjoni li jmiss ma ġġibux lura",
+  "gitea-packages-unlinked": "Il-pakketti marbuta miegħu jibqgħu għand is-sid, mhux marbuta:",
+  "gitea-deleted": "Imħassar",
+  "gitea-freed": "meħlusa",
+  "gitea-deleted-list": "Repożitorji mħassra",
+  "gitea-index-stale": "Skadut minn tħassir: kejjel mill-ġdid għal daqsijiet eżatti."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "已設定",
   "gitea-token-not-set": "未設定",
   "gitea-bad-name": "呢個唔係有效嘅擁有者或者儲存庫名稱。",
-  "gitea-doer": "用嚟做匯入嘅 Gitea 用戶"
+  "gitea-doer": "用嚟做匯入嘅 Gitea 用戶",
+  "gitea-no-sync": "唔好再同步呢個儲存庫",
+  "gitea-sync-again": "再包括返",
+  "gitea-excluded-saved": "唔再同步：",
+  "gitea-included-saved": "再次同步：",
+  "gitea-sync-exclude-file": "github-to-gitea 同 Omi 唔再同步嘅儲存庫清單",
+  "gitea-delete-repo": "刪除呢個儲存庫同佢嘅檔案",
+  "gitea-delete-repo-confirm": "呢個操作會將儲存庫、佢嘅 wiki 同佢所有資料由 Gitea 資料夾永久刪除。輸入 擁有者/名稱 嚟繼續：",
+  "gitea-delete-repo-wrong-name": "輸入嘅名稱唔係儲存庫嘅 擁有者/名稱。乜嘢都冇刪除。",
+  "gitea-exclude-too": "同時將佢排除喺同步之外，等下次同步唔會將佢帶返嚟",
+  "gitea-packages-unlinked": "連住佢嘅套件會留喺擁有者度，唔再連住：",
+  "gitea-deleted": "刪除於",
+  "gitea-freed": "騰出",
+  "gitea-deleted-list": "已刪除嘅儲存庫",
+  "gitea-index-stale": "自從刪除之後已經過時：再量一次就有準確大小。"
 }

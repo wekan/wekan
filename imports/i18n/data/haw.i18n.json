@@ -5658,5 +5658,19 @@
   "gitea-token-set": "hoʻonohonoho ʻia",
   "gitea-token-not-set": "ʻaʻole i hoʻonohonoho ʻia",
   "gitea-bad-name": "ʻAʻole kēlā he inoa kūpono o ka owanela a lepokikolawa paha.",
-  "gitea-doer": "Ka mea hoʻohana Gitea e hana ʻia ai ka hoʻokomo"
+  "gitea-doer": "Ka mea hoʻohana Gitea e hana ʻia ai ka hoʻokomo",
+  "gitea-no-sync": "Mai hoʻonui like hou i kēia lepokikolawa",
+  "gitea-sync-again": "Hoʻokomo hou",
+  "gitea-excluded-saved": "ʻAʻole i hoʻonui like ʻia hou:",
+  "gitea-included-saved": "Hoʻonui like hou ʻia:",
+  "gitea-sync-exclude-file": "papa inoa o nā lepokikolawa ʻaʻole e hoʻonui like hou ʻia e github-to-gitea a me Omi",
+  "gitea-delete-repo": "Holoi i kēia lepokikolawa a me kona mau faila",
+  "gitea-delete-repo-confirm": "Holoi mau loa kēia i ka lepokikolawa, kona wiki a me kona ʻikepili a pau mai ka waihona Gitea. Kikokiko i ka owner/name e hoʻomau ai:",
+  "gitea-delete-repo-wrong-name": "ʻAʻole ka inoa i kikokiko ʻia ka owner/name o ka lepokikolawa. ʻAʻohe mea i holoi ʻia.",
+  "gitea-exclude-too": "E wehe pū iā ia mai ka hoʻonui like, i ʻole e hoʻihoʻi mai ka hoʻonui like aʻe iā ia",
+  "gitea-packages-unlinked": "Noho nā pūʻolo i hoʻopili ʻia iā ia me ka owanela, me ka pili ʻole:",
+  "gitea-deleted": "Holoi ʻia",
+  "gitea-freed": "hoʻokuʻu ʻia",
+  "gitea-deleted-list": "Nā lepokikolawa i holoi ʻia",
+  "gitea-index-stale": "Ua kahiko mai ka holoi ʻana: e ana hou no nā nui pololei."
 }

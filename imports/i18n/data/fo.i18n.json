@@ -5658,5 +5658,19 @@
   "gitea-token-set": "sett",
   "gitea-token-not-set": "ikki sett",
   "gitea-bad-name": "Hetta er ikki eitt gyldugt navn á eigara ella goymslusavni.",
-  "gitea-doer": "Gitea-brúkari, sum innflutningurin verður gjørdur sum"
+  "gitea-doer": "Gitea-brúkari, sum innflutningurin verður gjørdur sum",
+  "gitea-no-sync": "Samstilla ikki hetta savnið longur",
+  "gitea-sync-again": "Tak við aftur",
+  "gitea-excluded-saved": "Ikki samstillað longur:",
+  "gitea-included-saved": "Samstillað aftur:",
+  "gitea-sync-exclude-file": "listi yvir søvn, sum github-to-gitea og Omi ikki longur samstilla",
+  "gitea-delete-repo": "Strika hetta savnið og fílur tess",
+  "gitea-delete-repo-confirm": "Hetta strikar savnið, wiki tess og allar dátur tess úr Gitea-mappuni fyri altíð. Skriva owner/name fyri at halda fram:",
+  "gitea-delete-repo-wrong-name": "Navnið, sum varð skrivað, er ikki owner/name hjá savninum. Einki varð strikað.",
+  "gitea-exclude-too": "Tak tað eisini úr samstillingini, so at næsta samstilling ikki kemur við tí aftur",
+  "gitea-packages-unlinked": "Pakkar, sum eru knýttir at tí, verða verandi hjá eigaranum, óknýttir:",
+  "gitea-deleted": "Strikað",
+  "gitea-freed": "frígjørt",
+  "gitea-deleted-list": "Strikað søvn",
+  "gitea-index-stale": "Ikki dagført síðan eina striking: mát aftur fyri neyvar stødd."
 }

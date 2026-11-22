@@ -5658,5 +5658,19 @@
   "gitea-token-set": "definì",
   "gitea-token-not-set": "nia definì",
   "gitea-bad-name": "Chël ne n'ie nia n inom valid de patron o de archif de codesc.",
-  "gitea-doer": "Utënt de Gitea tl inom dl quel che l importé vën fat"
+  "gitea-doer": "Utënt de Gitea tl inom dl quel che l importé vën fat",
+  "gitea-no-sync": "No sincronisé plu chest archif de codesc",
+  "gitea-sync-again": "Tò ite inò",
+  "gitea-excluded-saved": "No plu sincronisà:",
+  "gitea-included-saved": "Sincronisà inò:",
+  "gitea-sync-exclude-file": "lista di archifs de codesc che github-to-gitea y Omi ne sincronisea plu",
+  "gitea-delete-repo": "Scancelé chest archif de codesc y si files",
+  "gitea-delete-repo-confirm": "Chest scancela per for l archif de codesc, si wiki y duc si dac dal ordinadëur de Gitea. Scrì owner/name per jì inant:",
+  "gitea-delete-repo-wrong-name": "L inom scrit ne n'ie nia l owner/name dl archif de codesc. Nia ne n'é stat scancelà.",
+  "gitea-exclude-too": "L tò ence ora dala sincronisazion, ajache la sincronisazion che vën ne l porte nia zeruch",
+  "gitea-packages-unlinked": "I pachec liei a chël resta pra l patron, zënza lian:",
+  "gitea-deleted": "Scancelà",
+  "gitea-freed": "liberà",
+  "gitea-deleted-list": "Archifs de codesc scancelei",
+  "gitea-index-stale": "No plu atual dò na scancelazion: mesurëde inò per grandeces esates."
 }

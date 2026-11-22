@@ -5658,5 +5658,19 @@
   "gitea-token-set": "معيَّن",
   "gitea-token-not-set": "غير معيَّن",
   "gitea-bad-name": "هذا ليس اسم مالك أو مستودع صالحًا.",
-  "gitea-doer": "مستخدم Gitea الذي يتم الاستيراد باسمه"
+  "gitea-doer": "مستخدم Gitea الذي يتم الاستيراد باسمه",
+  "gitea-no-sync": "لا تزامن هذا المستودع بعد الآن",
+  "gitea-sync-again": "تضمين مرة أخرى",
+  "gitea-excluded-saved": "لم يعد يُزامَن:",
+  "gitea-included-saved": "تمت المزامنة مرة أخرى:",
+  "gitea-sync-exclude-file": "قائمة المستودعات التي لم يعد github-to-gitea و Omi يزامنانها",
+  "gitea-delete-repo": "حذف هذا المستودع وملفاته",
+  "gitea-delete-repo-confirm": "هذا يحذف المستودع والويكي الخاص به وجميع بياناته من مجلد Gitea نهائيًا. اكتب owner/name للمتابعة:",
+  "gitea-delete-repo-wrong-name": "الاسم المكتوب ليس owner/name الخاص بالمستودع. لم يُحذف شيء.",
+  "gitea-exclude-too": "استبعده أيضًا من المزامنة، حتى لا تعيده المزامنة التالية",
+  "gitea-packages-unlinked": "تبقى الحزم المرتبطة به لدى المالك، غير مرتبطة:",
+  "gitea-deleted": "حُذف",
+  "gitea-freed": "حُرِّرت",
+  "gitea-deleted-list": "المستودعات المحذوفة",
+  "gitea-index-stale": "قديم منذ عملية حذف: قِس مرة أخرى للحصول على الأحجام الدقيقة."
 }

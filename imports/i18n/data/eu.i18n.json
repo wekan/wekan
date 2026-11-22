@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ezarrita",
   "gitea-token-not-set": "ezarri gabe",
   "gitea-bad-name": "Hori ez da jabe edo biltegi izen baliozkoa.",
-  "gitea-doer": "Inportazioa egiteko Gitea erabiltzailea"
+  "gitea-doer": "Inportazioa egiteko Gitea erabiltzailea",
+  "gitea-no-sync": "Ez sinkronizatu biltegi hau gehiago",
+  "gitea-sync-again": "Sartu berriro",
+  "gitea-excluded-saved": "Ez da gehiago sinkronizatzen:",
+  "gitea-included-saved": "Berriro sinkronizatzen da:",
+  "gitea-sync-exclude-file": "github-to-gitea eta Omi-k gehiago sinkronizatzen ez dituzten biltegien zerrenda",
+  "gitea-delete-repo": "Ezabatu biltegi hau eta bere fitxategiak",
+  "gitea-delete-repo-confirm": "Honek betiko ezabatzen ditu biltegia, bere wikia eta bere datu guztiak Gitea karpetatik. Idatzi owner/name jarraitzeko:",
+  "gitea-delete-repo-wrong-name": "Idatzitako izena ez da biltegiaren owner/name. Ez da ezer ezabatu.",
+  "gitea-exclude-too": "Baztertu ere sinkronizaziotik, hurrengo sinkronizazioak berriro ekar ez dezan",
+  "gitea-packages-unlinked": "Harekin lotutako paketeak jabearekin geratzen dira, lotu gabe:",
+  "gitea-deleted": "Ezabatua",
+  "gitea-freed": "askatuta",
+  "gitea-deleted-list": "Ezabatutako biltegiak",
+  "gitea-index-stale": "Zaharkituta ezabaketa batetik: neurtu berriro tamaina zehatzetarako."
 }

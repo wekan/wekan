@@ -5658,5 +5658,19 @@
   "gitea-token-set": "מוגדר",
   "gitea-token-not-set": "לא מוגדר",
   "gitea-bad-name": "זה אינו שם בעלים או מאגר תקין.",
-  "gitea-doer": "משתמש Gitea שבשמו מתבצע הייבוא"
+  "gitea-doer": "משתמש Gitea שבשמו מתבצע הייבוא",
+  "gitea-no-sync": "לא לסנכרן עוד את המאגר הזה",
+  "gitea-sync-again": "לכלול שוב",
+  "gitea-excluded-saved": "לא מסונכרן עוד:",
+  "gitea-included-saved": "מסונכרן שוב:",
+  "gitea-sync-exclude-file": "רשימת המאגרים ש־github-to-gitea ו־Omi כבר לא מסנכרנים",
+  "gitea-delete-repo": "מחיקת המאגר הזה והקבצים שלו",
+  "gitea-delete-repo-confirm": "פעולה זו מוחקת לצמיתות את המאגר, את הוויקי שלו ואת כל הנתונים שלו מתיקיית Gitea. יש להקליד owner/name כדי להמשיך:",
+  "gitea-delete-repo-wrong-name": "השם שהוקלד אינו ה־owner/name של המאגר. דבר לא נמחק.",
+  "gitea-exclude-too": "להחריג אותו גם מהסנכרון, כדי שהסנכרון הבא לא יחזיר אותו",
+  "gitea-packages-unlinked": "חבילות המקושרות אליו נשארות אצל הבעלים, ללא קישור:",
+  "gitea-deleted": "נמחק ב־",
+  "gitea-freed": "שוחררו",
+  "gitea-deleted-list": "מאגרים שנמחקו",
+  "gitea-index-stale": "לא עדכני מאז מחיקה: יש למדוד שוב לקבלת גדלים מדויקים."
 }

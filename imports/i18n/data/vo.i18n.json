@@ -5658,5 +5658,19 @@
   "gitea-token-set": "pelonöl",
   "gitea-token-not-set": "no pelonöl",
   "gitea-bad-name": "Atos no binon nem lonöföl dalabana u dakipöpa.",
-  "gitea-doer": "Geban Gitea, as kel inkavam padunon"
+  "gitea-doer": "Geban Gitea, as kel inkavam padunon",
+  "gitea-no-sync": "No sinkronolös dakipöpi at ünu",
+  "gitea-sync-again": "Ninükön dönu",
+  "gitea-excluded-saved": "No plu pesinkronöl:",
+  "gitea-included-saved": "Pesinkronöl dönu:",
+  "gitea-sync-exclude-file": "lised dakipöpas, kelis github-to-gitea e Omi no plu sinkronons",
+  "gitea-delete-repo": "Moükön dakipöpi at e ragivis onik",
+  "gitea-delete-repo-confirm": "Atos moükon ai dakipöpi, wikiti onik e nünodis onik valik se dosiär de Gitea. Penolös dalaban/nem ad fovön:",
+  "gitea-delete-repo-wrong-name": "Nem pepenöl no binon dalaban/nem dakipöpa. Nos pemoükon.",
+  "gitea-exclude-too": "Plödamön oni i se sinkronam, dat sinkronam sökik no geblinon oni",
+  "gitea-packages-unlinked": "Paks pelüyümöl ko on blibons lä dalaban, nen yüm:",
+  "gitea-deleted": "Pemoükon",
+  "gitea-freed": "pelivükon",
+  "gitea-deleted-list": "Dakipöps pemoüköl",
+  "gitea-index-stale": "No plu nulik sis moükam: mafön dönu ad gretots kuratik."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "kiteekeddwawo",
   "gitea-token-not-set": "tekiteekeddwawo",
   "gitea-bad-name": "Eryo si linnya lituufu lya nnannyini oba tterekero.",
-  "gitea-doer": "Omukozesa wa Gitea okuyingiza kukolebwa mu linnya lye"
+  "gitea-doer": "Omukozesa wa Gitea okuyingiza kukolebwa mu linnya lye",
+  "gitea-no-sync": "Toddamu kwesigika tereka lino",
+  "gitea-sync-again": "Ddamu oyingize",
+  "gitea-excluded-saved": "Tekyesigikibwa nate:",
+  "gitea-included-saved": "Kyesigikibwa nate:",
+  "gitea-sync-exclude-file": "olukalala lw'ebitereke github-to-gitea ne Omi bye bitakyesigika",
+  "gitea-delete-repo": "Sazaamu tereka lino ne fayiro zaalyo",
+  "gitea-delete-repo-confirm": "Kino kisazaamu tereka, wiki yaalyo ne data yaalyo yonna okuva mu kifo kya Gitea emirembe gyonna. Wandiika owner/name okugenda mu maaso:",
+  "gitea-delete-repo-wrong-name": "Erinnya eriwandiikiddwa si owner/name lya tereka. Tewali kisaziddwamu.",
+  "gitea-exclude-too": "Era kigyeko ku kwesigika, kwesigika okuddako kuleme kukizzaayo",
+  "gitea-packages-unlinked": "Ebipapula ebikigattiddwako bisigala ne nnannyini, nga tebigattiddwa:",
+  "gitea-deleted": "Kisaziddwamu",
+  "gitea-freed": "kiteereddwa",
+  "gitea-deleted-list": "Ebitereke ebisaziddwamu",
+  "gitea-index-stale": "Kikadde okuva ku kusazaamu: pima nate okufuna obunene obutuufu."
 }

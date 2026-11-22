@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ti ṣètò",
   "gitea-token-not-set": "kò tíì ṣètò",
   "gitea-bad-name": "Ìyẹn kì í ṣe orúkọ tó tọ́ fún ẹni tó ni tàbí ibi ìpamọ́.",
-  "gitea-doer": "Olùmúlò Gitea tí a fi ń ṣe ìkówọlé"
+  "gitea-doer": "Olùmúlò Gitea tí a fi ń ṣe ìkówọlé",
+  "gitea-no-sync": "Má ṣe muṣiṣẹ́pọ̀ ibi ìpamọ́ yìí mọ́",
+  "gitea-sync-again": "Fi kún un padà",
+  "gitea-excluded-saved": "A kò muṣiṣẹ́pọ̀ rẹ̀ mọ́:",
+  "gitea-included-saved": "A tún muṣiṣẹ́pọ̀ rẹ̀:",
+  "gitea-sync-exclude-file": "àkójọ àwọn ibi ìpamọ́ tí github-to-gitea àti Omi kò muṣiṣẹ́pọ̀ mọ́",
+  "gitea-delete-repo": "Pa ibi ìpamọ́ yìí àti àwọn fáìlì rẹ̀ rẹ́",
+  "gitea-delete-repo-confirm": "Èyí yóò pa ibi ìpamọ́ náà, wiki rẹ̀ àti gbogbo dátà rẹ̀ rẹ́ kúrò nínú fódà Gitea títí láé. Tẹ ẹni tó ni/orúkọ láti tẹ̀síwájú:",
+  "gitea-delete-repo-wrong-name": "Orúkọ tí a tẹ̀ kì í ṣe ẹni tó ni/orúkọ ibi ìpamọ́ náà. Kò sí ohun tí a parẹ́.",
+  "gitea-exclude-too": "Yọ ọ́ kúrò nínú ìmúṣiṣẹ́pọ̀ pẹ̀lú, kí ìmúṣiṣẹ́pọ̀ tó ń bọ̀ má bàa mú un padà",
+  "gitea-packages-unlinked": "Àwọn àpò tí a so mọ́ ọn yóò dúró sọ́dọ̀ ẹni tó ni wọ́n, láìsí ìsopọ̀:",
+  "gitea-deleted": "A parẹ́",
+  "gitea-freed": "ni a tú sílẹ̀",
+  "gitea-deleted-list": "Àwọn ibi ìpamọ́ tí a parẹ́",
+  "gitea-index-stale": "Kò bá ìgbà mu láti ìgbà píparẹ́ kan: wọ̀n lẹ́ẹ̀kan sí i fún ìwọ̀n tó péye."
 }

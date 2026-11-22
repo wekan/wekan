@@ -5658,5 +5658,19 @@
   "gitea-token-set": "સેટ",
   "gitea-token-not-set": "સેટ નથી",
   "gitea-bad-name": "આ માન્ય માલિક અથવા રિપોઝિટરી નામ નથી.",
-  "gitea-doer": "જે Gitea વપરાશકર્તા તરીકે આયાત થાય છે"
+  "gitea-doer": "જે Gitea વપરાશકર્તા તરીકે આયાત થાય છે",
+  "gitea-no-sync": "આ રિપોઝિટરીને હવે સિંક કરશો નહીં",
+  "gitea-sync-again": "ફરી સામેલ કરો",
+  "gitea-excluded-saved": "હવે સિંક થતું નથી:",
+  "gitea-included-saved": "ફરી સિંક થાય છે:",
+  "gitea-sync-exclude-file": "રિપોઝિટરીઓની સૂચિ જેને github-to-gitea અને Omi હવે સિંક કરતા નથી",
+  "gitea-delete-repo": "આ રિપોઝિટરી અને તેની ફાઇલો કાઢી નાખો",
+  "gitea-delete-repo-confirm": "આ Gitea ફોલ્ડરમાંથી રિપોઝિટરી, તેની વિકિ અને તેનો બધો ડેટા કાયમ માટે કાઢી નાખે છે. આગળ વધવા માટે owner/name લખો:",
+  "gitea-delete-repo-wrong-name": "લખેલું નામ રિપોઝિટરીનું owner/name નથી. કંઈ પણ કાઢી નાખવામાં આવ્યું નથી.",
+  "gitea-exclude-too": "તેને સિંકમાંથી પણ બાકાત રાખો, જેથી આગલું સિંક તેને પાછું ન લાવે",
+  "gitea-packages-unlinked": "તેની સાથે જોડાયેલા પેકેજો માલિક પાસે રહે છે, જોડાણ વિના:",
+  "gitea-deleted": "કાઢી નાખ્યું",
+  "gitea-freed": "ખાલી થયું",
+  "gitea-deleted-list": "કાઢી નાખેલી રિપોઝિટરીઓ",
+  "gitea-index-stale": "કાઢી નાખ્યા પછી જૂનું: ચોક્કસ કદ માટે ફરી માપો."
 }

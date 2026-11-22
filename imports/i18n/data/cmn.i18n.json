@@ -5658,5 +5658,19 @@
   "gitea-token-set": "已设置",
   "gitea-token-not-set": "未设置",
   "gitea-bad-name": "这不是有效的所有者或仓库名称。",
-  "gitea-doer": "执行导入所用的 Gitea 用户"
+  "gitea-doer": "执行导入所用的 Gitea 用户",
+  "gitea-no-sync": "不再同步此仓库",
+  "gitea-sync-again": "重新包含",
+  "gitea-excluded-saved": "不再同步：",
+  "gitea-included-saved": "已重新同步：",
+  "gitea-sync-exclude-file": "github-to-gitea 和 Omi 不再同步的仓库列表",
+  "gitea-delete-repo": "删除此仓库及其文件",
+  "gitea-delete-repo-confirm": "这将从 Gitea 文件夹中永久删除该仓库、其 wiki 及其所有数据。输入 owner/name 以继续：",
+  "gitea-delete-repo-wrong-name": "输入的名称不是该仓库的 owner/name。未删除任何内容。",
+  "gitea-exclude-too": "同时将其排除在同步之外，以免下次同步将其恢复",
+  "gitea-packages-unlinked": "与其关联的软件包保留在所有者名下，取消关联：",
+  "gitea-deleted": "已删除",
+  "gitea-freed": "已释放",
+  "gitea-deleted-list": "已删除的仓库",
+  "gitea-index-stale": "自删除以来已过时：重新测量以获得准确大小。"
 }

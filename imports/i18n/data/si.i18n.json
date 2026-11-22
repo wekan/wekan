@@ -5658,5 +5658,19 @@
   "gitea-token-set": "සකසා ඇත",
   "gitea-token-not-set": "සකසා නැත",
   "gitea-bad-name": "එය වලංගු හිමිකරු හෝ ගබඩා නමක් නොවේ.",
-  "gitea-doer": "ආයාතය කරනු ලබන Gitea පරිශීලකයා"
+  "gitea-doer": "ආයාතය කරනු ලබන Gitea පරිශීලකයා",
+  "gitea-no-sync": "මෙම ගබඩාව තවදුරටත් සමමුහුර්ත නොකරන්න",
+  "gitea-sync-again": "නැවත ඇතුළත් කරන්න",
+  "gitea-excluded-saved": "තවදුරටත් සමමුහුර්ත නොවේ:",
+  "gitea-included-saved": "නැවත සමමුහුර්ත විය:",
+  "gitea-sync-exclude-file": "github-to-gitea සහ Omi තවදුරටත් සමමුහුර්ත නොකරන ගබඩා ලැයිස්තුව",
+  "gitea-delete-repo": "මෙම ගබඩාව සහ එහි ගොනු මකන්න",
+  "gitea-delete-repo-confirm": "මෙය ගබඩාව, එහි විකිය සහ එහි සියලු දත්ත Gitea ෆෝල්ඩරයෙන් සදහටම මකයි. ඉදිරියට යාමට හිමිකරු/නම ටයිප් කරන්න:",
+  "gitea-delete-repo-wrong-name": "ටයිප් කළ නම ගබඩාවේ හිමිකරු/නම නොවේ. කිසිවක් මකා නැත.",
+  "gitea-exclude-too": "ඊළඟ සමමුහුර්තකරණය එය නැවත නොගෙන එන ලෙස, එය සමමුහුර්තකරණයෙන් ද බැහැර කරන්න",
+  "gitea-packages-unlinked": "එයට සම්බන්ධ පැකේජ හිමිකරු සමඟ රැඳේ, සම්බන්ධය නැතිව:",
+  "gitea-deleted": "මකා දැමූ",
+  "gitea-freed": "නිදහස් විය",
+  "gitea-deleted-list": "මකා දැමූ ගබඩා",
+  "gitea-index-stale": "මැකීමකින් පසු යාවත්කාලීන නැත: නිවැරදි ප්‍රමාණ සඳහා නැවත මනින්න."
 }

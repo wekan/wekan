@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ayarlı",
   "gitea-token-not-set": "ayarlı değil",
   "gitea-bad-name": "Bu geçerli bir sahip veya depo adı değil.",
-  "gitea-doer": "İçe aktarmanın adına yapıldığı Gitea kullanıcısı"
+  "gitea-doer": "İçe aktarmanın adına yapıldığı Gitea kullanıcısı",
+  "gitea-no-sync": "Bu depoyu artık senkronize etme",
+  "gitea-sync-again": "Yeniden dahil et",
+  "gitea-excluded-saved": "Artık senkronize edilmiyor:",
+  "gitea-included-saved": "Yeniden senkronize edildi:",
+  "gitea-sync-exclude-file": "github-to-gitea ve Omi'nin artık senkronize etmediği depoların listesi",
+  "gitea-delete-repo": "Bu depoyu ve dosyalarını sil",
+  "gitea-delete-repo-confirm": "Bu işlem depoyu, wikisini ve tüm verilerini Gitea klasöründen kalıcı olarak siler. Devam etmek için sahip/ad yazın:",
+  "gitea-delete-repo-wrong-name": "Yazılan ad deponun sahip/adı değil. Hiçbir şey silinmedi.",
+  "gitea-exclude-too": "Bir sonraki senkronizasyon onu geri getirmesin diye senkronizasyondan da hariç tut",
+  "gitea-packages-unlinked": "Ona bağlı paketler sahibinde kalır, bağlantısız olarak:",
+  "gitea-deleted": "Silindi",
+  "gitea-freed": "boşaltıldı",
+  "gitea-deleted-list": "Silinen depolar",
+  "gitea-index-stale": "Bir silmeden beri güncel değil: kesin boyutlar için yeniden ölçün."
 }

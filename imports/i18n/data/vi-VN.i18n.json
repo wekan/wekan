@@ -5658,5 +5658,19 @@
   "gitea-token-set": "đã đặt",
   "gitea-token-not-set": "chưa đặt",
   "gitea-bad-name": "Đó không phải là tên chủ sở hữu hoặc kho mã hợp lệ.",
-  "gitea-doer": "Người dùng Gitea thực hiện việc nhập"
+  "gitea-doer": "Người dùng Gitea thực hiện việc nhập",
+  "gitea-no-sync": "Không đồng bộ kho mã này nữa",
+  "gitea-sync-again": "Đưa vào lại",
+  "gitea-excluded-saved": "Không còn đồng bộ:",
+  "gitea-included-saved": "Đã đồng bộ lại:",
+  "gitea-sync-exclude-file": "danh sách các kho mã mà github-to-gitea và Omi không còn đồng bộ",
+  "gitea-delete-repo": "Xóa kho mã này và các tệp của nó",
+  "gitea-delete-repo-confirm": "Thao tác này xóa vĩnh viễn kho mã, wiki của nó và toàn bộ dữ liệu của nó khỏi thư mục Gitea. Nhập chủ sở hữu/tên để tiếp tục:",
+  "gitea-delete-repo-wrong-name": "Tên đã nhập không phải chủ sở hữu/tên của kho mã. Không có gì bị xóa.",
+  "gitea-exclude-too": "Đồng thời loại nó khỏi đồng bộ, để lần đồng bộ sau không đưa nó trở lại",
+  "gitea-packages-unlinked": "Các gói liên kết với nó vẫn thuộc chủ sở hữu, không còn liên kết:",
+  "gitea-deleted": "Đã xóa",
+  "gitea-freed": "được giải phóng",
+  "gitea-deleted-list": "Các kho mã đã xóa",
+  "gitea-index-stale": "Đã lỗi thời kể từ một lần xóa: đo lại để có kích thước chính xác."
 }

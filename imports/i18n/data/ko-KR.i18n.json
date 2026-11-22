@@ -5658,5 +5658,19 @@
   "gitea-token-set": "설정됨",
   "gitea-token-not-set": "설정 안 됨",
   "gitea-bad-name": "유효한 소유자 또는 리포지토리 이름이 아닙니다.",
-  "gitea-doer": "가져오기를 수행하는 Gitea 사용자"
+  "gitea-doer": "가져오기를 수행하는 Gitea 사용자",
+  "gitea-no-sync": "이 리포지토리를 더 이상 동기화하지 않음",
+  "gitea-sync-again": "다시 포함",
+  "gitea-excluded-saved": "더 이상 동기화하지 않음:",
+  "gitea-included-saved": "다시 동기화함:",
+  "gitea-sync-exclude-file": "github-to-gitea와 Omi가 더 이상 동기화하지 않는 리포지토리 목록",
+  "gitea-delete-repo": "이 리포지토리와 파일 삭제",
+  "gitea-delete-repo-confirm": "이 작업은 Gitea 폴더에서 리포지토리, 위키 및 모든 데이터를 영구적으로 삭제합니다. 계속하려면 owner/name을 입력하세요:",
+  "gitea-delete-repo-wrong-name": "입력한 이름이 리포지토리의 owner/name이 아닙니다. 아무것도 삭제되지 않았습니다.",
+  "gitea-exclude-too": "동기화에서도 제외하여 다음 동기화가 다시 가져오지 않도록 함",
+  "gitea-packages-unlinked": "연결된 패키지는 연결이 해제된 채 소유자에게 남습니다:",
+  "gitea-deleted": "삭제됨",
+  "gitea-freed": "확보됨",
+  "gitea-deleted-list": "삭제된 리포지토리",
+  "gitea-index-stale": "삭제 이후 최신 상태가 아님: 정확한 크기를 보려면 다시 측정하세요."
 }

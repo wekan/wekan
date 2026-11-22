@@ -5658,5 +5658,19 @@
   "gitea-token-set": "নির্ধারিত",
   "gitea-token-not-set": "নির্ধারিত নয়",
   "gitea-bad-name": "এটি মালিক বা রিপোজিটরির বৈধ নাম নয়।",
-  "gitea-doer": "যে Gitea ব্যবহারকারী হিসেবে আমদানি করা হয়"
+  "gitea-doer": "যে Gitea ব্যবহারকারী হিসেবে আমদানি করা হয়",
+  "gitea-no-sync": "এই রিপোজিটরি আর সিঙ্ক করবেন না",
+  "gitea-sync-again": "আবার অন্তর্ভুক্ত করুন",
+  "gitea-excluded-saved": "আর সিঙ্ক করা হয় না:",
+  "gitea-included-saved": "আবার সিঙ্ক করা হচ্ছে:",
+  "gitea-sync-exclude-file": "যেসব রিপোজিটরি github-to-gitea ও Omi আর সিঙ্ক করে না তাদের তালিকা",
+  "gitea-delete-repo": "এই রিপোজিটরি ও তার ফাইলগুলো মুছুন",
+  "gitea-delete-repo-confirm": "এটি রিপোজিটরি, তার উইকি ও তার সব ডেটা Gitea ফোল্ডার থেকে চিরতরে মুছে দেয়। চালিয়ে যেতে owner/name লিখুন:",
+  "gitea-delete-repo-wrong-name": "লেখা নামটি রিপোজিটরির owner/name নয়। কিছুই মোছা হয়নি।",
+  "gitea-exclude-too": "এটিকে সিঙ্ক থেকেও বাদ দিন, যাতে পরের সিঙ্ক এটিকে ফিরিয়ে না আনে",
+  "gitea-packages-unlinked": "এর সাথে যুক্ত প্যাকেজগুলো যুক্ত না থেকে মালিকের কাছে থাকে:",
+  "gitea-deleted": "মোছা হয়েছে",
+  "gitea-freed": "মুক্ত",
+  "gitea-deleted-list": "মোছা রিপোজিটরি",
+  "gitea-index-stale": "একটি মোছার পর থেকে পুরোনো: সঠিক আকারের জন্য আবার মাপুন।"
 }

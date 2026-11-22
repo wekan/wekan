@@ -5658,5 +5658,19 @@
   "gitea-token-set": "सेट केले",
   "gitea-token-not-set": "सेट केलेले नाही",
   "gitea-bad-name": "ते वैध मालक किंवा रिपॉझिटरी नाव नाही.",
-  "gitea-doer": "ज्या Gitea वापरकर्त्याच्या नावाने आयात केली जाते"
+  "gitea-doer": "ज्या Gitea वापरकर्त्याच्या नावाने आयात केली जाते",
+  "gitea-no-sync": "ही रिपॉझिटरी आता सिंक करू नका",
+  "gitea-sync-again": "पुन्हा समाविष्ट करा",
+  "gitea-excluded-saved": "आता सिंक होत नाही:",
+  "gitea-included-saved": "पुन्हा सिंक होते:",
+  "gitea-sync-exclude-file": "github-to-gitea आणि Omi आता सिंक करत नाहीत अशा रिपॉझिटरींची यादी",
+  "gitea-delete-repo": "ही रिपॉझिटरी आणि तिच्या फाइल्स हटवा",
+  "gitea-delete-repo-confirm": "हे Gitea फोल्डरमधून रिपॉझिटरी, तिची विकी आणि तिचा सर्व डेटा कायमचा हटवते. पुढे जाण्यासाठी owner/name टाइप करा:",
+  "gitea-delete-repo-wrong-name": "टाइप केलेले नाव रिपॉझिटरीचे owner/name नाही. काहीही हटवले नाही.",
+  "gitea-exclude-too": "तिला सिंकमधूनही वगळा, म्हणजे पुढचे सिंक तिला परत आणणार नाही",
+  "gitea-packages-unlinked": "तिच्याशी जोडलेली पॅकेजेस जोडणीशिवाय मालकाकडेच राहतात:",
+  "gitea-deleted": "हटवले",
+  "gitea-freed": "मोकळे झाले",
+  "gitea-deleted-list": "हटवलेल्या रिपॉझिटरी",
+  "gitea-index-stale": "एका हटवण्यानंतर जुने: अचूक आकारांसाठी पुन्हा मोजा."
 }

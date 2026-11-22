@@ -5658,5 +5658,19 @@
   "gitea-token-set": "beállítva",
   "gitea-token-not-set": "nincs beállítva",
   "gitea-bad-name": "Ez nem érvényes tulajdonos- vagy tárolónév.",
-  "gitea-doer": "Gitea-felhasználó, akinek a nevében az import történik"
+  "gitea-doer": "Gitea-felhasználó, akinek a nevében az import történik",
+  "gitea-no-sync": "Ne szinkronizálja többé ezt a tárolót",
+  "gitea-sync-again": "Újra bevonás",
+  "gitea-excluded-saved": "Többé nincs szinkronizálva:",
+  "gitea-included-saved": "Újra szinkronizálva:",
+  "gitea-sync-exclude-file": "azon tárolók listája, amelyeket a github-to-gitea és az Omi már nem szinkronizál",
+  "gitea-delete-repo": "A tároló és fájljainak törlése",
+  "gitea-delete-repo-confirm": "Ez véglegesen törli a tárolót, a wikijét és minden adatát a Gitea mappából. A folytatáshoz írja be: owner/name",
+  "gitea-delete-repo-wrong-name": "A beírt név nem a tároló owner/name neve. Semmi sem lett törölve.",
+  "gitea-exclude-too": "Kizárás a szinkronizálásból is, hogy a következő szinkronizálás ne hozza vissza",
+  "gitea-packages-unlinked": "A hozzá kapcsolt csomagok a tulajdonosnál maradnak, kapcsolat nélkül:",
+  "gitea-deleted": "Törölve",
+  "gitea-freed": "felszabadítva",
+  "gitea-deleted-list": "Törölt tárolók",
+  "gitea-index-stale": "Egy törlés óta elavult: mérje újra a pontos méretekért."
 }

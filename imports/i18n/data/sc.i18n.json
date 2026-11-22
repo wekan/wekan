@@ -5658,5 +5658,19 @@
   "gitea-token-set": "impostadu",
   "gitea-token-not-set": "non impostadu",
   "gitea-bad-name": "Custu no est unu nòmine vàlidu de propietàriu o de depòsitu.",
-  "gitea-doer": "Utente de Gitea a nòmine de su cale si faghet s'importatzione"
+  "gitea-doer": "Utente de Gitea a nòmine de su cale si faghet s'importatzione",
+  "gitea-no-sync": "Non sincronizes prus custu depòsitu",
+  "gitea-sync-again": "Torra a incluire",
+  "gitea-excluded-saved": "Non prus sincronizadu:",
+  "gitea-included-saved": "Torra sincronizadu:",
+  "gitea-sync-exclude-file": "lista de sos depòsitos chi github-to-gitea e Omi non sincronizant prus",
+  "gitea-delete-repo": "Cantzella custu depòsitu e sos archìvios suos",
+  "gitea-delete-repo-confirm": "Custu cantzellat pro sempre su depòsitu, sa wiki sua e totu sos datos suos dae sa cartella de Gitea. Iscrie propietàriu/nòmine pro sighire:",
+  "gitea-delete-repo-wrong-name": "Su nòmine iscritu no est su propietàriu/nòmine de su depòsitu. Nudda est istadu cantzelladu.",
+  "gitea-exclude-too": "Esclude·lu fintzas dae sa sincronizatzione, gasi chi sa sincronizatzione imbeniente non lu torret",
+  "gitea-packages-unlinked": "Sos pachetes ligados a issu abarrant cun su propietàriu, iscollegados:",
+  "gitea-deleted": "Cantzelladu",
+  "gitea-freed": "liberados",
+  "gitea-deleted-list": "Depòsitos cantzellados",
+  "gitea-index-stale": "Non atualizadu dae una cantzelladura: mesura torra pro mannàrias esatas."
 }

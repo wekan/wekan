@@ -5658,5 +5658,19 @@
   "gitea-token-set": "asetettu",
   "gitea-token-not-set": "ei asetettu",
   "gitea-bad-name": "Tämä ei ole kelvollinen omistajan tai repositorion nimi.",
-  "gitea-doer": "Gitea-käyttäjä, jona tuonti tehdään"
+  "gitea-doer": "Gitea-käyttäjä, jona tuonti tehdään",
+  "gitea-no-sync": "Älä synkronoi tätä repositoriota enää",
+  "gitea-sync-again": "Ota uudelleen mukaan",
+  "gitea-excluded-saved": "Ei enää synkronoida:",
+  "gitea-included-saved": "Synkronoidaan taas:",
+  "gitea-sync-exclude-file": "luettelo repositorioista, joita github-to-gitea ja Omi eivät enää synkronoi",
+  "gitea-delete-repo": "Poista tämä repositorio ja sen tiedostot",
+  "gitea-delete-repo-confirm": "Tämä poistaa repositorion, sen wikin ja kaikki sen tiedot Gitea-kansiosta lopullisesti. Jatka kirjoittamalla owner/name:",
+  "gitea-delete-repo-wrong-name": "Kirjoitettu nimi ei ole repositorion owner/name. Mitään ei poistettu.",
+  "gitea-exclude-too": "Jätä se myös pois synkronoinnista, jotta seuraava synkronointi ei tuo sitä takaisin",
+  "gitea-packages-unlinked": "Siihen linkitetyt paketit jäävät omistajalle ilman linkkiä:",
+  "gitea-deleted": "Poistettu",
+  "gitea-freed": "vapautettu",
+  "gitea-deleted-list": "Poistetut repositoriot",
+  "gitea-index-stale": "Vanhentunut poiston jälkeen: mittaa uudelleen saadaksesi tarkat koot."
 }

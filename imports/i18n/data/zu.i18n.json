@@ -5658,5 +5658,19 @@
   "gitea-token-set": "isethiwe",
   "gitea-token-not-set": "ayisethiwe",
   "gitea-bad-name": "Lelo akulona igama elivumelekile lomnikazi noma lendawo yokugcina.",
-  "gitea-doer": "Umsebenzisi we-Gitea okwenziwa ngaye ukungenisa"
+  "gitea-doer": "Umsebenzisi we-Gitea okwenziwa ngaye ukungenisa",
+  "gitea-no-sync": "Ungabe usavumelanisa le ndawo yokugcina",
+  "gitea-sync-again": "Faka futhi",
+  "gitea-excluded-saved": "Akusavumelaniswa:",
+  "gitea-included-saved": "Kuvumelaniswe futhi:",
+  "gitea-sync-exclude-file": "uhlu lwezindawo zokugcina i-github-to-gitea ne-Omi ezingasazivumelanisi",
+  "gitea-delete-repo": "Susa le ndawo yokugcina namafayela ayo",
+  "gitea-delete-repo-confirm": "Lokhu kususa unomphela indawo yokugcina, i-wiki yayo nayo yonke idatha yayo kufolda ye-Gitea. Thayipha umnikazi/igama ukuze uqhubeke:",
+  "gitea-delete-repo-wrong-name": "Igama elithayiphiwe akulona umnikazi/igama lendawo yokugcina. Akukho okususiwe.",
+  "gitea-exclude-too": "Yikhiphe futhi ekuvumelaniseni, ukuze ukuvumelanisa okulandelayo kungayibuyisi",
+  "gitea-packages-unlinked": "Amaphakheji axhunywe kuyo ahlala nomnikazi, engaxhunyiwe:",
+  "gitea-deleted": "Isusiwe",
+  "gitea-freed": "kukhululiwe",
+  "gitea-deleted-list": "Izindawo zokugcina ezisusiwe",
+  "gitea-index-stale": "Akusesona esamanje kusukela kususwa: linganisa futhi ukuze uthole osayizi abaqondile."
 }

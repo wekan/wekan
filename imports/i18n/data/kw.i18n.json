@@ -5658,5 +5658,19 @@
   "gitea-token-set": "settys",
   "gitea-token-not-set": "ny settys",
   "gitea-bad-name": "Nyns yw hemm hanow da a berghen po gwithva kod.",
-  "gitea-doer": "Devnydhyer Gitea may fydh gwrys an ynperthi avel ev"
+  "gitea-doer": "Devnydhyer Gitea may fydh gwrys an ynperthi avel ev",
+  "gitea-no-sync": "Na gesunya an gwithva kod ma namoy",
+  "gitea-sync-again": "Gorra ynno arta",
+  "gitea-excluded-saved": "Nyns yw kesunys namoy:",
+  "gitea-included-saved": "Kesunys arta:",
+  "gitea-sync-exclude-file": "rol a withvaow kod na gesun github-to-gitea hag Omi namoy",
+  "gitea-delete-repo": "Dilea an gwithva kod ma ha'y restrennow",
+  "gitea-delete-repo-confirm": "Hemm a dhilea an gwithva kod, hy wiki ha hy data oll a'n plegell Gitea bys vykken. Skrif owner/name rag pesya:",
+  "gitea-delete-repo-wrong-name": "Nyns yw an hanow skrifys owner/name an gwithva kod. Ny veu travydh dileys.",
+  "gitea-exclude-too": "Keas hi yn-mes a'n kesunya ynwedh, ma na dhro an nessa kesunya hi arta",
+  "gitea-packages-unlinked": "Pakkasow kevrennys dhedhi a dhurt gans an perghen, heb kevren:",
+  "gitea-deleted": "Dileys",
+  "gitea-freed": "delivrys",
+  "gitea-deleted-list": "Gwithvaow kod dileys",
+  "gitea-index-stale": "Koth a-dhia dhileans: musur arta rag mentow ewn."
 }

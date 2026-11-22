@@ -5658,5 +5658,19 @@
   "gitea-token-set": "definit",
   "gitea-token-not-set": "pas definit",
   "gitea-bad-name": "Aquò es pas un nom de proprietari o de depaus valid.",
-  "gitea-doer": "Utilizaire Gitea al nom del qual se fa l'importacion"
+  "gitea-doer": "Utilizaire Gitea al nom del qual se fa l'importacion",
+  "gitea-no-sync": "Sincronizar pas mai aqueste depaus",
+  "gitea-sync-again": "Inclure tornamai",
+  "gitea-excluded-saved": "Pas mai sincronizat :",
+  "gitea-included-saved": "Sincronizat tornamai :",
+  "gitea-sync-exclude-file": "lista dels depauses que github-to-gitea e Omi sincronizan pas mai",
+  "gitea-delete-repo": "Suprimir aqueste depaus e sos fichièrs",
+  "gitea-delete-repo-confirm": "Aquò suprimís per totjorn lo depaus, son wiki e totas sas donadas del dorsièr Gitea. Picatz owner/name per contunhar :",
+  "gitea-delete-repo-wrong-name": "Lo nom picat es pas lo owner/name del depaus. Res es pas estat suprimit.",
+  "gitea-exclude-too": "L'exclure tanben de la sincronizacion, per que la sincronizacion seguenta lo tòrne pas portar",
+  "gitea-packages-unlinked": "Los paquets ligats a el demòran al proprietari, sens ligam :",
+  "gitea-deleted": "Suprimit lo",
+  "gitea-freed": "liberats",
+  "gitea-deleted-list": "Depauses suprimits",
+  "gitea-index-stale": "Obsolet dempuèi una supression : mesuratz tornamai per las talhas exactas."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "सेट अछि",
   "gitea-token-not-set": "सेट नहि",
   "gitea-bad-name": "ई मालिक वा रिपोजिटरीक मान्य नाम नहि अछि।",
-  "gitea-doer": "जाहि Gitea प्रयोगकर्ताक रूपमे आयात होइत अछि"
+  "gitea-doer": "जाहि Gitea प्रयोगकर्ताक रूपमे आयात होइत अछि",
+  "gitea-no-sync": "एहि रिपोजिटरीकेँ आब सिंक नहि करू",
+  "gitea-sync-again": "फेरसँ सम्मिलित करू",
+  "gitea-excluded-saved": "आब सिंक नहि होइत अछि:",
+  "gitea-included-saved": "फेरसँ सिंक होइत अछि:",
+  "gitea-sync-exclude-file": "ओहि रिपोजिटरी सभक सूची जकरा github-to-gitea आ Omi आब सिंक नहि करैत अछि",
+  "gitea-delete-repo": "एहि रिपोजिटरी आ एकर फाइल सभकेँ मेटाबू",
+  "gitea-delete-repo-confirm": "ई Gitea फोल्डरसँ रिपोजिटरी, एकर विकी आ एकर सभ डेटा सदाक लेल मेटा दैत अछि। आगाँ बढ़बाक लेल owner/name लिखू:",
+  "gitea-delete-repo-wrong-name": "लिखल नाम रिपोजिटरीक owner/name नहि अछि। किछु नहि मेटाओल गेल।",
+  "gitea-exclude-too": "एकरा सिंकसँ सेहो बाहर राखू, जाहिसँ अगिला सिंक एकरा घुरा नहि आनय",
+  "gitea-packages-unlinked": "एहिसँ जुड़ल पैकेज बिना जुड़ावक मालिक लग रहैत अछि:",
+  "gitea-deleted": "मेटाओल गेल",
+  "gitea-freed": "खाली भेल",
+  "gitea-deleted-list": "मेटाओल गेल रिपोजिटरी",
+  "gitea-index-stale": "एकटा मेटेबाक बादसँ पुरान: सटीक आकारक लेल फेरसँ नापू।"
 }

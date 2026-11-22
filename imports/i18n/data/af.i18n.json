@@ -5658,5 +5658,19 @@
   "gitea-token-set": "gestel",
   "gitea-token-not-set": "nie gestel nie",
   "gitea-bad-name": "Dit is nie 'n geldige eienaar- of bewaarpleknaam nie.",
-  "gitea-doer": "Gitea-gebruiker as wie die invoer gedoen word"
+  "gitea-doer": "Gitea-gebruiker as wie die invoer gedoen word",
+  "gitea-no-sync": "Moenie hierdie bewaarplek meer sinkroniseer nie",
+  "gitea-sync-again": "Sluit weer in",
+  "gitea-excluded-saved": "Nie meer gesinkroniseer nie:",
+  "gitea-included-saved": "Weer gesinkroniseer:",
+  "gitea-sync-exclude-file": "lys van bewaarplekke wat github-to-gitea en Omi nie meer sinkroniseer nie",
+  "gitea-delete-repo": "Skrap hierdie bewaarplek en sy lêers",
+  "gitea-delete-repo-confirm": "Dit skrap die bewaarplek, sy wiki en al sy data permanent uit die Gitea-gids. Tik owner/name om voort te gaan:",
+  "gitea-delete-repo-wrong-name": "Die getikte naam is nie die bewaarplek se owner/name nie. Niks is geskrap nie.",
+  "gitea-exclude-too": "Sluit dit ook uit van sinkronisasie, sodat die volgende sinkronisasie dit nie terugbring nie",
+  "gitea-packages-unlinked": "Pakkette wat daaraan gekoppel is, bly by die eienaar, ontkoppel:",
+  "gitea-deleted": "Geskrap",
+  "gitea-freed": "vrygemaak",
+  "gitea-deleted-list": "Geskrapte bewaarplekke",
+  "gitea-index-stale": "Verouderd sedert 'n skrapping: meet weer vir presiese groottes."
 }

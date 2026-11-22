@@ -5658,5 +5658,19 @@
   "gitea-token-set": "bellendi",
   "gitea-token-not-set": "bellenmedi",
   "gitea-bad-name": "Bu dogry eýe ýa-da repozitoriý ady däl.",
-  "gitea-doer": "Importy amala aşyrýan Gitea ulanyjysy"
+  "gitea-doer": "Importy amala aşyrýan Gitea ulanyjysy",
+  "gitea-no-sync": "Bu repozitoriýi indi sinhronlama",
+  "gitea-sync-again": "Täzeden goş",
+  "gitea-excluded-saved": "Indi sinhronlanmaýar:",
+  "gitea-included-saved": "Täzeden sinhronlandy:",
+  "gitea-sync-exclude-file": "github-to-gitea we Omi indi sinhronlamaýan repozitoriýleriň sanawy",
+  "gitea-delete-repo": "Bu repozitoriýi we onuň faýllaryny öçür",
+  "gitea-delete-repo-confirm": "Bu repozitoriýi, onuň wikisini we ähli maglumatlaryny Gitea bukjasyndan biratola öçürýär. Dowam etmek üçin eýe/at ýazyň:",
+  "gitea-delete-repo-wrong-name": "Ýazylan at repozitoriýiň eýe/ady däl. Hiç zat öçürilmedi.",
+  "gitea-exclude-too": "Ony sinhronlamakdan hem çykar, indiki sinhronlama ony yzyna getirmez ýaly",
+  "gitea-packages-unlinked": "Oňa baglanan paketler eýesinde galýar, baglanyşyksyz:",
+  "gitea-deleted": "Öçürildi",
+  "gitea-freed": "boşadyldy",
+  "gitea-deleted-list": "Öçürilen repozitoriýler",
+  "gitea-index-stale": "Bir öçürmeden bäri köne: takyk ölçegler üçin täzeden ölçäň."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "yo vhetshelwa",
   "gitea-token-not-set": "a yo ngo vhetshelwa",
   "gitea-bad-name": "Ḽeneḽo a si dzina ḽo teaho ḽa muṋe kana ḽa vhuvhulungelo.",
-  "gitea-doer": "Mushumisi wa Gitea ane u dzhenisa ha itwa nga ene"
+  "gitea-doer": "Mushumisi wa Gitea ane u dzhenisa ha itwa nga ene",
+  "gitea-no-sync": "Ni songo tsha ṱanganyisa vhuvhulungelo uhu",
+  "gitea-sync-again": "Dzhenisani hafhu",
+  "gitea-excluded-saved": "A zwi tsha ṱanganyiswa:",
+  "gitea-included-saved": "Zwo ṱanganyiswa hafhu:",
+  "gitea-sync-exclude-file": "mutevhe wa vhuvhulungelo he github-to-gitea na Omi vha si tsha vhu ṱanganyisa",
+  "gitea-delete-repo": "Bvisani vhuvhulungelo uhu na faela dzaho",
+  "gitea-delete-repo-confirm": "Hezwi zwi bvisa tshoṱhe vhuvhulungelo, wiki yaho na data yoṱhe yaho kha folodara ya Gitea. Thaiphani muṋe/dzina u bvela phanḓa:",
+  "gitea-delete-repo-wrong-name": "Dzina ḽo thaiphiwaho a si muṋe/dzina ḽa vhuvhulungelo. A hu na tshe tsha bviswa.",
+  "gitea-exclude-too": "Vhu bviseni na kha u ṱanganyisa, u itela uri u ṱanganyisa hu tevhelaho hu si vhu vhuyedzedze",
+  "gitea-packages-unlinked": "Mapakete o ṱumanywaho naho a sala na muṋe, o sa ṱumanywa:",
+  "gitea-deleted": "Zwo bviswa",
+  "gitea-freed": "zwo vhofhololwa",
+  "gitea-deleted-list": "Vhuvhulungelo ho bviswaho",
+  "gitea-index-stale": "A zwi tsha vha zwa zwino u bva musi hu tshi bviswa: kalani hafhu u wana masaizi o teaho."
 }

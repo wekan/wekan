@@ -5658,5 +5658,19 @@
   "gitea-token-set": "mpustato",
   "gitea-token-not-set": "nun mpustato",
   "gitea-bad-name": "Chisto nun è nu nomme valido 'e padrone o 'e repository.",
-  "gitea-doer": "Utente 'e Gitea a nomme d''o quale se fa 'a mportazione"
+  "gitea-doer": "Utente 'e Gitea a nomme d''o quale se fa 'a mportazione",
+  "gitea-no-sync": "Nun sincronizzà cchiù stu repository",
+  "gitea-sync-again": "Miette n'ata vota",
+  "gitea-excluded-saved": "Nun è cchiù sincronizzato:",
+  "gitea-included-saved": "È sincronizzato n'ata vota:",
+  "gitea-sync-exclude-file": "lista d''e repository ca github-to-gitea e Omi nun sincronizzano cchiù",
+  "gitea-delete-repo": "Scancella stu repository e 'e file suoie",
+  "gitea-delete-repo-confirm": "Chesto scancella pe' sempe 'o repository, 'a wiki soja e tutte 'e date suoie d''a cartella 'e Gitea. Scrive owner/name pe' ghì nnanze:",
+  "gitea-delete-repo-wrong-name": "'O nomme scritto nun è 'o owner/name d''o repository. Nun s'è scancellato niente.",
+  "gitea-exclude-too": "Lièvalo pure d''a sincronizzazione, accussì 'a sincronizzazione appriesso nun 'o porta arreto",
+  "gitea-packages-unlinked": "'E pacchette attaccate a isso restano c''o padrone, staccate:",
+  "gitea-deleted": "Scancellato",
+  "gitea-freed": "libberate",
+  "gitea-deleted-list": "Repository scancellate",
+  "gitea-index-stale": "Viecchio 'a na scancellazione: misura n'ata vota pe' 'e grandezze esatte."
 }

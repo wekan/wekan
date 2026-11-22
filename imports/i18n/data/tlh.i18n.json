@@ -5658,5 +5658,19 @@
   "gitea-token-set": "wIvlu'pu'",
   "gitea-token-not-set": "wIvlu'pu'be'",
   "gitea-bad-name": "ghajwI' pong pagh polwI' pong lugh 'oHbe' vam'e'.",
-  "gitea-doer": "Suqlu'meH Gitea lo'wI'"
+  "gitea-doer": "Suqlu'meH Gitea lo'wI'",
+  "gitea-no-sync": "polwI'vam yIrurmoHqa'Qo'",
+  "gitea-sync-again": "yIroSqa'",
+  "gitea-excluded-saved": "rurmoHlu'be'ta':",
+  "gitea-included-saved": "rurmoHqa'lu'pu':",
+  "gitea-sync-exclude-file": "polwI'mey tetlh github-to-gitea Omi je rurmoHbe'bogh",
+  "gitea-delete-repo": "polwI'vam teywI'meyDaj je yIQaw'",
+  "gitea-delete-repo-confirm": "Gitea ngaSwI'vo' polwI', wiki'Daj, De'Daj Hoch je reH Qaw'. ruchmeH ghajwI'/pong yIghItlh:",
+  "gitea-delete-repo-wrong-name": "polwI' ghajwI'/pong ghaHbe' pong ghItlhlu'pu'bogh'e'. pagh Qaw'lu'pu'.",
+  "gitea-exclude-too": "rurmoHghachvo' yIteqqa' je, vaj rurmoHghach veb Dochvetlh qempa'be'",
+  "gitea-packages-unlinked": "veymey rarlu'bogh ghajwI' ghaj, rarlu'be':",
+  "gitea-deleted": "Qaw'lu'pu'",
+  "gitea-freed": "tlhab",
+  "gitea-deleted-list": "polwI'mey Qaw'lu'pu'bogh",
+  "gitea-index-stale": "Qaw'lu'DI' ghu'vam choHlu'be': tInqu'ghachmey lugh DaSovmeH yIjuvqa'."
 }

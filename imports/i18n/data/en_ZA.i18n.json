@@ -5658,5 +5658,19 @@
   "gitea-token-set": "set",
   "gitea-token-not-set": "not set",
   "gitea-bad-name": "That is not a valid owner or repository name.",
-  "gitea-doer": "Gitea user the import is done as"
+  "gitea-doer": "Gitea user the import is done as",
+  "gitea-no-sync": "Do not sync this repository any more",
+  "gitea-sync-again": "Include again",
+  "gitea-excluded-saved": "Not synced any more:",
+  "gitea-included-saved": "Synced again:",
+  "gitea-sync-exclude-file": "list of repositories github-to-gitea and Omi no longer sync",
+  "gitea-delete-repo": "Delete this repository and its files",
+  "gitea-delete-repo-confirm": "This deletes the repository, its wiki and all its data from the Gitea folder for good. Type owner/name to go on:",
+  "gitea-delete-repo-wrong-name": "The name typed is not the repository's owner/name. Nothing was deleted.",
+  "gitea-exclude-too": "Also exclude it from sync, so that the next sync does not bring it back",
+  "gitea-packages-unlinked": "Packages linked to it stay with the owner, unlinked:",
+  "gitea-deleted": "Deleted",
+  "gitea-freed": "freed",
+  "gitea-deleted-list": "Deleted repositories",
+  "gitea-index-stale": "Out of date since a deletion: measure again for exact sizes."
 }

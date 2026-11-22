@@ -5658,5 +5658,19 @@
   "gitea-token-set": "configurau",
   "gitea-token-not-set": "no configurau",
   "gitea-bad-name": "Ixe no ye un nombre valido de propietario u repositorio.",
-  "gitea-doer": "Usuario de Gitea con o que se fa a importación"
+  "gitea-doer": "Usuario de Gitea con o que se fa a importación",
+  "gitea-no-sync": "No sincronizar mas iste repositorio",
+  "gitea-sync-again": "Incluir de nuevo",
+  "gitea-excluded-saved": "Ya no se sincroniza:",
+  "gitea-included-saved": "Sincronizau de nuevo:",
+  "gitea-sync-exclude-file": "lista de repositorios que github-to-gitea y Omi ya no sincronizan",
+  "gitea-delete-repo": "Borrar iste repositorio y os suyos fichers",
+  "gitea-delete-repo-confirm": "Isto borra ta cutio o repositorio, a suya wiki y totz os suyos datos d'a carpeta de Gitea. Escribe owner/name ta continar:",
+  "gitea-delete-repo-wrong-name": "O nombre escrito no ye o owner/name d'o repositorio. No s'ha borrau cosa.",
+  "gitea-exclude-too": "Excluir-lo tamién d'a sincronización, ta que a siguient sincronización no lo torne",
+  "gitea-packages-unlinked": "Os paquetz vinculaus a ell se quedan con o propietario, sin vinculo:",
+  "gitea-deleted": "Borrau",
+  "gitea-freed": "liberaus",
+  "gitea-deleted-list": "Repositorios borraus",
+  "gitea-index-stale": "Desactualizau dende un borrau: mesura de nuevo ta tener os tamaños exactos."
 }

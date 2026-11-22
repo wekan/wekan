@@ -5658,5 +5658,19 @@
   "gitea-token-set": "مقرر",
   "gitea-token-not-set": "مقرر ناهي",
   "gitea-bad-name": "اهو مالڪ يا ريپوزيٽري جو صحيح نالو ناهي.",
-  "gitea-doer": "Gitea استعمال ڪندڙ جنهن طور درآمد ڪئي وڃي ٿي"
+  "gitea-doer": "Gitea استعمال ڪندڙ جنهن طور درآمد ڪئي وڃي ٿي",
+  "gitea-no-sync": "هن ريپوزيٽري کي وڌيڪ سنڪ نه ڪريو",
+  "gitea-sync-again": "ٻيهر شامل ڪريو",
+  "gitea-excluded-saved": "وڌيڪ سنڪ ٿيل ناهي:",
+  "gitea-included-saved": "ٻيهر سنڪ ٿيل:",
+  "gitea-sync-exclude-file": "ريپوزيٽرين جي لسٽ جن کي github-to-gitea ۽ Omi هاڻي سنڪ نٿا ڪن",
+  "gitea-delete-repo": "هي ريپوزيٽري ۽ ان جون فائلون ڊاهيو",
+  "gitea-delete-repo-confirm": "هي ريپوزيٽري، ان جي وڪي ۽ ان جي سموري ڊيٽا Gitea فولڊر مان هميشه لاءِ ڊاهي ٿو. اڳتي وڌڻ لاءِ مالڪ/نالو ٽائيپ ڪريو:",
+  "gitea-delete-repo-wrong-name": "ٽائيپ ڪيل نالو ريپوزيٽري جو مالڪ/نالو ناهي. ڪجهه به ڊاٺو نه ويو.",
+  "gitea-exclude-too": "ان کي سنڪ مان به خارج ڪريو، ته جيئن ايندڙ سنڪ ان کي واپس نه آڻي",
+  "gitea-packages-unlinked": "ان سان ڳنڍيل پيڪيجز مالڪ وٽ رهن ٿا، اڻ ڳنڍيل:",
+  "gitea-deleted": "ڊاٺل",
+  "gitea-freed": "آزاد ٿيو",
+  "gitea-deleted-list": "ڊاٺل ريپوزيٽريون",
+  "gitea-index-stale": "هڪ ڊاهڻ کان پوءِ پراڻو: صحيح سائيزن لاءِ ٻيهر ماپيو."
 }

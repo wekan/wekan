@@ -5658,5 +5658,19 @@
   "gitea-token-set": "kuo fokotuʻu",
   "gitea-token-not-set": "teʻeki fokotuʻu",
   "gitea-bad-name": "ʻOku ʻikai ko ha hingoa totonu ia ʻo ha tokotaha ʻoku ʻaʻana pe tauhiʻanga.",
-  "gitea-doer": "Tokotaha ngāueʻaki Gitea ʻoku fai ʻaki ʻa e hū maí"
+  "gitea-doer": "Tokotaha ngāueʻaki Gitea ʻoku fai ʻaki ʻa e hū maí",
+  "gitea-no-sync": "ʻOua ʻe toe fetuʻutaki ʻa e tauhiʻanga ko ʻení",
+  "gitea-sync-again": "Toe fakakau",
+  "gitea-excluded-saved": "ʻIkai toe fetuʻutaki:",
+  "gitea-included-saved": "Toe fetuʻutaki:",
+  "gitea-sync-exclude-file": "lisi ʻo e ngaahi tauhiʻanga ʻoku ʻikai toe fetuʻutaki ʻe github-to-gitea mo Omi",
+  "gitea-delete-repo": "Tāmateʻi ʻa e tauhiʻanga ko ʻení mo hono ngaahi faile",
+  "gitea-delete-repo-confirm": "ʻOku tāmateʻi taʻengata ʻe he meʻá ni ʻa e tauhiʻangá, hono wiki mo ʻene fakamatala kotoa mei he fōlitā Gitea. Tohiʻi ʻa e tokotaha ʻoku ʻaʻana/hingoa ke hoko atu:",
+  "gitea-delete-repo-wrong-name": "Ko e hingoa naʻe tohiʻí ʻoku ʻikai ko e tokotaha ʻoku ʻaʻana/hingoa ʻo e tauhiʻangá. Naʻe ʻikai tāmateʻi ha meʻa.",
+  "gitea-exclude-too": "Toʻo foki ia mei he fetuʻutakí, koeʻuhi ke ʻoua ʻe toe ʻomi ia ʻe he fetuʻutaki hokó",
+  "gitea-packages-unlinked": "Ko e ngaahi kato naʻe fehokotaki mo ia ʻoku nofo pē mo e tokotaha ʻoku ʻaʻaná, ʻikai fehokotaki:",
+  "gitea-deleted": "Tāmateʻi",
+  "gitea-freed": "fakataʻataʻaʻi",
+  "gitea-deleted-list": "Ngaahi tauhiʻanga kuo tāmateʻi",
+  "gitea-index-stale": "Kuo motuʻa talu mei ha tāmateʻi: toe fua ki he ngaahi lahi totonu."
 }

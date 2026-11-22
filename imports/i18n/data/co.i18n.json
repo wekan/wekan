@@ -5658,5 +5658,19 @@
   "gitea-token-set": "definitu",
   "gitea-token-not-set": "micca definitu",
   "gitea-bad-name": "Questu ùn hè micca un nome validu di pruprietariu o di ripusitoriu.",
-  "gitea-doer": "Utilizatore di Gitea cù quale si face l'impurtazione"
+  "gitea-doer": "Utilizatore di Gitea cù quale si face l'impurtazione",
+  "gitea-no-sync": "Ùn sincronizà più stu ripusitoriu",
+  "gitea-sync-again": "Includa torna",
+  "gitea-excluded-saved": "Ùn hè più sincronizatu:",
+  "gitea-included-saved": "Torna sincronizatu:",
+  "gitea-sync-exclude-file": "lista di i ripusitorii chì github-to-gitea è Omi ùn sincronizeghjanu più",
+  "gitea-delete-repo": "Squassà stu ripusitoriu è i so schedarii",
+  "gitea-delete-repo-confirm": "Questu squassa per sempre u ripusitoriu, a so wiki è tutti i so dati da u cartulare di Gitea. Scrivite owner/name per cuntinuà:",
+  "gitea-delete-repo-wrong-name": "U nome scrittu ùn hè micca l'owner/name di u ripusitoriu. Nunda hè statu squassatu.",
+  "gitea-exclude-too": "Escludelu dinù da a sincronizazione, cusì a prossima sincronizazione ùn u rimette micca",
+  "gitea-packages-unlinked": "I pacchetti ligati à ellu fermanu cù u pruprietariu, senza ligame:",
+  "gitea-deleted": "Squassatu",
+  "gitea-freed": "liberati",
+  "gitea-deleted-list": "Ripusitorii squassati",
+  "gitea-index-stale": "Ùn hè più à ghjornu dapoi una squassatura: misurate torna per avè e dimensioni esatte."
 }

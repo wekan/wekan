@@ -5658,5 +5658,19 @@
   "gitea-token-set": "iestatīts",
   "gitea-token-not-set": "nav iestatīts",
   "gitea-bad-name": "Tas nav derīgs īpašnieka vai repozitorija nosaukums.",
-  "gitea-doer": "Gitea lietotājs, kura vārdā tiek veikts imports"
+  "gitea-doer": "Gitea lietotājs, kura vārdā tiek veikts imports",
+  "gitea-no-sync": "Vairs nesinhronizēt šo repozitoriju",
+  "gitea-sync-again": "Iekļaut atkal",
+  "gitea-excluded-saved": "Vairs netiek sinhronizēts:",
+  "gitea-included-saved": "Atkal tiek sinhronizēts:",
+  "gitea-sync-exclude-file": "to repozitoriju saraksts, kurus github-to-gitea un Omi vairs nesinhronizē",
+  "gitea-delete-repo": "Dzēst šo repozitoriju un tā failus",
+  "gitea-delete-repo-confirm": "Tas neatgriezeniski dzēš repozitoriju, tā wiki un visus tā datus no Gitea mapes. Lai turpinātu, ierakstiet owner/name:",
+  "gitea-delete-repo-wrong-name": "Ierakstītais nosaukums nav repozitorija owner/name. Nekas netika dzēsts.",
+  "gitea-exclude-too": "Izslēgt to arī no sinhronizācijas, lai nākamā sinhronizācija to neatgrieztu",
+  "gitea-packages-unlinked": "Ar to saistītās pakotnes paliek pie īpašnieka, nesaistītas:",
+  "gitea-deleted": "Dzēsts",
+  "gitea-freed": "atbrīvoti",
+  "gitea-deleted-list": "Dzēstie repozitoriji",
+  "gitea-index-stale": "Novecojis kopš dzēšanas: izmēriet vēlreiz, lai iegūtu precīzus izmērus."
 }

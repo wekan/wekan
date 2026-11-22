@@ -5658,5 +5658,19 @@
   "gitea-token-set": "poné",
   "gitea-token-not-set": "no poné",
   "gitea-bad-name": "Esei no ta un nòmber válido di doño of di repositorio.",
-  "gitea-doer": "Usuario di Gitea na nòmber di kua e importashon ta wòrdu hasí"
+  "gitea-doer": "Usuario di Gitea na nòmber di kua e importashon ta wòrdu hasí",
+  "gitea-no-sync": "No sinkronisá e repositorio aki mas",
+  "gitea-sync-again": "Inkluí atrobe",
+  "gitea-excluded-saved": "No ta sinkronisá mas:",
+  "gitea-included-saved": "Sinkronisá atrobe:",
+  "gitea-sync-exclude-file": "lista di repositorio ku github-to-gitea i Omi no ta sinkronisá mas",
+  "gitea-delete-repo": "Kita e repositorio aki i su archivonan",
+  "gitea-delete-repo-confirm": "Esaki ta kita e repositorio, su wiki i tur su datonan for di e mapa di Gitea pa semper. Tek owner/name pa sigui:",
+  "gitea-delete-repo-wrong-name": "E nòmber tekiá no ta e owner/name di e repositorio. Nada no a wòrdu eliminá.",
+  "gitea-exclude-too": "Ekskluí e tambe for di sinkronisashon, pa e siguiente sinkronisashon no trese e bèk",
+  "gitea-packages-unlinked": "Pakètenan konektá ku e ta keda serka e doño, sin konekshon:",
+  "gitea-deleted": "Eliminá",
+  "gitea-freed": "librá",
+  "gitea-deleted-list": "Repositorionan eliminá",
+  "gitea-index-stale": "No ta al dia mas desde un eliminashon: midi atrobe pa tamañonan eksakto."
 }

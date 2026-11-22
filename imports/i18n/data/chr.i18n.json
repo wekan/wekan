@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ᎤᏩᏌ",
   "gitea-token-not-set": "ᎥᏝ ᏳᏩᏌ",
   "gitea-bad-name": "ᎯᎠ ᎥᏝ ᎤᏙᎯᏳᎯ ᎤᏤᎵᎦ ᎠᎴ ᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ ᏚᏙᎥ ᏱᎩ.",
-  "gitea-doer": "Gitea ᎬᏗᏍᎩ ᎾᏍᎩ ᏚᏙᎥ ᎬᏗ ᎠᏴᏔᏂᏍᎪ"
+  "gitea-doer": "Gitea ᎬᏗᏍᎩ ᎾᏍᎩ ᏚᏙᎥ ᎬᏗ ᎠᏴᏔᏂᏍᎪ",
+  "gitea-no-sync": "ᏞᏍᏗ ᎿᏉ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᏱᏂᏨᎦ ᎯᎠ ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ",
+  "gitea-sync-again": "ᏔᎵᏁ ᎯᏯᏅᎦ",
+  "gitea-excluded-saved": "ᎿᏉ ᎥᏝ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᏱᎩ:",
+  "gitea-included-saved": "ᏔᎵᏁ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ:",
+  "gitea-sync-exclude-file": "ᏗᏎᏍᏗ ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ github-to-gitea ᎠᎴ Omi ᎿᏉ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᏂᏚᏂᏢᎬᎾ",
+  "gitea-delete-repo": "ᎯᏲᏍᏓ ᎯᎠ ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ ᎠᎴ ᏧᏤᎵ ᏗᎪᏪᎵ",
+  "gitea-delete-repo-confirm": "ᎯᎠ ᏂᎪᎯᎸ ᏓᏲᏍᏗᏍᎪ ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ, ᎤᏤᎵ wiki ᎠᎴ ᏂᎦᏛ ᎤᏤᎵ ᎧᏃᎮᏓ Gitea ᎤᏍᏆᏂᎩᏗ ᏗᏢ. owner/name ᎯᏬᏪᎳ ᎢᎬᏱᏢ ᎮᏅᏍᏗ:",
+  "gitea-delete-repo-wrong-name": "ᏚᏙᎥ ᎯᏬᏪᎳᏅ ᎥᏝ ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ ᎤᏤᎵ owner/name ᏱᎩ. ᎥᏝ ᎪᎱᏍᏗ ᏳᏲᏍᏔᏁ.",
+  "gitea-exclude-too": "ᎾᏍᏉ ᎯᎧᎲᎦ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᏗᏢ, ᎤᎬᏩᎵ ᏐᏉ ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᏞᏍᏗ ᏱᎦᎶᎯᏍᏓ",
+  "gitea-packages-unlinked": "ᏧᏍᏆᏂᎪᏙᏗ ᎤᏚᏓᏕᏫᏒ ᎤᏤᎵᎦ ᏓᏂᏁᏍᏗ, ᏂᏚᏚᏓᏕᏫᏒᎾ:",
+  "gitea-deleted": "ᎤᏲᏍᏔᏅ",
+  "gitea-freed": "ᎤᏪᎧᎲᏒ",
+  "gitea-deleted-list": "ᏗᎪᏪᎵ ᎠᏍᏆᏂᎪᏙᏗ ᎤᏲᏍᏔᏅ",
+  "gitea-index-stale": "ᎤᏲᏍᏔᏅ ᏅᏓᎬᏩᏓᎴᏅᏛ ᎥᏝ ᎪᎯ ᏱᎩ: ᏔᎵᏁ ᎯᏟᎶᎦ ᎤᏙᎯᏳᎯ ᎢᎦᎢ ᏗᏎᏍᏗ."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "isetiwe",
   "gitea-token-not-set": "ayikasetwa",
   "gitea-bad-name": "Leli akusilo libito lelivumelekile lemnikati noma le-repository.",
-  "gitea-doer": "Umsebentisi we-Gitea lokungenisa kwentiwa egameni lakhe"
+  "gitea-doer": "Umsebentisi we-Gitea lokungenisa kwentiwa egameni lakhe",
+  "gitea-no-sync": "Ungaphindzi uvumelanise le-repository",
+  "gitea-sync-again": "Faka futsi",
+  "gitea-excluded-saved": "Akusavumelaniswa:",
+  "gitea-included-saved": "Kuvumelaniswe futsi:",
+  "gitea-sync-exclude-file": "luhlu lwemarepository i-github-to-gitea ne-Omi lasengakavumelanisi",
+  "gitea-delete-repo": "Susa le-repository nemafayela ayo",
+  "gitea-delete-repo-confirm": "Loku kusula unomphela i-repository, i-wiki yayo nayo yonkhe idatha yayo elifoldeni le-Gitea. Bhala mnikati/libito kute uchubeke:",
+  "gitea-delete-repo-wrong-name": "Libito lelibhaliwe akusilo mnikati/libito le-repository. Kute lokusuliwe.",
+  "gitea-exclude-too": "Yikhiphe nasekuvumelaniseni, kute kuvumelanisa lokulandzelako kungayibuyisi",
+  "gitea-packages-unlinked": "Emaphakheji laboshelwe kuyo ahlala nemnikati, angakaboshelwa:",
+  "gitea-deleted": "Kusuliwe",
+  "gitea-freed": "kukhululiwe",
+  "gitea-deleted-list": "Emarepository lasusiwe",
+  "gitea-index-stale": "Akusesikhatsini kusukela kusulwa: linganisa futsi kute utfole bukhulu lobuncono."
 }

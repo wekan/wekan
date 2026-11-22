@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ditetapkan",
   "gitea-token-not-set": "tidak ditetapkan",
   "gitea-bad-name": "Itu bukan nama pemilik atau repositori yang sah.",
-  "gitea-doer": "Pengguna Gitea yang digunakan untuk import"
+  "gitea-doer": "Pengguna Gitea yang digunakan untuk import",
+  "gitea-no-sync": "Jangan segerakkan repositori ini lagi",
+  "gitea-sync-again": "Sertakan semula",
+  "gitea-excluded-saved": "Tidak disegerakkan lagi:",
+  "gitea-included-saved": "Disegerakkan semula:",
+  "gitea-sync-exclude-file": "senarai repositori yang tidak lagi disegerakkan oleh github-to-gitea dan Omi",
+  "gitea-delete-repo": "Padam repositori ini dan failnya",
+  "gitea-delete-repo-confirm": "Ini memadam repositori, wikinya dan semua datanya daripada folder Gitea secara kekal. Taip owner/name untuk meneruskan:",
+  "gitea-delete-repo-wrong-name": "Nama yang ditaip bukan owner/name repositori. Tiada apa-apa dipadam.",
+  "gitea-exclude-too": "Kecualikan juga daripada penyegerakan, supaya penyegerakan seterusnya tidak membawanya kembali",
+  "gitea-packages-unlinked": "Pakej yang dipautkan kepadanya kekal dengan pemilik, tanpa pautan:",
+  "gitea-deleted": "Dipadam",
+  "gitea-freed": "dibebaskan",
+  "gitea-deleted-list": "Repositori yang dipadam",
+  "gitea-index-stale": "Lapuk sejak pemadaman: ukur semula untuk saiz yang tepat."
 }

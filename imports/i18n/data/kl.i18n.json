@@ -5658,5 +5658,19 @@
   "gitea-token-set": "aaqqissuunneqarpoq",
   "gitea-token-not-set": "aaqqissuunneqanngilaq",
   "gitea-bad-name": "Tamanna piginnittup imaluunniit kode-toqqorsiviup aqqa atorsinnaasoq unaanngilaq.",
-  "gitea-doer": "Gitea-mi atuisoq isertitsinerup aqqatigalugu suliarineqartoq"
+  "gitea-doer": "Gitea-mi atuisoq isertitsinerup aqqatigalugu suliarineqartoq",
+  "gitea-no-sync": "Kode-toqqorsivik una naligiisitsinnagu",
+  "gitea-sync-again": "Ilanngutiqqiguk",
+  "gitea-excluded-saved": "Naligiisitsineqarunnaarpoq:",
+  "gitea-included-saved": "Naligiisitsineqaqqippoq:",
+  "gitea-sync-exclude-file": "kode-toqqorsiviit github-to-gitea aamma Omi naligiisitsinngisaasa allattorsimaffiat",
+  "gitea-delete-repo": "Kode-toqqorsivik una fiilii ilanngullugit peerlugu",
+  "gitea-delete-repo-confirm": "Una kode-toqqorsivimmik, wikianik paasissutissaanillu tamarmik Gitea-mappimit isumaannaartumik peersisivoq. Ingerlaqqinniarlutit owner/name allaguk:",
+  "gitea-delete-repo-wrong-name": "Aqqa allanneqartoq kode-toqqorsiviup owner/name-ia unaanngilaq. Sunik peersisoqanngilaq.",
+  "gitea-exclude-too": "Aamma naligiisitsinermit peerlugu, naligiisitsinerup tulliata utertinnginnissaa siunertaralugu",
+  "gitea-packages-unlinked": "Poortukkat taassumunnga atasut piginnittumi atanngitsutut uninngapput:",
+  "gitea-deleted": "Peerneqarpoq",
+  "gitea-freed": "qaangiisinneqarpoq",
+  "gitea-deleted-list": "Kode-toqqorsiviit peerneqartut",
+  "gitea-index-stale": "Peersinerup kingorna nutaajunnaarpoq: angissusii eqqortut pillugit uuttoqqiguk."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "wedi'i osod",
   "gitea-token-not-set": "heb ei osod",
   "gitea-bad-name": "Nid yw hwnnw'n enw perchennog neu ystorfa dilys.",
-  "gitea-doer": "Defnyddiwr Gitea y gwneir y mewnforio fel"
+  "gitea-doer": "Defnyddiwr Gitea y gwneir y mewnforio fel",
+  "gitea-no-sync": "Peidio â chydweddu'r ystorfa hon mwyach",
+  "gitea-sync-again": "Cynnwys eto",
+  "gitea-excluded-saved": "Heb ei gydweddu mwyach:",
+  "gitea-included-saved": "Wedi'i gydweddu eto:",
+  "gitea-sync-exclude-file": "rhestr o ystorfeydd nad yw github-to-gitea ac Omi yn eu cydweddu mwyach",
+  "gitea-delete-repo": "Dileu'r ystorfa hon a'i ffeiliau",
+  "gitea-delete-repo-confirm": "Mae hyn yn dileu'r ystorfa, ei wici a'i holl ddata o ffolder Gitea am byth. Teipiwch owner/name i barhau:",
+  "gitea-delete-repo-wrong-name": "Nid owner/name yr ystorfa yw'r enw a deipiwyd. Ni ddilëwyd dim.",
+  "gitea-exclude-too": "Ei heithrio o'r cydweddu hefyd, fel na fydd y cydweddu nesaf yn dod â hi'n ôl",
+  "gitea-packages-unlinked": "Mae pecynnau sy'n gysylltiedig â hi yn aros gyda'r perchennog, heb gysylltiad:",
+  "gitea-deleted": "Dilëwyd",
+  "gitea-freed": "wedi'u rhyddhau",
+  "gitea-deleted-list": "Ystorfeydd wedi'u dileu",
+  "gitea-index-stale": "Wedi dyddio ers dileu: mesurwch eto am feintiau union."
 }

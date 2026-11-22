@@ -5658,5 +5658,19 @@
   "gitea-token-set": "termenet",
   "gitea-token-not-set": "n'eo ket termenet",
   "gitea-bad-name": "N'eo ket un anv perc'henn pe kladenn reizh.",
-  "gitea-doer": "Implijer Gitea evit pehini e vez graet an enporzhiañ"
+  "gitea-doer": "Implijer Gitea evit pehini e vez graet an enporzhiañ",
+  "gitea-no-sync": "Na c'houbredañ ken ar c'hladenn-mañ",
+  "gitea-sync-again": "Enlakaat en-dro",
+  "gitea-excluded-saved": "N'eo ket goubredet ken:",
+  "gitea-included-saved": "Goubredet en-dro:",
+  "gitea-sync-exclude-file": "roll ar c'hladennoù na vez ket goubredet ken gant github-to-gitea hag Omi",
+  "gitea-delete-repo": "Dilemel ar c'hladenn-mañ hag he restroù",
+  "gitea-delete-repo-confirm": "Kement-mañ a ziverk da viken ar c'hladenn, he wiki hag he holl roadennoù eus an teuliad Gitea. Skrivit owner/name evit kenderc'hel:",
+  "gitea-delete-repo-wrong-name": "An anv skrivet n'eo ket owner/name ar c'hladenn. Netra n'eo bet diverket.",
+  "gitea-exclude-too": "Lemel anezhi ivez eus ar goubredañ, evit na zegaso ket ar goubredañ war-lerc'h anezhi en-dro",
+  "gitea-packages-unlinked": "Ar pakadoù liammet outi a chom gant ar perc'henn, hep liamm:",
+  "gitea-deleted": "Diverket",
+  "gitea-freed": "dieubet",
+  "gitea-deleted-list": "Kladennoù diverket",
+  "gitea-index-stale": "Dispredet abaoe un diverkadenn: muzuliit en-dro evit kaout ar mentoù resis."
 }

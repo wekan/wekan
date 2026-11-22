@@ -5658,5 +5658,19 @@
   "gitea-token-set": "la dejiyay",
   "gitea-token-not-set": "lama dejin",
   "gitea-bad-name": "Taasi ma aha magac sax ah oo milkiile ama kayd-xogeed.",
-  "gitea-doer": "Isticmaalaha Gitea ee soo dhoofinta loo sameeyo"
+  "gitea-doer": "Isticmaalaha Gitea ee soo dhoofinta loo sameeyo",
+  "gitea-no-sync": "Ha sii isku-dhejin kayd-xogeedkan",
+  "gitea-sync-again": "Mar kale ku dar",
+  "gitea-excluded-saved": "Aan la sii isku-dhejin:",
+  "gitea-included-saved": "Mar kale la isku-dhejiyay:",
+  "gitea-sync-exclude-file": "liiska kayd-xogeedyada aysan github-to-gitea iyo Omi sii isku-dhejin",
+  "gitea-delete-repo": "Tirtir kayd-xogeedkan iyo faylashiisa",
+  "gitea-delete-repo-confirm": "Tani waxay si joogto ah uga tirtiraysaa kayd-xogeedka, wiki-giisa iyo dhammaan xogtiisa galka Gitea. Qor milkiile/magac si aad u sii wadato:",
+  "gitea-delete-repo-wrong-name": "Magaca la qoray ma aha milkiile/magaca kayd-xogeedka. Waxba lama tirtirin.",
+  "gitea-exclude-too": "Sidoo kale ka saar isku-dhejinta, si isku-dhejinta xigta aysan dib ugu soo celin",
+  "gitea-packages-unlinked": "Xirmooyinka lala xiriiriyay waxay la sii jirayaan milkiilaha, iyagoo aan xiriir lahayn:",
+  "gitea-deleted": "La tirtiray",
+  "gitea-freed": "la xoreeyay",
+  "gitea-deleted-list": "Kayd-xogeedyada la tirtiray",
+  "gitea-index-stale": "Duugoobay tan iyo tirtiris: mar kale cabbir si aad u hesho cabbirro sax ah."
 }

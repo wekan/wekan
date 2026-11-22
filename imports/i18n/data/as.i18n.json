@@ -5658,5 +5658,19 @@
   "gitea-token-set": "নিৰ্ধাৰিত",
   "gitea-token-not-set": "নিৰ্ধাৰিত নহয়",
   "gitea-bad-name": "এইটো মালিক বা ৰিপ'জিটৰীৰ বৈধ নাম নহয়।",
-  "gitea-doer": "যি Gitea ব্যৱহাৰকাৰী হিচাপে আমদানি কৰা হয়"
+  "gitea-doer": "যি Gitea ব্যৱহাৰকাৰী হিচাপে আমদানি কৰা হয়",
+  "gitea-no-sync": "এই ৰিপ'জিটৰী আৰু ছিংক নকৰিব",
+  "gitea-sync-again": "পুনৰ অন্তৰ্ভুক্ত কৰক",
+  "gitea-excluded-saved": "আৰু ছিংক কৰা নহয়:",
+  "gitea-included-saved": "পুনৰ ছিংক কৰা হ'ল:",
+  "gitea-sync-exclude-file": "github-to-gitea আৰু Omi-এ আৰু ছিংক নকৰা ৰিপ'জিটৰীৰ তালিকা",
+  "gitea-delete-repo": "এই ৰিপ'জিটৰী আৰু ইয়াৰ ফাইলবোৰ মচক",
+  "gitea-delete-repo-confirm": "ই ৰিপ'জিটৰী, ইয়াৰ ৱিকি আৰু ইয়াৰ সকলো ডাটা Gitea ফ'ল্ডাৰৰ পৰা চিৰদিনৰ বাবে মচি পেলায়। আগবাঢ়িবলৈ owner/name লিখক:",
+  "gitea-delete-repo-wrong-name": "লিখা নামটো ৰিপ'জিটৰীৰ owner/name নহয়। একো মচা হোৱা নাই।",
+  "gitea-exclude-too": "ইয়াক ছিংকৰ পৰাও বাদ দিয়ক, যাতে পিছৰ ছিংকে ইয়াক ঘূৰাই নানে",
+  "gitea-packages-unlinked": "ইয়াৰ সৈতে সংযুক্ত পেকেজবোৰ সংযোগ নোহোৱাকৈ মালিকৰ ওচৰত থাকে:",
+  "gitea-deleted": "মচা হ'ল",
+  "gitea-freed": "মুক্ত",
+  "gitea-deleted-list": "মচা ৰিপ'জিটৰী",
+  "gitea-index-stale": "এটা মচাৰ পিছৰ পৰা পুৰণি: সঠিক আকাৰৰ বাবে পুনৰ জোখক।"
 }

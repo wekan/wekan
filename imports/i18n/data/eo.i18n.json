@@ -5658,5 +5658,19 @@
   "gitea-token-set": "agordita",
   "gitea-token-not-set": "ne agordita",
   "gitea-bad-name": "Tio ne estas valida nomo de posedanto aŭ deponejo.",
-  "gitea-doer": "Gitea-uzanto, kiel kiu la importo estas farata"
+  "gitea-doer": "Gitea-uzanto, kiel kiu la importo estas farata",
+  "gitea-no-sync": "Ne plu sinkronigi ĉi tiun deponejon",
+  "gitea-sync-again": "Inkluzivi denove",
+  "gitea-excluded-saved": "Ne plu sinkronigata:",
+  "gitea-included-saved": "Denove sinkronigata:",
+  "gitea-sync-exclude-file": "listo de deponejoj, kiujn github-to-gitea kaj Omi ne plu sinkronigas",
+  "gitea-delete-repo": "Forigi ĉi tiun deponejon kaj ĝiajn dosierojn",
+  "gitea-delete-repo-confirm": "Ĉi tio forigas por ĉiam la deponejon, ĝian vikion kaj ĉiujn ĝiajn datumojn el la Gitea-dosierujo. Tajpu owner/name por daŭrigi:",
+  "gitea-delete-repo-wrong-name": "La tajpita nomo ne estas la owner/name de la deponejo. Nenio estis forigita.",
+  "gitea-exclude-too": "Ankaŭ ekskludi ĝin el sinkronigo, por ke la sekva sinkronigo ne revenigu ĝin",
+  "gitea-packages-unlinked": "Pakoj ligitaj al ĝi restas ĉe la posedanto, malligitaj:",
+  "gitea-deleted": "Forigita",
+  "gitea-freed": "liberigitaj",
+  "gitea-deleted-list": "Forigitaj deponejoj",
+  "gitea-index-stale": "Malaktuala ekde forigo: mezuru denove por precizaj grandecoj."
 }

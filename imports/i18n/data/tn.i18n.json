@@ -5658,5 +5658,19 @@
   "gitea-token-set": "e beilwe",
   "gitea-token-not-set": "ga e a bewa",
   "gitea-bad-name": "Seo ga se leina le le siameng la mong kgotsa la polokelo.",
-  "gitea-doer": "Modirisi wa Gitea yo go tsenya go dirwang ka ene"
+  "gitea-doer": "Modirisi wa Gitea yo go tsenya go dirwang ka ene",
+  "gitea-no-sync": "O se ka wa tlhola o tsamaisana polokelo e",
+  "gitea-sync-again": "Tsenya gape",
+  "gitea-excluded-saved": "Ga e sa tlhole e tsamaisana:",
+  "gitea-included-saved": "E tsamaisane gape:",
+  "gitea-sync-exclude-file": "lenaane la dipolokelo tse github-to-gitea le Omi di sa tlholeng di di tsamaisana",
+  "gitea-delete-repo": "Phimola polokelo e le difaele tsa yone",
+  "gitea-delete-repo-confirm": "Se se phimola polokelo, wiki ya yone le data yotlhe ya yone mo foltareng ya Gitea ka bosakhutleng. Kwala mong/leina go tswelela:",
+  "gitea-delete-repo-wrong-name": "Leina le le kwadilweng ga se mong/leina la polokelo. Ga go sepe se se phimotsweng.",
+  "gitea-exclude-too": "E ntshe gape mo go tsamaisaneng, gore go tsamaisana mo go latelang go se ka ga e busetsa",
+  "gitea-packages-unlinked": "Diphuthelwana tse di golaganeng le yone di sala le mong, di sa golagana:",
+  "gitea-deleted": "E phimotswe",
+  "gitea-freed": "e golotsweng",
+  "gitea-deleted-list": "Dipolokelo tse di phimotsweng",
+  "gitea-index-stale": "Ga e sa le ya gompieno fa e sale go phimolwa: lekanya gape go bona bogolo jo bo nepagetseng."
 }

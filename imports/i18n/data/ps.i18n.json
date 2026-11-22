@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ټاکل شوی",
   "gitea-token-not-set": "ټاکل شوی نه دی",
   "gitea-bad-name": "دا د خاوند یا زیرمې سم نوم نه دی.",
-  "gitea-doer": "د Gitea کاروونکی چې وارد د هغه په نوم کېږي"
+  "gitea-doer": "د Gitea کاروونکی چې وارد د هغه په نوم کېږي",
+  "gitea-no-sync": "دا زیرمه نور مه همغږي کوئ",
+  "gitea-sync-again": "بیا یې شامل کړئ",
+  "gitea-excluded-saved": "نور نه همغږي کېږي:",
+  "gitea-included-saved": "بیا همغږي کېږي:",
+  "gitea-sync-exclude-file": "د هغو زیرمو لېست چې github-to-gitea او Omi یې نور نه همغږي کوي",
+  "gitea-delete-repo": "دا زیرمه او د هغې دوتنې ړنګې کړئ",
+  "gitea-delete-repo-confirm": "دا زیرمه، د هغې ویکي او د هغې ټول معلومات د Gitea له پوښۍ څخه د تل لپاره ړنګوي. د دوام لپاره owner/name ولیکئ:",
+  "gitea-delete-repo-wrong-name": "لیکل شوی نوم د زیرمې owner/name نه دی. هېڅ شی ړنګ نه شو.",
+  "gitea-exclude-too": "له همغږۍ څخه یې هم وباسئ، ترڅو راتلونکې همغږي یې بېرته رانه وړي",
+  "gitea-packages-unlinked": "هغه کڅوړې چې ورسره تړلې دي د خاوند سره پاتې کېږي، بې تړاوه:",
+  "gitea-deleted": "ړنګ شو",
+  "gitea-freed": "خلاص شو",
+  "gitea-deleted-list": "ړنګې شوې زیرمې",
+  "gitea-index-stale": "له یوه ړنګولو راهیسې زوړ: د سمو اندازو لپاره بیا اندازه کړئ."
 }

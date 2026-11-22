@@ -5658,5 +5658,19 @@
   "gitea-token-set": "yakaiswa",
   "gitea-token-not-set": "haina kuiswa",
   "gitea-bad-name": "Iro harisi zita rakakodzera remuridzi kana repository.",
-  "gitea-doer": "Mushandisi weGitea anoitwa naye kuunza"
+  "gitea-doer": "Mushandisi weGitea anoitwa naye kuunza",
+  "gitea-no-sync": "Usaramba kutsinhanisa repository iyi",
+  "gitea-sync-again": "Isa zvakare",
+  "gitea-excluded-saved": "Hazvichatsinhaniswi:",
+  "gitea-included-saved": "Zvatsinhaniswa zvakare:",
+  "gitea-sync-exclude-file": "rondedzero yemarepository ayo github-to-gitea neOmi asisiri kutsinhanisa",
+  "gitea-delete-repo": "Dzima repository iyi nemafaira ayo",
+  "gitea-delete-repo-confirm": "Izvi zvinodzima zvachose repository, wiki yayo nedhata yayo yose kubva mufodha yeGitea. Nyora muridzi/zita kuti uenderere:",
+  "gitea-delete-repo-wrong-name": "Zita rakanyorwa harisi muridzi/zita re repository. Hapana chakadzimwa.",
+  "gitea-exclude-too": "Ibvisewo pakutsinhanisa, kuti kutsinhanisa kunotevera kurege kuidzosa",
+  "gitea-packages-unlinked": "Mapakeji akabatana nayo anoramba ari kumuridzi, asina kubatana:",
+  "gitea-deleted": "Yakadzimwa",
+  "gitea-freed": "zvasunungurwa",
+  "gitea-deleted-list": "Marepository akadzimwa",
+  "gitea-index-stale": "Hazvisi zvazvino kubva pakudzima: yera zvakare kuti uwane masaizi chaiwo."
 }

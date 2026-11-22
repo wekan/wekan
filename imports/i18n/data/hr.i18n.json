@@ -5658,5 +5658,19 @@
   "gitea-token-set": "postavljen",
   "gitea-token-not-set": "nije postavljen",
   "gitea-bad-name": "To nije valjano ime vlasnika ili repozitorija.",
-  "gitea-doer": "Gitea korisnik kao koji se obavlja uvoz"
+  "gitea-doer": "Gitea korisnik kao koji se obavlja uvoz",
+  "gitea-no-sync": "Više ne sinkroniziraj ovaj repozitorij",
+  "gitea-sync-again": "Ponovno uključi",
+  "gitea-excluded-saved": "Više se ne sinkronizira:",
+  "gitea-included-saved": "Ponovno se sinkronizira:",
+  "gitea-sync-exclude-file": "popis repozitorija koje github-to-gitea i Omi više ne sinkroniziraju",
+  "gitea-delete-repo": "Obriši ovaj repozitorij i njegove datoteke",
+  "gitea-delete-repo-confirm": "Ovo trajno briše repozitorij, njegov wiki i sve njegove podatke iz Gitea mape. Upiši owner/name za nastavak:",
+  "gitea-delete-repo-wrong-name": "Upisano ime nije owner/name repozitorija. Ništa nije obrisano.",
+  "gitea-exclude-too": "Isključi ga i iz sinkronizacije, da ga sljedeća sinkronizacija ne vrati",
+  "gitea-packages-unlinked": "Paketi povezani s njim ostaju kod vlasnika, bez veze:",
+  "gitea-deleted": "Obrisano",
+  "gitea-freed": "oslobođeno",
+  "gitea-deleted-list": "Obrisani repozitoriji",
+  "gitea-index-stale": "Zastarjelo od brisanja: izmjeri ponovno za točne veličine."
 }

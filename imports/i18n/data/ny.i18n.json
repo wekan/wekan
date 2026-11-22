@@ -5658,5 +5658,19 @@
   "gitea-token-set": "chakhazikitsidwa",
   "gitea-token-not-set": "sichinakhazikitsidwe",
   "gitea-bad-name": "Limenelo si dzina lovomerezeka la mwini kapena la malo osungira.",
-  "gitea-doer": "Wogwiritsa ntchito wa Gitea amene kubweretsa kumachitika m'dzina lake"
+  "gitea-doer": "Wogwiritsa ntchito wa Gitea amene kubweretsa kumachitika m'dzina lake",
+  "gitea-no-sync": "Musagwirizanitsenso malo osungira awa",
+  "gitea-sync-again": "Phatikizaninso",
+  "gitea-excluded-saved": "Sikugwirizanitsidwanso:",
+  "gitea-included-saved": "Kugwirizanitsidwanso:",
+  "gitea-sync-exclude-file": "mndandanda wa malo osungira omwe github-to-gitea ndi Omi sakugwirizanitsanso",
+  "gitea-delete-repo": "Chotsani malo osungira awa ndi mafayilo ake",
+  "gitea-delete-repo-confirm": "Izi zimachotsa kwamuyaya malo osungira, wiki yake ndi deta yake yonse mu foda ya Gitea. Lembani owner/name kuti mupitirize:",
+  "gitea-delete-repo-wrong-name": "Dzina lolembedwa si owner/name wa malo osungira. Palibe chomwe chachotsedwa.",
+  "gitea-exclude-too": "Muchotseninso pa kugwirizanitsa, kuti kugwirizanitsa kotsatira kusabwezere",
+  "gitea-packages-unlinked": "Mapaketi olumikizidwa nawo amakhala ndi mwini, osalumikizidwa:",
+  "gitea-deleted": "Zachotsedwa",
+  "gitea-freed": "zamasulidwa",
+  "gitea-deleted-list": "Malo osungira ochotsedwa",
+  "gitea-index-stale": "Zakale kuyambira pomwe chinachotsedwa: yezaninso kuti mupeze makulidwe enieni."
 }

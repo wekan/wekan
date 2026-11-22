@@ -5658,5 +5658,19 @@
   "gitea-token-set": "diatur",
   "gitea-token-not-set": "belum diatur",
   "gitea-bad-name": "Itu bukan nama pemilik atau repositori yang valid.",
-  "gitea-doer": "Pengguna Gitea yang menjalankan impor"
+  "gitea-doer": "Pengguna Gitea yang menjalankan impor",
+  "gitea-no-sync": "Jangan sinkronkan repositori ini lagi",
+  "gitea-sync-again": "Sertakan lagi",
+  "gitea-excluded-saved": "Tidak disinkronkan lagi:",
+  "gitea-included-saved": "Disinkronkan lagi:",
+  "gitea-sync-exclude-file": "daftar repositori yang tidak lagi disinkronkan oleh github-to-gitea dan Omi",
+  "gitea-delete-repo": "Hapus repositori ini dan berkasnya",
+  "gitea-delete-repo-confirm": "Ini menghapus repositori, wikinya, dan semua datanya dari folder Gitea secara permanen. Ketik owner/name untuk melanjutkan:",
+  "gitea-delete-repo-wrong-name": "Nama yang diketik bukan owner/name repositori. Tidak ada yang dihapus.",
+  "gitea-exclude-too": "Kecualikan juga dari sinkronisasi, agar sinkronisasi berikutnya tidak mengembalikannya",
+  "gitea-packages-unlinked": "Paket yang ditautkan ke sana tetap pada pemilik, tanpa tautan:",
+  "gitea-deleted": "Dihapus",
+  "gitea-freed": "dibebaskan",
+  "gitea-deleted-list": "Repositori yang dihapus",
+  "gitea-index-stale": "Kedaluwarsa sejak penghapusan: ukur lagi untuk ukuran yang tepat."
 }

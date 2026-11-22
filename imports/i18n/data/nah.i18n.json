@@ -5658,5 +5658,19 @@
   "gitea-token-set": "tlatlaliltli",
   "gitea-token-not-set": "ahmo tlatlaliltli",
   "gitea-bad-name": "Inon ahmo cualli itoca teco noso tlapiyalcalli.",
-  "gitea-doer": "Gitea tlatequitiltiliztli ica motocayotia in calaquiliztli"
+  "gitea-doer": "Gitea tlatequitiltiliztli ica motocayotia in calaquiliztli",
+  "gitea-no-sync": "Ahmo occeppa xicneneuhca inin tlapiyalcalli",
+  "gitea-sync-again": "Occeppa xiccalaqui",
+  "gitea-excluded-saved": "Ahmo occeppa neneuhtoc:",
+  "gitea-included-saved": "Occeppa neneuhtoc:",
+  "gitea-sync-exclude-file": "intlahcuilolamatl in tlapiyalcalli tlein github-to-gitea ihuan Omi ahmo occeppa quineneuhcah",
+  "gitea-delete-repo": "Xicpolo inin tlapiyalcalli ihuan itlahcuilolhuan",
+  "gitea-delete-repo-confirm": "Inin quipolohua ic mochipa in tlapiyalcalli, iwiki ihuan mochi itlamatiliz ipan Gitea amoxcalli. Xictlahcuilo owner/name ic tiyaz:",
+  "gitea-delete-repo-wrong-name": "In tocaitl tlahcuiloltli ahmo ye in owner/name in tlapiyalcalli. Ahtlein mopolo.",
+  "gitea-exclude-too": "No xicquixti ipan neneuhcayotl, inic in occe neneuhcayotl ahmo quicuepaz",
+  "gitea-packages-unlinked": "In tlatzomalli tlein ica ilpitoc mocahuah ica in teco, ahmo ilpitoc:",
+  "gitea-deleted": "Mopolo",
+  "gitea-freed": "omomaquix",
+  "gitea-deleted-list": "Tlapiyalcalli tlein mopolohqueh",
+  "gitea-index-stale": "Ahmo yancuic ihuicpa ce tlapololiztli: occeppa xictamachihua ic melahuac huehueyiliztli."
 }

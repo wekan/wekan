@@ -5658,5 +5658,19 @@
   "gitea-token-set": "設定済み",
   "gitea-token-not-set": "未設定",
   "gitea-bad-name": "有効なオーナー名またはリポジトリ名ではありません。",
-  "gitea-doer": "インポートを実行する Gitea ユーザー"
+  "gitea-doer": "インポートを実行する Gitea ユーザー",
+  "gitea-no-sync": "このリポジトリをこれ以上同期しない",
+  "gitea-sync-again": "再び含める",
+  "gitea-excluded-saved": "今後は同期しません:",
+  "gitea-included-saved": "再び同期します:",
+  "gitea-sync-exclude-file": "github-to-gitea と Omi が同期しなくなったリポジトリの一覧",
+  "gitea-delete-repo": "このリポジトリとそのファイルを削除",
+  "gitea-delete-repo-confirm": "この操作は、リポジトリ、その Wiki、およびそのすべてのデータを Gitea フォルダーから完全に削除します。続行するには owner/name を入力してください:",
+  "gitea-delete-repo-wrong-name": "入力された名前はリポジトリの owner/name ではありません。何も削除されませんでした。",
+  "gitea-exclude-too": "同期からも除外して、次の同期で戻ってこないようにする",
+  "gitea-packages-unlinked": "これにリンクされたパッケージは、リンクを外されてオーナーに残ります:",
+  "gitea-deleted": "削除日",
+  "gitea-freed": "解放",
+  "gitea-deleted-list": "削除されたリポジトリ",
+  "gitea-index-stale": "削除以降、古くなっています: 正確なサイズを得るには再測定してください。"
 }

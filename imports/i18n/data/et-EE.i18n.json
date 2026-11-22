@@ -5658,5 +5658,19 @@
   "gitea-token-set": "määratud",
   "gitea-token-not-set": "määramata",
   "gitea-bad-name": "See pole kehtiv omaniku või hoidla nimi.",
-  "gitea-doer": "Gitea kasutaja, kelle nimel import tehakse"
+  "gitea-doer": "Gitea kasutaja, kelle nimel import tehakse",
+  "gitea-no-sync": "Ära seda hoidlat enam sünkrooni",
+  "gitea-sync-again": "Kaasa uuesti",
+  "gitea-excluded-saved": "Enam ei sünkroonita:",
+  "gitea-included-saved": "Sünkroonitakse uuesti:",
+  "gitea-sync-exclude-file": "hoidlate loend, mida github-to-gitea ja Omi enam ei sünkrooni",
+  "gitea-delete-repo": "Kustuta see hoidla ja selle failid",
+  "gitea-delete-repo-confirm": "See kustutab hoidla, selle viki ja kõik selle andmed Gitea kaustast jäädavalt. Jätkamiseks kirjuta owner/name:",
+  "gitea-delete-repo-wrong-name": "Kirjutatud nimi pole hoidla owner/name. Midagi ei kustutatud.",
+  "gitea-exclude-too": "Jäta see ka sünkroonimisest välja, et järgmine sünkroonimine seda tagasi ei tooks",
+  "gitea-packages-unlinked": "Sellega seotud paketid jäävad omanikule, sidumata:",
+  "gitea-deleted": "Kustutatud",
+  "gitea-freed": "vabastatud",
+  "gitea-deleted-list": "Kustutatud hoidlad",
+  "gitea-index-stale": "Aegunud pärast kustutamist: mõõda täpsete suuruste jaoks uuesti."
 }

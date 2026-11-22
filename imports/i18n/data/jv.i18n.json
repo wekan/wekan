@@ -5658,5 +5658,19 @@
   "gitea-token-set": "disetel",
   "gitea-token-not-set": "durung disetel",
   "gitea-bad-name": "Iku dudu jeneng pemilik utawa repositori sing sah.",
-  "gitea-doer": "Pangguna Gitea sing dadi jeneng impor"
+  "gitea-doer": "Pangguna Gitea sing dadi jeneng impor",
+  "gitea-no-sync": "Aja nyinkronake repositori iki maneh",
+  "gitea-sync-again": "Lebokake maneh",
+  "gitea-excluded-saved": "Ora disinkronake maneh:",
+  "gitea-included-saved": "Disinkronake maneh:",
+  "gitea-sync-exclude-file": "dhaptar repositori sing ora disinkronake maneh dening github-to-gitea lan Omi",
+  "gitea-delete-repo": "Busak repositori iki lan berkase",
+  "gitea-delete-repo-confirm": "Iki mbusak repositori, wikine lan kabeh datane saka folder Gitea selawase. Ketik owner/name kanggo nerusake:",
+  "gitea-delete-repo-wrong-name": "Jeneng sing diketik dudu owner/name repositori. Ora ana sing dibusak.",
+  "gitea-exclude-too": "Uga kecualekake saka sinkronisasi, supaya sinkronisasi sabanjure ora nggawa bali",
+  "gitea-packages-unlinked": "Paket sing disambungake menyang kono tetep ana ing pemilik, tanpa sambungan:",
+  "gitea-deleted": "Dibusak",
+  "gitea-freed": "dibebasake",
+  "gitea-deleted-list": "Repositori sing dibusak",
+  "gitea-index-stale": "Kedaluwarsa wiwit ana pambusakan: ukur maneh kanggo ukuran sing pas."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "सेट गरिएको",
   "gitea-token-not-set": "सेट गरिएको छैन",
   "gitea-bad-name": "त्यो मान्य मालिक वा रिपोजिटरी नाम होइन।",
-  "gitea-doer": "आयात गर्ने Gitea प्रयोगकर्ता"
+  "gitea-doer": "आयात गर्ने Gitea प्रयोगकर्ता",
+  "gitea-no-sync": "यो रिपोजिटरी अब सिंक्रोनाइज नगर्नुहोस्",
+  "gitea-sync-again": "फेरि समावेश गर्नुहोस्",
+  "gitea-excluded-saved": "अब सिंक्रोनाइज हुँदैन:",
+  "gitea-included-saved": "फेरि सिंक्रोनाइज हुन्छ:",
+  "gitea-sync-exclude-file": "github-to-gitea र Omi ले अब सिंक्रोनाइज नगर्ने रिपोजिटरीहरूको सूची",
+  "gitea-delete-repo": "यो रिपोजिटरी र यसका फाइलहरू मेट्नुहोस्",
+  "gitea-delete-repo-confirm": "यसले Gitea फोल्डरबाट रिपोजिटरी, यसको विकी र यसको सबै डाटा सधैँका लागि मेटाउँछ। अगाडि बढ्न owner/name टाइप गर्नुहोस्:",
+  "gitea-delete-repo-wrong-name": "टाइप गरिएको नाम रिपोजिटरीको owner/name होइन। केही मेटाइएन।",
+  "gitea-exclude-too": "यसलाई सिंक्रोनाइजबाट पनि हटाउनुहोस्, ताकि अर्को सिंक्रोनाइजले यसलाई फिर्ता नल्याओस्",
+  "gitea-packages-unlinked": "यससँग जोडिएका प्याकेजहरू जोडाइ बिना मालिकसँगै रहन्छन्:",
+  "gitea-deleted": "मेटाइयो",
+  "gitea-freed": "खाली भयो",
+  "gitea-deleted-list": "मेटाइएका रिपोजिटरीहरू",
+  "gitea-index-stale": "एउटा मेटाइपछि पुरानो: सही आकारका लागि फेरि नाप्नुहोस्।"
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "soit",
   "gitea-token-not-set": "gyn soie",
   "gitea-bad-name": "Cha nel shen ennym kiart son shellooder ny lann.",
-  "gitea-doer": "Ymmydeyr Gitea ta'n cur stiagh jeant myr"
+  "gitea-doer": "Ymmydeyr Gitea ta'n cur stiagh jeant myr",
+  "gitea-no-sync": "Ny jean coardail y tashtey shoh ny smoo",
+  "gitea-sync-again": "Cur stiagh reesht",
+  "gitea-excluded-saved": "Cha nel eh coardit ny smoo:",
+  "gitea-included-saved": "Coardit reesht:",
+  "gitea-sync-exclude-file": "rolley tashteyn nagh vel github-to-gitea as Omi coardail ny smoo",
+  "gitea-delete-repo": "Doll magh y tashtey shoh as e choadanyn",
+  "gitea-delete-repo-confirm": "Dollee shoh magh y tashtey, e wiki as ooilley e haaghyn veih fillean Gitea son dy bragh. Screeu owner/name dy gholl er:",
+  "gitea-delete-repo-wrong-name": "Cha nee owner/name y tashtey yn ennym va screeuit. Cha row nhee erbee dollit magh.",
+  "gitea-exclude-too": "Faag eh magh ass y coardail neesht, myr nagh jig yn chied choardail elley lesh eh back",
+  "gitea-packages-unlinked": "Ta pakkadyn kianglt rish fuirraghtyn rish y shellooder, gyn kiangley:",
+  "gitea-deleted": "Dollit magh",
+  "gitea-freed": "feaysht",
+  "gitea-deleted-list": "Tashteyn dollit magh",
+  "gitea-index-stale": "Ass date neayr's dollaghey magh: tomhays reesht son mooadyssyn kiart."
 }

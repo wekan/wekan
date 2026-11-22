@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ተወደ",
   "gitea-token-not-set": "ኢተወደ",
   "gitea-bad-name": "እሊ ስሜት በዐል-ማል ወለ መክዘን ኮድ ሰሐል ኢኮን።",
-  "gitea-doer": "ተጠቃማይ Gitea እለ አምጸእት ብሱ ትትገበር"
+  "gitea-doer": "ተጠቃማይ Gitea እለ አምጸእት ብሱ ትትገበር",
+  "gitea-no-sync": "እሊ መክዘን ኮድ ምን ዐድ ኢትሰማምዕ",
+  "gitea-sync-again": "ካልኣይ አቱ",
+  "gitea-excluded-saved": "ምን ዐድ ኢተሳመመ:",
+  "gitea-included-saved": "ካልኣይ ተሳመመ:",
+  "gitea-sync-exclude-file": "ዝርዝር መክዘናት ኮድ እለ github-to-gitea ወ Omi ምን ዐድ ኢለሳምምዎም",
+  "gitea-delete-repo": "እሊ መክዘን ኮድ ወፈይላቱ ምሰሕ",
+  "gitea-delete-repo-confirm": "እሊ ለመክዘን ኮድ፡ ዊኪሁ ወኵሉ ዳታሁ ምን መክዘን ፈይል Gitea ለዐለም ልምሰሕ። ብዕድ እግል ትትበገስ በዐል-ማል/ስሜት ጽሐፍ:",
+  "gitea-delete-repo-wrong-name": "ስሜት እለ ተጽሕፈ በዐል-ማል/ስሜት ናይ ለመክዘን ኮድ ኢኮን። ሐጌ ኢተምሰሐ።",
+  "gitea-exclude-too": "ለምስምማዕ እለ ልትሎ ኢልአቅብ ገሌሁ፡ ምን ምስምማዕ ክምሰል ፍንቴ",
+  "gitea-packages-unlinked": "ፓኬጃት እለ ምስሉ ተአሳሰረ ምስ በዐል-ማል ልትረፎ፡ እብ ገይር ምትእስሳር:",
+  "gitea-deleted": "ተምሰሐ",
+  "gitea-freed": "ተፈትሐ",
+  "gitea-deleted-list": "መክዘናት ኮድ እለ ተምሰሐ",
+  "gitea-index-stale": "ምን ምሳሕ ሐቆ ኢተሐደሰ: እግል ቅያሳት ሰሐል ካልኣይ ቀይስ።"
 }

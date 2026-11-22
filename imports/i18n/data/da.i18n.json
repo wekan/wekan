@@ -5658,5 +5658,19 @@
   "gitea-token-set": "angivet",
   "gitea-token-not-set": "ikke angivet",
   "gitea-bad-name": "Det er ikke et gyldigt ejer- eller repository-navn.",
-  "gitea-doer": "Gitea-bruger, som importen udføres som"
+  "gitea-doer": "Gitea-bruger, som importen udføres som",
+  "gitea-no-sync": "Synkroniser ikke dette repository mere",
+  "gitea-sync-again": "Medtag igen",
+  "gitea-excluded-saved": "Synkroniseres ikke mere:",
+  "gitea-included-saved": "Synkroniseres igen:",
+  "gitea-sync-exclude-file": "liste over repositories, som github-to-gitea og Omi ikke længere synkroniserer",
+  "gitea-delete-repo": "Slet dette repository og dets filer",
+  "gitea-delete-repo-confirm": "Dette sletter repositoriet, dets wiki og alle dets data fra Gitea-mappen for altid. Skriv owner/name for at fortsætte:",
+  "gitea-delete-repo-wrong-name": "Det indtastede navn er ikke repositoriets owner/name. Intet blev slettet.",
+  "gitea-exclude-too": "Udelad det også fra synkronisering, så den næste synkronisering ikke bringer det tilbage",
+  "gitea-packages-unlinked": "Pakker, der er knyttet til det, bliver hos ejeren, uden tilknytning:",
+  "gitea-deleted": "Slettet",
+  "gitea-freed": "frigjort",
+  "gitea-deleted-list": "Slettede repositories",
+  "gitea-index-stale": "Forældet siden en sletning: mål igen for nøjagtige størrelser."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "säritud",
   "gitea-token-not-set": "ei säritud",
   "gitea-bad-name": "Nece ei ole oiged ižandan vai repozitorijan nimi.",
-  "gitea-doer": "Gitea-kävutai, kudaman nimel tuomine tehtas"
+  "gitea-doer": "Gitea-kävutai, kudaman nimel tuomine tehtas",
+  "gitea-no-sync": "Ala sinhroniruiže enamb necidä repozitorijad",
+  "gitea-sync-again": "Kulukoita udes",
+  "gitea-excluded-saved": "Ei sinhronirui enamb:",
+  "gitea-included-saved": "Sinhronirui udes:",
+  "gitea-sync-exclude-file": "repozitorijoiden nimikirjutez, kudambid github-to-gitea da Omi ei sinhroniruigoi enamb",
+  "gitea-delete-repo": "Heitä nece repozitorii da sen failad",
+  "gitea-delete-repo-confirm": "Nece heitab igaks repozitorijan, sen wikin da kaik sen tetod Gitea-papkaspäi. Kirjuta ižand/nimi, miše jatkta:",
+  "gitea-delete-repo-wrong-name": "Kirjutadud nimi ei ole repozitorijan ižand/nimi. Nimidä ei heittud.",
+  "gitea-exclude-too": "Heitä se mugažo sinhronizacijaspäi, miše jäl'ghine sinhronizacii ei tooži sidä tagaze",
+  "gitea-packages-unlinked": "Sinna sidotud paketad jäväs ižandale, sidomatomad:",
+  "gitea-deleted": "Heittud",
+  "gitea-freed": "vapautadud",
+  "gitea-deleted-list": "Heittud repozitorijad",
+  "gitea-index-stale": "Ei ole veresine heitmižes saden: mitta udes tarkoiden suruzihe täht."
 }

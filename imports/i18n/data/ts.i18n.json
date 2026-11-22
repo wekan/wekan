@@ -5658,5 +5658,19 @@
   "gitea-token-set": "yi vekiwile",
   "gitea-token-not-set": "a yi vekiwanga",
   "gitea-bad-name": "Leri a hi vito leri faneleke ra n'winyi kumbe ra xihlayiselo.",
-  "gitea-doer": "Mutirhisi wa Gitea loyi ku nghenisa ku endliwaka hi yena"
+  "gitea-doer": "Mutirhisi wa Gitea loyi ku nghenisa ku endliwaka hi yena",
+  "gitea-no-sync": "U nga ha fambisani xihlayiselo lexi",
+  "gitea-sync-again": "Nghenisa nakambe",
+  "gitea-excluded-saved": "A swa ha fambisaniwi:",
+  "gitea-included-saved": "Swi fambisaniwile nakambe:",
+  "gitea-sync-exclude-file": "nxaxamelo wa swihlayiselo leswi github-to-gitea na Omi swi nga ha swi fambisaniki",
+  "gitea-delete-repo": "Susa xihlayiselo lexi na tifayela ta xona",
+  "gitea-delete-repo-confirm": "Leswi swi susa hi ku helela xihlayiselo, wiki ya xona na data hinkwayo ya xona eka folda ya Gitea. Thayipa n'winyi/vito ku ya emahlweni:",
+  "gitea-delete-repo-wrong-name": "Vito leri thayipiweke a hi n'winyi/vito ra xihlayiselo. A ku susiwanga nchumu.",
+  "gitea-exclude-too": "Xi humese na le ku fambisaneni, leswaku ku fambisana loku landzelaka ku nga xi vuyisi",
+  "gitea-packages-unlinked": "Maphasela lama hlanganisiweke na xona ma sala na n'winyi, ma nga hlanganisiwanga:",
+  "gitea-deleted": "Swi susiwile",
+  "gitea-freed": "swi ntshunxiwile",
+  "gitea-deleted-list": "Swihlayiselo leswi susiweke",
+  "gitea-index-stale": "A swa ha ri swa sweswi ku sukela loko ku susiwile: pima nakambe ku kuma vukulu lebyi kongomeke."
 }

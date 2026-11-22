@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ua setiina",
   "gitea-token-not-set": "e le'i setiina",
   "gitea-bad-name": "E le o se igoa saʻo lena o se pule po o se fale teu.",
-  "gitea-doer": "Tagata faaaoga Gitea e faia ai le aumaiga"
+  "gitea-doer": "Tagata faaaoga Gitea e faia ai le aumaiga",
+  "gitea-no-sync": "Aua toe faatutusaina lenei fale teu",
+  "gitea-sync-again": "Toe faaofi",
+  "gitea-excluded-saved": "Ua le toe faatutusaina:",
+  "gitea-included-saved": "Ua toe faatutusaina:",
+  "gitea-sync-exclude-file": "lisi o fale teu e le toe faatutusaina e github-to-gitea ma Omi",
+  "gitea-delete-repo": "Tape lenei fale teu ma ona faila",
+  "gitea-delete-repo-confirm": "O lenei e tape e faavavau le fale teu, lona wiki ma ana faamatalaga uma mai le faila Gitea. Lolomi le pule/igoa e faaauau ai:",
+  "gitea-delete-repo-wrong-name": "O le igoa na lolomi e le o le pule/igoa o le fale teu. E leai se mea na tapeina.",
+  "gitea-exclude-too": "Aveese foi mai le faatutusaga, ina ia le toe aumaia e le isi faatutusaga",
+  "gitea-packages-unlinked": "O afifi e fesootai i ai e tumau i le pule, ua le fesootai:",
+  "gitea-deleted": "Ua tapeina",
+  "gitea-freed": "ua faasaolotoina",
+  "gitea-deleted-list": "Fale teu ua tapeina",
+  "gitea-index-stale": "Ua le fou talu ai se tapeina: toe fua mo lapopoa saʻo."
 }

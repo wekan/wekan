@@ -5658,5 +5658,19 @@
   "gitea-token-set": "air a shuidheachadh",
   "gitea-token-not-set": "gun suidheachadh",
   "gitea-bad-name": "Chan e ainm sealbhadair no ionad-tasgaidh dligheach a tha sin.",
-  "gitea-doer": "An cleachdaiche Gitea as a bheil an ion-phortadh ga dhèanamh"
+  "gitea-doer": "An cleachdaiche Gitea as a bheil an ion-phortadh ga dhèanamh",
+  "gitea-no-sync": "Na sioncronaich an t-ionad-tasgaidh seo tuilleadh",
+  "gitea-sync-again": "Gabh a-steach a-rithist",
+  "gitea-excluded-saved": "Gun sioncronachadh tuilleadh:",
+  "gitea-included-saved": "Air a shioncronachadh a-rithist:",
+  "gitea-sync-exclude-file": "liosta nan ionadan-tasgaidh nach sioncronaich github-to-gitea is Omi tuilleadh",
+  "gitea-delete-repo": "Sguab às an t-ionad-tasgaidh seo is na faidhlichean aige",
+  "gitea-delete-repo-confirm": "Sguabaidh seo às an t-ionad-tasgaidh, an uicipeid aige is an dàta gu lèir aige às a’ phasgan Gitea gu buan. Sgrìobh owner/name airson leantainn air adhart:",
+  "gitea-delete-repo-wrong-name": "Chan e owner/name an ionaid-tasgaidh an t-ainm a chaidh a sgrìobhadh. Cha deach dad a sguabadh às.",
+  "gitea-exclude-too": "Fàg às an t-sioncronachadh e cuideachd, airson nach toir an ath-shioncronachadh air ais e",
+  "gitea-packages-unlinked": "Fanaidh pacaidean a tha ceangailte ris aig an t-sealbhadair, gun cheangal:",
+  "gitea-deleted": "Air a sguabadh às",
+  "gitea-freed": "air a shaoradh",
+  "gitea-deleted-list": "Ionadan-tasgaidh a chaidh a sguabadh às",
+  "gitea-index-stale": "Às an ceann-latha bho sguabadh às: tomhais a-rithist airson meudan pongail."
 }

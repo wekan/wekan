@@ -5658,5 +5658,19 @@
   "gitea-token-set": "सेट बा",
   "gitea-token-not-set": "सेट नइखे",
   "gitea-bad-name": "ई मालिक भा रिपॉजिटरी के सही नाम ना ह।",
-  "gitea-doer": "जवना Gitea उपयोगकर्ता के रूप में आयात होला"
+  "gitea-doer": "जवना Gitea उपयोगकर्ता के रूप में आयात होला",
+  "gitea-no-sync": "एह रिपॉजिटरी के अब सिंक मत करीं",
+  "gitea-sync-again": "फेर से शामिल करीं",
+  "gitea-excluded-saved": "अब सिंक ना होला:",
+  "gitea-included-saved": "फेर से सिंक भइल:",
+  "gitea-sync-exclude-file": "ओह रिपॉजिटरी सभ के सूची जेकरा के github-to-gitea आ Omi अब सिंक ना करेलें",
+  "gitea-delete-repo": "एह रिपॉजिटरी आ ओकर फाइल मिटाईं",
+  "gitea-delete-repo-confirm": "ई रिपॉजिटरी, ओकर विकी आ ओकर पूरा डेटा Gitea फोल्डर से हमेशा खातिर मिटा देला। आगे बढ़े खातिर owner/name लिखीं:",
+  "gitea-delete-repo-wrong-name": "लिखल नाम रिपॉजिटरी के owner/name ना ह। कुछुओ ना मिटावल गइल।",
+  "gitea-exclude-too": "एकरा के सिंक से भी बाहर करीं, ताकि अगिला सिंक एकरा के वापस ना ले आवे",
+  "gitea-packages-unlinked": "एकरा से जुड़ल पैकेज मालिक लगे रहेला, बिना जुड़ाव के:",
+  "gitea-deleted": "मिटावल गइल",
+  "gitea-freed": "खाली भइल",
+  "gitea-deleted-list": "मिटावल रिपॉजिटरी",
+  "gitea-index-stale": "एगो मिटावे के बाद से पुरान: सही आकार खातिर फेर से नापीं।"
 }

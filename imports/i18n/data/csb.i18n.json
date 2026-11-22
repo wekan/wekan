@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ùstôwióny",
   "gitea-token-not-set": "nie ùstôwióny",
   "gitea-bad-name": "To nie je pòprôwné miono miéwcë abò repòzytorium.",
-  "gitea-doer": "Brëkòwnik Gitea, jakno chtëren je robióny impòrt"
+  "gitea-doer": "Brëkòwnik Gitea, jakno chtëren je robióny impòrt",
+  "gitea-no-sync": "Nie synchronizëjë wicy negò repòzytorium",
+  "gitea-sync-again": "Wëłączë znowa",
+  "gitea-excluded-saved": "Nie je wicy synchronizowóné:",
+  "gitea-included-saved": "Znowa synchronizowóné:",
+  "gitea-sync-exclude-file": "lësta repòzytoriów, chtërnëch github-to-gitea i Omi wicy nie synchronizëją",
+  "gitea-delete-repo": "Rëmôj to repòzytorium i jegò lopczi",
+  "gitea-delete-repo-confirm": "To na wiedno rëmô repòzytorium, jegò wiki i wszëtczé jegò dónë z katalogù Gitea. Wpiszë owner/name, żebë jic dali:",
+  "gitea-delete-repo-wrong-name": "Wpisóné miono nie je owner/name repòzytorium. Nic nie òstało rëmniãté.",
+  "gitea-exclude-too": "Wëłączë je téż z synchronizacji, żebë pòstãpnô synchronizacjô go nie przëwiodła nazôd",
+  "gitea-packages-unlinked": "Paczétë sparłãczoné z nim òstają ù miéwcë, rozłãczoné:",
+  "gitea-deleted": "Rëmniãté",
+  "gitea-freed": "wëzwòloné",
+  "gitea-deleted-list": "Rëmniãté repòzytoria",
+  "gitea-index-stale": "Stôré òd rëmniãcô: zmierzë znowa dlô dokładnëch miarów."
 }

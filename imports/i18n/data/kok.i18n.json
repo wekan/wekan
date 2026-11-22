@@ -5658,5 +5658,19 @@
   "gitea-token-set": "सेट केला",
   "gitea-token-not-set": "सेट केला ना",
   "gitea-bad-name": "हें मालकाचें वा भांडाराचें वैध नांव न्हय.",
-  "gitea-doer": "जो Gitea वापरपी म्हूण आयात जाता"
+  "gitea-doer": "जो Gitea वापरपी म्हूण आयात जाता",
+  "gitea-no-sync": "हें भांडार आतां सिंक करचें न्हय",
+  "gitea-sync-again": "परत आसपावन घेयात",
+  "gitea-excluded-saved": "आतां सिंक जायना:",
+  "gitea-included-saved": "परत सिंक जाता:",
+  "gitea-sync-exclude-file": "github-to-gitea आनी Omi आतां सिंक करिनात अशा भांडारांची वळेरी",
+  "gitea-delete-repo": "हें भांडार आनी ताचीं फायली काडचीं",
+  "gitea-delete-repo-confirm": "हें Gitea फोल्डरांतल्यान भांडार, ताचें विकी आनी ताचो सगळो डेटा कायमचो काडटा. फुडें वचपाक owner/name टायप करात:",
+  "gitea-delete-repo-wrong-name": "टायप केल्लें नांव भांडाराचें owner/name न्हय. कांयच काडूंक ना.",
+  "gitea-exclude-too": "ताका सिंकांतल्यान लेगीत वगळात, जाका लागून फुडलें सिंक ताका परत हाडचें ना",
+  "gitea-packages-unlinked": "ताका जोडिल्लीं पॅकेजां जोडणी बगर मालकाकडेच उरतात:",
+  "gitea-deleted": "काडलें",
+  "gitea-freed": "मोकळें जालें",
+  "gitea-deleted-list": "काडिल्लीं भांडारां",
+  "gitea-index-stale": "एका काडण्या उपरांत पोरनें: नेमक्या आकारां खातीर परत मेजात."
 }

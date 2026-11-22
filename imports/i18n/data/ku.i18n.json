@@ -5658,5 +5658,19 @@
   "gitea-token-set": "danîn",
   "gitea-token-not-set": "nehatiye danîn",
   "gitea-bad-name": "Ev ne navekî derbasdar ê xwedî an repozîtoriyê ye.",
-  "gitea-doer": "Bikarhênerê Gitea yê ku têxistin bi navê wî tê kirin"
+  "gitea-doer": "Bikarhênerê Gitea yê ku têxistin bi navê wî tê kirin",
+  "gitea-no-sync": "Êdî vê repozîtoriyê senkronîze neke",
+  "gitea-sync-again": "Dîsa têxe nav",
+  "gitea-excluded-saved": "Êdî nayê senkronîzekirin:",
+  "gitea-included-saved": "Dîsa tê senkronîzekirin:",
+  "gitea-sync-exclude-file": "lîsteya repozîtoriyên ku github-to-gitea û Omi êdî senkronîze nakin",
+  "gitea-delete-repo": "Vê repozîtoriyê û pelên wê jê bibe",
+  "gitea-delete-repo-confirm": "Ev repozîtorî, wîkiya wê û hemû daneyên wê ji peldanka Gitea bi temamî jê dibe. Ji bo berdewamkirinê owner/name binivîse:",
+  "gitea-delete-repo-wrong-name": "Navê nivîsandî ne owner/name ya repozîtoriyê ye. Tiştek nehat jêbirin.",
+  "gitea-exclude-too": "Wê ji senkronîzasyonê jî derxe, da ku senkronîzasyona din wê venegerîne",
+  "gitea-packages-unlinked": "Pakêtên bi wê ve girêdayî bi xwedî re dimînin, bê girêdan:",
+  "gitea-deleted": "Hat jêbirin",
+  "gitea-freed": "hat azadkirin",
+  "gitea-deleted-list": "Repozîtoriyên jêbirî",
+  "gitea-index-stale": "Ji jêbirinekê ve kevn e: ji bo mezinahiyên rast dîsa bipîve."
 }

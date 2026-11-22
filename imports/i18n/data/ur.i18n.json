@@ -5658,5 +5658,19 @@
   "gitea-token-set": "مقرر ہے",
   "gitea-token-not-set": "مقرر نہیں",
   "gitea-bad-name": "یہ مالک یا ریپوزٹری کا درست نام نہیں ہے۔",
-  "gitea-doer": "وہ Gitea صارف جس کے طور پر درآمد کی جاتی ہے"
+  "gitea-doer": "وہ Gitea صارف جس کے طور پر درآمد کی جاتی ہے",
+  "gitea-no-sync": "اس ریپوزٹری کو مزید ہم وقت نہ کریں",
+  "gitea-sync-again": "دوبارہ شامل کریں",
+  "gitea-excluded-saved": "مزید ہم وقت نہیں:",
+  "gitea-included-saved": "دوبارہ ہم وقت:",
+  "gitea-sync-exclude-file": "ریپوزٹریز کی فہرست جنہیں github-to-gitea اور Omi اب ہم وقت نہیں کرتے",
+  "gitea-delete-repo": "یہ ریپوزٹری اور اس کی فائلیں حذف کریں",
+  "gitea-delete-repo-confirm": "یہ ریپوزٹری، اس کی وکی اور اس کا تمام ڈیٹا Gitea فولڈر سے ہمیشہ کے لیے حذف کر دیتا ہے۔ جاری رکھنے کے لیے مالک/نام ٹائپ کریں:",
+  "gitea-delete-repo-wrong-name": "ٹائپ کیا گیا نام ریپوزٹری کا مالک/نام نہیں ہے۔ کچھ بھی حذف نہیں ہوا۔",
+  "gitea-exclude-too": "اسے ہم وقت سازی سے بھی خارج کریں، تاکہ اگلی ہم وقت سازی اسے واپس نہ لائے",
+  "gitea-packages-unlinked": "اس سے منسلک پیکیجز مالک کے پاس رہتے ہیں، غیر منسلک:",
+  "gitea-deleted": "حذف شدہ",
+  "gitea-freed": "خالی ہوئے",
+  "gitea-deleted-list": "حذف شدہ ریپوزٹریز",
+  "gitea-index-stale": "ایک حذف کے بعد سے پرانا: درست سائزز کے لیے دوبارہ ناپیں۔"
 }

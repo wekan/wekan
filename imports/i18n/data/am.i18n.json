@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ተዘጋጅቷል",
   "gitea-token-not-set": "አልተዘጋጀም",
   "gitea-bad-name": "ይህ ትክክለኛ የባለቤት ወይም የማከማቻ ስም አይደለም።",
-  "gitea-doer": "ማስመጣቱ በስሙ የሚደረግበት የGitea ተጠቃሚ"
+  "gitea-doer": "ማስመጣቱ በስሙ የሚደረግበት የGitea ተጠቃሚ",
+  "gitea-no-sync": "ይህን ማከማቻ ከእንግዲህ አታመሳስል",
+  "gitea-sync-again": "እንደገና አካትት",
+  "gitea-excluded-saved": "ከእንግዲህ አይመሳሰልም:",
+  "gitea-included-saved": "እንደገና ተመሳስሏል:",
+  "gitea-sync-exclude-file": "github-to-gitea እና Omi ከእንግዲህ የማያመሳስሏቸው ማከማቻዎች ዝርዝር",
+  "gitea-delete-repo": "ይህን ማከማቻ እና ፋይሎቹን ሰርዝ",
+  "gitea-delete-repo-confirm": "ይህ ማከማቻውን፣ ዊኪውን እና ሁሉንም መረጃዎቹን ከGitea አቃፊ ለዘለቄታው ይሰርዛል። ለመቀጠል owner/name ይተይቡ:",
+  "gitea-delete-repo-wrong-name": "የተተየበው ስም የማከማቻው owner/name አይደለም። ምንም አልተሰረዘም።",
+  "gitea-exclude-too": "በሚቀጥለው ማመሳሰል እንዳይመለስ ከማመሳሰልም አግልለው",
+  "gitea-packages-unlinked": "ከሱ ጋር የተገናኙ ጥቅሎች ሳይገናኙ ከባለቤቱ ጋር ይቆያሉ:",
+  "gitea-deleted": "ተሰርዟል",
+  "gitea-freed": "ተለቋል",
+  "gitea-deleted-list": "የተሰረዙ ማከማቻዎች",
+  "gitea-index-stale": "ከአንድ ስረዛ በኋላ ጊዜው ያለፈበት ነው: ለትክክለኛ መጠኖች እንደገና ለካ።"
 }

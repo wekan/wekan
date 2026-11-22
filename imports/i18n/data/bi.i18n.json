@@ -5658,5 +5658,19 @@
   "gitea-token-set": "i stap",
   "gitea-token-not-set": "i no stap",
   "gitea-bad-name": "Hemia i no wan stret nem blong ona o repositori.",
-  "gitea-doer": "Yusa blong Gitea we impot i mekem olsem hem"
+  "gitea-doer": "Yusa blong Gitea we impot i mekem olsem hem",
+  "gitea-no-sync": "No sinkronaes repositori ia bakegen",
+  "gitea-sync-again": "Putum bakegen",
+  "gitea-excluded-saved": "I no moa sinkronaes:",
+  "gitea-included-saved": "I sinkronaes bakegen:",
+  "gitea-sync-exclude-file": "lis blong ol repositori we github-to-gitea mo Omi i no moa sinkronaes",
+  "gitea-delete-repo": "Diletem repositori ia mo ol fael blong hem",
+  "gitea-delete-repo-confirm": "Hemia i diletem olgeta repositori, wiki blong hem mo evri data blong hem long folda blong Gitea. Raetem owner/name blong gohed:",
+  "gitea-delete-repo-wrong-name": "Nem we yu raetem i no owner/name blong repositori. I no gat samting we i diletem.",
+  "gitea-exclude-too": "Tekemaot hem tu long sinkronaes, blong nekis sinkronaes i no karem hem i kambak",
+  "gitea-packages-unlinked": "Ol pakej we oli joen long hem oli stap wetem ona, oli no moa joen:",
+  "gitea-deleted": "I diletem finis",
+  "gitea-freed": "i fri",
+  "gitea-deleted-list": "Ol repositori we oli diletem",
+  "gitea-index-stale": "I olfala finis afta wan diletem: mesarem bakegen blong kasem stret saes."
 }

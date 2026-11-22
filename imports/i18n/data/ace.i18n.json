@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ka geuatô",
   "gitea-token-not-set": "goh lom geuatô",
   "gitea-bad-name": "Nyan kon nan po atawa repositori nyang sah.",
-  "gitea-doer": "Ureueng pakek Gitea nyang geupeubuet impor"
+  "gitea-doer": "Ureueng pakek Gitea nyang geupeubuet impor",
+  "gitea-no-sync": "Bek peusaban repositori nyoe lé",
+  "gitea-sync-again": "Peuroh lom",
+  "gitea-excluded-saved": "Hana geupeusaban lé:",
+  "gitea-included-saved": "Geupeusaban lom:",
+  "gitea-sync-exclude-file": "daftar repositori nyang hana lé geupeusaban lé github-to-gitea ngon Omi",
+  "gitea-delete-repo": "Sampôh repositori nyoe ngon berkah jih",
+  "gitea-delete-repo-confirm": "Nyoe geusampôh repositori, wiki jih ngon mandum data jih nibak folder Gitea keu sabé. Tuléh owner/name untuk lanjut:",
+  "gitea-delete-repo-wrong-name": "Nan nyang geutuléh kon owner/name repositori. Hana sapeue nyang geusampôh.",
+  "gitea-exclude-too": "Peukeuluwa cit nibak peusaban, mangat peusaban lheuh nyoe bek geupuwoe lom",
+  "gitea-packages-unlinked": "Paket nyang meuhubông ngon jih tetap bak po, hana meuhubông lé:",
+  "gitea-deleted": "Geusampôh",
+  "gitea-freed": "geupeulheuh",
+  "gitea-deleted-list": "Repositori nyang ka geusampôh",
+  "gitea-index-stale": "Ka basi sit'ép na peunyampôh: kira lom untuk rayeuk nyang pasti."
 }

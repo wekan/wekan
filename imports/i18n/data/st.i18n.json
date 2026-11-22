@@ -5658,5 +5658,19 @@
   "gitea-token-set": "e behilwe",
   "gitea-token-not-set": "ha e a behwa",
   "gitea-bad-name": "Seo hase lebitso le nepahetseng la mong kapa la repository.",
-  "gitea-doer": "Mosebedisi wa Gitea eo ho kenya ho etswang ka lebitso la hae"
+  "gitea-doer": "Mosebedisi wa Gitea eo ho kenya ho etswang ka lebitso la hae",
+  "gitea-no-sync": "O se ke wa hlola o amahanya repository ena",
+  "gitea-sync-again": "Kenya hape",
+  "gitea-excluded-saved": "Ha e sa amahanngwa:",
+  "gitea-included-saved": "E amahantswe hape:",
+  "gitea-sync-exclude-file": "lenane la direpository tseo github-to-gitea le Omi di sa di amahanyeng",
+  "gitea-delete-repo": "Hlakola repository ena le difaele tsa yona",
+  "gitea-delete-repo-confirm": "Sena se hlakola ka ho sa feleng repository, wiki ya yona le data yohle ya yona ho tswa foldareng ya Gitea. Ngola mong/lebitso ho tswela pele:",
+  "gitea-delete-repo-wrong-name": "Lebitso le ngotsweng hase mong/lebitso la repository. Ha ho letho le hlakotsweng.",
+  "gitea-exclude-too": "E ntshe hape ho amahanyeng, hore ho amahanya ho latelang ho se e kgutlise",
+  "gitea-packages-unlinked": "Diphutheloana tse hokahantsweng le yona di sala le mong, di sa hokahanngwa:",
+  "gitea-deleted": "E hlakotswe",
+  "gitea-freed": "e lokolotsweng",
+  "gitea-deleted-list": "Direpository tse hlakotsweng",
+  "gitea-index-stale": "Ha e sa le ya morao-rao ho tloha ha ho hlakolwa: lekanya hape bakeng sa maholo a nepahetseng."
 }

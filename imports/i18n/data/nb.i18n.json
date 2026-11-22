@@ -5658,5 +5658,19 @@
   "gitea-token-set": "angitt",
   "gitea-token-not-set": "ikke angitt",
   "gitea-bad-name": "Det er ikke et gyldig navn på en eier eller pakkebrønn.",
-  "gitea-doer": "Gitea-bruker som importen gjøres som"
+  "gitea-doer": "Gitea-bruker som importen gjøres som",
+  "gitea-no-sync": "Ikke synkroniser dette pakkebrønnet lenger",
+  "gitea-sync-again": "Ta med igjen",
+  "gitea-excluded-saved": "Synkroniseres ikke lenger:",
+  "gitea-included-saved": "Synkroniseres igjen:",
+  "gitea-sync-exclude-file": "liste over pakkebrønner som github-to-gitea og Omi ikke lenger synkroniserer",
+  "gitea-delete-repo": "Slett dette pakkebrønnet og filene i det",
+  "gitea-delete-repo-confirm": "Dette sletter pakkebrønnet, wikien og alle dataene fra Gitea-mappen for godt. Skriv owner/name for å fortsette:",
+  "gitea-delete-repo-wrong-name": "Navnet som ble skrevet, er ikke pakkebrønnets owner/name. Ingenting ble slettet.",
+  "gitea-exclude-too": "Utelat det også fra synkronisering, slik at neste synkronisering ikke henter det tilbake",
+  "gitea-packages-unlinked": "Pakker som er koblet til det, blir værende hos eieren, uten kobling:",
+  "gitea-deleted": "Slettet",
+  "gitea-freed": "frigjort",
+  "gitea-deleted-list": "Slettede pakkebrønner",
+  "gitea-index-stale": "Utdatert siden en sletting: mål på nytt for nøyaktige størrelser."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "nastavený",
   "gitea-token-not-set": "nenastavený",
   "gitea-bad-name": "To nie je platný názov vlastníka ani repozitára.",
-  "gitea-doer": "Používateľ Gitea, v mene ktorého sa import vykoná"
+  "gitea-doer": "Používateľ Gitea, v mene ktorého sa import vykoná",
+  "gitea-no-sync": "Už nesynchronizovať tento repozitár",
+  "gitea-sync-again": "Znova zahrnúť",
+  "gitea-excluded-saved": "Už sa nesynchronizuje:",
+  "gitea-included-saved": "Znova synchronizované:",
+  "gitea-sync-exclude-file": "zoznam repozitárov, ktoré github-to-gitea a Omi už nesynchronizujú",
+  "gitea-delete-repo": "Odstrániť tento repozitár a jeho súbory",
+  "gitea-delete-repo-confirm": "Týmto natrvalo odstránite repozitár, jeho wiki a všetky jeho údaje z priečinka Gitea. Pokračujte zadaním vlastník/názov:",
+  "gitea-delete-repo-wrong-name": "Zadaný názov nie je vlastník/názov repozitára. Nič nebolo odstránené.",
+  "gitea-exclude-too": "Vylúčiť ho aj zo synchronizácie, aby ho ďalšia synchronizácia nevrátila späť",
+  "gitea-packages-unlinked": "Balíčky prepojené s ním zostávajú u vlastníka, neprepojené:",
+  "gitea-deleted": "Odstránené",
+  "gitea-freed": "uvoľnených",
+  "gitea-deleted-list": "Odstránené repozitáre",
+  "gitea-index-stale": "Neaktuálne od odstránenia: zmerajte znova pre presné veľkosti."
 }

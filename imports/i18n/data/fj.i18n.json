@@ -5658,5 +5658,19 @@
   "gitea-token-set": "sa tiko",
   "gitea-token-not-set": "sega ni tiko",
   "gitea-bad-name": "Oqo e sega ni yaca dodonu ni taukei se vale ni kode.",
-  "gitea-doer": "Vakayagataka ni Gitea e caka kina na kauta mai"
+  "gitea-doer": "Vakayagataka ni Gitea e caka kina na kauta mai",
+  "gitea-no-sync": "Kakua ni vakaisoqosoqotaka tale na maroroi ni kode oqo",
+  "gitea-sync-again": "Vakacurumi tale",
+  "gitea-excluded-saved": "Sa sega ni vakaisoqosoqotaki tale:",
+  "gitea-included-saved": "Sa vakaisoqosoqotaki tale:",
+  "gitea-sync-exclude-file": "ilisi ni maroroi ni kode e sa sega ni vakaisoqosoqotaka tale o github-to-gitea kei Omi",
+  "gitea-delete-repo": "Bokoca na maroroi ni kode oqo kei na kena faile",
+  "gitea-delete-repo-confirm": "Ena bokoca tawamudu oqo na maroroi ni kode, na kena wiki kei na kena itukutuku kece mai na kato ni Gitea. Volaa na owner/name mo tomana:",
+  "gitea-delete-repo-wrong-name": "Na yaca o volara e sega ni owner/name ni maroroi ni kode. E sega ni bokoci e dua na ka.",
+  "gitea-exclude-too": "Kauta tale mai na vakaisoqosoqo, me kakua ni kauta lesu mai na vakaisoqosoqo tarava",
+  "gitea-packages-unlinked": "Na pakete e semati kina e tiko ga vua na taukei, sa sega ni semati:",
+  "gitea-deleted": "Bokoci",
+  "gitea-freed": "sereki",
+  "gitea-deleted-list": "Maroroi ni kode sa bokoci",
+  "gitea-index-stale": "Sa makawa mai na gauna e bokoci kina: vakarauta tale me kilai na levu dodonu."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "nakatakda",
   "gitea-token-not-set": "hindi nakatakda",
   "gitea-bad-name": "Hindi iyan wastong pangalan ng may-ari o repository.",
-  "gitea-doer": "Gumagamit ng Gitea na ginagamit sa pag-import"
+  "gitea-doer": "Gumagamit ng Gitea na ginagamit sa pag-import",
+  "gitea-no-sync": "Huwag nang i-sync ang repository na ito",
+  "gitea-sync-again": "Isama muli",
+  "gitea-excluded-saved": "Hindi na naka-sync:",
+  "gitea-included-saved": "Naka-sync muli:",
+  "gitea-sync-exclude-file": "listahan ng mga repository na hindi na sini-sync ng github-to-gitea at Omi",
+  "gitea-delete-repo": "Burahin ang repository na ito at ang mga file nito",
+  "gitea-delete-repo-confirm": "Permanenteng binubura nito ang repository, ang wiki nito at lahat ng data nito mula sa folder ng Gitea. I-type ang may-ari/pangalan para magpatuloy:",
+  "gitea-delete-repo-wrong-name": "Ang na-type na pangalan ay hindi ang may-ari/pangalan ng repository. Walang binura.",
+  "gitea-exclude-too": "Ibukod din ito sa sync, para hindi ito ibalik ng susunod na sync",
+  "gitea-packages-unlinked": "Ang mga package na naka-link dito ay mananatili sa may-ari, hindi na naka-link:",
+  "gitea-deleted": "Binura",
+  "gitea-freed": "napalaya",
+  "gitea-deleted-list": "Mga binurang repository",
+  "gitea-index-stale": "Luma na mula nang may binura: sukatin muli para sa eksaktong laki."
 }

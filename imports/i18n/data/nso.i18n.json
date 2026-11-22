@@ -5658,5 +5658,19 @@
   "gitea-token-set": "e beilwe",
   "gitea-token-not-set": "ga se ya beiwa",
   "gitea-bad-name": "Seo ga se leina le le nepagetšego la mong goba la repository.",
-  "gitea-doer": "Mošomiši wa Gitea yo go tsenya go dirwago ka leina la gagwe"
+  "gitea-doer": "Mošomiši wa Gitea yo go tsenya go dirwago ka leina la gagwe",
+  "gitea-no-sync": "O se sa kopantšha repository ye",
+  "gitea-sync-again": "Tsenya gape",
+  "gitea-excluded-saved": "Ga e sa kopantšhwa:",
+  "gitea-included-saved": "E kopantšhwa gape:",
+  "gitea-sync-exclude-file": "lenaneo la direpository tšeo github-to-gitea le Omi di sa di kopantšhego",
+  "gitea-delete-repo": "Phumula repository ye le difaele tša yona",
+  "gitea-delete-repo-confirm": "Se se phumula ka mo go sa felego repository, wiki ya yona le data ka moka ya yona go tšwa foltareng ya Gitea. Ngwala owner/name go tšwela pele:",
+  "gitea-delete-repo-wrong-name": "Leina leo le ngwadilwego ga se owner/name ya repository. Ga go selo seo se phumotšwego.",
+  "gitea-exclude-too": "E ntšhe gape kopantšhong, gore kopantšho ye e latelago e se e bušetše",
+  "gitea-packages-unlinked": "Diphuthelwana tše di kopantšwego le yona di dula le mong, di sa kopantšhwa:",
+  "gitea-deleted": "E phumotšwe",
+  "gitea-freed": "e lokolotšwe",
+  "gitea-deleted-list": "Direpository tše di phumotšwego",
+  "gitea-index-stale": "E tšofetše go tloga ge go phumolwa: lekanya gape bakeng sa bogolo bjo bo nepagetšego."
 }

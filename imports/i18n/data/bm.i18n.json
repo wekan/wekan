@@ -5658,5 +5658,19 @@
   "gitea-token-set": "sigilen",
   "gitea-token-not-set": "ma sigi",
   "gitea-bad-name": "O tɛ tigi walima dosye marayɔrɔ tɔgɔ ɲuman ye.",
-  "gitea-doer": "Gitea baarakɛla min tɔgɔ la donni bɛ kɛ"
+  "gitea-doer": "Gitea baarakɛla min tɔgɔ la donni bɛ kɛ",
+  "gitea-no-sync": "Kana nin dosye marayɔrɔ bɛnkanni tugun",
+  "gitea-sync-again": "A don tugun",
+  "gitea-excluded-saved": "A tɛ bɛnkan tugun:",
+  "gitea-included-saved": "A bɛnkannen don tugun:",
+  "gitea-sync-exclude-file": "dosye marayɔrɔ minnu github-to-gitea ni Omi tɛ bɛnkan tugun, olu tɔgɔlasɛbɛn",
+  "gitea-delete-repo": "Nin dosye marayɔrɔ ni a ka sɛbɛnw jɔsi",
+  "gitea-delete-repo-confirm": "Nin bɛ dosye marayɔrɔ, a ka wiki ani a ka kunnafoni bɛɛ jɔsi Gitea dosye la fo abada. owner/name sɛbɛn walasa ka taa a fɛ:",
+  "gitea-delete-repo-wrong-name": "Tɔgɔ sɛbɛnnen tɛ dosye marayɔrɔ ka owner/name ye. Foyi ma jɔsi.",
+  "gitea-exclude-too": "A bɔ bɛnkanni na fana, walasa bɛnkanni nata kana a segin",
+  "gitea-packages-unlinked": "Bɔrɔ minnu sirilen bɛ a la, olu bɛ to tigi fɛ, u ma siri tugun:",
+  "gitea-deleted": "A jɔsira",
+  "gitea-freed": "labɔra",
+  "gitea-deleted-list": "Dosye marayɔrɔ jɔsilenw",
+  "gitea-index-stale": "A kɔrɔla kabini jɔsili dɔ: a suman tugun walasa ka bonya tigitigi sɔrɔ."
 }

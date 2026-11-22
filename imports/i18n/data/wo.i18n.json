@@ -5658,5 +5658,19 @@
   "gitea-token-set": "taxaw na",
   "gitea-token-not-set": "taxawul",
   "gitea-bad-name": "Lii du tur bu baax bu boroom walla dencukaay.",
-  "gitea-doer": "Jëfandikukatu Gitea bi ñuy indee ci turam"
+  "gitea-doer": "Jëfandikukatu Gitea bi ñuy indee ci turam",
+  "gitea-no-sync": "Bul sinkroniser dencukaay bii ba noppi",
+  "gitea-sync-again": "Duggalaat ko",
+  "gitea-excluded-saved": "Sinkroniseesu ko ba noppi:",
+  "gitea-included-saved": "Sinkroniseesaat nañu ko:",
+  "gitea-sync-exclude-file": "limu dencukaay yi github-to-gitea ak Omi sinkroniseesuñu ba noppi",
+  "gitea-delete-repo": "Far dencukaay bii ak ay dosiyeam",
+  "gitea-delete-repo-confirm": "Lii dafay far ba fàww dencukaay bi, wiki bi ak xibaar yam yépp ci dosiyeb Gitea. Bindal boroom/tur ngir wéy:",
+  "gitea-delete-repo-wrong-name": "Tur wi ñu bind du boroom/turu dencukaay bi. Dara faruwul.",
+  "gitea-exclude-too": "Génneel ko itam ci sinkronisaasioŋ, ngir sinkronisaasioŋ bi ci topp du ko delloo",
+  "gitea-packages-unlinked": "Paket yi ñu ko lëkkaloo dañuy des ci boroom bi, te lëkkaluñu:",
+  "gitea-deleted": "Far nañu ko",
+  "gitea-freed": "goreel nañu",
+  "gitea-deleted-list": "Dencukaay yi ñu far",
+  "gitea-index-stale": "Yeesaluñu ko bi ñu faree: nattaatal ngir dayo yu wóor."
 }

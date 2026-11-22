@@ -5658,5 +5658,19 @@
   "gitea-token-set": "woɖoe",
   "gitea-token-not-set": "womeɖoe o",
   "gitea-bad-name": "Esia menye etɔ alo nudzraɖoƒe ƒe ŋkɔ si sɔ o.",
-  "gitea-doer": "Gitea zãla si ƒe ŋkɔ me wotsɔa nuwo vanɛ"
+  "gitea-doer": "Gitea zãla si ƒe ŋkɔ me wotsɔa nuwo vanɛ",
+  "gitea-no-sync": "Mègawɔ nudzraɖoƒe sia ɖeka azɔ o",
+  "gitea-sync-again": "Gatsɔe de eme",
+  "gitea-excluded-saved": "Womegawɔnɛ ɖeka azɔ o:",
+  "gitea-included-saved": "Wogawɔe ɖeka:",
+  "gitea-sync-exclude-file": "nudzraɖoƒe siwo github-to-gitea kple Omi megawɔna ɖeka azɔ o ƒe xexlẽ",
+  "gitea-delete-repo": "Tutu nudzraɖoƒe sia kple eƒe faɛlwo",
+  "gitea-delete-repo-confirm": "Esia tutua nudzraɖoƒe la, eƒe wiki kple eƒe nyatakakawo katã ɖa le Gitea nudzraɖoƒe la me tegbee. Ŋlɔ owner/name be nàyi edzi:",
+  "gitea-delete-repo-wrong-name": "Ŋkɔ si nèŋlɔ la menye nudzraɖoƒe la ƒe owner/name o. Wometutu naneke o.",
+  "gitea-exclude-too": "Ɖee ɖa le ɖekawɔwɔ me hã, ale be ɖekawɔwɔ si kplɔe ɖo nagagbugbɔe vɛ o",
+  "gitea-packages-unlinked": "Agba siwo kpe ɖe eŋu la gakpɔtɔ le etɔ la si, womegakpe ɖe eŋu o:",
+  "gitea-deleted": "Wotutui",
+  "gitea-freed": "wovoe",
+  "gitea-deleted-list": "Nudzraɖoƒe siwo wotutu",
+  "gitea-index-stale": "Mele yeye o tso esime wotutu nane: gadzidze be nàkpɔ lolome vavãwo."
 }

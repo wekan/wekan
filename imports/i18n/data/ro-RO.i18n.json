@@ -5658,5 +5658,19 @@
   "gitea-token-set": "setat",
   "gitea-token-not-set": "nesetat",
   "gitea-bad-name": "Acesta nu este un nume valid de proprietar sau de depozit.",
-  "gitea-doer": "Utilizatorul Gitea în numele căruia se face importul"
+  "gitea-doer": "Utilizatorul Gitea în numele căruia se face importul",
+  "gitea-no-sync": "Nu mai sincroniza acest depozit",
+  "gitea-sync-again": "Include din nou",
+  "gitea-excluded-saved": "Nu se mai sincronizează:",
+  "gitea-included-saved": "Sincronizat din nou:",
+  "gitea-sync-exclude-file": "lista depozitelor pe care github-to-gitea și Omi nu le mai sincronizează",
+  "gitea-delete-repo": "Șterge acest depozit și fișierele sale",
+  "gitea-delete-repo-confirm": "Aceasta șterge definitiv depozitul, wiki-ul său și toate datele sale din dosarul Gitea. Tastați proprietar/nume pentru a continua:",
+  "gitea-delete-repo-wrong-name": "Numele tastat nu este proprietar/nume al depozitului. Nu s-a șters nimic.",
+  "gitea-exclude-too": "Exclude-l și din sincronizare, ca următoarea sincronizare să nu-l aducă înapoi",
+  "gitea-packages-unlinked": "Pachetele legate de el rămân la proprietar, nelegate:",
+  "gitea-deleted": "Șters",
+  "gitea-freed": "eliberați",
+  "gitea-deleted-list": "Depozite șterse",
+  "gitea-index-stale": "Neactualizat de la o ștergere: măsurați din nou pentru dimensiuni exacte."
 }

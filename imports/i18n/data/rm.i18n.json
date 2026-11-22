@@ -5658,5 +5658,19 @@
   "gitea-token-set": "definì",
   "gitea-token-not-set": "betg definì",
   "gitea-bad-name": "Quai n'è betg in num valid da proprietari u da repositori.",
-  "gitea-doer": "Utilisader da Gitea en num dal qual l'import vegn fatg"
+  "gitea-doer": "Utilisader da Gitea en num dal qual l'import vegn fatg",
+  "gitea-no-sync": "Betg pli sincronisar quest repositori",
+  "gitea-sync-again": "Puspè includer",
+  "gitea-excluded-saved": "Betg pli sincronisà:",
+  "gitea-included-saved": "Puspè sincronisà:",
+  "gitea-sync-exclude-file": "glista dals repositoris che github-to-gitea ed Omi na sincroniseschan betg pli",
+  "gitea-delete-repo": "Stizzar quest repositori e ses datotecas",
+  "gitea-delete-repo-confirm": "Quai stizza per adina il repositori, sia wiki e tut sias datas da l'ordinatur da Gitea. Tippa proprietari/num per cuntinuar:",
+  "gitea-delete-repo-wrong-name": "Il num tippà n'è betg il proprietari/num dal repositori. Nagut n'è vegnì stizzà.",
+  "gitea-exclude-too": "Era exclusiv da la sincronisaziun, uschia che la proxima sincronisaziun na al porta betg enavos",
+  "gitea-packages-unlinked": "Pachets colliads cun el restan tar il proprietari, betg pli colliads:",
+  "gitea-deleted": "Stizzà",
+  "gitea-freed": "liberà",
+  "gitea-deleted-list": "Repositoris stizzads",
+  "gitea-index-stale": "Betg actual dapi ina stizzada: mesirar anc ina giada per grondezzas exactas."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "nustatytas",
   "gitea-token-not-set": "nenustatytas",
   "gitea-bad-name": "Tai netinkamas savininko ar saugyklos pavadinimas.",
-  "gitea-doer": "Gitea naudotojas, kurio vardu atliekamas importas"
+  "gitea-doer": "Gitea naudotojas, kurio vardu atliekamas importas",
+  "gitea-no-sync": "Daugiau nebesinchronizuoti šios saugyklos",
+  "gitea-sync-again": "Vėl įtraukti",
+  "gitea-excluded-saved": "Nebesinchronizuojama:",
+  "gitea-included-saved": "Vėl sinchronizuojama:",
+  "gitea-sync-exclude-file": "saugyklų, kurių github-to-gitea ir Omi nebesinchronizuoja, sąrašas",
+  "gitea-delete-repo": "Ištrinti šią saugyklą ir jos failus",
+  "gitea-delete-repo-confirm": "Tai visam laikui ištrina saugyklą, jos wiki ir visus jos duomenis iš Gitea aplanko. Norėdami tęsti, įveskite owner/name:",
+  "gitea-delete-repo-wrong-name": "Įvestas pavadinimas nėra saugyklos owner/name. Niekas neištrinta.",
+  "gitea-exclude-too": "Taip pat pašalinti iš sinchronizavimo, kad kitas sinchronizavimas jos negrąžintų",
+  "gitea-packages-unlinked": "Su ja susieti paketai lieka savininkui, nesusieti:",
+  "gitea-deleted": "Ištrinta",
+  "gitea-freed": "atlaisvinta",
+  "gitea-deleted-list": "Ištrintos saugyklos",
+  "gitea-index-stale": "Pasenę nuo ištrynimo: išmatuokite iš naujo, kad gautumėte tikslius dydžius."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "caktuar",
   "gitea-token-not-set": "pa caktuar",
   "gitea-bad-name": "Ky nuk është emër i vlefshëm pronari ose depoje.",
-  "gitea-doer": "Përdoruesi i Gitea në emër të të cilit bëhet importi"
+  "gitea-doer": "Përdoruesi i Gitea në emër të të cilit bëhet importi",
+  "gitea-no-sync": "Mos e sinkronizo më këtë depo",
+  "gitea-sync-again": "Përfshije sërish",
+  "gitea-excluded-saved": "Nuk sinkronizohet më:",
+  "gitea-included-saved": "U sinkronizua sërish:",
+  "gitea-sync-exclude-file": "lista e depove që github-to-gitea dhe Omi nuk i sinkronizojnë më",
+  "gitea-delete-repo": "Fshi këtë depo dhe skedarët e saj",
+  "gitea-delete-repo-confirm": "Kjo fshin përgjithmonë depon, wiki-n e saj dhe të gjitha të dhënat e saj nga dosja e Gitea. Shkruani pronar/emër për të vazhduar:",
+  "gitea-delete-repo-wrong-name": "Emri i shkruar nuk është pronar/emër i depos. Asgjë nuk u fshi.",
+  "gitea-exclude-too": "Përjashtoje edhe nga sinkronizimi, që sinkronizimi i ardhshëm të mos e kthejë",
+  "gitea-packages-unlinked": "Paketat e lidhura me të mbeten te pronari, të palidhura:",
+  "gitea-deleted": "U fshi",
+  "gitea-freed": "të liruara",
+  "gitea-deleted-list": "Depo të fshira",
+  "gitea-index-stale": "E vjetëruar që nga një fshirje: matni përsëri për madhësi të sakta."
 }

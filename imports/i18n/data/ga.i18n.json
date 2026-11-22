@@ -5658,5 +5658,19 @@
   "gitea-token-set": "socraithe",
   "gitea-token-not-set": "gan socrú",
   "gitea-bad-name": "Ní ainm bailí úinéara ná stórais é sin.",
-  "gitea-doer": "An t-úsáideoir Gitea a ndéantar an t-iompórtáil mar é"
+  "gitea-doer": "An t-úsáideoir Gitea a ndéantar an t-iompórtáil mar é",
+  "gitea-no-sync": "Ná sioncronaigh an stóras seo níos mó",
+  "gitea-sync-again": "Cuir san áireamh arís",
+  "gitea-excluded-saved": "Gan sioncronú níos mó:",
+  "gitea-included-saved": "Sioncronaithe arís:",
+  "gitea-sync-exclude-file": "liosta na stóras nach ndéanann github-to-gitea agus Omi sioncronú orthu níos mó",
+  "gitea-delete-repo": "Scrios an stóras seo agus a chomhaid",
+  "gitea-delete-repo-confirm": "Scriosann sé seo an stóras, a vicí agus a shonraí go léir ón bhfillteán Gitea go buan. Clóscríobh owner/name chun leanúint ar aghaidh:",
+  "gitea-delete-repo-wrong-name": "Ní hé an t-ainm a clóscríobhadh owner/name an stórais. Níor scriosadh aon rud.",
+  "gitea-exclude-too": "Fág as an sioncronú é freisin, ionas nach dtabharfaidh an chéad sioncronú eile ar ais é",
+  "gitea-packages-unlinked": "Fanann pacáistí atá nasctha leis ag an úinéir, gan nasc:",
+  "gitea-deleted": "Scriosta",
+  "gitea-freed": "saortha",
+  "gitea-deleted-list": "Stórais scriosta",
+  "gitea-index-stale": "As dáta ó scriosadh: tomhais arís le haghaidh méideanna beachta."
 }

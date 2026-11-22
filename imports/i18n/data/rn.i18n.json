@@ -5658,5 +5658,19 @@
   "gitea-token-set": "vyashizweho",
   "gitea-token-not-set": "ntivyashizweho",
   "gitea-bad-name": "Iryo si izina ryemewe rya nyene canke ry'ububiko.",
-  "gitea-doer": "Umukoresha wa Gitea kwinjiza bikorwa mw'izina ryiwe"
+  "gitea-doer": "Umukoresha wa Gitea kwinjiza bikorwa mw'izina ryiwe",
+  "gitea-no-sync": "Ntiwongere guhuza ubu bubiko",
+  "gitea-sync-again": "Subiza ubwinjize",
+  "gitea-excluded-saved": "Ntibigihuzwa:",
+  "gitea-included-saved": "Vyongeye guhuzwa:",
+  "gitea-sync-exclude-file": "urutonde rw'ububiko github-to-gitea na Omi bitagihuza",
+  "gitea-delete-repo": "Futa ubu bubiko n'amadosiye yabwo",
+  "gitea-delete-repo-confirm": "Ivyo bifuta burundu ububiko, wiki yabwo n'amakuru yabwo yose mu bubiko bwa Gitea. Andika nyene/izina kugira ngo ubandanye:",
+  "gitea-delete-repo-wrong-name": "Izina wanditse si nyene/izina ry'ububiko. Nta kintu cafuswe.",
+  "gitea-exclude-too": "Buvane kandi mu guhuza, kugira ngo uguhuza gukurikira ntikubugarure",
+  "gitea-packages-unlinked": "Amapaki afatanye nabwo agumana na nyene, atagifatanye:",
+  "gitea-deleted": "Vyafuswe",
+  "gitea-freed": "vyarekuwe",
+  "gitea-deleted-list": "Ububiko bwafuswe",
+  "gitea-index-stale": "Ntibigezweho kuva habaye ugufuta: subira upime kugira ubone ubunini nyabwo."
 }

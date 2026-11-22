@@ -5658,5 +5658,19 @@
   "gitea-token-set": "belgilangan",
   "gitea-token-not-set": "belgilanmagan",
   "gitea-bad-name": "Bu toʻgʻri ega yoki repozitoriy nomi emas.",
-  "gitea-doer": "Import uning nomidan bajariladigan Gitea foydalanuvchisi"
+  "gitea-doer": "Import uning nomidan bajariladigan Gitea foydalanuvchisi",
+  "gitea-no-sync": "Bu repozitoriyni endi sinxronlamang",
+  "gitea-sync-again": "Qayta qoʻshish",
+  "gitea-excluded-saved": "Endi sinxronlanmaydi:",
+  "gitea-included-saved": "Qayta sinxronlandi:",
+  "gitea-sync-exclude-file": "github-to-gitea va Omi endi sinxronlamaydigan repozitoriylar roʻyxati",
+  "gitea-delete-repo": "Bu repozitoriy va uning fayllarini oʻchirish",
+  "gitea-delete-repo-confirm": "Bu repozitoriyni, uning vikisini va barcha maʼlumotlarini Gitea jildidan butunlay oʻchiradi. Davom etish uchun ega/nom yozing:",
+  "gitea-delete-repo-wrong-name": "Yozilgan nom repozitoriyning ega/nomi emas. Hech narsa oʻchirilmadi.",
+  "gitea-exclude-too": "Keyingi sinxronlash uni qaytarmasligi uchun uni sinxronlashdan ham chiqarish",
+  "gitea-packages-unlinked": "Unga bogʻlangan paketlar egasida qoladi, bogʻlanmagan holda:",
+  "gitea-deleted": "Oʻchirildi",
+  "gitea-freed": "boʻshatildi",
+  "gitea-deleted-list": "Oʻchirilgan repozitoriylar",
+  "gitea-index-stale": "Oʻchirishdan beri eskirgan: aniq hajmlar uchun qayta oʻlchang."
 }

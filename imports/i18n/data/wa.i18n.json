@@ -5658,5 +5658,19 @@
   "gitea-token-set": "apontyî",
   "gitea-token-not-set": "nén apontyî",
   "gitea-bad-name": "Çoula n' est nén on no valåbe di propiertaire ou di dipôt.",
-  "gitea-doer": "Uzeu Gitea come kî l' abaguaedje est fwait"
+  "gitea-doer": "Uzeu Gitea come kî l' abaguaedje est fwait",
+  "gitea-no-sync": "Ni pus sincronizer ci dipôt ci",
+  "gitea-sync-again": "Rimete dvins",
+  "gitea-excluded-saved": "Pus sincronizé:",
+  "gitea-included-saved": "Rissincronizé:",
+  "gitea-sync-exclude-file": "djivêye des dipôts ki github-to-gitea et Omi ni sincronizèt pus",
+  "gitea-delete-repo": "Disfacer ci dipôt ci et ses fitchîs",
+  "gitea-delete-repo-confirm": "Çouchal disfåt po todi l' dipôt, si wiki et totes ses dnêyes foû do ridant Gitea. Tapez propiertaire/no po continuwer:",
+  "gitea-delete-repo-wrong-name": "Li no tapé n' est nén l' propiertaire/no do dipôt. Rén n' a stî disfait.",
+  "gitea-exclude-too": "El rissaetchî eto do sincronizaedje, po k' li sincronizaedje shuvant nel rapoite nén",
+  "gitea-packages-unlinked": "Les pacaedjes loyîs a lu dmorèt avou l' propiertaire, disloyîs:",
+  "gitea-deleted": "Disfait",
+  "gitea-freed": "libetés",
+  "gitea-deleted-list": "Dipôts disfaits",
+  "gitea-index-stale": "Pus a djoû dispoy on disfaçaedje: ri-mezurez po des grandeus egzactes."
 }

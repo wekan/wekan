@@ -5658,5 +5658,19 @@
   "gitea-token-set": "defini",
   "gitea-token-not-set": "pa defini",
   "gitea-bad-name": "Sa a se pa yon non pwopriyetè oswa repòzitwa ki valab.",
-  "gitea-doer": "Itilizatè Gitea enpòtasyon an fèt kòm li"
+  "gitea-doer": "Itilizatè Gitea enpòtasyon an fèt kòm li",
+  "gitea-no-sync": "Pa senkwonize repòzitwa sa a ankò",
+  "gitea-sync-again": "Mete l ankò",
+  "gitea-excluded-saved": "Pa senkwonize ankò:",
+  "gitea-included-saved": "Senkwonize ankò:",
+  "gitea-sync-exclude-file": "lis repòzitwa github-to-gitea ak Omi pa senkwonize ankò",
+  "gitea-delete-repo": "Efase repòzitwa sa a ak fichye li yo",
+  "gitea-delete-repo-confirm": "Sa a efase repòzitwa a, wiki li ak tout done li nan dosye Gitea a pou tout tan. Tape owner/name pou kontinye:",
+  "gitea-delete-repo-wrong-name": "Non ki tape a se pa owner/name repòzitwa a. Anyen pa efase.",
+  "gitea-exclude-too": "Retire l tou nan senkwonizasyon, pou pwochen senkwonizasyon an pa mennen l tounen",
+  "gitea-packages-unlinked": "Pakè ki lye ak li yo rete ak pwopriyetè a, san lyen:",
+  "gitea-deleted": "Efase",
+  "gitea-freed": "libere",
+  "gitea-deleted-list": "Repòzitwa ki efase",
+  "gitea-index-stale": "Pa ajou depi yon efasman: mezire ankò pou gwosè egzak."
 }

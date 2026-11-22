@@ -5658,5 +5658,19 @@
   "gitea-token-set": "definit",
   "gitea-token-not-set": "no definit",
   "gitea-bad-name": "Aquest no és un nom vàlid de propietari o de repositori.",
-  "gitea-doer": "Usuari de Gitea amb què es fa la importació"
+  "gitea-doer": "Usuari de Gitea amb què es fa la importació",
+  "gitea-no-sync": "No sincronitzis més aquest repositori",
+  "gitea-sync-again": "Torna a incloure",
+  "gitea-excluded-saved": "Ja no se sincronitza:",
+  "gitea-included-saved": "Es torna a sincronitzar:",
+  "gitea-sync-exclude-file": "llista de repositoris que github-to-gitea i Omi ja no sincronitzen",
+  "gitea-delete-repo": "Esborra aquest repositori i els seus fitxers",
+  "gitea-delete-repo-confirm": "Això esborra per sempre el repositori, el seu wiki i totes les seves dades de la carpeta de Gitea. Escriviu owner/name per continuar:",
+  "gitea-delete-repo-wrong-name": "El nom escrit no és l'owner/name del repositori. No s'ha esborrat res.",
+  "gitea-exclude-too": "Exclou-lo també de la sincronització, perquè la següent sincronització no el torni a portar",
+  "gitea-packages-unlinked": "Els paquets enllaçats amb ell es queden amb el propietari, desenllaçats:",
+  "gitea-deleted": "Esborrat",
+  "gitea-freed": "alliberats",
+  "gitea-deleted-list": "Repositoris esborrats",
+  "gitea-index-stale": "Desactualitzat des d'un esborrat: torneu a mesurar per tenir les mides exactes."
 }

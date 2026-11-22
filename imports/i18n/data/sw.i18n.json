@@ -5658,5 +5658,19 @@
   "gitea-token-set": "imewekwa",
   "gitea-token-not-set": "haijawekwa",
   "gitea-bad-name": "Hilo si jina halali la mmiliki au hazina.",
-  "gitea-doer": "Mtumiaji wa Gitea ambaye uingizaji unafanywa kwa jina lake"
+  "gitea-doer": "Mtumiaji wa Gitea ambaye uingizaji unafanywa kwa jina lake",
+  "gitea-no-sync": "Usisawazishe hazina hii tena",
+  "gitea-sync-again": "Jumuisha tena",
+  "gitea-excluded-saved": "Haisawazishwi tena:",
+  "gitea-included-saved": "Imesawazishwa tena:",
+  "gitea-sync-exclude-file": "orodha ya hazina ambazo github-to-gitea na Omi hazisawazishi tena",
+  "gitea-delete-repo": "Futa hazina hii na faili zake",
+  "gitea-delete-repo-confirm": "Hii inafuta kabisa hazina, wiki yake na data yake yote kutoka kwenye folda ya Gitea. Andika mmiliki/jina ili kuendelea:",
+  "gitea-delete-repo-wrong-name": "Jina lililoandikwa si mmiliki/jina la hazina. Hakuna kilichofutwa.",
+  "gitea-exclude-too": "Iondoe pia kwenye usawazishaji, ili usawazishaji ujao usiirudishe",
+  "gitea-packages-unlinked": "Vifurushi vilivyounganishwa nayo vinabaki kwa mmiliki, bila kuunganishwa:",
+  "gitea-deleted": "Imefutwa",
+  "gitea-freed": "zimeachiliwa",
+  "gitea-deleted-list": "Hazina zilizofutwa",
+  "gitea-index-stale": "Imepitwa na wakati tangu ufutaji: pima tena kwa ukubwa kamili."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "kua tautuhia",
   "gitea-token-not-set": "kāore i tautuhia",
   "gitea-bad-name": "Ehara tērā i te ingoa tika o te kaipupuri, o te rākau pūmanawa rānei.",
-  "gitea-doer": "Te kaiwhakamahi Gitea e mahia ai te kawemai"
+  "gitea-doer": "Te kaiwhakamahi Gitea e mahia ai te kawemai",
+  "gitea-no-sync": "Kaua e tukutahi anō i tēnei rākau pūmanawa",
+  "gitea-sync-again": "Whakaurua anō",
+  "gitea-excluded-saved": "Kāore e tukutahitia anō:",
+  "gitea-included-saved": "Ka tukutahitia anō:",
+  "gitea-sync-exclude-file": "rārangi o ngā rākau pūmanawa kāore e tukutahitia anō e github-to-gitea me Omi",
+  "gitea-delete-repo": "Mukua tēnei rākau pūmanawa me ōna kōnae",
+  "gitea-delete-repo-confirm": "Ka mukua pūmautia e tēnei te rākau pūmanawa, tōna wiki me ōna raraunga katoa i te kōpaki Gitea. Patohia te owner/name kia haere tonu:",
+  "gitea-delete-repo-wrong-name": "Ehara te ingoa i patohia i te owner/name o te rākau pūmanawa. Kāore he mea i mukua.",
+  "gitea-exclude-too": "Whakakorehia hoki i te tukutahi, kia kore ai te tukutahi e whai ake e whakahoki mai",
+  "gitea-packages-unlinked": "Ka noho ngā mōkī e hono ana ki a ia ki te kaipupuri, kua wetekina:",
+  "gitea-deleted": "I mukua",
+  "gitea-freed": "kua wātea",
+  "gitea-deleted-list": "Ngā rākau pūmanawa kua mukua",
+  "gitea-index-stale": "Kua tawhito mai i tētahi mukunga: inea anō mō ngā rahi tika."
 }

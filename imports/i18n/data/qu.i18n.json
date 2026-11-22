@@ -5658,5 +5658,19 @@
   "gitea-token-set": "churasqa",
   "gitea-token-not-set": "mana churasqa",
   "gitea-bad-name": "Chayqa manan allin dueño utaq waqaychana sutichu.",
-  "gitea-doer": "Gitea llamk'achiq, paypa sutinpi apamuy rurakun"
+  "gitea-doer": "Gitea llamk'achiq, paypa sutinpi apamuy rurakun",
+  "gitea-no-sync": "Ama kay waqaychanata astawan tinkichiychu",
+  "gitea-sync-again": "Yapamanta churay",
+  "gitea-excluded-saved": "Manaña tinkichisqachu:",
+  "gitea-included-saved": "Yapamanta tinkichisqa:",
+  "gitea-sync-exclude-file": "github-to-gitea Omi-pas manaña tinkichisqanku waqaychanakunap sutinkuna",
+  "gitea-delete-repo": "Kay waqaychanata willakuyninkunatawan pichay",
+  "gitea-delete-repo-confirm": "Kayqa wiñaypaq pichan waqaychanata, wiki nisqanta, llapan willakuyninkunatapas Gitea q'epimanta. dueño/suti qillqay qatinapaq:",
+  "gitea-delete-repo-wrong-name": "Qillqasqa sutiqa manan waqaychanap dueño/sutinchu. Mana imapas pichasqachu.",
+  "gitea-exclude-too": "Tinkichiymantapas qarquy, hamuq tinkichiy mana kutichimunanpaq",
+  "gitea-packages-unlinked": "Paywan tinkisqa q'ipikunaqa dueñowanmi qhepanku, mana tinkisqa:",
+  "gitea-deleted": "Pichasqa",
+  "gitea-freed": "kacharisqa",
+  "gitea-deleted-list": "Pichasqa waqaychanakuna",
+  "gitea-index-stale": "Huk pichaymanta manaña musuqchu: yapamanta tupuy chiqan hatun kaykunapaq."
 }

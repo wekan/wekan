@@ -5658,5 +5658,19 @@
   "gitea-token-set": "constitutum",
   "gitea-token-not-set": "non constitutum",
   "gitea-bad-name": "Hoc non est validum nomen possessoris vel repositorii.",
-  "gitea-doer": "Usor Gitea cuius nomine importatio fit"
+  "gitea-doer": "Usor Gitea cuius nomine importatio fit",
+  "gitea-no-sync": "Hoc repositorium non iam synchronizare",
+  "gitea-sync-again": "Iterum includere",
+  "gitea-excluded-saved": "Non iam synchronizatum:",
+  "gitea-included-saved": "Iterum synchronizatum:",
+  "gitea-sync-exclude-file": "index repositoriorum quae github-to-gitea et Omi non iam synchronizant",
+  "gitea-delete-repo": "Dele hoc repositorium et fasciculos eius",
+  "gitea-delete-repo-confirm": "Hoc repositorium, vicem eius et omnia data eius e capsa Gitea in perpetuum delet. Scribe owner/name ut pergas:",
+  "gitea-delete-repo-wrong-name": "Nomen scriptum non est owner/name repositorii. Nihil deletum est.",
+  "gitea-exclude-too": "Etiam a synchronizatione excludere, ne synchronizatio proxima id reducat",
+  "gitea-packages-unlinked": "Fasciculi cum eo coniuncti apud possessorem manent, disiuncti:",
+  "gitea-deleted": "Deletum",
+  "gitea-freed": "liberata",
+  "gitea-deleted-list": "Repositoria deleta",
+  "gitea-index-stale": "Obsoletum post deletionem: iterum metire ut magnitudines exactas habeas."
 }

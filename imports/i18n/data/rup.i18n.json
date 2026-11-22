@@ -5658,5 +5658,19 @@
   "gitea-token-set": "aradhãsit",
   "gitea-token-not-set": "nu easti aradhãsit",
   "gitea-bad-name": "Aestã nu easti unã numã bunã di stãpãn i di depozit.",
-  "gitea-doer": "Uzerlu Gitea tu numa a curui si fatsi importul"
+  "gitea-doer": "Uzerlu Gitea tu numa a curui si fatsi importul",
+  "gitea-no-sync": "Nu mai sincronizeadzã aestu depozit",
+  "gitea-sync-again": "Bagã nãoarã",
+  "gitea-excluded-saved": "Nu mai easti sincronizat:",
+  "gitea-included-saved": "Sincronizat nãoarã:",
+  "gitea-sync-exclude-file": "lista a depozitelor tsi github-to-gitea shi Omi nu li mai sincronizeadzã",
+  "gitea-delete-repo": "Ashteardzi aestu depozit shi fishierili a lui",
+  "gitea-delete-repo-confirm": "Aestu ashteardzi tra totna depozitlu, wiki-lu a lui shi tuti datili a lui dit dosarlu Gitea. Scrie stãpãn/numã tra s-continuj:",
+  "gitea-delete-repo-wrong-name": "Numa scriatã nu easti stãpãn/numã a depozitlui. Tsiva nu fu ashtirsã.",
+  "gitea-exclude-too": "Scoate-l shi dit sincronizare, ca sincronizarea tsi yini s-nu-l aducã nãpoi",
+  "gitea-packages-unlinked": "Pachetili ligati di el armãn la stãpãn, niligati:",
+  "gitea-deleted": "Ashtirsu",
+  "gitea-freed": "liberats",
+  "gitea-deleted-list": "Depozite ashtirsi",
+  "gitea-index-stale": "Nu easti di dzua di cãndu fu unã ashtearere: mãsoarã nãoarã tra mãrimi exacti."
 }

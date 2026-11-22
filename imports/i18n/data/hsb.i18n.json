@@ -5658,5 +5658,19 @@
   "gitea-token-set": "nastajeny",
   "gitea-token-not-set": "njenastajeny",
   "gitea-bad-name": "To płaćiwe mjeno wobsedźerja abo repozitorija njeje.",
-  "gitea-doer": "Wužiwar Gitea, w kotrehož mjenje so import wotměje"
+  "gitea-doer": "Wužiwar Gitea, w kotrehož mjenje so import wotměje",
+  "gitea-no-sync": "Tutón repozitorij hižo njesynchronizować",
+  "gitea-sync-again": "Zaso zapřijeć",
+  "gitea-excluded-saved": "Hižo njesynchronizowane:",
+  "gitea-included-saved": "Zaso synchronizowane:",
+  "gitea-sync-exclude-file": "lisćina repozitorijow, kotrež github-to-gitea a Omi hižo njesynchronizujetej",
+  "gitea-delete-repo": "Tutón repozitorij a jeho dataje zhašeć",
+  "gitea-delete-repo-confirm": "To zhaša repozitorij, jeho wiki a wšě jeho daty z rjadowaka Gitea na přeco. Zapodajće owner/name, zo byšće pokročował:",
+  "gitea-delete-repo-wrong-name": "Zapodate mjeno njeje owner/name repozitorija. Ničo njeje so zhašało.",
+  "gitea-exclude-too": "Tež ze synchronizacije wuzamknyć, zo by přichodna synchronizacija jón wróćo njepřinjesła",
+  "gitea-packages-unlinked": "Pakćiki z nim zwjazane wostanu pola wobsedźerja, bjez zwiska:",
+  "gitea-deleted": "Zhašany",
+  "gitea-freed": "wuswobodźene",
+  "gitea-deleted-list": "Zhašane repozitorije",
+  "gitea-index-stale": "Zestarjene wot zhašenja: znowa měrić za eksaktne wulkosće."
 }

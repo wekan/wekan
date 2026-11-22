@@ -5658,5 +5658,19 @@
   "gitea-token-set": "تنظیم‌شده",
   "gitea-token-not-set": "تنظیم‌نشده",
   "gitea-bad-name": "این نام معتبر مالک یا مخزن نیست.",
-  "gitea-doer": "کاربر Gitea که وارد کردن به نام او انجام می‌شود"
+  "gitea-doer": "کاربر Gitea که وارد کردن به نام او انجام می‌شود",
+  "gitea-no-sync": "دیگر این مخزن را همگام‌سازی نکن",
+  "gitea-sync-again": "دوباره شامل کن",
+  "gitea-excluded-saved": "دیگر همگام‌سازی نمی‌شود:",
+  "gitea-included-saved": "دوباره همگام‌سازی می‌شود:",
+  "gitea-sync-exclude-file": "فهرست مخزن‌هایی که github-to-gitea و Omi دیگر همگام‌سازی نمی‌کنند",
+  "gitea-delete-repo": "حذف این مخزن و فایل‌هایش",
+  "gitea-delete-repo-confirm": "این کار مخزن، ویکی آن و همه داده‌هایش را برای همیشه از پوشه Gitea حذف می‌کند. برای ادامه owner/name را بنویسید:",
+  "gitea-delete-repo-wrong-name": "نام نوشته‌شده owner/name مخزن نیست. چیزی حذف نشد.",
+  "gitea-exclude-too": "آن را از همگام‌سازی هم کنار بگذار تا همگام‌سازی بعدی آن را برنگرداند",
+  "gitea-packages-unlinked": "بسته‌های پیوندخورده به آن نزد مالک می‌مانند، بدون پیوند:",
+  "gitea-deleted": "حذف شد",
+  "gitea-freed": "آزاد شد",
+  "gitea-deleted-list": "مخزن‌های حذف‌شده",
+  "gitea-index-stale": "از زمان یک حذف قدیمی شده است: برای اندازه‌های دقیق دوباره اندازه بگیرید."
 }

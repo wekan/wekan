@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ynsteld",
   "gitea-token-not-set": "net ynsteld",
   "gitea-bad-name": "Dat is gjin jildige namme foar in eigner of repository.",
-  "gitea-doer": "Gitea-brûker as wa't de ymport dien wurdt"
+  "gitea-doer": "Gitea-brûker as wa't de ymport dien wurdt",
+  "gitea-no-sync": "Dizze repository net mear syngronisearje",
+  "gitea-sync-again": "Opnij opnimme",
+  "gitea-excluded-saved": "Net mear syngronisearre:",
+  "gitea-included-saved": "Opnij syngronisearre:",
+  "gitea-sync-exclude-file": "list fan repositories dy't github-to-gitea en Omi net mear syngronisearje",
+  "gitea-delete-repo": "Dizze repository en syn bestannen wiskje",
+  "gitea-delete-repo-confirm": "Dit wisket de repository, syn wiki en al syn gegevens foar altyd út de Gitea-map. Typ owner/name om troch te gean:",
+  "gitea-delete-repo-wrong-name": "De typte namme is net de owner/name fan de repository. Der is neat wiske.",
+  "gitea-exclude-too": "Slút him ek út fan syngronisaasje, sadat de folgjende syngronisaasje him net werom bringt",
+  "gitea-packages-unlinked": "Pakketten dy't dêroan keppele binne, bliuwe by de eigner, sûnder keppeling:",
+  "gitea-deleted": "Wiske",
+  "gitea-freed": "frijmakke",
+  "gitea-deleted-list": "Wiske repositories",
+  "gitea-index-stale": "Ferâldere sûnt in wisking: mjit opnij foar krekte grutte."
 }

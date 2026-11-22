@@ -5658,5 +5658,19 @@
   "gitea-token-set": "imisiwe",
   "gitea-token-not-set": "kayimiswanga",
   "gitea-bad-name": "Leli kayisilo ibizo elifaneleyo lomnikazi kumbe lerepository.",
-  "gitea-doer": "Umsebenzisi weGitea okungeniswa ngaye"
+  "gitea-doer": "Umsebenzisi weGitea okungeniswa ngaye",
+  "gitea-no-sync": "Ungabe usavumelanisa le repository",
+  "gitea-sync-again": "Faka futhi",
+  "gitea-excluded-saved": "Akusavunyelaniswa:",
+  "gitea-included-saved": "Kuvunyelaniswa futhi:",
+  "gitea-sync-exclude-file": "uhlu lwamarepository i-github-to-gitea lo-Omi angasawavumelanisiyo",
+  "gitea-delete-repo": "Susa le repository lamafayela ayo",
+  "gitea-delete-repo-confirm": "Lokhu kususa i-repository, i-wiki yayo layo yonke imininingwane yayo kufolda ye-Gitea kuze kube nini. Bhala u-owner/name ukuze uqhubeke:",
+  "gitea-delete-repo-wrong-name": "Ibizo elibhaliweyo kayisilo owner/name we-repository. Kakulalutho olususiweyo.",
+  "gitea-exclude-too": "Yikhuphe lekuvumelaniseni, ukuze ukuvumelanisa okulandelayo kungayibuyisi",
+  "gitea-packages-unlinked": "Amaphakheji axhunywe kuyo ahlala lomnikazi, engaxhunywanga:",
+  "gitea-deleted": "Kususiwe",
+  "gitea-freed": "kukhululiwe",
+  "gitea-deleted-list": "Amarepository asusiweyo",
+  "gitea-index-stale": "Sekudala kusukela ekususweni: linganisa futhi ukuze uthole ubukhulu obuqondileyo."
 }

@@ -5658,5 +5658,19 @@
   "gitea-token-set": "bidjon",
   "gitea-token-not-set": "ii bidjon",
   "gitea-bad-name": "Dat ii leat gustovaš oamasteaddji dahje rájá namma.",
-  "gitea-doer": "Gitea-geavaheaddji gean namas importeren dahkko"
+  "gitea-doer": "Gitea-geavaheaddji gean namas importeren dahkko",
+  "gitea-no-sync": "Ale šat synkronisere dán ráju",
+  "gitea-sync-again": "Váldde fas mielde",
+  "gitea-excluded-saved": "Ii šat synkronisejuvvo:",
+  "gitea-included-saved": "Synkronisejuvvon fas:",
+  "gitea-sync-exclude-file": "listu rájáin maid github-to-gitea ja Omi eaba šat synkronisere",
+  "gitea-delete-repo": "Sihko dán ráju ja dan fiillaid",
+  "gitea-delete-repo-confirm": "Dát sihkku agibeaivái ráju, dan wiki ja buot dan dieđuid Gitea-máhpas. Čále oamasteaddji/namma joatkit:",
+  "gitea-delete-repo-wrong-name": "Čállon namma ii leat ráju oamasteaddji/namma. Mihkkege ii sihkkojuvvon.",
+  "gitea-exclude-too": "Ii leat maiddái synkroniseremis, vai boahtte synkroniseren ii buve dan ruovttoluotta",
+  "gitea-packages-unlinked": "Páhkat mat leat čadnon dasa bissot oamasteaddjis, čatnakeahttá:",
+  "gitea-deleted": "Sihkkojuvvon",
+  "gitea-freed": "friddjejuvvon",
+  "gitea-deleted-list": "Sihkkojuvvon ráját",
+  "gitea-index-stale": "Boaresmuvvan sihkkuma rájes: mihtit fas dárkilis sturrodagaid várás."
 }

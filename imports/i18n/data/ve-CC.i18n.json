@@ -5658,5 +5658,19 @@
   "gitea-token-set": "inpostà",
   "gitea-token-not-set": "no inpostà",
   "gitea-bad-name": "Questo no'l xe un nome vàłido de paron o de depòzito.",
-  "gitea-doer": "Utente de Gitea co cui se fa l'inportasion"
+  "gitea-doer": "Utente de Gitea co cui se fa l'inportasion",
+  "gitea-no-sync": "No sincronisar pì sto depòzito",
+  "gitea-sync-again": "Includi da novo",
+  "gitea-excluded-saved": "No pì sincronisà:",
+  "gitea-included-saved": "Sincronisà da novo:",
+  "gitea-sync-exclude-file": "lista dei depòziti che github-to-gitea e Omi no i sincronisa pì",
+  "gitea-delete-repo": "Scancèła sto depòzito e i so file",
+  "gitea-delete-repo-confirm": "Questo el scancèła par senpre el depòzito, ła so wiki e tuti i so dati da ła cartèla de Gitea. Scrivi paron/nome par ndar vanti:",
+  "gitea-delete-repo-wrong-name": "El nome scrito no'l xe el paron/nome del depòzito. No xe stà scancełà gnente.",
+  "gitea-exclude-too": "Escludilo anca da ła sincronizasion, cusì che ła pròsima sincronizasion no ło porta indrìo",
+  "gitea-packages-unlinked": "I pacheti łigài a łu i resta co'l paron, desłigài:",
+  "gitea-deleted": "Scancełà",
+  "gitea-freed": "liberài",
+  "gitea-deleted-list": "Depòziti scancełài",
+  "gitea-index-stale": "No pì ajornà da na scancełasion: mezura da novo par dimension esate."
 }

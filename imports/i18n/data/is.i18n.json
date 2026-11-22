@@ -5658,5 +5658,19 @@
   "gitea-token-set": "stillt",
   "gitea-token-not-set": "ekki stillt",
   "gitea-bad-name": "Þetta er ekki gilt nafn eiganda eða hugbúnaðarsafns.",
-  "gitea-doer": "Gitea-notandi sem innflutningurinn er gerður sem"
+  "gitea-doer": "Gitea-notandi sem innflutningurinn er gerður sem",
+  "gitea-no-sync": "Ekki samstilla þetta hugbúnaðarsafn lengur",
+  "gitea-sync-again": "Taka aftur með",
+  "gitea-excluded-saved": "Ekki samstillt lengur:",
+  "gitea-included-saved": "Samstillt aftur:",
+  "gitea-sync-exclude-file": "listi yfir hugbúnaðarsöfn sem github-to-gitea og Omi samstilla ekki lengur",
+  "gitea-delete-repo": "Eyða þessu hugbúnaðarsafni og skrám þess",
+  "gitea-delete-repo-confirm": "Þetta eyðir hugbúnaðarsafninu, wiki þess og öllum gögnum þess úr Gitea-möppunni fyrir fullt og allt. Sláðu inn owner/name til að halda áfram:",
+  "gitea-delete-repo-wrong-name": "Nafnið sem var slegið inn er ekki owner/name hugbúnaðarsafnsins. Engu var eytt.",
+  "gitea-exclude-too": "Undanskilja það líka frá samstillingu, svo að næsta samstilling komi ekki með það aftur",
+  "gitea-packages-unlinked": "Pakkar tengdir því verða áfram hjá eigandanum, ótengdir:",
+  "gitea-deleted": "Eytt",
+  "gitea-freed": "losað",
+  "gitea-deleted-list": "Eydd hugbúnaðarsöfn",
+  "gitea-index-stale": "Úrelt síðan eyðing var gerð: mældu aftur fyrir nákvæmar stærðir."
 }

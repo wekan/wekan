@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ingesteld",
   "gitea-token-not-set": "niet ingesteld",
   "gitea-bad-name": "Dat is geen geldige naam voor een eigenaar of repository.",
-  "gitea-doer": "Gitea-gebruiker namens wie de import gebeurt"
+  "gitea-doer": "Gitea-gebruiker namens wie de import gebeurt",
+  "gitea-no-sync": "Deze repository niet meer synchroniseren",
+  "gitea-sync-again": "Weer opnemen",
+  "gitea-excluded-saved": "Niet meer gesynchroniseerd:",
+  "gitea-included-saved": "Weer gesynchroniseerd:",
+  "gitea-sync-exclude-file": "lijst van repositories die github-to-gitea en Omi niet meer synchroniseren",
+  "gitea-delete-repo": "Deze repository en zijn bestanden verwijderen",
+  "gitea-delete-repo-confirm": "Dit verwijdert de repository, zijn wiki en al zijn gegevens definitief uit de Gitea-map. Typ owner/name om door te gaan:",
+  "gitea-delete-repo-wrong-name": "De getypte naam is niet de owner/name van de repository. Er is niets verwijderd.",
+  "gitea-exclude-too": "Ook uitsluiten van synchronisatie, zodat de volgende synchronisatie hem niet terugbrengt",
+  "gitea-packages-unlinked": "Pakketten die eraan gekoppeld zijn, blijven bij de eigenaar, ontkoppeld:",
+  "gitea-deleted": "Verwijderd",
+  "gitea-freed": "vrijgemaakt",
+  "gitea-deleted-list": "Verwijderde repositories",
+  "gitea-index-stale": "Verouderd sinds een verwijdering: meet opnieuw voor exacte groottes."
 }

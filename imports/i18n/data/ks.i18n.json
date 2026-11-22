@@ -5658,5 +5658,19 @@
   "gitea-token-set": "سیٹ",
   "gitea-token-not-set": "سیٹ نہٕ",
   "gitea-bad-name": "یہ چھُ نہٕ مالک یا ذخیرٕ ہُند صحیح ناو۔",
-  "gitea-doer": "سُہ Gitea صارف یمیُک کِنہِ درآمد کرنہٕ یِوان چھُ"
+  "gitea-doer": "سُہ Gitea صارف یمیُک کِنہِ درآمد کرنہٕ یِوان چھُ",
+  "gitea-no-sync": "یہ ذخیرٕ کٔرِو نہٕ بییہ سنک",
+  "gitea-sync-again": "بییہ شٲمِل کٔرِو",
+  "gitea-excluded-saved": "بییہ چھُ نہٕ سنک گژھان:",
+  "gitea-included-saved": "بییہ چھُ سنک گژھان:",
+  "gitea-sync-exclude-file": "تِمن ذخیرن ہٕنز فہرست یِمن github-to-gitea تہٕ Omi بییہ سنک چھِ نہٕ کران",
+  "gitea-delete-repo": "یہ ذخیرٕ تہٕ امِچ فائلہٕ مٹایو",
+  "gitea-delete-repo-confirm": "یہ چھُ ذخیرٕ، امیک وِکی تہٕ امیک سورُے ڈیٹا Gitea فولڈرٕ پؠٹھٕ ہمیشہ خٲطرٕ مٹاوان۔ اگہٕ پکنہٕ خٲطرٕ owner/name لیکھِو:",
+  "gitea-delete-repo-wrong-name": "لیکھنہٕ آمُت ناو چھُ نہٕ ذخیرُک owner/name۔ کیٛنٛہہ آو نہٕ مٹاونہٕ۔",
+  "gitea-exclude-too": "اَتھ کٔرِو سنکہٕ نِشہِ تہِ نیبر، تاکہ نیٚوُک سنک یہ واپس نہٕ اَنہِ",
+  "gitea-packages-unlinked": "اَتھ سٟتؠ جُڑیمٕتؠ پیکیج روزان مالکس نِش، بغیر جوڑٕ:",
+  "gitea-deleted": "مٹاونہٕ آمُت",
+  "gitea-freed": "آزاد کرنہٕ آمُت",
+  "gitea-deleted-list": "مٹاونہٕ آمتؠ ذخیرٕ",
+  "gitea-index-stale": "اکہِ مٹاونہٕ پتہٕ پرون: صحیح سائزن خٲطرٕ دوبارٕ ناپِو۔"
 }

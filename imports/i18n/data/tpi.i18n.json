@@ -5658,5 +5658,19 @@
   "gitea-token-set": "i stap",
   "gitea-token-not-set": "i no stap",
   "gitea-bad-name": "Dispela i no stretpela nem bilong papa o ripositori.",
-  "gitea-doer": "Gitea yusa we impot i wok long nem bilong en"
+  "gitea-doer": "Gitea yusa we impot i wok long nem bilong en",
+  "gitea-no-sync": "No ken sink gen dispela ripositori",
+  "gitea-sync-again": "Putim insait gen",
+  "gitea-excluded-saved": "I no sink moa:",
+  "gitea-included-saved": "I sink gen:",
+  "gitea-sync-exclude-file": "lis bilong ol ripositori github-to-gitea na Omi i no sink moa",
+  "gitea-delete-repo": "Rausim dispela ripositori na ol fail bilong en",
+  "gitea-delete-repo-confirm": "Dispela i rausim olgeta taim ripositori, wiki bilong en na olgeta data bilong en long folda bilong Gitea. Raitim papa/nem bilong go het:",
+  "gitea-delete-repo-wrong-name": "Nem yu raitim i no papa/nem bilong ripositori. I no rausim wanpela samting.",
+  "gitea-exclude-too": "Rausim tu long sink, olsem neks sink i no bringim i kam bek",
+  "gitea-packages-unlinked": "Ol pekis i joinim long en i stap wantaim papa, i no joinim moa:",
+  "gitea-deleted": "Rausim",
+  "gitea-freed": "i fri",
+  "gitea-deleted-list": "Ol ripositori i rausim pinis",
+  "gitea-index-stale": "I no nupela moa bihain long wanpela rausim: mesarim gen long kisim stretpela sais."
 }

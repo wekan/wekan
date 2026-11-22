@@ -5658,5 +5658,19 @@
   "gitea-token-set": "ਸੈੱਟ",
   "gitea-token-not-set": "ਸੈੱਟ ਨਹੀਂ",
   "gitea-bad-name": "ਇਹ ਮਾਲਕ ਜਾਂ ਰਿਪੋਜ਼ਟਰੀ ਦਾ ਵੈਧ ਨਾਮ ਨਹੀਂ ਹੈ।",
-  "gitea-doer": "Gitea ਵਰਤੋਂਕਾਰ ਜਿਸ ਵਜੋਂ ਆਯਾਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ"
+  "gitea-doer": "Gitea ਵਰਤੋਂਕਾਰ ਜਿਸ ਵਜੋਂ ਆਯਾਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
+  "gitea-no-sync": "ਇਸ ਰਿਪੋਜ਼ਟਰੀ ਨੂੰ ਹੁਣ ਸਿੰਕ ਨਾ ਕਰੋ",
+  "gitea-sync-again": "ਦੁਬਾਰਾ ਸ਼ਾਮਲ ਕਰੋ",
+  "gitea-excluded-saved": "ਹੁਣ ਸਿੰਕ ਨਹੀਂ ਹੁੰਦਾ:",
+  "gitea-included-saved": "ਦੁਬਾਰਾ ਸਿੰਕ ਹੁੰਦਾ ਹੈ:",
+  "gitea-sync-exclude-file": "ਉਹਨਾਂ ਰਿਪੋਜ਼ਟਰੀਆਂ ਦੀ ਸੂਚੀ ਜਿਨ੍ਹਾਂ ਨੂੰ github-to-gitea ਅਤੇ Omi ਹੁਣ ਸਿੰਕ ਨਹੀਂ ਕਰਦੇ",
+  "gitea-delete-repo": "ਇਸ ਰਿਪੋਜ਼ਟਰੀ ਅਤੇ ਇਸ ਦੀਆਂ ਫ਼ਾਈਲਾਂ ਨੂੰ ਮਿਟਾਓ",
+  "gitea-delete-repo-confirm": "ਇਹ Gitea ਫੋਲਡਰ ਵਿੱਚੋਂ ਰਿਪੋਜ਼ਟਰੀ, ਇਸ ਦੀ ਵਿਕੀ ਅਤੇ ਇਸ ਦਾ ਸਾਰਾ ਡਾਟਾ ਹਮੇਸ਼ਾ ਲਈ ਮਿਟਾ ਦਿੰਦਾ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ owner/name ਲਿਖੋ:",
+  "gitea-delete-repo-wrong-name": "ਲਿਖਿਆ ਨਾਮ ਰਿਪੋਜ਼ਟਰੀ ਦਾ owner/name ਨਹੀਂ ਹੈ। ਕੁਝ ਨਹੀਂ ਮਿਟਾਇਆ ਗਿਆ।",
+  "gitea-exclude-too": "ਇਸ ਨੂੰ ਸਿੰਕ ਤੋਂ ਵੀ ਬਾਹਰ ਰੱਖੋ, ਤਾਂ ਜੋ ਅਗਲਾ ਸਿੰਕ ਇਸ ਨੂੰ ਵਾਪਸ ਨਾ ਲਿਆਵੇ",
+  "gitea-packages-unlinked": "ਇਸ ਨਾਲ ਜੁੜੇ ਪੈਕੇਜ ਬਿਨਾਂ ਜੋੜ ਦੇ ਮਾਲਕ ਕੋਲ ਰਹਿੰਦੇ ਹਨ:",
+  "gitea-deleted": "ਮਿਟਾਇਆ",
+  "gitea-freed": "ਖਾਲੀ ਹੋਇਆ",
+  "gitea-deleted-list": "ਮਿਟਾਈਆਂ ਰਿਪੋਜ਼ਟਰੀਆਂ",
+  "gitea-index-stale": "ਇੱਕ ਮਿਟਾਉਣ ਤੋਂ ਬਾਅਦ ਪੁਰਾਣਾ: ਸਹੀ ਆਕਾਰਾਂ ਲਈ ਦੁਬਾਰਾ ਮਾਪੋ।"
 }
