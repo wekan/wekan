@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.25
+  version: v13.26
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -6968,6 +6968,19 @@ definitions:
            How much time has been spent on this
         type: number
         x-nullable: true
+      estimatedHours:
+        description: |
+           How many hours the card is estimated to take (Workload,
+           docs/Features/Workload/Workload.md). What is still to do is this
+           less spentTime.
+        type: number
+        x-nullable: true
+      billable:
+        description: |
+           Budget and billing (docs/Features/Billing/Billing.md): false when the
+           card's time is not invoiced. Absent means billable.
+        type: boolean
+        x-nullable: true
       isOvertime:
         description: |
            is the card over time?
@@ -9270,6 +9283,7 @@ definitions:
           - board-view-distribution
           - board-view-dependency-map
           - board-view-activity-heatmap
+          - board-view-website
       listSortBy:
         description: |
            default sort list for user
