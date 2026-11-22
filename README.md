@@ -38,6 +38,8 @@ that by providing one-click installation on various platforms.
     build.bat.
 - [Features](https://github.com/wekan/wekan/tree/main/docs/Features):
   - Real-time user interface
+  - [Help button](docs/Features/General/Help-Button.md): a ? at every feature place - board views, sidebar, Board and Member Settings,
+    card sections, Admin Panel panes - shows What is it? and How it works? in your own language
   - All Boards page, Drag drop reorder with one or Multi-Selection:
     - Board icons at Remaining, (Sub)Workspaces, Archive
     - Shared Templates: Boards, Lists, Cards
