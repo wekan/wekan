@@ -412,6 +412,15 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // #6939: the width the card details window opens at, in percent of the
+    // browser window (520px at least), until a user drags their own. Unset =
+    // 520px. models/lib/cardDetailsWidth.js
+    cardDetailsDefaultWidthPercent: {
+      type: Number,
+      optional: true,
+      min: 30,
+      max: 95,
+    },
     // Hide the activity feed on EVERY board, instance-wide. Read once from this
     // global setting instead of being written into every board document: the old
     // implementation bulk-updated showActivities:false on all boards, which could

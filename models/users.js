@@ -109,6 +109,18 @@ if (Meteor.isClient) {
     return true;
   };
 
+  // #6939: the width the card details window was dragged to, kept the same way
+  // for the same reader; null forgets it. models/lib/cardDetailsWidth.js
+  Users.getPublicCardDetailsWidth = () => {
+    const data = readCookieMap('wekan-card-details-width');
+    return typeof data.width === 'number' ? data.width : null;
+  };
+
+  Users.setPublicCardDetailsWidth = width => {
+    writeCookieMap('wekan-card-details-width', typeof width === 'number' ? { width } : {});
+    return true;
+  };
+
   Users.getPublicCollapsedList = (boardId, listId) => {
     if (!boardId || !listId) return null;
     const data = readCookieMap('wekan-collapsed-lists');
@@ -481,6 +493,15 @@ Users.attachSchema(
        * edge - the right one while reading left to right, the left one under a
        * right-to-left language. One width for both pages, like the fold above.
        * Unset = the CSS default. docs/Features/All-Boards/Left-Menu.md
+       */
+      type: Number,
+      optional: true,
+    },
+    'profile.cardDetailsWidth': {
+      /**
+       * #6939: the width (px) the card details window was dragged to; every
+       * card opens at it, within the viewport. Unset = the Admin Panel's default
+       * percentage, else 520px. models/lib/cardDetailsWidth.js
        */
       type: Number,
       optional: true,
@@ -2240,6 +2261,13 @@ Users.helpers({
   // docs/Features/All-Boards/Left-Menu.md
   getLeftMenuWidth() {
     const width = (this.profile || {}).leftMenuWidth;
+    return typeof width === 'number' ? width : undefined;
+  },
+
+  // #6939: the card details width this user dragged to, or undefined for the
+  // default (models/lib/cardDetailsWidth.js).
+  getCardDetailsWidth() {
+    const width = (this.profile || {}).cardDetailsWidth;
     return typeof width === 'number' ? width : undefined;
   },
 

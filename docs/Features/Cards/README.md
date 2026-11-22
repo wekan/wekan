@@ -55,6 +55,7 @@ Who sees which entry is on each page.
 | Watch / Unwatch, Star / Unstar | [Watch, Star](Watch-Star.md) |
 | Set color | [Set color](Set-Color.md) |
 | Drawing | [Drawing](Drawing.md) |
+| Card details width | [Card details width](Card-Details-Width.md) |
 | Create cards from action items | [Action items](Action-Items.md) |
 | Copy link to clipboard | [Board item links](../General/Board-Item-Links.md) |
 | Link to board | [Link to board](Link-To-Board.md) |

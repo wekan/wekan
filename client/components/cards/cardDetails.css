@@ -135,7 +135,9 @@ body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):no
   top: 8px;
   inset-inline-start: auto;
   inset-inline-end: 8px;
-  width: min(520px, 90vw);
+  /* #6939: the dragged width, else the Admin Panel's percentage, else 520px
+     (client/lib/cardDetailsWidthMemory.js sets the property). */
+  width: var(--wekan-card-details-width, min(520px, 90vw));
   bottom: 8px;
 }
 
@@ -564,8 +566,12 @@ body.card-window-dragging {
 @media screen and (min-width: 801px) {
   .card-details {
     top: 97px;
-    inset-inline-start: calc(50% - (520px / 2)); /* #6465: narrower card (was 600px) */
-    width: 520px;
+    /* #6465: narrower card (was 600px). #6939: the remembered width, which the
+       card opened as a popup (Board Table view, search results, Roadmap bar)
+       takes too, centred and within the viewport. */
+    inset-inline-start: max(8px, calc(50% - (var(--wekan-card-details-width, 520px) / 2)));
+    width: var(--wekan-card-details-width, 520px);
+    max-width: calc(100vw - 16px);
     bottom: 0;
     position: fixed;
     resize: both;

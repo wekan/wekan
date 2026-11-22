@@ -832,6 +832,23 @@ Template.tableVisibilityModeSettings.events({
     }
   },
 
+  // #6939: empty = 520px; otherwise a whole percentage, 30 to 95.
+  'click button.js-visibility-card-width-save'(event, instance) {
+    const { clampDefaultPercent } = require('/models/lib/cardDetailsWidth');
+    const raw = String(instance.$('#card-details-default-width-percent').val() || '').trim();
+    const percent = clampDefaultPercent(raw);
+    const status = instance.$('.js-visibility-card-width-status');
+    if (raw && percent === null) {
+      status.text(TAPi18n.__('card-details-default-width-desc'));
+      return;
+    }
+    const id = ReactiveCache.getCurrentSetting()._id;
+    if (percent === null) Settings.update(id, { $unset: { cardDetailsDefaultWidthPercent: '' } });
+    else Settings.update(id, { $set: { cardDetailsDefaultWidthPercent: percent } });
+    instance.$('#card-details-default-width-percent').val(percent === null ? '' : percent);
+    status.text(TAPi18n.__('card-details-default-width-saved'));
+  },
+
   'click button.js-visibility-date-save'(event, instance) {
     saveVisibilitySettings({
       hideDateFormat: instance.$('#global-date-format-enabled').hasClass('is-checked'),

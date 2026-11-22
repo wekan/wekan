@@ -199,7 +199,7 @@ test('neither the module nor its caller writes a vertical position', () => {
 
 test('it runs when a card is opened, and again when the viewport changes', () => {
   const js = read('client/components/cards/cardDetails.js');
-  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*try \{\s*anchorCardDetailsX\(element\)/.test(js),
+  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*(?:\/\/[^\n]*\n\s*rememberCardDetailsWidth\(element\);\s*)?try \{\s*anchorCardDetailsX\(element\)/.test(js),
     'placed after the flush that renders it, so the measured width is the real one');
   assert.ok(/addEventListener\('resize'/.test(js) && /anchorAllCardDetailsX\(\)/.test(js),
     'and re-placed on resize — a viewport that shrank is the other way to lose it');
@@ -238,7 +238,9 @@ test('the bottom-right handle can make the opened card wider or narrower', () =>
     'body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"])',
   );
   const defaultRule = css.slice(defaultAt, css.indexOf('\n}', defaultAt));
-  assert.match(defaultRule, /width: min\(520px, 90vw\)/,
+  // #6939: the remembered or Admin Panel width when there is one
+  // (--wekan-card-details-width, tests/cardDetailsWidth.test.cjs), else this.
+  assert.match(defaultRule, /width: var\(--wekan-card-details-width, min\(520px, 90vw\)\)/,
     'the card still opens at its established compact width');
   assert.match(css, /@media screen and \(min-width: 801px\)[\s\S]*?\.card-details \{[\s\S]*?resize: both;/,
     'desktop users retain the two-way native resize handle');
@@ -278,7 +280,7 @@ test('a window the user dragged keeps its place, and is only kept on screen', ()
 
 test('it runs when a card is opened, and again when the viewport changes', () => {
   const js = read('client/components/cards/cardDetails.js');
-  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*try \{\s*anchorCardDetailsX\(element\)/.test(js),
+  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*(?:\/\/[^\n]*\n\s*rememberCardDetailsWidth\(element\);\s*)?try \{\s*anchorCardDetailsX\(element\)/.test(js),
     'placed after the flush that renders it, so the measured width is the real one');
   assert.ok(/addEventListener\('resize'/.test(js) && /anchorAllCardDetailsX\(\)/.test(js),
     'and re-placed on resize — a viewport that shrank is the other way to lose it');
@@ -317,7 +319,9 @@ test('the bottom-right handle can make the opened card wider or narrower', () =>
     'body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"])',
   );
   const defaultRule = css.slice(defaultAt, css.indexOf('\n}', defaultAt));
-  assert.match(defaultRule, /width: min\(520px, 90vw\)/,
+  // #6939: the remembered or Admin Panel width when there is one
+  // (--wekan-card-details-width, tests/cardDetailsWidth.test.cjs), else this.
+  assert.match(defaultRule, /width: var\(--wekan-card-details-width, min\(520px, 90vw\)\)/,
     'the card still opens at its established compact width');
   assert.match(css, /@media screen and \(min-width: 801px\)[\s\S]*?\.card-details \{[\s\S]*?resize: both;/,
     'desktop users retain the two-way native resize handle');

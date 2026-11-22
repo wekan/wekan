@@ -955,6 +955,22 @@ Meteor.methods({
     });
   },
 
+  // #6939: the card details window's dragged width, or null to forget it and
+  // open at the default again. Clamped here as well as on the client, for the
+  // reason the left menu's width is: a method is reachable without the drag.
+  async setCardDetailsWidth(width) {
+    check(width, Match.OneOf(Number, null));
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const { clampUserWidth } = require('/models/lib/cardDetailsWidth');
+    const clamped = width === null ? null : clampUserWidth(width);
+    if (width !== null && clamped === null) {
+      throw new Meteor.Error('invalid-width', 'Card details width must be a positive finite number');
+    }
+    await Users.updateAsync(this.userId, clamped === null
+      ? { $unset: { 'profile.cardDetailsWidth': '' } }
+      : { $set: { 'profile.cardDetailsWidth': clamped } });
+  },
+
   async toggleDesktopDragHandles(show) {
     check(show, Match.OneOf(Boolean, null, undefined));
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

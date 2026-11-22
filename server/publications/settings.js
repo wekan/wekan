@@ -96,6 +96,8 @@ const SETTING_FIELDS = {
   // #2460: whether the sign-in page offers SQRL; no secret.
   sqrlEnabled: 1,
   hideBoardMemberList: 1,
+  // #6939: the card details default width (percent of the window); no secret.
+  cardDetailsDefaultWidthPercent: 1,
   hideDateFormat: 1,
   globalDateFormat: 1,
   cardsLoading: 1,

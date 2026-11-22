@@ -1233,6 +1233,15 @@ template(name="cardDetailsActionsPopup")
               a.js-description-action-items
                 i.fa.fa-tasks
                 |  {{_ 'action-items-create'}}
+    //- #6939: every card opens at the width it was last dragged to; this goes
+      back to the default (Admin Panel / Settings / Appearance, else 520px).
+      Only shown when there is a dragged width to forget.
+    if hasCardDetailsWidth
+      ul.pop-over-list
+        li
+          a.js-reset-card-details-width
+            i.fa.fa-arrows-h
+            | {{_ 'card-details-reset-width'}}
     hr
   ul.pop-over-list
     li.menu-group-heading {{_ 'menu-group-share'}}

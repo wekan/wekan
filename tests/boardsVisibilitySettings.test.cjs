@@ -248,7 +248,8 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
     // 2026-11-19: one template, three panes (part="features" | "profiles" |
     // "appearance"). The Features pane's groups come first in the source, then
     // Appearance's - the old Visibility order with the feature groups taken out.
-    ['features', 'rules', 'optional-apis', 'all-boards-hide', 'date', 'settings-group-url', 'external-link-pattern',
+    // #6939 added Card details default width after Date.
+    ['features', 'rules', 'optional-apis', 'all-boards-hide', 'date', 'card-details-default-width', 'settings-group-url', 'external-link-pattern',
       'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with

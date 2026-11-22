@@ -22,6 +22,7 @@ import {
 import { canArchiveCard } from '/client/lib/archivePermission';
 import { isTextSelectionInsideCard } from '/client/lib/cardCloseGuard';
 import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
+import { rememberCardDetailsWidth, hasCardDetailsWidth, resetCardDetailsWidth } from '/client/lib/cardDetailsWidthMemory';
 import { dueFromTitle } from '/client/components/forms/titleDueHint';
 import { riskOf } from '/client/lib/cardRiskOf';
 import Rules from '/models/rules';
@@ -528,6 +529,8 @@ Template.cardDetails.onRendered(function () {
   if ($cardDetails.length) {
     Tracker.afterFlush(() => {
       const element = $cardDetails.get(0);
+      // #6939: a drag of the resize handle is remembered for the next card.
+      rememberCardDetailsWidth(element);
       try {
         anchorCardDetailsX(element);
       } finally {
@@ -1918,6 +1921,10 @@ Template.inlinedCardDescription.events({
 });
 
 Template.cardDetailsActionsPopup.helpers({
+  // #6939: "Reset width" is offered when there is a dragged width to forget.
+  hasCardDetailsWidth() {
+    return hasCardDetailsWidth();
+  },
   // The moving and copying items: for who may change the card, and - as they
   // always were - for a member who is not read-only.
   cardMenuWrites() {
@@ -1969,6 +1976,11 @@ Template.cardSpentTimeMenu.events({
 });
 
 Template.cardDetailsActionsPopup.events({
+  'click .js-reset-card-details-width'(event) {
+    event.preventDefault();
+    resetCardDetailsWidth();
+    Popup.back();
+  },
   // docs/Features/Cards/Action-Items.md: the description's action items.
   'click .js-description-action-items': Popup.open('actionItems', { titleKey: 'action-items' }),
   // History.md §7a: adding History to a menu is a menu item and this handler,
@@ -3365,7 +3377,9 @@ EscapeActions.register(
         : null,
       getCardDetailsElement(getCurrentCardFromContext()?._id),
     );
-    if (Session.get('cardDetailsIsDragging') || selectingInsideCard) {
+    // #6939: a resize of the window by its corner handle ends outside the card
+    // whenever it made it wider (client/lib/cardDetailsWidthMemory.js).
+    if (Session.get('cardDetailsIsDragging') || Session.get('cardDetailsIsResizing') || selectingInsideCard) {
       // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
       Session.set('cardDetailsIsDragging', false);
       Session.set('cardDetailsIsMouseDown', false);

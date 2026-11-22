@@ -9,6 +9,7 @@ before expecting the newest UI. For all menus, use [Features](Features.md).
 
 | Feature | Where to find it | Instructions |
 | --- | --- | --- |
+| The card details window remembers the width you drag it to; an administrator sets the default width as a percentage of the browser window | Opened card: its bottom corner, and the card menu / Reset width; Admin Panel / Settings / Appearance | [Card details width](Cards/Card-Details-Width.md) |
 | Workload and capacity: hours against working time across boards, absences, holidays, allocations, placeholders, billable utilization and skills | User menu / Workload and capacity | [Workload](Workload/Workload.md) |
 | Budget and billing: rates, cost rates, budget against cost, forecast and margin; time by day and its approval; expenses, fixed fees, retainers, quotes and invoices | User menu / Budget and billing | [Budget and billing](Billing/Billing.md) |
 | Invoices as PDF, SVG, Excel, CSV and Peppol e-invoice, with the payment QR codes and bank barcodes of many countries | User menu / Budget and billing, an invoice's buttons | [Budget and billing](Billing/Billing.md) |

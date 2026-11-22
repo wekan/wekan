@@ -556,6 +556,19 @@ template(name='tableVisibilityModeSettings')
           button.js-visibility-date-save.primary {{_ 'save'}}
         li.admin-pane-group-separator
           hr
+        //- #6939: the width every card details window opens at, in percent of the
+          browser window, until a user drags their own (models/lib/cardDetailsWidth.js).
+        li
+          h2.admin-pane-group-title {{_ 'card-details-default-width'}}
+        li.tableVisibilityMode-form
+          .feature-desc {{_ 'card-details-default-width-desc'}}
+          .form-group
+            input.wekan-form-control#card-details-default-width-percent(type="number" min="30" max="95" step="1" placeholder="520px" value="{{currentSetting.cardDetailsDefaultWidthPercent}}" aria-label="{{_ 'card-details-default-width'}}")
+        li
+          button.js-visibility-card-width-save.primary {{_ 'save'}}
+          span.js-visibility-card-width-status(role="status" aria-live="polite")
+        li.admin-pane-group-separator
+          hr
         li
           h2.admin-pane-group-title {{_ 'settings-group-url'}}
         li
