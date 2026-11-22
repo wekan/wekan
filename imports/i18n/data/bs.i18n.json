@@ -5611,7 +5611,7 @@
   "help-workload-how-it-works-description": "Odaberite prvu sedmicu, koliko sedmica i da li prikazati sate ili bodove priča, pa kliknite sedmicu da vidite njene kartice. Sedmice s više posla nego sati su crvene. Postavite vlastito radno vrijeme, vještine i odsustva, administratori table dodaju raspodjele i rezervisana mjesta za uloge, a administratori dodaju državne praznike.",
   "help-billing-what-it-is-description": "Budžet i naplata je mjesto gdje administratori table planiraju i naplaćuju posao table: njen budžet, koliko je posao koštao i koštat će, satnice, troškove, fiksne naknade, ponude i fakture, na osnovu vremena evidentiranog na karticama.",
   "help-billing-how-it-works-description": "Odaberite valutu i satnice po članu te zadanu za tablu, postavite budžet i dodajte troškove i naknade. Vrijeme evidentirano na karticama tada se prikazuje kao utrošeno i predviđeno u odnosu na budžet. Po želji odobrite vrijeme prije fakturisanja. Jednom popunite podatke o izdavaocu faktura, zatim pravite fakture za period, preuzimajte ih, označavajte kao poslane i bilježite uplate, ili napravite ponudu za posao koji tek treba uraditi.",
-  "gitea": "Gitea folder",
+  "gitea": "Gitea mapa",
   "gitea-actions": "Actions zapisnici i artefakti",
   "gitea-app-ini": "Gitea app.ini datoteka",
   "gitea-archives": "Arhive repozitorija",
