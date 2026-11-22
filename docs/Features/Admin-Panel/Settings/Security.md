@@ -45,7 +45,8 @@ Until 2026-11-19 this pane was Admin Panel / Problems / Security;
 - **Disable all import** - every import is off: WeKan JSON, Trello, CSV/Excel,
   Jira, Kanboard, NextCloud Deck, OpenProject, GitHub, GitLab, Gitea and Forgejo,
   and cloning a board. The menu options are hidden and the server refuses any
-  import request.
+  import request - the Trello API, iCalendar and Scrum transfer imports too
+  ([Settings enforced on the server](../Settings-Enforced-On-Server.md)).
 - **Largest import (MB)** - the largest file the Import page accepts. Empty is
   no limit (the box shows *No limit*): a file may be as large as the free disk
   space lets the import finish. Every upload is written to the server's disk a

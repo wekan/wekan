@@ -951,6 +951,9 @@ Meteor.methods({
     check(boardIds, [String]);
     check(parentWorkspaceNodeId, Match.Maybe(String));
     if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+    // Admin Panel / Settings / Security / Disable all import: this import
+    // too, not only the menu that leads to it.
+    await require('/models/lib/importExportSecurity').assertImportEnabled();
     if (!boardIds.length) {
       throw new Meteor.Error('no-boards', 'No boards selected');
     }
@@ -995,6 +998,7 @@ Meteor.methods({
     check(key, String);
     check(token, String);
     if (!this.userId) throw new Meteor.Error('error-notAuthorized');
+    await require('/models/lib/importExportSecurity').assertImportEnabled();
     const job = await TrelloImportJobs.findOneAsync(jobId);
     if (!job || job.userId !== this.userId) {
       throw new Meteor.Error('error-notAuthorized');

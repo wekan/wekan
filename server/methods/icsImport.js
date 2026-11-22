@@ -76,6 +76,8 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
+    // Admin Panel / Settings / Security / Disable all import.
+    await require('/models/lib/importExportSecurity').assertImportEnabled();
 
     const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
@@ -118,6 +120,13 @@ WebApp.handlers.post(
   '/api/boards/:boardId/swimlanes/:swimlaneId/lists/:listId/ics',
   async function(req, res) {
     Authentication.checkLoggedIn(req.userId);
+    try {
+      await require('/models/lib/importExportSecurity').assertImportEnabled();
+    } catch (error) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'import-disabled' }));
+      return;
+    }
     const { boardId, swimlaneId, listId } = req.params;
     const board = await ReactiveCache.getBoard(boardId);
     if (!board || !allowIsBoardMemberWithWriteAccess(req.userId, board)) {

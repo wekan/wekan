@@ -516,6 +516,8 @@ const methods = {
   async 'scrum.importIntoBoard'(boardId, file, options = {}) {
     check(boardId, String); check(file, Object); check(options, { dryRun: Match.Optional(Boolean) });
     const userId = this.userId;
+    // Admin Panel / Settings / Security / Disable all import.
+    await require('/models/lib/importExportSecurity').assertImportEnabled();
     return locked(boardId, async () => {
       await boardFor(userId, boardId, true); await pending(boardId);
       const { importScrumTransferIntoBoard } = require('/server/lib/scrumTransferMerge');

@@ -51,6 +51,13 @@ Nothing to turn on: every setting below is enforced as soon as it is saved.
 | (always) The last site administrator | Deleting or anonymizing your own account when you are the only site administrator - it used to skip the check that deleting somebody else had. Not recorded: the buttons are there, so it is ordinary use. | - |
 | People / Login: Username Change unticked | A direct client write of your own `username` (`Users.update`), the way round the `setUsername` method, which already refused. E-mail addresses are never written that way. | Disabled setting |
 
+**Admin Panel / Settings / Security**
+
+| Setting | What the server refuses | Problems |
+| --- | --- | --- |
+| Disable all import | Every import of board data: the import methods and REST routes already asked; since 2026-11-22 also the Trello API import (`trelloStartImport`, `trelloResumeImport`), the iCalendar import (`importIcsToBoard` and `POST /api/boards/:boardId/swimlanes/:swimlaneId/lists/:listId/ics`, 403 `import-disabled`) and a Scrum transfer imported into a board (`scrum.importIntoBoard`). Not covered, on purpose: Rules / Import of a Wrike workflow (a board admin's rules) and dependency lines (between cards that exist); repairing an interrupted import. Not recorded: some import screens stay visible, so a refusal is ordinary use. | - |
+| Disable all export | Every export method and route (already; pinned by `tests/crossBoardExportBleed.test.cjs`). | CrossBoardExportBleed |
+
 **Admin Panel / Settings / Features**
 
 An unticked feature is hidden, and the server paths of that feature refuse it:
@@ -115,6 +122,9 @@ tally names the account (when the call had one) and the address it came from.
   [tests/selfAccountRemoval.test.cjs](../../../tests/selfAccountRemoval.test.cjs)
   (the rule, and every server file that removes or anonymizes users asks it)
   and [server/lib/tests/selfAccountRemoval.tests.js](../../../server/lib/tests/selfAccountRemoval.tests.js);
+  [tests/importDisabledEverywhere.test.cjs](../../../tests/importDisabledEverywhere.test.cjs)
+  (every import method and route asks `assertImportEnabled`, or says why it is
+  no import of board data);
   [tests/featureServerGates.test.cjs](../../../tests/featureServerGates.test.cjs)
   (every catalog feature is decided, and every method and publication of a
   feature file asks the gate, so a new one cannot skip it) and
