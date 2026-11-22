@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**CodeQL** alert #611 is fixed: the **autolink rules** find the
+links already in a card's text in linear time, so a description built of
+thousands of brackets no longer takes seconds to render.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.26 2026-11-22 WeKan ® release
 
 New **Workload and capacity**, **Budget and billing** and **Cloud

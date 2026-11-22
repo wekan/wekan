@@ -95,6 +95,37 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **CodeQL** alert #611 is fixed: the **autolink rules** find the
+links already in a card's text in linear time, so a description built of
+thousands of brackets no longer takes seconds to render.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25e9d02517afe3b3334a6b6e6329dc29e343ff62">Alert #611: autolink rules find existing links in linear time</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`npm-packages/autolink/externalLinkRules.js` found the markdown links and
+`href` values it must not rewrite with `/\[[^\]\n]*\]\([^)\n]*\)/g` and
+`/href\s*=\s*("[^"]*"|'[^']*')/gi`. Both restart at every `[` (or `href="`)
+and read to the end each time, so card text is quadratic work: 200,000 `[`
+took 25 seconds (js/polynomial-redos, CWE-1333). One hand-written scan now
+finds the same spans, with every "next `]`, `)` or quote" position computed
+once. An admin's rule whose token starts with `{number}` had the same shape
+on a long run of digits, and now starts only where a run begins.
+
+`tests/externalLinkRules.test.cjs` fuzzes 3,000 texts against the two old
+expressions to show the spans are unchanged, and times text built to make
+them quadratic. The negative test finds no such span pattern in any autolink
+module and times the other autolinks on the same text. Nothing is logged to
+Admin Panel → Problems: long text is ordinary input, so there is no attempt
+to tell apart from use.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.26 2026-11-22 WeKan ® release
 
 **In short:** New **Workload and capacity**, **Budget and billing** and **Cloud
