@@ -197,3 +197,19 @@ correct password always wins over a delay or a lock.
   per address, and a test fails if the decision reads it.
 - **Recording must never break the thing it records.** Every logger call is
   fire-and-forget, wrapped, and unable to throw into the guard that called it.
+
+## Commits
+
+ - [A row's address, location and user are always of the same occurrence](https://github.com/wekan/wekan/commit/80fb1c65fc0a19c1a8f970ea4873fd690188acd8)
+ - [Pair each IPv4 and IPv6 address with its own location (§3)](https://github.com/wekan/wekan/commit/e8d9bf9f119d053d0943b0ecb3f15ad1a1ffccf1)
+ - [Show the origin context in every Problems event report](https://github.com/wekan/wekan/commit/fa68600bb5754609cef3768cdcbec93102030c16)
+ - [Country login locations in Admin Panel / People (§5)](https://github.com/wekan/wekan/commit/ff9d0bab8b63bee6ef70c70decf82a852f5bb2ba)
+ - [Offices groups login addresses by person (§6)](https://github.com/wekan/wekan/commit/3539f2bbf33a5481f2cc0cf4569d725e19c509c9)
+ - [Admin Panel / Problems / Offices: where people log in from, grouped](https://github.com/wekan/wekan/commit/961ff6cb47437c2eaff2ea4354caf64b676ef8af)
+ - [Per-address login tally on the user, users shown as initials or avatar (§5)](https://github.com/wekan/wekan/commit/d8d1863dba897b4db53d0342f36f269a73655165)
+ - [Increasing delays after a wrong password, per source address (§6)](https://github.com/wekan/wekan/commit/9476cdc0fe6e377c451a19909ee970d14ae9d741)
+ - [Admin Panel / People shows who is locked, and why (§6)](https://github.com/wekan/wekan/commit/6e208c6152d9b236c95df3893bc0da6ba4798c14)
+ - [JamBleed: the lockout stops counting an attacker's failures against the victim](https://github.com/wekan/wekan/commit/78478c39d05af52c7b74a09166b8098a5eba552a)
+ - [The API report (§4)](https://github.com/wekan/wekan/commit/6dc2651b48005f26f769feebfffc751d3022bf50)
+ - [One summary row per problem, with who tried and how often (§1, §2)](https://github.com/wekan/wekan/commit/3d08c65bb2e51ac9e0a21547e5b206f386c369a6)
+ - [This design moves to docs/Features, filed the way the menu is](https://github.com/wekan/wekan/commit/daaf5639107f19235c0142b9db1565706e622b8b)

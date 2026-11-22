@@ -576,3 +576,35 @@ receipt preservation, uncertain or false acknowledgements, changed payloads,
 ownership loss, malformed-row progress and local scan coalescing. Chromium
 checks immediate compaction after actual SMTP delivery and scheduled cleanup
 of a previously completed plan while an unfinished orphan retains its body.
+
+## Commits
+
+ - [Record every board import before its first write, and let an admin keep or discard an interrupted one](https://github.com/wekan/wekan/commit/e8fac5e85ca09f33dd32eb9fbd25300afa3fbd90)
+ - [Let administrators discard List Sync operations that cannot be replayed](https://github.com/wekan/wekan/commit/cb69750b17bc1b1318e61ce058fe074d888cc264)
+ - [Run manual and scheduled Sync through the durable journal, with replay](https://github.com/wekan/wekan/commit/6ed28c41f7b1d33d3e47e9cc627e57e47a0940d4)
+ - [Compact completed notification plans without deleting replay keys](https://github.com/wekan/wekan/commit/694807fc4727f4f341825ca413b73822c887e935)
+ - [Resume pending activity notifications with shared reservations](https://github.com/wekan/wekan/commit/34c6c31a4816afd0ed94c758265d4344f90668d6)
+ - [Persist ordinary notification recipients and rendered service payloads](https://github.com/wekan/wekan/commit/4c762f407061a285afa1ac4cc2ebb341f1c70883)
+ - [Capture activity notification intents before ordinary activity writes](https://github.com/wekan/wekan/commit/54c3130ce91b6b7502a7853355f9779309b530d9)
+ - [Add write-ahead activity notification intent storage boundary](https://github.com/wekan/wekan/commit/081c2201038d93d9fb90412574b6a5293608b2e4)
+ - [Compact terminal email metadata while retaining replay receipts](https://github.com/wekan/wekan/commit/765e2c305d8ff66561066ac16e6b5b9ece5adf8a)
+ - [Share notification delivery slots across workers and cancel lost senders](https://github.com/wekan/wekan/commit/7efa8ca37fbf28f8468a4b6de9f438ebc6421add)
+ - [Bound SMTP connection phases and idle waits](https://github.com/wekan/wekan/commit/9758886cfaea1ef0463e3bca4c0f4b0a378515f3)
+ - [Process independent email recipients with bounded concurrency](https://github.com/wekan/wekan/commit/15368a157088420a3eb0830557be16022689597b)
+ - [Bound email retries and expose stopped delivery recovery](https://github.com/wekan/wekan/commit/0457e0dfd46ad1baa218f7314b1521d347d48969)
+ - [Add administrator recovery controls for queued notification email](https://github.com/wekan/wekan/commit/20b47995b27f666ed640759632580dd9a97d5f41)
+ - [Persist notification email jobs and resume delivery after restart](https://github.com/wekan/wekan/commit/d828411bf6e110e4edb0c3028a8a864a9594d327)
+ - [Acknowledge notification email buffers only after SMTP acceptance](https://github.com/wekan/wekan/commit/4063b423c9e7e5fca79721786fc3882c14625b7e)
+ - [Persist and validate Sync effect plans with their card units](https://github.com/wekan/wekan/commit/2c91935352140d181a7cc1c444e88534bd65838b)
+ - [Persist retryable Sync field History batches and redo snapshots](https://github.com/wekan/wekan/commit/f5e2dd0f595ed0c227ded99442e6a5d5bb3ffbbd)
+ - [Require separate effect completion for durable Sync card steps](https://github.com/wekan/wekan/commit/7bf5c63d0a2ac1103ec1a655530062e1caf14f6c)
+ - [Verify successful Scrum restoration inserts before acknowledgement](https://github.com/wekan/wekan/commit/d3667f50be163ee1e60c6b9d10a554c5410194c8)
+ - [Retain Sync completion proofs across stable request retries](https://github.com/wekan/wekan/commit/617ba292f9cd0ab8b2b4d182a95c262d11e81f2b)
+ - [Verify durable Sync cleanup before acknowledging completion](https://github.com/wekan/wekan/commit/0c9aa707d88013ca761b819cdf237ffe80c4fd33)
+ - [Prepare conditional field patches for durable Sync steps](https://github.com/wekan/wekan/commit/0d2dd1d36eddc030e8bdb9f1b21941e6313bba7a)
+ - [Preserve mapped estimate snapshots in durable Sync plans](https://github.com/wekan/wekan/commit/281d7f574be3a3fa6ff9ce777b99f4c00c0e13ef)
+ - [Verify Scrum undo finalization before removing recovery checkpoints](https://github.com/wekan/wekan/commit/0d582c9c0ab6dafc989310f82c8e30a7f1402d45)
+ - [Acknowledge exact Scrum restoration History events on retry](https://github.com/wekan/wekan/commit/484bad1d97633ddac185fed6a35769e973e89d37)
+ - [Emit card activities and History only after matched writes](https://github.com/wekan/wekan/commit/96dba34609be949e211ba06b49bdf69be82c51dd)
+ - [Add persisted Sync plan checkpoints and preserve null write preconditions](https://github.com/wekan/wekan/commit/487fd59882c915dc295787a378de4d33328494c7)
+ - [Design restart-safe durable operations](https://github.com/wekan/wekan/commit/175eea98109188a8ebe9fcbcd1e45813abce9f10)
