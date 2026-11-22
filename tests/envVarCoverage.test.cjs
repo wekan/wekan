@@ -38,6 +38,11 @@ const ENV_ONLY = {
   WEKAN_IMPORT_RUN_STALE_MS: { platforms: true, reason: 'operational tuning of interrupted-import detection' },
   EVENTLOG_RETENTION_DAYS: { platforms: true, reason: 'how long the Problems report keeps its own rows (#6893); the Clear button is its Admin Panel side' },
   DEFAULT_AVATAR_URL: { platforms: true, reason: 'maintainer decision (#824): "There should be no UI in Admin Panel"' },
+  // models/lib/oidcProviderMode.js: Sign in with Apple needs both and WeKan
+  // sets them by itself from Apple's address; these are only for another
+  // provider with the same quirk, so no platform lists them.
+  OAUTH2_RESPONSE_MODE: { platforms: false, reason: "an OIDC provider's response_mode; Apple's is set by itself" },
+  OAUTH2_CLAIMS_IN_ID_TOKEN: { platforms: false, reason: "an OIDC provider that keeps the claims in the ID token; Apple's is detected by itself" },
   NEXTCLOUD_EXAPP: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   NEXTCLOUD_URL: { platforms: false, reason: "set by Nextcloud's AppAPI when it deploys WeKan as an ExApp" },
   WEKAN_NEXTCLOUD_PROXY_KEY: { platforms: false, reason: "a per-deployment secret Nextcloud's AppAPI hands over" },

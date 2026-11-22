@@ -1,12 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import Users from '../users';
 
+// The addresses allowed to read /metrics. Docker Compose, the Dockerfile,
+// start-wekan.sh and the Snap (metrics-allowed-ip-addresses) all set
+// METRICS_ALLOWED_IP_ADDRESSES, while this read only METRICS_ACCEPTED_IP_ADDRESS,
+// so an allowlist set the documented way was never applied: both are read now,
+// the older name first. Entries are trimmed; an empty one allows nobody.
+function acceptedIpAddresses(env = process.env) {
+  const value = env.METRICS_ACCEPTED_IP_ADDRESS !== undefined && env.METRICS_ACCEPTED_IP_ADDRESS !== ''
+    ? env.METRICS_ACCEPTED_IP_ADDRESS : env.METRICS_ALLOWED_IP_ADDRESSES;
+  return String(value || '').split(',').map(a => a.trim()).filter(Boolean);
+}
+
 function acceptedIpAddress(ipAddress) {
-  const trustedIpAddress = process.env.METRICS_ACCEPTED_IP_ADDRESS;
-  return (
-    trustedIpAddress !== undefined &&
-    trustedIpAddress.split(',').includes(ipAddress)
-  );
+  return acceptedIpAddresses().includes(ipAddress);
 }
 
 // Resolve the client IP used for the METRICS_ACCEPTED_IP_ADDRESS allowlist.
