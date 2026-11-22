@@ -89,7 +89,13 @@ than have anything act on them.
 `tests/exportMarkdown.test.cjs` pins it as arithmetic: markdown in, blocks out,
 under bare node.
 
-## Images in the PDF  *(to do)*
+## Images in the PDF  *(done)*
+
+Done since this design was written: the PDF embeds JPEG and PNG attachment
+images (`PDF_IMAGE_TYPES` and `attachmentImages` in
+[models/server/ExporterCardPDF.js](../../../../../../models/server/ExporterCardPDF.js)),
+and the PDF draws the shared card document; see [PDF](../PDF/PDF.md). The plan
+as it was:
 
 The Excel export embeds JPEG, PNG, GIF and BMP attachments. A PDF can carry the
 first two directly:
@@ -117,3 +123,10 @@ first two directly:
 
 Each step is committed on its own and leaves both exports working, because both
 are things people use every day.
+
+## Commits
+
+ - [Embed attachment images in PDF exports](https://github.com/wekan/wekan/commit/74888f1edfbe1473e8b1bfb5499952a10445038b)
+ - [Step 4: the PDF draws the shared card document, so both formats have one layout](https://github.com/wekan/wekan/commit/f6e31444521ffc71c9a1cd78cceaa001c52b8e9b)
+ - [Step 3: the card layout, described once, as a document both formats draw](https://github.com/wekan/wekan/commit/d8fe42c1e0f1c7334f109aa60d7d9ac30645d160)
+ - [Step 2: every text in an Excel card export renders its markdown](https://github.com/wekan/wekan/commit/c1b68efbd342b26afe1751425f3da7716341face)

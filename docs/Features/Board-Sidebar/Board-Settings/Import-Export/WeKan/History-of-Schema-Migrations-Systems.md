@@ -40,3 +40,8 @@ a) Separate migrations script, that would be run before starting WeKan?
 b) Reading any database structure and showing data, without needing to migrate any data?
 c) Migrating while WeKan is running, that could cause slowdown?
 d) Some other way?
+
+## Commits
+
+ - [Docs: schema-migration history — add the Per-Swimlane Lists revert (board-wide lists)](https://github.com/wekan/wekan/commit/8f01ecfa11d054bd06f06aa61f5a2eda21df8515)
+ - [Docs: Added History of Schema Migration Systems](https://github.com/wekan/wekan/commit/2e7565f9eb744bc59e454745e06fd43a85a02f97)
