@@ -1,7 +1,15 @@
 # General
 
+## What it is
+
 Behaviour shared by several menus. These folders are topics, not menus of their
 own: each page says where in the menus the feature is used.
+
+## How to use it
+
+Find the topic in the table and open its guide. Each guide says what the
+feature is, where to read more, how to use it, how its numbers are calculated,
+how it works in WeKan, and which commits built it.
 
 | Topic | Guides |
 | --- | --- |
@@ -22,3 +30,5 @@ own: each page says where in the menus the feature is used.
 | Files | [Filenames](Filename/Filename.md), [cleanup](Cleanup/Cleanup.md) |
 | Monitoring | [Metrics](Metrics.md), [stats](Stats.md) |
 | Troubleshooting | [Logs](Troubleshooting/Logs.md), [wait spinners](Troubleshooting/Wait-Spinners.md), [board keeps loading](Troubleshooting/If-board-does-not-open-and-keeps-loading.md) |
+
+See the pages above.
