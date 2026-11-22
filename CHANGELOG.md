@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.26 2026-11-22 WeKan ® release
 
 New **Workload and capacity**, **Budget and billing** and **Cloud
 Panel** pages: hours against working time, each board's cost and margin with
@@ -16,7 +16,7 @@ public board can show itself as a **website**. The **Venda** and **Klingon**
 translations hold only their own language, the move and copy pickers show names
 without numbers (#6135), and unused code is removed.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.26](CHANGELOG-big.md#v1326-2026-11-22-wekan--release)
 
 # v13.25 2026-11-21 WeKan ® release
 
@@ -59,18 +59,3 @@ its Board Settings and card fields, and **Rocket.Chat** and **Fizzy** are
 imported and exported.
 
 [All changes in v13.22](CHANGELOG-big.md#v1322-2026-11-20-wekan--release)
-
-# v13.21 2026-11-20 WeKan ® release
-
-Twelve new **Board View reports** - Created vs. Resolved, Net
-Flow, Time in List and more - and **grouped menus**: the Board View menu, the
-Import and Export lists and the list, card and swimlane menus have headings.
-WeKan imports **mail**, **calendars**, **chats** and **notes**, and large files
-are **streamed to disk** within the free space or an Admin Panel limit. Menu
-entries that did nothing now work. Cards get the **Kanban and Scrum flow
-fields** Blocked, Class of service, MoSCoW and WSJF, lists their **policies**,
-the board menu a **standup timer** and a **retrospective board**, every export
-is **written a page at a time**, and **InviteBleed** is closed for the old
-invitation codes too.
-
-[All changes in v13.21](CHANGELOG-big.md#v1321-2026-11-20-wekan--release)

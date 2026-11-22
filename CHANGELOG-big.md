@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.26 2026-11-22 WeKan ® release
 
 **In short:** New **Workload and capacity**, **Budget and billing** and **Cloud
 Panel** pages: hours against working time, each board's cost and margin with
