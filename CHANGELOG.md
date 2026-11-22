@@ -7,11 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **attachment slideshow** shows more kinds of files directly:
-**Markdown** formatted, **CSV** as a table, **source code** coloured, and
-**iCalendar**, **Outlook .msg**, **tar.gz** and **OpenDocument** files, each
-with
-a viewer loaded only when such a file is opened.
+The **attachment slideshow** shows more kinds of files directly -
+**Markdown**, **CSV**, **source code**, **iCalendar**, **Outlook .msg**,
+**tar.gz** and **OpenDocument** - and reads only what is on the screen: the
+scrollbar is the whole file, with **no row or size limit**.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

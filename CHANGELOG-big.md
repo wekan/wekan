@@ -97,11 +97,10 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **attachment slideshow** shows more kinds of files directly:
-**Markdown** formatted, **CSV** as a table, **source code** coloured, and
-**iCalendar**, **Outlook .msg**, **tar.gz** and **OpenDocument** files, each
-with
-a viewer loaded only when such a file is opened.
+**In short:** The **attachment slideshow** shows more kinds of files directly -
+**Markdown**, **CSV**, **source code**, **iCalendar**, **Outlook .msg**,
+**tar.gz** and **OpenDocument** - and reads only what is on the screen: the
+scrollbar is the whole file, with **no row or size limit**.
 
 This release adds the following new features:
 
@@ -131,6 +130,25 @@ control view and the history table, whose own copy of the list had lost ZIP.
 negative tests for binary files, refused downloads, gzip bombs, damaged tar
 headers and oversized OpenDocument content; `attachment-rich-preview.e2e.js`
 opens each kind in Chromium and checks that nothing in the files ran.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6652f19b748aaf5fac0bf68fb3588b10ba63907">The slideshow reads only what is on the screen, with no row or size limit</a>. Thanks to xet7.</summary>
+
+The text-like viewers read a whole file (up to 32 MB) and showed at most 1000
+rows or 2048 names. Now only what is on the screen is fetched and only that is
+in the page (`client/lib/attachmentWindow.js`). Text, logs, CSV/TSV, code, and
+JSON and Markdown larger than 256 KB are read through HTTP Range requests: the
+scrollbar is the whole file, so dragged to the middle it shows the middle and at
+its end the last row. ZIP lists its names from the central directory, ZIP64 too,
+without downloading an entry. tar and tar.gz, iCalendar and OpenDocument are
+read
+in order as far as they are scrolled - infinite scroll downwards - as compressed
+data cannot be read from its middle; an OpenDocument's `content.xml` is the only
+part read. In Chromium, `attachment-rich-preview.e2e.js` opens a 150,000-row CSV
+and
+finds only ranges fetched and only a screenful of rows in the page.
 
 </details>
 
@@ -8487,93 +8505,6 @@ recorded AdminFieldBleed against the user. Copy, subtask copy and link now keep
 only values of fields defined on the destination board; an admin-only value of
 that board is kept, so the guard still decides it.
 `tests/copyForeignCustomFields.test.cjs` fails on the code before the fix.
-
-</details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.62 2026-10-22 WeKan ® release
-
-**In short:** an opened card is **decluttered** - add buttons on their title's
-line, a compact attachment list with its upload rules in the upload popup, and
-two new **Show on Card** rows for attachment previews and details - and
-**Board Settings / Card** spreads into columns to fit the screen, with rows
-dragged by handle, icon or label. List moves no longer raise false
-**HistoryIntegrity** reports, refused edits no longer **disable accounts**, and
-a
-restarting database is no longer a **crash**.
-
-This release adds the following new features:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2c520ef382">A decluttered opened card, a compact attachment list, and Card Settings that fits the screen</a>. Thanks to mueschel and xet7.</summary>
-
-[#6796](https://github.com/wekan/wekan/issues/6796): an opened card gave most
-of its height to controls with nothing in them. A field's add button now sits
-on its title's line; Requested and Assigned By put their two buttons side by
-side; the checklist controls share a line. Attachments: the upload rules are in
-the upload popup instead of above every list, "+" is a small button, a file
-with nothing to preview gets a small file button, and the name has a line of
-its own. Two new Board Settings / Card / Show on Card rows, **Attachments:
-Preview** and **Attachments: Details**, are on by default.
-
-Board Settings / Card is a centred panel as wide (up to 1800px) and tall as
-the window, and each list spreads into as many columns as fit, read top to
-bottom: on 1920x1080 nothing scrolls. Its rows are dragged by the handle, the
-icon or the label with drag handles on, and by the icon or the label with them
-off; before, only the handle dragged, and only vertically. A Node test and a
-Playwright spec cover the layout, the new rows and every drag case.
-
-</details>
-
-and fixes the following bugs:
-
-**History** - the checksum every change history row carries.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/76f9d41bf4">A list move with no swimlane no longer fails its own history checksum</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6797](https://github.com/wekan/wekan/issues/6797): Admin Panel / Problems /
-Security showed HistoryIntegrity (critical) 81,833 times. A list bound to no
-one swimlane has `swimlaneId: ''`; the legacy history append hashed the row
-with '' and stored it through collection2's default clean, which turned it into
-null, so every such move failed its own checksum. It now inserts as the
-stored-chain path does, and rows already stored that way verify - null for ''
-only in the id and label fields, so any real change still fails.
-`tests/historyEmptyStringChecksum.test.cjs` fails on the code before the fix.
-
-</details>
-
-
-**Admin Panel / Problems** - which events disable an account or are reported as
-a crash.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/425b4ddea7">An ordinary refused edit on one's own board no longer disables the account</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6798](https://github.com/wekan/wekan/issues/6798): four accounts on one
-instance were disabled in three days. A Worker's allowed card move or checklist
-tick was first refused by the general card check, which recorded
-LinkedWriteBleed (high, blocked) and disabled the Worker; a read-only or
-comment-only member whose screen still offered an edit was disabled the same
-way. The Worker rules now ask without recording first and record only a change
-still refused, and `authz.linked-write` is still recorded but no longer
-disables an account. `tests/workerNoSelfBlock.test.cjs` runs both rules from
-their source.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f37204b1c3">A MongoDB pod restarting is a lost connection, not a critical crash</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6799](https://github.com/wekan/wekan/issues/6799): while a MongoDB pod
-restarted in Kubernetes, its name did not resolve and nine critical CrashBleed
-events were recorded although WeKan kept running. `getaddrinfo ENOTFOUND` and
-`EAI_AGAIN` for the database's own host (from MONGO_URL and MONGO_OPLOG_URL) are
-now a lost connection, transient at startup and at run time - another host
-that does not resolve is still not a database problem - and the crash recorder
-skips what is transient. `tests/databaseDnsRestart.test.cjs` runs the guards
-and the recorder's own listeners.
 
 </details>
 
