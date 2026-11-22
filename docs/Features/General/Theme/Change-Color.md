@@ -1,5 +1,44 @@
 # Design: Change color
 
+## What it is
+
+Change color is the one picker WeKan uses everywhere a theme colour is chosen:
+for a board, for a member's own override, and for the whole site. It shows the
+themes grouped by category, a default row, the custom-colour wheels and a
+preview, and the same template draws it in all three places. This page also
+says which theme wins when several are set.
+
+## Read more
+
+- [Theme (computing)](https://en.wikipedia.org/wiki/Theme_(computing)) and
+  [Color gradient](https://en.wikipedia.org/wiki/Color_gradient) on Wikipedia.
+- WeKan pages: [Select Color](Theme.md), [Table](../Table.md),
+  [Left Menu](../../All-Boards/Left-Menu.md),
+  [Multitenancy](../../../Design/Multitenancy/Multitenancy.md).
+
+## How to use it
+
+1. Open **Change color** in Board Settings (a board), Member Settings
+   (yourself, everywhere) or Admin Panel / Settings / Appearance (the site).
+2. Click a theme swatch; it applies at once.
+3. For a flat or clear theme, choose a custom colour with the wheel(s).
+4. Choose the default row to remove that level's choice.
+
+Which one you see: a board's own colour on the board page, unless you set your
+own colour in Member Settings; elsewhere your own colour, else the site theme,
+else WeKan's default (see "The order of themes" below).
+
+## How the numbers are calculated
+
+- **The order** is three layers, weakest first: 1 default, 2 site theme, 3 the
+  user's own; a board's colour owns its board page.
+- **Clear slides** derive their palette from the base colour: the border under
+  the bar is `base × 0.8`, the one above it `base × 0.6`, the current tab
+  `base × 1.15`, and a selected minicard is the base mixed toward white. The
+  six slides and their two ends are in the table below.
+
+## How it works in WeKan
+
 One design, one implementation, for **every** place a theme colour is chosen: the
 swatches grouped by category, the "Default theme" row, the custom-colour wheels and
 the preview. One template renders all of them — the way
@@ -17,7 +56,7 @@ template and says whose theme is being set:
 
 `scope` is the only difference between them.
 
-## Related files
+### Related files
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -34,7 +73,7 @@ template and says whose theme is being set:
 | `models/lib/tenantAdmin.js` | `.js` module, pure helpers | `themeTarget()` — the instance's theme, or one Organization's. |
 | `docs/Features/General/Theme/Theme.md` | `.md` guide | What the themes look like, and the custom-colour categories. |
 
-## The order of themes
+### The order of themes
 
 Weakest first. Each layer replaces the one under it, and only where it is set:
 
@@ -61,7 +100,7 @@ and the server answers for whoever is asking — see
 [Multitenancy](../../../Design/Multitenancy/Multitenancy.md) (D.9) for how an Organization's
 value gets published in the instance's place.
 
-## Places that use this design
+### Places that use this design
 
 | Place | Scope | Writes | Clearing it means |
 | --- | --- | --- | --- |
@@ -69,7 +108,7 @@ value gets published in the instance's place.
 | Member Settings / Change color | `global` | `setGlobalThemeColor` | fall back to the site theme, and to per-board colours |
 | Admin Panel / Settings / Appearance / Change color | `admin` | `setAdminThemeColor` | fall back to WeKan's default theme (or, for an Organization, to the instance's) |
 
-## What the picker guarantees
+### What the picker guarantees
 
 - **No Save button anywhere.** Clicking a swatch applies it immediately, and a
   custom-colour wheel applies on `change` (not on every intermediate value of a
@@ -98,7 +137,7 @@ value gets published in the instance's place.
   `BOARD_COLORS` and a custom colour must be a hex colour; anything else is refused
   rather than stored and rendered as a class.
 
-## Adding another place that chooses a theme
+### Adding another place that chooses a theme
 
 1. Render `+themeColorPicker(scope="…")` — no markup of your own.
 2. Add the scope to `SCOPES` in `themeColorPicker.js`, with one branch in
@@ -108,7 +147,7 @@ value gets published in the instance's place.
 If a new place needs a different-looking picker, change **this** template so every
 place gets it. That is the point of the design.
 
-## The theme is on the FIRST header bar
+### The theme is on the FIRST header bar
 
 It used to be on the second, and most pages no longer render one — so
 `#header-quick-access` is the bar a reader actually sees painted. Three themes
@@ -129,7 +168,7 @@ clearblue's text is full white too. Half-white was right when this bar was a
 secondary strip and its username and board links were background furniture; it is
 the header now, and no other theme dims them.
 
-### A slide is not a colour
+#### A slide is not a colour
 
 Everything outside a board reads one variable, `--theme-accent`, and that is
 right for the eighteen flat themes. clearblue cannot be carried by it: a variable
@@ -148,7 +187,7 @@ mid-grey scraped from a `#header ul li:hover` rule, because it has no plain
 white text, so the grey is right by accident. Choosing a deliberate accent for it
 is a maintainer's call about a colour, not a bug fix.
 
-## Six colour slides, not one
+### Six colour slides, not one
 
 `clearblue` was the only theme in the **clear** category. Five more join it, each
 a slide from a light tint down to an existing flat theme's own colour, so the two
@@ -176,7 +215,7 @@ that looked like strongcyan, the half-white username — and copied into a green
 theme those sentences are simply false. Each block carries a header saying what
 it is and what it was derived from instead.
 
-### Where they appear
+#### Where they appear
 
 Board Settings, Member Settings and Admin Panel / Settings / Appearance are **one
 picker** with a `scope`, and it groups by `THEME_CATEGORIES`. So a theme added to
@@ -191,7 +230,7 @@ reads. A slide theme with a flat bar is a flat theme filed in the wrong drawer,
 and that is not hypothetical: clearblue's own first bar was flat until it was
 fixed.
 
-## Button foregrounds
+### Button foregrounds
 
 Ordinary filled buttons use the theme accent and white text. Clean Light's pale
 ordinary buttons use dark text; primary and destructive buttons retain their own
@@ -203,3 +242,15 @@ member's font settings.
 `button-theme-foreground.e2e.js` checks the Swimlane, List and Card settings
 buttons in normal, hover, focus and active states; `chart-button-theme.e2e.js`
 checks primary actions and custom theme colors on chart pages.
+
+## Commits
+
+ - [Every board theme and every chosen colour is readable](https://github.com/wekan/wekan/commit/8b2114cd0f9501867c01521c7a6f78a02e44d549)
+ - [Custom colour offered in Member Settings and the Admin Panel too](https://github.com/wekan/wekan/commit/024036f4ee4b976f51bf6a032aa9b5d8c3916138)
+ - [Five more colour slides](https://github.com/wekan/wekan/commit/8897be9f056dadaa1c2dcc2683c8bfbaaa106dfd)
+ - [Every named theme publishes its accent, so the whole UI follows it](https://github.com/wekan/wekan/commit/19a5ea0b71b8edce9fdfe93cb6fae07534224583)
+ - [Site theme: the top bars take it too](https://github.com/wekan/wekan/commit/eebb0a7d8c5073e165f69ab99b6707d08b35f8d3)
+ - [Multitenancy: an Organization's own theme](https://github.com/wekan/wekan/commit/36b899b9d643fd428613fa8e7197bafc192a42db)
+ - [Implemented designs move to docs/Features](https://github.com/wekan/wekan/commit/daaf5639107f19235c0142b9db1565706e622b8b)
+ - [Change Color applies at once](https://github.com/wekan/wekan/commit/772ae061f109478a875fc6e570f0afe26e572148)
+ - [Global override applies everywhere](https://github.com/wekan/wekan/commit/1cd32001d474bed977d56ff0fdbcfbc090191974)

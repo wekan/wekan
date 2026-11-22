@@ -1,3 +1,5 @@
+# Converting Meteor Stylus to CSS
+
 [Original issue](https://github.com/wekan/wekan/issues/4512)
 
 ## Introduction
@@ -48,3 +50,9 @@ cd wekan
 rm client/components/*/*.styl
 ```
 
+
+## Commits
+
+ - [Converted Stylus to CSS and removed Stylus](https://github.com/wekan/wekan/commit/072778b9aaefd7fcaa7519b1ce1cafc1704d646d)
+ - [Stylus 1.1.0 for the Sandstorm build](https://github.com/wekan/wekan/commit/b3a7c4dc8867bf863fa5cca4e21b9c220026e76a)
+ - [Downgrade Stylus to 1.1.0 to speed up building](https://github.com/wekan/wekan/commit/fca4cdcebf1cc6642aefeb78b911cb5b95ebe473)

@@ -1,3 +1,41 @@
+# Custom CSS themes
+
+## What it is
+
+All WeKan themes are built into WeKan's own CSS. This page says how to add a
+new theme to WeKan as a pull request, and keeps two community CSS overrides - a
+dark one and a white one - that can be applied with a browser extension such as
+Stylish.
+
+## Read more
+
+- [CSS](https://en.wikipedia.org/wiki/CSS) on Wikipedia, and
+  [Stylish / userstyles.org](https://userstyles.org/).
+- [Earlier theme pull requests](https://github.com/wekan/wekan/pulls?q=is%3Apr+is%3Aclosed+theme)
+  and the dark theme issue [#1149](https://github.com/wekan/wekan/issues/1149).
+- WeKan pages: [Select Color](Theme.md), [Change color](Change-Color.md),
+  [Dark Mode](Dark-Mode.md).
+
+## How to use it
+
+**Add a theme to WeKan.**
+
+1. Build WeKan as in [Emoji](../Editor/Emoji.md#how-you-could-add-another-plugin).
+2. Add the theme (see the file list below and the checklist in
+   [Select Color](Theme.md)).
+3. Send it as a pull request.
+
+**Use a CSS override in your own browser.**
+
+1. Install a user-style extension.
+2. Paste the CSS of the dark or white theme below for your WeKan address.
+
+## How the numbers are calculated
+
+There are no numbers of its own; colours are the hex values in the CSS below.
+
+## How it works in WeKan
+
 Here is how to build wekan code and add your new theme with code changes and send as pull request:
 [Emoji](../Editor/Emoji.md#how-you-could-add-another-plugin)
 
@@ -25,6 +63,13 @@ All Wekan themes are directly integrated to Wekan. You can add pull request to m
   - `wekan/models/boards.js`
   - `wekan/server/migrations.js`
 
+  Those were the files at the time of that commit. Today a new theme is: its
+  name in `ALLOWED_BOARD_COLORS` in `config/const.js`, its category in
+  `models/lib/themeCategories.js`, and its `.board-color-<name>` rules in
+  `client/components/boards/boardColors.css` (Stylus `.styl` files were
+  converted to CSS, see [Converting Meteor Stylus to CSS](Converting-Meteor-Stylus-to-CSS.md));
+  see the extension checklist in [Select Color](Theme.md).
+
 Alternatives for sending new theme as pull request:
 - If you would like to have some new theme, please add screenshot mockup to [new Wekan issue](https://github.com/wekan/wekan/issues).
 - If possible, you can also try to create those CSS changes with [Stylish browser extension](https://userstyles.org/) and add those to new issue too.
@@ -35,11 +80,13 @@ There are currently board color modes/themes, and these full themes:
 
 Upcoming full themes that will be added by xet7:
 - Corteza, that will be mostly-white theme, although different than example of white theme below
+  (added since: `corteza` is in the **Special** category)
 - Octopus, that will have different colors and some Wekan features hidden
+  (not added)
 
 ![dark wekan](https://wekan.fi/wekan-dark-mode.png)
 
-## Dark theme
+### Dark theme
 
 [by @lonix1](https://github.com/wekan/wekan/issues/1149), could look a little like this screenshot mockup:
 
@@ -134,7 +181,7 @@ Other:
 
 If anyone improves on this, please share here.
 
-## White theme
+### White theme
 
 [pravdomil](https://github.com/wekan/wekan/issues/1690) has created small script for tampermonkey to redesign wekan board.
 
@@ -215,3 +262,9 @@ div:nth-child(1 of .swimlane) .list-header-name { display: inline; }
 })()
 
 ```
+
+## Commits
+
+ - [Every board theme and every chosen colour is readable](https://github.com/wekan/wekan/commit/8b2114cd0f9501867c01521c7a6f78a02e44d549)
+ - [Add the Apple Glass Pastel board theme](https://github.com/wekan/wekan/commit/4763c94604476c6651ba6a1a1be82e03db3d3827)
+ - [Example of adding a theme name and its files](https://github.com/wekan/wekan/commit/34b2168d0dda253dedabbee47031873efa4ae446)
