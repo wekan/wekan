@@ -41,6 +41,9 @@ const ENV_ONLY = {
   // models/lib/oidcProviderMode.js: Sign in with Apple needs both and WeKan
   // sets them by itself from Apple's address; these are only for another
   // provider with the same quirk, so no platform lists them.
+  // The /metrics address allowlist under the name every platform sets
+  // (models/server/metrics.js reads it beside METRICS_ACCEPTED_IP_ADDRESS).
+  METRICS_ALLOWED_IP_ADDRESSES: { platforms: true, reason: 'which addresses may scrape /metrics: an operator setting of this deployment, not a WeKan option' },
   OAUTH2_RESPONSE_MODE: { platforms: false, reason: "an OIDC provider's response_mode; Apple's is set by itself" },
   OAUTH2_CLAIMS_IN_ID_TOKEN: { platforms: false, reason: "an OIDC provider that keeps the claims in the ID token; Apple's is detected by itself" },
   // The Cloud Panel's way back in for an operator locked out by its allowed

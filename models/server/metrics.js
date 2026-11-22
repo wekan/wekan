@@ -13,7 +13,10 @@ function acceptedIpAddresses(env = process.env) {
 }
 
 function acceptedIpAddress(ipAddress) {
-  return acceptedIpAddresses().includes(ipAddress);
+  return acceptedIpAddresses({
+    METRICS_ACCEPTED_IP_ADDRESS: process.env.METRICS_ACCEPTED_IP_ADDRESS,
+    METRICS_ALLOWED_IP_ADDRESSES: process.env.METRICS_ALLOWED_IP_ADDRESSES,
+  }).includes(ipAddress);
 }
 
 // Resolve the client IP used for the METRICS_ACCEPTED_IP_ADDRESS allowlist.
