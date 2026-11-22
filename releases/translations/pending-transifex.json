@@ -4723,6 +4723,50 @@
     {
       "key": "shop-order-placed",
       "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-off",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-off-desc",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-title",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-desc",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-no-results",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-global",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-token",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-token-set",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-on",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-report-off",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "webhooks-disabled",
+      "since": "2026-11-22"
     }
   ]
 }
