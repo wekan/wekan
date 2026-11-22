@@ -152,6 +152,25 @@ finds only ranges fetched and only a screenful of rows in the page.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd74045a9f453527c6f6eea2ba36bd75c3f955ac">Outlook .msg and OpenDocument are converted once, a piece at a time, into rows read a screen at a time</a>. Thanks to xet7.</summary>
+
+Their content is scattered through the file - a Compound File's sectors, a
+ZIP's compressed `content.xml` - so they cannot be read a row at a time as they
+are. The first time one is opened, the server reads it from its own storage in
+64 KB byte ranges, never whole (of a `.msg` only the sector tables; an
+attachment's data never), and writes what it finds as rows with an index in
+`attachment-previews/` under the files root
+(`server/lib/attachmentPreviewStore.js`).
+The slideshow fetches only the rows on the screen, and its scrollbar is exactly
+the rows. The parts are served at `/cdn/storage/attachments/<id>/preview-meta`,
+`-index` and `-rows` after every check the original has; one preview takes at
+most 512 MB of disk, and it is removed with the attachment.
+
+</details>
+
+- [Docs: the attachment slideshow - which files are shown, and how much is read](https://github.com/wekan/wekan/commit/53c0fbeba0aee9b4f0da335bd3dd22ed5546e97e). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v13.27 2026-11-22 WeKan ® release
