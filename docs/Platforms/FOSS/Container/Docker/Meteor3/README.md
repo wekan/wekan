@@ -27,6 +27,45 @@ passwords. `settings.ini`, `admin.txt` and the customers' files are never
 copied to the server. The menu can also open a shell on the server, in that
 directory.
 
+### Limit localhost access to current node.js port and database port only
+
+The containers run with `network_mode: host`, so they share the server's
+network: without a limit, one customer's WeKan could open every other
+customer's `127.0.0.1:<port>`, and every other local service.
+[localhost-limit.sh](localhost-limit.sh), in the menu under **Server setup**,
+lets each WeKan container reach on this machine only:
+
+- its own Node.js `PORT`,
+- the database port(s) of its `MONGO_URL` and `MONGO_OPLOG_URL`,
+- the local DNS resolver, and
+- the answers to the connections Caddy makes to it.
+
+Everything else it sends to a local port is rejected. Caddy -> WeKan and WeKan
+-> MongoDB work as before, and outgoing internet traffic (mail, webhooks) is
+not touched. Which database a container may read is still MongoDB's decision:
+each customer's user has rights to its own database only (`1createdb.sh`).
+
+It finds the containers with `docker ps` (names ending in `-app` or `-tenant`)
+and reads their `PORT` and `MONGO_URL` with `docker inspect`, falling back to
+`restore/<customer>/docker-compose.yml`. It compares them with the ports in
+`/etc/caddy/Caddyfile` and `1createdb.sh`, and reports a Caddy port with no
+container, or a container that Caddy does not proxy.
+
+```
+./localhost-limit.sh plan     # what was found and the rules; changes nothing
+./localhost-limit.sh apply    # put the rules in place (root)
+./localhost-limit.sh status   # the rules now in place
+./localhost-limit.sh remove   # take them away
+```
+
+How: the containers cannot be told apart by address, but each is a cgroup of
+its own. The rules are an iptables / ip6tables chain `WEKAN-LOCALHOST`, jumped
+to from `OUTPUT -o lo`, that matches each container by its cgroup v2 path
+(`-m cgroup --path`). It needs cgroup v2 and iptables 1.6.1 or newer. Run
+`apply` again after a container is recreated (`update-docker-settings.sh`,
+`update-wekan-version.sh`), because it then has a new cgroup, and after a
+reboot.
+
 ## 1) Install WeKan exactly like this
 
 Use all settings and config files at this page and subdirectories.

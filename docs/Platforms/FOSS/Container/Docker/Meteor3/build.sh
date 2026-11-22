@@ -67,13 +67,15 @@ valid_dir() { [[ "$1" == /* && "$1" != *$'\n'* ]]; }
 # --- the scripts ----------------------------------------------------------------
 
 # group|script|arguments|description - arguments: db = a customer database name,
-# versions = old and new WeKan version, none. "show" scripts are config examples:
+# versions = old and new WeKan version, limit = plan, apply, remove or status,
+# none. "show" scripts are config examples:
 # shown, never run.
 SCRIPTS=(
 	"Server setup|apt/update.sh|none|apt update, dist-upgrade and snap refresh"
 	"Server setup|apt/caddy.sh|none|install Caddy from its apt repository"
 	"Server setup|apt/clean.sh|none|apt clean, autoclean and autoremove"
 	"Server setup|ufw/install.sh|none|install ssh, ufw and mosh, and open the firewall"
+	"Server setup|localhost-limit.sh|limit|Limit localhost access to current node.js port and database port only"
 	"Server setup|keys.sh|none|create the MongoDB keyfile"
 	"Server setup|mongo/init-replica-set.sh|none|initialize MongoDB's single-node replica set"
 	"Server setup|encrypt-ram/encrypt-ram_etc-default-grub.sh|show|/etc/default/grub with RAM encryption (an example, shown)"
@@ -162,6 +164,10 @@ run_entry() {
 		show) cat "$HERE/$script" ;;
 		none) run_script "$script" ;;
 		db) local n; n="$(customer_name)" || return; run_script "$script" "$n" ;;
+		limit)
+			# Each container to its own port and its database port; plan first.
+			local a; a="$(ask "plan, apply, remove or status" plan)"
+			case "$a" in plan|apply|remove|status) run_script "$script" "$a" ;; *) echo "One of: plan, apply, remove, status." ;; esac ;;
 		versions)
 			local old new
 			old="$(ask "Old WeKan version (e.g. 9.10)")"; new="$(ask "New WeKan version (e.g. 9.11)")"
