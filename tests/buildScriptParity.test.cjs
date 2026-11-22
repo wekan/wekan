@@ -323,6 +323,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      CHANGELOG-big.md. release-all.sh and changelog.sh run it, and\n'
       + '      tests/changelogShort.test.cjs fails when CHANGELOG.md is not what\n'
       + '      it writes, so there is nothing for a menu entry to add',
+    'compliance/data-inventory.mjs': 'a GENERATOR, not a build step: it writes\n'
+      + '      docs/Compliance/Data-Inventory.md from models/lib/personalDataInventory.js,\n'
+      + '      and tests/personalDataInventory.test.cjs fails when the committed file is\n'
+      + '      not what it writes. Run it by hand after changing the inventory',
     'changelog-archive.mjs': 'a CALENDAR job, not a build one: it keeps the\n'
       + '      current MONTH in CHANGELOG-big.md and moves earlier months to\n'
       + '      old-CHANGELOG/<year>/<MM>.md and finished years to\n'

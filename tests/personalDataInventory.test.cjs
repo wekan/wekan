@@ -59,7 +59,7 @@ function scanText(text, file) {
   }
   for (const m of text.matchAll(named)) {
     if (m[1] === 'null' || m[1] === 'undefined') continue; // client-only, not stored
-    const def = new RegExp(`(?:const|let|var)\\s+${m[1].replace(/\$/g, '\\$')}\\s*=\\s*(['"\`])([^'"\`]+)\\1`).exec(text);
+    const def = new RegExp(`(?:const|let|var)\\s+${m[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*=\\s*(['"\`])([^'"\`]+)\\1`).exec(text);
     if (def) found.push({ collection: def[2], file });
     else unresolved.push(`${file}: new Mongo.Collection(${m[1]})`);
   }
