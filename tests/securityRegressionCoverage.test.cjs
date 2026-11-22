@@ -226,6 +226,7 @@ const GUARDED = {
   listlockbleed: ['tests/listPermissions.test.cjs', 'tests/playwright/specs/list-lock-checklists.e2e.js'],
   listlockattachbleed: ['tests/listLockAttachments.test.cjs', 'tests/playwright/specs/list-lock-attachments.e2e.js'],
   listlockbulkbleed: ['tests/listLockBulkBleed.test.cjs', 'tests/playwright/specs/list-lock-bulk.e2e.js'],
+  listlockmovebleed: ['tests/listLockStructure.test.cjs', 'tests/playwright/specs/list-lock-move.e2e.js'],
   racebleed: ['tests/claimedCardRemoval.test.cjs', 'tests/playwright/specs/race-bleed.e2e.js'],
   unassignedarchivebleed: ['tests/assignedCardMethods.test.cjs', 'tests/playwright/specs/assigned-card-methods.e2e.js'],
   unassignedattachbleed: ['tests/unassignedAttachBleed.test.cjs', 'tests/playwright/specs/unassigned-attach-bleed.e2e.js'],
@@ -384,7 +385,8 @@ test('the whole published list is accounted for', () => {
   // 149 -> 150: ListLockBulkBleed (GHSA-83w9-74mx-7v83, 2026-11-18), guarded.
   // 150 -> 151: BounceBleed (GHSA-7w85-38ph-c96v, 2026-11-22), guarded.
   // 151 -> 152: CloudPanelBleed (found by xet7, 2026-11-22), guarded.
-  assert.strictEqual(total, 152, 'the Hall of Fame and this list disagree on how many there are');
+  // 152 -> 153: ListLockMoveBleed (GHSA-394w-8q99-q4qx, 2026-11-22), guarded.
+  assert.strictEqual(total, 153, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

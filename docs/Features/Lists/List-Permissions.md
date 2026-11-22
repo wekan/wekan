@@ -112,7 +112,8 @@ saved, and only true/false values for `write` and `comment` are kept.
 - More tests: [server/lib/tests/listPermissions.tests.js](../../../server/lib/tests/listPermissions.tests.js),
   [tests/playwright/specs/list-lock-bulk.e2e.js](../../../tests/playwright/specs/list-lock-bulk.e2e.js),
   [list-lock-checklists.e2e.js](../../../tests/playwright/specs/list-lock-checklists.e2e.js),
-  [list-lock-attachments.e2e.js](../../../tests/playwright/specs/list-lock-attachments.e2e.js).
+  [list-lock-attachments.e2e.js](../../../tests/playwright/specs/list-lock-attachments.e2e.js),
+  [list-lock-move.e2e.js](../../../tests/playwright/specs/list-lock-move.e2e.js) (the REST swimlane move, GHSA-394w-8q99-q4qx).
 
 ## Commits
 
