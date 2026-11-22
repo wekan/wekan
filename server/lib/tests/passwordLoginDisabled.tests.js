@@ -116,7 +116,9 @@ describe('password login disabled is refused on the server', function () {
     const res = await restLogin({ username, password: PASSWORD });
     expect(res.status).to.equal(200);
     const json = await res.json();
-    expect(json.data && json.data.id).to.equal(userId);
+    // sendJsonResult writes `data` as the body itself.
+    expect(json.id).to.equal(userId);
+    expect(json.token).to.be.a('string');
   });
 
   it('refuses forgotPassword while forgot password is disabled', async function () {

@@ -12,6 +12,7 @@ describe('Admin Panel features are refused on the server while off', function ()
   this.timeout(30000);
   let setting;
   let savedStates;
+  let savedPreview;
   const userId = Random.id();
   const adminId = Random.id();
 
@@ -26,6 +27,9 @@ describe('Admin Panel features are refused on the server while off', function ()
     setting = await Settings.findOneAsync({});
     if (!setting) this.skip();
     savedStates = setting.featureStates;
+    savedPreview = setting.featurePreviewAdmins;
+    // Site admins preview off features only when Admin Panel says so; here it does not.
+    await Settings.updateAsync(setting._id, { $set: { featurePreviewAdmins: false } });
     await Meteor.users.rawCollection().insertMany([
       { _id: userId, username: `gate-${userId}`, profile: {} },
       // A site admin, without the preview: an off feature is off for them too.
@@ -36,6 +40,8 @@ describe('Admin Panel features are refused on the server while off', function ()
     if (setting) {
       await Settings.updateAsync(setting._id, savedStates === undefined
         ? { $unset: { featureStates: '' } } : { $set: { featureStates: savedStates } });
+      await Settings.updateAsync(setting._id, savedPreview === undefined
+        ? { $unset: { featurePreviewAdmins: '' } } : { $set: { featurePreviewAdmins: savedPreview } });
     }
     await Meteor.users.removeAsync({ _id: { $in: [userId, adminId] } });
   });
@@ -52,6 +58,10 @@ describe('Admin Panel features are refused on the server while off', function ()
     await refused(call(userId, 'tableViewAddCard', { boardId: 'b', listId: 'l', swimlaneId: 's', title: 'x' }));
     await refused(call(userId, 'chatViewChannels'));
     await refused(call(adminId, 'chatViewChannels'));
+    // Negative: with the preview on, the site admin keeps it, as they see it.
+    await Settings.updateAsync(setting._id, { $set: { featurePreviewAdmins: true } });
+    await notRefusedForTheFeature(call(adminId, 'chatViewChannels'));
+    await Settings.updateAsync(setting._id, { $set: { featurePreviewAdmins: false } });
     await refused(call(userId, 'scrum.startSprint', 'b', 's', 0));
   });
 
