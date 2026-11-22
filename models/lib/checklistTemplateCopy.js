@@ -30,6 +30,10 @@
 function buildCopiedChecklistDoc(sourceChecklist, { newCardId, boardId, sort }) {
   const copy = Object.assign({}, sourceChecklist);
   delete copy._id;
+  // The insert hook stores the author as userId, which is not in the schema;
+  // the server refuses a copy that carries it (keyNotInSchema), and the copy
+  // dialog's Done did nothing (copy-checklist-lazy-destination.e2e.js).
+  delete copy.userId;
   copy.cardId = newCardId;
   copy.boardId = boardId;
   copy.sort = sort;
@@ -45,6 +49,7 @@ function buildCopiedChecklistDoc(sourceChecklist, { newCardId, boardId, sort }) 
 function buildCopiedItemDoc(sourceItem, { newChecklistId, newCardId, boardId, resetChecked }) {
   const copy = Object.assign({}, sourceItem);
   delete copy._id;
+  delete copy.userId; // not in the schema either; see above
   copy.checklistId = newChecklistId;
   copy.cardId = newCardId;
   copy.boardId = boardId;

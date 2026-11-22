@@ -193,6 +193,31 @@ test('existing checklists on the target are untouched by computing the append so
     'firstAppendSort must only READ the target checklists, never mutate them');
 });
 
+// --- A copy carries only fields of the schema: the insert hooks store the
+// author as userId, which neither schema has, and the server refused a copy
+// carrying it (keyNotInSchema) - Copy Checklist's Done did nothing.
+test('a copied checklist and item hold only fields of their schemas', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const fields = file => {
+    const src = fs.readFileSync(path.join(__dirname, '..', 'models', file), 'utf8');
+    const body = src.slice(src.indexOf('attachSchema('), src.indexOf('}),', src.indexOf('attachSchema(')));
+    return new Set([...body.matchAll(/^    (\w+): \{/gm)].map(m => m[1]).concat('_id'));
+  };
+  const checklistFields = fields('checklists.js');
+  const itemFields = fields('checklistItems.js');
+  assert.ok(checklistFields.has('cardId') && itemFields.has('checklistId'), 'the schemas are read');
+  const stored = { ...TEMPLATE_CHECKLIST, userId: 'author1', createdAt: new Date() };
+  const copy = buildCopiedChecklistDoc(stored, { newCardId: 'c2', boardId: 'b2', sort: 0 });
+  for (const key of Object.keys(copy)) assert.ok(checklistFields.has(key), `checklist field ${key} is in the schema`);
+  const item = buildCopiedItemDoc({ ...TEMPLATE_ITEM_UNCHECKED, userId: 'author1' },
+    { newChecklistId: 'cl2', newCardId: 'c2', boardId: 'b2', resetChecked: true });
+  for (const key of Object.keys(item)) assert.ok(itemFields.has(key), `item field ${key} is in the schema`);
+  // Negative: the author was there to be dropped, and the source is untouched.
+  assert.equal(stored.userId, 'author1');
+  assert.equal('userId' in copy, false);
+});
+
 console.log(`checklistTemplateCopy: ${passed} tests passed`);
 
 })();
