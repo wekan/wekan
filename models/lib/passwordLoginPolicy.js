@@ -55,6 +55,20 @@ function passwordLoginRefusal({ type, loginRequest, env } = {}) {
   return 'password-login-disabled';
 }
 
+// Meteor's `login` method, before any account is looked up: a request in the
+// password service's own shape ({ user, password }) while password login is
+// off. Refused there rather than only in validateLoginAttempt, because a
+// later hook of that chain (the lockout's "User not found" / "Incorrect
+// password") would overwrite the refusal for a wrong password and leave it
+// for a right one - answering, while password login is off, whether a
+// password is right. An LDAP request ({ ldap: true, ldapPass }) has no
+// `password` and is never refused here.
+function loginRequestRefusal(loginRequest, env) {
+  if (!loginRequest || typeof loginRequest !== 'object') return null;
+  if (!('password' in loginRequest) || !('user' in loginRequest)) return null;
+  return passwordLoginEnabled(env) ? null : 'password-login-disabled';
+}
+
 // POST /users/login: which way a username/email + password request goes.
 //   'refuse'  - password login is off and the request cannot be LDAP
 //   'ldap'    - password login is off, LDAP is on and a username was given:
@@ -82,6 +96,7 @@ module.exports = {
   passwordLoginEnabled,
   isLdapFallback,
   passwordLoginRefusal,
+  loginRequestRefusal,
   restPasswordLoginRoute,
   forgotPasswordRefusal,
   REFUSAL_MESSAGES,

@@ -62,6 +62,17 @@ test('but not without LDAP, without the fallback, or without ldap:true (negative
     env: { ...OFF, LDAP_ENABLE: 'true', LDAP_LOGIN_FALLBACK: 'true' } }), 'password-login-disabled');
 });
 
+test('the login method refuses a { user, password } request before any lookup, LDAP never', () => {
+  assert.strictEqual(policy.loginRequestRefusal({ user: { username: 'a' }, password: 'x' }, OFF), 'password-login-disabled');
+  assert.strictEqual(policy.loginRequestRefusal({ user: { email: 'a@b' }, password: { digest: 'd', algorithm: 'sha-256' }, code: '1' }, OFF),
+    'password-login-disabled');
+  // negative
+  assert.strictEqual(policy.loginRequestRefusal({ user: { username: 'a' }, password: 'x' }, {}), null);
+  assert.strictEqual(policy.loginRequestRefusal({ ldap: true, username: 'a', ldapPass: 'x', ldapOptions: {} }, OFF), null);
+  assert.strictEqual(policy.loginRequestRefusal({ resume: 'token' }, OFF), null);
+  for (const junk of [null, undefined, 'x', 3]) assert.strictEqual(policy.loginRequestRefusal(junk, OFF), null);
+});
+
 test('REST login: refused, or sent to LDAP only, while password login is off', () => {
   assert.strictEqual(policy.restPasswordLoginRoute({ env: {}, usernameProvided: true }), null);
   assert.strictEqual(policy.restPasswordLoginRoute({ env: OFF, usernameProvided: true }), 'refuse');
@@ -97,6 +108,15 @@ test('DDP: a validateLoginAttempt hook asks passwordLoginRefusal with the login 
   assert.match(authentication, /Accounts\.validateLoginAttempt\(function\(options\) \{\s*const \{ passwordLoginRefusal, REFUSAL_MESSAGES \} = require\('\/models\/lib\/passwordLoginPolicy'\);/);
   assert.match(authentication, /loginRequest: Array\.isArray\(options\.methodArguments\) \? options\.methodArguments\[0\] : undefined,/);
   assert.match(authentication, /key: 'authn\.password-login-disabled', action: 'blocked'/);
+});
+
+test('DDP: the login method is wrapped, deciding synchronously before the original runs', () => {
+  const wrap = authentication.slice(authentication.indexOf('loginHandlers.login = function guardedLogin(...args) {'));
+  assert.ok(wrap.length > 0);
+  const body = wrap.slice(0, wrap.indexOf('\n    };'));
+  assert.match(body, /loginRequestRefusal\(args\[0\], authEnvObject\)/);
+  assert.doesNotMatch(body, /await /, 'no await before the original method, so its check() still counts');
+  assert.ok(body.indexOf('throw new Meteor.Error(refusal') < body.indexOf('return originalLogin.apply(this, args);'));
 });
 
 test('DDP: Meteor\'s forgotPassword method is wrapped by forgotPasswordRefusal', () => {

@@ -125,8 +125,10 @@ tally names the account (when the call had one) and the address it came from.
   decides the login settings: `passwordLoginRefusal` for a DDP sign-in,
   `restPasswordLoginRoute` for `POST /users/login`, `forgotPasswordRefusal`
   for `forgotPassword`. [server/authentication.js](../../../server/authentication.js)
-  asks it in an `Accounts.validateLoginAttempt` hook and in a wrapper around
-  Meteor's `forgotPassword` method; [server/apiAuthRoutes.js](../../../server/apiAuthRoutes.js)
+  asks it in a wrapper around Meteor's `login` method (`loginRequestRefusal`,
+  before any account is looked up, so a right and a wrong password get the
+  same answer), in an `Accounts.validateLoginAttempt` hook for the other
+  password sign-ins, and in a wrapper around Meteor's `forgotPassword` method; [server/apiAuthRoutes.js](../../../server/apiAuthRoutes.js)
   asks it before the user lookup.
 - [models/lib/selfAccountRemoval.js](../../../models/lib/selfAccountRemoval.js)
   decides deleting or anonymizing your own account (`selfRemovalRefusal`),

@@ -60,6 +60,18 @@ describe('password login disabled is refused on the server', function () {
     expect(a.error && a.error.error).to.equal('password-login-disabled');
   });
 
+  it('refuses the login method itself the same way, for a right and a wrong password', async function () {
+    if (!passwordLoginOff()) this.skip();
+    for (const password of [PASSWORD, 'wrong password']) {
+      let error;
+      try {
+        await Meteor.server.method_handlers.login.call({ connection: { id: Random.id(), clientAddress: '198.51.100.7',
+          httpHeaders: {}, onClose() {} }, setUserId() {}, userId: null }, { user: { username }, password });
+      } catch (e) { error = e; }
+      expect(error && error.error, password).to.equal('password-login-disabled');
+    }
+  });
+
   it('refuses the sign-in that resetPassword and verifyEmail make', async function () {
     if (!passwordLoginOff()) this.skip();
     for (const methodName of ['resetPassword', 'verifyEmail']) {

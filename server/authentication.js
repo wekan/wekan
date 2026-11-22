@@ -221,6 +221,31 @@ Meteor.startup(() => {
     throw new Meteor.Error(refusal, REFUSAL_MESSAGES[refusal]);
   });
 
+  // The `login` method itself refuses a { user, password } request first
+  // (models/lib/passwordLoginPolicy.js loginRequestRefusal), so the answer is
+  // the same whatever the password and the account: the hook above stays for
+  // resetPassword, verifyEmail and createUser. Decided synchronously, so the
+  // original method's own check() still counts for audit-argument-checks.
+  const loginHandlers = Meteor.server && Meteor.server.method_handlers;
+  const originalLogin = loginHandlers && loginHandlers.login;
+  if (typeof originalLogin === 'function') {
+    loginHandlers.login = function guardedLogin(...args) {
+      const { loginRequestRefusal, REFUSAL_MESSAGES } = require('/models/lib/passwordLoginPolicy');
+      const refusal = loginRequestRefusal(args[0], authEnvObject);
+      if (refusal) {
+        check(args, [Match.Any]);
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authn.password-login-disabled', action: 'blocked', source: 'ddp:login',
+            detail: 'Password sign-in refused while password login is disabled.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error(refusal, REFUSAL_MESSAGES[refusal]);
+      }
+      return originalLogin.apply(this, args);
+    };
+  }
+
   // DISABLE_FORGOT_PASSWORD, and password login off, refuse Meteor's own
   // forgotPassword method, which e-mails a reset link whatever the page shows.
   const handlers = Meteor.server && Meteor.server.method_handlers;
