@@ -260,7 +260,8 @@ reaches a card, and none of a card reaches an exported site.
 
 and fixes the following bugs:
 
-**Budget and billing** - two faults found while adding the above.
+**Budget and billing, Workload and the Cloud Panel** - faults their own tests
+found, on a real database and in the browser.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d88662d69c212650a7ed5d0ab82d69262a2c6690">Crediting an invoice works on a real database</a>. Thanks to xet7.</summary>
@@ -279,6 +280,75 @@ writes to be one of them.
 `capacityOf` validated the stored document, with its `_id` and `userId`, as
 if it were a form; the unknown fields failed it, and the report fell back to
 37.5 hours a week for everybody. It now reads only the capacity's own fields.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1032b472f3264e82c1cb860e59ebda3719f374ef">Saves show their result, the Cloud Panel's forms render and invoice PDFs print</a>. Thanks to xet7.</summary>
+
+Running the pages' Chromium specs through `build.sh` found five faults. Budget
+and billing read the current template data inside a promise, where there is
+none, so nothing refreshed after a save; it uses its own instance's data, and
+refreshes only the saved board without the spinner and without running into
+the rate limit of the board list. Workload's refresh showed the spinner that
+replaces the capacity form, so its "saved" note never stayed; the spinner is
+for the first load only. The Cloud Panel passed functions to its forms as
+`done=done`, which Spacebars calls, so the forms got a result instead and did
+not render. The app-wide form styles hid the checkboxes of all three pages.
+And pdfkit looked for its standard font in the bundle and failed; it is given
+the bundled font. `tests/templateDataInPromise`, `spacebarsFunctionArgs` and
+`nativeCheckboxesShown` find each shape anywhere in the client.
+
+</details>
+
+**Website** - the board shown as a website at its public address.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd7836e99cd93b7bd01d71845ceebffa1701cb9d">A visitor who never chose a view sees the board's own default view</a>. Thanks to xet7.</summary>
+
+The browser's fallback, Swimlanes, was handed to the view resolver as if the
+visitor had chosen it, so a public board set to Website showed its kanban to
+everybody. Only a view somebody chose overrides the board's default now;
+`tests/boardViewSettings` pins it.
+
+</details>
+
+**Attachments** - the attachment REST API.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3a1ba762c5d05f12ad6a1a6d4d7747c3f076e29">Copy and move answer a JSON body again</a>. Thanks to xet7.</summary>
+
+`express.json()` in `server/apiMiddleware.js` reads a JSON body before any
+route runs, and the attachment routes then waited for a request end that had
+already happened; copy and move answered only at their 30-second timeout. The
+parsed body is handed to the routes' own listeners.
+`tests/attachmentApiParsedBody` fails when a server file waits for a body a
+parser may already have read.
+
+</details>
+
+**Checklists** - copying one to another card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/131260b5bc531f7cbd6eb691ecd582a4d00e6d6f">Copy Checklist copies again</a>. Thanks to xet7.</summary>
+
+A copy carried the author's `userId`, which the insert hook stores but neither
+schema has, and the server refused it, so Done did nothing. The copy builders
+leave it out, and `tests/checklistTemplateCopy` requires every field of a copy
+to be in its schema.
+
+</details>
+
+**Menus and accessibility** - group headings and the Board View menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91fea6e50df62a0faa13f22fe6f17d5ab633f5da">Group headings are readable and the Board View menu fits the window</a>. Thanks to xet7.</summary>
+
+The Import list's and the Board View menu's group headings had 4.48:1
+contrast where small text needs 4.5:1; they are darker. Long option menus are
+up to 1200px wide, four columns on a 1280px screen, so the grouped Board View
+menu no longer runs below a 720px-high window. Two browser tests follow
+renamed labels: "Memory usage", and Taiga's Blocked on the card's flow field.
 
 </details>
 
@@ -379,6 +449,12 @@ shared code and fail if an API or a strategy brings its own copy back.
 </details>
 
 - [A swimlane titled Default is shown by one function instead of five copies](https://github.com/wekan/wekan/commit/c1a89b98fdaf115204f245b89fd665f498969357). Thanks to xet7.
+
+and updates the documentation:
+
+- [README and docs name Workload and capacity, Budget and billing, the Cloud Panel and Website](https://github.com/wekan/wekan/commit/2ba61536176a29ed853d0a99867f29a7e18a30a1):
+  the README's feature list, the feature index by menu and Newest features.
+  Thanks to xet7.
 
 and improves the following translations:
 
@@ -8428,113 +8504,5 @@ skips what is transient. `tests/databaseDnsRestart.test.cjs` runs the guards
 and the recorder's own listeners.
 
 </details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.61 2026-10-22 WeKan ® release
-
-**In short:** WeKan's npm dependencies move to their newest versions, among
-them **Blockly 13.4**, whose new toolbox search is translated into every
-language, and **imapflow**, **mailparser**, **pdfjs-dist** and
-**isomorphic-git**, which now have tests that run them the way WeKan does. The
-**core26 snap** gets the Caddy part the main snap already had, a language saved
-as **ca@valencia** shows Valencian, and **Admin Panel / Problems** stops
-re-reporting list indexes and calling a lost connection a schema bug.
-
-This release updates the following dependencies:
-
-- [The small npm updates](https://github.com/wekan/wekan/commit/8a00898252):
-  `@aws-sdk/*` 3.1155.0, `@fastify/busboy` 3.2.4, `@tweedegolf/sab-adapter-*`,
-  `blockly` 13.4.0, `dompurify` 3.4.17, `file-type` 22.2.0, `filesize`
-  11.0.28, `i18next` 26.5.4, `meteor-node-stubs` 1.2.32, `wasmagic` 1.0.12,
-  and for development `@rspack/core` 2.2.9, `@typescript-eslint/*` 8.72.0 and
-  `puppeteer` 25.15.0. Thanks to xet7.
-- [imapflow 2.8.0, mailparser 3.12.2, pdfjs-dist 6.4.299, isomorphic-git
-  1.44.3 and pretty-ms 10](https://github.com/wekan/wekan/commit/189adaee52),
-  each with a test that runs it as WeKan does: the IMAP poller against
-  WeKan's fake IMAP server, attachment text search on a PDF, and the GitHub
-  wiki import's history reading. Thanks to xet7.
-- [vmactions/openbsd-vm 1.4.9 and actions/setup-node v7.1.0](https://github.com/wekan/wekan/commit/92001bcfd9);
-  the BSD bundles are still built on OpenBSD 7.8. Thanks to xet7.
-
-and fixes the following bugs:
-
-**Admin Panel / Problems** - what a database message is reported as, and how
-often.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/058a2dcbce">List sort indexes are made from key objects, so they are no longer re-created at every start</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6794](https://github.com/wekan/wekan/issues/6794): "Created the missing index
-"-modifiedAt" on lists" came back at every start, from every pod. The list
-sort options were passed to `ensureIndex` as strings, so lists got indexes on
-fields literally named "-modifiedAt", "-title" and "-sort", and the "is it
-there already?" check compared a string with an index key object, which never
-matched. Startup now ensures one index per sort field and drops the three
-stray ones; `ensureIndex` turns a string key into the key it means.
-`tests/listSortIndexes.test.cjs` uses the reporter's real index list, runs
-`ensureIndex` itself against a fake collection, and fails on any call in the
-tree whose key is not an index key object.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9e680d4b2">A lost database connection inside a validation error is a connection problem, not a schema bug</a>. Thanks to Raymond-Voogt and xet7.</summary>
-
-[#6795](https://github.com/wekan/wekan/issues/6795): while MongoDB restarted,
-"ValidationError: Failed validation Socket 'connect' timed out" was reported as
-an empty required field and a WeKan bug, and treated as fatal at startup.
-collection2 wraps whatever failed during validation, so the schema rule now
-yields to a lost connection, timeout, lock or too many connections in the same
-message, and the MongoDB driver's own network, server-selection, pool and
-not-primary errors are connection problems. The test runs both startup guards'
-own decision on the reported error and on every wrapped transient cause.
-
-</details>
-
-**Snap** - the Caddy reverse proxy part of the core26 snap.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2ad5999bc7">The core26 snap gets the fixed Caddy part, and both snaps fall back to Caddy 2.11.7</a>. Thanks to xet7.</summary>
-
-`snapcraft-core26.yaml` still had the Caddy part `snapcraft.yaml` had before
-v10.71: the version from `api.github.com`, whose 403 to a busy CI runner ended
-the part under pipefail before its 2.8.4 fallback ran; a plain curl with no
-retry; and a default Caddyfile that proxied to port 3000, where WeKan does not
-listen when Caddy is on. Both snaps build from `snap-src`, so core26 now has
-the main snap's part, and both pin 2.11.7 as the fallback.
-`tests/releaseSnapArches.test.cjs` read `snapcraft.yaml` only, which is how
-the copy was missed; it now checks every `snapcraft*.yaml` and the
-Caddyfile's port.
-
-</details>
-
-**Languages** - which language a saved setting selects.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6a37160bc8">A language saved as ca@valencia shows Valencian, not English</a>. Thanks to xet7.</summary>
-
-The Valencian file is `ca@valencia.i18n.json` but its registry tag is
-`ca-valencia`, and the resolver treated only `_` as `-`, so a profile saved
-as the file's name stayed in English. Both resolvers now compare through one
-`normalizeLanguageTag`, and `tests/browserLanguageFallback.test.cjs` requires
-every locale file name to resolve to a registry language.
-
-</details>
-
-and has the following translation updates:
-
-**Blockly toolbox search** - the five texts Blockly 13.4 adds, in every
-language.
-
-**Languages updated:** 230 languages.
-
-- [Toolbox search, in every locale](https://github.com/wekan/wekan/commit/8a00898252),
-  written from each file's own words for "block" and "search", with `%1`
-  kept. Corrected while there: Polish "Szukaj blokad" (search for
-  blockades) from Blockly's catalog, a stray "(1)" in Arabic, English mixed
-  into Odia's "no results", and Telugu's literal `null` that the importer
-  had replaced. The commit lists the languages translated with low
-  confidence, for a speaker to correct. Thanks to translators and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
