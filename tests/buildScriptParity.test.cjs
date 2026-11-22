@@ -710,7 +710,8 @@ test('the first three Tests options are complete bounded execution modes', () =>
     assert.match(bat, new RegExp(`:test_everything_${label}\\s+set "WEKAN_EVERYTHING_MODE=${mode}"`));
   }
   assert.match(read('releases\/run-everything.sh'),
-    /--run-everything "\$\{1:-\$\{WEKAN_EVERYTHING_MODE:-two-worker\}\}"/);
+    // One by one is the default since 2026-11-23: two-worker ran out of RAM.
+    /--run-everything "\$\{1:-\$\{WEKAN_EVERYTHING_MODE:-sequential\}\}"/);
 });
 
 test('both scripts write ONE LOG PER BROWSER, not one for all three', () => {
@@ -863,7 +864,9 @@ test('the Mocha run is the same in both: --full-app, its own build dir, and its 
 });
 
 test('both accept --run-everything on the command line', () => {
-  assert.match(sh, /--run-everything\) run_everything "\$\{2:-two-worker\}"/);
+  // The default is one by one (sequential): two-worker ran out of RAM.
+  assert.match(sh, /--run-everything\) run_everything "\$\{2:-sequential\}"/);
+  assert.match(bat, /if "%~2"=="" \(set "WEKAN_EVERYTHING_MODE=sequential"\)/);
   assert.match(bat, /if \/I "%~1"=="--run-everything" \([\s\S]{0,200}goto test_everything/);
 });
 

@@ -26,4 +26,4 @@
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
-exec ./build.sh --run-everything "${1:-${WEKAN_EVERYTHING_MODE:-two-worker}}"
+exec ./build.sh --run-everything "${1:-${WEKAN_EVERYTHING_MODE:-sequential}}"

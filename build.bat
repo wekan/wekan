@@ -41,7 +41,7 @@ if /I "%~1"=="--list" goto cli_list_exit
 if /I "%~1"=="list"   goto cli_list_exit
 REM The same non-interactive EVERYTHING as `./build.sh --run-everything [mode]`.
 if /I "%~1"=="--run-everything" (
-  if "%~2"=="" (set "WEKAN_EVERYTHING_MODE=two-worker") else (set "WEKAN_EVERYTHING_MODE=%~2")
+  if "%~2"=="" (set "WEKAN_EVERYTHING_MODE=sequential") else (set "WEKAN_EVERYTHING_MODE=%~2")
   goto test_everything
 )
 call :cli_run %*
