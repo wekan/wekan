@@ -34,6 +34,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview.
+- Accessibility: every missing WCAG 2.2 AA feature added, and the accessibility
+  tests extended to every page, popup and Admin Panel pane - axe with the WCAG
+  2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
+  target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
   against what WeKan already has; what is missing is added where it belongs in
   the menus.
