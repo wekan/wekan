@@ -1,5 +1,7 @@
 # Linked custom fields
 
+## What it is
+
 A card's custom fields can be linked to another card's, on the same board or
 on another board. When a linked field's value changes, the field with the same
 name on the other card gets the same value. This is for the case in
@@ -18,13 +20,25 @@ card in a second place. Here there are two cards, each with its own title,
 members, checklists and other fields, and only the custom field values are
 shared.
 
-## Linking two cards
+## Read more
+
+- [Data synchronization](https://en.wikipedia.org/wiki/Data_synchronization)
+  on Wikipedia - keeping the same data the same in two places, one way or
+  both ways.
+- In WeKan: [Custom Fields](CustomFields.md), [Linked cards](../Linked-Cards.md),
+  [Attached cards](../Attachments/Attached-Cards.md) and
+  [Admin only fields](Custom-Field-Admin-Only-And-Order.md).
+
+## How to use it
+
+**Linking two cards:**
 
 1. Open the card and click the hamburger at the end of the **Custom Fields**
    heading.
 2. Click **Link fields to another card**.
-3. Paste the other card's link (the card menu's **Copy card link** gives one),
-   or type part of a card title of this board and pick the card.
+3. Paste the other card's link (the card menu's **Copy card link to
+   clipboard** gives one), or type part of a card title of this board and pick
+   the card.
 4. Choose the **Direction**:
    - **Both ways** - a change on either card goes to the other.
    - **One way** - a change on this card goes to the main card. Changes made
@@ -37,7 +51,21 @@ matching fields that are still empty on the receiving card; it never
 overwrites a value that is already there. After that, every change is carried
 over.
 
-## Which fields are linked
+**Unlinking:** in the same pop-up, click **Unlink** beside the card.
+
+## How the numbers are calculated
+
+The limits, from [models/lib/customFieldLinks.js](../../../../models/lib/customFieldLinks.js):
+
+- A card can be linked to at most **20** cards (`MAX_FIELD_LINKS`).
+- A change travels along at most **5** links in a row (`MAX_CHAIN_DEPTH`) and
+  makes at most **50** card writes in total (`MAX_PROPAGATION_WRITES`).
+- A value is written only when it differs from the value already there, and
+  never to a card it has already been written to in the same change.
+
+## How it works in WeKan
+
+### Which fields are linked
 
 - Fields match by **name**, ignoring upper/lower case and spaces at the ends,
   and only when they have the **same type**. A currency field matches only a
@@ -57,7 +85,7 @@ over.
 - A **read only** field receives values only when the person who made the link
   is an admin of that board - the same rule as editing it by hand.
 
-## Where changes come from
+### Where changes come from
 
 Every way of changing a value is carried over: the card details, the custom
 field methods, the REST API (`PUT /api/boards/.../cards/:cardId` with
@@ -68,7 +96,7 @@ The copy is written on the server, as the person who made the link, through the
 ordinary card update. It is therefore in the receiving card's activities and
 History like any other change.
 
-## Loops and chains
+### Loops and chains
 
 - A value is written only when it differs from the value already there.
 - A change never comes back to a card it has already been written to, so a
@@ -78,7 +106,7 @@ History like any other change.
   writes in total.
 - A card can be linked to at most 20 cards.
 
-## Who may link, and when a link stops
+### Who may link, and when a link stops
 
 - Linking and unlinking need edit rights on **both** cards. A card you cannot
   see is answered as "Card not found". When the other card has been deleted,
@@ -94,7 +122,26 @@ History like any other change.
   link.
 - Deleting a card removes its links from the cards it was linked to. A copy of
   a card starts without links.
-- Links are stored on both cards (`customFieldLinks`) and are written only by
-  the server methods `linkCardCustomFields` and `unlinkCardCustomFields`. A
-  client that tries to write the field directly is refused, and the attempt is
-  shown in Admin Panel -> Problems (canary `card.field-link-direct`).
+- Links are stored on both cards (`customFieldLinks`, each `{ cardId, mode,
+  userId }`, where `mode` is `both`, `send` or - on the main card of a one-way
+  link - `receive`) and are written only by the server methods
+  `linkCardCustomFields` and `unlinkCardCustomFields`
+  ([server/models/customFieldLinks.js](../../../../server/models/customFieldLinks.js));
+  `cardCustomFieldLinksInfo` gives the pop-up its list. A client that tries
+  to write the field directly is refused, and the attempt is shown in Admin
+  Panel -> Problems (canary `card.field-link-direct`).
+
+### Files and tests
+
+- The pop-up is `cardCustomFieldLinksPopup` in
+  [client/components/cards/cardCustomFields.jade](../../../../client/components/cards/cardCustomFields.jade).
+- Tests: `tests/customFieldLinks.test.cjs`,
+  `server/lib/tests/customFieldLinks.tests.js` and
+  `tests/playwright/specs/custom-field-links.e2e.js`.
+
+## Commits
+
+ - [one copy of the card-link parser, shared by the app and the markdown package](https://github.com/wekan/wekan/commit/eb0df61e7f9681379491dc45431b7373271e7614)
+ - [a card's links are removed only for a card whose own removal happened (RaceBleed)](https://github.com/wekan/wekan/commit/c7a496c9cfd8f30e5bda16515eedeaa2ec80dc65)
+ - [Card Settings / Custom Fields: Link fields to another card as a form in the pane](https://github.com/wekan/wekan/commit/f33987931f1f4ffa0a3d1fc9c7e609e315bf2e7e)
+ - [link the custom fields of two cards, so a change on one is carried to the other](https://github.com/wekan/wekan/commit/746c097c9a6c87e7698da6b010feb55f9c7bbd74)
