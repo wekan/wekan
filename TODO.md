@@ -36,7 +36,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   overview. Every topic in one folder at the `docs/Features/` level: the
   `General/` level goes, its folders move up into the same-named folders, and
   the folders of `# Moved` stubs are removed, with every link updated.
-- The compliance reports move to `docs/Compliance/`.
+- The compliance reports move to `docs/Compliance/`, and accessibility gets a
+  top-level folder of its own, `docs/Accessibility/`.
 - Accessibility: every missing WCAG 2.2 AA feature added, and the accessibility
   tests extended to every page, popup and Admin Panel pane - axe with the WCAG
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
