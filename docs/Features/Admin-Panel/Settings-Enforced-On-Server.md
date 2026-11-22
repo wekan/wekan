@@ -165,7 +165,11 @@ tally names the account (when the call had one) and the address it came from.
   [tests/featureServerGates.test.cjs](../../../tests/featureServerGates.test.cjs)
   (every catalog feature is decided, and every method and publication of a
   feature file asks the gate, so a new one cannot skip it) and
-  [server/lib/tests/featureServerGates.tests.js](../../../server/lib/tests/featureServerGates.tests.js).
+  [server/lib/tests/featureServerGates.tests.js](../../../server/lib/tests/featureServerGates.tests.js);
+  and in a browser,
+  [tests/playwright/specs/settings-enforced-on-server.e2e.js](../../../tests/playwright/specs/settings-enforced-on-server.e2e.js)
+  (an unticked feature, own account deletion and password login, each called
+  from the page the way the hidden button would).
 
 ## Commits
 
