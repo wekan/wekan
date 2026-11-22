@@ -5216,7 +5216,7 @@
   "cloud-allowed-addresses-desc": "IPv4 ወIPv6 ኣድራሻት፣ ወ203.0.113.0/24 ከም ዝኣመሰለ ክልል ኣድራሻት፣ Cloud ኣመሓዳሪ ክኣቱ ዝኽእል። ሓደ ኣብ ሓደ መስመር። ባዶ፡ ዝኮነ ኣድራሻ።",
   "cloud-allowed-addresses-yours": "ኣድራሻካ ሕጂ፡ __address__",
   "cloud-allowed-addresses-lockout": "ኣድራሻካ __address__ ኣብዚ ዝርዝር የለን። ምዕቃብ ካብ ደገ ይዕጽወካ፣ ስለዚ ኣይተዐቀበን።",
-  "cloud-support-board-open": "ናይ ደገፍ ሰሌዳ ክፈት",
+  "cloud-support-board-open": "ምዱድ ሰዳየት ፍተሕ",
   "board-view-website": "መውቅዕ",
   "tool-group-website": "መውቅዕ",
   "website-view-empty": "ዲብ እሊ መውቅዕ ገና ሐቴ ኢተሐትመ።",

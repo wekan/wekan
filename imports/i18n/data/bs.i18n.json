@@ -5216,7 +5216,7 @@
   "cloud-allowed-addresses-desc": "IPv4 i IPv6 adrese i rasponi adresa poput 203.0.113.0/24 s kojih se administrator oblaka smije prijaviti. Jedna po retku. Prazno: bilo koja adresa.",
   "cloud-allowed-addresses-yours": "Vaša adresa sada: __address__",
   "cloud-allowed-addresses-lockout": "Vaše adrese __address__ nema na ovom popisu. Spremanje bi vas zaključalo, pa se ne sprema.",
-  "cloud-support-board-open": "Otvori ploču podrške",
+  "cloud-support-board-open": "Otvori tablu podrške",
   "board-view-website": "Web stranica",
   "tool-group-website": "Web stranica",
   "website-view-empty": "Na ovoj web stranici još ništa nije objavljeno.",
