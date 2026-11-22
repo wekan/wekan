@@ -529,8 +529,10 @@ Meteor.methods({
     check(dueDate, Date);
     check(swimlaneId, String);
 
-    // AuthBleed (DueDateBleed): no WeKan client calls this method, so every
-    // refusal is an attempt and is recorded.
+    // AuthBleed (DueDateBleed): the Calendar view calls this when a day is
+    // clicked, and it offers that only to who may write on the board
+    // (client/components/boards/boardBody.js selectable), so every refusal is
+    // an attempt and is recorded.
     const refuse = detail => {
       try {
         require('/server/lib/securityLog').record({ key: 'authz.copy', action: 'blocked',

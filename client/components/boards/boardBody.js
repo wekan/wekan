@@ -1309,8 +1309,12 @@ Template.calendarView.helpers({
         locale: TAPi18n.getLanguage(),
         rtl: TAPi18n.isRTL(),
       }),
-      editable: true,
-      selectable: true,
+      // Dragging a card and clicking a day to add one are writes: only for
+      // who may write on the board. The server refuses the rest and records
+      // the refusal as an attempt (server/models/cards.js createCardWithDueDate),
+      // which it is only when the calendar did not offer it.
+      editable: Utils.canModifyBoard(),
+      selectable: Utils.canModifyBoard(),
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
       navLinks: true,
       businessHours: {
