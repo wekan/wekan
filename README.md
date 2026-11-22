@@ -164,6 +164,8 @@ that by providing one-click installation on various platforms.
       - Translation: Add custom translation strings
       - PWA
       - Global Webhooks
+      - Privacy and security: [Allowed addresses](docs/Features/Admin-Panel/Admin-Panel-Allowed-Addresses.md), the IPv4 and IPv6
+        addresses and ranges the Admin Panel and the admin REST API can be used from
   - People
     - Email, Notifications, Domains, Organizations, Teams, People
     - Locked Users, Roles, Shared Templates
