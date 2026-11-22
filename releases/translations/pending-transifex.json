@@ -4767,6 +4767,18 @@
     {
       "key": "webhooks-disabled",
       "since": "2026-11-22"
+    },
+    {
+      "key": "shop-confirmation-email",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-email-subject",
+      "since": "2026-11-22"
+    },
+    {
+      "key": "shop-email-pay",
+      "since": "2026-11-22"
     }
   ]
 }
