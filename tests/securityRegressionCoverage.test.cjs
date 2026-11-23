@@ -82,6 +82,7 @@ const GUARDED = {
   calendarbleed: ['tests/calendarbleed.test.cjs'],
   casaccountmergebleed: ['tests/canaryCoverage.test.cjs'],
   casracebleed: ['tests/securityMeifukun.test.cjs'],
+  oidcracebleed: ['tests/oidcLoginStateIsolation.test.cjs', 'tests/securityMeifukun.test.cjs'],
   checklistbleed: ['server/lib/tests/checklistbleed.security.tests.js'],
   checklistwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
   claimbleed: ['tests/securityAdvisories20260826.test.cjs'],
@@ -131,7 +132,7 @@ const GUARDED = {
   mimebleed: ['server/lib/tests/fileValidationBypass.security.tests.js'],
   mimestoragebleed: ['server/lib/tests/fileValidationBypass.security.tests.js'],
   miniprofilebleed: ['tests/securityAdvisories20260825.test.cjs'],
-  oidcbleed: ['tests/securityMeifukun.test.cjs'],
+  oidcbleed: ['tests/oidcBleed.test.cjs'],
   mutationbleed: ['tests/boardMutationGuard.test.cjs'],
   parentbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
   ownerbleed: ['tests/restSecurityAdvisories.test.cjs'],
@@ -386,7 +387,9 @@ test('the whole published list is accounted for', () => {
   // 150 -> 151: BounceBleed (GHSA-7w85-38ph-c96v, 2026-11-22), guarded.
   // 151 -> 152: CloudPanelBleed (found by xet7, 2026-11-22), guarded.
   // 152 -> 153: ListLockMoveBleed (GHSA-394w-8q99-q4qx, 2026-11-22), guarded.
-  assert.strictEqual(total, 153, 'the Hall of Fame and this list disagree on how many there are');
+  // 153 -> 154: OidcRaceBleed (GHSA-6944-p22h-3qpx, published 2026-11-20, its
+  // row added 2026-11-23; fixed in v9.97 by #4897), guarded.
+  assert.strictEqual(total, 154, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

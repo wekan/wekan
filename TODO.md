@@ -30,7 +30,7 @@ details; WeKan's are below.
 | [node-patches](https://github.com/wekan/node-patches/blob/main/TODO.md) | The clone retry, until the next Release All | - |
 | [wekango](https://github.com/wekan/wekango/blob/main/TODO.md) | The Windows and macOS fixes, checked on Linux only | Confirm the mongo-tools notice review |
 | [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password; close the rack Dependabot pull request |
-| [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | Rerun the Pages deploy; the CVE numbers into the Hall of Fame |
+| [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | Rerun the Pages deploy |
 | [wekan-meteor3-html4](https://github.com/wekan/wekan-meteor3-html4/blob/main/TODO.md) | Left out for now | - |
 | wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64 |
 | wepica | Left out: too old | - |

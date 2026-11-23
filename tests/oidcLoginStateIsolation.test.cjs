@@ -1,7 +1,10 @@
 'use strict';
 
 // Plain-Node unit test (no Meteor) for #4897 — OAuth2/OIDC users intermittently
-// showing stale, missing or ANOTHER user's data.
+// showing stale, missing or ANOTHER user's data. It guards OidcRaceBleed
+// (GHSA-6944-p22h-3qpx, https://wekan.fi/hall-of-fame/oidcracebleed/): two
+// concurrent logins sharing one serviceData could give one user another's
+// account.
 // Run: node tests/oidcLoginStateIsolation.test.cjs
 //
 // Root cause: packages/wekan-oidc kept per-login state in shared module-level /

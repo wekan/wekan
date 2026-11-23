@@ -6,7 +6,7 @@
 // node (no Meteor/DB), matching the other tests/*.test.cjs guards.
 //
 // Each section names the Hall of Fame vulnerability it guards - RedirectBleed,
-// SourceBleed, LiveBleed, CasBleed, OidcBleed, MetricsBleed, ImpersonateBleed,
+// SourceBleed, LiveBleed, CasBleed, OidcRaceBleed, MetricsBleed, ImpersonateBleed,
 // InviteBleed - because a regression test that does not say WHICH published
 // vulnerability it belongs to cannot be checked against the published list. See
 // tests/securityRegressionCoverage.test.cjs, which does that checking.
@@ -98,7 +98,7 @@ check('#4 CAS stores user data per token, not in a module global', () => {
     'login handler must read the per-token userData');
 });
 
-// ── #5 OIDC shared serviceData race — OidcBleed (fixed upstream, #4897) ─────
+// ── #5 OIDC shared serviceData race — OidcRaceBleed, GHSA-6944-p22h-3qpx (fixed upstream, #4897) ─
 check('#5 OIDC per-login objects are declared inside the callback', () => {
   const src = read('packages/wekan-oidc/oidc_server.js');
   const cbStart = src.indexOf("OAuth.registerService('oidc'");

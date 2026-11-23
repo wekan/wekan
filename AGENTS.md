@@ -1010,6 +1010,24 @@ have cost a released section its accuracy:
   the change in Audit-Stars.md. Match by the report's subject and reporter, not by
   a nearby advisory - a GHSA about something else is no upgrade. Until the GHSA
   exists, the row stays at 3 and its Process cell says the GHSA is awaited.
+- **Every new security issue updates the Hall of Fame, and every Hall of Fame
+  update fills in the GHSA and CVE details that are missing.** Compare the
+  published advisories (`releases/sec/download-github-security.sh` saves them,
+  or `https://api.github.com/repos/wekan/wekan/security-advisories?state=published`)
+  with `hall-of-fame/index.html`:
+  - a **published GHSA with no row** gets one - the row, its own page,
+    `Audit-Icons.md`, `Audit-Stars.md`, the page's exact URLs in wekan.fi's
+    `releases/risk-baseline.json`, and a catalog key or a recorded reason in
+    `tests/hallOfFameProblemsCoverage.test.cjs` - even when the fix shipped long
+    before the advisory, as OidcRaceBleed's did (GHSA-6944-p22h-3qpx, 2026-11-23);
+  - a row whose advisory has a **CVE assigned** gets it in its CVE cell, on the
+    index AND on its own page, in place of "CVE requested";
+  - a row linking an advisory that is **not public** (the API answers 404) is
+    named to the maintainer: it is a draft or was closed, and readers get a
+    404 from it.
+  A CVE that is requested but not assigned yet is NOT a TODO item: requesting
+  it is part of publishing the advisory, and the CVE cell says "CVE requested"
+  until the next Hall of Fame update finds the number.
 - **On the Hall of Fame index page, the Process and Vulnerabilities cells are
   collapsed.** Those two columns carry the prose — how the report arrived, and the
   whole story of the vulnerability — so the page would be one wall of text and the
