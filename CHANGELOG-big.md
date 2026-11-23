@@ -97,11 +97,36 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** **Time tracking** works again on imported cards whose spent time
-was stored empty, and the **Admin Panel recovery list** no longer fills up with
-old cancelled notifications.
+**In short:** The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
+every architecture the wekan snap has, on all four channels. **Time tracking**
+works again on imported cards whose spent time was stored empty, and the
+**Admin Panel recovery list** no longer fills up with old cancelled
+notifications.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Snap** - the two older snap names on every architecture.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d041debbe98895e074d6c2889c96f3317188185d">wekan-ondra and wekan-gantt-gpl on every architecture wekan has, on all channels</a>. Thanks to xet7.</summary>
+
+The two variants had amd64 and arm64 only: the `snap-variants` job builds those
+natively, and `snap-launchpad`, the only builder of armhf, ppc64el, s390x and
+riscv64, built only the `wekan` name. Each `snap-launchpad` leg now makes both
+variants from the wekan snap it just built (`releases/snap-rename.sh` changes
+the name and title, nothing else), releases them to stable, candidate, beta
+and edge, and attaches them to the GitHub Release. Push Snap to Store fills in
+each missing architecture of a variant from the release's wekan snap, instead
+of only when a release has no variant at all. Release All Missing expects them
+from v13.30 on, not for older releases: completing an older one after a newer
+one would upload an older version as the highest revision and take stable
+back to it. i386 stays without a snap: only core18 still has an i386 base.
+`tests/snapVariantsAllArches.test.cjs` runs the new download step against a
+fake release.
+
+</details>
+
+and fixes the following bugs:
 
 **Time tracking** - logging time on imported cards.
 

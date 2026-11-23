@@ -7,9 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-**Time tracking** works again on imported cards whose spent time
-was stored empty, and the **Admin Panel recovery list** no longer fills up with
-old cancelled notifications.
+The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
+every architecture the wekan snap has, on all four channels. **Time tracking**
+works again on imported cards whose spent time was stored empty, and the
+**Admin Panel recovery list** no longer fills up with old cancelled
+notifications.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
