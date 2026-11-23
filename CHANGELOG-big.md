@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.30 2026-11-23 WeKan ® release
 
 **In short:** The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
 every architecture the wekan snap has, on all four channels, and each **Snap
