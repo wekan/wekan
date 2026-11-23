@@ -16,6 +16,13 @@ const STREAM_LABEL_KEY = {
   cpu: 'cpuReportTitle',
   ram: 'memory-usage',
   disk: 'sandstorm-disk-usage',
+  // These three showed their stream id - "database", "integrity", "mail" -
+  // instead of the name of their pane. The keys are the ones PROBLEMS_MENU in
+  // adminProblems.js names the panes with; tests/problemsSummaryLabels.test.cjs
+  // keeps every stream of EVENT_STREAMS here, with the menu's key.
+  database: 'databaseReportTitle',
+  integrity: 'integrityReportTitle',
+  mail: 'mailReportTitle',
 };
 
 Template.problemsSummary.onCreated(function () {

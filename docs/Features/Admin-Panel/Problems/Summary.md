@@ -131,9 +131,12 @@ problem (`models/lib/eventLogProblems.js`), so a CPU spike that only records
 its own mitigation does not raise the count.
 
 The menu name comes from `STREAM_LABEL_KEY` in `problemsSummary.js`, which
-names Security Report, Speed, Tests, CPU usage, Memory usage and Disk usage.
-`database`, `integrity` and `mail` have no entry there, so their line shows the
-stream id itself (for example `Admin Panel → Problems → database`).
+names every stream with the key its own pane has in the Problems menu: Security
+Report, Speed, Tests, CPU usage, Memory usage, Disk usage, Database problems,
+Filesystem integrity and Email. Until 2026-11-24 the last three had no entry and
+their line showed the stream id itself (`Admin Panel → Problems → database`);
+[tests/problemsSummaryLabels.test.cjs](../../../../tests/problemsSummaryLabels.test.cjs)
+now fails when a stream has no name or a different one than its pane.
 
 Tick the streams you have reviewed, then:
 

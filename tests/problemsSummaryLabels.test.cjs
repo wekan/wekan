@@ -66,3 +66,28 @@ test('negative: "Memory usage" is no longer wrong-language or split in these loc
     assert.strictEqual(load(f)['memory-usage'], 'Memory usage', f);
   }
 });
+
+// Every problem stream is named on Summary by its pane's own name. database,
+// integrity and mail had no entry, so their line read "Admin Panel ->
+// Problems -> database" (2026-11-24).
+test('every problem stream has the name of its pane on Summary', () => {
+  const streams = JSON.parse(read('models/eventLog.js').match(/export const EVENT_STREAMS = (\[[^\]]*\])/)[1].replace(/'/g, '"'));
+  const js = read('client/components/settings/problemsSummary.js');
+  const map = js.slice(js.indexOf('const STREAM_LABEL_KEY = {'), js.indexOf('\n};', js.indexOf('const STREAM_LABEL_KEY = {')));
+  const labelOf = Object.fromEntries([...map.matchAll(/^\s+(\w+): '([^']+)',/gm)].map(m => [m[1], m[2]]));
+  const menu = read('client/components/settings/adminProblems.js');
+  for (const stream of streams) {
+    assert.ok(labelOf[stream], `${stream} has no name on Summary`);
+    const entry = menu.match(new RegExp(`id: 'report-${stream}'[^}]*labelKey: '([^']+)'`));
+    assert.ok(entry, `the Problems menu has a report-${stream} pane`);
+    assert.strictEqual(labelOf[stream], entry[1], `${stream}: Summary and the menu name it the same`);
+    assert.ok(en[labelOf[stream]], `${labelOf[stream]} is in the English catalog`);
+  }
+  assert.deepStrictEqual(streams.slice(-3), ['database', 'integrity', 'mail']);
+});
+
+test('negative: no stream falls back to its id on Summary', () => {
+  const js = read('client/components/settings/problemsSummary.js');
+  // The fallback stays for a stream added later, but the test above makes it unreachable today.
+  assert.match(js, /TAPi18n\.__\(STREAM_LABEL_KEY\[stream\] \|\| stream\)/);
+});
