@@ -79,12 +79,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   personal-data inventory (WP-3). Next: complete erasure (WP-4, the 40
   collections the inventory lists), a personal-data export (WP-5), legal pages
   with accepted versions (WP-6), then WP-7 to WP-14.
-- Found while documenting, to fix: the per-address login delay is never
-  applied; Broken Cards counts unknown card types in its list but not in the
-  Summary or its repair; the database, integrity and mail streams have no name
-  in the Summary; the Recovery pane's text says it does not retry or cancel;
-  the attachment retention form allows a larger per-run number than the
-  retention applies.
+- Found while documenting, to fix: the Recovery pane's rule email text
+  (`rule-email-recovery-description`) still says "This report does not retry
+  or cancel delivery", though Review, Resend, Mark as sent and Drop exist since
+  2026-09-30. The sentence is in every locale, so the fix is a translation
+  batch: the corrected sentence in each language.
 
 ## For the maintainer: needs a person, not code
 
@@ -101,9 +100,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   `prototypes/` - js/xss and js/incomplete-url-scheme-check in a copy of
   `htmx.js` (fullmoon), and two js/redos in the built `ui/html5/build/html5/
   Main.js`. Update the htmx copy and rebuild Main.js rather than editing them.
-- trello-attachments-downloader: 2 medium CodeQL alerts,
-  actions/missing-workflow-permissions in `.github/workflows/build.yml` (lines
-  11 and 33); a `permissions: contents: read` block fixes both.
+- trello-attachments-downloader: push its `main` (the workflow permissions
+  that close its two CodeQL alerts are committed there). Its release workflow
+  also still uses `actions/upload-artifact@v1` and `download-artifact@v1`,
+  which GitHub has retired, so a release tag fails at those steps.
 - Dependabot is still off (403) in 16 repositories: migratemongo,
   minio-express, waxe, we, webhook, wedos, wekan-aws, wekan-gantt-gpl,
   wekan-ondra, wekan-openstore, wekan-openstore2, wekan-prometheus-exporter,
