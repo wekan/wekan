@@ -35,7 +35,28 @@ if (args[0] === 'run' && args[1] === 'view') {
 }
 const p = args[args.length - 1];
 const out = s => process.stdout.write(s);
-if (p.startsWith('/orgs/acme/repos')) {
+if (p.startsWith('/orgs/acme/security-advisories')) {
+  out(JSON.stringify([{ ghsa_id: 'GHSA-aaaa-bbbb-cccc', state: 'triage', severity: 'medium', summary: 'A report', repository: { full_name: 'acme/app' } },
+    { ghsa_id: 'GHSA-dddd-eeee-ffff', state: 'published', severity: 'high', cve_id: 'CVE-2026-1', summary: 'Published | one', repository: { full_name: 'acme/app' } }]));
+} else if (p === '/advisories/GHSA-dddd-eeee-ffff') {
+  out(JSON.stringify({ ghsa_id: 'GHSA-dddd-eeee-ffff', type: 'reviewed', cve_id: 'CVE-2026-1' }));
+} else if (p.startsWith('/advisories/')) {
+  process.stderr.write('gh: Not Found (HTTP 404)\\n'); process.exit(1);
+} else if (p.startsWith('/repos/acme/app/dependency-graph/sbom')) {
+  out(JSON.stringify({ sbom: { packages: [
+    { name: 'npm:lodash', externalRefs: [{ referenceType: 'purl', referenceLocator: 'pkg:npm/lodash@4.17.20' }] },
+    { name: 'npm:@scope/pkg', externalRefs: [{ referenceType: 'purl', referenceLocator: 'pkg:npm/%40scope/pkg@1.0.0' }] },
+    { name: 'go:x', externalRefs: [{ referenceType: 'purl', referenceLocator: 'pkg:golang/golang.org/x/net@0.1.0' }] },
+    { name: 'odd', externalRefs: [{ referenceType: 'purl', referenceLocator: 'pkg:unknowntype/thing@1' }] }] } }));
+} else if (p.startsWith('/advisories?')) {
+  const q = new URLSearchParams(p.slice(p.indexOf('?') + 1));
+  require('fs').appendFileSync(process.env.FAKE_GH_QUERIES || '/dev/null', q.get('ecosystem') + ' ' + q.get('affects') + '\\n');
+  if (q.get('ecosystem') === 'npm') {
+    out(JSON.stringify([{ ghsa_id: 'GHSA-1111-2222-3333', severity: 'high', cve_id: 'CVE-2020-8203', summary: 'Prototype pollution in lodash',
+      html_url: 'https://github.com/advisories/GHSA-1111-2222-3333', vulnerabilities: [{ package: { ecosystem: 'npm', name: 'lodash' } }] },
+      { ghsa_id: 'GHSA-4444-5555-6666', severity: 'low', summary: 'Withdrawn', withdrawn_at: '2026-01-01', vulnerabilities: [] }]));
+  } else { out('[]'); }
+} else if (p.startsWith('/orgs/acme/repos')) {
   out(JSON.stringify([{ name: 'app', archived: false, fork: false }, { name: 'old', archived: true, fork: false }]));
   out(JSON.stringify([{ name: 'tools', archived: false, fork: false }, { name: 'forked', archived: false, fork: true }]));
 } else if (p.startsWith('/repos/acme/app/dependabot/alerts')) {
@@ -105,7 +126,9 @@ test('every repository, each kind in its directory, an alert a file, the summary
   try {
     const r = run({}, ['acme', '--out', t.out], t);
     assert.equal(r.status, 0, r.stderr);
-    assert.deepEqual(fs.readdirSync(path.join(t.out, 'acme')).sort(), ['app', 'tools'], 'archived and forks skipped');
+    // _organization holds the organization-wide advisory list; it can never be
+    // a repository's name, which starts with a letter or digit.
+    assert.deepEqual(fs.readdirSync(path.join(t.out, 'acme')).filter(d => d !== '_organization').sort(), ['app', 'tools'], 'archived and forks skipped');
     const app = runDir(t.out, 'app');
     for (const kind of ['dependabot', 'code-scanning', 'secret-scanning', 'security-advisories']) {
       assert.ok(fs.existsSync(path.join(app, kind, 'alerts.json')), kind);
@@ -246,4 +269,52 @@ test('the wrapper runs the script isolated, and the downloads stay out of git', 
   assert.ok(fs.statSync(wrapper).mode & 0o111, 'the wrapper is executable');
   assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /^\/?\.tools\/?$/m);
   assert.match(fs.readFileSync(script, 'utf8'), /DEFAULT_OUT = os\.path\.join\(ROOT, "\.tools", "log", "sec"\)/);
+});
+
+test('advisories: the Advisory Database entry of each GHSA, the dependency advisories and the organization list', { skip: !python }, () => {
+  const t = setup();
+  const queries = path.join(t.dir, 'queries.txt');
+  try {
+    const r = run({ FAKE_GH_QUERIES: queries }, ['acme', '--repo', 'app', '--out', t.out, '--builds', '0'], t);
+    assert.equal(r.status, 0, r.stderr);
+    const app = runDir(t.out, 'app');
+    // Advisory Database: the one GitHub has, and the one it does not.
+    const index = JSON.parse(fs.readFileSync(path.join(app, 'advisory-database', 'index.json'), 'utf8'));
+    assert.deepEqual(index.map(x => [x.ghsa, x.database]), [['GHSA-aaaa-bbbb-cccc', 'not in the database']]);
+    // Dependency advisories: npm and Go asked by name@version, the scope decoded,
+    // an ecosystem the database does not have skipped, a withdrawn one left out.
+    const asked = fs.readFileSync(queries, 'utf8').trim().split('\n').sort();
+    assert.deepEqual(asked, ['go golang.org/x/net@0.1.0', 'npm @scope/pkg@1.0.0,lodash@4.17.20']);
+    const deps = JSON.parse(fs.readFileSync(path.join(app, 'dependency-advisories', 'advisories.json'), 'utf8'));
+    assert.deepEqual(deps.map(d => d.ghsa_id), ['GHSA-1111-2222-3333']);
+    assert.ok(fs.existsSync(path.join(app, 'dependency-advisories', 'sbom.json')));
+    const summary = fs.readFileSync(path.join(app, 'SUMMARY.md'), 'utf8');
+    assert.match(summary, /## Advisory Database/);
+    assert.match(summary, /\| GHSA-1111-2222-3333 \| high \| CVE-2020-8203 \| lodash \|/);
+    // The organization's list, once per run, its table cell escaped.
+    const orgBase = path.join(t.out, 'acme', '_organization');
+    const orgRun = path.join(orgBase, fs.readdirSync(orgBase)[0]);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(orgRun, 'security-advisories.json'), 'utf8')).length, 2);
+    assert.match(fs.readFileSync(path.join(orgRun, 'SUMMARY.md'), 'utf8'), /GHSA-dddd-eeee-ffff \| acme\/app \| published \| high \| CVE-2026-1 \| Published \\\| one/);
+  } finally {
+    fs.rmSync(t.dir, { recursive: true, force: true });
+  }
+});
+
+test('negative: --no-advisories asks the Advisory Database nothing, and a GHSA id that is not one names no file', { skip: !python }, () => {
+  const t = setup();
+  const queries = path.join(t.dir, 'queries.txt');
+  try {
+    const r = run({ FAKE_GH_QUERIES: queries }, ['acme', '--repo', 'app', '--out', t.out, '--builds', '0', '--no-advisories'], t);
+    assert.equal(r.status, 0, r.stderr);
+    const app = runDir(t.out, 'app');
+    assert.ok(!fs.existsSync(path.join(app, 'advisory-database')));
+    assert.ok(!fs.existsSync(path.join(app, 'dependency-advisories')));
+    assert.ok(!fs.existsSync(path.join(t.out, 'acme', '_organization')));
+    assert.ok(!fs.existsSync(queries));
+  } finally {
+    fs.rmSync(t.dir, { recursive: true, force: true });
+  }
+  const src = fs.readFileSync(script, 'utf8');
+  assert.match(src, /if not GHSA\.match\(ghsa\):\n\s+continue/, 'only a real GHSA id reaches /advisories/<id> or a file name');
 });

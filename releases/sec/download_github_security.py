@@ -15,11 +15,20 @@ writes, under .tools/log/sec/<organization>/<repository>/<YYYY-MM-DD_HH-MM-SS>/:
                          unless --include-secret-values is given
   security-advisories/   the repository's security advisories, drafts and
                          private vulnerability reports included
+  advisory-database/     each of those GHSAs in the global GitHub Advisory
+                         Database (github.com/advisories): whether GitHub has
+                         reviewed and published it there, and its CVE
+  dependency-advisories/ the reviewed Advisory Database advisories that affect
+                         the exact package versions the repository's dependency
+                         graph lists (sbom.json) - npm, Go, pip and the rest
   builds/                the newest GitHub Actions runs (runs.json) and, for
                          every workflow whose newest finished run failed, the
                          logs of its failed jobs: builds/<workflow>/run-<id>/
                          job-<id>-<name>.log, and the last lines of each in
                          .tail.txt - what to read to fix the build
+
+Once per run, the organization's advisories of every repository, in one list,
+go to .tools/log/sec/<organization>/_organization/<YYYY-MM-DD_HH-MM-SS>/.
 
 Each of those holds alerts.json (the whole list, as GitHub answers it) and
 alert-<number>.json per alert (advisory-<GHSA>.json for advisories). A kind
@@ -45,6 +54,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DEFAULT_OUT = os.path.join(ROOT, ".tools", "log", "sec")
@@ -68,6 +78,19 @@ FAILED = {"failure", "timed_out", "startup_failure", "action_required"}
 # A job log is kept up to this size; the rest is cut, and said so.
 MAX_LOG_BYTES = 50 * 1024 * 1024
 TAIL_LINES = 200
+
+# A GHSA id, the only thing that names an Advisory Database file or address.
+GHSA = re.compile(r"^GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}$")
+# The Advisory Database's ecosystem for a package URL type of the dependency
+# graph's SBOM. A type not here has no ecosystem there and is skipped.
+PURL_ECOSYSTEMS = {"npm": "npm", "golang": "go", "pypi": "pip", "gem": "rubygems", "maven": "maven",
+                   "nuget": "nuget", "cargo": "rust", "composer": "composer", "pub": "pub",
+                   "swift": "swift", "githubactions": "actions"}
+# Packages per /advisories?affects= request: the list goes in the URL.
+AFFECTS_BATCH = 50
+# The name of the organization-wide directory: a repository name starts with a
+# letter or digit (NAME), so no repository can be called this.
+ORG_DIR = "_organization"
 
 # What GitHub calls a closed alert, per kind - the rest are open.
 CLOSED = {"fixed", "dismissed", "resolved", "auto_dismissed", "closed", "withdrawn", "published"}
@@ -223,6 +246,134 @@ def download_builds(org, repo, run_dir, runs_limit, log):
     return rows
 
 
+def download_advisory_database(run_dir, advisories, log):
+    """The Advisory Database entry of each of the repository's GHSAs. Returns the
+    summary rows: GHSA, its state in the repository, its CVE, and whether the
+    database has it."""
+    ddir = os.path.join(run_dir, "advisory-database")
+    os.makedirs(ddir, exist_ok=True)
+    rows = []
+    for adv in advisories:
+        ghsa = str(adv.get("ghsa_id") or "")
+        if not GHSA.match(ghsa):
+            continue
+        row = {"ghsa": ghsa, "state": adv.get("state") or "", "cve": adv.get("cve_id") or "",
+               "summary": adv.get("summary") or "", "database": "", "database_cve": ""}
+        try:
+            entry = gh_api(f"/advisories/{ghsa}", paginate=False)
+            entry = entry[0] if entry else {}
+            write_json(os.path.join(ddir, f"advisory-{ghsa}.json"), entry)
+            row["database"] = entry.get("type") or "yes"
+            row["database_cve"] = entry.get("cve_id") or ""
+        except GhError as e:
+            # 404: not in the database - a draft, a closed report, or a published
+            # one GitHub has not reviewed and imported yet.
+            row["database"] = "not in the database" if e.status == 404 else f"not available ({e.status or 'error'})"
+        rows.append(row)
+    write_json(os.path.join(ddir, "index.json"), rows)
+    in_db = sum(1 for r in rows if r["database"] and not r["database"].startswith("not "))
+    log(f"  advisory-database: {in_db} of {len(rows)} GHSAs in the Advisory Database, "
+        f"{sum(1 for r in rows if r['cve'] or r['database_cve'])} with a CVE")
+    return rows
+
+
+def sbom_packages(sbom):
+    """(ecosystem, name, version) of every package of a dependency-graph SBOM that
+    has an Advisory Database ecosystem, from its package URL."""
+    out = set()
+    for pkg in ((sbom or {}).get("sbom") or {}).get("packages") or []:
+        for ref in pkg.get("externalRefs") or []:
+            if ref.get("referenceType") != "purl":
+                continue
+            m = re.match(r"^pkg:([a-z0-9]+)/([^@?#]+)(?:@([^?#]+))?", str(ref.get("referenceLocator") or ""))
+            if not m or m.group(1) not in PURL_ECOSYSTEMS:
+                continue
+            name = urllib.parse.unquote(m.group(2))
+            version = urllib.parse.unquote(m.group(3) or "")
+            if name and len(name) <= 214 and "," not in name and "," not in version:
+                out.add((PURL_ECOSYSTEMS[m.group(1)], name, version))
+    return sorted(out)
+
+
+def download_dependency_advisories(org, repo, run_dir, log):
+    """The reviewed Advisory Database advisories that affect the package versions
+    of the repository's dependency graph. Returns the summary rows, or None when
+    the dependency graph was not available."""
+    ddir = os.path.join(run_dir, "dependency-advisories")
+    os.makedirs(ddir, exist_ok=True)
+    try:
+        sbom = gh_api(f"/repos/{org}/{repo}/dependency-graph/sbom", paginate=False)
+        sbom = sbom[0] if sbom else {}
+    except GhError as e:
+        with open(os.path.join(ddir, "status.txt"), "w", encoding="utf-8") as fh:
+            fh.write(f"Not downloaded: the dependency graph is not available: {e}\n")
+        log(f"  dependency-advisories: no dependency graph ({e.status or 'error'})")
+        return None
+    write_json(os.path.join(ddir, "sbom.json"), sbom)
+    packages = sbom_packages(sbom)
+    by_eco = {}
+    for eco, name, version in packages:
+        by_eco.setdefault(eco, []).append(f"{name}@{version}" if version else name)
+    found, errors = {}, []
+    for eco, wanted in sorted(by_eco.items()):
+        for i in range(0, len(wanted), AFFECTS_BATCH):
+            batch = wanted[i:i + AFFECTS_BATCH]
+            query = urllib.parse.urlencode({"ecosystem": eco, "affects": ",".join(batch), "per_page": 100})
+            try:
+                for adv in gh_api(f"/advisories?{query}"):
+                    ghsa = str(adv.get("ghsa_id") or "")
+                    if GHSA.match(ghsa) and not adv.get("withdrawn_at"):
+                        found[ghsa] = adv
+            except GhError as e:
+                errors.append(f"{eco} packages {i + 1}-{i + len(batch)}: {e}")
+    advisories = [found[k] for k in sorted(found)]
+    write_json(os.path.join(ddir, "advisories.json"), advisories)
+    for adv in advisories:
+        write_json(os.path.join(ddir, f"advisory-{adv['ghsa_id']}.json"), adv)
+    if errors:
+        with open(os.path.join(ddir, "status.txt"), "w", encoding="utf-8") as fh:
+            fh.write("Some packages were not checked:\n" + "\n".join(errors) + "\n")
+    ours = {(eco, name) for eco, name, _ in packages}
+    rows = []
+    for adv in advisories:
+        hit = sorted({f"{(v.get('package') or {}).get('name', '')}" for v in adv.get("vulnerabilities") or []
+                      if ((v.get("package") or {}).get("ecosystem"), (v.get("package") or {}).get("name")) in ours})
+        rows.append({"ghsa": adv["ghsa_id"], "cve": adv.get("cve_id") or "", "severity": adv.get("severity") or "",
+                     "summary": adv.get("summary") or "", "packages": ", ".join(hit), "url": adv.get("html_url") or ""})
+    log(f"  dependency-advisories: {len(packages)} packages, {len(rows)} advisories affect them"
+        + (f", {len(errors)} batches not checked" if errors else ""))
+    return rows
+
+
+def download_org_advisories(org, out, stamp, log):
+    """Every repository advisory of the organization in one list, once per run."""
+    odir = os.path.join(out, org, ORG_DIR, stamp)
+    os.makedirs(odir, exist_ok=True)
+    try:
+        advisories = gh_api(f"/orgs/{org}/security-advisories?per_page=100")
+    except GhError as e:
+        with open(os.path.join(odir, "status.txt"), "w", encoding="utf-8") as fh:
+            fh.write(f"Not downloaded: {e}\n")
+        log(f"{org}: organization advisories not available ({e.status or 'error'})")
+        return None
+    write_json(os.path.join(odir, "security-advisories.json"), advisories)
+    states = {}
+    for adv in advisories:
+        states[adv.get("state") or "?"] = states.get(adv.get("state") or "?", 0) + 1
+    lines = [f"# {org} - security advisories of every repository", "",
+             f"Downloaded {stamp} with releases/sec/download-github-security.sh.", "",
+             f"{len(advisories)} advisories: " + ", ".join(f"{n} {s}" for s, n in sorted(states.items())), "",
+             "| GHSA | Repository | State | Severity | CVE | Summary |", "| --- | --- | --- | --- | --- | --- |"]
+    for adv in sorted(advisories, key=lambda a: str(a.get("published_at") or a.get("created_at") or ""), reverse=True):
+        repo = ((adv.get("repository") or {}).get("full_name")) or ""
+        lines.append(f"| {md(adv.get('ghsa_id', ''))} | {md(repo)} | {md(adv.get('state', ''))} | "
+                     f"{md(adv.get('severity', ''))} | {md(adv.get('cve_id') or '')} | {md(adv.get('summary', ''))} |")
+    with open(os.path.join(odir, "SUMMARY.md"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+    log(f"{org}: {len(advisories)} organization advisories -> {odir}")
+    return advisories
+
+
 def redact_secrets(alert):
     """A secret scanning alert without the secret it found."""
     alert = dict(alert)
@@ -275,11 +426,12 @@ def describe(kind, alert):
     return alert.get("severity", ""), alert.get("summary", ""), ""
 
 
-def download_repo(org, repo, run_dir, state, include_secrets, log, builds=100):
+def download_repo(org, repo, run_dir, state, include_secrets, log, builds=100, advisories=True):
     """Every kind of one repository into run_dir; the open alerts for the summary."""
     os.makedirs(run_dir, exist_ok=True)
     open_rows = []
     counts = {}
+    repo_advisories = []
     for kind, api, key in KINDS:
         kind_dir = os.path.join(run_dir, kind)
         os.makedirs(kind_dir, exist_ok=True)
@@ -299,6 +451,8 @@ def download_repo(org, repo, run_dir, state, include_secrets, log, builds=100):
             alerts = [redact_secrets(a) for a in alerts]
         private = kind == "secret-scanning" and include_secrets
         write_json(os.path.join(kind_dir, "alerts.json"), alerts, private)
+        if kind == "security-advisories":
+            repo_advisories = alerts
         n_open = 0
         for alert in alerts:
             ident = str(alert.get(key, "")).strip()
@@ -318,8 +472,10 @@ def download_repo(org, repo, run_dir, state, include_secrets, log, builds=100):
                         log(f"  code-scanning #{ident}: instances not available ({e.status or 'error'})")
         counts[kind] = f"{len(alerts)} ({n_open} open)"
         log(f"  {kind}: {len(alerts)} ({n_open} open)")
+    database_rows = download_advisory_database(run_dir, repo_advisories, log) if advisories else None
+    dependency_rows = download_dependency_advisories(org, repo, run_dir, log) if advisories else None
     build_rows = download_builds(org, repo, run_dir, builds, log) if builds else None
-    write_summary(org, repo, run_dir, counts, open_rows, build_rows)
+    write_summary(org, repo, run_dir, counts, open_rows, build_rows, database_rows, dependency_rows)
     return len(open_rows)
 
 
@@ -327,7 +483,7 @@ def md(text):
     return str(text).replace("|", "\\|").replace("\n", " ")
 
 
-def write_summary(org, repo, run_dir, counts, rows, builds=None):
+def write_summary(org, repo, run_dir, counts, rows, builds=None, database=None, dependencies=None):
     lines = [f"# {org}/{repo} - Security and quality", "",
              f"Downloaded {os.path.basename(run_dir)} with releases/sec/download-github-security.sh.", ""]
     for kind, _, _ in KINDS:
@@ -350,6 +506,29 @@ def write_summary(org, repo, run_dir, counts, rows, builds=None):
                 jobs = "; ".join(f"{j['name']}" + (f" ({', '.join(j['steps'])})" if j["steps"] else "") for j in b["jobs"])
                 logs = " ".join(j["log"] for j in b["jobs"] if j["log"])
                 lines.append(f"| {md(b['workflow'])} | {md(b['branch'])} | {md(b['conclusion'])} | {md(jobs)} | {md(logs)} | {b['url']} |")
+    if database is not None:
+        in_db = [r for r in database if r["database"] and not r["database"].startswith("not ")]
+        lines += ["", "## Advisory Database", "",
+                  f"{len(in_db)} of the {len(database)} GHSAs of this repository are in the GitHub Advisory Database "
+                  "(advisory-database/). The CVE column is the repository advisory's, or else the database's. "
+                  "\"not in the database\" is a draft, a closed report, one GitHub has not imported yet - or, as for "
+                  "every WeKan advisory, one whose package (wekan/wekan) is in no ecosystem the database covers, so "
+                  "GitHub never imports it.", ""]
+        if database:
+            lines += ["| GHSA | State | CVE | Advisory Database | Summary |", "| --- | --- | --- | --- | --- |"]
+            for r in sorted(database, key=lambda r: r["ghsa"]):
+                lines.append(f"| {r['ghsa']} | {md(r['state'])} | {md(r['cve'] or r['database_cve'])} | "
+                             f"{md(r['database'])} | {md(r['summary'])} |")
+    if dependencies is not None:
+        lines += ["", "## Dependency advisories", "",
+                  f"{len(dependencies)} reviewed Advisory Database advisories affect the package versions of the "
+                  "dependency graph (dependency-advisories/).", ""]
+        if dependencies:
+            order = {"critical": 0, "high": 1, "medium": 2, "moderate": 2, "low": 3}
+            lines += ["| GHSA | Severity | CVE | Packages | Summary | Link |", "| --- | --- | --- | --- | --- | --- |"]
+            for r in sorted(dependencies, key=lambda r: (order.get(r["severity"], 4), r["ghsa"])):
+                lines.append(f"| {r['ghsa']} | {md(r['severity'])} | {md(r['cve'])} | {md(r['packages'])} | "
+                             f"{md(r['summary'])} | {r['url']} |")
     with open(os.path.join(run_dir, "SUMMARY.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
 
@@ -381,6 +560,9 @@ def main(argv=None):
     p.add_argument("--builds", type=int, default=100, metavar="N",
                    help="look at the N newest GitHub Actions runs (at most 100) and keep the failed jobs' logs "
                         "of each workflow whose newest run failed; 0 = no builds (default 100)")
+    p.add_argument("--no-advisories", action="store_true",
+                   help="skip the Advisory Database entries, the dependency advisories and the organization's "
+                        "advisory list (downloaded by default)")
     p.add_argument("--include-secret-values", action="store_true",
                    help="keep the secrets secret scanning found (redacted by default)")
     args = p.parse_args(argv)
@@ -403,12 +585,14 @@ def main(argv=None):
         print(f"{args.org} has no repositories to download.", file=sys.stderr)
         return 1
 
+    if not args.no_advisories:
+        download_org_advisories(args.org, args.out, stamp, print)
     total_open = 0
     for repo in repos:
         run_dir = os.path.join(args.out, args.org, repo, stamp)
         print(f"{args.org}/{repo} -> {run_dir}")
         total_open += download_repo(args.org, repo, run_dir, args.state, args.include_secret_values, print,
-                                    max(0, args.builds))
+                                    max(0, args.builds), not args.no_advisories)
     print(f"Done: {len(repos)} repositories, {total_open} open alerts, under {os.path.join(args.out, args.org)}")
     return 0
 
