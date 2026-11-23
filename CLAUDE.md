@@ -767,6 +767,21 @@ directly after the merge.
   WeKan ® release` of `CHANGELOG-big.md`, linking the commit (its `Fixes #NNNN`
   closes the issue). A done item never stays in `TODO.md`.
   `tests/todoFile.test.cjs` checks the file.
+- **Every time `TODO.md` is updated, check EVERY item in it for being done
+  already** - not only the one that prompted the update. Releases are frequent,
+  so an item is often finished, and even released, while it still sits there.
+  Check from the source, not from the wording: the code, `git log`, the issue's
+  state, the Snap Store or the GitHub Release. Then:
+  - **done and NOT released yet** (its commit is not an ancestor of the newest
+    release's `Prepare v… release` commit: `git merge-base --is-ancestor
+    <commit> <prepare-commit>`) - move it: remove it from `TODO.md` and write
+    its entry in `# Upcoming WeKan ® release`, linking the commit;
+  - **done and ALREADY released** - just remove it from `TODO.md`. Its release
+    is a record, and an entry is never added to a released section afterwards;
+  - **partly done** - shorten it to what is left, and say what was released.
+  A security advisory is the same: once its fix is released and its GHSA
+  published, it is done, and nothing about it stays in WeKan's `TODO.md` - not
+  the advisory and not the wait for its CVE number.
 - FerretDB Upcoming structure — `### New Features 🎉`, `### Fixed 🐛`, `### Other Changes
   🤖`; entries end `... by @xet7. Thanks to xet7.`
 - Word-wrap both CHANGELOGs at 80 chars, but never break a long link across lines (a
