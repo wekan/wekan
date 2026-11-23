@@ -16,6 +16,7 @@ import { computeTopSort, normalizeMoveParams, parseCardDate, parseCardScalarFiel
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 const { stampCardListEntry } = require('/models/lib/cardListEntry');
+const { nullSafeTimeIncrement } = require('/models/lib/spentTime');
 const { removeClaimedCard, cascadeIfRemoved } = require('/models/lib/claimedCardRemoval');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
@@ -1086,6 +1087,14 @@ Cards.before.insert(async (userId, doc) => {
     const floor = counterFloor(doc.cardNumber, exists ? null : await topNumber());
     await counters.updateOne({ _id: counter }, { $max: { next_val: floor } }, { upsert: true });
   }
+});
+
+// #6940: time is added with $inc, which MongoDB and FerretDB refuse on a
+// stored null (imported cards had spentTime: null). The $inc of a field that
+// is not a number becomes the $set of the sum - models/lib/spentTime.js.
+// First, so every later hook sees the modifier that is written.
+Cards.before.update((userId, doc, fieldNames, modifier) => {
+  nullSafeTimeIncrement(doc, modifier);
 });
 
 // #6815 follow-up: the same check for a card that ENTERS a board's numbering by

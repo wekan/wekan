@@ -1,3 +1,4 @@
+import { storedNumber } from '/models/lib/spentTime';
 import { wekanCardFields } from '/models/lib/wekanCardFields';
 import { wekanRecordFields } from '/models/lib/wekanRecordFields';
 import { recordImportLosses } from '/models/lib/importedCardChildren';
@@ -459,7 +460,9 @@ export class WekanCreator {
         startAt: cardDates.startAt,
         dueAt: cardDates.dueAt,
         endAt: cardDates.endAt,
-        spentTime: card.spentTime || null,
+        // A Number, never null: time is added with $inc, which a stored null
+        // refuses (#6940, models/lib/spentTime.js).
+        spentTime: storedNumber(card.spentTime),
         // A repeating card repeats again after its import; from the import,
         // not from its old creation date, or every one would be copied at once.
         ...(['daily', 'weekly', 'monthly'].includes(card.recurrenceInterval)

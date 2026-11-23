@@ -1,3 +1,4 @@
+import { storedNumber } from '/models/lib/spentTime';
 import { membersMode, membersMappingFor } from '/models/lib/importMembersMode';
 import { Meteor } from 'meteor/meteor';
 import { importedTableRows } from './lib/importedTableRows';
@@ -252,7 +253,8 @@ export class CsvCreator {
         sort: card.row,
         title: card.title,
         userId: this._userIdOf(card.owner) || this._user(),
-        spentTime: card.spentTime === undefined ? null : card.spentTime,
+        // A Number, never null: time is added with $inc (#6940).
+        spentTime: storedNumber(card.spentTime),
         labelIds: card.labels.map(label => this.labelIds[`${label.name}\u0000${label.color}`]).filter(Boolean),
       };
       if (card.description !== undefined) cardToCreate.description = card.description;

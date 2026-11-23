@@ -63,6 +63,9 @@
 //                            reads; the schema and UI field is isOvertime ->
 //                            folded into isOvertime where that is unset, and
 //                            the stray field removed
+//   spenttime-null-repair    #6940: imported cards (and boards) stored
+//                            spentTime: null, which every $inc that logs time
+//                            refuses -> 0, the schema default
 //   card-children-boardid    #6793: comments/reactions/text notes/attachments
 //                            still carrying the board their card was moved
 //                            AWAY from -> the card's current board id
@@ -271,6 +274,9 @@ const SORTED_COLLECTIONS = ['cards', 'lists', 'swimlanes', 'checklists', 'checkl
 // Each step: { name, check(db,ctx) -> boolean (work exists),
 //              run(db,ctx) -> {fixed, unresolved} } — all idempotent, and all
 // using bounded/batched queries so big databases stay fast.
+
+const SPENT_TIME_COLLECTIONS = ['cards', 'boards'];
+const NULL_SPENT_TIME = { spentTime: { $type: 'null' } };
 
 const steps = [
   {
@@ -887,6 +893,32 @@ const steps = [
         fixed += (r && r.modifiedCount) || 0;
       }
       await cards.updateMany({ isOverTime: { $exists: true } }, { $unset: { isOverTime: '' } });
+      return { fixed, unresolved: 0 };
+    },
+  },
+
+  {
+    // spenttime-null-repair (#6940): the board import wrote
+    // `spentTime: card.spentTime || null`, so every imported card without
+    // logged time holds an explicit null - 429,620 of them on the server that
+    // reported it - and MongoDB and FerretDB refuse the $inc that logs time on
+    // a null. The import now writes 0, the Cards and Boards hooks turn an $inc
+    // of a stored null into a $set (models/lib/spentTime.js), and this resets
+    // what is already stored. $type 'null' matches an explicit null only, not
+    // a card that has no spentTime at all. One updateMany per collection.
+    name: 'spenttime-null-repair',
+    async check(db) {
+      for (const coll of SPENT_TIME_COLLECTIONS) {
+        if (await db.collection(coll).findOne(NULL_SPENT_TIME, { projection: { _id: 1 } })) return true;
+      }
+      return false;
+    },
+    async run(db) {
+      let fixed = 0;
+      for (const coll of SPENT_TIME_COLLECTIONS) {
+        const r = await db.collection(coll).updateMany(NULL_SPENT_TIME, { $set: { spentTime: 0 } });
+        fixed += (r && r.modifiedCount) || 0;
+      }
       return { fixed, unresolved: 0 };
     },
   },

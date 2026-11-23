@@ -40,6 +40,7 @@ import { publicErrorData } from '/server/lib/apiResponseHelpers';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { readableWithoutMembership, withoutMembershipSelectors, isOpenPermission } = require('/models/lib/boardPermission');
+const { nullSafeTimeIncrement } = require('/models/lib/spentTime');
 
 function getTranslatedString(key, fallback, options) {
   const i18n = getTAPi18n && getTAPi18n();
@@ -831,6 +832,12 @@ Boards.after.update(async (userId, doc, fieldNames, modifier) => {
     },
     { multi: true },
   );
+});
+
+// #6940: a linked board keeps the time of the cards that link to it, added
+// with $inc - which a stored null refuses. See models/lib/spentTime.js.
+Boards.before.update((userId, doc, fieldNames, modifier) => {
+  nullSafeTimeIncrement(doc, modifier);
 });
 
 Boards.before.update((userId, doc, fieldNames, modifier) => {

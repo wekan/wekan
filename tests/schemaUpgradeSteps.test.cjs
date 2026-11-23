@@ -74,7 +74,7 @@ function matchCond(value, cond) {
     if ('$type' in cond || '$gte' in cond || '$lte' in cond || '$lt' in cond) {
       let ok = true;
       if ('$lt' in cond) ok = ok && (typeof value === 'number' && value < cond.$lt);
-      if ('$type' in cond) ok = ok && (cond.$type === 'number' ? typeof value === 'number' : false);
+      if ('$type' in cond) ok = ok && (cond.$type === 'number' ? typeof value === 'number' : cond.$type === 'null' ? value === null : false);
       if ('$gte' in cond) ok = ok && (typeof value === 'number' && value >= cond.$gte);
       if ('$lte' in cond) ok = ok && (typeof value === 'number' && value <= cond.$lte);
       return ok;
@@ -977,6 +977,30 @@ await test('card-overtime-field: a REST isOverTime becomes isOvertime, the shown
   assert.deepStrictEqual(byId.ui, { _id: 'ui', isOvertime: true });
   assert.deepStrictEqual(byId.plain, { _id: 'plain' });
   assert.strictEqual(await overtimeStep.check(db), false, 'idempotent: nothing left after one pass');
+});
+
+// ── spenttime-null-repair (#6940) ────────────────────────────────────────────
+const spentTimeStep = steps.find(s => s.name === 'spenttime-null-repair');
+
+await test('spenttime-null-repair: an imported spentTime null becomes 0 on cards and boards, numbers untouched', async () => {
+  const db = liveSortDb({
+    cards: [{ _id: 'imported', spentTime: null }, { _id: 'logged', spentTime: 2.5 }, { _id: 'none' }],
+    boards: [{ _id: 'linked', spentTime: null }, { _id: 'b', spentTime: 1 }],
+  });
+  assert.strictEqual(await spentTimeStep.check(db), true);
+  const r = await spentTimeStep.run(db);
+  assert.strictEqual(r.fixed, 2);
+  const cards = Object.fromEntries(db._dump('cards').map(c => [c._id, c]));
+  assert.deepStrictEqual(cards.imported, { _id: 'imported', spentTime: 0 });
+  assert.deepStrictEqual(cards.logged, { _id: 'logged', spentTime: 2.5 });
+  assert.deepStrictEqual(cards.none, { _id: 'none' }, 'a card with no spentTime at all is not written');
+  assert.deepStrictEqual(db._dump('boards').find(b => b._id === 'linked'), { _id: 'linked', spentTime: 0 });
+  assert.strictEqual(await spentTimeStep.check(db), false, 'idempotent: nothing left after one pass');
+});
+
+await test('negative: spenttime-null-repair does not run when no spentTime is null', async () => {
+  const db = liveSortDb({ cards: [{ _id: 'logged', spentTime: 3 }, { _id: 'none' }], boards: [{ _id: 'b' }] });
+  assert.strictEqual(await spentTimeStep.check(db), false);
 });
 
 await test('negative: card-overtime-field does not run on cards without the stray field', async () => {
