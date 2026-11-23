@@ -1013,8 +1013,10 @@ have cost a released section its accuracy:
 - **Every new security issue updates the Hall of Fame, and every Hall of Fame
   update fills in the GHSA and CVE details that are missing.** Compare the
   published advisories (`releases/sec/download-github-security.sh` saves them,
-  or `https://api.github.com/repos/wekan/wekan/security-advisories?state=published`)
-  with `hall-of-fame/index.html`:
+  or `https://api.github.com/repos/wekan/wekan/security-advisories?state=published`
+  read to its LAST page - there are more than 100, so one `per_page=100`
+  request misses the oldest, which then look unpublished) with
+  `hall-of-fame/index.html`:
   - a **published GHSA with no row** gets one - the row, its own page,
     `Audit-Icons.md`, `Audit-Stars.md`, the page's exact URLs in wekan.fi's
     `releases/risk-baseline.json`, and a catalog key or a recorded reason in
