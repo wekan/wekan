@@ -398,16 +398,22 @@ point of the table:
   been failing — most recently on Caddy, which publishes no `linux_armhf` archive
   because its asset names are Go's. That is fixed for the next release. Nothing
   to do here but release.
-- **🚫 the release does not build it for that snap at all.** The `snap-variants`
+- **🚫 the release did not build it for that snap at all.** The `snap-variants`
   job that publishes `wekan-ondra` and `wekan-gantt-gpl` has FOUR matrix entries —
-  each variant on amd64 and on arm64, on GitHub runners. The exotic architectures
-  come from `snap-launchpad`, which builds only the `wekan` name. So no upload is
-  pending for these squares: they need the variant job extended to Launchpad
-  remote builds under the variant snap names first.
+  each variant on amd64 and on arm64, on GitHub runners — and the other
+  architectures came from `snap-launchpad`, which built only the `wekan` name.
+  **Fixed for the next release:** each `snap-launchpad` leg now also makes
+  `wekan-ondra` and `wekan-gantt-gpl` from the `wekan` snap it just built
+  (`releases/snap-rename.sh` changes `name:` and `title:`, nothing else), releases
+  them to all four channels and attaches them to the GitHub Release, so every 🚫
+  square above gets the release's version. **Push Snap to Store** and **Release
+  All Missing** make any variant a release lacks from that release's `wekan` snap
+  of the same architecture. See
+  [Snap-Ondra-Gantt.md](Snap-Ondra-Gantt.md#architectures-and-channels).
 - **⚠️ a fossil.** `wekan-ondra`'s armhf is stuck at version **0.22** on all four
-  channels — a revision the store kept from years ago. Promoting channels cannot
-  fix it: there is no newer revision to promote, and per the row above nothing
-  currently builds one.
+  channels — a revision the store kept from years ago. Promoting channels could
+  not fix it, because there was no newer revision to promote; the first release
+  with the change above uploads one and releases it over 0.22 on every channel.
 
 Publishing the **stable** channel is safe for these because the snap performs its
 **automatic migrations** on start — the schema upgrades and the one-time

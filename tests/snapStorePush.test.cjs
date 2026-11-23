@@ -243,6 +243,8 @@ test('a complete release lists every snap, and Release All Missing makes the mis
   for (const arch of ['amd64', 'arm64', 'armhf', 'ppc64el', 's390x', 'riscv64']) {
     assert.match(expected, new RegExp(`^snap wekan:${arch} wekan_13\\.21_${arch}\\.snap nosums$`, 'm'));
   }
+  // 13.21 is before v13.30, when snap-launchpad started making the other
+  // architectures' variants: tests/snapVariantsAllArches.test.cjs pins both.
   for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) for (const arch of ['amd64', 'arm64']) {
     assert.match(expected, new RegExp(`^variant ${name}:${arch} ${name}_13\\.21_${arch}\\.snap nosums$`, 'm'));
   }

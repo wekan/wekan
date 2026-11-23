@@ -76,7 +76,9 @@ run-name: Release v${{ inputs.new_version }}
 #              native runner. core24 allows stable and candidate (core26 does not).
 #              snap-variants publishes the SAME snap under the two older names
 #              people still have installed, wekan-ondra and wekan-gantt-gpl, on
-#              amd64 + arm64 - so one release publishes all THREE snaps. It needs
+#              amd64 + arm64, and each snap-launchpad leg makes them from its own
+#              wekan snap for ppc64el, s390x, riscv64 and armhf - so one release
+#              publishes all THREE snaps on every architecture. It needs
 #              SNAP_AUTH to carry the ACL for all three names.
 #              `snap set wekan database=ferretdb` switches the running backend to
 #              FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
@@ -5446,6 +5448,47 @@ jobs:
             bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}"
           else
             echo "No ${MATRIX_ARCH} snap to attach - the build produced none."
+          fi
+
+      # wekan-ondra and wekan-gantt-gpl on this architecture too. They ARE
+      # wekan under another snap name, so they are made from the snap this leg
+      # just built - releases/snap-rename.sh changes `name:` and `title:` in
+      # meta/snap.yaml and nothing else - instead of three Launchpad builds of
+      # one program. snap-variants builds them natively for amd64 and arm64 only,
+      # so until this step ppc64el, s390x, riscv64 and armhf users of the two
+      # older names were left on whatever the store last had. Each goes to every
+      # channel, like wekan, and onto the GitHub Release, so "Push Snap to
+      # Store" (snap-store below) finishes any the store keeps processing.
+      - name: Publish wekan-ondra and wekan-gantt-gpl ${{ matrix.arch }} from this snap (all channels)
+        if: ${{ always() && steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true' }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATRIX_ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          src="wekan_${VERSION}_${MATRIX_ARCH}.snap"
+          if [ ! -s "$src" ] || [ "$(head -c4 "$src")" != "hsqs" ]; then
+            echo "::error::No usable $src to make the ${MATRIX_ARCH} variant snaps from - see the build step above."
+            exit 1
+          fi
+          sudo apt-get install -y squashfs-tools >/dev/null
+          # Their own directory: the wekan steps above glob *_<arch>.snap here.
+          mkdir -p variant-snaps
+          failed=""
+          for pair in 'wekan-ondra:Wekan Ondra' 'wekan-gantt-gpl:Wekan Gantt GPL'; do
+            name="${pair%%:*}"
+            title="${pair#*:}"
+            out="$(bash releases/snap-rename.sh "$src" "$name" "$title" variant-snaps)"
+            echo "OK: $out"
+            # Attached first: the GitHub Release is what snap-store releases
+            # from, so a store refusal here is still finished there.
+            bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "$out" || failed="$failed attach:$name"
+            SNAP_UPLOAD_LABEL="$out" bash releases/snap-upload-retry.sh "$out" stable,candidate,beta,edge || failed="$failed store:$name"
+          done
+          if [ -n "$failed" ]; then
+            echo "::error::${MATRIX_ARCH} variant snaps not fully published:$failed. snap-store below retries the store from the GitHub Release; Release All Missing re-makes one that was not attached."
+            exit 1
           fi
 
       # Always, as the last step: the run summary then answers "what worked and what

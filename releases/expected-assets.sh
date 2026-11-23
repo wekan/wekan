@@ -84,14 +84,28 @@ echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"
 #   snap     wekan, from release-all.yml's snap-native (amd64, arm64) and
 #            snap-launchpad (the other four). Not built here: "Release all
 #            missing" retries those jobs of the release (its recover job).
-#   variant  wekan-ondra and wekan-gantt-gpl, from snap-variants (amd64,
-#            arm64). Buildable here: the release's own wekan snap renamed
-#            (releases/snap-rename.sh). The selector is <name>:<arch>.
-for arch in amd64 arm64 armhf ppc64el s390x riscv64; do
+#   variant  wekan-ondra and wekan-gantt-gpl on EVERY architecture wekan
+#            has: snap-variants builds amd64 and arm64, each snap-launchpad
+#            leg makes the other four from its wekan snap. Buildable here: the
+#            release's own wekan snap renamed (releases/snap-rename.sh). The
+#            selector is <name>:<arch>.
+#
+#            From v13.30, the first release whose snap-launchpad makes them.
+#            NOT for the releases before it: "Release all missing" would then
+#            upload, say, wekan-ondra 13.20 for armhf AFTER 13.29 - a newer
+#            revision NUMBER of an older version - and "Push Snap to Store"
+#            releases the highest revision of each architecture, so stable
+#            would go back to 13.20 there.
+snap_arches="amd64 arm64 armhf ppc64el s390x riscv64"
+variant_arches="amd64 arm64"
+if [ "$(printf '%s\n%s\n' 13.30 "$v" | sort -V | head -n1)" = 13.30 ]; then
+    variant_arches=$snap_arches
+fi
+for arch in $snap_arches; do
     echo "snap wekan:${arch} wekan_${v}_${arch}.snap nosums"
 done
 for name in wekan-ondra wekan-gantt-gpl; do
-    for arch in amd64 arm64; do
+    for arch in $variant_arches; do
         echo "variant ${name}:${arch} ${name}_${v}_${arch}.snap nosums"
     done
 done

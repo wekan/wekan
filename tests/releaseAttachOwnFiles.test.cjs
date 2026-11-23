@@ -110,7 +110,11 @@ test('the jobs that build release files are the ones that attach them', () => {
 
 test('the attach step is the LAST real step of the job that built the file', () => {
   for (const { file, job, list, idx } of attachJobs) {
-    const later = list.slice(idx + 1).filter(s => !REPORTING.test(s.name));
+    // A later step that itself attaches is another file of the SAME job being
+    // attached the moment it exists: snap-launchpad attaches its wekan snap,
+    // then makes wekan-ondra and wekan-gantt-gpl from that snap and attaches
+    // those. Each such step is held to the always() rule below as well.
+    const later = list.slice(idx + 1).filter(s => !REPORTING.test(s.name) && !uploads(s.code));
     assert.deepStrictEqual(later.map(s => s.name || s.text.split('\n')[0].trim()), [],
       `${path.basename(file)}:${job.name} does work after attaching its files; the attach must come `
       + 'right after the build and its checks, with only reporting steps after it');

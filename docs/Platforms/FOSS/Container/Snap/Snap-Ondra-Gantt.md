@@ -50,6 +50,28 @@ Snap publication remains independent. `SNAP_AUTH` must include permission for
 continues publishing the two compatibility snaps even though repository updates
 are no longer performed inside that matrix.
 
+## Architectures and channels
+
+`wekan-ondra` and `wekan-gantt-gpl` are published on every architecture the
+`wekan` snap has - amd64, arm64, armhf, ppc64el, s390x and riscv64 - and each
+revision is released to `stable`, `candidate`, `beta` and `edge`, exactly like
+`wekan`. Until this was changed they had amd64 and arm64 only, so people on the
+other architectures stayed on whatever the store last had.
+
+| Architectures | Made by (`release-all.yml`) |
+| --- | --- |
+| amd64, arm64 | `snap-variants`: built natively from the release tag, with only `name:` and `title:` of `snapcraft.yaml` changed |
+| armhf, ppc64el, s390x, riscv64 | each `snap-launchpad` leg: the `wekan` snap that leg just built on Launchpad, renamed with `releases/snap-rename.sh` (`name:` and `title:` in `meta/snap.yaml`, nothing else) |
+
+Renaming rather than building again is deliberate: a variant is the same program
+under another snap name, and a Launchpad build of an architecture with no
+native GitHub runner takes hours. Every variant snap is attached to the GitHub
+Release, and the last snap job, **Push Snap to Store** (`snap-store.yml`),
+releases what the release carries to all four channels. When the release has a
+`wekan` snap of an architecture but not the variant of it, that workflow and
+**Release All Missing** make the variant from it the same way, so a leg that
+failed half way is finished from the release itself.
+
 There is no Docker side to this automation. Existing historical variant image
 tags keep working, but they are not gaining versions; current container releases
 use the ordinary WeKan image. Preserving Compose names in the mirror only keeps

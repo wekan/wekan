@@ -143,27 +143,40 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p snaps
-          # A release cut before v13.22 has no wekan-ondra or wekan-gantt-gpl
-          # snap attached (snap-variants did not attach them). A variant IS
-          # wekan with another name and title, so it is made from the
-          # release's wekan snaps (releases/snap-rename.sh), as Release All
-          # Missing does.
-          if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap"; then
-            case "$SNAP" in
-              wekan-ondra) title='Wekan Ondra' ;;
-              wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
-              *) echo "::error::Release $TAG has no ${SNAP}_*.snap to push: its snap job did not attach one (snap-native and snap-launchpad attach wekan). Re-run that job of the release, or Release All Missing, then this workflow."; exit 1 ;;
-            esac
-            mkdir -p wekan-snaps
-            if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir wekan-snaps --pattern "wekan_*.snap"; then
-              echo "::error::Release $TAG has neither ${SNAP}_*.snap nor a wekan_*.snap to make it from. Re-run the release's snap jobs, or Release All Missing, then this workflow."
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap" || true
+          case "$SNAP" in
+            wekan-ondra) title='Wekan Ondra' ;;
+            wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
+            *) title='' ;;
+          esac
+          if [ -z "$title" ]; then
+            if ! ls snaps/"${SNAP}"_*.snap >/dev/null 2>&1; then
+              echo "::error::Release $TAG has no ${SNAP}_*.snap to push: its snap job did not attach one (snap-native and snap-launchpad attach wekan). Re-run that job of the release, or Release All Missing, then this workflow."
               exit 1
             fi
-            sudo apt-get install -y squashfs-tools >/dev/null
+          else
+            # A variant IS wekan with another name and title, so one the release
+            # lacks is made from the release's wekan snap of that architecture
+            # (releases/snap-rename.sh), as Release All Missing does. Per
+            # ARCHITECTURE, not only when the release has none at all: a release
+            # with the amd64 and arm64 variants snap-variants builds, but not the
+            # ppc64el, s390x, riscv64 or armhf ones, used to push those two and
+            # leave every other architecture of the variant behind.
+            mkdir -p wekan-snaps
+            if ! gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir wekan-snaps --pattern "wekan_*.snap"; then
+              if ! ls snaps/"${SNAP}"_*.snap >/dev/null 2>&1; then
+                echo "::error::Release $TAG has neither ${SNAP}_*.snap nor a wekan_*.snap to make it from. Re-run the release's snap jobs, or Release All Missing, then this workflow."
+                exit 1
+              fi
+            fi
             for f in wekan-snaps/wekan_*.snap; do
+              [ -e "$f" ] || continue
+              rest="$(basename "$f")"; rest="${rest#wekan_}"
+              [ -e "snaps/${SNAP}_${rest}" ] && continue
+              command -v unsquashfs >/dev/null 2>&1 || sudo apt-get install -y squashfs-tools >/dev/null
               bash releases/snap-rename.sh "$f" "$SNAP" "$title" snaps
+              echo "::notice::$TAG had no ${SNAP}_${rest}; made it from the release's wekan snap."
             done
-            echo "::notice::$TAG had no ${SNAP} snap; made it from the release's wekan snaps."
           fi
           ls -l snaps
       - name: Push ${{ matrix.snap }} to the Snap Store, releasing to ${{ needs.plan.outputs.channels }}
