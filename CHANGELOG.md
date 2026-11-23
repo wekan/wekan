@@ -8,7 +8,8 @@ make changes there.
 # Upcoming WeKan ® release
 
 The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
-every architecture the wekan snap has, on all four channels. **Time tracking**
+every architecture the wekan snap has, on all four channels, and each **Snap
+Store page** shows what is new in the newest release. **Time tracking**
 works again on imported cards whose spent time was stored empty, and the
 **Admin Panel recovery list** no longer fills up with old cancelled
 notifications.

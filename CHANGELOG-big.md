@@ -98,14 +98,16 @@ Which databases WeKan supports
 # Upcoming WeKan ® release
 
 **In short:** The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
-every architecture the wekan snap has, on all four channels. **Time tracking**
+every architecture the wekan snap has, on all four channels, and each **Snap
+Store page** shows what is new in the newest release. **Time tracking**
 works again on imported cards whose spent time was stored empty, and the
 **Admin Panel recovery list** no longer fills up with old cancelled
 notifications.
 
 This release adds the following new features:
 
-**Snap** - the two older snap names on every architecture.
+**Snap** - the two older snap names on every architecture, and what is new on
+the store pages.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d041debbe98895e074d6c2889c96f3317188185d">wekan-ondra and wekan-gantt-gpl on every architecture wekan has, on all channels</a>. Thanks to xet7.</summary>
@@ -123,6 +125,23 @@ one would upload an older version as the highest revision and take stable
 back to it. i386 stays without a snap: only core18 still has an i386 base.
 `tests/snapVariantsAllArches.test.cjs` runs the new download step against a
 fake release.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fada1fac12f369f49c0eb92ab1c0958f89163e70">The Snap Store pages show what is new in the newest release</a>. Thanks to xet7.</summary>
+
+The Snap Store has no API for a revision's own changelog - the dashboard's "Add
+changelog" is a web form only. So Push Snap to Store puts "What's new in WeKan
+v<version>", the release's In short paragraph linking its changes at the tag,
+at the top of the wekan, wekan-ondra and wekan-gantt-gpl listings with
+`snapcraft upload-metadata` and the existing `SNAP_AUTH`. The page text is kept
+in `releases/snap-listing/<snap>.md`; edit it there. wekan's feature list alone
+is 4047 of the 4096 bytes a description may have, so it is cut at whole lines
+and ends with a link to the whole file. The title, summary, license and icon go
+back as the store has them. Only for the newest release, and a failure does not
+fail the push. `tests/snapListingWhatsNew.test.cjs` runs the update with fake
+tools.
 
 </details>
 
