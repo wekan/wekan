@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**Time tracking** works again on imported cards whose spent time
+was stored empty, and the **Admin Panel recovery list** no longer fills up with
+old cancelled notifications.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.29 2026-11-23 WeKan ® release
 
 **EVERYTHING** tests now run one stage and one worker at a time by

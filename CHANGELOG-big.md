@@ -95,6 +95,54 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Time tracking** works again on imported cards whose spent time
+was stored empty, and the **Admin Panel recovery list** no longer fills up with
+old cancelled notifications.
+
+This release fixes the following bugs:
+
+**Time tracking** - logging time on imported cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c54e70f777d06cb6b44d1083382b933e36bac67b">Time can be logged on imported cards whose spent time was stored as null</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The board import stored `spentTime: card.spentTime || null`, and MongoDB and
+FerretDB both refuse the `$inc` that logs time on a null, so every such card
+failed with "Cannot apply $inc to a value of non-numeric type" - 429,620 cards
+on the server that reported it ([#6940](https://github.com/wekan/wekan/issues/6940)).
+The WeKan and CSV importers now store a Number. The Cards and Boards
+`before.update` hooks turn an `$inc` of a stored non-number into the `$set` of
+the sum (`models/lib/spentTime.js`) - not the update pipeline the report
+suggested, which FerretDB v1, Minimongo and allow/deny refuse. The startup step
+`spenttime-null-repair` resets the nulls already stored to 0. Checked against
+FerretDB: the bare `$inc` and the pipeline are both refused, the hook's `$set`
+and the repair work. `tests/spentTimeNullSafe.test.cjs` pins the helper, the
+importers and that nothing in the tree writes a null spentTime again.
+
+</details>
+
+**The Admin Panel** - its activity-notification recovery list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2602fcd8670379343b92f1d2cd768cd45672b59">The recovery list shows cancelled notifications only while they are recent</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+A cancelled activity notification is a permanent receipt, kept so a delayed
+writer cannot recreate its payload, and the recovery report listed every one
+ever written. With expired notifications cancelled automatically, the list grew
+into dozens of pages of old rows that hid the recoverable ones
+([#6941](https://github.com/wekan/wekan/issues/6941)). Pending notifications are
+always listed; cancelled receipts only while their activity is newer than
+`ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS` (default 14, `0` lists none).
+Only the list is shortened, no receipt is removed.
+`tests/activityNotificationRecoveryRetention.test.cjs` pins the selector and
+that the report stays read-only; the integration suite runs it on a database.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.29 2026-11-23 WeKan ® release
 
 **In short:** **EVERYTHING** tests now run one stage and one worker at a time by
