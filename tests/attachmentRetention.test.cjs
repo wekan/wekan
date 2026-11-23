@@ -166,4 +166,34 @@ test('every retention setting is in Admin Panel / Attachments / Retention', () =
   assert.match(read('models/settings.js'), /attachmentRetention: \{ type: Object, optional: true, blackbox: true \}/);
 });
 
+// Admin Panel / Attachments / Retention: the form's "At most per run" accepted
+// up to 1000000 while the retention clamps to MAX_MAX_PER_RUN (100000), so a
+// larger saved value was silently cut. The form's limits are the retention's own.
+test('the form accepts exactly what the retention runs with', () => {
+  const catalog = require('../models/lib/authConfigCatalog');
+  const found = [];
+  const walk = o => {
+    if (Array.isArray(o)) o.forEach(walk);
+    else if (o && typeof o === 'object') {
+      if (o.envVar === 'ATTACHMENTS_RETENTION_MAX_PER_RUN') found.push(o);
+      Object.values(o).forEach(walk);
+    }
+  };
+  walk(catalog);
+  assert.strictEqual(found.length, 1);
+  const [field] = found;
+  assert.strictEqual(field.max, R.MAX_MAX_PER_RUN);
+  assert.strictEqual(field.defaultValue, R.DEFAULT_MAX_PER_RUN);
+  // The largest number the form takes is the number the retention uses...
+  assert.strictEqual(R.normalizeMaxPerRun(String(field.max)), field.max);
+  // ...and the one after it is the first the retention would cut.
+  assert.strictEqual(R.normalizeMaxPerRun(String(field.max + 1)), field.max);
+});
+
+test('negative: no number literal stands in for the retention\'s limits in the catalog', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'models/lib/authConfigCatalog.js'), 'utf8');
+  const line = src.split('\n').find(l => l.includes("'ATTACHMENTS_RETENTION_MAX_PER_RUN'"));
+  assert.match(line, /defaultValue: DEFAULT_MAX_PER_RUN, max: MAX_MAX_PER_RUN/);
+});
+
 console.log(`\n${passed} tests passed`);

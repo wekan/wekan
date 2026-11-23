@@ -142,7 +142,10 @@ See [Problems / Migrations](../Problems/Migrations.md).
   - The mode is `uploaded` unless `card-inactive` is chosen.
   - *Dry run* (`ATTACHMENTS_RETENTION_DRY_RUN`) is on for `true`, `1`, `yes`
     or `on`.
-  - *At most per run* (`ATTACHMENTS_RETENTION_MAX_PER_RUN`) defaults to 1000.
+  - *At most per run* (`ATTACHMENTS_RETENTION_MAX_PER_RUN`) defaults to 1000,
+    at most 100000 - the form and the retention take the same limits from
+    `models/lib/attachmentRetention.js` (the form used to accept 1000000 and
+    the retention silently cut it to 100000).
     The form accepts up to 1,000,000, but the job itself caps the value at
     100,000.
 - **Backup** - the schedule, overdue rule, history and `BACKUP_KEEP_DAYS` are

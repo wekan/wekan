@@ -26,6 +26,7 @@
 
 const { redactCredentialsInUrl } = require('./configResolver');
 const { OAUTH_PROVIDERS } = require('./oauthProviders');
+const { DEFAULT_MAX_PER_RUN, MAX_MAX_PER_RUN } = require('./attachmentRetention');
 
 // What DEFAULT_AUTHENTICATION_METHOD may name: the keys the login form uses
 // (server/models/settings.js getAuthenticationsEnabled), password included.
@@ -221,7 +222,10 @@ const SECTIONS = {
         labelKey: 'attachment-retention-purge', helpKey: 'attachment-retention-purge-help' }],
       ['dryRun', 'ATTACHMENTS_RETENTION_DRY_RUN', 'boolean', { defaultValue: false,
         labelKey: 'attachment-retention-dry-run' }],
-      ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: 1000, max: 1000000,
+      // The retention's own limits (models/lib/attachmentRetention.js). The form
+      // accepted 1000000 while the retention clamps to MAX_MAX_PER_RUN, so a
+      // larger saved value was silently cut to 100000.
+      ['maxPerRun', 'ATTACHMENTS_RETENTION_MAX_PER_RUN', 'number', { defaultValue: DEFAULT_MAX_PER_RUN, max: MAX_MAX_PER_RUN,
         labelKey: 'attachment-retention-max-per-run' }],
     ],
   },

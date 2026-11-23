@@ -161,6 +161,7 @@ module.exports = {
   MODE_UPLOADED,
   MODE_CARD_INACTIVE,
   DEFAULT_MAX_PER_RUN,
+  MAX_MAX_PER_RUN,
   normalizeRetentionDays,
   normalizeRetentionMode,
   normalizeBoolean,
