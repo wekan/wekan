@@ -105,6 +105,7 @@ Recovery report.
 | Receipt compaction | detailed terminal receipt metadata after 30 days by default. |
 | Sync run reports | reports older than 30 days are excluded. |
 | Activity recovery scan | at most 100 intent IDs per pass, every `ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS`. |
+| Cancelled activity notifications listed | while their activity is newer than `ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS` days, default 14; `0` lists none, any whole number up to 36500 is accepted. Pending ones are always listed. The receipts stay in the database ([server/lib/activityNotificationReport.js](../../../../server/lib/activityNotificationReport.js)). |
 | Stuck List Sync operations / interrupted imports | only the oldest 50 are listed; discard or keep some and refresh to see more. |
 | List Sync replay | the `wekan-list-sync-replay` job runs every minute. |
 | Import considered stopped | its writer silent for longer than `WEKAN_IMPORT_RUN_STALE_MS` (default 10 minutes, at least 60 000 ms) ([server/importRuns.js](../../../../server/importRuns.js)). |
@@ -422,6 +423,16 @@ The scan processes at most 100 IDs per pass and advances past failures. It uses
 needed. Once the intent is compacted, its terminal state leaves the pending
 scan. The report searches both pending and compact cancelled metadata and
 keeps cancelled rows visible without fetching their old activity or plan.
+
+A pending notification is always listed, because it can still be delivered. A
+cancelled receipt is listed only while its activity is newer than
+`ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS` (14 days by default; `0` lists
+none). Before this, every receipt ever written stayed on the list, and with
+expired notifications cancelled automatically the list grew into dozens of
+pages of old rows that hid the ones still recoverable
+([#6941](https://github.com/wekan/wekan/issues/6941)). Only the list is
+shortened: the receipt itself is never deleted, so a delayed writer still
+cannot recreate a cancelled payload.
 
 Capture and completion reject compact cancellation receipts instead of
 recreating a payload or declaring delivery successful. Missing or malformed

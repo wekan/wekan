@@ -87,7 +87,9 @@ test('compact receipts remain searchable and never authorize capture or completi
   const { activityNotificationReport: report } = require('../../server/lib/activityNotificationReport');
   const { readActivityNotificationIntentState, completeActivityNotificationIntent } = require('../../server/lib/activityNotificationIntent');
   const noRead = { findOne: () => assert.fail('compact report must not read original content') };
-  const result = await report({ ...f, activities: noRead, plans: noRead }, { search: 'event', page: 1 });
+  // The fixture's activity is from 1970: list every cancelled receipt (#6941).
+  const env = { ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS: '36500' };
+  const result = await report({ ...f, env, activities: noRead, plans: noRead }, { search: 'event', page: 1 });
   assert.equal(result.total, 1);
   assert.equal(result.rows[0].status, 'cancelled');
   assert.equal(result.rows[0].activityId, 'event');
@@ -98,8 +100,25 @@ test('compact receipts remain searchable and never authorize capture or completi
   await assert.rejects(ensureActivityNotificationIntent({ ...f, dispatchUserId: null }), /notification-cancelled/);
   await assert.rejects(completeActivityNotificationIntent({ ...f, dispatchUserId: null }), /notification-cancelled/);
   await f.controls.deleteOne({ _id: f.intentId });
-  const invalid = (await report({ ...f, activities: noRead, plans: noRead })).rows[0];
+  const invalid = (await report({ ...f, env, activities: noRead, plans: noRead })).rows[0];
   assert.equal(invalid.status, 'invalid');
   assert.equal(invalid.canRetry, false);
   assert.equal(invalid.canControl, false);
+});
+
+// #6941: the receipt stays in the database for good, but the recovery list
+// shows it only while it is recent - a month-old receipt no longer fills pages.
+test('an old cancelled receipt is kept but leaves the recovery list; a recent one is listed', { skip: !uri }, async t => {
+  const f = await fixture(t); await f.cancel(); await compact(f);
+  const { activityNotificationReport: report } = require('../../server/lib/activityNotificationReport');
+  const noRead = { findOne: () => assert.fail('compact report must not read original content') };
+  const old = await report({ ...f, env: {}, activities: noRead, plans: noRead });
+  assert.deepEqual(old, { total: 0, page: 1, rows: [] }, 'a 1970 receipt is past the default 14 days');
+  assert.equal((await f.intents.findOne({ _id: f.intentId })).state, 'cancelled', 'the tombstone itself is not removed');
+  const atThen = () => new Date(Date.UTC(1970, 0, 5));
+  const recent = await report({ ...f, now: atThen, env: {}, activities: noRead, plans: noRead });
+  assert.equal(recent.total, 1);
+  assert.equal(recent.rows[0].status, 'cancelled');
+  const none = await report({ ...f, now: atThen, env: { ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS: '0' }, activities: noRead, plans: noRead });
+  assert.equal(none.total, 0, 'negative: 0 lists no cancelled receipts');
 });

@@ -7,17 +7,51 @@ const text = value => typeof value === 'string' && value.length > 0 && value.len
 const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
 const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const date = value => value instanceof Date && Number.isFinite(+value) ? value : null;
+const SEARCH_KEYS = ['_id', 'activity._id', 'activity.boardId', 'activity.cardId', 'activityId', 'boardId', 'cardId'];
+const DAY_MS = 24 * 60 * 60 * 1000;
+const DEFAULT_CANCELLED_DAYS = 14;
+const MAX_CANCELLED_DAYS = 36500;
+
+// #6941: how long a cancelled receipt stays on the recovery list.
+//
+// A cancelled notification is a TERMINAL receipt and is never deleted: it is
+// the tombstone that stops a delayed first writer from recreating the payload
+// (activityNotificationCancellationRetention.js). The report listed every
+// pending AND cancelled intent with no time bound, and since #6768 cancels
+// every pending notification older than ACTIVITY_NOTIFICATION_MAX_AGE_DAYS,
+// the list grew by itself, into dozens of pages of month-old receipts nobody
+// can act on, pushing the recoverable ones off the first pages. So a pending
+// intent - which may still be delivered - is always listed, and a cancelled
+// receipt only while its activity is newer than
+// ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS (14; 0 lists none). This only
+// narrows what is READ: no receipt is removed, so the guarantees stay.
+function recoveryCancelledDays(env = process.env) {
+  const raw = env && env.ACTIVITY_NOTIFICATION_RECOVERY_CANCELLED_DAYS;
+  if (raw === undefined || raw === null || String(raw).trim() === '') return DEFAULT_CANCELLED_DAYS;
+  const n = Number(raw);
+  return Number.isInteger(n) && n >= 0 && n <= MAX_CANCELLED_DAYS ? n : DEFAULT_CANCELLED_DAYS;
+}
+
+// The report's selector. cancelledCutoff is the oldest activity time a
+// cancelled receipt may have to be listed, or null to list no cancelled ones.
+function recoveryReportSelector(pattern, cancelledCutoff) {
+  const states = cancelledCutoff === null
+    ? { state: 'pending' }
+    : { $or: [{ state: 'pending' }, { state: 'cancelled', createdAt: { $gte: cancelledCutoff } }] };
+  if (!pattern) return states;
+  return { $and: [states, { $or: SEARCH_KEYS.map(key => ({ [key]: pattern })) }] };
+}
 
 // Ten summaries only. Rendered email payloads and saved activity snapshots are
 // not selected. Current activity content is hashed on the server to detect
 // changed input; neither that content nor recipient/mailbox data is returned.
-async function activityNotificationReport({ intents, activities, plans, leases, controls, now = () => new Date() }, { search = '', page = 1 } = {}) {
+async function activityNotificationReport({ intents, activities, plans, leases, controls, now = () => new Date(), env = process.env }, { search = '', page = 1 } = {}) {
   if (typeof search !== 'string' || search.length > 100 || !Number.isSafeInteger(page) || page < 1 || page > 100000) {
     throw new Error('invalid-activity-notification-report');
   }
   const pattern = search.trim() ? new RegExp(escape(search.trim()), 'i') : null;
-  const query = { state: { $in: ['pending', 'cancelled'] }, ...(pattern ? { $or: ['_id', 'activity._id', 'activity.boardId', 'activity.cardId', 'activityId', 'boardId', 'cardId']
-    .map(key => ({ [key]: pattern })) } : {}) };
+  const days = recoveryCancelledDays(env);
+  const query = recoveryReportSelector(pattern, days === 0 ? null : new Date(now().getTime() - days * DAY_MS));
   const total = await intents.countDocuments(query);
   page = Math.min(page, Math.max(1, Math.ceil(total / 10)));
   const pending = await intents.find(query, { projection: { _id: 1, version: 1, state: 1, activityHash: 1,
@@ -84,4 +118,4 @@ async function activityNotificationReport({ intents, activities, plans, leases, 
   }
   return { total, page, rows };
 }
-module.exports = { activityNotificationReport };
+module.exports = { activityNotificationReport, recoveryReportSelector, recoveryCancelledDays, DEFAULT_CANCELLED_DAYS };
