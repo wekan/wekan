@@ -95,6 +95,40 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **EVERYTHING** tests now run one stage and one worker at a time by
+default, so a full test run no longer runs the machine out of RAM; the
+two-worker mode stays available when asked for.
+
+This release has the following developer-facing changes:
+
+**Running all tests** - EVERYTHING one by one by default, two workers only when
+asked for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4dde05662ff82a5d2f959feeaa29f0d87ec67660">The Tests menu has EVERYTHING one by one as option 1 and EVERYTHING two-worker as option 2</a>. Thanks to xet7.</summary>
+
+`build.sh` and `build.bat` list the one-by-one run first, so the option picked
+most often is the one that does not exhaust memory. The guards that pin the
+menu's order, `tests/buildScriptParity.test.cjs` and
+`tests/dbConformanceWiring.test.cjs`, follow, with the reason.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5471f416e1fa539f872a53ebfa2a54df646dd549">A bare --run-everything runs one stage and one worker at a time</a>. Thanks to xet7.</summary>
+
+Two Playwright workers per browser ran the machine out of RAM, so a bare
+`./build.sh --run-everything`, `build.bat --run-everything` and
+`releases/run-everything.sh` now default to one by one. The two-worker mode is
+still there when it is named. `tests/buildScriptParity.test.cjs` pins the
+default in all three.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.28 2026-11-23 WeKan ® release
 
 **In short:** A board can be a **Shop** with invoices and order email, the

@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+**EVERYTHING** tests now run one stage and one worker at a time by
+default, so a full test run no longer runs the machine out of RAM; the
+two-worker mode stays available when asked for.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.28 2026-11-23 WeKan ® release
 
 A board can be a **Shop** with invoices and order email, the
