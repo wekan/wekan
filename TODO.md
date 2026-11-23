@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards WP-4 onwards; accessibility; the docs folders | Review what Dependabot raises in the repositories it was turned on for; the dev-only glob 13 |
+| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards WP-4 onwards; accessibility; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -88,15 +88,28 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
 ## For the maintainer: needs a person, not code
 
-- Review the Dependabot alerts and pull requests in the repositories it was
-  turned on for on 2026-11-24. The security download of that night
-  (`releases/sec/`, dependency-advisories/) found reviewed advisories against
-  the versions they use: minio-metadata 6 critical and 8 high (path-to-regexp,
-  body-parser, pbkdf2, sha.js), hx 1 critical and 23 high (minimatch,
-  brace-expansion, tar-fs), ferretdb-test 1 critical and 22 high (minimatch,
-  brace-expansion, fast-xml-parser, nodemailer), trello-attachments-downloader
-  2 high (pyinstaller); and nekan 1 high (zod below 4.6.6,
-  GHSA-mrhx-c7xc-m3w5), which its Dependabot did not list as open.
+- Dependabot alerts to work through, now that it is on (security download of
+  2026-11-24 00:30): ferretdb-test 93 (1 critical, 30 high), hx 69 (1
+  critical, 23 high), minio-metadata 39 (6 critical, 8 high) and
+  trello-attachments-downloader 6 (2 high, pyinstaller). nekan has 1 high its
+  Dependabot does not list as open (zod below 4.6.6, GHSA-mrhx-c7xc-m3w5).
+- ferretdb-test: Dependabot's npm update in `/node-deno-bun` fails (2026-11-23
+  22:22): the patched decode-uri-component would take minio from 7.1.3 back to
+  7.0.26, and uuid cannot be raised while its dependents still ask for a
+  vulnerable one. Raise minio and the packages that pin uuid by hand.
+- hx: 4 high CodeQL alerts, all in copied or generated files under
+  `prototypes/` - js/xss and js/incomplete-url-scheme-check in a copy of
+  `htmx.js` (fullmoon), and two js/redos in the built `ui/html5/build/html5/
+  Main.js`. Update the htmx copy and rebuild Main.js rather than editing them.
+- trello-attachments-downloader: 2 medium CodeQL alerts,
+  actions/missing-workflow-permissions in `.github/workflows/build.yml` (lines
+  11 and 33); a `permissions: contents: read` block fixes both.
+- Dependabot is still off (403) in 16 repositories: migratemongo,
+  minio-express, waxe, we, webhook, wedos, wekan-aws, wekan-gantt-gpl,
+  wekan-ondra, wekan-openstore, wekan-openstore2, wekan-prometheus-exporter,
+  wekan-sandstorm-meteor3, wekan-test-alpha, wekanstudio and wodello. Of those,
+  we and wekan-sandstorm-meteor3 have a medium Babel advisory
+  (GHSA-968p-4wvh-cqc8, @babel/helpers and @babel/runtime below 7.26.10).
 - caddy-ferretdb-plugin and caddy-wekan-plugin: Dependabot's
   go.opentelemetry.io/otel/sdk/log update fails on every scheduled run, as it
   cannot resolve their local `replace` (the version is already on main); an
