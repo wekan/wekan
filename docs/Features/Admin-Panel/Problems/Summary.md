@@ -62,7 +62,7 @@ not `isAdmin`. Organization administrators do not see it.
 | Number | How it is computed |
 | --- | --- |
 | Reload | the pane reloads every 30 seconds (`Meteor.setInterval(..., 30000)` in [client/components/settings/problemsSummary.js](../../../../client/components/settings/problemsSummary.js)). |
-| Broken cards | `Cards.find(brokenCardsSelector()).countAsync()`: cards whose `boardId`, `swimlaneId` or `listId` is null, `''` or missing ([models/lib/brokenCardsRepair.js](../../../../models/lib/brokenCardsRepair.js)). The detail line also mentions an invalid type, but the count does not test the type. |
+| Broken cards | `Cards.find(brokenCardsSelector()).countAsync()`: cards whose `boardId`, `swimlaneId` or `listId` is null, `''` or missing, or whose `type` is not one of the four card types WeKan shows ([models/lib/brokenCardsRepair.js](../../../../models/lib/brokenCardsRepair.js), the same definition the Broken cards pane lists with). |
 | Repair broken cards result | how many cards were placed on their board's first usable list / swimlane, and how many cannot be placed (no board id at all; never deleted). |
 | Lists missing their swimlane | lists with no `swimlaneId` whose creation swimlane is recorded in the list's position history and still exists, and whose cards are not in another swimlane ([server/lib/restoreListSwimlanes.js](../../../../server/lib/restoreListSwimlanes.js), [models/lib/listSwimlaneRestore.js](../../../../models/lib/listSwimlaneRestore.js)). Restore reports how many were restored and how many remain. |
 | Board data-repair | `boardsDone/boardsTotal` boards ([Repairs.md](Repairs.md)). |

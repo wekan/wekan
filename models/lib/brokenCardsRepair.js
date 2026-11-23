@@ -22,6 +22,14 @@
 
 const MISSING = { $in: [null, ''] };
 
+// The card types WeKan shows - CARD_TYPES of config/const.js, which this pure
+// module does not import; tests/brokenCardTypes.test.cjs keeps the two equal.
+// A card of any other type (or none) is shown nowhere, so it is broken too,
+// and the repair gives it the plain card type, the schema's default.
+const CARD_TYPES = Object.freeze(['cardType-card', 'cardType-linkedCard', 'cardType-linkedBoard', 'template-card']);
+const DEFAULT_CARD_TYPE = 'cardType-card';
+const UNKNOWN_TYPE = { type: { $nin: CARD_TYPES } };
+
 // Mongo selector matching every broken card. Used by the count AND the repair.
 function brokenCardsSelector() {
   return {
@@ -29,16 +37,17 @@ function brokenCardsSelector() {
       { boardId: MISSING },
       { swimlaneId: MISSING },
       { listId: MISSING },
+      UNKNOWN_TYPE,
     ],
   };
 }
 
-// Selector for the repairable subset: still has a board, missing a list and/or
-// a swimlane.
+// Selector for the repairable subset: still has a board, missing a list
+// and/or a swimlane, or of a type WeKan does not show.
 function repairableCardsSelector() {
   return {
     boardId: { $nin: [null, ''] },
-    $or: [{ listId: MISSING }, { swimlaneId: MISSING }],
+    $or: [{ listId: MISSING }, { swimlaneId: MISSING }, UNKNOWN_TYPE],
   };
 }
 
@@ -54,17 +63,19 @@ function isMissing(value) {
 // True when this card is counted as broken.
 function isBrokenCard(card) {
   if (!card) return false;
-  return isMissing(card.boardId) || isMissing(card.swimlaneId) || isMissing(card.listId);
+  return isMissing(card.boardId) || isMissing(card.swimlaneId) || isMissing(card.listId)
+    || !CARD_TYPES.includes(card.type);
 }
 
 // Plan the repair of a set of cards (plain objects, no DB access).
 // Returns:
-//   { needsList: [ids], needsSwimlane: [ids], unfixable: [ids], boardIds: [ids] }
+//   { needsList: [ids], needsSwimlane: [ids], needsType: [ids], unfixable: [ids], boardIds: [ids] }
 // `boardIds` is every board a repair will need a default list/swimlane for, so
 // the caller can resolve each board once instead of once per card.
 function planBrokenCardRepair(cards) {
   const needsList = [];
   const needsSwimlane = [];
+  const needsType = [];
   const unfixable = [];
   const boardIds = new Set();
 
@@ -85,12 +96,16 @@ function planBrokenCardRepair(cards) {
       touched = true;
     }
     if (touched) boardIds.add(card.boardId);
+    // The type needs no board lookup: the plain card type is always right.
+    if (!CARD_TYPES.includes(card.type)) needsType.push(card._id);
   }
 
-  return { needsList, needsSwimlane, unfixable, boardIds: [...boardIds] };
+  return { needsList, needsSwimlane, needsType, unfixable, boardIds: [...boardIds] };
 }
 
 module.exports = {
+  CARD_TYPES,
+  DEFAULT_CARD_TYPE,
   brokenCardsSelector,
   repairableCardsSelector,
   unfixableCardsSelector,

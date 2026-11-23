@@ -937,9 +937,11 @@ test('Broken cards is a report like the ones beside it', () => {
   assert.ok(/getBrokenCardsReportCount\(searchTerm/.test(pub), 'and a count method takes the search term');
   // What "broken" means is ONE definition, shared with the standalone page - which
   // still runs on the global search and must keep its own publication.
-  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(pub), 'one selector');
-  assert.strictEqual((pub.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
-    'defined once, not copied into the report');
+  assert.ok(/const BROKEN_CARDS_SELECTOR = brokenCardsSelector\(\);/.test(pub), 'one selector, from models/lib/brokenCardsRepair.js');
+  // Defined once - in that module, which the Summary's count and repair use too -
+  // and not copied into the report.
+  assert.strictEqual((pub.match(/\$nin: CARD_TYPES/g) || []).length, 0, 'not copied into the report');
+  assert.strictEqual((read('models/lib/brokenCardsRepair.js').match(/\$nin: CARD_TYPES/g) || []).length, 1, 'defined once');
   assert.ok(/publish\('brokenCards', async function\(sessionId\)/.test(pub),
     'the standalone /broken-cards page keeps its publication');
 });

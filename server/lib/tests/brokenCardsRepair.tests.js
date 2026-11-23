@@ -6,6 +6,7 @@ import {
   unfixableCardsSelector,
   isBrokenCard,
   planBrokenCardRepair,
+  CARD_TYPES,
 } from '/models/lib/brokenCardsRepair';
 
 // Unit tests for the shared "broken card" rule behind Admin Panel → Problems →
@@ -17,14 +18,15 @@ import {
 // never reach zero no matter how often a repair ran.
 describe('brokenCardsRepair', function() {
   describe('brokenCardsSelector', function() {
-    it('matches a missing board, swimlane or list', function() {
+    it('matches a missing board, swimlane or list, or a type WeKan does not show', function() {
       const sel = brokenCardsSelector();
       const fields = sel.$or.map(clause => Object.keys(clause)[0]);
-      expect(fields).to.have.members(['boardId', 'swimlaneId', 'listId']);
-      sel.$or.forEach(clause => {
+      expect(fields).to.have.members(['boardId', 'swimlaneId', 'listId', 'type']);
+      sel.$or.filter(clause => !('type' in clause)).forEach(clause => {
         // null AND empty string both count as missing.
         expect(Object.values(clause)[0]).to.deep.equal({ $in: [null, ''] });
       });
+      expect(sel.$or.find(clause => 'type' in clause)).to.deep.equal({ type: { $nin: CARD_TYPES } });
     });
   });
 
@@ -38,7 +40,12 @@ describe('brokenCardsRepair', function() {
     });
 
     it('does not flag a complete card (negative)', function() {
-      expect(isBrokenCard({ boardId: 'b', swimlaneId: 's', listId: 'l' })).to.equal(false);
+      expect(isBrokenCard({ boardId: 'b', swimlaneId: 's', listId: 'l', type: 'cardType-card' })).to.equal(false);
+    });
+
+    it('flags a card of an unknown type, or of none, though its ids are all there', function() {
+      expect(isBrokenCard({ boardId: 'b', swimlaneId: 's', listId: 'l', type: 'cardType-nonsense' })).to.equal(true);
+      expect(isBrokenCard({ boardId: 'b', swimlaneId: 's', listId: 'l' })).to.equal(true);
     });
 
     it('does not throw on null / undefined input (negative)', function() {
@@ -88,14 +95,21 @@ describe('brokenCardsRepair', function() {
 
     it('ignores healthy cards and junk entries (negative)', function() {
       const plan = planBrokenCardRepair([
-        { _id: 'ok', boardId: 'b1', swimlaneId: 's1', listId: 'l1' },
+        { _id: 'ok', boardId: 'b1', swimlaneId: 's1', listId: 'l1', type: 'cardType-card' },
         null,
         undefined,
         { boardId: 'b1' }, // no _id: nothing can be updated
       ]);
       expect(plan.needsList).to.deep.equal([]);
       expect(plan.needsSwimlane).to.deep.equal([]);
+      expect(plan.needsType).to.deep.equal([]);
       expect(plan.unfixable).to.deep.equal([]);
+      expect(plan.boardIds).to.deep.equal([]);
+    });
+
+    it('gives a card of an unknown type the plain card type, with no board lookup', function() {
+      const plan = planBrokenCardRepair([{ _id: 't', boardId: 'b1', swimlaneId: 's1', listId: 'l1', type: 'x' }]);
+      expect(plan.needsType).to.deep.equal(['t']);
       expect(plan.boardIds).to.deep.equal([]);
     });
 
@@ -111,19 +125,20 @@ describe('brokenCardsRepair', function() {
   // neither, which is what left "Broken cards 68" stuck with no way to clear it.
   describe('the count and the repair cover the same cards', function() {
     const cards = [
-      { _id: 'a', boardId: 'b1', swimlaneId: 's1', listId: 'l1' }, // healthy
-      { _id: 'b', boardId: 'b1', swimlaneId: '', listId: 'l1' },   // no swimlane
-      { _id: 'c', boardId: 'b1', swimlaneId: 's1', listId: null }, // no list
-      { _id: 'd', boardId: 'b1' },                                 // neither
-      { _id: 'e', boardId: '', swimlaneId: 's1', listId: 'l1' },   // no board
+      { _id: 'a', boardId: 'b1', swimlaneId: 's1', listId: 'l1', type: 'cardType-card' }, // healthy
+      { _id: 'b', boardId: 'b1', swimlaneId: '', listId: 'l1', type: 'cardType-card' },   // no swimlane
+      { _id: 'c', boardId: 'b1', swimlaneId: 's1', listId: null, type: 'cardType-card' }, // no list
+      { _id: 'd', boardId: 'b1', type: 'cardType-card' },                                 // neither
+      { _id: 'e', boardId: '', swimlaneId: 's1', listId: 'l1', type: 'cardType-card' },   // no board
+      { _id: 'f', boardId: 'b1', swimlaneId: 's1', listId: 'l1', type: 'x' },             // unknown type
     ];
 
     it('accounts for every broken card exactly once', function() {
       const broken = cards.filter(isBrokenCard).map(c => c._id);
-      expect(broken).to.have.members(['b', 'c', 'd', 'e']);
+      expect(broken).to.have.members(['b', 'c', 'd', 'e', 'f']);
 
       const plan = planBrokenCardRepair(cards);
-      const handled = new Set([...plan.needsList, ...plan.needsSwimlane, ...plan.unfixable]);
+      const handled = new Set([...plan.needsList, ...plan.needsSwimlane, ...plan.needsType, ...plan.unfixable]);
       broken.forEach(id => {
         expect(handled.has(id), `broken card ${id} is not handled by the repair`).to.equal(true);
       });
@@ -135,7 +150,7 @@ describe('brokenCardsRepair', function() {
       // Repairable = has a board, missing a list or a swimlane.
       expect(repairableCardsSelector()).to.deep.equal({
         boardId: { $nin: [null, ''] },
-        $or: [{ listId: { $in: [null, ''] } }, { swimlaneId: { $in: [null, ''] } }],
+        $or: [{ listId: { $in: [null, ''] } }, { swimlaneId: { $in: [null, ''] } }, { type: { $nin: CARD_TYPES } }],
       });
       // Unfixable = no board at all.
       expect(unfixableCardsSelector()).to.deep.equal({ boardId: { $in: [null, ''] } });

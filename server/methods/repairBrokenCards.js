@@ -11,6 +11,7 @@ import {
   repairableCardsSelector,
   unfixableCardsSelector,
   planBrokenCardRepair,
+  DEFAULT_CARD_TYPE,
 } from '/models/lib/brokenCardsRepair';
 
 // Admin Panel → Problems → Summary: the "Repair" button behind the
@@ -75,7 +76,7 @@ async function firstSwimlaneId(boardId) {
 async function repairCardsMissingListOrSwimlane() {
   const broken = await Cards.find(
     repairableCardsSelector(),
-    { fields: { _id: 1, boardId: 1, listId: 1, swimlaneId: 1 } },
+    { fields: { _id: 1, boardId: 1, listId: 1, swimlaneId: 1, type: 1 } },
   ).fetchAsync();
 
   // Pure planner (models/lib/brokenCardsRepair.js) decides what each card needs;
@@ -83,9 +84,11 @@ async function repairCardsMissingListOrSwimlane() {
   const plan = planBrokenCardRepair(broken);
   const needsList = new Set(plan.needsList);
   const needsSwimlane = new Set(plan.needsSwimlane);
+  const needsType = new Set(plan.needsType);
 
   let listsAssigned = 0;
   let swimlanesAssigned = 0;
+  let typesAssigned = 0;
   // Resolve each board's default list/swimlane ONCE, not once per card: a board
   // with hundreds of broken cards would otherwise re-query (and possibly
   // re-create) them for every single card.
@@ -107,16 +110,18 @@ async function repairCardsMissingListOrSwimlane() {
         }
         set.swimlaneId = swimlaneByBoard.get(card.boardId);
       }
+      if (needsType.has(card._id)) set.type = DEFAULT_CARD_TYPE;
       if (Object.keys(set).length === 0) continue;
       await Cards.direct.updateAsync({ _id: card._id }, { $set: set });
       if (set.listId) listsAssigned += 1;
       if (set.swimlaneId) swimlanesAssigned += 1;
+      if (set.type) typesAssigned += 1;
     } catch (error) {
       console.error('[repairBrokenCards] card', card._id, error);
     }
   }
 
-  return { listsAssigned, swimlanesAssigned };
+  return { listsAssigned, swimlanesAssigned, typesAssigned };
 }
 
 // Cards whose swimlaneId points at a swimlane that no longer exists, on an
@@ -176,7 +181,7 @@ Meteor.methods({
       const boards = await repairAllBoards();
       // 2. The gaps that pass does not cover.
       const archivedCardsFixed = await repairArchivedBoards();
-      const { listsAssigned, swimlanesAssigned } = await repairCardsMissingListOrSwimlane();
+      const { listsAssigned, swimlanesAssigned, typesAssigned } = await repairCardsMissingListOrSwimlane();
 
       // What is left: cards with no boardId cannot be placed on any board.
       // `remaining` uses the SAME selector the Summary counts with, so the
@@ -191,6 +196,7 @@ Meteor.methods({
         archivedCardsFixed,
         listsAssigned,
         swimlanesAssigned,
+        typesAssigned,
         unfixable,
         remaining,
       };

@@ -101,11 +101,14 @@ test('Broken cards can use an index for every branch of its $or', () => {
   // The report asks for cards with no board, no swimlane, no list, or an unknown
   // type. An $or uses an index only if EVERY branch has one, so one unindexed
   // field puts the whole count back to a collection scan.
-  const pub = read('server/publications/cards.js');
-  const selector = pub.slice(pub.indexOf('const BROKEN_CARDS_SELECTOR'),
-    pub.indexOf('const BROKEN_CARDS_SELECTOR') + 320);
+  // The selector is models/lib/brokenCardsRepair.js's brokenCardsSelector()
+  // since 2026-11-24 - one definition for the pane, the Summary and the repair -
+  // so the branches are read from the selector itself.
+  assert.match(read('server/publications/cards.js'), /const BROKEN_CARDS_SELECTOR = brokenCardsSelector\(\);/);
+  const branches = require('../models/lib/brokenCardsRepair').brokenCardsSelector().$or
+    .map(clause => Object.keys(clause)[0]);
   for (const field of ['boardId', 'swimlaneId', 'listId', 'type']) {
-    assert.ok(selector.includes(field), `the selector still asks about ${field}`);
+    assert.ok(branches.includes(field), `the selector still asks about ${field}`);
   }
   // boardId is the prefix of the existing { boardId, createdAt } index, which is
   // also the report's sort.

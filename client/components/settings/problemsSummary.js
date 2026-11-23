@@ -145,7 +145,8 @@ Template.problemsSummary.events({
         (res.cardsRescued || 0) +
         (res.archivedCardsFixed || 0) +
         (res.listsAssigned || 0) +
-        (res.swimlanesAssigned || 0);
+        (res.swimlanesAssigned || 0) +
+        (res.typesAssigned || 0);
       // Cards with no boardId at all cannot be placed on any board, so say so
       // explicitly instead of leaving a count that never reaches zero unexplained.
       const unfixable = res.unfixable || 0;

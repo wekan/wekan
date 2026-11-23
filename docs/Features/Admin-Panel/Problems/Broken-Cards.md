@@ -50,21 +50,20 @@ Opening a board also repairs its own cards ([Repairs.md](Repairs.md)).
 
 ## How the numbers are calculated
 
-- **What counts as broken here**: a card whose `boardId`, `swimlaneId` or
-  `listId` is missing or empty, or whose `type` is not one of the four card
-  types WeKan knows (`cardType-card`, `cardType-linkedCard`,
-  `cardType-linkedBoard`, `template-card`; `CARD_TYPES` in
-  [config/const.js](../../../../config/const.js)) - `BROKEN_CARDS_SELECTOR` in
-  [server/publications/cards.js](../../../../server/publications/cards.js).
-- **The count on Summary is narrower**: "Broken cards N" there, and its repair,
-  use `brokenCardsSelector` of
+- **What counts as broken**: a card whose `boardId`, `swimlaneId` or `listId`
+  is missing or empty, or whose `type` is not one of the four card types WeKan
+  shows (`cardType-card`, `cardType-linkedCard`, `cardType-linkedBoard`,
+  `template-card`; `CARD_TYPES` in [config/const.js](../../../../config/const.js)).
+  It is ONE definition, `brokenCardsSelector` of
   [models/lib/brokenCardsRepair.js](../../../../models/lib/brokenCardsRepair.js),
-  which counts only the missing board, swimlane or list. A card with an unknown
-  type and all three ids is listed in this pane but is not in that count and is
-  not changed by that repair.
+  used by this pane, by "Broken cards N" on [Summary](Summary.md) and by its
+  repair, so the three always mean the same cards. Until 2026-11-24 the Summary
+  counted and repaired only the missing ids: a card of an unknown type with all
+  three ids was listed here, never counted there, and never repaired.
 - **The repair**: a card that still has its board gets the board's first list
   and first swimlane by `sort` (a default one is created when the board has
-  none); a card with no board is counted as unfixable and left alone, never
+  none), and a card of an unknown type gets the plain card type,
+  `cardType-card`; a card with no board is counted as unfixable and left alone, never
   deleted ([server/methods/repairBrokenCards.js](../../../../server/methods/repairBrokenCards.js)).
 - **Rows per page**: 10; **total** from `getBrokenCardsReportCount(search)`,
   pages = `max(1, ceil(total / 10))`, recounted only when the search changes.

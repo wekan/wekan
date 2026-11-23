@@ -81,7 +81,7 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
-import { CARD_TYPES } from '../../config/const';
+import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
@@ -1222,14 +1222,10 @@ async function buildQuery(queryParams, userId) {
 // and by the Admin Panel report below, so the two can never disagree about what
 // "broken" means. Unchanged from before the report was converted - only the way the
 // report FETCHES its rows changed.
-const BROKEN_CARDS_SELECTOR = {
-  $or: [
-    { boardId: { $in: [null, ''] } },
-    { swimlaneId: { $in: [null, ''] } },
-    { listId: { $in: [null, ''] } },
-    { type: { $nin: CARD_TYPES } },
-  ],
-};
+// The one definition of "broken" (models/lib/brokenCardsRepair.js), the same
+// one the Summary counts and repairs with - it used to be written out here a
+// second time, with the unknown type the Summary did not count.
+const BROKEN_CARDS_SELECTOR = brokenCardsSelector();
 
 // The standalone /broken-cards PAGE (client/components/main/brokenCards.js) still
 // runs on the global-search machinery, so its publication stays exactly as it was.
