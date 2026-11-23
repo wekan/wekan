@@ -95,7 +95,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.29 2026-11-23 WeKan ® release
 
 **In short:** **EVERYTHING** tests now run one stage and one worker at a time by
 default, so a full test run no longer runs the machine out of RAM; the
