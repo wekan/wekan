@@ -7,8 +7,10 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **increasing delay after a wrong password** is applied at
-last, so a password guesser is slowed down well before the lockout. The **Admin
+A person can **download everything WeKan holds about them**, and
+**erasing a person** now removes their data from every place it is kept, not
+only their account. The **increasing delay after a wrong password** is applied
+at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
 Broken cards pane lists and names every problem stream, and the **attachment
 retention** form accepts only the limit the retention really uses.

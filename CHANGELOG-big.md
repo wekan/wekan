@@ -98,13 +98,47 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **increasing delay after a wrong password** is applied at
-last, so a password guesser is slowed down well before the lockout. The **Admin
+**In short:** A person can **download everything WeKan holds about them**, and
+**erasing a person** now removes their data from every place it is kept, not
+only their account. The **increasing delay after a wrong password** is applied
+at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
 Broken cards pane lists and names every problem stream, and the **attachment
 retention** form accepts only the limit the retention really uses.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Privacy and personal data** - a person's right to their data, and to have it
+erased (docs/Compliance/README.md, WP-4 and WP-5).
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a25e33ca790ef10b8259113a6c0e8f99a721d3d">Download my data: everything WeKan holds about a person, as a ZIP of JSON</a>. Thanks to xet7.</summary>
+
+Member Settings / Download my data and `GET /api/user/export` give the
+signed-in person their account without secrets and every row of every
+collection the personal-data inventory says holds their data, with a manifest
+of what is in the file and what is not, and why. Of a shared board, card or
+list only their own part; secrets are removed at every depth. An administrator
+can export any account, recorded in the Audit log.
+`tests/personalDataExport.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dff6c0ec9b964d96b0ccf1c418f94fd1fc758f8">Erasing a person removes their data everywhere it is kept, on deletion and on anonymisation</a>. Thanks to xet7.</summary>
+
+Deleting an account removed only the account and its board, card and list
+memberships; 40 collections kept the person - workload, time entries, sign-in
+addresses, sessions, jobs, credentials, notifications, reactions, problem
+tallies. `models/lib/userErasure.js` has a rule for each and runs on deletion
+and on anonymisation; an invoiced time entry is kept without the person, and
+an anonymised account keeps its references. Anonymisation now also removes
+every sign-in service, passkeys and sign-in addresses.
+`tests/userErasure.test.cjs`.
+
+</details>
+
+and fixes the following bugs:
 
 **Login** - the brake on password guessing.
 
