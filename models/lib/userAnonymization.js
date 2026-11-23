@@ -70,11 +70,25 @@ function buildAnonymizeUpdate(placeholder) {
       loginDisabled: true,
       anonymized: true,
       anonymizedAt: new Date(),
-      'services.resume.loginTokens': '',
+      // Every sign-in service goes - password, OIDC, GitHub, CAS, SAML, LDAP,
+      // two-factor - not only the password: replacing `services` whole is
+      // what signs the account out everywhere and leaves no identity of an
+      // outside provider behind (WP-4).
+      services: { resume: { loginTokens: [] } },
     },
     $unset: {
-      'services.password': '',
       'profile.token': '',
+      // Personal data the account held beside its name (WP-4,
+      // docs/Compliance/README.md): where it signed in from, its passkeys and
+      // SQRL identity, push and ntfy subscriptions, its e-mail-to-card address
+      // and the notification e-mails waiting for it.
+      loginAddresses: '',
+      passkeys: '',
+      sqrl: '',
+      webPushSubscriptions: '',
+      ntfy: '',
+      'profile.emailToCard': '',
+      'profile.emailBuffer': '',
     },
   };
 }

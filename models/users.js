@@ -3225,6 +3225,14 @@ if (Meteor.isServer) {
         error,
       );
     }
+    // The rest of the person's data: every collection the personal-data
+    // inventory says goes with them (models/lib/userErasure.js, WP-4). Its own
+    // try per rule, so a failure here never undoes the cleanup above.
+    try {
+      if (doc && doc._id) await require('/server/lib/userErasureRun').runUserErasure(doc, 'delete');
+    } catch (error) {
+      console.error('[userErasure] Failed to erase the data of deleted user', doc && doc._id, error);
+    }
   });
 
   Meteor.methods({

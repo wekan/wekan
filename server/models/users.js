@@ -38,6 +38,7 @@ import { deliverBoardInviteToTray } from '/server/lib/boardInviteTray';
 import { providerOfUser, onCreateProviderUser } from '/server/lib/oauthProviders';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 const { decideAnonymize, buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
+const { runUserErasure } = require('/server/lib/userErasureRun');
 const { selfRemovalRefusal } = require('/models/lib/selfAccountRemoval');
 
 // Admin Panel / People / Login / "Self delete user account".
@@ -534,6 +535,11 @@ Meteor.methods({
       throw new Meteor.Error(decision.error, decision.reason);
     }
 
+    // The person's data outside the account first (models/lib/userErasure.js,
+    // WP-4): it is found by the name and e-mail addresses the update below
+    // replaces. References to the account stay - that is what anonymising
+    // keeps that deleting does not.
+    await runUserErasure(await Users.findOneAsync(targetUserId), 'anonymize');
     const placeholder = `deleted-user-${Random.id(8).toLowerCase()}`;
     await Users.updateAsync(targetUserId, buildAnonymizeUpdate(placeholder));
 

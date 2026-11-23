@@ -89,48 +89,10 @@ function unclassified(found, inv) {
 // and that nothing erases today. It may only SHRINK: a fix in WP-4 sets the
 // entry's erasureWhere and removes the name here; a new collection with the
 // gap fails the test instead of joining the list quietly.
-const KNOWN_WP4_GAPS = [
-  'activityNotificationIntents',
-  'activityNotificationPlans',
-  'activityPubFollowers',
-  'billingRates',
-  'board_email_addresses',
-  'card_comment_reactions',
-  'cfs.avatars.filerecord',
-  'checklistItems',
-  'cloudChatMessages',
-  'email_bounces',
-  'eventlog',
-  'github_import_jobs',
-  'idleSessions',
-  'invitation_codes',
-  'listSyncCredentials',
-  'listSyncNotificationPlans',
-  'listSyncRuleEmailCommands',
-  'listSyncRuleEmailOutcomes',
-  'loginAddresses',
-  'notificationEmailCommands',
-  'notificationEmailControls',
-  'notificationEmailJobs',
-  'notificationEmailLeases',
-  'notificationTrayReceipts',
-  'notificationWebhookJobs',
-  'orgUser',
-  'passkeyChallenges',
-  'presences',
-  'recoveryEvents',
-  'sandstorm_api_grants',
-  'sessiondata',
-  'shortPasswordLogins',
-  'sqrlSessions',
-  'timeEntries',
-  'trello_api_credentials',
-  'trello_export_jobs',
-  'trello_import_jobs',
-  'unsaved-edits',
-  'userPositionHistory',
-  'windowsSsoTokens',
-];
+// Empty since 2026-11-24: models/lib/userErasure.js erases every one of the
+// 40 it held, and the integrity-checked delivery records point at their
+// compaction. It stays a list so a new gap fails here by name.
+const KNOWN_WP4_GAPS = [];
 
 (async () => {
   const { found, unresolved } = scanTree();

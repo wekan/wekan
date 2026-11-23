@@ -141,8 +141,20 @@ test('buildAnonymizeUpdate scrubs PII fields and sets the login-disabled flag', 
   assert.strictEqual(update.$set.loginDisabled, true);
   assert.strictEqual(update.$set.anonymized, true);
   assert.ok(update.$set.anonymizedAt instanceof Date);
-  assert.strictEqual(update.$set['services.resume.loginTokens'], '');
-  assert.strictEqual(update.$unset['services.password'], '');
+  // Every sign-in service goes, not only the password (WP-4): `services` is
+  // replaced whole, which also ends every session.
+  assert.deepStrictEqual(update.$set.services, { resume: { loginTokens: [] } });
+  for (const field of ['loginAddresses', 'passkeys', 'sqrl', 'webPushSubscriptions', 'ntfy',
+    'profile.emailToCard', 'profile.emailBuffer', 'profile.token']) {
+    assert.strictEqual(update.$unset[field], '', `${field} is cleared`);
+  }
+});
+
+test('negative: no services path is set beside the whole services object', () => {
+  // Mongo refuses an update that sets `services` and one of its sub-paths at once.
+  const update = buildAnonymizeUpdate('deleted-user-abc123');
+  const paths = [...Object.keys(update.$set), ...Object.keys(update.$unset)];
+  assert.deepStrictEqual(paths.filter(p => p.startsWith('services.')), []);
 });
 
 test('negative: buildAnonymizeUpdate never touches a board/card/comment field', () => {
