@@ -72,11 +72,17 @@ WeKan without a lockout.
   it.
 - **A correct password** is always allowed, even during a lock, and clears that
   address's counter.
-- **Increasing delays**: the decision module can make each further wrong
-  password wait longer (a base that doubles each time, up to a maximum:
-  `loginDelayBase` and `loginDelayMax`). The settings WeKan builds at startup
-  and on Save do not include these two values, so no delay is applied unless
-  `Meteor.settings['accounts-lockout'].knownUsers` sets them.
+- **Increasing delays**: after a wrong password, that address waits
+  `loginDelayBase` seconds before the next attempt is even checked - 1 by
+  default - and the wait doubles with each further wrong password, up to
+  `loginDelayMax` - 30 by default. An attempt that comes sooner is refused and
+  NOT counted, so trying faster does not reach the lockout sooner. A correct
+  password is never delayed. The two settings are `known-loginDelayBase` and
+  `known-loginDelayMax` in the `lockoutSettings` collection (0 for the base
+  switches the delays off), or `Meteor.settings['accounts-lockout'].knownUsers`.
+  Until 2026-11-24 no delay was applied at all: the settings WeKan built at
+  startup and on Save left these two out. Every setting is now read from one
+  list, [models/lib/lockoutConfig.js](../../../../models/lib/lockoutConfig.js).
 - **Locked, in People**: an account counts as locked while any of its
   addresses has an unlock time in the future. The remaining time is the
   longest of them, rounded up to whole seconds.
@@ -108,6 +114,7 @@ WeKan without a lockout.
 - Pinned by [tests/lockoutSettings.test.cjs](../../../../tests/lockoutSettings.test.cjs),
   [tests/lockoutPerSourceAddress.test.cjs](../../../../tests/lockoutPerSourceAddress.test.cjs),
   [tests/lockoutConfigFailsClosed.test.cjs](../../../../tests/lockoutConfigFailsClosed.test.cjs),
+  [tests/lockoutDelayApplied.test.cjs](../../../../tests/lockoutDelayApplied.test.cjs),
   [tests/loginFailureDecision.test.cjs](../../../../tests/loginFailureDecision.test.cjs),
   [tests/accountLoginDelay.test.cjs](../../../../tests/accountLoginDelay.test.cjs)
   and the browser test

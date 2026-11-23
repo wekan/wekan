@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { createdAtAutoValue, modifiedAtAutoValue } from '/models/lib/schemaTimestamps';
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { KNOWN_DEFAULTS, UNKNOWN_DEFAULTS, configFromMap } = require('/models/lib/lockoutConfig');
 
 const LockoutSettings = new Mongo.Collection('lockoutSettings');
 
@@ -32,45 +33,23 @@ LockoutSettings.attachSchema(
 );
 
 LockoutSettings.helpers({
+  // Both read through models/lib/lockoutConfig.js, the one list of the
+  // lockout's settings and their defaults that the server's startup and the
+  // Admin Panel's reload read too.
   getKnownConfig() {
-    // Fetch all settings in one query instead of 3 separate queries
-    const settings = LockoutSettings.find({
-      _id: { $in: ['known-failuresBeforeLockout', 'known-lockoutPeriod', 'known-failureWindow',
-        'known-loginDelayBase', 'known-loginDelayMax'] }
-    }, { fields: { _id: 1, value: 1 } }).fetch();
-
-    const settingsMap = {};
-    settings.forEach(s => { settingsMap[s._id] = s.value; });
-
-    return {
-      failuresBeforeLockout: settingsMap['known-failuresBeforeLockout'] || 3,
-      lockoutPeriod: settingsMap['known-lockoutPeriod'] || 60,
-      failureWindow: settingsMap['known-failureWindow'] || 15,
-      // The increasing delay after a wrong password (lockoutDecision.js), in
-      // seconds: the first failure costs `loginDelayBase`, and each one after
-      // doubles it up to `loginDelayMax`. 0 for the base switches delays off
-      // entirely and leaves the lockout behaving as it did before.
-      loginDelayBase: settingsMap['known-loginDelayBase'] === undefined
-        ? 1 : settingsMap['known-loginDelayBase'],
-      loginDelayMax: settingsMap['known-loginDelayMax'] === undefined
-        ? 30 : settingsMap['known-loginDelayMax']
-    };
+    return configFromMap('known', settingsMap(Object.keys(KNOWN_DEFAULTS).map(k => `known-${k}`)));
   },
   getUnknownConfig() {
-    // Fetch all settings in one query instead of 3 separate queries
-    const settings = LockoutSettings.find({
-      _id: { $in: ['unknown-failuresBeforeLockout', 'unknown-lockoutPeriod', 'unknown-failureWindow'] }
-    }, { fields: { _id: 1, value: 1 } }).fetch();
-
-    const settingsMap = {};
-    settings.forEach(s => { settingsMap[s._id] = s.value; });
-
-    return {
-      failuresBeforeLockout: settingsMap['unknown-failuresBeforeLockout'] || 3,
-      lockoutPeriod: settingsMap['unknown-lockoutPeriod'] || 60,
-      failureWindow: settingsMap['unknown-failureWindow'] || 15
-    };
-  }
+    return configFromMap('unknown', settingsMap(Object.keys(UNKNOWN_DEFAULTS).map(k => `unknown-${k}`)));
+  },
 });
+
+// { id: value } of the given settings, in one query.
+function settingsMap(ids) {
+  const map = {};
+  LockoutSettings.find({ _id: { $in: ids } }, { fields: { _id: 1, value: 1 } })
+    .fetch().forEach(s => { map[s._id] = s.value; });
+  return map;
+}
 
 export default LockoutSettings;

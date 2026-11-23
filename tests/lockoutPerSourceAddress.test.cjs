@@ -601,9 +601,13 @@ test('the write path stores the wait, and the settings carry defaults', () => {
   const src = fs.readFileSync(path.join(PKG, 'knownUser.js'), 'utf8');
   assert.ok(/decision\.action === 'too-soon'/.test(src), 'the refusal must be handled');
   assert.ok(/nextAttemptAt`\] = decision\.nextAttemptAt/.test(src), 'and the wait recorded');
-  const settings = fs.readFileSync(path.join(ROOT, 'models/lockoutSettings.js'), 'utf8');
-  for (const key of ['known-loginDelayBase', 'known-loginDelayMax']) {
-    assert.ok(settings.includes(key), `${key} must be a setting, not a constant`);
+  // The settings and their defaults are one list now, models/lib/lockoutConfig.js,
+  // read by the model, the server's startup and the Admin Panel's reload alike
+  // (tests/lockoutDelayApplied.test.cjs pins that the delay reaches the lockout).
+  const { KNOWN_DEFAULTS, configFromMap } = require(path.join(ROOT, 'models/lib/lockoutConfig.js'));
+  for (const key of ['loginDelayBase', 'loginDelayMax']) {
+    assert.ok(key in KNOWN_DEFAULTS, `known-${key} must be a setting, not a constant`);
+    assert.strictEqual(configFromMap('known', { [`known-${key}`]: 7 })[key], 7, `known-${key} is read from its stored value`);
   }
 });
 

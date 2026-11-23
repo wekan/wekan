@@ -6,6 +6,7 @@ const AccountsLockout = Package['wekan-accounts-lockout']
   : null;
 import { ReactiveCache } from '/imports/reactiveCache';
 import LockoutSettings from '/models/lockoutSettings';
+const { lockoutConfigs } = require('/models/lib/lockoutConfig');
 
 // The lockout reporter (and why it names the TARGET): server/lib/lockoutReporter.js.
 import { reportLockout } from '/server/lib/lockoutReporter';
@@ -26,18 +27,12 @@ Meteor.methods({
     if (!AccountsLockout) return false;
 
     try {
-      // Get configurations from database
-      const knownUsersConfig = {
-        failuresBeforeLockout: (await LockoutSettings.findOneAsync('known-failuresBeforeLockout'))?.value || 3,
-        lockoutPeriod: (await LockoutSettings.findOneAsync('known-lockoutPeriod'))?.value || 60,
-        failureWindow: (await LockoutSettings.findOneAsync('known-failureWindow'))?.value || 15
-      };
-
-      const unknownUsersConfig = {
-        failuresBeforeLockout: (await LockoutSettings.findOneAsync('unknown-failuresBeforeLockout'))?.value || 3,
-        lockoutPeriod: (await LockoutSettings.findOneAsync('unknown-lockoutPeriod'))?.value || 60,
-        failureWindow: (await LockoutSettings.findOneAsync('unknown-failureWindow'))?.value || 15
-      };
+      // The same settings, defaults and per-setting fallback as at startup
+      // (models/lib/lockoutConfig.js) - the delay after a wrong password included.
+      const { knownUsers: knownUsersConfig, unknownUsers: unknownUsersConfig } = await lockoutConfigs(
+        async id => (await LockoutSettings.findOneAsync(id))?.value,
+        (id, fallback, error) => console.error(`Lockout setting ${id} unreadable, using ${fallback}:`, error),
+      );
 
       // Initialize the AccountsLockout with configuration
       const accountsLockout = new AccountsLockout({
