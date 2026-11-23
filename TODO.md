@@ -15,24 +15,24 @@ the changelog only says what changed.
 
 `tests/todoFile.test.cjs` checks this shape.
 
-**Where things are** (2026-11-23). Each repository's own TODO.md has the
+**Where things are** (2026-11-24). Each repository's own TODO.md has the
 details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards WP-4 onwards; accessibility; the docs folders | Push |
+| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards WP-4 onwards; accessibility; the docs folders | Review what Dependabot raises in the repositories it was turned on for; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
-| [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Push; stop and back up Gitea before the first real write |
+| [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
 | [weddy](https://github.com/wekan/weddy/blob/main/TODO.md) | 20 of WeKan's 174 templates in Go; attachments' Office preview and WebP thumbnails; more of WeKan's specs; Firefox and WebKit; netbsd/arm64 | Its "For the maintainer (on GitHub)" items |
-| [caddy-ferretdb-plugin](https://github.com/wekan/caddy-ferretdb-plugin/blob/main/TODO.md) | The Windows SQLite URI fix, checked on Linux only | Close the otel Dependabot alert |
-| [caddy-wekan-plugin](https://github.com/wekan/caddy-wekan-plugin/blob/main/TODO.md) | Weddy behind WeKan's newest settings; the Windows fixes, checked on Linux only | Close the otel Dependabot alert |
+| [caddy-ferretdb-plugin](https://github.com/wekan/caddy-ferretdb-plugin/blob/main/TODO.md) | The Windows SQLite URI fix, checked on Linux only | Ignore the otel update in Dependabot |
+| [caddy-wekan-plugin](https://github.com/wekan/caddy-wekan-plugin/blob/main/TODO.md) | Weddy behind WeKan's newest settings; the Windows fixes, checked on Linux only | Ignore the otel update in Dependabot |
 | [node-patches](https://github.com/wekan/node-patches/blob/main/TODO.md) | The clone retry, until the next Release All | - |
 | [wekango](https://github.com/wekan/wekango/blob/main/TODO.md) | The Windows and macOS fixes, checked on Linux only | Confirm the mongo-tools notice review |
-| [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password; close the rack Dependabot pull request |
-| [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | Rerun the Pages deploy |
+| [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password |
+| [wekan.fi](https://github.com/wekan/wekan.fi/blob/main/TODO.md) | - | - |
 | [wekan-meteor3-html4](https://github.com/wekan/wekan-meteor3-html4/blob/main/TODO.md) | Left out for now | - |
-| wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64 |
+| wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64; Release desktop's linux-armel and linux-mips64le |
 | wepica | Left out: too old | - |
 
 ## In progress
@@ -88,24 +88,39 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
 ## For the maintainer: needs a person, not code
 
-- Push `main` here and in the `.tools/w/` repositories with local commits:
-  omi and wekan.fi.
-- Dependabot pull requests and alerts to close by hand: the
-  go.opentelemetry.io/otel/sdk/log update in caddy-ferretdb-plugin and
-  caddy-wekan-plugin (Dependabot cannot resolve their local `replace`, and the
-  version is already on main), weror's rack-3.1.21 branch (main has rack
-  3.2.9), nekan alert 207 and caddy-gitea-plugin alerts 1, 2, 4, 18, 24, 25
-  and 37.
+- Review the Dependabot alerts and pull requests in the repositories it was
+  turned on for on 2026-11-24. The security download of that night
+  (`releases/sec/`, dependency-advisories/) found reviewed advisories against
+  the versions they use: minio-metadata 6 critical and 8 high (path-to-regexp,
+  body-parser, pbkdf2, sha.js), hx 1 critical and 23 high (minimatch,
+  brace-expansion, tar-fs), ferretdb-test 1 critical and 22 high (minimatch,
+  brace-expansion, fast-xml-parser, nodemailer), trello-attachments-downloader
+  2 high (pyinstaller); and nekan 1 high (zod below 4.6.6,
+  GHSA-mrhx-c7xc-m3w5), which its Dependabot did not list as open.
+- caddy-ferretdb-plugin and caddy-wekan-plugin: Dependabot's
+  go.opentelemetry.io/otel/sdk/log update fails on every scheduled run, as it
+  cannot resolve their local `replace` (the version is already on main); an
+  ignore rule for it in their `.github/dependabot.yml` would stop that.
 - wena: rerun Release all for haiku-amd64 (the Haiku VM never answered SSH);
   aros-i386 needs SDL's AHI audio driver off for i386, whose AROS toolchain has
-  no AHI headers - not cloned or built here, as there is no Docker.
-- wekan.fi: rerun "Deploy static content to Pages", which failed with a 500
-  from GitHub's Pages API after its checks passed.
+  no AHI headers - not cloned or built here, as there is no Docker. Its
+  "Release desktop" also failed (2026-10-03, not run since): linux-armel and
+  linux-mips64le stopped with exit code 125 in their Docker emulation step.
 - weror: decide whether the demo account `user@demo.test` may sign in with any
   password, as its tests ask; restored as tested, and a risk if weror is
   public.
 - wekango: confirm the review of the new mongo-tools license notices (only
   permissive attributions changed).
+
+## Needs a maintainer decision on the intended contract
+
+- WeKan's dev-only `glob` 13.0.6 under `@babel/cli`, which builds the vendored
+  `npm-packages/`, is in the range of GHSA-3g3m-2fjr-6pw4 (medium,
+  CVE-2026-118773: 9.0.0 to 14.0.1). The bundle's own `glob` is 14.0.3, which
+  is patched. `@babel/cli` 8.0.6 asks for `^13.0.0`, and the advisory names no
+  patched 13 (13.0.7 is inside its range), so the fix is an override to glob
+  14 - a major version over what `@babel/cli` asks for - or waiting for a
+  `@babel/cli` that takes 14.
 
 ## Repositories left out, and why
 
