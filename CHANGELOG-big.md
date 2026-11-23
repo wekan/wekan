@@ -96,6 +96,69 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **increasing delay after a wrong password** is applied at
+last, so a password guesser is slowed down well before the lockout. The **Admin
+Panel's Problems Summary** now counts and repairs the same broken cards its
+Broken cards pane lists and names every problem stream, and the **attachment
+retention** form accepts only the limit the retention really uses.
+
+This release fixes the following bugs:
+
+**Login** - the brake on password guessing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4cb1bbfe5753e3c96b82d13617bbe35389320c29">The increasing delay after a wrong password is applied</a>. Thanks to xet7.</summary>
+
+After a wrong password, an address waits 1 second before its next attempt, and
+the wait doubles with each further wrong password up to 30 seconds; an attempt
+that comes sooner is refused and not counted. It never ran: the server's
+startup and the Admin Panel's reload started the lockout with three of its
+settings, so the delay's base reached the decision as undefined, which means
+"off". Every setting is read from one list now, `models/lib/lockoutConfig.js`,
+by both and by the model; a stored 0 still switches the delay off.
+`tests/lockoutDelayApplied.test.cjs` reproduces the missing delay and fails
+when a place that starts the lockout builds its settings by hand.
+
+</details>
+
+**The Admin Panel** - Problems and Attachments, as found while documenting
+them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7042d228e6bdefd61de2c1a49df015858d20e86d">The Summary counts and repairs the cards of an unknown type that Broken cards lists</a>. Thanks to xet7.</summary>
+
+The Broken cards pane listed a card whose type is not one of the four WeKan
+shows, while the Summary's "Broken cards N" and its repair looked only at a
+missing board, swimlane or list, so such a card was never counted and never
+fixed. "Broken" is one definition now, used by the pane, the count and the
+repair, and the repair gives such a card the plain card type.
+`tests/brokenCardTypes.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebbfacf43b308f1647ccebb4d423774a783872d4">The Summary names the database, integrity and mail problems by their panes</a>. Thanks to xet7.</summary>
+
+Their lines read "Admin Panel → Problems → database", "integrity" and "mail".
+They now say Database problems, Filesystem integrity and Email, as the Problems
+menu does, and `tests/problemsSummaryLabels.test.cjs` requires every problem
+stream to have the same name on the Summary as in the menu.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76fd0e443453f8b70ef4bed3df7e2c286f623f83">The attachment retention form accepts only the per-run limit the retention uses</a>. Thanks to xet7.</summary>
+
+"At most per run" accepted up to 1000000, and the retention cut anything above
+100000 without saying so. The form takes its default and maximum from the
+retention itself now. `tests/attachmentRetention.test.cjs`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.30 2026-11-23 WeKan ® release
 
 **In short:** The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on

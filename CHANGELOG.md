@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **increasing delay after a wrong password** is applied at
+last, so a password guesser is slowed down well before the lockout. The **Admin
+Panel's Problems Summary** now counts and repairs the same broken cards its
+Broken cards pane lists and names every problem stream, and the **attachment
+retention** form accepts only the limit the retention really uses.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.30 2026-11-23 WeKan ® release
 
 The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
