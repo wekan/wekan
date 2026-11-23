@@ -104,6 +104,13 @@ template(name="memberMenuPopup")
           a.js-edit-profile
             i.fa.fa-user
             | {{_ 'edit-profile'}}
+      //- WP-5: everything WeKan holds about the signed-in person, as a ZIP of
+      //- JSON (server/routes/personalDataExport.js). For every account, the
+      //- right of access is not a setting.
+      li
+        a.js-download-my-data(href="{{myDataUrl}}" download)
+          i.fa.fa-download
+          | {{_ 'download-my-data'}}
       li
         a.js-member-date-settings
           i.fa.fa-calendar

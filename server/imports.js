@@ -433,6 +433,7 @@ import '/server/routes/customHeadAssets';
 import '/server/routes/importTrelloZip';
 import '/server/routes/importUpload';
 import '/server/routes/exportAllBoards';
+import '/server/routes/personalDataExport';
 // Reply-by-email (#2414). Never imported before ReplyBleed was fixed, so the
 // endpoint the docs describe did not exist.
 import '/server/routes/inboundEmail';

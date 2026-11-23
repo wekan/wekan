@@ -30,6 +30,8 @@ const delegated = new Map([
   ['chooseBoardSourcePopup/js-open-import-page', 'native import route link'],
   ['searchSidebar/js-minilist', 'native search result link'],
   ['memberMenuPopup/js-global-search', 'native global search route link'],
+  // WP-5: a download link to GET /api/user/export (server/routes/personalDataExport.js).
+  ['memberMenuPopup/js-download-my-data', 'native download link'],
 ]);
 const missing = actions => actions.filter(a => !a.handlers.length && !delegated.has(`${a.template}/${a.selector}`));
 const actions = inventory();

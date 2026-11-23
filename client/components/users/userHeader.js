@@ -1,3 +1,4 @@
+import { Accounts } from 'meteor/accounts-base';
 import '/client/components/forms/dateFormatSettings';
 import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { languageFlags, languageLabelParts } from '/imports/i18n/languageFlags';
@@ -36,6 +37,12 @@ Template.memberMenuPopup.onCreated(function () {
 });
 
 Template.memberMenuPopup.helpers({
+  // "Download my data" (WP-5): the person's own export, signed in by token
+  // like the board exports' downloads.
+  myDataUrl() {
+    const params = new URLSearchParams({ authToken: Accounts._storedLoginToken() || '' });
+    return `/api/user/export?${params.toString()}`;
+  },
   // #2460: Member Settings / SQRL, when the site admin offers SQRL.
   sqrlOffered() { return require('/client/lib/sqrl').sqrlOffered(ReactiveCache.getCurrentSetting()); },
   isSupportPageEnabled() {
