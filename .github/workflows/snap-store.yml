@@ -206,3 +206,31 @@ jobs:
           CHANNELS: ${{ needs.plan.outputs.channels }}
           SNAP: ${{ matrix.snap }}
         run: bash releases/snap-store-release-newest.sh "$SNAP" "$CHANNELS"
+      # "What's new in WeKan v<version>" - the release's In short paragraph
+      # from CHANGELOG-big.md - on the snap's Snap Store page. The store has no
+      # API for a revision's own changelog (the dashboard's "Add changelog" is a
+      # web form only), so it goes on the listing: releases/snap-listing.mjs
+      # writes the text and releases/snap-listing-update.sh sends it with
+      # `snapcraft upload-metadata`, the store's title, summary, license and
+      # icon kept as they are. Only for the NEWEST release: run for an older
+      # tag, this workflow would put that older What's new back on the page.
+      # continue-on-error: the snaps are released by now; a page that kept the
+      # previous text is an ::error:: to read, not a release to redo.
+      - name: Show what is new in ${{ needs.plan.outputs.tag }} on the ${{ matrix.snap }} Snap Store page
+        if: ${{ always() && steps.snapcraft.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+          SNAP: ${{ matrix.snap }}
+        run: |
+          set -euo pipefail
+          newest="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
+          if [ "$TAG" != "$newest" ]; then
+            echo "$TAG is not the newest release ($newest): the $SNAP page keeps the newest one's What's new."
+            exit 0
+          fi
+          command -v mksquashfs >/dev/null 2>&1 || sudo apt-get install -y squashfs-tools >/dev/null
+          gh api -H 'Accept: application/vnd.github.raw' "repos/$GITHUB_REPOSITORY/contents/CHANGELOG-big.md?ref=$TAG" > changelog-big.md
+          bash releases/snap-listing-update.sh "$SNAP" "${TAG#v}" changelog-big.md

@@ -377,6 +377,25 @@ copy of it in shell.
 architecture is promoted — and edge is often ahead of stable, so a bare run
 publishes edge builds to stable users. Pass the version, or `--dry-run` first.
 
+### What's new on the store page
+
+Each release puts **What's new in WeKan v<version>** - the release's **In
+short** paragraph from `CHANGELOG-big.md`, with a link to all its changes - at
+the top of the Snap Store page of `wekan`, `wekan-ondra` and `wekan-gantt-gpl`.
+
+The store has **no API for a revision's own changelog**: the dashboard's "Add
+changelog" link on a revision is a web form and nothing else, and neither
+snapcraft nor its store library can set it. So the text goes on the listing,
+which `snapcraft upload-metadata` updates, with the `SNAP_AUTH` login the
+uploads already use (`package_update`).
+
+| | |
+| --- | --- |
+| Page text | `releases/snap-listing/<snap>.md`. Edit the page text there, not on the web: each release writes the page from this file. |
+| What's new | `releases/snap-listing.mjs` puts it first and keeps as much of the page text as fits the store's 4096 bytes, in whole lines; when something had to go, the page ends with a link to the whole file. wekan's feature list alone is 4047 bytes, so its end is on the linked page. |
+| Sending | `releases/snap-listing-update.sh`: title, summary, license and icon are sent back exactly as the store has them, so only the description changes. |
+| When | the last step of **Push Snap to Store**, for the newest release only - run for an older tag it would put the older What's new back. A failure there is an `::error::` and does not fail the push. |
+
 ### What each snap currently has, and what is still to add
 
 As of WeKan **10.78** the store holds:

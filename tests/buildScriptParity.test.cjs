@@ -457,6 +457,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   SKIP['snap-store-release-newest.sh'] = 'run by Push Snap to Store (.github/workflows/snap-store.yml) after the push, with SNAP_AUTH';
   SKIP['snap-store-push.sh'] = 'run by Push Snap to Store (.github/workflows/snap-store.yml), with the Snap Store login of SNAP_AUTH';
   SKIP['snap-rename.sh'] = 'run by release-all-missing.yml variants job: a release snap renamed to wekan-ondra or wekan-gantt-gpl';
+  SKIP['snap-listing-update.sh'] = 'run by Push Snap to Store (.github/workflows/snap-store.yml) for the newest release, with SNAP_AUTH: What\'s new on a snap\'s store page';
+  SKIP['snap-listing.mjs'] = 'called by snap-listing-update.sh: prints a snap\'s store page text with the release\'s In short first';
   SKIP['release-missing-scan.sh'] = 'run by release-all-missing.yml scan job, with the GitHub token of the run';
 
   // Live tests against real services (Tests -> Live tests): both menus run
