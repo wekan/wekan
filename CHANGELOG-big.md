@@ -185,6 +185,36 @@ that the report stays read-only; the integration suite runs it on a database.
 
 </details>
 
+and has the following developer-facing changes:
+
+**Security tooling** - the Hall of Fame against the published advisories, and
+the advisories in the security download.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75b5e38df95ca640384e089914220adb5739b193">OidcRaceBleed is accounted for, and every Hall of Fame update fills in missing GHSAs and CVEs</a>. Thanks to meifukun and xet7.</summary>
+
+GHSA-6944-p22h-3qpx, the OIDC login race of meifukun's report, was published
+with no Hall of Fame row; its fix was already in v9.97
+([#4897](https://github.com/wekan/wekan/issues/4897)), and the row is on
+wekan.fi now. The security inventories count it, guarded by
+`tests/oidcLoginStateIsolation.test.cjs`, and OIDCBleed now maps to the test
+that guards it. CLAUDE.md and AGENTS.md: every Hall of Fame update compares the
+published advisories with it - a GHSA without a row gets one, an assigned CVE
+replaces "CVE requested", an advisory that is not public is named.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0c9ef955c091ed86065663e3ef5ab41e686cb47">The security download saves the Advisory Database, dependency advisories and the organization's advisories</a>. Thanks to xet7.</summary>
+
+`releases/sec/download-github-security.sh` now also writes each GHSA's entry in
+the global GitHub Advisory Database, the reviewed advisories that affect the
+exact package versions of the dependency graph, and every advisory of the
+organization in one list. `--no-advisories` skips them.
+`tests/securityDownloadScript.test.cjs` runs it against a stand-in `gh`.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v13.29 2026-11-23 WeKan ® release
