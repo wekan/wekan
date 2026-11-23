@@ -15,12 +15,12 @@ the changelog only says what changed.
 
 `tests/todoFile.test.cjs` checks this shape.
 
-**Where things are** (2026-11-22). Each repository's own TODO.md has the
+**Where things are** (2026-11-23). Each repository's own TODO.md has the
 details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's texts in 176 of 232 languages; the test build that runs out of memory; the changelog of the newest work; Latvian with Lithuanian words; laws and standards WP-4 onwards; accessibility; the docs folders | Push; the CVEs and advisories of ListLockMoveBleed and BounceBleed after the release; the Snap Store review ([#6929](https://github.com/wekan/wekan/issues/6929)) |
+| WeKan | The help button's texts in 176 of 232 languages; the test build that runs out of memory; the changelog of the newest work; Latvian with Lithuanian words; laws and standards WP-4 onwards; accessibility; the docs folders | Push; the CVE numbers of ListLockMoveBleed and BounceBleed, whose advisories are published; the Snap Store review ([#6929](https://github.com/wekan/wekan/issues/6929)) |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Push; run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Push; stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -101,8 +101,9 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 - [GHSA-394w-8q99-q4qx](https://github.com/wekan/wekan/security/advisories/GHSA-394w-8q99-q4qx)
   (ListLockMoveBleed) and
   [GHSA-7w85-38ph-c96v](https://github.com/wekan/wekan/security/advisories/GHSA-7w85-38ph-c96v)
-  (BounceBleed): fixed in Upcoming; after the release, request the CVEs and
-  publish the advisories. The Hall of Fame says "CVE requested" for both.
+  (BounceBleed): both advisories are published (2026-11-23), but GitHub has
+  not assigned CVE numbers to them yet. When it has, put the CVEs in the CVE
+  cells of their wekan.fi Hall of Fame rows, which still say "CVE requested".
 - The Snap Store push of v13.27 failed and waits for the Store's manual review
   ([#6929](https://github.com/wekan/wekan/issues/6929)); nothing to change in
   the code.
