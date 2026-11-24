@@ -97,7 +97,13 @@ class BoardPage {
   async closeComposers(listId) {
     const close = this.list(listId).locator('.js-inlined-form .js-close-inlined-form');
     while (await close.count() > 0) {
-      await close.first().click();
+      // A form can close by itself between the count and the click: the Add
+      // card form does after a card is saved (#6827). Gone is closed.
+      try {
+        await close.first().click({ timeout: 3000 });
+      } catch (error) {
+        if (await close.count() > 0) throw error;
+      }
       await this.page.waitForTimeout(200);
     }
   }
