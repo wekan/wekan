@@ -81,7 +81,9 @@ assert.equal(read('co')['cardType-linkedCard'], 'Carta cullegata');
 assert.equal(read('la')['cardType-linkedCard'], 'Schedula coniuncta');
 assert.doesNotMatch(read('la')['card-settings-linked-card'], /Latine:|Linked/);
 assert.equal(read('lb')['cardType-linkedCard'], 'Verknëppelt Kaart');
-assert.equal(read('mt')['cardType-linkedCard'], 'Kard marbuta');
+// 2026-11-24, TODO.md wrong-language list: "kard" is an English-shaped
+// stand-in, not Maltese; a card is "karta" everywhere else in mt.
+assert.equal(read('mt')['cardType-linkedCard'], 'Karta marbuta');
 assert.equal(read('sn')['cardType-linkedCard'], 'Kadhi rakabatanidzwa');
 assert.equal(read('tl')['cardType-linkedCard'], 'Naka-link na kard');
 assert.equal(read('ur')['cardType-linkedCard'], 'منسلک کارڈ');

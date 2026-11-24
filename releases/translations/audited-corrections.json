@@ -217845,5 +217845,12 @@
     "before": "Списе можете да повратите из одељка „Средишња архива“ на страници „Полица са списима“.",
     "after": "Таблу можете да повратите из одељка „Средишња архива“ на страници „Све табле“.",
     "reason": "Serbian: a board is табла, not списи (records), and All Boards is Све табле; reported in TODO.md's wrong-word list, 2026-11-24."
+  },
+  {
+    "locale": "mt",
+    "key": "copyManyCardsPopup-format",
+    "before": "[{\"title\": \"First kard titlu\",\"description\": \"First kard deskrizzjoni\"},{\"title\": \"Second kard titlu\",\"description\": \"Second kard deskrizzjoni\"},{\"title\": \"Last kard titlu\",\"description\": \"Last kard deskrizzjoni\"}]",
+    "after": "[ {\"title\": \"Titlu tal-ewwel karta\", \"description\":\"Deskrizzjoni tal-ewwel karta\"}, {\"title\":\"Titlu tat-tieni karta\",\"description\":\"Deskrizzjoni tat-tieni karta\"},{\"title\":\"Titlu tal-aħħar karta\",\"description\":\"Deskrizzjoni tal-aħħar karta\"} ]",
+    "reason": "Maltese: half-English text (and the non-Maltese \"kard\") translated fully into Maltese; reported in TODO.md's wrong-language list, 2026-11-24."
   }
 ]

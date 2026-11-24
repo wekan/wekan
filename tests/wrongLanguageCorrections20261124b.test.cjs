@@ -45,6 +45,28 @@ test('each reported fault is gone', () => {
   assert.doesNotMatch(read('so')['recurring'] || read('so')['card-recurrence'] || '', /Dib-u-dejin otomaatig/);
 });
 
+// Third pass, 2026-11-24 (TODO.md wrong-language list): Shona and Maltese
+// help texts that were word-by-word half English, Odia values garbled by a
+// machine translation (English words inside split Odia words, "|" for the
+// danda), Luxembourgish whiteboard named two ways, Serbian All Boards named
+// three ways, and Spanish search help in Venetian.
+const prose = v => v.replace(/`[^`]*`|'[^']*'|"[^"]*"|«[^»]*»|„[^“”]*[“”]|https?:\S+|<[^>]+>/g, ' ');
+const englishProse = /(?<!\p{L})(the|when|will|you|your|which|there|are|only|been)(?!\p{L})/u;
+test('third pass: each reported fault is gone', () => {
+  for (const tag of ['sn', 'mt']) {
+    assert.deepEqual(values(tag).filter(([, v]) => englishProse.test(prose(v))).map(([k]) => k), [], `${tag} has no half-English prose`);
+  }
+  assert.deepEqual(none('mt', /(?<!\p{L})[Kk]ards?(?!\p{L})/u), [], 'Maltese: a card is karta, not kard');
+  assert.deepEqual(none('sn', /mukoto/i), [], 'Shona: a swimlane is mugwagwa everywhere');
+  assert.deepEqual(none('or_IN', /[଀-୿] [A-Za-z]+ [଼ା-୍୕-ୗ]|କ [A-Za-z]+ ଣସି/u), [], 'Odia: no English word inside a split Odia word');
+  assert.deepEqual(none('or_IN', /(^|[^|\s])\s+\|(?!\|)(\s|$)|\u200B/u), [], 'Odia: the danda is ।, not |, and no stray zero-width spaces');
+  assert.equal(read('lb').whiteboard, 'Wäisstafel');
+  assert.deepEqual(none('lb', /whiteboard|(?<!\p{L})Tafel(?!\p{L})/iu, k => /^whiteboard/.test(k)), [], 'Luxembourgish: one whiteboard word, distinct from the board (Tafel)');
+  assert.equal(read('sr')['all-boards'], 'Све табле');
+  assert.deepEqual(none('sr', /Полиц[аеиу] са таблама|пословне књиге/u), [], 'Serbian: All Boards is Све табле everywhere');
+  assert.deepEqual(none('ve-CC', /tarjeta|tablero|(?<!\p{L})(las|los|todas|vencen)(?!\p{L})/iu), [], 'Venetian is not Spanish');
+});
+
 test('every corrected locale keeps English\'s placeholders in every value', () => {
   const tok = v => (String(v).match(/__[A-Za-z0-9_]+__|%(?:\d+\$)?[sd]/g) || []).sort().join(',');
   for (const tag of ['lv', 'et-EE', 'se', 'sr', 'mk', 'lb', 'nb', 'ka', 'rup', 've-CC', 've-PP', 'mt', 'pt-BR', 'tl', 'wa-RR', 'vi-VN', 'scn', 'nap', 'sn', 'so', 'ps', 'sd', 'pa', 'or_IN', 'yo', 'lg']) {
