@@ -6,6 +6,7 @@ import '/client/components/users/twoFactorRequired.jade';
 import '/client/components/users/passwordChangeRequired.jade';
 
 import '/client/components/users/passwordInput.js';
+import '/client/components/users/accountsAutocomplete.js';
 import '/client/components/users/userAvatar.js';
 import '/client/components/users/userHeader.js';
 import '/client/components/users/dependencyMenu.js';
