@@ -101,7 +101,8 @@ Which databases WeKan supports
 **In short:** A person can **download everything WeKan holds about them**,
 **erasing a person** now removes their data from every place it is kept, and
 an operator can publish a **privacy notice, terms, cookie notice and imprint**
-that anybody can read before signing in. The **increasing delay after a wrong
+that anybody can read before signing in, and **require every account to accept**
+the current terms and privacy notice. The **increasing delay after a wrong
 password** is applied
 at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
@@ -112,7 +113,7 @@ This release adds the following new features:
 
 **Privacy and personal data** - a person's right to their data, to have it
 erased, and to have it kept no longer than needed (docs/Compliance/README.md,
-WP-4 to WP-7).
+WP-4 to WP-8).
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29a41bd51c39a1a42eeb63d3e3dd11b6096329d6">Legal pages: privacy notice, terms, cookie notice and imprint, readable before signing in</a>. Thanks to xet7.</summary>
@@ -165,6 +166,24 @@ absences, both off by default; a card's change history is never removed.
 `WORKLOAD_ABSENCE_TYPE_RECORDED=false` records no sick leave at all. Admin
 Panel / Settings / Legal pages shows every personal-data collection with its
 retention on this server. `tests/retentionSettings.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/adf479272ab5be4b48edb0185b62ef53dc037c1e">Every account can be required to accept the current terms and privacy notice</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Legal pages has Require acceptance for the terms of use
+and the privacy notice. Until an account has accepted the current version of
+each, it sees only the acceptance dialog after signing in, and the server
+answers nothing else for it; each new version is asked for again. The accepted
+versions are kept on the account, shown in Member Settings / Privacy and my
+data and part of Download my data, and the sign-up form has an "I accept"
+checkbox meanwhile. The REST API is not gated. The seven new strings are in
+every language, and Venetian, Veps and Waray, which had Venda and Walloon in
+their legal-pages strings, are now in their own languages.
+`tests/legalAcceptance.test.cjs`,
+`tests/playwright/specs/legal-acceptance.e2e.js`,
+`tests/wrongLanguageCorrections20261124.test.cjs`.
 
 </details>
 

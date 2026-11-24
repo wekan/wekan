@@ -10,7 +10,8 @@ make changes there.
 A person can **download everything WeKan holds about them**,
 **erasing a person** now removes their data from every place it is kept, and
 an operator can publish a **privacy notice, terms, cookie notice and imprint**
-that anybody can read before signing in. The **increasing delay after a wrong
+that anybody can read before signing in, and **require every account to accept**
+the current terms and privacy notice. The **increasing delay after a wrong
 password** is applied
 at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
