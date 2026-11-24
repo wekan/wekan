@@ -5544,6 +5544,46 @@ jobs:
   # Repository synchronization is a required, separately visible release job.
   # It used to be an optional step inside snap-variants, so continue-on-error and
   # a receive-pack pre-flight could skip it while the snaps still published.
+  # The software bill of materials of this release (docs/Compliance/README.md
+  # WP-9; [CRA] Annex I Part II(1)): every npm package the release is built
+  # from, as CycloneDX JSON, from the tagged package-lock.json - no install,
+  # so it lists what the lock pins and nothing a build machine happened to
+  # have. Attached to the GitHub Release as wekan-<version>-sbom.cdx.json and
+  # linked from Admin Panel / Settings / Version. Not the Docker image
+  # attestation, which stays off (tests/dockerProvenance.test.cjs).
+  sbom:
+    name: SBOM (CycloneDX)
+    needs: [prepare, release]
+    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/v${{ needs.prepare.outputs.version }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Write the CycloneDX SBOM from package-lock.json
+        id: sbom
+        run: |
+          # npm's own (npm 10 and later): no package to download, and the npm
+          # of the Node.js this release is built with.
+          npm sbom --sbom-format cyclonedx --package-lock-only --omit dev \
+            > "wekan-${VERSION}-sbom.cdx.json"
+          test -s "wekan-${VERSION}-sbom.cdx.json"
+      - name: Attach it to the release
+        # On always(), so a Cancel after the file was written still attaches
+        # it (tests/releaseAttachOwnFiles.test.cjs).
+        if: ${{ always() && steps.sbom.outcome == 'success' }}
+        run: gh release upload "v${VERSION}" "wekan-${VERSION}-sbom.cdx.json" --clobber --repo "$GITHUB_REPOSITORY"
+
   update-ondra-gantt-repos:
     needs: [prepare, release]
     if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' }}

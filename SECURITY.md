@@ -74,7 +74,26 @@ the reports short and succinct. If we fail to understand the logic of your bug, 
 You can [Install WeKan](https://wekan.fi/install/) on your own computer
 and scan it's vulnerabilities there.
 
-## About WeKan Versions
+## Support period
+
+Security fixes are made in the newest WeKan release, and only there: there are
+no long-term branches, and older releases do not get backports. Releases are
+frequent - several a day when a fault is being chased - and every release
+upgrades the one before it in place, so the supported version is always the
+newest one at [GitHub Releases](https://github.com/wekan/wekan/releases).
+Upgrade to it to get a fix. Sandstorm WeKan follows as the Sandstorm App Market
+publishes it.
+
+Every release carries its software bill of materials, every npm package it is
+built from, as `wekan-<version>-sbom.cdx.json` (CycloneDX) on its GitHub Release
+page; Admin Panel / Settings / Version links the one of the running version.
+
+A WeKan whose administrator has set a security contact in Admin Panel /
+Settings / Legal pages answers at `/.well-known/security.txt` ([RFC
+9116](https://www.rfc-editor.org/rfc/rfc9116)) with that contact: report
+something about that one server there, and something in WeKan itself as
+described above.
+
 
 There are 2 versions of WeKan: Standalone WeKan, and Sandstorm WeKan.
 

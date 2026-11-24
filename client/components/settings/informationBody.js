@@ -1,5 +1,6 @@
 import { TAPi18n } from '/imports/i18n';
 const { filesize } = require('filesize');
+const { sbomUrl } = require('/models/lib/securityTxt');
 
 Template.statistics.onCreated(function () {
   this.info = new ReactiveVar({});
@@ -18,6 +19,10 @@ Template.statistics.onCreated(function () {
 // entry that opens it. This file is just the statistics pane now.
 
 Template.statistics.helpers({
+  // The SBOM of this release (WP-9), on its GitHub Release.
+  sbomUrl() {
+    return sbomUrl((Template.instance().info.get() || {}).version);
+  },
   statistics() {
     return Template.instance().info.get();
   },

@@ -34,6 +34,9 @@
     "models/lib/paymentCodes.js": [
       "https://paypal\\.me/?.*"
     ],
+    "models/lib/securityTxt.js": [
+      "https://github\\.com/wekan/wekan/releases/download/.*"
+    ],
     "client/components/cloud/cloudPanel.jade": [
       "http://caddy(:2019)?",
       "https://\\{\\{settings\\.domain.*"

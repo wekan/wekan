@@ -44,6 +44,14 @@ template(name='statistics')
         tr
           th WeKan ® {{_ 'info'}}
           td {{statistics.version}}
+        //- The software bill of materials of this release (WP-9): every npm
+          package it is built from, as CycloneDX JSON on its GitHub Release.
+          SBOM and CycloneDX are names, not words, so neither is translated.
+        if sbomUrl
+          tr
+            th SBOM
+            td
+              a(href="{{sbomUrl}}" target="_blank" rel="noopener noreferrer") CycloneDX JSON
         //- The LABEL is translated; the VALUE never is. bundle.zip, Snap, Docker
           and Sandstorm are the names of the things themselves - a package
           format, a store, a product - not words describing them, and a reader

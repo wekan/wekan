@@ -434,6 +434,7 @@ import '/server/routes/attachmentApi';
 import '/server/routes/avatarServer';
 import '/server/routes/cardOgTags';
 import '/server/routes/customHeadAssets';
+import '/server/routes/securityTxt';
 import '/server/routes/importTrelloZip';
 import '/server/routes/importUpload';
 import '/server/routes/exportAllBoards';
