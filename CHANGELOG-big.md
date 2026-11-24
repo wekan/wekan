@@ -467,6 +467,17 @@ old sentence or does not name its own Review button.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f510ba59619c5752804121405fea06e3d5a03395">The Problems report tables and the Email pane are in every language, not English</a>. Thanks to xet7.</summary>
+
+Their column names, filter labels and options ("Title", "Archived?", "Show",
+"All" ...) and the Email pane's "Email service" and "Enable below email
+settings" were English in the code, found by the accessibility spec. 42 labels
+use translation keys now, 17 of them new.
+`tests/problemsTablesTranslated.test.cjs`.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/76fd0e443453f8b70ef4bed3df7e2c286f623f83">The attachment retention form accepts only the per-run limit the retention uses</a>. Thanks to xet7.</summary>
 
 "At most per run" accepted up to 1000000, and the retention cut anything above
@@ -496,6 +507,22 @@ legacy browsers, which no test uses, and V8 ran out of memory. `build.sh` and
 The four faults behind them are the Login and Cards and attachments entries
 above; the sixth expected null where Meteor 3's findOneAsync answers
 undefined for "not found", and accepts either now.
+
+</details>
+
+and reorganises the documentation:
+
+**Feature docs** - one folder per topic, as GitHub shows it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e1f9e89eb5e534250c4cabe440ceec1ae822849">Every feature topic is one folder under docs/Features, with README.md as its main page</a>. Thanks to xet7.</summary>
+
+The General/ level is gone, its topics moved into the folders of the same
+name; accessibility is one folder; every folder opens on GitHub with its
+README.md; the 73 "Moved" forwarding pages are deleted and every link goes to
+the final page; docs/Features/README.md has the website's feature overview.
+`tests/docsFeaturesLayout.test.cjs` checks the layout and that every relative
+link in the docs resolves.
 
 </details>
 

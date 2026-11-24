@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The last wrong-language words; a keyboard-only accessibility walk; the docs folders | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The last wrong-language words; a keyboard-only accessibility walk | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -46,19 +46,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   texts; Luxembourgish (`lb`) whiteboard is both "Whiteboard" and "Tafel";
   Serbian (`sr`) "All Boards" is not named the same everywhere; one Spanish
   value in Venetian (`ve-CC`).
-- Translation keys for the English written into the code, found by spec 47:
-  the Problems report tables' column names, filter labels and options
-  (`client/components/settings/adminProblems.js`: "Title", "Archived?",
-  "Show", "Permission", "All", "Done" ...) and the Email pane's "Email
-  service" and "Enable below email settings". Each needs a key in every
-  language.
-- The docs folders keep their main page as `README.md` instead of a page named
-  after the folder, and `docs/Features/README.md` holds the website's feature
-  overview. Every topic in one folder at the `docs/Features/` level: the
-  `General/` level goes, its folders move up into the same-named folders, and
-  the folders of `# Moved` stubs are removed, with every link updated.
-- Everything about accessibility in one folder, `docs/Features/Accessibility/`
-  (from `General/Accessibility/` and the Admin Panel's Accessibility page).
 - Accessibility: specs 45 to 47 pass in Chromium - the axe WCAG 2.2 AA rules
   on every page they visit, every Admin Panel pane, the most used popups,
   every theme's contrast, 320 px reflow and reduced motion. Still to do: a
