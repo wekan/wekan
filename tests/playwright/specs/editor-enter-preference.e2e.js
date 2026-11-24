@@ -99,7 +99,13 @@ for (const enabled of [true, false]) {
     await page.locator('.js-change-settings').click();
     await page.locator('.js-toggle-submit-on-enter').click();
     await expect.poll(() => !!db.findOne('users', { _id: user.id }).profile.submitOnEnter).toBe(enabled);
-    await page.keyboard.press('Escape');
+    // Escape goes BACK a popup first (escapeActions.js popup-back): Change
+    // Settings to the member menu, then closes that. Until none is left, or
+    // the member menu covers the list's Add Card.
+    await expect(async () => {
+      await page.keyboard.press('Escape');
+      await expect(page.locator('.js-pop-over')).toHaveCount(0, { timeout: 1000 });
+    }).toPass({ timeout: 10_000 });
     await bp.openAddCardTop(board.listIds[0]);
     const input = bp.list(board.listIds[0]).locator('textarea.js-card-title');
     const title = `Live preference ${enabled}`;

@@ -82,9 +82,16 @@ export function leftMenuData(items, activeId, jsClass = '') {
 // Returns { titleKey, label } - a translation key or a literal label, the same two
 // forms a menu entry has - or an empty object when nothing is active, so a page
 // with no selection renders no heading rather than an empty one.
-export function paneTitle(items, activeId) {
+export function paneTitle(items, activeId, fallback) {
   const active = buildMenuItems(items, activeId).find(item => item.active);
   if (!active) {
+    // A pane whose menu entry is hidden still answers at its address -
+    // Attachments / Encrypt without ATTACHMENTS_PASSPHRASE - and keeps its
+    // heading: the page's own title for it (models/lib/adminUrls.js
+    // adminPaneTitle), when the caller passes one.
+    if (fallback && (fallback.titleKey || fallback.title)) {
+      return { titleKey: fallback.titleKey || '', label: fallback.title || '', paneId: String(activeId || '') };
+    }
     return {};
   }
   // `paneId` is the open entry's own id, which picks the pane's ? help

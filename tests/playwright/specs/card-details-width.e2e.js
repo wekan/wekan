@@ -26,7 +26,12 @@ test.describe('#6939 card details width', () => {
     await cp.waitForOpen();
     await expect.poll(() => width(boardPage)).toBe(520);
 
-    // Drag the browser's own resize handle, the bottom corner on the end side.
+    // Drag the browser's own resize handle, the bottom corner on the end side -
+    // once the window has settled: as it opens it is the window's full height
+    // for a moment, its corner below the bottom edge, and a press there lands
+    // on the page outside the card, which closes it.
+    await expect.poll(() => boardPage.locator('.js-card-details').first()
+      .evaluate(el => el.getBoundingClientRect().bottom <= window.innerHeight - 4)).toBe(true);
     const box = await boardPage.locator('.js-card-details').first().boundingBox();
     await boardPage.mouse.move(box.x + box.width - 2, box.y + box.height - 2);
     await boardPage.mouse.down();

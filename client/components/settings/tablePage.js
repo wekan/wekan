@@ -25,13 +25,21 @@ Template.tablePage.helpers({
   // link's name ("E2E Test User (user1)") did not contain them ("ETU"), so it
   // starts with them. With an avatar image the image's alt is the visible
   // label, and that already is the name.
+  //
+  // A link always has a name (WCAG 4.1.2, axe link-name): a row can carry a
+  // user id with no text beside it - Problems / API names the account of an
+  // API call, not its person - so the name falls back to the account's own,
+  // and to its id when this client does not have the account.
   personLinkLabel(userId, initials, text, avatarUrl) {
-    const name = typeof text === 'string' ? text : '';
+    const user = userId
+      ? ReactiveCache.getUser(userId, { fields: { username: 1, 'profile.initials': 1, 'profile.fullname': 1 } })
+      : null;
+    const own = user && ((user.profile && user.profile.fullname) || user.username);
+    const name = (typeof text === 'string' && text) || own || (typeof userId === 'string' ? userId : '');
     if (avatarUrl) return name;
     let shown = typeof initials === 'string' && initials ? initials : '';
-    if (!shown && userId) {
-      const user = ReactiveCache.getUser(userId, { fields: { username: 1, 'profile.initials': 1, 'profile.fullname': 1 } });
-      shown = (user && user.getInitials && user.getInitials()) || '';
+    if (!shown && user) {
+      shown = (user.getInitials && user.getInitials()) || '';
     }
     if (!shown || name.toLowerCase().includes(shown.toLowerCase())) return name;
     return `${shown} ${name}`;

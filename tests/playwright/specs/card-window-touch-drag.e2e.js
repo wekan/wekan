@@ -120,8 +120,17 @@ test('a popup moves under a finger by its title bar', async ({ boardPage: page, 
   // The title bar beside its title, away from the back and close buttons.
   const h = await header.boundingBox();
   const from = { x: Math.round(h.x + h.width / 2), y: Math.round(h.y + h.height / 2) };
-  await touchDrag(cdp, from, { x: from.x - 90, y: from.y + 70 });
-  await expect.poll(box, { message: 'a finger on the title bar moves the popup' }).toMatchObject({ x: before.x - 90, y: before.y + 70 });
+  // Toward the side with room: a drag keeps the popup 12px inside the window
+  // (popup.js), and where the menu opens depends on the header's layout.
+  const dx = await page.evaluate(() => {
+    const b = document.querySelector('.pop-over').getBoundingClientRect();
+    const start = Math.floor(b.left - 12);
+    const end = Math.floor(window.innerWidth - b.right - 12);
+    return start >= end ? -Math.min(90, start) : Math.min(90, end);
+  });
+  expect(Math.abs(dx), 'room to move it at all').toBeGreaterThanOrEqual(10);
+  await touchDrag(cdp, from, { x: from.x + dx, y: from.y + 70 });
+  await expect.poll(box, { message: 'a finger on the title bar moves the popup' }).toMatchObject({ x: before.x + dx, y: before.y + 70 });
 });
 
 test('with drag handles on, the handle moves the window under a finger and the header row does not', async ({ boardPage: page, board, user, browserName }) => {

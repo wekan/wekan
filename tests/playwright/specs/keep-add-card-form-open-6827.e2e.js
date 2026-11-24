@@ -34,7 +34,13 @@ test('#6827: the Add card form closes after a card, unless Member Settings keeps
   await page.locator('.js-toggle-keep-add-card-form-open').click();
   await expect.poll(() => db.findOne('users', { _id: user.id }).profile.keepAddCardFormOpen).toBe(true);
   await expect(page.locator('.js-toggle-keep-add-card-form-open .fa-check')).toBeVisible();
-  await page.keyboard.press('Escape');
+  // Escape goes BACK a popup first (escapeActions.js popup-back): Change
+  // Settings to the member menu, then closes that. Until none is left, or
+  // the member menu covers the list's Add Card.
+  await expect(async () => {
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.js-pop-over')).toHaveCount(0, { timeout: 1000 });
+  }).toPass({ timeout: 10_000 });
   await bp.openAddCardTop(listId);
   await bp.submitNewCard(listId, 'Kept open after adding');
   await expect(composer).toBeVisible();

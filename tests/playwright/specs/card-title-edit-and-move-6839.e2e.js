@@ -133,14 +133,22 @@ for (const handles of [false, true]) {
       await expect(handle).toHaveCount(handles ? 1 : 0);
       const before = await box(pop);
       const bar = await box(titleBar);
-      await drag(page, bar.x + Math.min(30, bar.width / 2), bar.y + bar.height / 2, -40, 30);
+      // Toward the side with room, and no further than there is: a drag keeps
+      // a popup 12px inside the window (popup.js), and the card's menu is laid
+      // out in columns 1200px wide in this 1280px window, 28px from each edge.
+      const innerWidth = await page.evaluate(() => window.innerWidth);
+      const roomStart = Math.floor(before.x - 12);
+      const roomEnd = Math.floor(innerWidth - (before.x + before.width) - 12);
+      const dx = roomStart >= roomEnd ? -Math.min(40, roomStart) : Math.min(40, roomEnd);
+      expect(Math.abs(dx), 'room to move it at all').toBeGreaterThanOrEqual(10);
+      await drag(page, bar.x + Math.min(30, bar.width / 2), bar.y + bar.height / 2, dx, 30);
       if (handles) {
         expect(await at(pop), 'negative: with a handle, the title bar does not move it').toEqual({ x: Math.round(before.x), y: Math.round(before.y) });
         const h = await box(handle);
-        await drag(page, h.x + h.width / 2, h.y + h.height / 2, -40, 30);
+        await drag(page, h.x + h.width / 2, h.y + h.height / 2, dx, 30);
       }
       const after = await box(pop);
-      expect(Math.round(after.x - before.x), await pop.getAttribute('data-popup')).toBe(-40);
+      expect(Math.round(after.x - before.x), await pop.getAttribute('data-popup')).toBe(dx);
       expect(Math.round(after.y - before.y)).toBe(30);
       await pop.locator('.js-close-pop-over').first().click();
       await expect(page.locator('.js-pop-over')).toHaveCount(0);

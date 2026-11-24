@@ -41,8 +41,10 @@ test('attachment text: hashed and indexed, found by Filter, Search and Search Al
   expect(attachment.contentHash.at).toBeTruthy();
   await expect.poll(() => db.findOne('documentPreviews', { attachmentId: attachment._id })?.searchText || '').toContain(word);
   expect(db.findOne('documentPreviews', { attachmentId: attachment._id }).generatedAt).toBeTruthy();
-  expect(db.findOne('changeHistory', { entityType: 'attachment', entityId: attachment._id, changeType: 'added' })
-    ?.newContent?.contentHash).toBe(sha(content));
+  // ONE "added" row: the upload hook's. The content index used to write a
+  // second one carrying the hash, which showed every upload twice in the card
+  // history (5ba1098521); the hash is on the attachment, checked above.
+  await expect.poll(() => db.countDocuments('changeHistory', { entityType: 'attachment', entityId: attachment._id, changeType: 'added' })).toBe(1);
   await cp.close();
 
   // Filter: the text filter finds the card by its attachment's text alone.

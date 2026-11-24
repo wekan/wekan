@@ -451,6 +451,13 @@ button.attachment-thumbnail-container.attachment-thumbnail-compact:active {
   padding-inline-start: 1.2em;
   will-change: transform;
 }
+/* An id selector outranks .hidden, so the display:flex above showed the
+   rich and zip viewers - two empty white boxes - beside every PDF, image or
+   video, each taking a third of the slideshow's width (#6612). */
+#rich-viewer.hidden,
+#zip-viewer.hidden {
+  display: none;
+}
 #rich-viewer li,
 #zip-viewer li {
   padding: 0.3em;

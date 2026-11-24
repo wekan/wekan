@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Admin-Panel/Admin-Panel-URLs.md
-import { adminPath } from '/models/lib/adminUrls';
+import { adminPath, adminPaneTitle } from '/models/lib/adminUrls';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 const {
   SANDSTORM_HIDDEN_ATTACHMENTS_PANES,
@@ -640,8 +640,9 @@ Template.attachments.helpers({
   // The heading above the pane: the open menu entry's own label
   // (docs/Features/All-Boards/Left-Menu.md).
   paneTitleData() {
-    return paneTitle(attachmentsMenu(ReactiveCache.getCurrentUser()),
-      Template.instance().activeSection.get());
+    const active = Template.instance().activeSection.get();
+    return paneTitle(attachmentsMenu(ReactiveCache.getCurrentUser()), active,
+      adminPaneTitle('attachments', active));
   },
   loading() {
     return Template.instance().loading;

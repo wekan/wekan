@@ -43,6 +43,10 @@ test('Jira original and remaining hours sync together and review local edits in 
     await expect.poll(() => db.findOne('cards', { listId, syncExternalId: 'TIME-1' })?.customFields).toEqual([
       { _id: ids[0], value: 2 }, { _id: ids[1], value: 0 },
     ]);
+    // The card is written before that sync lets go of the list's reservation
+    // (server/lib/syncLease.js releases it last); a sync asked for in between
+    // is refused as busy, rightly. The next one waits for it to finish.
+    await expect.poll(() => db.findOne('listSyncLeases', { _id: listId })).toBeFalsy();
     const card = db.findOne('cards', { listId, syncExternalId: 'TIME-1' });
     fields = { timetracking: { originalEstimateSeconds: 10800, remainingEstimateSeconds: 3600 } };
     expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
@@ -56,6 +60,7 @@ test('Jira original and remaining hours sync together and review local edits in 
     await expect(conflict).toBeVisible();
     await conflict.locator('[data-choice="source"]').click();
     await expect.poll(() => db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: ids[1], value: 2 });
+    await expect.poll(() => db.findOne('listSyncLeases', { _id: listId })).toBeFalsy();
     fields = { timetracking: { originalEstimateSeconds: null, remainingEstimateSeconds: 0 } };
     expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
     expect(db.findOne('cards', { _id: card._id }).customFields).toEqual([{ _id: ids[1], value: 0 }, { _id: 'other', value: false }]);

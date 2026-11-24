@@ -179,6 +179,24 @@ test('Offices and the other tables: a person link\'s name contains its visible i
   assert.match(read(`${SETTINGS}/tablePage.js`), /personLinkLabel\(userId, initials, text, avatarUrl\)/);
 });
 
+test('a person link always has a name, even with no text and no account on this client (link-name)', () => {
+  // Problems / API: a row with a user id and no text beside it. The helper,
+  // run with a stand-in ReactiveCache.
+  const src = read(`${SETTINGS}/tablePage.js`);
+  const start = src.indexOf('  personLinkLabel(userId, initials, text, avatarUrl) {');
+  const end = src.indexOf('\n  },', start);
+  const vm = require('node:vm');
+  const make = users => vm.runInNewContext(`({ ${src.slice(start, end)} } })`, {
+    ReactiveCache: { getUser: id => users[id] || null },
+  }).personLinkLabel;
+  const label = make({ u1: { username: 'anna', profile: { fullname: 'Anna Ek' }, getInitials: () => 'AE' } });
+  assert.equal(label('u1', '', '', ''), 'AE Anna Ek', 'the account\'s own name, starting with its initials');
+  assert.equal(label('gone', '', '', ''), 'gone', 'no account here: its id, never an empty name');
+  assert.equal(label('u1', 'AE', 'Anna Ek (anna)', ''), 'AE Anna Ek (anna)');
+  assert.equal(label('u1', 'AE', 'Anna Ek (anna)', '/a.png'), 'Anna Ek (anna)', 'with an avatar image its alt is the label');
+  assert.equal(label('', '', '', ''), '', 'negative: no user, no link name to make');
+});
+
 test('the spinner preview is an image, so its aria-label is allowed', () => {
   assert.match(read(`${SETTINGS}/settingBody.jade`),
     /\.spinner-preview\(role="img" title="\{\{_ 'preview'\}\}" aria-label="\{\{_ 'preview'\}\}"\)/);
