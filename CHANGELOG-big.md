@@ -101,7 +101,8 @@ Which databases WeKan supports
 **In short:** A person can **download everything WeKan holds about them**
 and **be erased everywhere**; an operator publishes a **privacy notice, terms
 and imprint**, can **require accepting them**, and limits how long records are
-kept. Administrators **export their lists as CSV** for access reviews, and every
+kept. Administrators **export their lists as CSV**, see **who downloaded what**,
+check a **Compliance** checklist, and every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. The **delay after a wrong password** is applied at last, and the
 **Problems Summary** and **attachment retention** form are fixed.
@@ -110,7 +111,7 @@ This release adds the following new features:
 
 **Privacy and personal data** - a person's right to their data, to have it
 erased, and to have it kept no longer than needed (docs/Compliance/README.md,
-WP-4 to WP-10).
+WP-4 to WP-12).
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29a41bd51c39a1a42eeb63d3e3dd11b6096329d6">Legal pages: privacy notice, terms, cookie notice and imprint, readable before signing in</a>. Thanks to xet7.</summary>
@@ -194,6 +195,31 @@ site administrator can download them, every download is in the Audit log, no
 password, token or key is ever a column, and a cell a spreadsheet would run as
 a formula is written as text. Member Settings / Privacy and my data lists where
 the account signed in from. `tests/adminCsvExport.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1319f01e17fd155c8f2f3eadc3714c6a1effb05c">The Audit log's Data access tab shows who downloaded what, and AUDIT_LOG_STDOUT=json feeds a SIEM</a>. Thanks to xet7.</summary>
+
+Every export that answers 200 - a board in any format, a chart, a card, every
+board, a person's data, an Admin Panel list - is counted in one row per
+person, day, kind and target, never a row per download, kept as the audit log
+and anonymised on erasure; a test fails when an export route is missing from
+it. With `AUDIT_LOG_STDOUT=json` every audit row, security problem and data
+access is also a JSON line on stdout, carrying only what the Admin Panel shows.
+The admin CSV exports now obey the switch that turns all export off.
+`tests/dataAccessLog.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb144f07c9077f55775a1ca4f502a9f8e655ca73">Admin Panel / Problems / Compliance checks the settings the laws and standards look for</a>. Thanks to xet7.</summary>
+
+A read-only checklist: two-factor authentication, idle sign-out, HTTPS with
+HSTS, sign-in address retention, audit log retention for HIPAA, the privacy
+notice and imprint, the security contact and an encrypted continuous backup.
+Each row says OK, Check or For information, shows this server's value and
+links to the pane that changes it. `tests/complianceChecks.test.cjs`.
 
 </details>
 

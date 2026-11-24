@@ -10,7 +10,8 @@ make changes there.
 A person can **download everything WeKan holds about them**
 and **be erased everywhere**; an operator publishes a **privacy notice, terms
 and imprint**, can **require accepting them**, and limits how long records are
-kept. Administrators **export their lists as CSV** for access reviews, and every
+kept. Administrators **export their lists as CSV**, see **who downloaded what**,
+check a **Compliance** checklist, and every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. The **delay after a wrong password** is applied at last, and the
 **Problems Summary** and **attachment retention** form are fixed.
