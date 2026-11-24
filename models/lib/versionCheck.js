@@ -40,3 +40,19 @@ export function parseVersionManifest(value) {
     .join('\n');
   return { text, versions };
 }
+
+// Problems / Summary (docs/Compliance/README.md P3, [CRA] Annex I Part II(8)):
+// "a newer WeKan is available", from the last time an administrator pressed
+// Check version in Admin Panel / Settings / Version. WeKan never asks wekan.fi
+// on its own - the check is the administrator's - so this only repeats what
+// that check found, until the server runs that version.
+export function updateProblem({ current, last } = {}) {
+  const newest = last && last.versions && last.versions.wekan;
+  if (!newest || compareVersions(current, newest) !== -1) return null;
+  const when = last.checkedAt ? new Date(last.checkedAt).toISOString().slice(0, 10) : '';
+  return {
+    id: 'wekan-update',
+    title: 'A newer WeKan is available',
+    detail: `WeKan ${newest} is out; this server runs ${String(current).replace(/^v/, '')}. Security fixes go into the newest release only (SECURITY.md). Found by Check version in Admin Panel / Settings / Version${when ? ` on ${when}` : ''}.`,
+  };
+}

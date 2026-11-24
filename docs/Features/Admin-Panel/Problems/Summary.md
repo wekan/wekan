@@ -59,6 +59,12 @@ not `isAdmin`. Organization administrators do not see it.
 
 ## How the numbers are calculated
 
+- **A newer WeKan is available**: shown when the last **Check version** in
+  Admin Panel / Settings / Version found a newer WeKan than this server
+  runs, until the server runs it. WeKan never checks on its own: the result
+  is the one an administrator asked for, kept in the `versionChecks`
+  collection (`models/lib/versionCheck.js` `updateProblem`).
+
 | Number | How it is computed |
 | --- | --- |
 | Reload | the pane reloads every 30 seconds (`Meteor.setInterval(..., 30000)` in [client/components/settings/problemsSummary.js](../../../../client/components/settings/problemsSummary.js)). |

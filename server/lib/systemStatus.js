@@ -139,8 +139,20 @@ export async function getProblemsOverview() {
   ]);
   return buildProblemsOverview({
     inProgress, loginProblems, brokenCards, unboundLists,
-    extraProblems: [await backupProblemNow()].filter(Boolean).concat(await dataHealthProblemsNow()),
+    extraProblems: [await backupProblemNow(), await updateProblemNow()].filter(Boolean).concat(await dataHealthProblemsNow()),
   });
+}
+
+// "A newer WeKan is available", from the last Check version
+// (models/lib/versionCheck.js updateProblem). Its own try, like the backup.
+async function updateProblemNow() {
+  try {
+    const { VersionChecks } = require('/server/statistics');
+    const { updateProblem } = require('/models/lib/versionCheck');
+    return updateProblem({ current: require('/package.json').version, last: await VersionChecks.findOneAsync('last') });
+  } catch (_) {
+    return null;
+  }
 }
 
 // A failed or overdue Admin Panel backup (models/lib/backupRuns.js). Its own

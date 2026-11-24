@@ -3,7 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 import fs from 'fs';
 import { detectPackaging } from '/models/lib/platformPackaging';
+import { Mongo } from 'meteor/mongo';
 import { parseVersionManifest } from '/models/lib/versionCheck';
+
+// The last Check version result (newest versions and when), one document.
+export const VersionChecks = new Mongo.Collection('versionChecks');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -23,6 +27,12 @@ Meteor.methods({
       if (!response.ok) throw new Error('Version manifest request failed');
       const manifest = parseVersionManifest(await response.text());
       if (!manifest) throw new Error('Version manifest was invalid');
+      // Kept for Problems / Summary's "a newer WeKan is available"
+      // (models/lib/versionCheck.js updateProblem): the administrator's own
+      // check, repeated there - WeKan never checks on its own.
+      try {
+        await VersionChecks.upsertAsync({ _id: 'last' }, { $set: { versions: manifest.versions, checkedAt: new Date() } });
+      } catch (e) { /* the answer matters more than keeping it */ }
       return manifest;
     } catch {
       throw new Meteor.Error('version-check-failed');

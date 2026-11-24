@@ -199,7 +199,7 @@ test('a failed or overdue backup is a problem on Problems / Summary', () => {
   assert.strictEqual(B.backupProblem(B.backupHealth({ runs: [run('success', 1)], schedule: daily, now: NOW })), null);
   // No schedule and never backed up is not reported: backups are optional.
   assert.strictEqual(B.backupProblem(B.backupHealth({ runs: [], schedule: null, now: NOW })), null);
-  assert.match(read('server/lib/systemStatus.js'), /extraProblems: \[await backupProblemNow\(\)\]\.filter\(Boolean\)/);
+  assert.match(read('server/lib/systemStatus.js'), /extraProblems: \[await backupProblemNow\(\)(?:, await updateProblemNow\(\))?\]\.filter\(Boolean\)/);
 });
 
 test('BACKUP_KEEP_DAYS is documented in the compose files, start scripts and snap config', () => {

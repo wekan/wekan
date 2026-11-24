@@ -532,7 +532,10 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
   `server/lib/continuousBackup/encryption.js`); app-level encryption of
   filesystem attachments.
 - Optional minimum-age confirmation on registration.
-- "Security update available" flag in Problems / Summary.
+- "Security update available" flag in Problems / Summary. *(done
+  2026-11-24: from the last Check version an administrator ran, never a check
+  of WeKan's own - `models/lib/versionCheck.js` `updateProblem`,
+  `tests/versionUpdateProblem.test.cjs`.)*
 - (Imprint link in the logged-in Member menu moved to WP-6.) "Do not record login addresses"
   switch; delete/anonymise accounts N days after auto-disable. *(done
   2026-11-24: `LOGIN_ADDRESS_RECORDED=false` and
