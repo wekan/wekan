@@ -6459,6 +6459,38 @@
     {
       "key": "login-refused-ldap-bound-to-another-entry-fix",
       "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-test",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-works",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-requests-left",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-rejected",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-refused",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-token-unreachable",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-job-stop",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-job-stop-requested",
+      "since": "2026-11-24"
     }
   ]
 }
