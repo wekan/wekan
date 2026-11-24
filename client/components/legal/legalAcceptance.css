@@ -32,3 +32,35 @@
   margin: 0.5rem 1rem;
   font-size: 0.9em;
 }
+/* Native checkboxes, labelled: the global material form rules hide every
+   checkbox (as in scrumView.css), which left the acceptance dialog, the sign-up
+   box and the Legal pages switches with nothing to tick. The label around each
+   is the target, so the whole line ticks it. */
+.legal-acceptance-page input[type="checkbox"],
+.legal-page-check input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  flex: 0 0 18px;
+  padding: 0;
+  margin: 0 0.4rem 0 0;
+  vertical-align: middle;
+  appearance: auto;
+  cursor: pointer;
+}
+.legal-acceptance-page,
+.legal-page-check {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 24px;
+  cursor: pointer;
+}
+.js-legal-accept-submit[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

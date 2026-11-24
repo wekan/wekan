@@ -91,6 +91,8 @@ test('the gate wraps every method and publication, and refuses until accepted', 
   assert.match(gate, /if \(await mustAccept\(this\)\) \{\s*this\.ready\(\);/, 'a publication sends nothing');
   assert.match(gate, /deferArgumentAudit\(args\);/, 'audit-argument-checks still sees the handler check its arguments');
   assert.match(gate, /cached\.stamp === stamp/, 'a new version is asked for at once, not after the cache minute');
+  assert.match(gate, /if \(missing\) missing = missingAcceptances\(user, await refreshRequiredAcceptances\(\)\)\.length > 0;/,
+    'a refusal re-reads the requirement first, so one turned off elsewhere blocks nobody');
   assert.match(read('server/imports.js'), /import '\/server\/requireLegalAcceptance';/);
   assert.match(read('server/methods/legalPages.js'), /refreshRequiredAcceptances\(\)/, 'a save applies at once');
   // acceptLegalPages checks its argument and only writes acceptanceSet's $set.
@@ -113,4 +115,15 @@ test('the person sees what they accepted, and the administrator where to require
   assert.match(read('client/components/settings/legalPagesSettings.jade'), /input\.js-legal-require-acceptance\(type="checkbox"/);
   const { INVENTORY } = require('../models/lib/personalDataInventory');
   assert.match(INVENTORY.find(e => e.collection === 'users').purpose, /legalAcceptances/);
+});
+
+// Found by tests/playwright/specs/legal-acceptance.e2e.js: the users schema
+// (collection2) silently dropped a field it did not know, so every
+// acceptance was "saved" and gone. And the global form rules hid native
+// checkboxes, so there was nothing to tick.
+test('negative: the account schema keeps the acceptances, and the boxes can be seen', () => {
+  const users = read('models/users.js');
+  assert.match(users, /legalAcceptances: \{[\s\S]{0,400}?type: Object,\s*optional: true,\s*blackbox: true,/);
+  const css = read('client/components/legal/legalAcceptance.css');
+  assert.match(css, /\.legal-acceptance-page input\[type="checkbox"\],\s*\.legal-page-check input\[type="checkbox"\] \{[^}]*visibility: visible;[^}]*appearance: auto;/);
 });

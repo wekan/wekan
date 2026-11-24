@@ -1476,6 +1476,17 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    legalAcceptances: {
+      /**
+       * the versions of the terms and the privacy notice this account
+       * accepted: { terms: { version, at }, privacy: { version, at } }
+       * (models/lib/legalAcceptance.js, WP-8). Without this the schema
+       * silently dropped every acceptance.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     authenticationMethod: {
       /**
        * authentication method of the user

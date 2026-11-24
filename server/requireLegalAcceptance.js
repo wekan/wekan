@@ -54,7 +54,11 @@ export async function mustAccept(invocation) {
   if (allowedWithoutLookup(invocation)) return false;
   const conn = invocation.connection;
   const user = await Meteor.users.findOneAsync(invocation.userId, { fields: USER_FIELDS });
-  const missing = missingAcceptances(user, required).length > 0;
+  let missing = missingAcceptances(user, required).length > 0;
+  // Before refusing, read the requirement again: another server process, or
+  // the database itself, may have changed it since the last refresh, and a
+  // requirement that was turned off must never block anybody.
+  if (missing) missing = missingAcceptances(user, await refreshRequiredAcceptances()).length > 0;
   if (missing) delete conn._wekanLegalAcceptance;
   else conn._wekanLegalAcceptance = { userId: invocation.userId, stamp, at: Date.now() };
   return missing;

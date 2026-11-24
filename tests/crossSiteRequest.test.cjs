@@ -112,8 +112,14 @@ test('negative: no route reads the login cookie through a handler that runs befo
   // A rawHandler registered by a route file could run ahead of the guard. Only
   // the header middlewares (cors, policy, securityHeaders), Sandstorm's startup
   // ping and Accept-Encoding fix, and the guard use them.
+  // server/lib/dataAccessLog.js (WP-11) only adds a 'finish' listener: it
+  // never answers and never reads the cookie, and it counts an export only
+  // once its 200 has gone out - after the guard let the request through.
   const allowed = new Set(['server/cors.js', 'server/policy.js', 'server/securityHeaders.js',
-    'server/crossSiteRequestGuard.js', 'server/sandstorm.js']);
+    'server/crossSiteRequestGuard.js', 'server/sandstorm.js', 'server/lib/dataAccessLog.js']);
+  const access = read('server/lib/dataAccessLog.js');
+  const hook = access.slice(access.indexOf('WebApp.rawHandlers.use('));
+  assert.doesNotMatch(hook.slice(0, hook.indexOf('\n});')), /cookie|res\.writeHead|res\.end\(/, 'the data-access hook only listens');
   const { execFileSync } = require('child_process');
   const files = execFileSync('git', ['grep', '-l', 'WebApp.rawHandlers.use', '--', 'server', 'models'], { cwd: repoRoot, encoding: 'utf8' })
     .split('\n').filter(Boolean);

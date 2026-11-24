@@ -8,7 +8,11 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
 
-const save = (page, form) => page.evaluate(f => Meteor.callAsync('saveLegalPage', 'terms', f), form);
+const save = (page, form) => page.evaluate(f => Meteor.callAsync('saveLegalPage', 'terms', f)
+  .catch(e => `error: ${e.error} ${e.reason || e.message}`), form);
+// Accepting reloads the page; wait until the new one is connected and signed in.
+const ready = page => expect.poll(() => page.evaluate(() => typeof Meteor !== 'undefined'
+  && Meteor.status().connected && !!Meteor.userId()).catch(() => false), { timeout: 30_000 }).toBe(true);
 const callError = (page, name) => page.evaluate(n => Meteor.callAsync(n).then(() => null, e => e.error), name);
 
 test('the terms must be accepted, and each new version again', async ({ page, user }) => {
@@ -30,6 +34,8 @@ test('the terms must be accepted, and each new version again', async ({ page, us
     await submit.click();
     await expect(dialog).toHaveCount(0, { timeout: 20_000 });
     await expect.poll(() => db.findOne('users', { _id: user.id }).legalAcceptances?.terms?.version).toBe(1);
+    await page.waitForLoadState('load');
+    await ready(page);
     expect(await callError(page, 'getLegalPagesForAdmin')).toBe(null);
 
     // A new version of the text is asked for again.
