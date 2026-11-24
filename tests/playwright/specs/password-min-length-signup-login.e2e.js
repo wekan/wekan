@@ -81,6 +81,10 @@ async function signUp(browser, username, password, min = 0) {
   await page.locator('#at-field-email').fill(`${username}@example.com`);
   await page.locator('#at-field-password').fill(password);
   await page.locator('#at-field-password_again').fill(password);
+  // A server with REGISTRATION_MINIMUM_AGE asks for the age too
+  // (models/lib/registrationAge.js); this spec is about the password.
+  const age = page.locator('#at-field-confirmAge');
+  if (await age.isVisible().catch(() => false)) await age.check();
   await page.locator('#at-btn').click();
   return { context, page };
 }
