@@ -306,6 +306,19 @@ HIPAA, NIS2, ISO 27001 and SOC 2. `tests/securityTxt.test.cjs`.
 
 and fixes the following bugs:
 
+**Keyboard** - closing what is open.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57dbff0abdf84825c6fce3b0b70d983204edd756">Escape closes a popup for a member who turned keyboard shortcuts off</a>. Thanks to xet7.</summary>
+
+With keyboard shortcuts off in Member Settings, Escape closed no popup or menu
+at all: the shortcut filter refused every key before it let Escape through.
+Escape is not a shortcut but how a popup is closed from the keyboard, so it is
+let through first now. Found by the help button's Playwright spec, which
+passes now. `tests/escapeWithoutShortcuts.test.cjs`.
+
+</details>
+
 **Privacy and personal data** - accepting the terms, as a browser does it.
 
 <details>
