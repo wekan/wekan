@@ -1,4 +1,4 @@
-# Downloading GitHub's "Security and quality" alerts
+# Downloading GitHub's "Security and quality" alerts and Artifact Hub's security report
 
 `download-github-security.sh` saves every repository's security alerts of a
 GitHub organization, so they can be read and fixed from the files - inside the
@@ -79,6 +79,39 @@ can reach a commit or a Meteor rebuild. The secret values themselves are not
 written unless asked for, because the files outlive the session that needed
 them.
 
+## Artifact Hub's security report of the Helm chart
+
+[Artifact Hub](https://artifacthub.io/packages/helm/wekan/wekan) scans every
+container image the WeKan Helm chart names with Trivy, and shows the result as
+the package's "Security report". `download-github-security.sh wekan` saves the
+whole of it as well, and it can be downloaded on its own - Artifact Hub's API
+is public, so no login is needed, and it works inside the sandbox too:
+
+```bash
+releases/sec/download-artifacthub-security.sh                    # helm/wekan/wekan, newest version
+releases/sec/download-artifacthub-security.sh helm/wekan/wekan --version 13.30.0
+```
+
+```
+.tools/log/sec/_artifacthub/<kind>/<repository>/<package>/<YYYY-MM-DD_HH-MM-SS>/
+  package.json               the package: version, images, report summary
+  security-report.json       the whole report, one Trivy result per image
+  images/<image>.json        the same, one file per image
+  SUMMARY.md                 counts per image and target, then every
+                             vulnerability, the most severe first, with the
+                             installed and the fixed version
+```
+
+| Option of `download-github-security.sh` | What it does |
+| --- | --- |
+| `--artifacthub KIND/REPO/PACKAGE` | that package's report instead; may be given more than once (default for the wekan organization: `helm/wekan/wekan`, for another organization none) |
+| `--no-artifacthub` | no Artifact Hub report |
+
+A package with no report yet gets `status.txt` with Artifact Hub's answer. The
+`_` makes `_artifacthub` a name no GitHub organization can have, like
+`_organization`. The "Fixed" column is what can be fixed by updating: a
+vulnerability with no fixed version is one the distribution has not fixed yet.
+
 ## The token
 
 `gh auth login` with the `repo` and `security_events` scopes reads all four
@@ -87,4 +120,6 @@ needs read access to Dependabot alerts, code scanning alerts, secret scanning
 alerts and repository security advisories.
 
 Tests: `node tests/securityDownloadScript.test.cjs` runs the script against a
-stand-in `gh` and checks the layout, the redaction and the refused names.
+stand-in `gh` and checks the layout, the redaction and the refused names;
+`node tests/securityDownloadArtifactHub.test.cjs` runs the Artifact Hub download
+against a stand-in Artifact Hub.

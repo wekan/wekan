@@ -27,6 +27,12 @@ writes, under .tools/log/sec/<organization>/<repository>/<YYYY-MM-DD_HH-MM-SS>/:
                          job-<id>-<name>.log, and the last lines of each in
                          .tail.txt - what to read to fix the build
 
+For the wekan organization, the whole Artifact Hub security report of the
+Helm chart (https://artifacthub.io/packages/helm/wekan/wekan) goes to
+.tools/log/sec/_artifacthub/helm/wekan/wekan/<YYYY-MM-DD_HH-MM-SS>/ - see
+download_artifacthub_security.py; --artifacthub names other packages and
+--no-artifacthub skips it.
+
 Once per run, the organization's advisories of every repository, in one list,
 go to .tools/log/sec/<organization>/_organization/<YYYY-MM-DD_HH-MM-SS>/.
 
@@ -55,6 +61,17 @@ import shutil
 import subprocess
 import sys
 import urllib.parse
+
+# The Artifact Hub download beside this file. `python3 -I` leaves the script's
+# own directory off sys.path, so it is loaded by its path, never by a name a
+# file in the current directory could answer to.
+import importlib.util
+
+_spec = importlib.util.spec_from_file_location(
+    "download_artifacthub_security",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "download_artifacthub_security.py"))
+artifacthub = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(artifacthub)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DEFAULT_OUT = os.path.join(ROOT, ".tools", "log", "sec")
@@ -563,6 +580,10 @@ def main(argv=None):
     p.add_argument("--no-advisories", action="store_true",
                    help="skip the Advisory Database entries, the dependency advisories and the organization's "
                         "advisory list (downloaded by default)")
+    p.add_argument("--artifacthub", action="append", type=artifacthub.valid_package, metavar="KIND/REPO/PACKAGE",
+                   help="download this package's whole Artifact Hub security report too (may be given more than "
+                        "once; default for the wekan organization: helm/wekan/wekan)")
+    p.add_argument("--no-artifacthub", action="store_true", help="skip the Artifact Hub security report")
     p.add_argument("--include-secret-values", action="store_true",
                    help="keep the secrets secret scanning found (redacted by default)")
     args = p.parse_args(argv)
@@ -593,6 +614,10 @@ def main(argv=None):
         print(f"{args.org}/{repo} -> {run_dir}")
         total_open += download_repo(args.org, repo, run_dir, args.state, args.include_secret_values, print,
                                     max(0, args.builds), not args.no_advisories)
+    hub_packages = [] if args.no_artifacthub else (
+        args.artifacthub or (artifacthub.DEFAULT_PACKAGES if args.org.lower() == "wekan" else []))
+    if hub_packages:
+        artifacthub.download_all(hub_packages, args.out, stamp, print)
     print(f"Done: {len(repos)} repositories, {total_open} open alerts, under {os.path.join(args.out, args.org)}")
     return 0
 

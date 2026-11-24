@@ -223,6 +223,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'sec/download-github-security.sh': 'run by hand OUTSIDE the editor\'s sandbox, with an '
       + 'organization name and a signed-in GitHub CLI - neither of which build.sh\'s '
       + 'environments have; it downloads alerts to read, it builds nothing',
+    'sec/download-artifacthub-security.sh': 'run by hand, and by download-github-security.sh '
+      + 'for the wekan organization: it downloads Artifact Hub\'s security report of the '
+      + 'Helm chart to read, it builds nothing',
     'translations/wrong-script.mjs': 'finds and replaces values written in a script '
       + 'that is not the language\'s own - a fault no menu option can act on in bulk, '
       + 'because each replacement is a translation somebody has to write. Run with '
