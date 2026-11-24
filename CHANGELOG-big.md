@@ -256,6 +256,20 @@ reduced-motion rule in its own CSS layer stops every animation and transition.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7697e8250ccb1e14767268ec2a415588e5f667d4">The main tasks work with the keyboard alone, and password managers recognise the sign-in name field</a>. Thanks to xet7.</summary>
+
+A keyboard-only spec signs in with Tab, typing and Enter, opens and closes a
+card, and adds cards; it also checks no CAPTCHA and pasting allowed when
+signing in (3.3.8), nothing entered twice when adding cards (3.3.7), and the
+help button in the same place on every Admin Panel pane (3.2.6). It found the
+sign-in "username or email" field without an autocomplete attribute - the one
+the account settings asked for never reached the page - which it has now.
+`tests/playwright/specs/48-keyboard-only.e2e.js`,
+`tests/accountsAutocomplete.test.cjs`.
+
+</details>
+
 **Privacy and personal data, the rest** - what was left on the compliance list.
 
 <details>

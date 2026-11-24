@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The last wrong-language words; a keyboard-only accessibility walk | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The last wrong-language words | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -46,11 +46,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   texts; Luxembourgish (`lb`) whiteboard is both "Whiteboard" and "Tafel";
   Serbian (`sr`) "All Boards" is not named the same everywhere; one Spanish
   value in Venetian (`ve-CC`).
-- Accessibility: specs 45 to 47 pass in Chromium - the axe WCAG 2.2 AA rules
-  on every page they visit, every Admin Panel pane, the most used popups,
-  every theme's contrast, 320 px reflow and reduced motion. Still to do: a
-  keyboard-only walk through the main tasks; 3.2.6 Consistent Help, 3.3.7
-  Redundant Entry and 3.3.8 Accessible Authentication need a manual review.
 
 ## For the maintainer: needs a person, not code
 
