@@ -525,9 +525,10 @@ Artifact Hub's Trivy report of v13.30 listed 218 vulnerabilities in
 `ghcr.io/wekan/wekan`: 214 in Debian packages - util-linux, login, tar,
 coreutils, systemd libraries, sqlite - that WeKan never runs and Debian has
 no fix for yet, so no update could remove them. The image is now built on
-`gcr.io/distroless/cc-debian13`: glibc, libstdc++, libgcc, libatomic, CA
-certificates and tzdata, then node, WeKan, FerretDB and the MongoDB tools.
-That base alone scans at 55 findings, 2 of them HIGH (from 214 and 50).
+`gcr.io/distroless/cc-debian13`: glibc, libstdc++, libgcc, CA certificates
+and tzdata, then node, WeKan, FerretDB and the MongoDB tools. That base alone
+scans at 55 findings, 2 of them HIGH (from 214 and 50); the entry below takes
+it further.
 Distroless publishes no linux/386, so for 386 the same Debian 13 packages are
 assembled into `scratch`, each with its dpkg record so scanners still list
 them; the image keeps all seven platforms.
@@ -548,6 +549,20 @@ updated in
 and the FerretDB image is distroless too, in
 [FerretDB](https://github.com/wekan/FerretDB/commit/967f34415bb706eb95d12a4687dce080d9c63f54).
 `tests/dockerEntrypoint.test.cjs` runs the entrypoint with stand-in binaries.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/164dd5cdb0b323b3205c46ee0049cdcbc9874c7f">Its base is distroless base-nossl, without libssl and libgomp: 42 findings, none HIGH</a>. Thanks to xet7.</summary>
+
+`cc-debian13` adds libssl3t64 and libgomp1 to glibc, and nothing in the image
+loads either: node links OpenSSL 3.5 statically, and sharp, canvas, bcrypt
+and argon2 need neither. They were 20 of its 55 findings, both HIGH ones among
+them. The image is now `gcr.io/distroless/base-nossl-debian13` with gcc-14-base,
+libgcc-s1, libstdc++6 and libatomic1 from Debian 13, each with its dpkg record.
+That root, assembled for arm64 from the registry and deb.debian.org, runs node
+and loads every arm64 native module of the bundle; Trivy finds 42 findings in
+it, 0 HIGH and 0 fixable.
 
 </details>
 
