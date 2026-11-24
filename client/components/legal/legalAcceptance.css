@@ -38,7 +38,8 @@
    is the target, so the whole line ticks it. */
 .legal-acceptance-page input[type="checkbox"],
 .legal-page-check input[type="checkbox"],
-.impersonate-emergency input[type="checkbox"] {
+.impersonate-emergency input[type="checkbox"],
+.attachment-encryption-new input[type="checkbox"] {
   display: inline-block;
   visibility: visible;
   position: static;
@@ -55,7 +56,8 @@
 }
 .legal-acceptance-page,
 .legal-page-check,
-.impersonate-emergency label {
+.impersonate-emergency label,
+.attachment-encryption-new {
   display: flex;
   align-items: center;
   gap: 0.25rem;

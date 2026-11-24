@@ -1,0 +1,27 @@
+//- Admin Panel / Attachments / Encrypt (server/lib/attachmentEncryptionRun.js),
+//- offered only while ATTACHMENTS_PASSPHRASE is set: encrypt or decrypt every
+//- attachment on this server's disk, and encrypt new ones as they arrive.
+template(name="attachmentEncryption")
+  ul#attachment-encryption-setting.setting-detail
+    li
+      .description {{_ 'attachment-encryption-info'}}
+    if status
+      li
+        label.attachment-encryption-new
+          input.js-encrypt-new(type="checkbox" checked="{{status.encryptNew}}")
+          |  {{_ 'attachment-encryption-new'}}
+      if status.counts
+        li
+          p {{_ 'attachment-encryption-counts' encrypted=status.counts.encrypted plain=status.counts.plain missing=status.counts.missing}}
+      if status.progress.action
+        li
+          p(role="status") {{_ 'attachment-encryption-progress' done=status.progress.done total=status.progress.total failed=status.progress.failed}}
+          if status.progress.error
+            p.quiet {{status.progress.error}}
+      li
+        button.primary.js-encrypt-all(type="button" disabled="{{status.progress.running}}") {{_ 'attachment-encryption-encrypt-all'}}
+        |  
+        button.js-decrypt-all(type="button" disabled="{{status.progress.running}}") {{_ 'attachment-encryption-decrypt-all'}}
+    else
+      li
+        +spinner

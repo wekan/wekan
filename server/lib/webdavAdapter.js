@@ -39,7 +39,9 @@ class AdapterWebDav {
     try {
       await this.ensureFolders(bucketName, targetPath);
       const res = await this.request(webdavObjectUrl(this.config.endpoint, bucketName, targetPath), {
-        method: 'PUT', body: Readable.toWeb(fs.createReadStream(origPath)), duplex: 'half' });
+        // ATTACHMENTS_PASSPHRASE: the copy in WebDAV is the plain file, as in
+        // every other storage WeKan moves attachments to.
+        method: 'PUT', body: Readable.toWeb(require('/server/lib/attachmentEncryption').createPlainReadStream(origPath)), duplex: 'half' });
       return res.ok ? { value: targetPath } : { error: `WebDAV PUT ${res.status}` };
     } catch (error) {
       return { error: error.message };

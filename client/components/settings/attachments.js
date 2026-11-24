@@ -567,6 +567,16 @@ const BACKUP_MONTH_DAYS = Array.from({ length: 28 }, (_, i) => i + 1);
 
 // The Attachments side menu, as data (docs/Features/All-Boards/Left-Menu.md).
 // emoji:true reproduces the empty span.emoji-icon this page always rendered.
+// Whether Encrypt is offered: asked once, as the server alone knows its
+// environment (server/lib/attachmentEncryptionRun.js).
+const encryptionAvailable = new ReactiveVar(false);
+let encryptionAsked = false;
+function askEncryptionAvailable() {
+  if (encryptionAsked) return;
+  encryptionAsked = true;
+  Meteor.call('attachmentEncryptionAvailable', (error, ok) => { if (!error) encryptionAvailable.set(ok === true); });
+}
+
 function attachmentsMenu(user) {
   let items = [
     // Backup first: it is what an admin comes to this page for most often, and it
@@ -582,6 +592,8 @@ function attachmentsMenu(user) {
     // Delete old card attachments, purge deleted ones (#6789). Overrides the
     // ATTACHMENTS_RETENTION_* environment variables, field by field.
     { id: 'retention', icon: 'fa-calendar-times-o', labelKey: 'attachment-retention', emoji: true },
+    // Shown only while ATTACHMENTS_PASSPHRASE is set (attachmentEncryptionAvailable).
+    ...(encryptionAvailable.get() ? [{ id: 'encrypt', icon: 'fa-lock', labelKey: 'attachment-encryption', emoji: true }] : []),
     { id: 'gridfs', icon: 'fa-database', labelKey: 'mongodb-gridfs-storage', emoji: true },
     { id: 'filesystem', icon: 'fa-folder-open', labelKey: 'filesystem-storage', emoji: true },
     { id: 's3', icon: 'fa-cloud', labelKey: 's3-minio-storage', emoji: true },
@@ -621,6 +633,7 @@ Template.attachments.helpers({
   },
 
   menuItems() {
+    askEncryptionAvailable();
     return leftMenuData(attachmentsMenu(ReactiveCache.getCurrentUser()),
       Template.instance().activeSection.get(), 'js-attachments-menu');
   },
@@ -643,6 +656,9 @@ Template.attachments.helpers({
   },
   isRetentionActive() {
     return Template.instance().activeSection.get() === 'retention';
+  },
+  isEncryptActive() {
+    return Template.instance().activeSection.get() === 'encrypt';
   },
   // The shared env-override form (authProviderSettings), on the catalog's
   // attachmentRetention section.

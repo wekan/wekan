@@ -206,7 +206,8 @@ export class Exporter {
         return;
       }
 
-      const readStream = fs.createReadStream(storedPath);
+      // ATTACHMENTS_PASSPHRASE: the plain bytes of an encrypted attachment.
+      const readStream = require('/server/lib/attachmentEncryption').createPlainReadStream(storedPath);
       readStream.on('data', function (chunk) {
         chunks.push(chunk);
       });
@@ -591,7 +592,8 @@ export class Exporter {
           // existsSync. Same containment check as the avatars above.
           if (filePath && isReadableStoredFilePath(filePath) && fs.existsSync(filePath)) {
             await new Promise((resolve, reject) => {
-              const rs = fs.createReadStream(filePath);
+              // ATTACHMENTS_PASSPHRASE: the plain bytes of an encrypted attachment.
+              const rs = require('/server/lib/attachmentEncryption').createPlainReadStream(filePath);
               let leftover = Buffer.alloc(0);
               rs.on('data', chunk => {
                 rs.pause();

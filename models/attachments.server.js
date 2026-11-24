@@ -288,6 +288,14 @@ Attachments.onAfterUpload = async function (fileObj) {
       // Search indexing must never break the upload.
       console.error('[onAfterUpload] Attachment content indexing failed:', error);
     }
+    // ATTACHMENTS_PASSPHRASE with "encrypt new attachments" on
+    // (server/lib/attachmentEncryptionRun.js): after validation and indexing,
+    // which read the plain file, the stored file is encrypted.
+    try {
+      await require('/server/lib/attachmentEncryptionRun').encryptNewAttachment(fileObjId);
+    } catch (error) {
+      console.error('[onAfterUpload] Attachment encryption failed:', error);
+    }
   });
 };
 

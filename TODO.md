@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | Whether WeKan should encrypt attachments itself; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -136,14 +136,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   patched 13 (13.0.7 is inside its range), so the fix is an override to glob
   14 - a major version over what `@babel/cli` asks for - or waiting for a
   `@babel/cli` that takes 14.
-- App-level encryption of attachments on disk, the one item of
-  `docs/Compliance/README.md`'s P3 list not done: WeKan would encrypt each
-  file itself, which changes every read path (download, thumbnails,
-  previews, Office preview, storage migration) and needs a key that
-  survives a restore. Encrypting the disk the attachments are on, as
-  docs/Security/Compliance/README.md recommends, covers the same need
-  without any of that; and the Admin Panel backups are already encrypted
-  with `BACKUP_PASSPHRASE`. Decide whether WeKan should do it at all.
 
 ## Repositories left out, and why
 

@@ -126,5 +126,5 @@ test('negative: the account schema keeps the acceptances, and the boxes can be s
   assert.match(users, /legalAcceptances: \{[\s\S]{0,400}?type: Object,\s*optional: true,\s*blackbox: true,/);
   const css = read('client/components/legal/legalAcceptance.css');
   // Emergency access's box (P3) shares the same reset.
-  assert.match(css, /\.legal-acceptance-page input\[type="checkbox"\],\s*\.legal-page-check input\[type="checkbox"\],\s*\.impersonate-emergency input\[type="checkbox"\] \{[^}]*visibility: visible;[^}]*appearance: auto;/);
+  assert.match(css, /\.legal-acceptance-page input\[type="checkbox"\],\s*\.legal-page-check input\[type="checkbox"\],\s*\.impersonate-emergency input\[type="checkbox"\],\s*\.attachment-encryption-new input\[type="checkbox"\] \{[^}]*visibility: visible;[^}]*appearance: auto;/);
 });

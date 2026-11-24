@@ -928,6 +928,8 @@ REM # REGISTRATION_MINIMUM_AGE: Ask "I am at least N years old" on the sign-up f
 REM SET REGISTRATION_MINIMUM_AGE=16
 REM # BACKUP_PASSPHRASE: Encrypt every Admin Panel backup with this passphrase (AES-256-GCM, at least 16 characters), on disk and in cloud storage; restoring one needs the same passphrase. Keep it somewhere other than the backups.
 REM SET BACKUP_PASSPHRASE=
+REM # ATTACHMENTS_PASSPHRASE: Lets Admin Panel / Attachments / Encrypt encrypt the attachments on this server's disk (at least 16 characters); their addresses stay the same. Without it, encrypted attachments cannot be read: keep it somewhere other than the server.
+REM SET ATTACHMENTS_PASSPHRASE=
 REM # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
 REM SET ADMIN_AUDIT_RETENTION_DAYS=365
 REM # AUDIT_LOG_STDOUT: Write every audit log row, security problem and data access also to standard output as one JSON line, for a SIEM. Off unless set to json.

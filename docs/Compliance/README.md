@@ -539,9 +539,11 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
   filesystem attachments. *(backups done 2026-11-24: `BACKUP_PASSPHRASE`,
   `server/lib/backupEncryption.js` - AES-256-GCM with the key stretched by
   scrypt, the salt in the file, disk and cloud alike; restore decrypts;
-  `tests/backupEncryption.test.cjs`. App-level encryption of attachments is
-  left to a maintainer decision: it would change every read path, and disk
-  encryption covers it - docs/Security/Compliance/README.md.)*
+  `tests/backupEncryption.test.cjs`. Attachments done the same day, on the
+  maintainer's decision: `ATTACHMENTS_PASSPHRASE` and Admin Panel /
+  Attachments / Encrypt - AES-256-CTR so ranges still work, decrypted as read
+  so addresses stay the same; `server/lib/attachmentEncryption.js`,
+  `tests/attachmentEncryption.test.cjs`.)*
 - Optional minimum-age confirmation on registration. *(done 2026-11-24:
   `REGISTRATION_MINIMUM_AGE`, `models/lib/registrationAge.js`,
   `tests/registrationAge.test.cjs`.)*

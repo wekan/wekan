@@ -33,6 +33,8 @@ template(name="attachments")
                   button.js-save-default-storage.primary {{_ 'save'}}
           else if isRetentionActive
             +authProviderSettings(retentionSettingsData)
+          else if isEncryptActive
+            +attachmentEncryption
           else if isLimitsActive
             ul#attachment-limits-setting.setting-detail
               li

@@ -220,6 +220,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Default Save Storage | `default-save-storage` | — |
 | Attachments / Limits | `limits` | — |
 | Attachments / Retention | `retention` | [Attachments.md](../../Cards/Attachments/Attachments.md) |
+| Attachments / Encrypt | `encrypt` | [Encrypt.md](Encrypt.md) |
 | Attachments / MongoDB GridFS Storage | `gridfs` | — |
 | Attachments / Filesystem Storage | `filesystem` | — |
 | Attachments / S3/MinIO Storage | `s3` | — |
@@ -228,7 +229,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / WebDAV (Nextcloud Files) | `webdav` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-10 of these 13 panes has no page of its own yet. A dash is a
+10 of these 14 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

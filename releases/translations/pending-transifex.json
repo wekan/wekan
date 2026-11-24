@@ -6355,6 +6355,34 @@
     {
       "key": "session-end",
       "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-info",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-new",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-counts",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-encrypt-all",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-decrypt-all",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "attachment-encryption-progress",
+      "since": "2026-11-24"
     }
   ]
 }

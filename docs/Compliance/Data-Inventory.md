@@ -11,7 +11,7 @@ the operator of an instance completes: the legal basis column is a hint, the
 operator decides it, and the recipients depend on what the instance has
 enabled (mail server, file storage, webhooks, integrations).
 
-- **188 collections**, 130 of them with personal data.
+- **189 collections**, 130 of them with personal data.
 - **Health data** ([GDPR] Art. 9 special category): `workloadAbsences`.
 - **Financial data**: `billingBudgets`, `billingExpenses`, `billingFees`, `billingInvoices`, `billingProfiles`, `billingQuotes`, `billingRates`, `cloudDomains`, `cloudInvoices`, `shopOrders`, `timeEntries`.
 - **Not erased yet** (erasure should delete or anonymise, nothing does it today;
@@ -39,6 +39,7 @@ keep-pseudonymous (kept, linked only by an id) or n/a.
 | `announcements` | none | - | Admin-written announcement banner shown to signed-in users. | n/a | until changed | n/a | defined: `models/announcements.js`; erasure: nothing yet | Instance configuration. |
 | `archivedSwimlaneIds` | none | - | Client-only collection that the boardArchivedSwimlaneIds publication fills with the archived swimlane ids of a board. | n/a | not stored (client memory only) | n/a | defined: `models/lib/archivedSwimlaneIds.js`; erasure: nothing yet | Created only on the client (Meteor.isClient); one { _id: boardId, ids } document per board, no person. |
 | `attachmentBulkMoveStatus` | none | - | Progress of the server-side bulk attachment storage move job. | n/a | until overwritten by the next job | n/a | defined: `models/attachmentBulkMoveStatus.js`; erasure: nothing yet | Singleton job status. |
+| `attachmentEncryption` | none | - | Whether new attachments are encrypted (Admin Panel / Attachments / Encrypt). | n/a | until changed | n/a | defined: `server/lib/attachmentEncryptionRun.js`; erasure: nothing yet | Instance configuration, no per-person fields; the passphrase is never stored here. |
 | `attachmentMigrationStatus` | none | - | Progress of the attachment migration job. | n/a | until deleted | n/a | defined: `models/attachmentMigrationStatus.js`; erasure: nothing yet | Job status only. |
 | `attachments` | content, identity | `userId` | Metadata of files uploaded to cards and boards (Meteor-Files); the file bytes are in the configured storage. | contract | board lifetime; soft-deleted ones purged after the retention period (0 = keep) (ATTACHMENTS_RETENTION_DAYS (Admin Panel / Attachments / Retention)) | keep-pseudonymous | defined: `models/attachments.js`; retention: `server/attachmentRetention.js`; erasure: nothing yet | Uploads stay with the board when the uploader is deleted; file content can itself contain any personal data, including Art. 9 data, which WeKan cannot classify. |
 | `attachments.chunks` | content | - | GridFS chunks (file bytes) of attachments stored in the database. | contract | as the attachments row (ATTACHMENTS_RETENTION_DAYS (Admin Panel / Attachments / Retention)) | keep-pseudonymous | defined: `models/attachments.server.js`; retention: `server/attachmentRetention.js`; erasure: nothing yet | Removed with the attachment. |

@@ -57,6 +57,8 @@ const injected = {
     } };
     if (name === '/server/lib/scrumTransferExport') return { exportScrumTransfer: async () => null, scrumTransferUserIds: () => [] };
     if (name === '/models/lib/ruleParts') return require('../models/lib/ruleParts');
+    // ATTACHMENTS_PASSPHRASE: the export reads attachments through the decrypting read.
+    if (name === '/server/lib/attachmentEncryption') return require('../server/lib/attachmentEncryption');
     const collection = raw(name.split('/').pop());
     return { default: { rawCollection: () => collection, collection: { rawCollection: () => collection } } };
   },

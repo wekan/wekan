@@ -272,6 +272,7 @@ import '/server/methods/lockoutSettings';
 import '/server/methods/legalPages';
 import '/server/methods/complianceChecks';
 import '/server/methods/sessions';
+import '/server/lib/attachmentEncryptionRun';
 import '/server/methods/migrateTextDatabase';
 import '/server/methods/repairBoardData';
 import '/server/models/changeHistory';

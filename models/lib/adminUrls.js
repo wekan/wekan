@@ -158,6 +158,8 @@ const ADMIN_PAGES = {
       'default-save-storage': 'default-save-storage',
       limits: 'limits',
       retention: 'retention',
+      // ATTACHMENTS_PASSPHRASE only (server/lib/attachmentEncryptionRun.js).
+      encrypt: 'encrypt',
       gridfs: 'gridfs',
       filesystem: 'filesystem',
       s3: 's3',
@@ -251,6 +253,7 @@ const ADMIN_PANE_TITLES = {
     move: { titleKey: 'attachment-move' },
     'default-save-storage': { titleKey: 'default-save-storage' },
     limits: { titleKey: 'attachment-limits' },
+    encrypt: { titleKey: 'attachment-encryption' },
     retention: { titleKey: 'attachment-retention' },
     gridfs: { titleKey: 'mongodb-gridfs-storage' },
     filesystem: { titleKey: 'filesystem-storage' },

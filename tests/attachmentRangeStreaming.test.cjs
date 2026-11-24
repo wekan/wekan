@@ -71,7 +71,9 @@ test('the download route and every storage strategy pass the range to the backen
   assert.match(route, /res\.statusCode = 206;/);
   const strategies = read('models/lib/fileStoreStrategy.js');
   assert.match(strategies, /openDownloadStream\(gfsId, \{ start: range\.start, end: range\.end \+ 1 \}\)/);
-  assert.match(strategies, /fs\.createReadStream\(chosen, \{ start: range\.start, end: range\.end \}\)/);
+  // Since ATTACHMENTS_PASSPHRASE the range goes to the decrypting read, which
+  // streams the same plain bytes of a plain file (tests/attachmentEncryption.test.cjs).
+  assert.match(strategies, /createPlainReadStream\(chosen, range \|\| undefined\)/);
   assert.match(strategies, /getFileAsStream\(adapter\.bucketName, key, \.\.\.rangeArgs\)/);
 });
 

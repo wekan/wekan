@@ -584,9 +584,11 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
       return undefined;
     }
     // #6745: a byte range (inclusive end, like fs) streams only those bytes.
-    return range
-      ? fs.createReadStream(chosen, { start: range.start, end: range.end })
-      : fs.createReadStream(chosen);
+    // ATTACHMENTS_PASSPHRASE (server/lib/attachmentEncryption.js): an
+    // encrypted file is decrypted as it is read - the range in PLAIN bytes -
+    // and a plain one is read as before, so every caller and every URL is
+    // unchanged.
+    return require('/server/lib/attachmentEncryption').createPlainReadStream(chosen, range || undefined);
   }
 
   /** returns a write stream

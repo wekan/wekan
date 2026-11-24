@@ -121,6 +121,7 @@ pane and the *report*. `security` is the settings one, in Settings beside
 | `/admin/attachments/default-save-storage` | Default Save Storage | `default-save-storage` |
 | `/admin/attachments/limits` | Limits | `limits` |
 | `/admin/attachments/retention` | Retention: delete old attachments, purge deleted ones (#6789) | `retention` |
+| `/admin/attachments/encrypt` | Encrypt: the attachments on disk, only while ATTACHMENTS_PASSPHRASE is set | `encrypt` |
 | `/admin/attachments/gridfs` | MongoDB GridFS Storage | `gridfs` |
 | `/admin/attachments/filesystem` | Filesystem Storage | `filesystem` |
 | `/admin/attachments/s3` | S3/MinIO Storage | `s3` |

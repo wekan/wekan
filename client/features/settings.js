@@ -1,6 +1,7 @@
 import '/client/components/settings/adminProblems.jade';
 import '/client/components/settings/adminAuditLog.jade';
 import '/client/components/settings/attachments.jade';
+import '/client/components/settings/attachmentEncryption.jade';
 // Backup status and history, shared by Attachments / Backup and Problems / Backup.
 import '/client/components/settings/backupRunsStatus.jade';
 import '/client/components/settings/connectionMethod.jade';
@@ -22,6 +23,7 @@ import '/client/components/settings/translationBody.jade';
 
 import '/client/components/settings/adminProblems.js';
 import '/client/components/settings/attachments.js';
+import '/client/components/settings/attachmentEncryption.js';
 import '/client/components/settings/backupRunsStatus.js';
 import '/client/components/settings/connectionMethod.js';
 import '/client/components/settings/informationBody.js';
