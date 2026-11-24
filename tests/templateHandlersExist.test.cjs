@@ -50,7 +50,7 @@ for (const file of files.jade) {
 }
 // Templates that come from packages (useraccounts, etc.) rather than our jade.
 const fromPackages = new Set(['atForm', 'atSigninLink', 'atSignupLink', 'atPwdForm',
-  'atPwdFormBtn', 'atInput', 'atTitle', 'atError', 'atResult', 'atSocial', 'atOauth',
+  'atPwdFormBtn', 'atInput', 'atTextInput', 'atTitle', 'atError', 'atResult', 'atSocial', 'atOauth',
   'userFormsLayout']);
 
 console.log('templateHandlersExist:');
