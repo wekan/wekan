@@ -2,7 +2,6 @@
 // method - the personal-data export of another account (WP-5) - recorded in
 // the same Admin Panel / People / Audit log as the audited methods
 // (server/adminAudit.js), with the address the request came from.
-import { AdminAuditLog } from '/server/adminAudit';
 
 const { auditArgs } = require('/models/lib/adminAudit');
 
@@ -21,7 +20,8 @@ export function recordAdminRouteAction(actor, method, args, ip, error) {
     };
     // AUDIT_LOG_STDOUT=json (WP-11): the same row, as stored, on stdout.
     require('/models/lib/auditStdout').writeStdout('audit', doc);
-    return AdminAuditLog.insertAsync(doc).catch(failed);
+    // Hash-chained like every audit row (models/lib/auditChain.js, P3).
+    return require('/server/lib/auditChainAppend').appendAuditRow(doc).catch(failed);
   } catch (e) {
     // The audit trail must never change what the route did or answered.
     failed(e);

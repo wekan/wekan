@@ -104,7 +104,9 @@ test('AUDIT_LOG_STDOUT=json: one JSON line per record, only the listed fields', 
 });
 
 test('every audit row, security problem and data access goes to stdout too', () => {
-  assert.match(read('server/adminAudit.js'), /await AdminAuditLog\.insertAsync\(doc\);\s*\/\/[^\n]*\n\s*writeStdout\('audit', doc\);/);
+  // Written through the hash chain since P3 (models/lib/auditChain.js); the
+  // stdout line carries the row's place and hash too.
+  assert.match(read('server/adminAudit.js'), /appendAuditRow\(doc\);\s*\/\/[^\n]*\n\s*writeStdout\('audit', row && row\.hash \? \{ \.\.\.doc, seq: row\.seq, hash: row\.hash \} : doc\);/);
   assert.match(read('server/lib/adminRouteAudit.js'), /writeStdout\('audit', doc\)/);
   assert.match(read('server/lib/eventLogFold.js'), /if \(evt\.stream === 'security'\) require\('\/models\/lib\/auditStdout'\)\.writeStdout\('security'/);
   assert.match(read('server/lib/dataAccessLog.js'), /writeStdout\('data-access',/);

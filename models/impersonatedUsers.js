@@ -45,6 +45,15 @@ ImpersonatedUsers.attachSchema(
       type: String,
       optional: true,
     },
+    note: {
+      /**
+       * emergency access only: why, as the administrator wrote it; the other
+       * administrators get it by e-mail (models/lib/emergencyAccess.js)
+       */
+      type: String,
+      optional: true,
+      max: 500,
+    },
     createdAt: {
       /**
        * creation date of the impersonation

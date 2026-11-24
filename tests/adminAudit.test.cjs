@@ -76,6 +76,11 @@ function loadServer(storedUsers, { failInsert = false } = {}) {
       if (p === '/models/lib/adminAudit') return audit;
       if (p === '/server/lib/loginAttemptThrottle') return { resolveClientKey: ({ socketAddress }) => socketAddress };
       if (p === '/models/lib/auditStdout') return require('../models/lib/auditStdout');
+      // The hash chain (models/lib/auditChain.js, tests/auditChain.test.cjs):
+      // here, the row as it is appended.
+      if (p === '/server/lib/auditChainAppend') {
+        return { appendAuditRow: async doc => { if (failInsert) throw new Error('db down'); trail.push(doc); return doc; } };
+      }
       return require(p);
     },
     module: { exports: {} },

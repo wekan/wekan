@@ -2020,13 +2020,15 @@ Meteor.methods({
     };
   },
 
-  async impersonate(userId) {
+  async impersonate(userId, options) {
     // Match.Any first, then a real check: this app runs with
     // audit-argument-checks, which fails a method that returns without having
     // check()ed every argument - and a bare `check(userId, String)` answers a
     // missing id with "Match failed", which says nothing about what was being
     // done or what was missing (#6536).
     check(userId, Match.Any);
+    // Emergency access (models/lib/emergencyAccess.js): { emergency, note }.
+    check(options, Match.Maybe(Match.ObjectIncluding({ emergency: Match.Maybe(Boolean), note: Match.Maybe(String) })));
 
     if (!Match.test(userId, String) || !userId) {
       throw new Meteor.Error(400, 'impersonate: a user id is required');
@@ -2039,11 +2041,36 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Permission denied');
     }
 
-    await ImpersonatedUsers.insertAsync({
-      adminId: (await ReactiveCache.getCurrentUser())._id,
-      userId,
-      reason: 'clickedImpersonate',
-    });
+    const actor = await ReactiveCache.getCurrentUser();
+    const { impersonationRecord, notifiedAdmins } = require('/models/lib/emergencyAccess');
+    const record = impersonationRecord(actor._id, userId, options);
+    await ImpersonatedUsers.insertAsync(record);
+    // Emergency access is never quiet: every other administrator is told now.
+    // Sending must not stop the impersonation it reports on.
+    if (record.reason === 'emergency') {
+      try {
+        const target = await ReactiveCache.getUser(userId);
+        const admins = await Users.find({ isAdmin: true }, { fields: { emails: 1, isAdmin: 1, loginDisabled: 1, 'profile.language': 1 } }).fetchAsync();
+        const EmailLocalization = require('/server/lib/emailLocalization').default;
+        for (const admin of notifiedAdmins(admins, actor._id)) {
+          EmailLocalization.sendEmail({
+            to: admin.emails[0].address,
+            subject: 'email-emergency-access-subject',
+            text: 'email-emergency-access-text',
+            params: {
+              admin: actor.username || actor._id,
+              user: (target && target.username) || userId,
+              note: record.note || '-',
+              url: Meteor.absoluteUrl(),
+              time: new Date().toISOString(),
+            },
+            userId: admin._id,
+          }).catch(e => console.error('[emergency-access] could not e-mail', admin._id, e && e.message));
+        }
+      } catch (e) {
+        console.error('[emergency-access] could not notify the administrators:', e && e.message);
+      }
+    }
     // Meteor 3 restarts subscriptions asynchronously. Finish that transition
     // before the client switches its identity and subscribes again (#6691).
     await this.setUserId(userId);
@@ -2374,6 +2401,15 @@ Accounts.onCreateUser(async (options, user) => {
   // WP-8: the sign-up form's "I accept the terms and the privacy notice"
   // checkbox (config/accounts.js) accepts the versions required now
   // (server/requireLegalAcceptance.js). It is never kept in the profile.
+  // REGISTRATION_MINIMUM_AGE (models/lib/registrationAge.js): a password
+  // sign-up confirms the minimum age, or is refused. Nothing about it is kept.
+  {
+    const { minimumAge, ageRefusal } = require('/models/lib/registrationAge');
+    const age = minimumAge({ REGISTRATION_MINIMUM_AGE: process.env.REGISTRATION_MINIMUM_AGE });
+    const refusal = ageRefusal({ age, user, adminCreated: !!creation, confirmed: options && options.profile && options.profile.confirmAge });
+    if (user.profile) delete user.profile.confirmAge;
+    if (refusal) throw new Meteor.Error(refusal, `You must be at least ${age} years old to register here.`);
+  }
   // useraccounts sends it in options.profile, which Meteor does not copy to
   // the account while this hook exists.
   if (user.profile) delete user.profile.acceptLegal;

@@ -37,7 +37,8 @@
    box and the Legal pages switches with nothing to tick. The label around each
    is the target, so the whole line ticks it. */
 .legal-acceptance-page input[type="checkbox"],
-.legal-page-check input[type="checkbox"] {
+.legal-page-check input[type="checkbox"],
+.impersonate-emergency input[type="checkbox"] {
   display: inline-block;
   visibility: visible;
   position: static;
@@ -53,7 +54,8 @@
   cursor: pointer;
 }
 .legal-acceptance-page,
-.legal-page-check {
+.legal-page-check,
+.impersonate-emergency label {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -64,3 +66,5 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* Emergency access in People's user popup (P3): the note under the box. */
+.impersonate-emergency textarea { width: 100%; margin-block: 0.25rem 0.5rem; }

@@ -39,3 +39,12 @@ template(name="legalAcceptancesList")
     ul.legal-acceptances
       each accepted
         li {{label}}, {{_ 'legal-page-version' version=version}}, {{date}}
+
+//- REGISTRATION_MINIMUM_AGE (models/lib/registrationAge.js): the sign-up
+//- form's age confirmation, shown only while a minimum age is set.
+template(name="registrationAgeSignup")
+  if age
+    .at-input#confirmAge
+      label.legal-acceptance-page
+        input#at-field-confirmAge(type="checkbox" name="at-field-confirmAge" required)
+        |  {{_ 'registration-minimum-age' age=age}}

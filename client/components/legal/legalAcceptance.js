@@ -78,6 +78,16 @@ Template.legalAcceptanceSignup.helpers({
   required() { return Template.instance().required.get(); },
 });
 
+// The sign-up age confirmation: shown only while REGISTRATION_MINIMUM_AGE is set.
+Template.registrationAgeSignup.onCreated(function () {
+  this.age = new ReactiveVar(0);
+  Meteor.call('getRegistrationMinimumAge', (error, age) => { if (!error) this.age.set(age || 0); });
+});
+
+Template.registrationAgeSignup.helpers({
+  age() { return Template.instance().age.get(); },
+});
+
 Template.legalAcceptancesList.helpers({
   accepted() {
     const accepted = (requirement.get() || {}).accepted || {};

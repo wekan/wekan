@@ -43,6 +43,12 @@ WP-6); WeKan makes it possible.
    account that does not tick it is asked after signing in. Each person sees
    the versions they accepted in Member Settings / Privacy and my data.
 
+7. Click **Records of processing (draft)** for a draft of the records of
+   processing activities (GDPR Art. 30): every collection that holds personal
+   data, why, how long it is kept with the values set on this server, and the
+   outside services this server hands personal data to. Copy it and complete
+   the parts marked "fill in".
+
 ## How the numbers are calculated
 
 - **Version**: starts at 1 and goes up by one each time a save changes the

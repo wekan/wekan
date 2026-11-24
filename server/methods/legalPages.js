@@ -21,6 +21,11 @@ async function assertSiteAdmin(userId) {
 const FORM = Match.ObjectIncluding({});
 
 Meteor.methods({
+  // The sign-up form's minimum age (REGISTRATION_MINIMUM_AGE), 0 when unset;
+  // asked by anybody, signed in or not, like the legal pages.
+  getRegistrationMinimumAge() {
+    return require('/models/lib/registrationAge').minimumAge({ REGISTRATION_MINIMUM_AGE: process.env.REGISTRATION_MINIMUM_AGE });
+  },
   async getLegalPages() {
     const docs = await LegalPages.find({ _id: { $in: [...PAGES, 'contacts'] } }).fetchAsync();
     return {
@@ -50,6 +55,37 @@ Meteor.methods({
     await assertSiteAdmin(this.userId);
     await LegalPages.upsertAsync({ _id: 'contacts' }, { $set: { ...contactsUpdate(form), modifiedAt: new Date() } });
     return true;
+  },
+});
+
+// The records of processing draft (row 2.2, models/lib/ropaDraft.js): the
+// inventory, the retention values set on this server and the outside services
+// it really uses. Read here, because only the server knows its environment.
+Meteor.methods({
+  async getRopaDraft() {
+    await assertSiteAdmin(this.userId);
+    const { INVENTORY } = require('/models/lib/personalDataInventory');
+    const values = {};
+    for (const e of INVENTORY) {
+      const env = e.retention && e.retention.env;
+      if (env && /^[A-Z0-9_]+$/.test(env) && process.env[env] !== undefined) values[env] = String(process.env[env]).slice(0, 40);
+    }
+    const Settings = require('/models/settings').default;
+    const setting = (await Settings.findOneAsync({}, { fields: { activityPubEnabled: 1 } })) || {};
+    let storage = {};
+    try {
+      storage = (await require('/models/attachmentStorageSettings').default.findOneAsync({}, { fields: { defaultStorage: 1 } })) || {};
+    } catch (e) { storage = {}; }
+    const Integrations = require('/models/integrations').default;
+    const services = {
+      pwnedPasswords: require('/server/lib/passwordPolicy').currentPasswordPolicy().checkPwned === true,
+      defaultAvatar: !!String(process.env.DEFAULT_AVATAR_URL || '').trim(),
+      mail: !!String(process.env.MAIL_URL || '').trim(),
+      objectStorage: ['s3', 'azure', 'gcs', 'webdav'].includes(storage.defaultStorage),
+      webhooks: !!(await Integrations.findOneAsync({ enabled: true }, { fields: { _id: 1 } })),
+      activityPub: setting.activityPubEnabled === true,
+    };
+    return require('/models/lib/ropaDraft').ropaDraft({ values, services });
   },
 });
 

@@ -17,7 +17,7 @@
 // Pure: tests/dataAccessLog.test.cjs.
 
 const FIELDS = Object.freeze({
-  audit: ['at', 'actorId', 'actorUsername', 'method', 'args', 'ok', 'error', 'ip'],
+  audit: ['at', 'actorId', 'actorUsername', 'method', 'args', 'ok', 'error', 'ip', 'seq', 'hash'],
   security: ['at', 'severity', 'category', 'bleed', 'action', 'source', 'cwe', 'username', 'ip', 'detail', 'count'],
   'data-access': ['at', 'userId', 'username', 'ip', 'kind', 'target'],
 });

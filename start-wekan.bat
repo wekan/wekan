@@ -924,6 +924,8 @@ REM # LOGIN_ADDRESS_RECORDED: false records no sign-in address at all: not on th
 REM SET LOGIN_ADDRESS_RECORDED=true
 REM # USERS_ANONYMIZE_INACTIVE_AFTER_DAYS: Days after an account was disabled for inactivity (USERS_DISABLE_INACTIVE_AFTER_DAYS) that it is anonymised, as Member Settings / Anonymize does. Off unless set; administrators are never anonymised.
 REM SET USERS_ANONYMIZE_INACTIVE_AFTER_DAYS=
+REM # REGISTRATION_MINIMUM_AGE: Ask "I am at least N years old" on the sign-up form and refuse a password sign-up without it (GDPR Art. 8: 16, or 13-16 where a country lowers it; COPPA: 13). Off unless set; no birth date is stored.
+REM SET REGISTRATION_MINIMUM_AGE=16
 REM # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
 REM SET ADMIN_AUDIT_RETENTION_DAYS=365
 REM # AUDIT_LOG_STDOUT: Write every audit log row, security problem and data access also to standard output as one JSON line, for a SIEM. Off unless set to json.

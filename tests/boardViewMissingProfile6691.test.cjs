@@ -116,14 +116,17 @@ console.log('boardViewMissingProfile6691: fallback, scoping, defaults and privat
 
 (async () => {
   const serverSource = fs.readFileSync('server/models/users.js', 'utf8');
-  const method = serverSource.slice(serverSource.indexOf('  async impersonate(userId) {'), serverSource.indexOf('  async isImpersonated(userId) {'));
+  const method = serverSource.slice(serverSource.indexOf('  async impersonate(userId, options) {'), serverSource.indexOf('  async isImpersonated(userId) {'));
   let finishSwitch;
   const switched = new Promise(resolve => { finishSwitch = resolve; });
   let enteredSwitch;
   const entered = new Promise(resolve => { enteredSwitch = resolve; });
   const calls = [];
   const methods = vm.runInNewContext(`({${method}})`, {
-    check: () => {}, Match: { Any: {}, test: value => typeof value === 'string' },
+    // impersonate(userId, options) since emergency access (P3): its options
+    // check and models/lib/emergencyAccess.js.
+    check: () => {}, Match: { Any: {}, test: value => typeof value === 'string', Maybe: () => ({}), ObjectIncluding: () => ({}) },
+    require: p => (p === '/models/lib/emergencyAccess' ? require('../models/lib/emergencyAccess') : require(p)),
     Meteor: { Error: class extends Error { constructor(code, message) { super(message); this.error = code; } } },
     ReactiveCache: { getUser: async () => ({ _id: 'member' }), getCurrentUser: async () => ({ _id: 'admin', isAdmin: true }) },
     ImpersonatedUsers: { insertAsync: async () => { calls.push('record'); } },

@@ -17,6 +17,7 @@ Template.legalPagesSettings.onCreated(function () {
   // The retention overview (WP-7): the inventory with the values this server's
   // settings really have. Until it arrives, the inventory alone.
   this.retention = new ReactiveVar(null);
+  this.ropa = new ReactiveVar('');
   Meteor.call('getRetentionOverview', (error, rows) => { if (!error) this.retention.set(rows); });
 });
 
@@ -38,6 +39,7 @@ Template.legalPagesSettings.helpers({
     });
   },
   inventory() { return Template.instance().retention.get() || inventoryRows(); },
+  ropa() { return Template.instance().ropa.get(); },
   contactFields() {
     const doc = (Template.instance().docs.get() || []).find(d => d._id === 'contacts') || {};
     return CONTACT_FIELDS.map(key => ({ key, label: legalLabel(key), value: doc[key] || '' }));
@@ -52,6 +54,13 @@ Template.legalPagesSettings.events({
     event.preventDefault();
     const body = event.currentTarget.closest('.legal-page-editor').querySelector('.js-legal-body');
     if (!body.value.trim()) body.value = draftPrivacyNotice();
+  },
+  'click .js-ropa-draft'(event, tpl) {
+    event.preventDefault();
+    Meteor.call('getRopaDraft', (error, text) => {
+      if (error) tpl.message.set(error.reason || error.message);
+      else tpl.ropa.set(text);
+    });
   },
   'click .js-legal-save'(event, tpl) {
     event.preventDefault();

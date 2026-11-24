@@ -736,6 +736,15 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
+    //- P3 (docs/Compliance/README.md): emergency access. Ticked, the
+    //- impersonation is recorded as emergency access with the note, and every
+    //- other administrator gets an e-mail at once (server/models/users.js
+    //- impersonate, models/lib/emergencyAccess.js).
+    li.impersonate-emergency
+      label
+        input.js-impersonate-emergency(type="checkbox")
+        |  {{_ 'impersonate-emergency'}}
+      textarea.js-impersonate-note.wekan-form-control(rows="2" maxlength="500" placeholder="{{_ 'impersonate-emergency-note'}}" aria-label="{{_ 'impersonate-emergency-note'}}")
     br
     hr
     li

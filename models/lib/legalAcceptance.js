@@ -77,7 +77,7 @@ function requirementStamp(required) {
 // sign-in may require, and reading and accepting the pages.
 const ALLOWED_METHODS = new Set([
   ...TWO_FACTOR_ALLOWED,
-  'getLegalPages', 'getLegalAcceptanceRequirement', 'acceptLegalPages',
+  'getLegalPages', 'getLegalAcceptanceRequirement', 'acceptLegalPages', 'getRegistrationMinimumAge',
   'getPasswordChangeRequirement', 'reportShortPasswordLogin', 'changePassword',
 ]);
 

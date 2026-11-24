@@ -93,5 +93,6 @@ test('the route: registered, signed in by token, an administrator\'s export of a
   assert.match(route, /if \(!decision\.self\) await recordAdminRouteAction\(requester, 'exportUserPersonalData', \[target\._id\], ip\)/);
   assert.match(route, /Cache-Control', 'no-store'/);
   assert.match(read('server/lib/adminRouteAudit.js'), /export function recordAdminRouteAction\(/);
-  assert.match(read('server/lib/adminRouteAudit.js'), /AdminAuditLog\.insertAsync\(/, 'into the same Audit log');
+  // Into the same Audit log, through its hash chain since P3 (models/lib/auditChain.js).
+  assert.match(read('server/lib/adminRouteAudit.js'), /require\('\/server\/lib\/auditChainAppend'\)\.appendAuditRow\(doc\)/, 'into the same Audit log');
 });

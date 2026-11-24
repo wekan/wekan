@@ -56,6 +56,7 @@ is written when:
 | Reason | Written when |
 | --- | --- |
 | `clickedImpersonate` | an administrator impersonates a user from Admin Panel / People (the `impersonate` method) |
+| `emergency: <note>` | an administrator ticked **Emergency access** before Impersonate in Admin Panel / People; the note says why, and every other administrator got an e-mail at that moment (`models/lib/emergencyAccess.js`) |
 | `restCreateToken: <reason>` | an administrator creates a login token for another user through the REST API; the reason is required and kept, up to 500 characters |
 | `exportJSON`, `exportJSONattachment`, `exportExcel`, `exportExcelCard`, `exportCardPDF`, or the export type | a board, card or attachment is exported while impersonating, with the board it was exported from |
 

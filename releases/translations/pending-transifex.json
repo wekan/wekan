@@ -6311,6 +6311,34 @@
     {
       "key": "compliance-for-information",
       "since": "2026-11-24"
+    },
+    {
+      "key": "impersonate-emergency",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "impersonate-emergency-note",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "email-emergency-access-subject",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "email-emergency-access-text",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "registration-minimum-age",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "error-minimum-age",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "ropa-draft",
+      "since": "2026-11-24"
     }
   ]
 }

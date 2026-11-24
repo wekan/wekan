@@ -117,6 +117,16 @@ AccountsTemplates.addFields([
   // a page requires acceptance (client/components/legal/legalAcceptance.*).
   // Optional on purpose: an account that does not tick it is asked after
   // signing in, and the server refuses everything else until it accepts.
+  // REGISTRATION_MINIMUM_AGE (models/lib/registrationAge.js): "I am at least
+  // N years old", shown only while it is set; the server refuses a sign-up
+  // without it.
+  {
+    _id: 'confirmAge',
+    type: 'checkbox',
+    displayName: () => tr('registration-minimum-age'),
+    required: false,
+    template: 'registrationAgeSignup',
+  },
   {
     _id: 'acceptLegal',
     type: 'checkbox',

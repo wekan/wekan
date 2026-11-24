@@ -785,7 +785,8 @@ const REPORT_TABLES = {
       { labelKey: 'impersonation-user', value: d => userName(d.userId), userId: d => d.userId,
         initials: d => userInitials(d.userId) },
       { labelKey: 'board', value: d => d.boardId },
-      { labelKey: 'reason', value: d => d.reason },
+      // Emergency access (P3) shows its note: why, as the administrator wrote it.
+      { labelKey: 'reason', value: d => (d.note ? `${d.reason}: ${d.note}` : d.reason) },
     ],
   },
   'report-recovery': {

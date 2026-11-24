@@ -84,10 +84,10 @@ not in security:
    Accessibility Directive) or in-scope consumer services (EAA); 2.2 is good
    practice.
 
-*(Status 2026-11-24: gaps 1, 2, 3 and 6 are closed by WP-4 to WP-9 below,
-and gap 4's retention by WP-7; what each did is in its work package. Still
-open: the ROPA draft of gap 4 (row 2.2); gap 7 is closed by WP-13, and gap 5 by
-WP-1 (Settings writes audited), WP-7, WP-10 and WP-11.)*
+*(Status 2026-11-24: every gap above is closed - 1, 2, 3 and 6 by WP-4 to
+WP-9, gap 4 by WP-7 and the ROPA draft of row 2.2, gap 5 by WP-1 (Settings
+writes audited), WP-7, WP-10 and WP-11, and gap 7 by WP-13. What each did is
+in its work package; the P3 list below is what is left.)*
 
 EU AI Act (Regulation (EU) 2024/1689, **amended by Regulation (EU)
 2026/1744**, consolidated 2026-07-27 - its Art. 113 dates changed): **not
@@ -184,7 +184,7 @@ a reading of the text, not legal advice.
 | # | Requirement | Legal basis (exact provision; key links to official source) | Status | Evidence | What is missing / smallest addition | Menu | Prio |
 |---|---|---|---|---|---|---|---|
 | 2.1 | Data inventory: which collection/field holds which category of personal data, purpose, legal basis, recipients | [GDPR] Art. 30(1) (exemption Art. 30(5) below 250 staff unless processing is not occasional or includes Art. 9 data - WeKan absences are health data); [LGPD] Art. 37; [PIPL] Art. 51 (classification and measures) - Art. 54 is compliance audits, corrected; [POPIA] s. 14, s. 17 (s. 17 UNVERIFIED); [DPDP] s. 8 (date UNVERIFIED); 27701 7.2.8 and ISO A.5.9/A.5.34 UNVERIFIED ([ISO27701], [ISO27001]) | **PARTIAL** | Done in [bfd83d09b6](https://github.com/wekan/wekan/commit/bfd83d09b6) (WP-3): `models/lib/personalDataInventory.js` classifies all 185 collections (categories, subject field, purpose, legal-basis hint, retention and where it is enforced, erasure and which file does it); 128 hold personal data, health (Art. 9) in `workloadAbsences`, financial in the billing collections, `timeEntries`, `shopOrders`, `cloudDomains`, `cloudInvoices`. `tests/personalDataInventory.test.cjs` scans `models/`, `server/`, `packages/` (skipping `_build*`) and fails on an unclassified or vanished collection and on a new erasure gap. Generated view: [Data-Inventory.md](Data-Inventory.md) (`releases/compliance/data-inventory.mjs`). | Recipients per instance (see 2.2). The UI part is WP-6: Admin Panel / Settings / **Privacy** / Data inventory (read-only table from the module + "Download ROPA"). | Admin Panel / Settings / **Privacy** / Data inventory (read-only table + "Download ROPA" CSV/Markdown) | P1 |
-| 2.2 | Records of processing (ROPA) export the controller can complete | [GDPR] Art. 30(1)(a)-(g); [LGPD] Art. 37. PIPL Art. 54 removed (it requires compliance audits, not a ROPA); PIPL Art. 55-56 impact assessment is the nearest record | **PARTIAL** | [Data-Inventory.md](Data-Inventory.md) (from 2.1, [bfd83d09b6](https://github.com/wekan/wekan/commit/bfd83d09b6)) is the static part of a ROPA the controller can complete: purpose, categories, legal-basis hint, retention, erasure per collection. | WP-6, Admin Panel / Settings / Privacy: render the inventory + the instance's actual retention settings + enabled third-party services (HIBP if `PASSWORD_CHECK_PWNED`, `DEFAULT_AVATAR_URL`, mail provider, S3/Azure/GCS, webhooks, ActivityPub) as a ROPA draft. | Admin Panel / Settings / Privacy | P2 |
+| 2.2 | Records of processing (ROPA) export the controller can complete | [GDPR] Art. 30(1)(a)-(g); [LGPD] Art. 37. PIPL Art. 54 removed (it requires compliance audits, not a ROPA); PIPL Art. 55-56 impact assessment is the nearest record | **EXISTS** | [Data-Inventory.md](Data-Inventory.md) (from 2.1, [bfd83d09b6](https://github.com/wekan/wekan/commit/bfd83d09b6)) is the static part of a ROPA the controller can complete: purpose, categories, legal-basis hint, retention, erasure per collection. | WP-6, Admin Panel / Settings / Privacy: render the inventory + the instance's actual retention settings + enabled third-party services (HIBP if `PASSWORD_CHECK_PWNED`, `DEFAULT_AVATAR_URL`, mail provider, S3/Azure/GCS, webhooks, ActivityPub) as a ROPA draft. Done 2026-11-24: **Records of processing (draft)** in Admin Panel / Settings / Legal pages, from the inventory, this server's retention values and the outside services it uses (`models/lib/ropaDraft.js`, `getRopaDraft`, `tests/ropaDraft.test.cjs`). | Admin Panel / Settings / Privacy | P2 |
 | 2.3 | Attachment retention | [GDPR] Art. 5(1)(e); [HIPAA] § 164.310(d)(2)(i) disposal (UNVERIFIED, § 164.310 not read) | **EXISTS** | `models/lib/attachmentRetention.js`, `server/attachmentRetention.js`, Admin Panel / Attachments / Retention (`adminUrls.js` `retention`), soft-delete then purge. TODO.md notes a per-run limit mismatch. | - | - | - |
 | 2.4 | Security / speed / test event log retention | [GDPR] Art. 5(1)(e); [NIS2] Art. 21(2)(b); ISO A.8.15 and SOC2 UNVERIFIED ([ISO27001], [SOC2]) | **EXISTS** | `EVENTLOG_RETENTION_DAYS` default 90 (`models/eventLog.js:116-148`). | Show it in the retention overview (2.10). | - | - |
 | 2.5 | Admin audit log retention configurable (HIPAA keeps required Security Rule documentation 6 years, § 164.316(b)(2)(i); a 1+ year log period for SOC2/ISO is common practice, not a cited rule) | [HIPAA] § 164.316(b)(1)(ii), (b)(2)(i) - 6 years for policies and for records of actions/activities/assessments the Security Rule requires (e.g. the activity reviews of § 164.308(a)(1)(ii)(D)); the rule does not literally require keeping raw audit-log rows 6 years. ISO A.8.15, SOC2 UNVERIFIED | **EXISTS** | Fixed `AUDIT_KEEP_DAYS = 365` (`models/lib/adminAudit.js:26`), pruned daily (`server/adminAudit.js:113-126`). | Done in WP-7 (2026-11-24): `ADMIN_AUDIT_RETENTION_DAYS` - 365 by default as before, 0 keeps the log, a HIPAA deployment sets 2190 or more (`models/lib/retentionSettings.js`, `server/adminAudit.js`). | Admin Panel / People / Audit log (show "kept N days") | P2 |
@@ -527,11 +527,16 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
 
 - Active-session list with "end this session" (Member Settings) and admin
   "Log out this user" (People ⋯).
-- Hash-chained admin audit log verified in Problems / Integrity.
+- Hash-chained admin audit log verified in Problems / Integrity. *(done
+  2026-11-24: `models/lib/auditChain.js`, `server/lib/auditChainAppend.js` -
+  each row's _id is its place, so a race takes the next one; a daily check
+  reports a break in Problems / Integrity; `tests/auditChain.test.cjs`.)*
 - Passphrase encryption of full backups (reuse
   `server/lib/continuousBackup/encryption.js`); app-level encryption of
   filesystem attachments.
-- Optional minimum-age confirmation on registration.
+- Optional minimum-age confirmation on registration. *(done 2026-11-24:
+  `REGISTRATION_MINIMUM_AGE`, `models/lib/registrationAge.js`,
+  `tests/registrationAge.test.cjs`.)*
 - "Security update available" flag in Problems / Summary. *(done
   2026-11-24: from the last Check version an administrator ran, never a check
   of WeKan's own - `models/lib/versionCheck.js` `updateProblem`,
@@ -542,7 +547,11 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
   `USERS_ANONYMIZE_INACTIVE_AFTER_DAYS`, `models/lib/loginAddressRetention.js`,
   `models/lib/inactiveUsers.js`; tests in `tests/loginAddressRetention.test.cjs`
   and `tests/inactiveUsers.test.cjs`.)*
-- Emergency-access impersonation category that notifies all admins.
+- Emergency-access impersonation category that notifies all admins. *(done
+  2026-11-24: Emergency access with a note before Impersonate in Admin Panel
+  / People; kept as reason `emergency`, shown in the Impersonation Report,
+  and e-mailed to every other administrator at once -
+  `models/lib/emergencyAccess.js`, `tests/emergencyAccess.test.cjs`.)*
 
 ## Search log (for MISSING claims)
 

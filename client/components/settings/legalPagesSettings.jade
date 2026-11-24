@@ -48,6 +48,13 @@ template(name="legalPagesSettings")
         button.primary.js-legal-contacts-save {{_ 'save'}}
       if message
         p.quiet(role="status") {{message}}
+      //- Row 2.2: a draft of the records of processing (GDPR Art. 30), from the
+      //- inventory, this server's retention values and the outside services it
+      //- uses (models/lib/ropaDraft.js), to copy and complete.
+      section.legal-page-editor.js-ropa
+        button.js-ropa-draft(type="button") {{_ 'ropa-draft'}}
+        if ropa
+          textarea.wekan-form-control.js-ropa-text(rows="14" readonly aria-label="{{_ 'ropa-draft'}}")= ropa
       //- What this WeKan stores about people (models/lib/personalDataInventory.js):
       //- what the privacy notice describes.
       details.legal-inventory

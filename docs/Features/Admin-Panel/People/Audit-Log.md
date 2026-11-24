@@ -46,6 +46,17 @@ The rows are kept as long as the audit log (`ADMIN_AUDIT_RETENTION_DAYS`).
 Erasing an account removes its username and address from them, and keeps the
 anonymous id.
 
+**It cannot be changed unseen**
+
+Every row is hash-chained: it carries its place (`seq`), the hash of the row
+before it and its own hash over what it records (`models/lib/auditChain.js`).
+Once a day, and whenever `verifyAdminAuditChain` is called, the chain is
+checked from the oldest row still kept; a row that was edited, or removed
+from the middle, is reported in **Admin Panel → Problems → Filesystem
+integrity** as "The administrators' audit log chain is broken". The
+retention removes rows only from the old end, so it never breaks the chain;
+rows written before the chain existed are counted, not checked.
+
 **Send it to a SIEM**
 
 Set `AUDIT_LOG_STDOUT=json` (Snap: `sudo snap set wekan

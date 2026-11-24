@@ -2833,7 +2833,11 @@ Template.settingsUserPopup.events({
       return;
     }
 
-    Meteor.call('impersonate', userId, (err) => {
+    const popup = event.currentTarget.closest('.pop-over-list');
+    const emergency = !!(popup && popup.querySelector('.js-impersonate-emergency:checked'));
+    const note = popup && popup.querySelector('.js-impersonate-note') ? popup.querySelector('.js-impersonate-note').value : '';
+    const args = emergency ? [userId, { emergency: true, note }] : [userId];
+    Meteor.call('impersonate', ...args, (err) => {
       if (!err) {
         // Meteor.connection.setUserId() triggers automatic cache invalidation
         // No need to manually invalidate - let Meteor handle the user data refresh

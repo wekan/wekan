@@ -66,7 +66,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   "Sejarah" for history, and Tagalog (`tl`) and Waray (`wa-RR`) have odd
   "log in" values; Neapolitan and Sicilian (`nap`, `scn`) have the Italian
   "Accedi" and "Esporta", and Luxembourgish "Board importieren"; Venetian "export" is Zulu, Veps
-  "export" is only "Ve", and Yoruba (`yo`) calls a board "Ọkọ" (vehicle).
+  "export" is only "Ve", and Yoruba (`yo`) calls a board "Ọkọ" (vehicle);
+  Odia's "admin-panel" ends in a stray "|", Macedonian "people" is the
+  Bulgarian "Хора", the Luganda and Georgian Impersonation Report titles are
+  half English, and Norwegian Bokmål (`nb`) has "Anonymiser Bruker" for
+  Impersonate user.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
@@ -83,9 +87,7 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
   against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 are
   done. Left: the P3 list of `docs/Compliance/README.md` (an active-session
-  list, a hash-chained audit log, passphrase-encrypted full backups, a
-  minimum-age option, an emergency-access impersonation category) and
-  the ROPA draft of row 2.2.
+  list, passphrase-encrypted full backups).
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since
