@@ -240,6 +240,41 @@ for. `tests/accessibilityStatementDraft.test.cjs`,
 
 </details>
 
+**Privacy and personal data, the rest** - what was left on the compliance list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92fc9b686aff4ad521f9eb69de450a09f2286246">LOGIN_ADDRESS_RECORDED=false records no sign-in address, and long-disabled accounts can be anonymised</a>. Thanks to xet7.</summary>
+
+`LOGIN_ADDRESS_RECORDED=false` writes no sign-in address down at all; the
+lockout still counts failed sign-ins. `USERS_ANONYMIZE_INACTIVE_AFTER_DAYS`
+anonymises an account that many days after it was disabled for inactivity,
+never an administrator or an account enabled again.
+`tests/loginAddressRetention.test.cjs`, `tests/inactiveUsers.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77b9bc984ab8a3a4d1af0cefb9872a50714f2008">Problems / Summary says when a newer WeKan is available</a>. Thanks to xet7.</summary>
+
+From the last Check version an administrator ran; WeKan still never asks
+wekan.fi on its own. `tests/versionUpdateProblem.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77986e1d656be58127740e85244e0656923cb1d3">Emergency access, a hash-chained audit log, a minimum age on sign-up and a records of processing draft</a>. Thanks to xet7.</summary>
+
+Emergency access before Impersonate is kept with its note and e-mailed to
+every other administrator. Every audit log row is hash-chained, and a daily
+check reports an edited or removed row in Problems / Filesystem integrity.
+`REGISTRATION_MINIMUM_AGE` asks a password sign-up to confirm the minimum
+age. Admin Panel / Settings / Legal pages drafts the records of processing
+from what this server really stores and uses. `tests/emergencyAccess.test.cjs`,
+`tests/auditChain.test.cjs`, `tests/registrationAge.test.cjs`,
+`tests/ropaDraft.test.cjs`.
+
+</details>
+
 **Security reporting** - where to report a vulnerability, which version is
 supported, and what a release is made of.
 
