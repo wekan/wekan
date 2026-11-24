@@ -74,11 +74,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
   target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). Done: the complete admin
-  audit log (WP-1), retention of sign-in addresses (WP-2) and the
-  personal-data inventory (WP-3). Next: complete erasure (WP-4, the 40
-  collections the inventory lists), a personal-data export (WP-5), legal pages
-  with accepted versions (WP-6), then WP-7 to WP-14.
+  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-8 and
+  WP-14 are done. Next: security.txt, the support period and an SBOM (WP-9),
+  CSV exports and one's own login history (WP-10), a data-access log (WP-11),
+  the Compliance pane (WP-12) and WCAG 2.2 (WP-13).
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since

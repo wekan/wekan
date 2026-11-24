@@ -2371,6 +2371,16 @@ Accounts.onCreateUser(async (options, user) => {
   // where the admin sets orgs explicitly.
   await autoAddOrgsByDomain(user);
 
+  // WP-8: the sign-up form's "I accept the terms and the privacy notice"
+  // checkbox (config/accounts.js) accepts the versions required now
+  // (server/requireLegalAcceptance.js). It is never kept in the profile.
+  // useraccounts sends it in options.profile, which Meteor does not copy to
+  // the account while this hook exists.
+  if (user.profile) delete user.profile.acceptLegal;
+  if (!creation && options && options.profile && options.profile.acceptLegal === true) {
+    user.legalAcceptances = await require('/server/requireLegalAcceptance').signupAcceptances();
+  }
+
   const disableRegistration = (await ReactiveCache.getCurrentSetting()).disableRegistration;
   if (disableRegistration && options && options.ldap) {
     user.authenticationMethod = 'ldap';

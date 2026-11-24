@@ -18,7 +18,7 @@ const L = require('../models/lib/legalPages');
 
 test('a published page is public; an unpublished one, or an unknown page, is not', () => {
   const page = L.publicPage({ _id: 'privacy', enabled: true, title: 'Privacy', body: '# Who we are', version: 3, secretNote: 'x' });
-  assert.deepEqual(Object.keys(page).sort(), ['_id', 'body', 'modifiedAt', 'title', 'url', 'version']);
+  assert.deepEqual(Object.keys(page).sort(), ['_id', 'body', 'modifiedAt', 'requireAcceptance', 'title', 'url', 'version']);
   assert.equal(page.version, 3);
   assert.equal(L.publicPage({ _id: 'privacy', enabled: false, body: 'draft' }), null);
   assert.equal(L.publicPage({ _id: 'secret', enabled: true }), null);

@@ -28,6 +28,9 @@ const IMPRINT_FIELDS = Object.freeze([
 
 const CONTACT_FIELDS = Object.freeze(['privacyContact', 'dpoContact', 'euRepresentative', 'securityContact']);
 
+// The pages an account can be asked to accept (models/lib/legalAcceptance.js).
+const ACCEPTANCE_PAGES = Object.freeze(['terms', 'privacy']);
+
 const MAX_TEXT = 100000;
 const MAX_FIELD = 2000;
 
@@ -53,6 +56,7 @@ function publicPage(doc) {
     url: safeUrl(doc.url),
     version: Number.isSafeInteger(doc.version) ? doc.version : 1,
     modifiedAt: doc.modifiedAt || null,
+    requireAcceptance: ACCEPTANCE_PAGES.includes(doc._id) && doc.requireAcceptance === true,
   };
   if (doc._id === 'imprint') {
     out.fields = IMPRINT_FIELDS.filter(f => text(doc[f]).trim()).map(f => ({ key: f, value: text(doc[f]).trim() }));
@@ -77,6 +81,8 @@ function pageUpdate(current, form) {
     title: text(form.title, 200),
     body: text(form.body, MAX_TEXT),
     url: safeUrl(form.url),
+    // Requiring acceptance is not a new version of the text (WP-8).
+    requireAcceptance: ACCEPTANCE_PAGES.includes(id) && form.requireAcceptance === true,
   };
   if (id === 'imprint') for (const f of IMPRINT_FIELDS) next[f] = text(form[f]);
   const visible = ['title', 'body', 'url', ...(id === 'imprint' ? IMPRINT_FIELDS : [])];
@@ -91,5 +97,5 @@ function contactsUpdate(form) {
 }
 
 module.exports = {
-  PAGES, IMPRINT_FIELDS, CONTACT_FIELDS, publicPage, publicContacts, pageUpdate, contactsUpdate, safeUrl,
+  PAGES, ACCEPTANCE_PAGES, IMPRINT_FIELDS, CONTACT_FIELDS, publicPage, publicContacts, pageUpdate, contactsUpdate, safeUrl,
 };

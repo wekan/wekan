@@ -186,6 +186,7 @@ import '/server/crossSiteRequestGuard';
 // PASSWORD_MIN_LENGTH: an older, shorter password is changed after signing in.
 import '/server/passwordChangeRequired';
 import '/server/requireTwoFactor';
+import '/server/requireLegalAcceptance';
 import '/server/adminAudit';
 import '/server/header-login';
 import '/server/nextcloud';

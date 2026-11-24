@@ -1,0 +1,34 @@
+/* WP-8: the pages to accept, over everything, until they are accepted. */
+.legal-acceptance-required {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.6);
+}
+.legal-acceptance-box {
+  max-width: 32rem;
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+}
+.legal-acceptance-box h2 {
+  margin-top: 0;
+}
+.legal-acceptance-page {
+  display: block;
+  margin: 0.5rem 0;
+}
+.legal-acceptance-error {
+  color: #b00020;
+}
+.legal-acceptances {
+  margin: 0.5rem 1rem;
+  font-size: 0.9em;
+}

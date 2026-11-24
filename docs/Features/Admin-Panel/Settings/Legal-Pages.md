@@ -34,6 +34,14 @@ WP-6); WeKan makes it possible.
    changed.
 5. Under **Privacy contacts**, fill the contacts that apply and click **Save**.
    They are shown on the privacy notice.
+6. To have every account accept the **terms of use** or the **privacy
+   notice**, tick **Require acceptance** under that page and click **Save**.
+   From then on an account that has not accepted the current version sees
+   only the acceptance dialog after signing in, and WeKan answers nothing
+   else for it until it accepts or signs out. Each new version is asked for
+   again. The sign-up form shows an **I accept** checkbox meanwhile; an
+   account that does not tick it is asked after signing in. Each person sees
+   the versions they accepted in Member Settings / Privacy and my data.
 
 ## How the numbers are calculated
 
@@ -46,6 +54,13 @@ WP-6); WeKan makes it possible.
   themselves are environment variables (`LOGIN_ADDRESS_RETENTION_DAYS`,
   `ADMIN_AUDIT_RETENTION_DAYS`, `ACTIVITIES_RETENTION_DAYS`,
   `WORKLOAD_ABSENCE_RETENTION_DAYS` and the others the table names).
+- **Accepted**: an account has accepted a page when it accepted its current
+  version or a later one (`missingAcceptances` in
+  `models/lib/legalAcceptance.js`). Accepting records
+  `legalAcceptances.<page> = { version, at }` on the account, and only the
+  version that is current at that moment - a browser that showed an older
+  text is asked to read the new one. The cookie notice and the imprint are
+  never to be accepted: they inform.
 - **What is public**: only a published page, and of the imprint and the
   contacts only the filled fields (`publicPage`, `publicContacts` in
   `models/lib/legalPages.js`). A link is used only when it is `http` or
@@ -63,6 +78,15 @@ WP-6); WeKan makes it possible.
   collection, which nothing writes from the browser.
 - The pages: `client/components/legal/legalPage.*`; the routes in
   `config/router.js` have no sign-in trigger.
-- Tested by [tests/legalPages.test.cjs](../../../../tests/legalPages.test.cjs).
+- [models/lib/legalAcceptance.js](../../../../models/lib/legalAcceptance.js)
+  and [server/requireLegalAcceptance.js](../../../../server/requireLegalAcceptance.js) -
+  Require acceptance: the decision (pure) and the gate that refuses every
+  other method and publication until it is met, built like REQUIRE_2FA's
+  (`server/requireTwoFactor.js`). The REST API is not gated: integrations
+  use it with an API token. The dialog and the sign-up checkbox:
+  `client/components/legal/legalAcceptance.*`.
+- Tested by [tests/legalPages.test.cjs](../../../../tests/legalPages.test.cjs),
+  [tests/legalAcceptance.test.cjs](../../../../tests/legalAcceptance.test.cjs) and
+  [tests/playwright/specs/legal-acceptance.e2e.js](../../../../tests/playwright/specs/legal-acceptance.e2e.js).
 
 ## Commits

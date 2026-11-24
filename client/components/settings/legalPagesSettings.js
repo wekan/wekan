@@ -3,7 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { legalLabel } from '/client/components/legal/legalPage';
 
-const { PAGES, IMPRINT_FIELDS, CONTACT_FIELDS } = require('/models/lib/legalPages');
+const { PAGES, ACCEPTANCE_PAGES, IMPRINT_FIELDS, CONTACT_FIELDS } = require('/models/lib/legalPages');
 const { draftPrivacyNotice, inventoryRows } = require('/models/lib/privacyNoticeDraft');
 
 Template.legalPagesSettings.onCreated(function () {
@@ -32,6 +32,7 @@ Template.legalPagesSettings.helpers({
         label: legalLabel(id),
         isImprint: id === 'imprint',
         isPrivacy: id === 'privacy',
+        isAcceptable: ACCEPTANCE_PAGES.includes(id),
         imprintFields: IMPRINT_FIELDS.map(key => ({ key, label: legalLabel(key), value: doc[key] || '' })),
       };
     });
@@ -61,6 +62,8 @@ Template.legalPagesSettings.events({
       url: section.querySelector('.js-legal-url').value,
       body: section.querySelector('.js-legal-body').value,
     };
+    const requireAcceptance = section.querySelector('.js-legal-require-acceptance');
+    if (requireAcceptance) form.requireAcceptance = requireAcceptance.checked;
     section.querySelectorAll('.js-legal-field').forEach(input => { form[input.dataset.field] = input.value; });
     Meteor.call('saveLegalPage', section.dataset.page, form, error => {
       tpl.message.set(error ? (error.reason || error.message) : TAPi18n.__('feature-saved'));

@@ -1,0 +1,41 @@
+//- WP-8 (models/lib/legalAcceptance.js): versioned acceptance of the terms and
+//- the privacy notice.
+
+//- After signing in, an account that has not accepted the current version of
+//- a page that requires it sees only this. The server refuses everything else
+//- meanwhile (server/requireLegalAcceptance.js).
+template(name="legalAcceptanceRequired")
+  .legal-acceptance-required(role="dialog" aria-modal="true" aria-labelledby="legal-acceptance-title")
+    .legal-acceptance-box
+      h2#legal-acceptance-title {{_ 'legal-acceptance-title'}}
+      p {{_ 'legal-acceptance-text'}}
+      each missing
+        label.legal-acceptance-page
+          input.js-legal-accept(type="checkbox" data-page="{{page}}" data-version="{{version}}")
+          |  {{_ 'legal-acceptance-accept-page' page=label version=version}}
+          |  
+          a(href="/{{page}}" target="_blank" rel="noopener noreferrer" aria-label="{{label}}" title="{{label}}")
+            i.fa.fa-external-link
+      if error
+        p.legal-acceptance-error(role="alert") {{error}}
+      .buttonsContainer
+        button.primary.js-legal-accept-submit(type="button" disabled="{{notAllChecked}}") {{_ 'legal-acceptance-accept'}}
+        button.js-legal-acceptance-logout(type="button") {{_ 'log-out'}}
+
+//- The sign-up form's checkbox (config/accounts.js), shown only while a page
+//- requires acceptance. Ticking it accepts the versions required now; an
+//- account that does not tick it is asked after signing in.
+template(name="legalAcceptanceSignup")
+  if required
+    .at-input#acceptLegal
+      label.legal-acceptance-page
+        input#at-field-acceptLegal(type="checkbox" name="at-field-acceptLegal")
+        |  {{_ 'legal-acceptance-signup'}}
+      +legalPageLinks
+
+//- Member Settings / Privacy and my data: the versions this account accepted.
+template(name="legalAcceptancesList")
+  if accepted.length
+    ul.legal-acceptances
+      each accepted
+        li {{label}}, {{_ 'legal-page-version' version=version}}, {{date}}

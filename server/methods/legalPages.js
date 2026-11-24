@@ -40,6 +40,9 @@ Meteor.methods({
     const current = (await LegalPages.findOneAsync(page)) || { _id: page };
     const $set = { ...pageUpdate(current, form), modifiedAt: new Date(), modifiedBy: this.userId };
     await LegalPages.upsertAsync({ _id: page }, { $set });
+    // Requiring acceptance, or a new version of a page that requires it,
+    // applies at once on this server (WP-8, server/requireLegalAcceptance.js).
+    await require('/server/requireLegalAcceptance').refreshRequiredAcceptances();
     return $set.version;
   },
   async saveLegalContacts(form) {

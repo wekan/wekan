@@ -16,6 +16,12 @@ template(name="legalPagesSettings")
           label.legal-page-check
             input.js-legal-enabled(type="checkbox" checked="{{enabled}}")
             |  {{_ 'legal-page-published'}}
+          if isAcceptable
+            //- WP-8: every account accepts the current version, and each new
+            //- one, before it can do anything else (server/requireLegalAcceptance.js).
+            label.legal-page-check
+              input.js-legal-require-acceptance(type="checkbox" checked="{{requireAcceptance}}")
+              |  {{_ 'legal-page-require-acceptance'}}
           label
             | {{_ 'title'}}
             input.js-legal-title.wekan-form-control(type="text" value="{{title}}" maxlength="200")

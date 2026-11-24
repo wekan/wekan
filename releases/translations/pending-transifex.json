@@ -6195,6 +6195,34 @@
     {
       "key": "privacyAndMyDataPopup-title",
       "since": "2026-11-24"
+    },
+    {
+      "key": "legal-page-require-acceptance",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-title",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-text",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-accept-page",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-accept",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-changed",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "legal-acceptance-signup",
+      "since": "2026-11-24"
     }
   ]
 }
