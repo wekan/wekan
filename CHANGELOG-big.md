@@ -564,6 +564,17 @@ pinned were kept. `tests/wrongLanguageCorrections20261124b.test.cjs`.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0d785e305d45a09d59c1fffc6a8b6b41b120694">The last wrong-language words in Shona, Maltese, Odia, Luxembourgish, Serbian and Venetian</a>. Thanks to xet7.</summary>
+
+Shona and Maltese help texts that were half English are in Shona and Maltese,
+a Maltese card is karta; Odia words split by English are whole again and its
+full stop is the danda; the Luxembourgish whiteboard is no longer the board's
+"Tafel"; Serbian names All Boards the same everywhere; and three Spanish
+values in Venetian are Venetian.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v13.30 2026-11-23 WeKan ® release

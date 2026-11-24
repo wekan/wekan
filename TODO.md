@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The last wrong-language words | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | - | The Firefox and WebKit stages, on a host; Odia's search words; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -34,18 +34,6 @@ details; WeKan's are below.
 | [wekan-meteor3-html4](https://github.com/wekan/wekan-meteor3-html4/blob/main/TODO.md) | Left out for now | - |
 | wena | aros-i386 without AHI audio | Rerun Release all for haiku-amd64; Release desktop's linux-armel and linux-mips64le |
 | wepica | Left out: too old | - |
-
-## In progress
-
-Work being done now. Each item moves to the `# Upcoming WeKan ® release`
-section of `CHANGELOG-big.md`, and to the docs, when it is committed.
-
-- Wrong-language words the 2026-11-24 corrections left, for a speaker to
-  check: Shona (`sn`) long help texts still half English; Odia (`or_IN`)
-  garbled fragments in a few long values; Maltese (`mt`) half-English help
-  texts; Luxembourgish (`lb`) whiteboard is both "Whiteboard" and "Tafel";
-  Serbian (`sr`) "All Boards" is not named the same everywhere; one Spanish
-  value in Venetian (`ve-CC`).
 
 ## For the maintainer: needs a person, not code
 
@@ -88,6 +76,12 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   permissive attributions changed).
 
 ## Needs a maintainer decision on the intended contract
+
+- Odia (`or_IN`) search operator words and their error messages are garbled
+  the way the rest of Odia was before 2026-11-24 ("ଅବ alid ଧ", "ତାଲିକା |").
+  They were left as they are because people type them: correcting them
+  changes which words a search accepts, so it needs a decision on accepting
+  the old spellings too.
 
 - WeKan's dev-only `glob` 13.0.6 under `@babel/cli`, which builds the vendored
   `npm-packages/`, is in the range of GHSA-3g3m-2fjr-6pw4 (medium,
