@@ -55,3 +55,8 @@ template(name="legalPagesSettings")
                 td {{categories}}
                 td {{purpose}}
                 td {{retention}}
+                td
+                  if env
+                    code {{env}}
+                    if value
+                      |  = {{value}}

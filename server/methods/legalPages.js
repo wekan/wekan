@@ -49,3 +49,28 @@ Meteor.methods({
     return true;
   },
 });
+
+// The retention overview of Admin Panel / Settings / Legal pages (WP-7): every
+// collection the inventory says holds personal data, how long it is kept by
+// default, the setting that limits it and the value that setting has on this
+// server. Read here because only the server knows its environment.
+Meteor.methods({
+  async getRetentionOverview() {
+    await assertSiteAdmin(this.userId);
+    const { INVENTORY } = require('/models/lib/personalDataInventory');
+    return INVENTORY
+      .filter(e => !(e.categories.length === 1 && e.categories[0] === 'none'))
+      .map(e => {
+        const env = e.retention && e.retention.env;
+        const set = env && /^[A-Z0-9_]+$/.test(env) ? process.env[env] : undefined;
+        return {
+          collection: e.collection,
+          categories: e.categories.join(', '),
+          purpose: e.purpose,
+          retention: (e.retention && e.retention.default) || '',
+          env: env || '',
+          value: set === undefined || set === '' ? '' : String(set).slice(0, 40),
+        };
+      });
+  },
+});

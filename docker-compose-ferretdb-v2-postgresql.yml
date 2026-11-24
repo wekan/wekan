@@ -917,6 +917,14 @@ services:
       # LOGIN_ADDRESS_RETENTION_DAYS : Days a sign-in address is kept after its last
       # use, on the account and in the login reports. Default 365; 0 keeps them.
       #- LOGIN_ADDRESS_RETENTION_DAYS=365
+      # ADMIN_AUDIT_RETENTION_DAYS : Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
+      #- ADMIN_AUDIT_RETENTION_DAYS=365
+      # ACTIVITIES_RETENTION_DAYS : Days board activity rows are kept; off unless set. The change history of cards is never removed.
+      #- ACTIVITIES_RETENTION_DAYS=
+      # WORKLOAD_ABSENCE_RETENTION_DAYS : Days after its end a workload absence is kept; off unless set. Absences can be health data.
+      #- WORKLOAD_ABSENCE_RETENTION_DAYS=
+      # WORKLOAD_ABSENCE_TYPE_RECORDED : false stores every new workload absence as "other", so no sick leave is recorded.
+      #- WORKLOAD_ABSENCE_TYPE_RECORDED=
       #---------------------------------------------------------------
       # ATTACHMENT RETENTION (models/lib/attachmentRetention.js). Off unless set.
       # ATTACHMENTS_RETENTION_DAYS : once a night, delete card attachments older

@@ -14,6 +14,10 @@ Template.legalPagesSettings.onCreated(function () {
     this.docs.set(error ? [] : docs);
   });
   this.reload();
+  // The retention overview (WP-7): the inventory with the values this server's
+  // settings really have. Until it arrives, the inventory alone.
+  this.retention = new ReactiveVar(null);
+  Meteor.call('getRetentionOverview', (error, rows) => { if (!error) this.retention.set(rows); });
 });
 
 Template.legalPagesSettings.helpers({
@@ -32,7 +36,7 @@ Template.legalPagesSettings.helpers({
       };
     });
   },
-  inventory() { return inventoryRows(); },
+  inventory() { return Template.instance().retention.get() || inventoryRows(); },
   contactFields() {
     const doc = (Template.instance().docs.get() || []).find(d => d._id === 'contacts') || {};
     return CONTACT_FIELDS.map(key => ({ key, label: legalLabel(key), value: doc[key] || '' }));

@@ -47,8 +47,10 @@ From [server/adminAudit.js](../../../../server/adminAudit.js) and
 - **Page**: at least 1; **pages** is the total divided by 50, rounded up.
 - **Total**: the number of entries matching the search, counted on the server.
 - **Search**: at most the first 100 characters of what is typed are used.
-- **Kept for**: 365 days (`AUDIT_KEEP_DAYS`). Older entries are removed by a
-  prune that runs once when WeKan starts and then once a day.
+- **Kept for**: `ADMIN_AUDIT_RETENTION_DAYS` days - 365 by default
+  (`AUDIT_KEEP_DAYS`), 0 keeps every entry, and a HIPAA deployment sets 2190 or
+  more. Older entries are removed by a prune that runs once when WeKan starts
+  and then once a day (`models/lib/retentionSettings.js`).
 - **Recorded arguments**: each string is cut to 200 characters, an array or an
   object to its first 20 items (the rest shown as `[+N]`), nesting to 4
   levels, and the whole summary to 2000 characters.

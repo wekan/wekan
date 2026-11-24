@@ -166,7 +166,11 @@ test('the Admin Panel\'s own collection writes are audited: every one is a site-
 test('the trail is for site administrators, and the Admin Panel shows it', () => {
   const server = read('server/adminAudit.js');
   assert.match(server, /user\.isAdmin !== true \|\| user\.loginDisabled === true\) throw new Meteor\.Error\('error-notAuthorized'\)/);
-  assert.match(server, /AUDIT_KEEP_DAYS \* DAY_MS/, 'kept for a year, then removed');
+  // Kept ADMIN_AUDIT_RETENTION_DAYS (WP-7, 2026-11-24) - a year by default,
+  // AUDIT_KEEP_DAYS - then removed; tests/retentionSettings.test.cjs pins the days.
+  assert.match(server, /cutoffDate\(retentionDays\('ADMIN_AUDIT_RETENTION_DAYS', \{ ADMIN_AUDIT_RETENTION_DAYS: process\.env\.ADMIN_AUDIT_RETENTION_DAYS \}\)\)/, 'kept for the configured days');
+  assert.match(server, /AdminAuditLog\.removeAsync\(\{ at: \{ \$lt: cutoff \} \}\)/, 'then removed');
+  assert.equal(require('../models/lib/retentionSettings').retentionDays('ADMIN_AUDIT_RETENTION_DAYS', {}), audit.AUDIT_KEEP_DAYS, 'a year by default');
   assert.match(read('server/imports.js'), /import '\/server\/adminAudit';/);
   assert.match(read('client/components/settings/adminAuditLog.js'), /Meteor\.call\('adminAuditLogPage'/);
   assert.match(read('client/components/settings/peopleBody.js'), /id: 'audit-log-setting'/);

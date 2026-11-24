@@ -920,6 +920,14 @@ REM # EVENTLOG_RETENTION_DAYS: Days after which an Admin Panel / Problems event 
 REM SET EVENTLOG_RETENTION_DAYS=90
 REM # LOGIN_ADDRESS_RETENTION_DAYS: Days a sign-in address is kept on the account, in loginAddresses and in shortPasswordLogins after its last use. Default 365; 0 keeps them.
 REM SET LOGIN_ADDRESS_RETENTION_DAYS=365
+REM # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
+REM SET ADMIN_AUDIT_RETENTION_DAYS=365
+REM # ACTIVITIES_RETENTION_DAYS: Days board activity rows are kept; off unless set. The change history of cards is never removed.
+REM SET ACTIVITIES_RETENTION_DAYS=
+REM # WORKLOAD_ABSENCE_RETENTION_DAYS: Days after its end a workload absence is kept; off unless set. Absences can be health data.
+REM SET WORKLOAD_ABSENCE_RETENTION_DAYS=
+REM # WORKLOAD_ABSENCE_TYPE_RECORDED: false stores every new workload absence as "other", so no sick leave is recorded.
+REM SET WORKLOAD_ABSENCE_TYPE_RECORDED=
 REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/Attachments.md
 REM SET ATTACHMENTS_RETENTION_DAYS=730
 REM SET ATTACHMENTS_RETENTION_MODE=uploaded

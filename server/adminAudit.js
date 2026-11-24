@@ -8,7 +8,7 @@ import { deferArgumentAudit, applyAudited } from '/server/lib/argumentChecks';
 // a site administrator, one document each. Which methods, and what of their
 // arguments is kept (never a password or a secret), is in
 // models/lib/adminAudit.js.
-const { AUDITED_METHODS, auditedMutationMethods, AUDIT_KEEP_DAYS, auditArgs } = require('/models/lib/adminAudit');
+const { AUDITED_METHODS, auditedMutationMethods, auditArgs } = require('/models/lib/adminAudit');
 const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
 
 export const AdminAuditLog = new Mongo.Collection('adminAuditLog');
@@ -111,9 +111,14 @@ Meteor.methods({
   },
 });
 
+// ADMIN_AUDIT_RETENTION_DAYS (models/lib/retentionSettings.js, WP-7): 365 by
+// default (AUDIT_KEEP_DAYS), 0 keeps the log; a HIPAA deployment sets 2190.
 async function prune() {
   try {
-    await AdminAuditLog.removeAsync({ at: { $lt: new Date(Date.now() - AUDIT_KEEP_DAYS * DAY_MS) } });
+    const { retentionDays, cutoffDate } = require('/models/lib/retentionSettings');
+    const cutoff = cutoffDate(retentionDays('ADMIN_AUDIT_RETENTION_DAYS', { ADMIN_AUDIT_RETENTION_DAYS: process.env.ADMIN_AUDIT_RETENTION_DAYS }));
+    if (!cutoff) return;
+    await AdminAuditLog.removeAsync({ at: { $lt: cutoff } });
   } catch (e) {
     console.error('[admin-audit] pruning failed:', e && e.message);
   }

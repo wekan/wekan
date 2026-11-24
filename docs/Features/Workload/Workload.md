@@ -148,6 +148,10 @@ All in [models/lib/workload.js](../../../models/lib/workload.js):
 - Somebody else's absence is shown only as days absent. Its type and note -
   whether somebody is sick, and why - are shown only to that person and to
   administrators.
+- Absences can be health data. `WORKLOAD_ABSENCE_TYPE_RECORDED=false` stores
+  every new absence as "other", so no sick leave is recorded at all, and
+  `WORKLOAD_ABSENCE_RETENTION_DAYS` removes absences that ended that many days
+  ago (both off by default; `models/lib/retentionSettings.js`).
 - Your working time and absences are yours to change; an administrator can
   change anybody's. Allocations are changed by the board's admins, holidays by
   administrators.

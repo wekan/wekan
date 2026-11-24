@@ -40,6 +40,12 @@ WP-6); WeKan makes it possible.
 - **Version**: starts at 1 and goes up by one each time a save changes the
   title, the text, the link or an imprint field; a save that only switches
   Published leaves it.
+- **Data inventory**: every collection that holds personal data, what it
+  holds and why, how long it is kept, and the setting that limits it with the
+  value it has on this server (`getRetentionOverview`) - the retention settings
+  themselves are environment variables (`LOGIN_ADDRESS_RETENTION_DAYS`,
+  `ADMIN_AUDIT_RETENTION_DAYS`, `ACTIVITIES_RETENTION_DAYS`,
+  `WORKLOAD_ABSENCE_RETENTION_DAYS` and the others the table names).
 - **What is public**: only a published page, and of the imprint and the
   contacts only the filled fields (`publicPage`, `publicContacts` in
   `models/lib/legalPages.js`). A link is used only when it is `http` or

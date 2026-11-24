@@ -118,6 +118,8 @@ import '/server/lib/cpuMonitor';
 import '/server/lib/ramMonitor';
 // docs/Compliance/README.md WP-2: sign-in addresses expire.
 import '/server/lib/loginAddressRetention';
+import '/server/lib/activitiesRetention';
+import '/server/lib/workloadAbsenceRetention';
 import '/server/lib/diskMonitor';
 import '/server/lib/selfChecks';
 import '/server/models/actions';

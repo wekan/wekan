@@ -37,6 +37,10 @@ const ENV_ONLY = {
   WEKAN_RAM_MONITOR: { platforms: true, reason: "this server's own memory monitor, per process" },
   WEKAN_IMPORT_RUN_STALE_MS: { platforms: true, reason: 'operational tuning of interrupted-import detection' },
   LOGIN_ADDRESS_RETENTION_DAYS: { platforms: true, reason: 'how long sign-in addresses are kept (docs/Compliance/README.md WP-2); 0 keeps them' },
+  ADMIN_AUDIT_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days the administrators audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.' },
+  ACTIVITIES_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days board activity rows are kept; off unless set. The change history of cards is never removed.' },
+  WORKLOAD_ABSENCE_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days after its end a workload absence is kept; off unless set. Absences can be health data.' },
+  WORKLOAD_ABSENCE_TYPE_RECORDED: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): false stores every new workload absence as "other", so no sick leave is recorded.' },
   EVENTLOG_RETENTION_DAYS: { platforms: true, reason: 'how long the Problems report keeps its own rows (#6893); the Clear button is its Admin Panel side' },
   DEFAULT_AVATAR_URL: { platforms: true, reason: 'maintainer decision (#824): "There should be no UI in Admin Panel"' },
   // models/lib/oidcProviderMode.js: Sign in with Apple needs both and WeKan
