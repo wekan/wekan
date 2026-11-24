@@ -7,9 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-A person can **download everything WeKan holds about them**, and
-**erasing a person** now removes their data from every place it is kept, not
-only their account. The **increasing delay after a wrong password** is applied
+A person can **download everything WeKan holds about them**,
+**erasing a person** now removes their data from every place it is kept, and
+an operator can publish a **privacy notice, terms, cookie notice and imprint**
+that anybody can read before signing in. The **increasing delay after a wrong
+password** is applied
 at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
 Broken cards pane lists and names every problem stream, and the **attachment

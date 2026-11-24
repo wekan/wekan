@@ -98,9 +98,11 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** A person can **download everything WeKan holds about them**, and
-**erasing a person** now removes their data from every place it is kept, not
-only their account. The **increasing delay after a wrong password** is applied
+**In short:** A person can **download everything WeKan holds about them**,
+**erasing a person** now removes their data from every place it is kept, and
+an operator can publish a **privacy notice, terms, cookie notice and imprint**
+that anybody can read before signing in. The **increasing delay after a wrong
+password** is applied
 at last. The **Admin
 Panel's Problems Summary** now counts and repairs the same broken cards its
 Broken cards pane lists and names every problem stream, and the **attachment
@@ -109,7 +111,21 @@ retention** form accepts only the limit the retention really uses.
 This release adds the following new features:
 
 **Privacy and personal data** - a person's right to their data, and to have it
-erased (docs/Compliance/README.md, WP-4 and WP-5).
+erased (docs/Compliance/README.md, WP-4 to WP-6).
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29a41bd51c39a1a42eeb63d3e3dd11b6096329d6">Legal pages: privacy notice, terms, cookie notice and imprint, readable before signing in</a>. Thanks to xet7.</summary>
+
+An operator publishes them in Admin Panel / Settings / Legal pages, starting the
+privacy notice from a draft built from what WeKan really stores; anybody reads
+the published ones at `/privacy`, `/terms`, `/cookies` and `/imprint`, linked
+from the login page and from the new Member Settings / Privacy and my data,
+which also holds Download my data. The imprint's fields and the privacy
+contacts are shown only when filled. Saving is for site administrators and is
+in the Audit log. Matomo, when turned on, now never sets a cookie.
+`tests/legalPages.test.cjs`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a25e33ca790ef10b8259113a6c0e8f99a721d3d">Download my data: everything WeKan holds about a person, as a ZIP of JSON</a>. Thanks to xet7.</summary>
