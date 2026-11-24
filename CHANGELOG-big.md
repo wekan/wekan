@@ -288,6 +288,18 @@ file is refused. Both were run against a live server.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cde02380ada26748ee651e5a003f6654ececb46">Admin Panel / Attachments / Encrypt encrypts the attachments on disk, at the same addresses</a>. Thanks to xet7.</summary>
+
+While `ATTACHMENTS_PASSPHRASE` is set, the Encrypt pane encrypts or decrypts
+every attachment on this server's disk and can encrypt new ones as they
+arrive. They are decrypted as they are read - byte ranges too, as the cipher is
+AES-256-CTR - so every address, preview and export works as before. Tested
+against a live server. `tests/attachmentEncryption.test.cjs`,
+`tests/playwright/specs/attachment-encryption.e2e.js`.
+
+</details>
+
 **Security reporting** - where to report a vulnerability, which version is
 supported, and what a release is made of.
 
