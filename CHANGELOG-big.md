@@ -476,6 +476,12 @@ undefined for "not found", and accepts either now.
 
 and updates the following translations:
 
+**Omi** - the strings of its new Gitea folder buttons.
+
+**Languages updated:** 232 languages.
+
+- [Omi's Test the token and Stop strings in every language](https://github.com/wekan/wekan/commit/fc3ce327661bddd1af0e418bc286efb6cac0b291). Thanks to xet7.
+
 **Wrong-language words** - each locale in the language its tag names.
 
 **Languages updated:** 25 languages.
