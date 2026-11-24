@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Hagarika kugeza",
   "activity-recovery-cancel-confirm": "Guhagarika burundu kugeza gusigaye kw'iki gikorwa? Ntibishobora gukomezwa. Imeyili zamaze gushyirwa ku murongo n'amamenyesha yamaze kugezwa ntibigarurwa.",
   "rule-email-recovery-heading": "Kugeza imeri z'amategeko",
-  "rule-email-recovery-description": "Suzuma igerageza ryanditswe ryo kohereza imeri z'amategeko. Igerageza ritaremezwa rishobora kuba rigikomeza kohereza cyangwa ryarahagaritswe. Iyi raporo ntiyongera kohereza kandi ntihagarika kohereza.",
+  "rule-email-recovery-description": "Suzuma igerageza ryanditswe ryo kohereza imeri z'amategeko. Igerageza ritaremezwa rishobora kuba rigikomeza kohereza cyangwa ryarahagaritswe. Fungura rimwe ukoresheje \"Suzuma\" kugira ngo uryohereze bundi bushya, urishyireho ko ryoherejwe cyangwa urihagarike.",
   "rule-email-recovery-all": "Igerageza ryose",
   "rule-email-recovery-unconfirmed": "Ntibyaremezwa",
   "rule-email-recovery-sent": "Byakiriwe na seriveri y'imeri",

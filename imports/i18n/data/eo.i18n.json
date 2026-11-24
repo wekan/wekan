@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Nuligi liveradon",
   "activity-recovery-cancel-confirm": "Ĉu definitive nuligi restantan liveradon por ĉi tiu ago? Ĝi ne povos esti daŭrigita. Jam envicigitaj retmesaĝoj kaj liveritaj sciigoj ne estas revokataj.",
   "rule-email-recovery-heading": "Liverado de retmesaĝoj de reguloj",
-  "rule-email-recovery-description": "Reviziu registritajn provojn sendi retmesaĝojn de reguloj. Nekonfirmitaj provoj eble ankoraŭ sendas aŭ eble estis interrompitaj. Ĉi tiu raporto nek reprovas nek nuligas liveradon.",
+  "rule-email-recovery-description": "Reviziu registritajn provojn sendi retmesaĝojn de reguloj. Nekonfirmitaj provoj eble ankoraŭ sendas aŭ eble estis interrompitaj. Malfermu unu per „Revizii“ por resendi ĝin, marki ĝin kiel senditan aŭ forlasi ĝin.",
   "rule-email-recovery-all": "Ĉiuj provoj",
   "rule-email-recovery-unconfirmed": "Nekonfirmitaj",
   "rule-email-recovery-sent": "Akceptita de la poŝtservilo",

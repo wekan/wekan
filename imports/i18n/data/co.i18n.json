@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annullà a mandata",
   "activity-recovery-cancel-confirm": "Annullà definitivamente a mandata restante per st'attività? Ùn si puderà ripiglialla. I messagi digià in fila è l'avvisi digià mandati ùn sò micca richjamati.",
   "rule-email-recovery-heading": "Mandata di messagi di regule",
-  "rule-email-recovery-description": "Esaminà e prove arregistrate d'inviu di messagi di regule. E prove micca cunfirmate ponu esse sempre in corsu o esse state interrotte. Stu raportu ùn prova torna a mandata è ùn l'annulla micca.",
+  "rule-email-recovery-description": "Esaminà e prove arregistrate d'inviu di messagi di regule. E prove micca cunfirmate ponu esse sempre in corsu o esse state interrotte. Apritene una cù «Esaminà» per rimandalla, marcalla cum'è mandata o abbandunalla.",
   "rule-email-recovery-all": "Tutte e prove",
   "rule-email-recovery-unconfirmed": "Micca cunfirmatu",
   "rule-email-recovery-sent": "Accettatu da u servitore di posta",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anuleadzã trimitirea",
   "activity-recovery-cancel-confirm": "Anuleadzã permanent trimitirea arãmasã ti aestã activitati? Aestã trimitiri nu poati s-continueadzã iara. Mesajili di postã electronicã bãgati dza tu listã sh-nutificãrili trimisi nu s-toarnã nãpoi.",
   "rule-email-recovery-heading": "Pitreatsirea poștei electronice a regulilor",
-  "rule-email-recovery-description": "Vidi încercãrile înregistrate di pitreatsire a poștei electronice a regulilor. Încercãrile niconfirmate poati sã pitreacã nica icã sã hibã întrerupte. Raportul aestu nu pitreatsi nica unã oarã shi nu anuleadzã pitreatsirea.",
+  "rule-email-recovery-description": "Vidi încercãrile înregistrate di pitreatsire a poștei electronice a regulilor. Încercãrile niconfirmate poati sã pitreacã nica icã sã hibã întrerupte. Dișcllidz unã cu „Revidi” ta s-u pitreț nica unã oarã, s-u marchedz ca pitricutã i s-u anuledz.",
   "rule-email-recovery-all": "Tuti încercãrile",
   "rule-email-recovery-unconfirmed": "Niconfirmatã",
   "rule-email-recovery-sent": "Aprimitã di serverlu di poștã",

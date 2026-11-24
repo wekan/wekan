@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annulla la consegna",
   "activity-recovery-cancel-confirm": "Annullare definitivamente la consegna rimanente per questa attività? Non potrà essere ripresa. Le email già in coda e le notifiche consegnate non vengono richiamate.",
   "rule-email-recovery-heading": "Consegna delle email delle regole",
-  "rule-email-recovery-description": "Esamina i tentativi registrati di invio delle email delle regole. I tentativi non confermati potrebbero essere ancora in invio o essersi interrotti. Questo rapporto non ritenta né annulla la consegna.",
+  "rule-email-recovery-description": "Esamina i tentativi registrati di invio delle email delle regole. I tentativi non confermati potrebbero essere ancora in invio o essersi interrotti. Aprine uno con «Esamina» per inviarlo di nuovo, segnarlo come inviato o scartarlo.",
   "rule-email-recovery-all": "Tutti i tentativi",
   "rule-email-recovery-unconfirmed": "Non confermato",
   "rule-email-recovery-sent": "Accettato dal server di posta",

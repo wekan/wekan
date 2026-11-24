@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annuler l’envoi",
   "activity-recovery-cancel-confirm": "Annuler définitivement le reste de l’envoi pour cette activité ? Il ne pourra pas être repris. Les courriels déjà en file et les notifications déjà envoyées ne seront pas rappelés.",
   "rule-email-recovery-heading": "Envoi des courriels des règles",
-  "rule-email-recovery-description": "Examinez les tentatives enregistrées d’envoi de courriels des règles. Les tentatives non confirmées peuvent être encore en cours ou avoir été interrompues. Ce rapport ne retente ni n’annule l’envoi.",
+  "rule-email-recovery-description": "Examinez les tentatives enregistrées d’envoi de courriels des règles. Les tentatives non confirmées peuvent être encore en cours ou avoir été interrompues. Ouvrez-en une avec « Examiner » pour la renvoyer, la marquer comme envoyée ou l’écarter.",
   "rule-email-recovery-all": "Toutes les tentatives",
   "rule-email-recovery-unconfirmed": "Non confirmée",
   "rule-email-recovery-sent": "Acceptée par le serveur de courrier",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anuła ła consegna",
   "activity-recovery-cancel-confirm": "Anułar par senpre ła consegna restante par sta ativitá? No se podarà pì riprendarła. Łe email za in coda e łe notìfeghe za consegnà no łe vien ritirà.",
   "rule-email-recovery-heading": "Consegna de le email de le règole",
-  "rule-email-recovery-description": "Controła i tentativi registrai de mandar email de le règole. I tentativi mia confermai i podaria èsar ancora drio mandar o èsar stai interoti. Sto raporto no manda da novo e no anula l'invio.",
+  "rule-email-recovery-description": "Controła i tentativi registrai de mandar email de le règole. I tentativi mia confermai i podaria èsar ancora drio mandar o èsar stai interoti. Verzi un tentativo co «Controla» par mandarlo da novo, segnarlo come mandà o fermarlo.",
   "rule-email-recovery-all": "Tuti i tentativi",
   "rule-email-recovery-unconfirmed": "Mia confermà",
   "rule-email-recovery-sent": "Acetà dal server de posta",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Teslimi iptal et",
   "activity-recovery-cancel-confirm": "Bu etkinliğin kalan teslimi kalıcı olarak iptal edilsin mi? Bu işlem sürdürülemez. Zaten kuyruğa alınmış e-postalar ve teslim edilmiş bildirimler geri çağrılmaz.",
   "rule-email-recovery-heading": "Kural e-postası teslimi",
-  "rule-email-recovery-description": "Kayıtlı kural e-postası denemelerini inceleyin. Doğrulanmamış denemeler hâlâ gönderiliyor veya yarıda kesilmiş olabilir. Bu rapor teslimi yeniden denemez veya iptal etmez.",
+  "rule-email-recovery-description": "Kayıtlı kural e-postası denemelerini inceleyin. Doğrulanmamış denemeler hâlâ gönderiliyor veya yarıda kesilmiş olabilir. Birini \"İncele\" ile açarak yeniden gönderebilir, gönderildi olarak işaretleyebilir veya iptal edebilirsiniz.",
   "rule-email-recovery-all": "Tüm denemeler",
   "rule-email-recovery-unconfirmed": "Doğrulanmamış",
   "rule-email-recovery-sent": "Posta sunucusu tarafından kabul edildi",

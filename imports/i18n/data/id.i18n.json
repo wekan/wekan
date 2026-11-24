@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Batalkan pengiriman",
   "activity-recovery-cancel-confirm": "Batalkan secara permanen sisa pengiriman untuk aktivitas ini? Ini tidak dapat dilanjutkan. Email yang sudah dalam antrean dan notifikasi yang telah terkirim tidak ditarik kembali.",
   "rule-email-recovery-heading": "Pengiriman email aturan",
-  "rule-email-recovery-description": "Tinjau percobaan pengiriman email aturan yang tercatat. Percobaan yang belum dikonfirmasi mungkin masih mengirim atau telah terputus. Laporan ini tidak mencoba ulang atau membatalkan pengiriman.",
+  "rule-email-recovery-description": "Tinjau percobaan pengiriman email aturan yang tercatat. Percobaan yang belum dikonfirmasi mungkin masih mengirim atau telah terputus. Buka salah satu dengan \"Tinjau\" untuk mengirim ulang, menandainya sebagai terkirim, atau membuangnya.",
   "rule-email-recovery-all": "Semua percobaan",
   "rule-email-recovery-unconfirmed": "Belum dikonfirmasi",
   "rule-email-recovery-sent": "Diterima oleh server email",

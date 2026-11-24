@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "取消傳送",
   "activity-recovery-cancel-confirm": "永久取消此活動剩餘的傳送？此操作無法繼續。已排入佇列的電子郵件及已傳送的通知不會收回。",
   "rule-email-recovery-heading": "規則郵件傳送",
-  "rule-email-recovery-description": "檢視已記錄的規則郵件傳送嘗試。未確認的嘗試可能仍在傳送或已中斷。此報告不會重試或取消傳送。",
+  "rule-email-recovery-description": "檢視已記錄的規則郵件傳送嘗試。未確認的嘗試可能仍在傳送或已中斷。使用「審核」開啟某筆嘗試，即可重新傳送、標記為已傳送或取消傳送。",
   "rule-email-recovery-all": "所有嘗試",
   "rule-email-recovery-unconfirmed": "未確認",
   "rule-email-recovery-sent": "郵件伺服器已接受",

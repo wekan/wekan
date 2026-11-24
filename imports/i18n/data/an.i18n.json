@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Cancelar o ninvío",
   "activity-recovery-cancel-confirm": "Cancelar definitivament o ninvío restant ta ista actividat? No se puede reprener. No se retiran os correus ya en coda ni os avisos ya ninviaus.",
   "rule-email-recovery-heading": "Ninvío de correu de reglas",
-  "rule-email-recovery-description": "Revisa os intentos de correu de reglas rechistraus. Os intentos no confirmaus encara pueden estar ninviando u pueden haber-se interrompiu. Iste informe no torna a intentar ni cancela o ninvío.",
+  "rule-email-recovery-description": "Revisa os intentos de correu de reglas rechistraus. Os intentos no confirmaus encara pueden estar ninviando u pueden haber-se interrompiu. Ubre-ne uno con «Revisar» pa tornar-lo a ninviar, marcar-lo como ninviau u descartar-lo.",
   "rule-email-recovery-all": "Totz os intentos",
   "rule-email-recovery-unconfirmed": "Sin confirmar",
   "rule-email-recovery-sent": "Acceptau por o servidor de correu",

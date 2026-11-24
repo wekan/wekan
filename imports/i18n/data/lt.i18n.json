@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Atšaukti pristatymą",
   "activity-recovery-cancel-confirm": "Visam laikui atšaukti likusį šio veiksmo pranešimų pristatymą? Jo pratęsti nebus galima. Jau į eilę įtraukti laiškai ir pristatyti pranešimai neatšaukiami.",
   "rule-email-recovery-heading": "Taisyklių laiškų pristatymas",
-  "rule-email-recovery-description": "Peržiūrėkite užfiksuotus taisyklių laiškų siuntimo bandymus. Nepatvirtinti bandymai dar gali vykti arba būti nutraukti. Ši ataskaita nekartoja ir neatšaukia pristatymo.",
+  "rule-email-recovery-description": "Peržiūrėkite užfiksuotus taisyklių laiškų siuntimo bandymus. Nepatvirtinti bandymai dar gali vykti arba būti nutraukti. Atidarykite bandymą mygtuku „Peržiūrėti“, kad jį išsiųstumėte dar kartą, pažymėtumėte kaip išsiųstą arba atmestumėte.",
   "rule-email-recovery-all": "Visi bandymai",
   "rule-email-recovery-unconfirmed": "Nepatvirtinta",
   "rule-email-recovery-sent": "Priimta pašto serverio",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Cealaigh seachadadh",
   "activity-recovery-cancel-confirm": "An seachadadh atá fágtha don ghníomhaíocht seo a chealú go buan? Ní féidir leanúint leis seo. Ní aisghairtear ríomhphost atá sa scuaine cheana ná fógraí atá seachadta.",
   "rule-email-recovery-heading": "Seachadadh ríomhphoist rialacha",
-  "rule-email-recovery-description": "Athbhreithnigh iarrachtaí taifeadta ríomhphoist rialacha. D'fhéadfadh iarrachtaí neamhdheimhnithe a bheith fós á seoladh nó curtha isteach orthu. Ní dhéanann an tuairisc seo athiarracht ar sheachadadh ná é a chealú.",
+  "rule-email-recovery-description": "Athbhreithnigh iarrachtaí taifeadta ríomhphoist rialacha. D'fhéadfadh iarrachtaí neamhdheimhnithe a bheith fós á seoladh nó curtha isteach orthu. Oscail ceann le \"Athbhreithnigh\" chun é a athsheoladh, é a mharcáil mar sheolta nó é a thréigean.",
   "rule-email-recovery-all": "Gach iarracht",
   "rule-email-recovery-unconfirmed": "Neamhdheimhnithe",
   "rule-email-recovery-sent": "Glactha ag an bhfreastalaí ríomhphoist",

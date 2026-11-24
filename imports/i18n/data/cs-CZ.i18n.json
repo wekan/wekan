@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Zrušit doručování",
   "activity-recovery-cancel-confirm": "Trvale zrušit zbývající doručování pro tuto aktivitu? Nelze je znovu obnovit. Již zařazené e-maily a doručená oznámení nebudou odvolány.",
   "rule-email-recovery-heading": "Doručování e-mailů z pravidel",
-  "rule-email-recovery-description": "Zkontrolujte zaznamenané pokusy o odeslání e-mailů z pravidel. Nepotvrzené pokusy mohou stále probíhat nebo být přerušené. Tato zpráva doručování neopakuje ani neruší.",
+  "rule-email-recovery-description": "Zkontrolujte zaznamenané pokusy o odeslání e-mailů z pravidel. Nepotvrzené pokusy mohou stále probíhat nebo být přerušené. Otevřete pokus tlačítkem „Zkontrolovat“ a můžete jej znovu odeslat, označit jako odeslaný nebo zahodit.",
   "rule-email-recovery-all": "Všechny pokusy",
   "rule-email-recovery-unconfirmed": "Nepotvrzeno",
   "rule-email-recovery-sent": "Přijato poštovním serverem",

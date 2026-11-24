@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Tühista saatmine",
   "activity-recovery-cancel-confirm": "Kas tühistada selle tegevuse ülejäänud saatmine jäädavalt? Seda ei saa jätkata. Juba järjekorda pandud e-kirju ja saadetud teavitusi tagasi ei kutsuta.",
   "rule-email-recovery-heading": "Reegli e-kirjade saatmine",
-  "rule-email-recovery-description": "Vaata salvestatud reegli e-kirjade saatmiskatseid. Kinnitamata katsete korral võib saatmine veel pooleli olla või olla katkenud. See aruanne ei korda ega tühista saatmist.",
+  "rule-email-recovery-description": "Vaata salvestatud reegli e-kirjade saatmiskatseid. Kinnitamata katsete korral võib saatmine veel pooleli olla või olla katkenud. Ava katse nupuga „Vaata üle“, et see uuesti saata, saadetuks märkida või saatmine tühistada.",
   "rule-email-recovery-all": "Kõik katsed",
   "rule-email-recovery-unconfirmed": "Kinnitamata",
   "rule-email-recovery-sent": "Meiliserveri poolt vastu võetud",

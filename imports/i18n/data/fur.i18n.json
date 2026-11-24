@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anule la spedizion",
   "activity-recovery-cancel-confirm": "Anulâ par simpri la spedizion restante par cheste ativitât? No si podarà ripiâle. La pueste za in code e lis notifichis za spedidis no vegnin clamadis indaûr.",
   "rule-email-recovery-heading": "Spedizion de pueste des regulis",
-  "rule-email-recovery-description": "Controle lis provis regjistradis di spedizion de pueste des regulis. Lis provis no confermadis a puedin jessi ancjemò in cors o jessi stadis interotis. Chest rapuart nol torne a provâ ni al anule la spedizion.",
+  "rule-email-recovery-description": "Controle lis provis regjistradis di spedizion de pueste des regulis. Lis provis no confermadis a puedin jessi ancjemò in cors o jessi stadis interotis. Vierç une cun \"Controle\" par tornâle a inviâ, segnâle tant che inviade o scartâle.",
   "rule-email-recovery-all": "Dutis lis provis",
   "rule-email-recovery-unconfirmed": "No confermât",
   "rule-email-recovery-sent": "Acetât dal servidôr de pueste",

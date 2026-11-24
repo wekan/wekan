@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Cancel·la el lliurament",
   "activity-recovery-cancel-confirm": "Voleu cancel·lar definitivament el lliurament pendent d'aquesta activitat? No es podrà reprendre. No es retiraran els correus ja encuats ni les notificacions ja lliurades.",
   "rule-email-recovery-heading": "Lliurament de correus de regles",
-  "rule-email-recovery-description": "Reviseu els intents registrats d'enviament de correus de regles. Els intents no confirmats poden estar encara enviant-se o haver-se interromput. Aquest informe no reintenta ni cancel·la el lliurament.",
+  "rule-email-recovery-description": "Reviseu els intents registrats d'enviament de correus de regles. Els intents no confirmats poden estar encara enviant-se o haver-se interromput. Obriu-ne un amb «Revisa» per reenviar-lo, marcar-lo com a enviat o descartar-lo.",
   "rule-email-recovery-all": "Tots els intents",
   "rule-email-recovery-unconfirmed": "No confirmat",
   "rule-email-recovery-sent": "Acceptat pel servidor de correu",

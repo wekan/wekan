@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anuluj doręczanie",
   "activity-recovery-cancel-confirm": "Na zawdy anulować reszta doręczaniŏ dlŏ tyj aktywności? Tego niy idzie wznowić. E-maile już we kolejce i doręczōne powiadōmiynia niy bydōm cofniynte.",
   "rule-email-recovery-heading": "Doręczanie e-maili reguł",
-  "rule-email-recovery-description": "Sprawdź zapisane prōby e-maili reguł. Niy potwierdzōne prōby mogōm jeszcze wysyłać abo mogły ôstać przerwane. Tyn raport niy ponŏwiŏ ani niy anuluje doręczaniŏ.",
+  "rule-email-recovery-description": "Sprawdź zapisane prōby e-maili reguł. Niy potwierdzōne prōby mogōm jeszcze wysyłać abo mogły ôstać przerwane. Ôtwōrz prōba z „Przejrzij”, coby jã wysłać zaś, zaznaczyć jako wysłanõ abo pociepnyć.",
   "rule-email-recovery-all": "Wszyjske prōby",
   "rule-email-recovery-unconfirmed": "Niy potwierdzōne",
   "rule-email-recovery-sent": "Przijynte bez serwer poczty",

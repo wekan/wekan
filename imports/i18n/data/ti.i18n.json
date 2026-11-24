@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "ምብጻሕ ሰርዝ",
   "activity-recovery-cancel-confirm": "ዝተረፈ ምብጻሕ ናይዚ ንጥፈት ንሓዋሩ ክሰረዝ ዶ? እዚ ክቕጽል ኣይክእልን። ድሮ ኣብ መስርዕ ዘለዉ ኢመይላትን ዝበጽሑ መልእኽትታትን ኣይምለሱን።",
   "rule-email-recovery-heading": "ምብጻሕ ኢመይላት ሕግታት",
-  "rule-email-recovery-description": "ዝተመዝገቡ ፈተነታት ምልኣኽ ኢመይላት ሕግታት መርምር። ዘይተረጋገጹ ፈተነታት ገና ኣብ ምልኣኽ ክህልዉ ወይ ተቛሪጾም ክኾኑ ይኽእሉ። እዚ ጸብጻብ ዳግም ኣይልእኽን ምልኣኽ ድማ ኣይስርዝን።",
+  "rule-email-recovery-description": "ዝተመዝገቡ ፈተነታት ምልኣኽ ኢመይላት ሕግታት መርምር። ዘይተረጋገጹ ፈተነታት ገና ኣብ ምልኣኽ ክህልዉ ወይ ተቛሪጾም ክኾኑ ይኽእሉ። ሓደ ፈተነ ብ«መርምር» ክፈቶ፣ ደጊምካ ንምልኣኽ፣ ከም ዝተላእከ ምልክት ንምግባር ወይ ንምውጋድ።",
   "rule-email-recovery-all": "ኩሎም ፈተነታት",
   "rule-email-recovery-unconfirmed": "ዘይተረጋገጸ",
   "rule-email-recovery-sent": "ብኣገልጋሊ ኢመይል ተቐቢሉ",

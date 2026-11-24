@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "取消发送",
   "activity-recovery-cancel-confirm": "要永久取消搿个活动剩下来个发送伐？取消以后勿能恢复。已经排进队列个邮件搭已经送达个通知勿会撤回。",
   "rule-email-recovery-heading": "规则邮件个发送情况",
-  "rule-email-recovery-description": "检查记下来个规则邮件发送尝试。还没确认个尝试可能还勒发送，也可能中断哉。搿份报告勿会重新尝试或者取消发送。",
+  "rule-email-recovery-description": "检查记下来个规则邮件发送尝试。还没确认个尝试可能还勒发送，也可能中断哉。用“查看”打开一个，就好重新发送、标记为已发送或者取消发送。",
   "rule-email-recovery-all": "所有尝试",
   "rule-email-recovery-unconfirmed": "还没确认",
   "rule-email-recovery-sent": "邮件服务器接收哉",

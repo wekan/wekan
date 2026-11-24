@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Peruuta lähetys",
   "activity-recovery-cancel-confirm": "Peruutetaanko tämän toimen jäljellä olevat lähetykset pysyvästi? Niitä ei voi enää jatkaa. Jo jonossa olevia sähköposteja ja toimitettuja ilmoituksia ei peruta.",
   "rule-email-recovery-heading": "Sääntöjen sähköpostilähetykset",
-  "rule-email-recovery-description": "Tarkista tallennetut sääntöjen sähköpostiyritykset. Vahvistamattomia viestejä saatetaan yhä lähettää, tai lähetys on voinut keskeytyä. Tämä raportti ei yritä lähetystä uudelleen eikä peruuta sitä.",
+  "rule-email-recovery-description": "Tarkista tallennetut sääntöjen sähköpostiyritykset. Vahvistamattomia viestejä saatetaan yhä lähettää, tai lähetys on voinut keskeytyä. Avaa yritys Tarkista-painikkeella, niin voit lähettää sen uudelleen, merkitä sen lähetetyksi tai hylätä sen.",
   "rule-email-recovery-all": "Kaikki yritykset",
   "rule-email-recovery-unconfirmed": "Vahvistamaton",
   "rule-email-recovery-sent": "Postipalvelin hyväksyi viestin",

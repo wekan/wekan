@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kanselaha an pagpadara",
   "activity-recovery-cancel-confirm": "Permanente nga kanselahon an nahibilin nga pagpadara para hini nga aktibidad? Diri na ini maipapadayon. An nakapila na nga email ngan an naipadara na nga mga pahibaro diri mababawi.",
   "rule-email-recovery-heading": "Pagpadara han mga email han mga surundon",
-  "rule-email-recovery-description": "Usisaha an nakarekord nga mga pagsari pagpadara hin email han mga surundon. An mga pagsari nga waray pa kumpirmaha bangin nagpapadara pa o naulang. Ini nga taho diri nagpapadara utro ngan diri nagkakansela han pagpadara.",
+  "rule-email-recovery-description": "Usisaha an nakarekord nga mga pagsari pagpadara hin email han mga surundon. An mga pagsari nga waray pa kumpirmaha bangin nagpapadara pa o naulang. Abriha an usa gamit an \"Usisaha\" basi ipadara utro, markahi nga naipadara na, o kanselara.",
   "rule-email-recovery-all": "Ngatanan nga pagsari",
   "rule-email-recovery-unconfirmed": "Waray pa kumpirmaha",
   "rule-email-recovery-sent": "Ginkarawat han serber han email",

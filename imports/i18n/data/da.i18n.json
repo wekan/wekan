@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annuller levering",
   "activity-recovery-cancel-confirm": "Annuller den resterende levering for denne aktivitet permanent? Den kan ikke genoptages. E-mails, der allerede er i kø, og leverede notifikationer tilbagekaldes ikke.",
   "rule-email-recovery-heading": "E-maillevering fra regler",
-  "rule-email-recovery-description": "Gennemgå registrerede forsøg på at sende e-mails fra regler. Ubekræftede forsøg kan stadig være i gang eller være afbrudt. Denne rapport forsøger ikke at levere igen og annullerer ikke levering.",
+  "rule-email-recovery-description": "Gennemgå registrerede forsøg på at sende e-mails fra regler. Ubekræftede forsøg kan stadig være i gang eller være afbrudt. Åbn et med \"Gennemgå\" for at sende det igen, markere det som sendt eller kassere det.",
   "rule-email-recovery-all": "Alle forsøg",
   "rule-email-recovery-unconfirmed": "Ubekræftet",
   "rule-email-recovery-sent": "Accepteret af mailserveren",

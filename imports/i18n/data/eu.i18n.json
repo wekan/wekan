@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Utzi bidalketa bertan behera",
   "activity-recovery-cancel-confirm": "Utzi jarduera honetarako geratzen den bidalketa behin betiko bertan behera? Ezin zaio berriro ekin. Dagoeneko ilaran dauden mezu elektronikoak eta bidalitako jakinarazpenak ez dira atzera ekartzen.",
   "rule-email-recovery-heading": "Arauen mezu elektronikoen bidalketa",
-  "rule-email-recovery-description": "Berrikusi arauen mezu elektronikoak bidaltzeko erregistratutako saiakerak. Berretsi gabeko saiakerak oraindik bidaltzen ari daitezke edo eten egin dira. Txosten honek ez du bidalketa berriro saiatzen edo bertan behera uzten.",
+  "rule-email-recovery-description": "Berrikusi arauen mezu elektronikoak bidaltzeko erregistratutako saiakerak. Berretsi gabeko saiakerak oraindik bidaltzen ari daitezke edo eten egin dira. Ireki bat «Berrikusi» botoiarekin berriro bidaltzeko, bidalita gisa markatzeko edo baztertzeko.",
   "rule-email-recovery-all": "Saiakera guztiak",
   "rule-email-recovery-unconfirmed": "Berretsi gabe",
   "rule-email-recovery-sent": "Posta-zerbitzariak onartuta",

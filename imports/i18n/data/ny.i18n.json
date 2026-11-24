@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Lekani kutumiza",
   "activity-recovery-cancel-confirm": "Lekani kwamuyaya kutumiza kotsala kwa chochitika ichi? Izi sizingapitirizidwe. Imelo yomwe ili kale pa mzere ndi zidziwitso zotumizidwa kale sizibwezedwa.",
   "rule-email-recovery-heading": "Kutumiza maimelo a malamulo",
-  "rule-email-recovery-description": "Unikaninso zoyesera zotumiza maimelo a malamulo zomwe zalembedwa. Zoyesera zosatsimikizidwa zingakhale zikutumizabe kapena zinadukizidwa. Lipotili silitumizanso maimelo kapena kuletsa kutumiza.",
+  "rule-email-recovery-description": "Unikaninso zoyesera zotumiza maimelo a malamulo zomwe zalembedwa. Zoyesera zosatsimikizidwa zingakhale zikutumizabe kapena zinadukizidwa. Tsegulani chimodzi ndi \"Unikaninso\" kuti muchitumizenso, muchiike chizindikiro chakuti chatumizidwa kapena muchichotse.",
   "rule-email-recovery-all": "Zoyesera zonse",
   "rule-email-recovery-unconfirmed": "Sizinatsimikizidwe",
   "rule-email-recovery-sent": "Seva ya maimelo yalandira",

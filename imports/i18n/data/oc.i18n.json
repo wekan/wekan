@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anullar lo mandadís",
   "activity-recovery-cancel-confirm": "Anullar definitivament lo mandadís restant per aquesta activitat ? Se poirà pas reprendre. Los corrièls ja en espèra e las notificacions ja mandadas son pas rapelats.",
   "rule-email-recovery-heading": "Mandadís de corrièl de règlas",
-  "rule-email-recovery-description": "Verificatz los ensages de corrièl de règlas enregistrats. Los ensages pas confirmats pòdon encara èsser en cors de mandadís o èsser estats interromputs. Aqueste rapòrt torna pas ensajar e anulla pas lo mandadís.",
+  "rule-email-recovery-description": "Verificatz los ensages de corrièl de règlas enregistrats. Los ensages pas confirmats pòdon encara èsser en cors de mandadís o èsser estats interromputs. Dobrissètz-ne un amb « Verificar » per lo tornar mandar, lo marcar coma mandat o l'abandonar.",
   "rule-email-recovery-all": "Totes los ensages",
   "rule-email-recovery-unconfirmed": "Pas confirmat",
   "rule-email-recovery-sent": "Acceptat pel servidor de corrièl",

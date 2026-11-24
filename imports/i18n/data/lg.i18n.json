@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Sazaamu okutuusa",
   "activity-recovery-cancel-confirm": "Sazaamu ddala okutuusa okusigaddeyo okw'omulimu guno? Kino tekisobola kuddamu kutandikibwa. Imeyilo ezaali ziteekeddwa dda mu lunyiriri n'obubaka obwatuusibwa tebiddizibwayo.",
   "rule-email-recovery-heading": "Okutuusa imeyilo z'amateeka",
-  "rule-email-recovery-description": "Kebera okugezaako okuwandiikiddwa okw'okusindika imeyilo z'amateeka. Okugezaako okutannakakasibwa kuyinza okuba nga kukyasindika oba nga kwataataaganyizibwa. Lipoota eno teddamu kusindika era tesazaamu kusindika.",
+  "rule-email-recovery-description": "Kebera okugezaako okuwandiikiddwa okw'okusindika imeyilo z'amateeka. Okugezaako okutannakakasibwa kuyinza okuba nga kukyasindika oba nga kwataataaganyizibwa. Ggulawo okugezaako kumu ne «Kebera» okukuddamu okusindika, okukussaako akabonero nti kwasindikiddwa oba okukusazaamu.",
   "rule-email-recovery-all": "Okugezaako kwonna",
   "rule-email-recovery-unconfirmed": "Tekunnakakasibwa",
   "rule-email-recovery-sent": "Seva ya imeyilo ekkirizza",

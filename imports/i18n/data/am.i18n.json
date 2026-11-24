@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "መላክን ሰርዝ",
   "activity-recovery-cancel-confirm": "ለዚህ እንቅስቃሴ የቀረው መላክ በቋሚነት ይሰረዝ? ይህን መቀጠል አይቻልም። አስቀድሞ በወረፋ ያሉ ኢሜይሎች እና የደረሱ ማሳወቂያዎች አይመለሱም።",
   "rule-email-recovery-heading": "የደንብ ኢሜይል መላክ",
-  "rule-email-recovery-description": "የተመዘገቡ የደንብ ኢሜይል ሙከራዎችን ይገምግሙ። ያልተረጋገጡ ሙከራዎች አሁንም እየላኩ ሊሆኑ ወይም ተቋርጠው ሊሆኑ ይችላሉ። ይህ ሪፖርት መላክን እንደገና አይሞክርም ወይም አይሰርዝም።",
+  "rule-email-recovery-description": "የተመዘገቡ የደንብ ኢሜይል ሙከራዎችን ይገምግሙ። ያልተረጋገጡ ሙከራዎች አሁንም እየላኩ ሊሆኑ ወይም ተቋርጠው ሊሆኑ ይችላሉ። «ገምግም»ን በመጠቀም አንዱን ይክፈቱና እንደገና ይላኩት፣ እንደተላከ ምልክት ያድርጉበት ወይም መላኩን ይሰርዙ።",
   "rule-email-recovery-all": "ሁሉም ሙከራዎች",
   "rule-email-recovery-unconfirmed": "ያልተረጋገጠ",
   "rule-email-recovery-sent": "በኢሜይል አገልጋዩ ተቀባይነት አግኝቷል",

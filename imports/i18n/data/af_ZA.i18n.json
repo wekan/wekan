@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kanselleer aflewering",
   "activity-recovery-cancel-confirm": "Kanselleer die oorblywende aflewering vir hierdie aktiwiteit permanent? Dit kan nie hervat word nie. E-pos wat reeds in die wagry is en afgelewerde kennisgewings word nie teruggeroep nie.",
   "rule-email-recovery-heading": "Aflewering van reël-e-pos",
-  "rule-email-recovery-description": "Hersien aangetekende pogings om reël-e-pos te stuur. Onbevestigde pogings kan nog besig wees om te stuur of kon onderbreek gewees het. Hierdie verslag herprobeer of kanselleer nie aflewering nie.",
+  "rule-email-recovery-description": "Hersien aangetekende pogings om reël-e-pos te stuur. Onbevestigde pogings kan nog besig wees om te stuur of kon onderbreek gewees het. Open een met \"Hersien\" om dit weer te stuur, as gestuur te merk of te laat vaar.",
   "rule-email-recovery-all": "Alle pogings",
   "rule-email-recovery-unconfirmed": "Onbevestig",
   "rule-email-recovery-sent": "Deur posbediener aanvaar",

@@ -310,7 +310,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-failed'], /ඉතිරි වැඩ රඳවාගෙන ඇත/);
   assert.match(locale['activity-recovery-cancel-confirm'], /නැවත ඇරඹිය නොහැක/);
   assert.match(locale['activity-recovery-cancel-confirm'], /ආපසු කැඳවන්නේ නැත/);
-  assert.match(locale['rule-email-recovery-description'], /නැවත උත්සාහ කරන්නේ හෝ අවලංගු කරන්නේ නැත/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /නැවත උත්සාහ කරන්නේ හෝ අවලංගු කරන්නේ නැත/);
   assert.match(locale['rule-email-recovery-sent'], /සේවාදායකය පිළිගෙන/);
   assert.match(locale['saml-login-not-started'], /SAML.*ටැබය/);
   assert.match(locale['history-request-hint'], /දෙවන වෙනස්කමක් ආපසු හැරවිය නොහැක/);
@@ -525,7 +526,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-denied'], /परवानगी देत नाहीत/);
   assert.match(locale['activity-recovery-cancel-confirm'], /कायमचे.*पुन्हा सुरू करता येणार नाही/);
   assert.match(locale['activity-recovery-cancel-confirm'], /परत घेतल्या जाणार नाहीत/);
-  assert.match(locale['rule-email-recovery-description'], /पुन्हा प्रयत्न करत नाही.*रद्द करत नाही/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /पुन्हा प्रयत्न करत नाही.*रद्द करत नाही/);
   assert.match(locale['history-request-hint'], /तीच विनंती.*दुसरा बदल कधीही पूर्ववत होत नाही/);
   assert.match(locale['saml-login-not-started'], /SAML.*टॅबमध्ये/);
 }
@@ -1134,7 +1136,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-failed'], /په تمه کار ساتل شوی/);
   assert.match(locale['activity-recovery-cancel-confirm'], /بيا نه شي پيلېدای.*بېرته نه راګرځول کېږي/);
   assert.match(locale['activity-recovery-denied'], /نور د رسولو اجازه نه ورکوي/);
-  assert.match(locale['rule-email-recovery-description'], /بيا هڅه نه کوي.*نه یې لغوه کوي/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /بيا هڅه نه کوي.*نه یې لغوه کوي/);
   assert.equal(locale['activity-recovery-pause'], locale['email-recovery-pause']);
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
   assert.match(locale['saml-login-not-started'], /SAML.*په دې ټب کې نه وو پيل شوي/);
@@ -1291,7 +1294,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-description'], /ఎన్నడూ తిరిగి సృష్టించదు/);
   assert.match(locale['activity-recovery-cancel-confirm'], /తిరిగి కొనసాగించలేరు.*వెనక్కి తీసుకోబడవు/);
   assert.match(locale['activity-recovery-failed'], /పని భద్రంగా ఉంచబడింది/);
-  assert.match(locale['rule-email-recovery-description'], /మళ్లీ ప్రయత్నించదు లేదా రద్దు చేయదు/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /మళ్లీ ప్రయత్నించదు లేదా రద్దు చేయదు/);
   assert.equal(locale['blockly-LOGIC_NULL'], 'null');
   assert.match(locale['blockly-LOGIC_NULL_TOOLTIP'], /null/);
   assert.match(locale['saml-login-not-started'], /ఈ బ్రౌజర్ ట్యాబ్‌లో ప్రారంభించబడలేదు/);
@@ -1472,7 +1476,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-source-unavailable'], /Юуг ч дахин үүсгээгүй/);
   assert.match(locale['activity-recovery-failed'], /Хүлээгдэж буй ажлыг хадгалсан/);
   assert.match(locale['activity-recovery-cancel-confirm'], /үргэлжлүүлэх боломжгүй.*буцаан татахгүй/);
-  assert.match(locale['rule-email-recovery-description'], /дахин оролдохгүй, цуцлахгүй/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /дахин оролдохгүй, цуцлахгүй/);
   assert.match(locale['saml-login-not-started'], /SAML.*энэ табаас эхлүүлээгүй/);
   assert.match(locale['history-request-hint'], /ижил хүсэлтийг.*хоёр дахь өөрчлөлтийг хэзээ ч буцаахгүй/);
 }
@@ -1607,7 +1612,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-source-unavailable'], /Nihil recreatum/);
   assert.match(locale['activity-recovery-failed'], /Opus pendens servatum/);
   assert.match(locale['activity-recovery-cancel-confirm'], /Resumi non potest.*non revocantur/);
-  assert.match(locale['rule-email-recovery-description'], /non iterum tentat nec revocat/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /non iterum tentat nec revocat/);
   assert.match(locale['history-request-hint'], /eandem petitionem.*alteram mutationem numquam/);
   assert.match(locale['saml-login-not-started'], /hac scheda navigatoris non inceptus/);
 }
@@ -1726,7 +1732,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   assert.match(locale['activity-recovery-denied'], /pa pèmèt livrezon ankò/);
   assert.match(locale['activity-recovery-failed'], /Travay ki annatant lan konsève/);
   assert.match(locale['activity-recovery-cancel-confirm'], /p ap kapab reprann.*p ap raple/);
-  assert.match(locale['rule-email-recovery-description'], /toujou ap voye.*pa reeseye ni anile/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /toujou ap voye.*pa reeseye ni anile/);
   assert.match(locale['saml-login-not-started'], /pa t kòmanse nan onglet/);
   assert.match(locale['history-request-hint'], /menm demann.*pa janm ka anile yon dezyèm/);
   assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
@@ -3990,7 +3997,8 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
   assert.match(locale['activity-recovery-description'], /ba ya sake ƙirƙirar aiki/);
   assert.match(locale['activity-recovery-cancel-confirm'], /Ba za a iya ci gaba.*Ba a janye/);
-  assert.match(locale['rule-email-recovery-description'], /ba ya sake gwadawa ko soke/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /ba ya sake gwadawa ko soke/);
   assert.match(locale['rule-email-recovery-sent'], /Sabar imel ta karɓa/);
   assert.match(locale['saml-login-not-started'], /SAML.*wannan shafin burauzar/);
   assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);
@@ -4291,7 +4299,8 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
   assert.notEqual(locale['activity-recovery-paused'], locale['activity-recovery-status-cancelled']);
   assert.match(locale['activity-recovery-cancel-confirm'], /Enweghị ike ịga nʼihu.*naghị akpọghachi/);
-  assert.match(locale['rule-email-recovery-description'], /anaghị anwa ọzọ ma ọ bụ kagbuo/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /anaghị anwa ọzọ ma ọ bụ kagbuo/);
   assert.match(locale['saml-login-not-started'], /SAML.*taabụ/);
   assert.match(locale['history-request-hint'], /otu arịrịọ.*nweghị ike.*nke abụọ/);
   assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);
@@ -4623,7 +4632,8 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   }
   for (const key of ["blockly-ALT_KEY", "blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-CHROME_OS", "blockly-COMMAND_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-INSERT_KEY", "blockly-LINUX", "blockly-MAC_OS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-SPACE_KEY", "blockly-TAB_KEY", "blockly-WINDOWS"]) assert.equal(locale[key], english[key], `yo:${key}: technical label`);
   assert.match(locale['activity-recovery-cancel-confirm'], /títí láé.*kò lè.*kò gba/);
-  assert.match(locale['rule-email-recovery-description'], /kò tún gbìyànjú tàbí fagilé/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /kò tún gbìyànjú tàbí fagilé/);
   assert.match(locale['rule-email-recovery-sent'], /Sáfà/);
   assert.match(locale['saml-login-not-started'], /SAML.*táàbù/);
   assert.match(locale['history-request-hint'], /kan náà.*kò lè.*kejì/);
@@ -4998,7 +5008,8 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   assert.match(locale['activity-recovery-source-unavailable'], /Hapana chakagadzirwazve/);
   assert.match(locale['activity-recovery-failed'], /rakamirira rakachengetwa/);
   assert.match(locale['activity-recovery-cancel-confirm'], /zvachose.*Hazvigoni kuendererwa mberi.*hazvidzoserwi/);
-  assert.match(locale['rule-email-recovery-description'], /kuchiri kutumira kana kwakambomiswa.*hauedzizve kana kukanzura/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /kuchiri kutumira kana kwakambomiswa.*hauedzizve kana kukanzura/);
   assert.match(locale['rule-email-recovery-sent'], /Zvakagamuchirwa nesevha/);
   assert.equal(locale['activity-recovery-pause'], locale['email-recovery-pause']);
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
@@ -6511,7 +6522,8 @@ for (const code of ['uz', 'uz-LA', 'uz-UZ']) {
   assert.match(locale['activity-recovery-cancel-confirm'], /na po betg vegnir cuntinuada/);
   assert.match(locale['activity-recovery-cancel-confirm'], /na vegnan betg revocads/);
   assert.match(locale['activity-recovery-source-unavailable'], /Nagut è vegnì recreà/);
-  assert.match(locale['rule-email-recovery-description'], /na repeta betg.*annullescha betg/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /na repeta betg.*annullescha betg/);
 
   const emailFailureKeys = ["email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty"];
   for (const key of emailFailureKeys) {
@@ -8063,7 +8075,8 @@ for (const code of ['fy', 'fy-NL']) {
   }
   assert.match(locale['activity-recovery-cancel-confirm'], /Hauwezi kuendelea tena/);
   assert.match(locale['activity-recovery-cancel-confirm'], /kwenye foleni.*hazirudishwi/);
-  assert.match(locale['rule-email-recovery-description'], /haijaribu tena wala kughairi/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /haijaribu tena wala kughairi/);
   assert.match(locale['rule-email-recovery-sent'], /seva ya barua pepe/);
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
   const activityRecoveryKeys = ["sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause"];
@@ -8492,7 +8505,8 @@ for (const code of ['fy', 'fy-NL']) {
   }
   assert.match(locale['activity-recovery-cancel-confirm'], /გაგრძელება შეუძლებელი იქნება/);
   assert.match(locale['activity-recovery-cancel-confirm'], /უკან არ დაბრუნდება/);
-  assert.match(locale['rule-email-recovery-description'], /არც ხელახლა სცდის და არც აუქმებს/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /არც ხელახლა სცდის და არც აუქმებს/);
   assert.match(locale['rule-email-recovery-sent'], /ფოსტის სერვერის მიერ/);
   assert.notEqual(locale['activity-recovery-paused'], locale['activity-recovery-status-cancelled']);
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
@@ -8915,7 +8929,8 @@ for (const code of ['az', 'az-AZ', 'az-LA']) {
   assert.match(locale['activity-recovery-source-unavailable'], /Heç nə yenidən yaradılmadı/);
   assert.match(locale['activity-recovery-failed'], /Gözləyən iş saxlanılıb/);
   assert.match(locale['activity-recovery-cancel-confirm'], /davam etdirmək mümkün olmayacaq.*geri çağırılmır/);
-  assert.match(locale['rule-email-recovery-description'], /yenidən cəhd etmir və onu ləğv etmir/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /yenidən cəhd etmir və onu ləğv etmir/);
   assert.notEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
   assert.equal(locale['activity-recovery-pause'], locale['email-recovery-pause']);
   assert.equal(locale['activity-recovery-resume'], locale['email-recovery-resume']);
@@ -9125,7 +9140,8 @@ for (const code of ['az', 'az-AZ', 'az-LA']) {
   assert.match(locale['activity-recovery-source-unavailable'], /Ոչինչ չի վերստեղծվել/);
   assert.match(locale['activity-recovery-failed'], /Սպասող աշխատանքը պահպանվել է/);
   assert.match(locale['activity-recovery-cancel-confirm'], /հնարավոր չի լինի վերսկսել.*հետ չեն կանչվում/);
-  assert.match(locale['rule-email-recovery-description'], /չի կրկնում և չի չեղարկում/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /չի կրկնում և չի չեղարկում/);
   assert.match(locale['rule-email-recovery-sent'], /փոստային սերվերի/);
   for (const pair of [['activity-recovery-status-missing', 'activity-recovery-status-changed'], ['activity-recovery-pause', 'activity-recovery-resume'], ['rule-email-recovery-unconfirmed', 'rule-email-recovery-finished']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const emailQueueKeys = ["email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint"];
@@ -9343,7 +9359,8 @@ for (const code of ['az', 'az-AZ', 'az-LA']) {
   assert.match(locale['activity-recovery-cancel-confirm'], /përgjithmonë.*nuk mund të vazhdohet më.*nuk tërhiqen/);
   assert.match(locale['activity-recovery-source-unavailable'], /Asgjë nuk u rikrijua/);
   assert.match(locale['activity-recovery-failed'], /Puna në pritje është ruajtur/);
-  assert.match(locale['rule-email-recovery-description'], /nuk riprovon dhe nuk anulon/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /nuk riprovon dhe nuk anulon/);
   assert.match(locale['history-request-hint'], /të njëjtën kërkesë.*kurrë një ndryshim të dytë/);
   assert.match(locale['saml-login-not-started'], /SAML.*nuk u nis.*skedë të shfletuesit/);
   assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "配信をキャンセル",
   "activity-recovery-cancel-confirm": "このアクティビティの残りの配信を恒久的にキャンセルしますか？ 再開はできません。キューに入っているメールや配信済みの通知は回収されません。",
   "rule-email-recovery-heading": "ルールのメール配信",
-  "rule-email-recovery-description": "記録されたルールのメール送信試行を確認します。未確認の試行はまだ送信中か、中断されている可能性があります。このレポートは配信の再試行やキャンセルを行いません。",
+  "rule-email-recovery-description": "記録されたルールのメール送信試行を確認します。未確認の試行はまだ送信中か、中断されている可能性があります。「かくにん」で ひらくと、おくりなおす、そうしんずみに する、または そうしんを とりやめる ことが できます。",
   "rule-email-recovery-all": "すべての試行",
   "rule-email-recovery-unconfirmed": "未確認",
   "rule-email-recovery-sent": "メールサーバーが受理",

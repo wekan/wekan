@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Traditionem revoca",
   "activity-recovery-cancel-confirm": "Reliquam traditionem huius actionis in perpetuum revocare? Resumi non potest. Epistulae iam in ordine et notificationes iam traditae non revocantur.",
   "rule-email-recovery-heading": "Traditio epistularum regularum",
-  "rule-email-recovery-description": "Conatus epistularum regularum consignatos examina. Conatus non confirmati adhuc mittere possunt vel interrupti esse. Haec relatio traditionem non iterum tentat nec revocat.",
+  "rule-email-recovery-description": "Conatus epistularum regularum consignatos examina. Conatus non confirmati adhuc mittere possunt vel interrupti esse. Aperi unum per «Recense» ut iterum mittas, ut missum notes vel omittas.",
   "rule-email-recovery-all": "Omnes conatus",
   "rule-email-recovery-unconfirmed": "Non confirmati",
   "rule-email-recovery-sent": "A ministro epistularum acceptum",

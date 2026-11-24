@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anulează livrarea",
   "activity-recovery-cancel-confirm": "Anulați definitiv livrarea rămasă pentru această activitate? Nu mai poate fi reluată. E-mailurile deja puse în coadă și notificările livrate nu sunt retrase.",
   "rule-email-recovery-heading": "Livrarea e-mailurilor din reguli",
-  "rule-email-recovery-description": "Verificați încercările înregistrate de trimitere a e-mailurilor din reguli. Încercările neconfirmate pot fi încă în curs sau întrerupte. Acest raport nu reîncearcă și nu anulează livrarea.",
+  "rule-email-recovery-description": "Verificați încercările înregistrate de trimitere a e-mailurilor din reguli. Încercările neconfirmate pot fi încă în curs sau întrerupte. Deschideți una cu „Verifică” pentru a o retrimite, a o marca drept trimisă sau a o elimina.",
   "rule-email-recovery-all": "Toate încercările",
   "rule-email-recovery-unconfirmed": "Neconfirmată",
   "rule-email-recovery-sent": "Acceptată de serverul de e-mail",

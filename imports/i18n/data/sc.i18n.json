@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annulla s'imbiu",
   "activity-recovery-cancel-confirm": "Annullare in manera permanente s'imbiu chi abarrat pro custa atividade? Non si podet sighire a pustis. Is messàgios giai in fila e is avisos giai imbiados non sunt torrados in segus.",
   "rule-email-recovery-heading": "Imbiu de messàgios de règulas",
-  "rule-email-recovery-description": "Esamina is proas registradas de imbiu de messàgios de règulas. Is proas non cunfirmadas podent èssere ancora in cursu de imbiu o èssere istadas interrùmpidas. Custu raportu non torrat a proare s'imbiu e non l'annullat.",
+  "rule-email-recovery-description": "Esamina is proas registradas de imbiu de messàgios de règulas. Is proas non cunfirmadas podent èssere ancora in cursu de imbiu o èssere istadas interrùmpidas. Aberi·nde una cun «Esamina» pro dda torrare a imbiare, dda marcare comente imbiada o dda abbandonare.",
   "rule-email-recovery-all": "Totu is proas",
   "rule-email-recovery-unconfirmed": "Non cunfirmadu",
   "rule-email-recovery-sent": "Atzetadu dae su serbidore de posta",

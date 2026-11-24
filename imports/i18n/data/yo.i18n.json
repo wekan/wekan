@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Fagilé fífi ránṣẹ́",
   "activity-recovery-cancel-confirm": "Fagilé fífi ránṣẹ́ tó kù fún ìṣẹ̀lẹ̀ yìí títí láé? A kò lè tẹ̀síwájú rẹ̀ lẹ́ẹ̀kan sí i. A kò gba ímeèlì tó ti wà ní ìlà ìdúró àti àwọn ìfitónilétí tí a ti fi ránṣẹ́ padà.",
   "rule-email-recovery-heading": "Fífi ímeèlì òfin ránṣẹ́",
-  "rule-email-recovery-description": "Ṣàyẹ̀wò àwọn ìgbìyànjú ímeèlì òfin tí a kọ sílẹ̀. Àwọn ìgbìyànjú tí a kò jẹ́rìí lè ṣì máa fi ránṣẹ́ tàbí wọ́n lè ti dá dúró. Ìròyìn yìí kò tún gbìyànjú tàbí fagilé fífi ránṣẹ́.",
+  "rule-email-recovery-description": "Ṣàyẹ̀wò àwọn ìgbìyànjú ímeèlì òfin tí a kọ sílẹ̀. Àwọn ìgbìyànjú tí a kò jẹ́rìí lè ṣì máa fi ránṣẹ́ tàbí wọ́n lè ti dá dúró. Ṣí ọ̀kan pẹ̀lú \"Ṣàyẹ̀wò\" láti tún un fi ránṣẹ́, láti fi àmì sí i pé a ti ránṣẹ́ tàbí láti yọ ọ́ kúrò.",
   "rule-email-recovery-all": "Gbogbo ìgbìyànjú",
   "rule-email-recovery-unconfirmed": "A kò tíì jẹ́rìí rẹ̀",
   "rule-email-recovery-sent": "Sáfà ímeèlì ti gbà á",

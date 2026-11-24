@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Prekliči dostavo",
   "activity-recovery-cancel-confirm": "Trajno prekličem preostalo dostavo za to dejavnost? Nadaljevanje ne bo mogoče. E-pošta, ki je že v čakalni vrsti, in dostavljena obvestila se ne prikličejo nazaj.",
   "rule-email-recovery-heading": "Dostava e-poštnih sporočil pravil",
-  "rule-email-recovery-description": "Preglejte zabeležene poskuse pošiljanja e-poštnih sporočil pravil. Nepotrjeni poskusi morda še potekajo ali pa so bili prekinjeni. To poročilo ne poskusi znova dostaviti sporočil in ne prekliče dostave.",
+  "rule-email-recovery-description": "Preglejte zabeležene poskuse pošiljanja e-poštnih sporočil pravil. Nepotrjeni poskusi morda še potekajo ali pa so bili prekinjeni. Odprite poskus z gumbom »Pregled«, da ga znova pošljete, označite kot poslanega ali prekličete.",
   "rule-email-recovery-all": "Vsi poskusi",
   "rule-email-recovery-unconfirmed": "Nepotrjeno",
   "rule-email-recovery-sent": "Poštni strežnik je sprejel",

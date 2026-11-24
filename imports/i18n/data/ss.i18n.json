@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Khansela kulethwa",
   "activity-recovery-cancel-confirm": "Khansela unomphela kulethwa lokusele kwalomsebenti? Loku angeke kuchubekiswe. Ema-imeyili lasemugceni netatiso letilethiwe akubuyiswa.",
   "rule-email-recovery-heading": "Kufikiswa kwema-imeyili emitsetfo",
-  "rule-email-recovery-description": "Buyeketa imitamo lebhaliwe yekutfumela ema-imeyili emitsetfo. Imitamo lengakacinisekiswa ingahle isatfumela noma iphazamisekile. Lombiko awuphindzi utfumele futsi awukukhanseli kutfumela.",
+  "rule-email-recovery-description": "Buyeketa imitamo lebhaliwe yekutfumela ema-imeyili emitsetfo. Imitamo lengakacinisekiswa ingahle isatfumela noma iphazamisekile. Vula linye nga-\"Buyeketa\" kute ulitfumele futsi, ulimake njengalelitfunyelwe noma ulikhansele.",
   "rule-email-recovery-all": "Yonkhe imitamo",
   "rule-email-recovery-unconfirmed": "Akukacinisekiswa",
   "rule-email-recovery-sent": "Yemukelwe yiseva ye-imeyili",

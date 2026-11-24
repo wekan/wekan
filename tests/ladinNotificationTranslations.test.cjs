@@ -69,7 +69,9 @@ assert.match(locale['activity-recovery-cancel-confirm'], /ne se pò nia continu�
 assert.match(locale['activity-recovery-cancel-confirm'], /e-mail bele tla coa.*notificazions bele manedes ne vën nia retirédes/);
 assert.match(locale['activity-recovery-failed'], /laour che speta é unì mantenì/);
 assert.match(locale['activity-recovery-denied'], /ne permet nia plu l invié/);
-assert.match(locale['rule-email-recovery-description'], /ne prova nia danüef y ne anulea nia l invié/);
+assert.ok(locale['rule-email-recovery-description'].includes(locale['rule-email-recovery-review']));
+// 2026-11-24: the pane resends and drops now, so the old sentence is gone.
+assert.doesNotMatch(locale['rule-email-recovery-description'], /ne prova nia danüef y ne anulea nia l invié/);
 assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
 assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
 assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
@@ -79,7 +81,8 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.match(locale['activity-recovery-cancel-confirm'], /čakanskim rynku.*doručene zdźělenki so njewotwołaja/);
   assert.match(locale['activity-recovery-failed'], /dźěło je so wobchowało/);
   assert.match(locale['activity-recovery-denied'], /doručenje hižo njedowoleja/);
-  assert.match(locale['rule-email-recovery-description'], /njewospjetuje ani njepřetorhuje/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /njewospjetuje ani njepřetorhuje/);
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
@@ -89,7 +92,8 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.match(locale['activity-recovery-cancel-confirm'], /E-maile już we kolejce.*niy bydōm cofniynte/);
   assert.match(locale['activity-recovery-failed'], /robota ôstała zachowanŏ/);
   assert.match(locale['activity-recovery-denied'], /już niy pozwŏlajōm/);
-  assert.match(locale['rule-email-recovery-description'], /niy ponŏwiŏ ani niy anuluje/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /niy ponŏwiŏ ani niy anuluje/);
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);
@@ -99,7 +103,8 @@ assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-re
   assert.match(locale['activity-recovery-cancel-confirm'], /排进队列个邮件.*送达个通知勿会撤回/);
   assert.match(locale['activity-recovery-failed'], /工作保留下来哉/);
   assert.match(locale['activity-recovery-denied'], /已经勿允许发送哉/);
-  assert.match(locale['rule-email-recovery-description'], /勿会重新尝试或者取消发送/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(locale['rule-email-recovery-description'], /勿会重新尝试或者取消发送/);
   assert.notEqual(locale['activity-recovery-pause'], locale['activity-recovery-cancel']);
   assert.notEqual(locale['email-failure-smtp-temporary'], locale['email-failure-smtp-rejected']);
   assert.notEqual(locale['rule-email-recovery-unconfirmed'], locale['rule-email-recovery-sent']);

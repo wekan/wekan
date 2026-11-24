@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kézbesítés megszakítása",
   "activity-recovery-cancel-confirm": "Végleg megszakítja a tevékenység hátralévő kézbesítéseit? Ezek nem folytathatók. A már sorba állított e-mailek és kézbesített értesítések nem hívhatók vissza.",
   "rule-email-recovery-heading": "Szabályok e-mail-kézbesítése",
-  "rule-email-recovery-description": "Tekintse át a szabályok rögzített e-mail-küldési próbálkozásait. A meg nem erősített próbálkozások még folyamatban lehetnek, vagy félbeszakadhattak. Ez a jelentés nem próbálja újra és nem szakítja meg a kézbesítést.",
+  "rule-email-recovery-description": "Tekintse át a szabályok rögzített e-mail-küldési próbálkozásait. A meg nem erősített próbálkozások még folyamatban lehetnek, vagy félbeszakadhattak. Nyisson meg egyet az „Ellenőrzés” gombbal, hogy újraküldje, elküldöttként megjelölje vagy elvesse.",
   "rule-email-recovery-all": "Minden próbálkozás",
   "rule-email-recovery-unconfirmed": "Nincs megerősítve",
   "rule-email-recovery-sent": "A levelezőkiszolgáló elfogadta",

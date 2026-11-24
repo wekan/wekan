@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Avlýs sending",
   "activity-recovery-cancel-confirm": "Avlýs alla eftirverandi sending fyri hetta virksemið endaliga? Sendingin kann ikki takast upp aftur. Teldupostur, sum longu er í bíðirøð, og sendar fráboðanir verða ikki tikin aftur.",
   "rule-email-recovery-heading": "Sending av telduposti frá reglum",
-  "rule-email-recovery-description": "Kanna skrásettar royndir at senda teldupost frá reglum. Óváttaðar royndir kunnu enn vera í gongd ella vera slitnar. Henda frágreiðingin roynir ikki sending aftur og avlýsir hana ikki.",
+  "rule-email-recovery-description": "Kanna skrásettar royndir at senda teldupost frá reglum. Óváttaðar royndir kunnu enn vera í gongd ella vera slitnar. Lat eina upp við \"Kanna\" fyri at senda hana aftur, merkja hana sum senda ella sleppa henni.",
   "rule-email-recovery-all": "Allar royndir",
   "rule-email-recovery-unconfirmed": "Óváttað",
   "rule-email-recovery-sent": "Góðtikið av postambætaranum",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anile livrezon an",
   "activity-recovery-cancel-confirm": "Anile rès livrezon pou aktivite sa a nèt? Ou p ap kapab reprann li. Imèl ki deja nan ke ak notifikasyon ki deja livre yo p ap raple.",
   "rule-email-recovery-heading": "Livrezon imèl règ yo",
-  "rule-email-recovery-description": "Revize esè voye imèl règ yo ki anrejistre. Esè ki pa konfime yo ka toujou ap voye oswa yo ka te entèwonp. Rapò sa a pa reeseye ni anile livrezon an.",
+  "rule-email-recovery-description": "Revize esè voye imèl règ yo ki anrejistre. Esè ki pa konfime yo ka toujou ap voye oswa yo ka te entèwonp. Louvri youn ak \"Revize\" pou voye l ankò, make l kòm voye oswa retire l.",
   "rule-email-recovery-all": "Tout esè yo",
   "rule-email-recovery-unconfirmed": "Pa konfime",
   "rule-email-recovery-sent": "Sèvè imèl la aksepte li",

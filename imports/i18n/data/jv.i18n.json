@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Batalake pangiriman",
   "activity-recovery-cancel-confirm": "Batalake kanthi permanen pangiriman sing isih kari kanggo aktivitas iki? Iki ora bisa diterusake maneh. Email sing wis mlebu antrean lan kabar sing wis dikirim ora ditarik maneh.",
   "rule-email-recovery-heading": "Pangiriman email aturan",
-  "rule-email-recovery-description": "Priksa upaya email aturan sing direkam. Upaya sing durung dipesthekake bisa isih ngirim utawa bisa wis pedhot. Laporan iki ora nyoba maneh utawa mbatalake pangiriman.",
+  "rule-email-recovery-description": "Priksa upaya email aturan sing direkam. Upaya sing durung dipesthekake bisa isih ngirim utawa bisa wis pedhot. Bukak salah siji nganggo \"Priksa\" kanggo ngirim maneh, nandhani wis dikirim, utawa mbusak.",
   "rule-email-recovery-all": "Kabeh upaya",
   "rule-email-recovery-unconfirmed": "Durung dipesthekake",
   "rule-email-recovery-sent": "Ditampa dening server email",

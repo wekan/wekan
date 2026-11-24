@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Rhoxisa ukuhanjiswa",
   "activity-recovery-cancel-confirm": "Urhoxisa ngokusisigxina ukuhanjiswa okuseleyo kwalo msebenzi? Oku akunakuphinda kuqhutyekwe nako. Imeyile esele ibekwe emgceni nezaziso esele zihanjisiwe azibuyiswa.",
   "rule-email-recovery-heading": "Ukuhanjiswa kwee-imeyile zemithetho",
-  "rule-email-recovery-description": "Hlola iinzame ezirekhodiweyo zokuthumela ii-imeyile zemithetho. Iinzame ezingaqinisekiswanga kusenokwenzeka ukuba zisathumela okanye ziphazamisekile. Le ngxelo ayiphindi ithumele kwaye ayikurhoxisi ukuthumela.",
+  "rule-email-recovery-description": "Hlola iinzame ezirekhodiweyo zokuthumela ii-imeyile zemithetho. Iinzame ezingaqinisekiswanga kusenokwenzeka ukuba zisathumela okanye ziphazamisekile. Vula enye nge-\"Hlola\" ukuze uyithumele kwakhona, uyiphawule njengethunyiweyo okanye uyirhoxise.",
   "rule-email-recovery-all": "Zonke iinzame",
   "rule-email-recovery-unconfirmed": "Akuqinisekiswanga",
   "rule-email-recovery-sent": "Yamkelwe yiseva ye-imeyile",

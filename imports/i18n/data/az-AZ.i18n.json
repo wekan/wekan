@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Çatdırılmanı ləğv et",
   "activity-recovery-cancel-confirm": "Bu fəaliyyət üçün qalan çatdırılma birdəfəlik ləğv edilsin? Bunu davam etdirmək mümkün olmayacaq. Artıq növbəyə qoyulmuş e-poçt və çatdırılmış bildirişlər geri çağırılmır.",
   "rule-email-recovery-heading": "Qayda e-poçtlarının çatdırılması",
-  "rule-email-recovery-description": "Qeydə alınmış qayda e-poçtu cəhdlərini nəzərdən keçirin. Təsdiqlənməmiş cəhdlər hələ göndərilməkdə ola və ya kəsilmiş ola bilər. Bu hesabat çatdırılmaya yenidən cəhd etmir və onu ləğv etmir.",
+  "rule-email-recovery-description": "Qeydə alınmış qayda e-poçtu cəhdlərini nəzərdən keçirin. Təsdiqlənməmiş cəhdlər hələ göndərilməkdə ola və ya kəsilmiş ola bilər. \"Nəzərdən keçir\" ilə birini açıb yenidən göndərə, göndərilmiş kimi işarələyə və ya rədd edə bilərsiniz.",
   "rule-email-recovery-all": "Bütün cəhdlər",
   "rule-email-recovery-unconfirmed": "Təsdiqlənməmiş",
   "rule-email-recovery-sent": "Poçt serveri tərəfindən qəbul edilib",

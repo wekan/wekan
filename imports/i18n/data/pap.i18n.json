@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kanselá entrega",
   "activity-recovery-cancel-confirm": "Kanselá e entrega restante pa e aktividat aki permanentemente? No por kontinuá esaki despues. Email ku ta den rei kaba i notifikashonnan entregá no ta wordu retirá.",
   "rule-email-recovery-heading": "Entrega di email di reglanan",
-  "rule-email-recovery-description": "Revisá e intentonan registrá pa manda email di reglanan. Intentonan no konfirmá por ta mandando ainda òf por a wordu interumpí. E rapòrt aki no ta manda atrobe ni ta kanselá e envio.",
+  "rule-email-recovery-description": "Revisá e intentonan registrá pa manda email di reglanan. Intentonan no konfirmá por ta mandando ainda òf por a wordu interumpí. Habri un ku \"Revisá\" pa manda esaki atrobe, marka esaki komo mandá òf kanselá e envio.",
   "rule-email-recovery-all": "Tur intento",
   "rule-email-recovery-unconfirmed": "No konfirmá",
   "rule-email-recovery-sent": "Aseptá pa e servidor di email",

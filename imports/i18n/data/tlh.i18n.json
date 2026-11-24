@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "ngeH yImev",
   "activity-recovery-cancel-confirm": "ta'vamvaD ratlhbogh ngeH reH Damev'a'? taHqa'laHlu'be'. loStaHbogh jabbI'ID ngeHlu'pu'bogh ghuHmoHmeH QInmey je chegh'egh be'.",
   "rule-email-recovery-heading": "jabbI'ID ngeHmeH chut Qu'",
-  "rule-email-recovery-description": "jabbI'ID ngeH 'e' nIDlu'pu'DI', wanI' qonlu'pu'bogh yInuD. wanI' 'olbe'lu'bogh ghu'Daq ngeHtaHlu'lI' chaq, pagh qaghlu'pu' chaq. ngeHqa'be' ja'ghachvam 'ej ngeHtaHghach mevmoHbe'.",
+  "rule-email-recovery-description": "jabbI'ID ngeH 'e' nIDlu'pu'DI', wanI' qonlu'pu'bogh yInuD. wanI' 'olbe'lu'bogh ghu'Daq ngeHtaHlu'lI' chaq, pagh qaghlu'pu' chaq. wa' yIpoSmoH \"yInuD\" lo'taHvIS, vaj yIngeHqa' pagh ngeHlu'pu' 'e' yIqon pagh yIpolHa'.",
   "rule-email-recovery-all": "ngeH 'e' nIDlu'bogh wanI'mey Hoch",
   "rule-email-recovery-unconfirmed": "'olbe'lu'pu'",
   "rule-email-recovery-sent": "Hevpu' jabbI'ID De'wI'",

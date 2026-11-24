@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anulé l invié",
   "activity-recovery-cancel-confirm": "Anulé definitivamënter l invié che manca per chësta atività? Al ne se pò nia continué do. Les e-mail bele tla coa y les notificazions bele manedes ne vën nia retirédes.",
   "rule-email-recovery-heading": "Invié dles e-mail dles regoles",
-  "rule-email-recovery-description": "Controlé i tentatifs registrés de invié e-mail dles regoles. I tentatifs nia cunfermés pò ester mo tl invié o interoc. Chësta relazion ne prova nia danüef y ne anulea nia l invié.",
+  "rule-email-recovery-description": "Controlé i tentatifs registrés de invié e-mail dles regoles. I tentatifs nia cunfermés pò ester mo tl invié o interoc. Daurí un cun «Cuntrolé» per l invié inò, l marché coche invià o l anulé.",
   "rule-email-recovery-all": "Duc i tentatifs",
   "rule-email-recovery-unconfirmed": "Nia cunfermé",
   "rule-email-recovery-sent": "Azeté dal server dla posta",

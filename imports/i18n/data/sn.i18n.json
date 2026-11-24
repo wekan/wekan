@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kanzura kutumira",
   "activity-recovery-cancel-confirm": "Kanzura zvachose kutumira kwasara kwechiitiko ichi? Hazvigoni kuendererwa mberi. Tsamba dzemagetsi dzatova mumutsara nezviziviso zvakatotumirwa hazvidzoserwi.",
   "rule-email-recovery-heading": "Kutumirwa kwetsamba dzemagetsi dzemitemo",
-  "rule-email-recovery-description": "Ongorora kuedza kutumira tsamba dzemagetsi dzemitemo kwakanyorwa. Kuedza kusina kusimbiswa kunogona kunge kuchiri kutumira kana kwakambomiswa. Mushumo uyu hauedzizve kana kukanzura kutumira.",
+  "rule-email-recovery-description": "Ongorora kuedza kutumira tsamba dzemagetsi dzemitemo kwakanyorwa. Kuedza kusina kusimbiswa kunogona kunge kuchiri kutumira kana kwakambomiswa. Vhura kumwe ne \"Ongorora\" kuti ukutumirezve, ukumake kuti kwatumirwa kana kukubvisa.",
   "rule-email-recovery-all": "Kuedza kwose",
   "rule-email-recovery-unconfirmed": "Zvisina kusimbiswa",
   "rule-email-recovery-sent": "Zvakagamuchirwa nesevha yetsamba",

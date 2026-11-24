@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Yetkazishni bekor qilish",
   "activity-recovery-cancel-confirm": "Bu faoliyat uchun qolgan yetkazishlar butunlay bekor qilinsinmi? Buni davom ettirib boʻlmaydi. Allaqachon navbatga qoʻyilgan elektron xatlar va yetkazilgan bildirishnomalar qaytarib olinmaydi.",
   "rule-email-recovery-heading": "Qoida elektron xatlarini yetkazish",
-  "rule-email-recovery-description": "Qayd etilgan qoida elektron xatlarini yuborish urinishlarini koʻrib chiqing. Tasdiqlanmagan urinishlar hali yuborilayotgan yoki uzilgan boʻlishi mumkin. Bu hisobot yetkazishni qayta bajarmaydi yoki bekor qilmaydi.",
+  "rule-email-recovery-description": "Qayd etilgan qoida elektron xatlarini yuborish urinishlarini koʻrib chiqing. Tasdiqlanmagan urinishlar hali yuborilayotgan yoki uzilgan boʻlishi mumkin. Birini «Koʻrib chiqish» bilan ochib, uni qayta yuborish, yuborilgan deb belgilash yoki bekor qilish mumkin.",
   "rule-email-recovery-all": "Barcha urinishlar",
   "rule-email-recovery-unconfirmed": "Tasdiqlanmagan",
   "rule-email-recovery-sent": "Pochta serveri qabul qilgan",

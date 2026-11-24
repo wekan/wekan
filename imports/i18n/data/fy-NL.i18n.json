@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annulearje de levering",
   "activity-recovery-cancel-confirm": "De oerbleaune levering foar dizze aktiviteit permanint annulearje? Dit kin net ferfette wurde. E-mail dy’t al yn de wachtrige stiet en meldingen dy’t al levere binne, wurde net weromhelle.",
   "rule-email-recovery-heading": "E-mailferstjoering troch regels",
-  "rule-email-recovery-description": "Kontrolearje fêstleine besykjen om e-mail troch regels te ferstjoeren. Net befêstige besykjen kinne noch dwaande wêze of ûnderbrutsen wêze. Dit rapport besiket de levering net opnij en annulearret dy net.",
+  "rule-email-recovery-description": "Kontrolearje fêstleine besykjen om e-mail troch regels te ferstjoeren. Net befêstige besykjen kinne noch dwaande wêze of ûnderbrutsen wêze. Iepenje ien mei \"Kontrolearje\" om it opnij te stjoeren, as ferstjoerd te markearjen of te wegerjen.",
   "rule-email-recovery-all": "Alle besykjen",
   "rule-email-recovery-unconfirmed": "Net befêstige",
   "rule-email-recovery-sent": "Akseptearre troch de e-mailtsjinner",

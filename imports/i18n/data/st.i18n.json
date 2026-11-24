@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Hlakola ho romelwa",
   "activity-recovery-cancel-confirm": "Hlakola ka ho sa feleng ho romelwa ho setseng bakeng sa ketsahalo ena? Sena se ke ke sa tswellwa hape. Diimeile tse seng di beilwe moleng le ditsebiso tse seng di fihlile ha di kgutliswe.",
   "rule-email-recovery-heading": "Ho fihla ha liimeile tsa melao",
-  "rule-email-recovery-description": "Hlahloba liteko tse tlalehiloeng tsa ho romela liimeile tsa melao. Liteko tse sa netefatsoang li ka 'na tsa be li ntse li romela kapa li ile tsa sitisoa. Tlaleho ena ha e leke ho romela hape ebile ha e hlakole ho romela.",
+  "rule-email-recovery-description": "Hlahloba liteko tse tlalehiloeng tsa ho romela liimeile tsa melao. Liteko tse sa netefatsoang li ka 'na tsa be li ntse li romela kapa li ile tsa sitisoa. Bula e le 'ngoe ka \"Hlahloba\" ho e romela hape, ho e tšoaea e rometsoe kapa ho e hlakola.",
   "rule-email-recovery-all": "Liteko tsohle",
   "rule-email-recovery-unconfirmed": "Ha e so netefatsoe",
   "rule-email-recovery-sent": "E amohetsoe ke seva ea imeile",

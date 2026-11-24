@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Zoustellung ofbriechen",
   "activity-recovery-cancel-confirm": "Déi verbleiwend Zoustellung fir dës Aktivitéit permanent ofbriechen? Si kann net weidergeféiert ginn. E-Mailen, déi schonn an der Waardeschlaang sinn, an zougestallt Notifikatioune ginn net zeréckgeruff.",
   "rule-email-recovery-heading": "Zoustellung vu Reegel-E-Mailen",
-  "rule-email-recovery-description": "Iwwerpréift opgezeechent Versich fir Reegel-E-Mailen. Net bestätegt Versich kënnen nach am Versand sinn oder ënnerbrach gi sinn. Dëse Rapport widderhëlt d’Zoustellung net a brécht se net of.",
+  "rule-email-recovery-description": "Iwwerpréift opgezeechent Versich fir Reegel-E-Mailen. Net bestätegt Versich kënnen nach am Versand sinn oder ënnerbrach gi sinn. Maacht een mat „Iwwerpréiwen“ op, fir en nach eng Kéier ze schécken, als geschéckt ze markéieren oder ze verwerfen.",
   "rule-email-recovery-all": "All Versich",
   "rule-email-recovery-unconfirmed": "Net bestätegt",
   "rule-email-recovery-sent": "Vum Mailserver akzeptéiert",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Ikkanċella l-kunsinna",
   "activity-recovery-cancel-confirm": "Tikkanċella b’mod permanenti l-kunsinna li fadal għal din l-attività? Din ma tistax titkompla. Il-posta elettronika diġà fil-kju u n-notifiki diġà mwassla ma jinġibdux lura.",
   "rule-email-recovery-heading": "Kunsinna tal-posta elettronika tar-regoli",
-  "rule-email-recovery-description": "Irrevedi t-tentattivi rreġistrati tal-posta elettronika tar-regoli. Tentattivi mhux ikkonfermati jistgħu jkunu għadhom qed jibagħtu jew ġew interrotti. Dan ir-rapport ma jerġax jipprova jew jikkanċella l-kunsinna.",
+  "rule-email-recovery-description": "Irrevedi t-tentattivi rreġistrati tal-posta elettronika tar-regoli. Tentattivi mhux ikkonfermati jistgħu jkunu għadhom qed jibagħtu jew ġew interrotti. Iftaħ wieħed b'\"Irrevedi\" biex terġa' tibagħtu, timmarkah bħala mibgħut jew twarrbu.",
   "rule-email-recovery-all": "It-tentattivi kollha",
   "rule-email-recovery-unconfirmed": "Mhux ikkonfermat",
   "rule-email-recovery-sent": "Aċċettat mis-servitur tal-posta",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anulo dërgimin",
   "activity-recovery-cancel-confirm": "Të anulohet përgjithmonë dërgimi i mbetur për këtë veprimtari? Ai nuk mund të vazhdohet më. Emailet tashmë në radhë dhe njoftimet e dërguara nuk tërhiqen.",
   "rule-email-recovery-heading": "Dërgimi i emaileve të rregullave",
-  "rule-email-recovery-description": "Shqyrto përpjekjet e regjistruara për dërgimin e emaileve të rregullave. Përpjekjet e pakonfirmuara mund të jenë ende duke dërguar ose mund të jenë ndërprerë. Ky raport nuk riprovon dhe nuk anulon dërgimin.",
+  "rule-email-recovery-description": "Shqyrto përpjekjet e regjistruara për dërgimin e emaileve të rregullave. Përpjekjet e pakonfirmuara mund të jenë ende duke dërguar ose mund të jenë ndërprerë. Hapni një me «Shqyrto» për ta ridërguar, për ta shënuar si të dërguar ose për ta hequr.",
   "rule-email-recovery-all": "Të gjitha përpjekjet",
   "rule-email-recovery-unconfirmed": "Të pakonfirmuara",
   "rule-email-recovery-sent": "Pranuar nga serveri i postës",

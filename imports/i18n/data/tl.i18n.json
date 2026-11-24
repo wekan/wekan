@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Kanselahin ang pagpapadala",
   "activity-recovery-cancel-confirm": "Permanenteng kanselahin ang natitirang pagpapadala para sa aktibidad na ito? Hindi na ito maipagpapatuloy. Hindi mababawi ang mga email na nakapila na at mga abisong naipadala na.",
   "rule-email-recovery-heading": "Pagpapadala ng email ng panuntunan",
-  "rule-email-recovery-description": "Suriin ang mga naitalang pagsubok ng pagpapadala ng email ng panuntunan. Maaaring nagpapadala pa o naantala ang mga hindi kumpirmadong pagsubok. Hindi sinusubukang muli o kinakansela ng ulat na ito ang pagpapadala.",
+  "rule-email-recovery-description": "Suriin ang mga naitalang pagsubok ng pagpapadala ng email ng panuntunan. Maaaring nagpapadala pa o naantala ang mga hindi kumpirmadong pagsubok. Buksan ang isa gamit ang \"Suriin\" para ipadala itong muli, markahan bilang naipadala o alisin.",
   "rule-email-recovery-all": "Lahat ng pagsubok",
   "rule-email-recovery-unconfirmed": "Hindi kumpirmado",
   "rule-email-recovery-sent": "Tinanggap ng server ng email",

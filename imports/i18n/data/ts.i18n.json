@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Khansela ku fikisiwa",
   "activity-recovery-cancel-confirm": "Khansela hi masiku hinkwawo ku fikisiwa loku saleke ka ntirho lowu? Leswi a swi nge yi emahlweni. Timeyili leti se ti nga eka layini na switiviso leswi se swi fikisiweke a swi vuyisiwi.",
   "rule-email-recovery-heading": "Ku fikisiwa ka ti-imeyili ta milawu",
-  "rule-email-recovery-description": "Kambisisa matshalatshala lama rhekhodiweke yo rhumela ti-imeyili ta milawu. Matshalatshala lama nga tiyisisiwangiki ma nga ha va ma ha rhumela kumbe ma kavanyetiwile. Xiviko lexi a xi rhumeli nakambe naswona a xi khanseli ku rhumela.",
+  "rule-email-recovery-description": "Kambisisa matshalatshala lama rhekhodiweke yo rhumela ti-imeyili ta milawu. Matshalatshala lama nga tiyisisiwangiki ma nga ha va ma ha rhumela kumbe ma kavanyetiwile. Pfula rin'we hi \"Kambisisa\" leswaku u ri rhumela nakambe, u ri funga leswaku ri rhumeriwile kumbe u ri khansela.",
   "rule-email-recovery-all": "Matshalatshala hinkwawo",
   "rule-email-recovery-unconfirmed": "A swi tiyisisiwanga",
   "rule-email-recovery-sent": "Yi amukeriwile hi sevha ya imeyili",

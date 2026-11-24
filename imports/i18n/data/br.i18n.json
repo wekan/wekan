@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Nullañ ar c'has",
   "activity-recovery-cancel-confirm": "Nullañ da vat ar c'has a chom evit an obererezh-mañ? Ne vo ket tu da adkregiñ gantañ. Ne vez ket adgalvet ar posteloù er lost gortoz dija nag ar c'hemennadennoù kaset.",
   "rule-email-recovery-heading": "Kas posteloù ar reolennoù",
-  "rule-email-recovery-description": "Gwiriañ an taolioù-esa enrollet da gas posteloù ar reolennoù. An taolioù-esa n'int ket kadarnaet a c'hall bezañ o kas c'hoazh pe bezañ bet troc'het. Ne adkas ket ha ne null ket an danevell-mañ ar c'has.",
+  "rule-email-recovery-description": "Gwiriañ an taolioù-esa enrollet da gas posteloù ar reolennoù. An taolioù-esa n'int ket kadarnaet a c'hall bezañ o kas c'hoazh pe bezañ bet troc'het. Digorit unan gant \"Gwiriañ\" evit e adkas, e verkañ evel kaset pe e zilezel.",
   "rule-email-recovery-all": "An holl daolioù-esa",
   "rule-email-recovery-unconfirmed": "Nann-kadarnaet",
   "rule-email-recovery-sent": "Degemeret gant ar servijer postel",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Versand abbrechen",
   "activity-recovery-cancel-confirm": "Den verbleibenden Versand für diese Aktivität dauerhaft abbrechen? Er kann nicht fortgesetzt werden. Bereits eingereihte E-Mails und zugestellte Benachrichtigungen werden nicht zurückgerufen.",
   "rule-email-recovery-heading": "E-Mail-Versand von Regeln",
-  "rule-email-recovery-description": "Aufgezeichnete E-Mail-Versuche von Regeln prüfen. Unbestätigte Versuche können noch senden oder unterbrochen worden sein. Dieser Bericht versucht den Versand weder erneut noch bricht er ihn ab.",
+  "rule-email-recovery-description": "Aufgezeichnete E-Mail-Versuche von Regeln prüfen. Unbestätigte Versuche können noch senden oder unterbrochen worden sein. Öffnen Sie einen mit „Prüfen“, um ihn erneut zu senden, als gesendet zu markieren oder zu verwerfen.",
   "rule-email-recovery-all": "Alle Versuche",
   "rule-email-recovery-unconfirmed": "Unbestätigt",
   "rule-email-recovery-sent": "Vom Mailserver angenommen",

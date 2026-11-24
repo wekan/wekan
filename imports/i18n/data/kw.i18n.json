@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Hedhi an danvon",
   "activity-recovery-cancel-confirm": "Hedhi yn padus an danvon remenant rag an wrythres ma? Ny yllir pesya ganso arta. Ebost y'n lost seulabrys ha gwarnyansow danvenys ny vydh gervys dhe-dre.",
   "rule-email-recovery-heading": "Danvon ebost reul",
-  "rule-email-recovery-description": "Daswelewgh assayow ebost reul kovskrifyes. Assayow heb afydhyans a yll bos ow tanvon hwath po bos lettys. An daskorrans ma ny wra assaya danvon arta na'y hedhi.",
+  "rule-email-recovery-description": "Daswelewgh assayow ebost reul kovskrifyes. Assayow heb afydhyans a yll bos ow tanvon hwath po bos lettys. Ygewgh onan gans \"Dasweles\" rag y dhanvon arta, y verkya avel danvenys po y deurel dhe-ves.",
   "rule-email-recovery-all": "Oll an assayow",
   "rule-email-recovery-unconfirmed": "Heb afydhyans",
   "rule-email-recovery-sent": "Degemerys gans an servell ebost",

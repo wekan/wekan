@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Bezorging annuleren",
   "activity-recovery-cancel-confirm": "Resterende bezorging voor deze activiteit permanent annuleren? Dit kan niet worden hervat. E-mails die al in de wachtrij staan en bezorgde meldingen worden niet teruggeroepen.",
   "rule-email-recovery-heading": "E-mailbezorging door regels",
-  "rule-email-recovery-description": "Beoordeel vastgelegde pogingen om e-mails door regels te verzenden. Onbevestigde pogingen kunnen nog bezig zijn of zijn onderbroken. Dit rapport probeert bezorging niet opnieuw en annuleert deze niet.",
+  "rule-email-recovery-description": "Beoordeel vastgelegde pogingen om e-mails door regels te verzenden. Onbevestigde pogingen kunnen nog bezig zijn of zijn onderbroken. Open er een met ‘Beoordelen’ om deze opnieuw te verzenden, als verzonden te markeren of te verwerpen.",
   "rule-email-recovery-all": "Alle pogingen",
   "rule-email-recovery-unconfirmed": "Onbevestigd",
   "rule-email-recovery-sent": "Geaccepteerd door mailserver",

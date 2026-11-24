@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annullar la spediziun",
   "activity-recovery-cancel-confirm": "Annullar definitivamain la spediziun restanta per questa activitad? Ella na po betg vegnir cuntinuada. E-mails gia en spetga e notificaziuns gia tramessas na vegnan betg revocads.",
   "rule-email-recovery-heading": "Spediziun dad e-mails da reglas",
-  "rule-email-recovery-description": "Examinar las emprovas registradas da trametter e-mails da reglas. Emprovas betg confermadas pon anc esser en curs u esser vegnidas interruttas. Quest rapport na repeta betg la spediziun e na l’annullescha betg.",
+  "rule-email-recovery-description": "Examinar las emprovas registradas da trametter e-mails da reglas. Emprovas betg confermadas pon anc esser en curs u esser vegnidas interruttas. Avri ina cun «Examinar» per la trametter da nov, la marcar sco tramessa u la scartar.",
   "rule-email-recovery-all": "Tut las emprovas",
   "rule-email-recovery-unconfirmed": "Betg confermà",
   "rule-email-recovery-sent": "Acceptà dal server dad e-mail",

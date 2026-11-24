@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Encaboxar l'unvíu",
   "activity-recovery-cancel-confirm": "¿Encaboxar dafechu l'unvíu que queda pa esta actividá? Nun se pue reanudar. Nun se retiren los correos yá en cola nin los avisos yá unviaos.",
   "rule-email-recovery-heading": "Unvíu de corréu de regles",
-  "rule-email-recovery-description": "Revisa los intentos de corréu de regles rexistraos. Los intentos ensin confirmar entá puen tar unviando o puen tar interrumpíos. Esti informe nun vuelve intentar nin encaboxa l'unvíu.",
+  "rule-email-recovery-description": "Revisa los intentos de corréu de regles rexistraos. Los intentos ensin confirmar entá puen tar unviando o puen tar interrumpíos. Abri ún con «Revisar» pa volver unvialu, marcalu como unviáu o descartalu.",
   "rule-email-recovery-all": "Tolos intentos",
   "rule-email-recovery-unconfirmed": "Ensin confirmar",
   "rule-email-recovery-sent": "Aceptáu pol sirvidor de corréu",

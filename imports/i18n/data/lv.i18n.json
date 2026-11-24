@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Atcelt piegādi",
   "activity-recovery-cancel-confirm": "Neatgriezeniski atcelt atlikušo šīs darbības paziņojumu piegādi? To nevarēs atsākt. Jau rindā ievietotie e-pasti un piegādātie paziņojumi netiek atsaukti.",
   "rule-email-recovery-heading": "Nosacījumu e-pasta piegāde",
-  "rule-email-recovery-description": "Pārskatiet reģistrētos nosacījumu e-pasta sūtīšanas mēģinājumus. Neapstiprinātie mēģinājumi vēl var notikt vai būt pārtraukti. Šis pārskats neatkārto un neatceļ piegādi.",
+  "rule-email-recovery-description": "Pārskatiet reģistrētos nosacījumu e-pasta sūtīšanas mēģinājumus. Neapstiprinātie mēģinājumi vēl var notikt vai būt pārtraukti. Atveriet mēģinājumu ar “Pārskatīt”, lai to sūtītu vēlreiz, atzīmētu kā nosūtītu vai atmestu.",
   "rule-email-recovery-all": "Visi mēģinājumi",
   "rule-email-recovery-unconfirmed": "Neapstiprināts",
   "rule-email-recovery-sent": "Pasta serveris pieņēma",

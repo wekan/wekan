@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Cancelar la entrega",
   "activity-recovery-cancel-confirm": "¿Cancelar permanentemente la entrega restante de esta actividad? No podrá reanudarse. No se retirarán los correos ya en cola ni las notificaciones entregadas.",
   "rule-email-recovery-heading": "Entrega de correo de reglas",
-  "rule-email-recovery-description": "Revisa los intentos registrados de correo de reglas. Los intentos no confirmados pueden seguir enviándose o haberse interrumpido. Este informe no reintenta ni cancela la entrega.",
+  "rule-email-recovery-description": "Revisa los intentos registrados de correo de reglas. Los intentos no confirmados pueden seguir enviándose o haberse interrumpido. Abre uno con «Revisar» para reenviarlo, marcarlo como enviado o descartarlo.",
   "rule-email-recovery-all": "Todos los intentos",
   "rule-email-recovery-unconfirmed": "Sin confirmar",
   "rule-email-recovery-sent": "Aceptado por el servidor de correo",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Heitta oigenduz",
   "activity-recovery-cancel-confirm": "Heitta igäks necen tegendan jäl'gmäine oigenduz? Sidä ei voi jatkta. Jo järgehe pandud emailad i oigendadud tedotused ei pördagoi.",
   "rule-email-recovery-heading": "Sändoiden email-kirjoiden oigenduz",
-  "rule-email-recovery-description": "Kacu kirjutetuid sändoiden email-kirjoiden oigendamižen yrityksid. Vahvištamatomad yritykset võivad völ oigenda vai ne oma katkestud. Nece tedotus ei oigenda tošti eikä lopeta oigendamišt.",
+  "rule-email-recovery-description": "Kacu kirjutetuid sändoiden email-kirjoiden oigendamižen yrityksid. Vahvištamatomad yritykset võivad völ oigenda vai ne oma katkestud. Avaikat üks «Kodvi»-käskul, miše oigendada sen tošti, merkita sen oigendudaks vai heitta sen.",
   "rule-email-recovery-all": "Kaik yritykset",
   "rule-email-recovery-unconfirmed": "Ei ole vahvištud",
   "rule-email-recovery-sent": "Email-server om vastanottanu",

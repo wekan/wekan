@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "取消发送",
   "activity-recovery-cancel-confirm": "永久取消此活动剩余的发送？此操作无法继续。已排入队列的电子邮件及已发送的通知不会收回。",
   "rule-email-recovery-heading": "规则邮件发送",
-  "rule-email-recovery-description": "检查已记录的规则邮件发送尝试。未确认的尝试可能仍在发送或已中断。此报告不会重试或取消发送。",
+  "rule-email-recovery-description": "检查已记录的规则邮件发送尝试。未确认的尝试可能仍在发送或已中断。使用“审核”打开一条尝试，即可重新发送、标记为已发送或取消发送。",
   "rule-email-recovery-all": "所有尝试",
   "rule-email-recovery-unconfirmed": "未确认",
   "rule-email-recovery-sent": "邮件服务器已接受",

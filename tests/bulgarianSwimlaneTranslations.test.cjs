@@ -424,7 +424,8 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['activity-recovery-denied'], /вече не позволяват доставка/);
   assert.match(bg['activity-recovery-failed'], /Чакащата работа е запазена/);
   assert.match(bg['activity-recovery-cancel-confirm'], /не може да бъде възобновена.*не се оттеглят/);
-  assert.match(bg['rule-email-recovery-description'], /още да изпращат или да са прекъснати.*не повтаря и не отменя/);
+  // 2026-11-24: the old "does not retry or cancel" sentence is gone (Review, Resend, Mark as sent, Drop).
+  assert.doesNotMatch(bg['rule-email-recovery-description'], /още да изпращат или да са прекъснати.*не повтаря и не отменя/);
   assert.match(bg['rule-email-recovery-sent'], /Прието от пощенския сървър/);
   assert.match(bg['saml-login-not-started'], /SAML.*този раздел.*влезте отново/);
   assert.equal(bg['move-selection-before'], 'Преди');

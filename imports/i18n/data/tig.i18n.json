@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "ምብጻሕ ኣትርፍ",
   "activity-recovery-cancel-confirm": "ዝተረፈ ምብጻሕ ን እሊ ትግባር ንሓዋሩ ይትረፍ? እዚ ክቕጽል ኣይክእልን። ድሮ ዝተሰርዐ ኢመይል ወ ዝበጽሐ ሓበሬታ ኣይምለሱን።",
   "rule-email-recovery-heading": "ላኣኪ ናይ ቀዋዕድ ኢመይል",
-  "rule-email-recovery-description": "ለትከተቦ ምጅራብ ናይ ላኣኪ ቀዋዕድ ኢመይል ርአ። ለኢትአከደ ምጅራብ አስክ ህዬ ለልልአክ ለሀለ ገብእ፣ አው ለትበተከ ገብእ። እሊ ተቅሪር ምን ሐዲስ ኢልልአክ ወላኣኪ ኢለብጠል።",
+  "rule-email-recovery-description": "ለትከተቦ ምጅራብ ናይ ላኣኪ ቀዋዕድ ኢመይል ርአ። ለኢትአከደ ምጅራብ አስክ ህዬ ለልልአክ ለሀለ ገብእ፣ አው ለትበተከ ገብእ። ሐቴ ምጅራብ ብ\"ጌማም\" ፍትሐ፣ ምን ሐዲስ እግል ትልአካ፣ \"ትላአከ\" እግል ተዐልማ ወአው እግል ትሕድጋ።",
   "rule-email-recovery-all": "ክሉ ምጅራብ",
   "rule-email-recovery-unconfirmed": "ኢትአከደ",
   "rule-email-recovery-sent": "ናይ ኢመይል ሰርቨር ትከበተዎ",

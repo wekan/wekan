@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Batai kirém",
   "activity-recovery-cancel-confirm": "Batai keu sabe kirém nyang tinggai keu aktivitas nyoe? Nyoe h'an jeuet geulanjut. Emel nyang ka lam antrian ngon haba nyang ka geukirém h'an geucok woe.",
   "rule-email-recovery-heading": "Kirem surat èlektronik atôran",
-  "rule-email-recovery-description": "Perèksa usaha kirem surat èlektronik atôran nyang ka teucatat. Usaha nyang gohlom pasti mungkén mantong teungoh kirem atawa ka teuganggu. Laporan nyoe hana jikirem lom ngon hana jipeubateuë kirem.",
+  "rule-email-recovery-description": "Perèksa usaha kirem surat èlektronik atôran nyang ka teucatat. Usaha nyang gohlom pasti mungkén mantong teungoh kirem atawa ka teuganggu. Buka saboh ngon \"Paréksa\" keu kirem lom, bôh tanda ka geukirem atawa peubateuë peungiriman.",
   "rule-email-recovery-all": "Mandum usaha",
   "rule-email-recovery-unconfirmed": "Gohlom pasti",
   "rule-email-recovery-sent": "Ka jiteurimong lé server surat èlektronik",

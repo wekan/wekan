@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Cili dabila",
   "activity-recovery-cancel-confirm": "Nin baara ka cili tolen dabila pewu wa? A tɛ se ka taa a fɛ tugun. Imɛli minnu bɛ tugulen kaban ani kunnafoni cilenw tɛ segin.",
   "rule-email-recovery-heading": "Sariya imɛliw cili",
-  "rule-email-recovery-description": "Sariya imɛliw cili lajɛli minnu sɛbɛnna, olu sɛgɛsɛgɛ. Lajɛli minnu ma lakika fɔlɔ, olu bɛ se ka to cili la, walima u tigɛra. Nin kunnafonisɛbɛn tɛ ci tuguni, a tɛ cili dabila fana.",
+  "rule-email-recovery-description": "Sariya imɛliw cili lajɛli minnu sɛbɛnna, olu sɛgɛsɛgɛ. Lajɛli minnu ma lakika fɔlɔ, olu bɛ se ka to cili la, walima u tigɛra. Kelen da ni \"A lajɛ\" ye walasa ka a ci tuguni, ka a taamasiyɛn kɛ ko a cilen don, walima ka a cili dabila.",
   "rule-email-recovery-all": "Lajɛliw bɛɛ",
   "rule-email-recovery-unconfirmed": "A ma lakika fɔlɔ",
   "rule-email-recovery-sent": "Imɛli sɛrɛvɛri y'a minɛ",

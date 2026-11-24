@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Khansela go romela",
   "activity-recovery-cancel-confirm": "Khansela ka ruri go romela go go setseng ga tiragalo e? Se ga se kgone go tswelediwa. Imeile e e setseng e le mo moleng le dikitsiso tse di setseng di romilwe ga di busediwe.",
   "rule-email-recovery-heading": "Go goroga ga diimeile tsa melao",
-  "rule-email-recovery-description": "Sekaseka maiteko a a kwadilweng a go romela diimeile tsa melao. Maiteko a a sa netefadiwang a ka tswa a sa ntse a romela kgotsa a kgoreleditswe. Pego eno ga e romele gape e bile ga e khansele go romela.",
+  "rule-email-recovery-description": "Sekaseka maiteko a a kwadilweng a go romela diimeile tsa melao. Maiteko a a sa netefadiwang a ka tswa a sa ntse a romela kgotsa a kgoreleditswe. Bula lengwe ka \"Sekaseka\" go le romela gape, go le tshwaya le rometswe kgotsa go le khansela.",
   "rule-email-recovery-all": "Maiteko otlhe",
   "rule-email-recovery-unconfirmed": "Ga e ise e netefadiwe",
   "rule-email-recovery-sent": "E amogetswe ke seva ya imeile",

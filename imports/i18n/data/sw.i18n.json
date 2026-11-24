@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Ghairi utumaji",
   "activity-recovery-cancel-confirm": "Ghairi kabisa utumaji uliobaki wa shughuli hii? Hauwezi kuendelea tena. Barua pepe ambazo tayari ziko kwenye foleni na arifa zilizotumwa hazirudishwi.",
   "rule-email-recovery-heading": "Utumaji wa barua pepe za kanuni",
-  "rule-email-recovery-description": "Kagua majaribio yaliyorekodiwa ya barua pepe za kanuni. Majaribio ambayo hayajathibitishwa yanaweza kuwa bado yanatuma au yamekatizwa. Ripoti hii haijaribu tena wala kughairi utumaji.",
+  "rule-email-recovery-description": "Kagua majaribio yaliyorekodiwa ya barua pepe za kanuni. Majaribio ambayo hayajathibitishwa yanaweza kuwa bado yanatuma au yamekatizwa. Fungua moja kwa \"Kagua\" ili kulituma tena, kuliwekea alama kuwa limetumwa au kuliondoa.",
   "rule-email-recovery-all": "Majaribio yote",
   "rule-email-recovery-unconfirmed": "Halijathibitishwa",
   "rule-email-recovery-sent": "Imekubaliwa na seva ya barua pepe",

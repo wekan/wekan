@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annulla 'a mannata",
   "activity-recovery-cancel-confirm": "Annullà pe sempe 'a mannata ca resta pe sta attività? Nun se pò ripiglià. 'A posta già 'n coda e ll'avvise già mannate nun se richiammano.",
   "rule-email-recovery-heading": "Mannata 'e posta d''e regule",
-  "rule-email-recovery-description": "Cuntrulla 'e tentative 'e posta d''e regule registrate. 'E tentative nun cunfermate ponno stà ancora mannanno o ponno essere state nterrotte. Stu rapporto nun ripruova e nun annulla 'a mannata.",
+  "rule-email-recovery-description": "Cuntrulla 'e tentative 'e posta d''e regule registrate. 'E tentative nun cunfermate ponno stà ancora mannanno o ponno essere state nterrotte. Arape nu tentativo cu \"Esamina\" pe 'o mannà n'ata vota, signarlo comme mannato o abbandunarlo.",
   "rule-email-recovery-all": "Tutte 'e tentative",
   "rule-email-recovery-unconfirmed": "Nun cunfermato",
   "rule-email-recovery-sent": "Accettato dô server 'e posta",

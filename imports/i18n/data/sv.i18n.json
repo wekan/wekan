@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Avbryt leverans",
   "activity-recovery-cancel-confirm": "Avbryta återstående leverans för denna aktivitet permanent? Den kan inte återupptas. E-post som redan köats och levererade aviseringar återkallas inte.",
   "rule-email-recovery-heading": "E-postleverans från regler",
-  "rule-email-recovery-description": "Granska registrerade försök att skicka e-post från regler. Obekräftade försök kan fortfarande pågå eller ha avbrutits. Denna rapport försöker inte leverera igen och avbryter inte leverans.",
+  "rule-email-recovery-description": "Granska registrerade försök att skicka e-post från regler. Obekräftade försök kan fortfarande pågå eller ha avbrutits. Öppna ett försök med ”Granska” för att skicka det igen, markera det som skickat eller kassera det.",
   "rule-email-recovery-all": "Alla försök",
   "rule-email-recovery-unconfirmed": "Obekräftat",
   "rule-email-recovery-sent": "Accepterat av e-postservern",

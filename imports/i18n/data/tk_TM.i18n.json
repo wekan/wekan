@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Eltmegi ýatyr",
   "activity-recovery-cancel-confirm": "Bu hereket üçin galan eltmegi hemişelik ýatyrmalymy? Muny dowam etdirip bolmaz. Eýýäm nobata goýlan hatlar we eltilen habarnamalar yzyna çagyrylmaýar.",
   "rule-email-recovery-heading": "Düzgün boýunça e-poçta ibermek",
-  "rule-email-recovery-description": "Düzgün boýunça e-poçta ibermegiň ýazga alnan synanyşyklaryny gözden geçiriň. Tassyklanmadyk synanyşyklarda ibermek henizem dowam edýän ýa-da kesilen bolup biler. Bu hasabat ibermegi gaýtalamaýar ýa-da ýatyrmaýar.",
+  "rule-email-recovery-description": "Düzgün boýunça e-poçta ibermegiň ýazga alnan synanyşyklaryny gözden geçiriň. Tassyklanmadyk synanyşyklarda ibermek henizem dowam edýän ýa-da kesilen bolup biler. Birini «Gözden geçir» bilen açyp, ony gaýtadan iberip, iberildi diýip belläp ýa-da aýryp bilersiňiz.",
   "rule-email-recovery-all": "Ähli synanyşyklar",
   "rule-email-recovery-unconfirmed": "Tassyklanmadyk",
   "rule-email-recovery-sent": "Poçta serweri tarapyndan kabul edildi",

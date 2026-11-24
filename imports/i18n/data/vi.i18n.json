@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Hủy gửi",
   "activity-recovery-cancel-confirm": "Hủy vĩnh viễn phần gửi còn lại của hoạt động này? Không thể tiếp tục lại. Thư đã vào hàng đợi và thông báo đã gửi không bị thu hồi.",
   "rule-email-recovery-heading": "Gửi thư theo quy tắc",
-  "rule-email-recovery-description": "Xem xét các lần thử gửi thư theo quy tắc đã ghi nhận. Những lần chưa xác nhận có thể vẫn đang gửi hoặc đã bị gián đoạn. Báo cáo này không thử lại hoặc hủy việc gửi.",
+  "rule-email-recovery-description": "Xem xét các lần thử gửi thư theo quy tắc đã ghi nhận. Những lần chưa xác nhận có thể vẫn đang gửi hoặc đã bị gián đoạn. Mở một lần thử bằng \"Xem xét\" để gửi lại, đánh dấu đã gửi hoặc loại bỏ.",
   "rule-email-recovery-all": "Mọi lần thử",
   "rule-email-recovery-unconfirmed": "Chưa xác nhận",
   "rule-email-recovery-sent": "Đã được máy chủ thư chấp nhận",

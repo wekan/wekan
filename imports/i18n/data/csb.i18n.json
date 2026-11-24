@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Òprzestóń wësëłkã",
   "activity-recovery-cancel-confirm": "Na wiedno òprzestac òstałą wësëłkã dlô ti aktiwnoscë? Nie mòżna ji wznowic. Pòczta ju w kòlejce i dorãczoné pòwiadomienia nie są cofóné.",
   "rule-email-recovery-heading": "Wësëłka elektronicznëch lëstów z reglów",
-  "rule-email-recovery-description": "Przezdrzë zapisóné próbë wësëłczi lëstów z reglów. Niepòcwierdzoné próbë mògą jesz trwac abò mògłë bëc przerwóné. Nen rapòrt nie pòwtôrzô ani nie òprzestôwô wësëłczi.",
+  "rule-email-recovery-description": "Przezdrzë zapisóné próbë wësëłczi lëstów z reglów. Niepòcwierdzoné próbë mògą jesz trwac abò mògłë bëc przerwóné. Òtemkni jedną przez „Przezdrzë”, bë wësłac jã znowa, òznaczëc jakno wësłóną abò òdrzucëc.",
   "rule-email-recovery-all": "Wszëtczé próbë",
   "rule-email-recovery-unconfirmed": "Niepòcwierdzoné",
   "rule-email-recovery-sent": "Przëjãté przez serwer pòcztë",

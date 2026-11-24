@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Otkaži dostavu",
   "activity-recovery-cancel-confirm": "Trajno otkazati preostalu dostavu za ovu aktivnost? Nastavak neće biti moguć. E-pošta koja je već u redu čekanja i dostavljene obavijesti ne opozivaju se.",
   "rule-email-recovery-heading": "Dostava e-poruka pravila",
-  "rule-email-recovery-description": "Pregledajte zabilježene pokušaje slanja e-poruka pravila. Nepotvrđeni pokušaji možda se još šalju ili su prekinuti. Ovo izvješće ne ponavlja niti otkazuje dostavu.",
+  "rule-email-recovery-description": "Pregledajte zabilježene pokušaje slanja e-poruka pravila. Nepotvrđeni pokušaji možda se još šalju ili su prekinuti. Otvorite jedan pomoću „Pregled” da ga ponovno pošaljete, označite kao poslan ili otkažete slanje.",
   "rule-email-recovery-all": "Svi pokušaji",
   "rule-email-recovery-unconfirmed": "Nepotvrđeno",
   "rule-email-recovery-sent": "Prihvatio poslužitelj pošte",

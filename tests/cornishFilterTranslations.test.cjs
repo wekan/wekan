@@ -422,7 +422,10 @@ for (const action of ['pause', 'resume']) {
   assert.equal(locale['activity-recovery-' + action], locale['email-recovery-' + action]);
   assert.notEqual(locale['activity-recovery-' + action], locale['activity-recovery-cancel']);
 }
-assert.match(locale['rule-email-recovery-description'], /ny wra assaya danvon arta na'y hedhi/);
+// 2026-11-24: the pane resends, marks sent and drops now; the old "does not
+// retry or cancel" sentence is gone, and the Review button is named.
+assert.doesNotMatch(locale['rule-email-recovery-description'], /ny wra assaya danvon arta na'y hedhi/);
+assert.ok(locale['rule-email-recovery-description'].includes(locale['rule-email-recovery-review']));
 assert.match(locale['history-request-hint'], /keth govyn.*ny yll diswul nessa chanj nevra/);
 assert.notEqual(locale['history-request-pending-undo'], locale['history-request-pending-redo']);
 assert.notEqual(locale['move-selection-before'], locale['move-selection-after']);

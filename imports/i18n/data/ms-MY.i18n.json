@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Batalkan penghantaran",
   "activity-recovery-cancel-confirm": "Batalkan baki penghantaran untuk aktiviti ini secara kekal? Penghantaran ini tidak boleh disambung semula. E-mel yang sudah berada dalam baris gilir dan pemberitahuan yang telah dihantar tidak ditarik balik.",
   "rule-email-recovery-heading": "Penghantaran e-mel peraturan",
-  "rule-email-recovery-description": "Semak percubaan e-mel peraturan yang direkodkan. Percubaan yang belum disahkan mungkin masih dihantar atau mungkin telah terganggu. Laporan ini tidak mencuba semula atau membatalkan penghantaran.",
+  "rule-email-recovery-description": "Semak percubaan e-mel peraturan yang direkodkan. Percubaan yang belum disahkan mungkin masih dihantar atau mungkin telah terganggu. Buka satu dengan \"Semak\" untuk menghantarnya semula, menandakannya sebagai dihantar atau membatalkannya.",
   "rule-email-recovery-all": "Semua percubaan",
   "rule-email-recovery-unconfirmed": "Belum disahkan",
   "rule-email-recovery-sent": "Diterima oleh pelayan e-mel",

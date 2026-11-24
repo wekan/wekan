@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Tunniussineq unitsiguk",
   "activity-recovery-cancel-confirm": "Sulinermut matumunnga tunniussinissaq sinneruttoq ataavartumik unitsissaviuk? Tamanna nangeqqinneqarsinnaanngilaq. E-mailit utaqqisut nalunaarutillu tunniunneqareersut utertinneqassanngillat.",
   "rule-email-recovery-heading": "Malittarisassat e-mailiinik nassiussineq",
-  "rule-email-recovery-description": "Malittarisassat e-mailiinik nassiussiniarnerit nalunaarsukkat misissuiffigikkit. Uppernarsarneqanngitsut suli nassiunneqarsinnaapput imaluunniit unitsinneqarsimallutik. Nalunaarusiap matuma nassiussineq misileqqinngilaa unitsinnagulu.",
+  "rule-email-recovery-description": "Malittarisassat e-mailiinik nassiussiniarnerit nalunaarsukkat misissuiffigikkit. Uppernarsarneqanngitsut suli nassiunneqarsinnaapput imaluunniit unitsinneqarsimallutik. \"Misissuguk\" atorlugu ataaseq ammaruk nassiuteqqissallugu, nassiunneqarsimasutut nalunaaqutsissallugu imaluunniit peerlugu.",
   "rule-email-recovery-all": "Misiliinerit tamarmik",
   "rule-email-recovery-unconfirmed": "Uppernarsarneqanngitsut",
   "rule-email-recovery-sent": "E-mail-serverimit tiguneqarsimavoq",

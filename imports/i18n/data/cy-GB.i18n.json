@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Canslo dosbarthu",
   "activity-recovery-cancel-confirm": "Canslo'r dosbarthu sy'n weddill ar gyfer y gweithgaredd hwn yn barhaol? Ni ellir ei ailddechrau. Ni chaiff ebyst sydd eisoes yn y ciw na hysbysiadau sydd wedi'u dosbarthu eu galw'n ôl.",
   "rule-email-recovery-heading": "Dosbarthu ebyst rheolau",
-  "rule-email-recovery-description": "Adolygwch yr ymdrechion a gofnodwyd i anfon ebyst rheolau. Gall ymdrechion heb eu cadarnhau fod yn dal i anfon neu fod wedi cael eu hatal. Nid yw'r adroddiad hwn yn ailgeisio nac yn canslo dosbarthu.",
+  "rule-email-recovery-description": "Adolygwch yr ymdrechion a gofnodwyd i anfon ebyst rheolau. Gall ymdrechion heb eu cadarnhau fod yn dal i anfon neu fod wedi cael eu hatal. Agorwch un gydag \"Adolygu\" i'w ailanfon, ei farcio fel wedi'i anfon neu ei ollwng.",
   "rule-email-recovery-all": "Pob ymgais",
   "rule-email-recovery-unconfirmed": "Heb ei gadarnhau",
   "rule-email-recovery-sent": "Derbyniwyd gan y gweinydd post",

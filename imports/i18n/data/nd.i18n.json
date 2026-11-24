@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Khansela ukulethwa",
   "activity-recovery-cancel-confirm": "Khansela unomphela ukulethwa okuseleyo kwalo msebenzi? Lokhu kungeke kuqhutshekwe. Ama-imeyili aselayini lezaziso esezilethiwe kakubuyiswa.",
   "rule-email-recovery-heading": "Ukufikiswa kwama-imeyili emithetho",
-  "rule-email-recovery-description": "Hlola imizamo ebhaliweyo yokuthumela ama-imeyili emithetho. Imizamo engaqinisekiswanga ingabe isathumela kumbe iphazamisekile. Lo umbiko kawuphindi uthumele njalo kawukhanseli ukuthumela.",
+  "rule-email-recovery-description": "Hlola imizamo ebhaliweyo yokuthumela ama-imeyili emithetho. Imizamo engaqinisekiswanga ingabe isathumela kumbe iphazamisekile. Vula owodwa ngo-\"Hlola\" ukuze uwuthumele futhi, uwumake njengothunyelweyo kumbe uwukhansele.",
   "rule-email-recovery-all": "Yonke imizamo",
   "rule-email-recovery-unconfirmed": "Akuqinisekiswanga",
   "rule-email-recovery-sent": "Yamukelwe yiseva ye-imeyili",

@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Afturkalla afhendingu",
   "activity-recovery-cancel-confirm": "Afturkalla varanlega eftirstandandi afhendingu fyrir þessa aðgerð? Ekki verður hægt að halda henni áfram. Tölvupóstur sem þegar er í biðröð og afhentar tilkynningar eru ekki afturkölluð.",
   "rule-email-recovery-heading": "Afhending reglutölvupósts",
-  "rule-email-recovery-description": "Yfirfarðu skráðar tilraunir til að senda reglutölvupóst. Óstaðfestar tilraunir kunna enn að vera í sendingu eða hafa rofnað. Þessi skýrsla endurtekur ekki eða afturkallar afhendingu.",
+  "rule-email-recovery-description": "Yfirfarðu skráðar tilraunir til að senda reglutölvupóst. Óstaðfestar tilraunir kunna enn að vera í sendingu eða hafa rofnað. Opnaðu eina með „Yfirfara“ til að endursenda hana, merkja hana sem senda eða fella hana niður.",
   "rule-email-recovery-all": "Allar tilraunir",
   "rule-email-recovery-unconfirmed": "Óstaðfest",
   "rule-email-recovery-sent": "Samþykkt af póstþjóni",

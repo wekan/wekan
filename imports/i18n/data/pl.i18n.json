@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Anuluj dostarczanie",
   "activity-recovery-cancel-confirm": "Trwale anulować pozostałe dostarczenia dla tej aktywności? Nie będzie można ich wznowić. E-maile już umieszczone w kolejce i dostarczone powiadomienia nie zostaną wycofane.",
   "rule-email-recovery-heading": "Wysyłka e-maili z reguł",
-  "rule-email-recovery-description": "Sprawdź zapisane próby wysyłki e-maili z reguł. Niepotwierdzone próby mogą nadal trwać lub być przerwane. Ten raport nie ponawia ani nie anuluje dostarczania.",
+  "rule-email-recovery-description": "Sprawdź zapisane próby wysyłki e-maili z reguł. Niepotwierdzone próby mogą nadal trwać lub być przerwane. Otwórz próbę przyciskiem „Sprawdź”, aby wysłać ją ponownie, oznaczyć jako wysłaną lub odrzucić.",
   "rule-email-recovery-all": "Wszystkie próby",
   "rule-email-recovery-unconfirmed": "Niepotwierdzone",
   "rule-email-recovery-sent": "Przyjęte przez serwer pocztowy",

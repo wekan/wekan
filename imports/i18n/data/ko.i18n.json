@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "전송 취소",
   "activity-recovery-cancel-confirm": "이 활동의 남은 전송을 영구적으로 취소할까요? 재개할 수 없습니다. 이미 대기열에 있는 이메일과 전송된 알림은 회수되지 않습니다.",
   "rule-email-recovery-heading": "규칙 이메일 전송",
-  "rule-email-recovery-description": "기록된 규칙 이메일 전송 시도를 검토하세요. 확인되지 않은 시도는 아직 전송 중이거나 중단되었을 수 있습니다. 이 보고서는 전송을 재시도하거나 취소하지 않습니다.",
+  "rule-email-recovery-description": "기록된 규칙 이메일 전송 시도를 검토하세요. 확인되지 않은 시도는 아직 전송 중이거나 중단되었을 수 있습니다. \"검토\"로 하나를 열어 재전송하거나, 전송 완료로 표시하거나, 전송을 취소하세요.",
   "rule-email-recovery-all": "모든 시도",
   "rule-email-recovery-unconfirmed": "확인되지 않음",
   "rule-email-recovery-sent": "메일 서버가 수락함",

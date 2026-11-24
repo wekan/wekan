@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Annulla lu nviu",
   "activity-recovery-cancel-confirm": "Annullari pi sempri lu nviu ristanti pi st'attività? Nun si pò ripigghiari. Li missaggi già nta la fila e l'avvisi già mannati nun vennu richiamati.",
   "rule-email-recovery-heading": "Nviu di missaggi di règuli",
-  "rule-email-recovery-description": "Esamina li tintativi riggistrati di nviu di missaggi di règuli. Li tintativi nun cunfirmati ponnu èssiri ancora in cursu o ponnu èssiri stati ntirrutti. Stu rapportu nun prova arrè lu nviu e nun l'annulla.",
+  "rule-email-recovery-description": "Esamina li tintativi riggistrati di nviu di missaggi di règuli. Li tintativi nun cunfirmati ponnu èssiri ancora in cursu o ponnu èssiri stati ntirrutti. Grapi nu tintativu cu «Talìa» pi mannallu n'autra vota, signallu comu mannatu o abbannunallu.",
   "rule-email-recovery-all": "Tutti li tintativi",
   "rule-email-recovery-unconfirmed": "Nun cunfirmatu",
   "rule-email-recovery-sent": "Accittatu di lu sirvituri di posta",

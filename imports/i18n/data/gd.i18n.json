@@ -4523,7 +4523,7 @@
   "activity-recovery-cancel": "Sguir de lìbhrigeadh",
   "activity-recovery-cancel-confirm": "An sguir thu gu buan dhen lìbhrigeadh a tha air fhàgail airson na gnìomhachd seo? Cha ghabh leantainn air a-rithist. Cha tèid post-d a tha sa chiudha mu thràth no brathan a chaidh an lìbhrigeadh a thoirt air ais.",
   "rule-email-recovery-heading": "Lìbhrigeadh puist-d nan riaghailtean",
-  "rule-email-recovery-description": "Thoir sùil air na h-oidhirpean clàraichte gus puist-d nan riaghailtean a chur. Dh'fhaodadh oidhirpean gun dearbhadh a bhith fhathast a' cur no gun deach am briseadh. Cha dèan an aithisg seo oidhirp eile agus cha chuir i stad air an lìbhrigeadh.",
+  "rule-email-recovery-description": "Thoir sùil air na h-oidhirpean clàraichte gus puist-d nan riaghailtean a chur. Dh'fhaodadh oidhirpean gun dearbhadh a bhith fhathast a' cur no gun deach am briseadh. Fosgail tè le \"Lèirmheas\" gus a cur a-rithist, comharrachadh gun deach a cur no a leigeil seachad.",
   "rule-email-recovery-all": "A h-uile oidhirp",
   "rule-email-recovery-unconfirmed": "Gun dearbhadh",
   "rule-email-recovery-sent": "Air gabhail ris leis an fhrithealaiche puist",
