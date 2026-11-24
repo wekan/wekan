@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | Whether WeKan should encrypt attachments itself; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | Whether WeKan should encrypt attachments itself; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -40,13 +40,6 @@ details; WeKan's are below.
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
 section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
-- The help button (?): `feature-help.e2e.js` was run on 2026-11-24 against
-  a live server in Chromium - 1 passed, 2 failed. The popup opens with both
-  headings and texts, but Escape does not close it (the first test waits for
-  the popup to go and for the focus to return to the ?), and the second test
-  cannot find the board menu where it looks (`.board-sidebar
-  .js-open-board-menu`; in this layout it is the ☰ at the top right). The
-  button, its texts and their translations are released (v13.28).
 - The Meteor test build (`meteor test --full-app`) ran out of memory before
   any test started after the help texts grew every locale file; the release
   build (`meteor build`) still works. To find out why and fix it, then run

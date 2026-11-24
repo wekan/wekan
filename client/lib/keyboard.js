@@ -28,13 +28,18 @@ const hotkeys = require('hotkeys-js').default;
 // CRITICAL: Return values are INVERTED from Mousetrap's stopCallback
 // hotkeys filter: true = ALLOW shortcut, false = STOP shortcut
 hotkeys.filter = (event) => {
+  // Always handle escape - FIRST, even for a member who turned keyboard
+  // shortcuts off: Escape is how a popup or a menu is closed from the
+  // keyboard (WCAG 2.1.2 No Keyboard Trap, 1.4.13 dismissible), not a
+  // shortcut. Checked after the setting, it left every popup open for them
+  // (found by tests/playwright/specs/feature-help.e2e.js, whose seeded user
+  // has shortcuts off).
+  if (event.keyCode === 27)
+    return true;
+
   // Are shortcuts enabled for the user?
   if (ReactiveCache.getCurrentUser() && !ReactiveCache.getCurrentUser().isKeyboardShortcuts())
     return false;
-
-  // Always handle escape
-  if (event.keyCode === 27)
-    return true;
 
   // Make sure there are no selected characters
   if (window.getSelection().type === "Range")
