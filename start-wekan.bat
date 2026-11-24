@@ -940,7 +940,7 @@ REM # WORKLOAD_ABSENCE_RETENTION_DAYS: Days after its end a workload absence is 
 REM SET WORKLOAD_ABSENCE_RETENTION_DAYS=
 REM # WORKLOAD_ABSENCE_TYPE_RECORDED: false stores every new workload absence as "other", so no sick leave is recorded.
 REM SET WORKLOAD_ABSENCE_TYPE_RECORDED=
-REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/Attachments.md
+REM # Attachment retention, off unless set. See docs/Features/Cards/Attachments/README.md
 REM SET ATTACHMENTS_RETENTION_DAYS=730
 REM SET ATTACHMENTS_RETENTION_MODE=uploaded
 REM SET ATTACHMENTS_PURGE_DELETED_AFTER_DAYS=30

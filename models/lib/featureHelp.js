@@ -1,4 +1,4 @@
-// The ? button of every feature place (docs/Features/General/Help-Button.md).
+// The ? button of every feature place (docs/Features/Help-Button.md).
 //
 // One help point per place in the interface. Each has two translated texts,
 // "What is it?" and "How it works?", rewritten for the person using WeKan from
@@ -16,8 +16,8 @@
 // the id: help-<id>-what-it-is-description and help-<id>-how-it-works-description.
 const FEATURES = {
   // Board views - the ? beside the Board View menu, for the view that is on.
-  'board-view-swimlanes': 'docs/Features/Swimlanes/Swimlanes.md',
-  'board-view-lists': 'docs/Features/Lists/Lists.md',
+  'board-view-swimlanes': 'docs/Features/Swimlanes/README.md',
+  'board-view-lists': 'docs/Features/Lists/README.md',
   'board-view-table': 'docs/Features/Board-Header/Board-Views/Table-View.md',
   'board-view-cal': 'docs/Features/Board-Header/Board-Views/Calendar.md',
   'board-view-calendar-mode': 'docs/Features/Board-Header/Board-Views/Calendar-Mode.md',
@@ -41,18 +41,18 @@ const FEATURES = {
   'board-view-chat': 'docs/Features/Board-Header/Board-Views/Chat-View.md',
   'board-view-version-control': 'docs/Features/Board-Header/Board-Views/Version-Control-View.md',
   'board-view-column-sets': 'docs/Features/Board-Header/Board-Views/Column-Sets.md',
-  'board-view-website': 'docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md',
+  'board-view-website': 'docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md',
   'board-view-shop': 'docs/Features/Board-Header/Board-Views/Shop.md',
 
   // The board's right sidebar - the ? in the heading of the view that is open.
   'sidebar-filter': 'docs/Features/Board-Sidebar/Filter/README.md',
   'sidebar-search': 'docs/Features/Board-Header/Search.md',
-  'sidebar-multiselection': 'docs/Features/General/Multi-Selection.md',
-  'sidebar-custom-fields': 'docs/Features/Cards/CustomFields/CustomFields.md',
+  'sidebar-multiselection': 'docs/Features/Multi-Selection.md',
+  'sidebar-custom-fields': 'docs/Features/Cards/CustomFields/README.md',
   'sidebar-archives': 'docs/Features/Board-Sidebar/Archive/Archive-and-Delete.md',
-  'sidebar-original-positions': 'docs/Features/General/Original-Positions/Original-Positions.md',
-  'sidebar-summary': 'docs/Features/General/Summary/Summary.md',
-  'sidebar-since-last-visit': 'docs/Features/General/Since-Last-Visit/Since-Last-Visit.md',
+  'sidebar-original-positions': 'docs/Features/Original-Positions/README.md',
+  'sidebar-summary': 'docs/Features/Summary/README.md',
+  'sidebar-since-last-visit': 'docs/Features/Since-Last-Visit/README.md',
 
   // The board header's popups.
   'board-visibility': 'docs/Features/Board-Header/Visibility.md',
@@ -71,19 +71,19 @@ const FEATURES = {
   'board-settings-list': 'docs/Features/Board-Sidebar/Board-Settings/List.md',
   'board-settings-shop': 'docs/Features/Board-Sidebar/Board-Settings/Shop.md',
   'board-settings-card': 'docs/Features/Board-Sidebar/Board-Settings/Card.md',
-  'board-settings-import-export': 'docs/Features/Board-Sidebar/Board-Settings/Import-Export.md',
+  'board-settings-import-export': 'docs/Features/Board-Sidebar/Board-Settings/Import-Export/README.md',
   'board-settings-notifications': 'docs/Features/Board-Sidebar/Board-Settings/Notifications.md',
   'board-settings-webhooks': 'docs/Features/Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md',
   'board-settings-scrum-meetings': 'docs/Features/Board-Sidebar/Board-Settings/Scrum-Meetings.md',
   'board-settings-wip-limit-groups': 'docs/Features/Lists/WipLimit/WIP-Limit-Groups.md',
   'board-settings-subtasks': 'docs/Features/Cards/Subtasks.md',
-  'rules': 'docs/Features/Rules/Rules/Rules.md',
+  'rules': 'docs/Features/Rules/Rules/README.md',
 
   // Member Settings - the user menu and the popups it opens.
   'member-settings': 'docs/Features/Member-Settings/README.md',
   'member-edit-profile': 'docs/Features/Member-Settings/Edit-Profile.md',
   'member-change-settings': 'docs/Features/Member-Settings/Change-Settings.md',
-  'member-change-color': 'docs/Features/General/Theme/Change-Color.md',
+  'member-change-color': 'docs/Features/Theme/Change-Color.md',
   'member-change-font': 'docs/Features/Member-Settings/Change-Font.md',
   'member-change-avatar': 'docs/Features/Member-Settings/Change-Avatar.md',
   'member-change-password': 'docs/Features/Member-Settings/Change-Password.md',
@@ -104,19 +104,19 @@ const FEATURES = {
   'card-members': 'docs/Features/Cards/Requested-Assigned-By.md',
   'card-fields': 'docs/Features/Cards/Card-Fields.md',
   'card-time': 'docs/Features/Cards/Time-Tracking.md',
-  'card-custom-fields': 'docs/Features/Cards/CustomFields/CustomFields.md',
+  'card-custom-fields': 'docs/Features/Cards/CustomFields/README.md',
   'card-planning-poker': 'docs/Features/Cards/Planning-Poker.md',
   'card-scrum': 'docs/Features/Cards/Scrum.md',
-  'card-description': 'docs/Features/General/Editor/Markdown-Editor.md',
+  'card-description': 'docs/Features/Editor/Markdown-Editor.md',
   'card-checklists': 'docs/Features/Cards/Checklists.md',
   'card-subtasks': 'docs/Features/Cards/Subtasks.md',
-  'card-attachments': 'docs/Features/Cards/Attachments/Attachments.md',
+  'card-attachments': 'docs/Features/Cards/Attachments/README.md',
   'card-comments': 'docs/Features/Cards/Comment-Replies-And-Editing-Restriction.md',
-  'card-stickers': 'docs/Features/Cards/Stickers/Stickers.md',
-  'card-locations': 'docs/Features/Cards/Locations/Locations.md',
-  'card-dependencies': 'docs/Features/General/Editor/RedStrings/RedStrings.md',
+  'card-stickers': 'docs/Features/Cards/Stickers/README.md',
+  'card-locations': 'docs/Features/Cards/Locations/README.md',
+  'card-dependencies': 'docs/Features/Editor/RedStrings/README.md',
   'card-action-items': 'docs/Features/Cards/Action-Items.md',
-  'card-history': 'docs/Features/General/History/History.md',
+  'card-history': 'docs/Features/History/README.md',
   'card-qr-code': 'docs/Features/Cards/QR-Code.md',
   'card-move': 'docs/Features/Cards/Move-Card.md',
   'card-copy': 'docs/Features/Cards/Copy-Card.md',
@@ -127,7 +127,7 @@ const FEATURES = {
   'card-more': 'docs/Features/Cards/More.md',
   'card-create-board': 'docs/Features/Cards/Create-Board-From-Card.md',
   'card-link-to-board': 'docs/Features/Cards/Link-To-Board.md',
-  'card-actions': 'docs/Features/Cards/Cards.md',
+  'card-actions': 'docs/Features/Cards/README.md',
 
   // Admin Panel - the ? beside the open pane's title.
   'admin-version': 'docs/Features/Admin-Panel/Settings/Version.md',
@@ -138,7 +138,7 @@ const FEATURES = {
   'admin-activities': 'docs/Features/Admin-Panel/Settings/Activities-and-Notifications.md',
   'admin-delete': 'docs/Features/Admin-Panel/Settings/Delete.md',
   'admin-announcement': 'docs/Features/Admin-Panel/Settings/Announcement.md',
-  'admin-accessibility': 'docs/Features/Admin-Panel/Settings/Accessibility.md',
+  'admin-accessibility': 'docs/Features/Accessibility/Admin-Panel-Settings.md',
   'admin-translation': 'docs/Features/Admin-Panel/Settings/Translation.md',
   'admin-pwa': 'docs/Features/Admin-Panel/Settings/PWA.md',
   'admin-global-webhooks': 'docs/Features/Admin-Panel/Settings/Global-Webhooks.md',
@@ -148,7 +148,7 @@ const FEATURES = {
   'admin-domains': 'docs/Features/Admin-Panel/People/Domains.md',
   'admin-organizations': 'docs/Features/Admin-Panel/People/Organizations.md',
   'admin-teams': 'docs/Features/Admin-Panel/People/Teams.md',
-  'admin-people': 'docs/Features/Admin-Panel/People/People.md',
+  'admin-people': 'docs/Features/Admin-Panel/People/README.md',
   'admin-locked-users': 'docs/Features/Admin-Panel/People/Locked-Users.md',
   'admin-audit-log': 'docs/Features/Admin-Panel/People/Audit-Log.md',
   'admin-roles': 'docs/Features/Admin-Panel/People/Roles.md',
@@ -188,9 +188,9 @@ const FEATURES = {
   'admin-cloud': 'docs/Features/Admin-Panel/Cloud-Panel.md',
 
   // Pages of their own.
-  'all-boards': 'docs/Features/All-Boards/All-Boards.md',
-  'workload': 'docs/Features/Workload/Workload.md',
-  'billing': 'docs/Features/Billing/Billing.md',
+  'all-boards': 'docs/Features/All-Boards/README.md',
+  'workload': 'docs/Features/Workload/README.md',
+  'billing': 'docs/Features/Billing/README.md',
 };
 
 // The Board View menu: a view -> its help. Views drawn from the same page of

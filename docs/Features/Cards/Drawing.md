@@ -22,7 +22,7 @@ handwritten note beside the card's text.
   [Lasso tool](https://en.wikipedia.org/wiki/Lasso_tool),
   [Point in polygon](https://en.wikipedia.org/wiki/Point_in_polygon) and
   [Z-order](https://en.wikipedia.org/wiki/Z-order) (front and back).
-- In WeKan: [Whiteboard](Whiteboard.md), [Cover](Cover/Cover.md), [Attachments](Attachments/Attachments.md).
+- In WeKan: [Whiteboard](Whiteboard.md), [Cover](Cover/README.md), [Attachments](Attachments/README.md).
 
 ## How to use it
 

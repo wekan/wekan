@@ -3,7 +3,7 @@
 ## What it is
 
 List menu (☰ in the list header) → **Select all cards in this list** adds the
-list's cards to the board's [Multi-Selection](../General/Multi-Selection.md)
+list's cards to the board's [Multi-Selection](../Multi-Selection.md)
 and closes the menu. Whatever the Multi-Selection sidebar offers can then be
 done to all of them at once. Selecting changes nothing on the board by itself.
 
@@ -11,7 +11,7 @@ done to all of them at once. Selecting changes nothing on the board by itself.
 
 - [Selection (user interface)](https://en.wikipedia.org/wiki/Selection_(user_interface))
   on Wikipedia - selecting many items to act on them together.
-- [Multi-Selection](../General/Multi-Selection.md) - what can be done to the
+- [Multi-Selection](../Multi-Selection.md) - what can be done to the
   selected cards.
 - [List menu / Archive all cards in this list](Archive-All-Cards.md) - the
   same cards, archived in one step.

@@ -9,10 +9,10 @@ and accessibility controls are at the top of the sidebar. The pages below
 describe each part.
 
 - [Board Settings](Board-Settings/README.md)
-- [Members and permissions](Members/Members.md)
-- [Labels and card content](../Cards/Cards.md)
-- [Keyboard shortcuts](../General/Keyboard-Shortcuts/Keyboard-Shortcuts.md)
-- [Accessibility](../General/Accessibility/Accessibility.md)
+- [Members and permissions](Members/README.md)
+- [Labels and card content](../Cards/README.md)
+- [Keyboard shortcuts](../Keyboard-Shortcuts/README.md)
+- [Accessibility](../Accessibility/README.md)
 - [Activity rendering](../Board-Header/Board-Views/Activity-Rendering.md)
 - [Filter](Filter/README.md)
 - [Archive](Archive/Archive-and-Delete.md)

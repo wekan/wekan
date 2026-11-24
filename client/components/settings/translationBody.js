@@ -3,7 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
 // Admin Panel / Settings / Translation, through the shared table page
-// (docs/Features/General/Table.md). The pane differs from every other table page only
+// (docs/Features/Table.md). The pane differs from every other table page only
 // in this column list: its rows are interactive - an Edit link and the ⋯ menu -
 // so it supplies a rowTemplate, and the "New" link is the header of the FIRST
 // column, supplied as a headerTemplate. First, because that is where every other

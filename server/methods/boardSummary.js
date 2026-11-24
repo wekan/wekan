@@ -10,7 +10,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
 import { featureOnFor } from '/server/lib/assistGate';
 
-// Board menu -> Summary (docs/Features/General/Summary/Summary.md). The
+// Board menu -> Summary (docs/Features/Summary/README.md). The
 // grouping is models/lib/boardSummary.js; this reads a board the caller may
 // read, and for an assigned-only member only the cards assigned to them, so
 // the summary shows nothing the activity feed would not.

@@ -10,9 +10,9 @@ Separate limits are kept for **known users** (an existing account: correct
 username, wrong password) and **unknown users** (a username with no account),
 so guessing usernames cannot lock out real people faster than it is worth.
 
-Who is locked out right now is shown in [People](People.md): a red lock in the
+Who is locked out right now is shown in [People](README.md): a red lock in the
 **Status** column, and the **Locked Users Only** choice of its **Show:**
-filter. **Unlock All** is one of the actions in [People](People.md). (This
+filter. **Unlock All** is one of the actions in [People](README.md). (This
 pane itself shows only the settings; it no longer lists the locked accounts.)
 
 ## Read more

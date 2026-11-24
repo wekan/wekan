@@ -13,8 +13,8 @@ refuses, for anybody who is not `isAdmin`.
 
 - [Audit trail](https://en.wikipedia.org/wiki/Audit_trail) - a record of who
   did what, and when.
-- WeKan: [People](../People/People.md) - where impersonation starts;
-  [table page](../../General/Table.md); [REST API](../../../API/REST-API.md).
+- WeKan: [People](../People/README.md) - where impersonation starts;
+  [table page](../../Table.md); [REST API](../../../API/REST-API.md).
 
 ## How to use it
 
@@ -66,7 +66,7 @@ The export rows are written by [models/export.js](../../../../models/export.js),
 [models/exportPDF.js](../../../../models/exportPDF.js); the other two by
 [server/models/users.js](../../../../server/models/users.js).
 
-The table is the shared [table page](../../General/Table.md), fetched one page
+The table is the shared [table page](../../Table.md), fetched one page
 at a time from the server
 ([server/publications/impersonationReport.js](../../../../server/publications/impersonationReport.js):
 the `impersonationReport` publication and the `getImpersonationReportCount`

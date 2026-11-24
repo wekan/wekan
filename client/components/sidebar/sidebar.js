@@ -350,7 +350,7 @@ Template.sidebar.helpers({
   getViewTitle() {
     return Sidebar && Sidebar.getViewTitle();
   },
-  // The open view's ? (docs/Features/General/Help-Button.md).
+  // The open view's ? (docs/Features/Help-Button.md).
   sidebarHelp() {
     return Sidebar && sidebarViewHelpId(Sidebar.getView());
   },
@@ -598,7 +598,7 @@ Template.boardMenuPopup.events({
     }
     Popup.back();
   },
-  // Board menu -> Summary (docs/Features/General/Summary/Summary.md).
+  // Board menu -> Summary (docs/Features/Summary/README.md).
   'click .js-open-board-summary'() {
     if (Sidebar) {
       Sidebar.setView('boardSummary');
@@ -606,7 +606,7 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   // Board menu -> Since your last visit
-  // (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md).
+  // (docs/Features/Since-Last-Visit/README.md).
   'click .js-open-since-last-visit'() {
     if (Sidebar) {
       Sidebar.setView('sinceLastVisit');

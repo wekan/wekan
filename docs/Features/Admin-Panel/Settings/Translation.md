@@ -17,7 +17,7 @@ from [Transifex](https://explore.transifex.com/wekan/wekan/).
   on Wikipedia.
 - [WeKan on Transifex](https://explore.transifex.com/wekan/wekan/) - where the
   built-in translations are made.
-- [Table page](../../General/Table.md) - the shared table this pane is drawn
+- [Table page](../../Table.md) - the shared table this pane is drawn
   with.
 
 ## How to use it

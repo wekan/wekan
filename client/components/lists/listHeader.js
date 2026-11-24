@@ -713,7 +713,7 @@ Template.listMorePopup.events({
         ],
       }).length === 0
     ) {
-      // Soft delete (docs/Features/Undo/Undo.md): mark the list + its cards deleted
+      // Soft delete (docs/Features/Undo/README.md): mark the list + its cards deleted
       // (server cascades) instead of destroying them, so the delete is restorable
       // and undoable (#1023). Replaces the old hard Cards.remove / Lists.remove.
       Meteor.call('lists.softRemove', list._id);

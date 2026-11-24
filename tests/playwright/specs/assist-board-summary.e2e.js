@@ -1,6 +1,6 @@
 'use strict';
 
-// Board menu -> Summary (docs/Features/General/Summary/Summary.md): the menu
+// Board menu -> Summary (docs/Features/Summary/README.md): the menu
 // entry, the groups per person, Last week, and the entry and the server
 // answer gone when Admin Panel / Settings / Visibility / Features turns it off.
 

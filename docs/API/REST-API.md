@@ -270,7 +270,7 @@ curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
 # Attachments
 
 Deleting an attachment from a card is a **soft delete** (see
-[History.md §12](../Features/General/History/History.md)): the file is kept,
+[History.md §12](../Features/History/README.md)): the file is kept,
 the card and the minicard badge hide it, and the card history - or this API -
 restores it. There is **no hard delete of a single attachment** over the API;
 the one hard delete is deleting an archived board with Admin Panel / Problems /

@@ -13,7 +13,7 @@ are its members and assignees* without opening the boards one by one.
   board, lists and cards this report lists.
 - WeKan: [Broken Cards](Broken-Cards.md) - the cards that are missing a board,
   swimlane or list; [Boards Report](Boards-Report.md);
-  [Table page](../../General/Table.md).
+  [Table page](../../Table.md).
 
 ## How to use it
 
@@ -57,7 +57,7 @@ The pane is read-only.
   `publishReportPage`.
 - [client/components/settings/adminProblems.js](../../../../client/components/settings/adminProblems.js) -
   the `report-cards` column spec in `REPORT_TABLES`, drawn by the shared
-  [table page](../../General/Table.md).
+  [table page](../../Table.md).
 - Tests: [tests/adminPageRows.test.cjs](../../../../tests/adminPageRows.test.cjs),
   [tests/paginationIndexes.test.cjs](../../../../tests/paginationIndexes.test.cjs)
   (the index-backed sort) and

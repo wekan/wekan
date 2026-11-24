@@ -14,7 +14,7 @@ can carry it.
   launcher gesture the Remove bar follows
 - [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
   (MDN) - why the check is made in `dragover` with a type name
-- [All Boards](All-Boards.md), [All Boards URLs](URLs.md) and
+- [All Boards](README.md), [All Boards URLs](URLs.md) and
   [Archive](Archive.md) in these docs
 
 ## How to use it
@@ -188,7 +188,7 @@ must not thereby decide which board that user starts in
 
 ### Related
 
-- [All Boards](All-Boards.md) — the page this is a section of
+- [All Boards](README.md) — the page this is a section of
 - [All Boards URLs](URLs.md) — `/allboards/home`
 - [Archive](Archive.md) — the other section a board is dragged onto
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md) — what archiving a board does

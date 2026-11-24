@@ -109,7 +109,7 @@ canvas - see each chart's prerequisites below.
   across more than one time period, to show a bar per period.
 - **WIP Run** - needs at least 3 lists (so the middle lists count as "in
   progress") and cards moved through them over time; a WIP limit line is
-  drawn when lists have a [WIP Limit](../../../Lists/WipLimit/WipLimit.md) set.
+  drawn when lists have a [WIP Limit](../../../Lists/WipLimit/README.md) set.
 - **Pulse** - a 30-day activity count, independent of card dates; any board
   activity (card create/move/comment/etc.) in the last 30 days is enough -
   see [#1292](https://github.com/wekan/wekan/issues/1292). Pulse also shows a
@@ -221,7 +221,7 @@ fed by [server/lib/boardChartData.js](../../../../../server/lib/boardChartData.j
   are layouts, not charts.
 - [Burndown and Velocity Chart](Burndown-and-Velocity-Chart.md) - the
   older, separate burndown/velocity write-up.
-- [WIP Limits](../../../Lists/WipLimit/WipLimit.md).
+- [WIP Limits](../../../Lists/WipLimit/README.md).
 
 ## Commits
 

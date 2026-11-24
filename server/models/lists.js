@@ -25,7 +25,7 @@ const { publicErrorData } = require('/server/lib/apiResponseHelpers');
 
 const hasBoardWriteAccess = allowIsBoardMemberWithWriteAccess;
 
-// Soft delete (docs/Features/Undo/Undo.md): mark a list — and cascade-mark its live
+// Soft delete (docs/Features/Undo/README.md): mark a list — and cascade-mark its live
 // cards with the SAME deleteBatchId — instead of destroying them, and record a
 // reversible 'delete' in position history. Restore/undo is all-or-nothing per batch.
 // Shared by the `lists.softRemove` method and the REST DELETE endpoint. Returns the
@@ -990,7 +990,7 @@ WebApp.handlers.delete('/api/boards/:boardId/lists/:listId', async function(req,
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
       await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-    // Soft delete (docs/Features/Undo/Undo.md): mark deleted + cascade, don't destroy.
+    // Soft delete (docs/Features/Undo/README.md): mark deleted + cascade, don't destroy.
     const list = await Lists.findOneAsync({ _id: paramListId, boardId: paramBoardId });
     // A list that is not on this board, or is already deleted, is 404 - not a
     // 200 for a deletion that did nothing.

@@ -57,7 +57,7 @@ upload. An upload error is shown at the top of the popup.
   stops avatars from being imported or synced at login.
 
 Administrators can change another user's avatar from
-[Admin Panel / People](../Admin-Panel/People/People.md).
+[Admin Panel / People](../Admin-Panel/People/README.md).
 
 ## How the numbers are calculated
 

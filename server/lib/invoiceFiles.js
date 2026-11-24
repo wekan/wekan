@@ -1,4 +1,4 @@
-// The files of an invoice (docs/Features/Billing/Billing.md): PDF, Excel, CSV
+// The files of an invoice (docs/Features/Billing/README.md): PDF, Excel, CSV
 // and UBL. Every label is in the requesting user's language; the payment
 // codes (QR codes, the Finnish bank barcode) are drawn as vectors, so they
 // print sharp at any size.

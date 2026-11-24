@@ -15,7 +15,7 @@ change the board.
   on Wikipedia
 - [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
   (MDN)
-- [All Boards](All-Boards.md), [The All Boards URLs](URLs.md) and
+- [All Boards](README.md), [The All Boards URLs](URLs.md) and
   [Left menu](Left-Menu.md) in these docs
 
 ## How to use it
@@ -71,7 +71,7 @@ return to **Remaining**.
 
 ## How it works in WeKan
 
-A **workspace** is a folder for boards, in the left menu of [All Boards](All-Boards.md).
+A **workspace** is a folder for boards, in the left menu of [All Boards](README.md).
 It holds boards — a board is assigned to one — and it holds **other workspaces**,
 to any depth. The tree is per user: `profile.boardWorkspacesTree` on the user
 document, a plain array of `{ id, name, icon, iconColor, children }`.
@@ -209,7 +209,7 @@ itself), which puts a child's caret under its parent's **name**.
 
 ### Related
 
-- [All Boards](All-Boards.md) — the page this menu belongs to
+- [All Boards](README.md) — the page this menu belongs to
 - [The All Boards URLs](URLs.md) — how a workspace is addressed
 - [Left menu](Left-Menu.md) — the panel it is drawn in, and its own fold
 

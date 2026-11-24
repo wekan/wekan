@@ -1,6 +1,6 @@
 'use strict';
 
-// The shared table page — docs/Features/General/Table.md.
+// The shared table page — docs/Features/Table.md.
 //
 // Files, Rules, Boards, Cards, Impersonation, Recovery and the four event streams
 // (Security, Speed, Tests, CPU usage) used to be ten copies of the same page: the
@@ -22,7 +22,7 @@
 // removed from the app code.
 //
 // Files under test are the ones listed in the Related files table of
-// docs/Features/General/Table.md.
+// docs/Features/Table.md.
 //
 // Run: node tests/tablePage.test.cjs
 
@@ -45,7 +45,7 @@ const jade = read('client/components/settings/tablePage.jade');
 const css = read('client/components/settings/tablePage.css');
 const reportsJade = read('client/components/settings/adminProblems.jade');
 const reportsJs = read('client/components/settings/adminProblems.js');
-const doc = read('docs/Features/General/Table.md');
+const doc = read('docs/Features/Table.md');
 
 // Load the ES module helpers without a bundler: strip the export keywords.
 const lib = {};
@@ -300,7 +300,7 @@ test('every paginated page loads the SAME ten rows at a time', () => {
   // page, the Admin Panel reports and event streams, the People panes, the search
   // pages and the archive. A page that writes its own is the bug this pins.
   assert.strictEqual(lib.TABLE_PAGE_ROWS_PER_PAGE, 10,
-    'the app pages ten rows at a time (docs/Features/General/Table.md)');
+    'the app pages ten rows at a time (docs/Features/Table.md)');
   const sources = {
     'client/components/settings/adminProblems.js':
       ['const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;',
@@ -352,7 +352,7 @@ test('the design doc lists the pages and they exist in code', () => {
 });
 
 test('pages that use the design link back to it', () => {
-  for (const p of ['docs/Features/General/History/History.md',
+  for (const p of ['docs/Features/History/README.md',
     'docs/Features/Admin-Panel/Problems/CPU-usage.md',
     'docs/Features/Admin-Panel/Problems/Recovery.md']) {
     const src = read(p);
@@ -441,7 +441,7 @@ test('the design doc explains the theming', () => {
 // is the split this whole change removed. The last three cover the OTHER pagers
 // (People/Org/Team/Domain, the board Table view, Translation): those are not
 // table pages, but they share the themed pager stylesheet listed in
-// docs/Features/General/Table.md, so a change there reaches them too.
+// docs/Features/Table.md, so a change there reaches them too.
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ── performance: paginated + index-backed sorts ─────────────────────────────
@@ -480,7 +480,7 @@ test('eventlog has a {stream,at} index so Security/Speed/Tests pages stay fast',
 // ── one controls row, defined once for every report ──
 test('report tables have no Search button (Enter searches) and ONE shared controls row', () => {
   // The six reports used to carry six copies of this row. They now render
-  // through the shared table page (docs/Features/General/Table.md), so the row exists
+  // through the shared table page (docs/Features/Table.md), so the row exists
   // once, in one template, with one set of handlers.
   const jade = read('client/components/settings/tablePage.jade');
   assert.ok(!/-search-button/.test(jade), 'the Search button must be gone (typing + Enter searches)');

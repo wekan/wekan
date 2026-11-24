@@ -8,7 +8,7 @@ import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { loadSinceLastVisit, previousVisit } from '/client/lib/boardVisits';
 import './sidebarSinceLastVisit.jade';
 
-// docs/Features/General/Since-Last-Visit/Since-Last-Visit.md
+// docs/Features/Since-Last-Visit/README.md
 
 Template.sinceLastVisitSidebar.onCreated(function () {
   this.cards = new ReactiveVar([]);

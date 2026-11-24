@@ -73,20 +73,20 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [From Previous Export, paste big WeKan JSON](./Features/Board-Sidebar/Board-Settings/Import-Export/WeKan/From-Previous-Export.md)
 * [Progress: Import/Export/Sync](./Features/Board-Sidebar/Board-Settings/Import-Export/Sync.md)
-* [From CSV/TSV](./Features/Board-Sidebar/Board-Settings/Import-Export/CSV/CSV.md)
+* [From CSV/TSV](./Features/Board-Sidebar/Board-Settings/Import-Export/CSV/README.md)
 * [From Excel (.xlsx)](./Features/Board-Sidebar/Board-Settings/Import-Export/Excel/Excel-and-VBA.md)
 * [From Trello](./Features/Board-Sidebar/Board-Settings/Import-Export/Trello/trello/Migrating-from-Trello.md)
-* [From Jira](./Features/Board-Sidebar/Board-Settings/Import-Export/Jira/Jira.md)
-* [From / To Kanboard](./Features/Board-Sidebar/Board-Settings/Import-Export/Kanboard/Kanboard.md)
+* [From Jira](./Features/Board-Sidebar/Board-Settings/Import-Export/Jira/README.md)
+* [From / To Kanboard](./Features/Board-Sidebar/Board-Settings/Import-Export/Kanboard/README.md)
 * [From / To NextCloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo](./Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md)
-* [From Asana](./Features/Board-Sidebar/Board-Settings/Import-Export/Asana/Asana.md)
-* [From Zenkit](./Features/Board-Sidebar/Board-Settings/Import-Export/ZenKit/ZenKit.md)
+* [From Asana](./Features/Board-Sidebar/Board-Settings/Import-Export/Asana/README.md)
+* [From Zenkit](./Features/Board-Sidebar/Board-Settings/Import-Export/ZenKit/README.md)
 * [From old Wekan manually](./Features/Board-Sidebar/Board-Settings/Import-Export/WeKan/Migrating-from-old-Wekan-manually.md)
 * [From / To 78 other tools, under the same headings as the Import page](./Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md):
   37signals, Atlassian, Google, Microsoft, Sandstorm, Kanban and project tools, issue trackers, task apps,
   spreadsheets, outlines, mail, calendars, chats and notes
 * [From / To Microsoft: Azure DevOps Boards, Lists, Project, Outlook, Teams, OneNote](./Features/Board-Sidebar/Board-Settings/Import-Export/External-Tools.md#project-and-task-tools)
-* [From / To a Sandstorm grain backup .zip, including an old Sandstorm WeKan grain](./Features/Board-Sidebar/Board-Settings/Import-Export/Sandstorm/Sandstorm.md)
+* [From / To a Sandstorm grain backup .zip, including an old Sandstorm WeKan grain](./Features/Board-Sidebar/Board-Settings/Import-Export/Sandstorm/README.md)
 
 # Backup
 
@@ -97,21 +97,21 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [Repair MongoDB](Backup/Repair-MongoDB.md)
 * [Using Meteor MongoDB to repair files](Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
-* [If board does not open and keeps loading](Features/General/Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
+* [If board does not open and keeps loading](Features/Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
 * [Repair Docker](Platforms/FOSS/Container/Docker/Repair-Docker.md)
 
 # <a name="Themes"></a> Themes
 
-* [Themes](./Features/General/Theme/Custom-CSS-themes.md)
-* [Dark Mode](./Features/General/Theme/Dark-Mode.md)
-* [Converting Meteor Stylus to CSS](./Features/General/Theme/Converting-Meteor-Stylus-to-CSS.md)
+* [Themes](./Features/Theme/Custom-CSS-themes.md)
+* [Dark Mode](./Features/Theme/Dark-Mode.md)
+* [Converting Meteor Stylus to CSS](./Features/Theme/Converting-Meteor-Stylus-to-CSS.md)
 
 # <a name="MarkdownSyntax"></a>Markdown Syntax
 
-* [Wekan Markdown](Features/General/Editor/Markdown/Markdown.md)
-* [Emoji](Features/General/Editor/Emoji.md)
-* [Mermaid Diagram](Features/General/Editor/Mermaid-Diagram.md) DOES NOT WORK ANYMORE
-* [Numbered text](Features/General/Editor/Numbered-text.md)
+* [Wekan Markdown](Features/Editor/Markdown/README.md)
+* [Emoji](Features/Editor/Emoji.md)
+* [Mermaid Diagram](Features/Editor/Mermaid-Diagram.md) DOES NOT WORK ANYMORE
+* [Numbered text](Features/Editor/Numbered-text.md)
 
 # <a name="LoginAuth"></a>Login Auth
 
@@ -124,10 +124,10 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Accounts Lockout: Brute force login protection](./Features/Login-Page/Accounts-Lockout.md)
 * [LDAP](./Features/Login-Page/LDAP.md)
 * [LDAP AD Simple Auth](./Features/Login-Page/LDAP-AD-Simple-Auth.md)
-* [Keycloak](./Features/Login-Page/Keycloak/Keycloak.md)
+* [Keycloak](./Features/Login-Page/Keycloak/README.md)
 * [Authelia](./Features/Login-Page/Authelia.md)
 * [Google login](./Features/Login-Page/Google-login.md)
-* [Azure](./Features/Login-Page/Azure/Azure.md)
+* [Azure](./Features/Login-Page/Azure/README.md)
 * [OAuth2](./Features/Login-Page/OAuth2.md), Auth0, GitLab, RocketChat
 * [OAuth Providers](./Features/Login-Page/OAuth-Providers.md): Google, GitHub, Facebook, Twitter, Meteor Developer, Weibo, Meetup
 * [Passwordless](./Features/Login-Page/Passwordless.md): one-time sign-in code by email
@@ -142,16 +142,16 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Logs"></a>Metrics, Logs, Stats
 
-* [Metrics](Features/General/Metrics.md)
-* [Logs](Features/General/Troubleshooting/Logs.md)
-* [Stats](Features/General/Stats.md)
-* [Cleanup](Features/General/Cleanup/Cleanup.md)
+* [Metrics](Features/Metrics.md)
+* [Logs](Features/Troubleshooting/Logs.md)
+* [Stats](Features/Stats.md)
+* [Cleanup](Features/Cleanup/README.md)
 
 # <a name="Integrations"></a>Integrations
 
-* [IFTTT](Features/Rules/IFTTT/IFTTT.md)
+* [IFTTT](Features/Rules/IFTTT/README.md)
 * [n8n Wekan docs](https://docs.n8n.io/nodes/n8n-nodes-base.wekan/#example-usage) - [n8n GitHub](https://github.com/n8n-io/n8n)
-* [Integrations](./Features/Board-Sidebar/Board-Settings/Import-Export/Integrations/Integrations.md)
+* [Integrations](./Features/Board-Sidebar/Board-Settings/Import-Export/Integrations/README.md)
 * [Gogs](https://github.com/wekan/wekan-gogs)
 
 # <a name="Time"></a>Time
@@ -170,25 +170,25 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [All Features index](Features/Features.md)
 * [Boards](Features/All-Boards/Boards.md)
-* [Lists](Features/Lists/Lists.md)
-* [Cards](Features/Cards/Cards.md)
-* [Members and Permissions](Features/Board-Sidebar/Members/Members.md)
-* [WIP Limits](Features/Lists/WipLimit/WipLimit.md)
+* [Lists](Features/Lists/README.md)
+* [Cards](Features/Cards/README.md)
+* [Members and Permissions](Features/Board-Sidebar/Members/README.md)
+* [WIP Limits](Features/Lists/WipLimit/README.md)
 * [WIP Limit Groups (shared limit across several lists)](Features/Lists/WipLimit/WIP-Limit-Groups.md)
-* [Keyboard Shortcuts](Features/General/Keyboard-Shortcuts/Keyboard-Shortcuts.md)
-* [Accessibility](Features/General/Accessibility/Accessibility.md)
-* [Rules (Automation)](Features/Rules/Rules/Rules.md)
-* [Card Dependencies — "Red Strings" / PI Program Board](Features/General/Editor/RedStrings/RedStrings.md)
-* [IFTTT / Rules overview](Features/Rules/IFTTT/IFTTT.md)
-* [Admin Panel](Features/Admin-Panel/Admin-Panel.md) — every pane, one page per menu entry
-* [Multiline](Features/General/Editor/Multiline.md)
+* [Keyboard Shortcuts](Features/Keyboard-Shortcuts/README.md)
+* [Accessibility](Features/Accessibility/README.md)
+* [Rules (Automation)](Features/Rules/Rules/README.md)
+* [Card Dependencies — "Red Strings" / PI Program Board](Features/Editor/RedStrings/README.md)
+* [IFTTT / Rules overview](Features/Rules/IFTTT/README.md)
+* [Admin Panel](Features/Admin-Panel/README.md) — every pane, one page per menu entry
+* [Multiline](Features/Editor/Multiline.md)
 * [Linked Cards](Features/Cards/Linked-Cards.md)
-* [Drag Drop](./Features/General/DragDrop/Drag-Drop.md) on Mobile and Desktop
-* [Python based features](Features/General/Editor/Python.md)
+* [Drag Drop](./Features/DragDrop/Drag-Drop.md) on Mobile and Desktop
+* [Python based features](Features/Editor/Python.md)
 * [Burndown and Velocity Chart](Features/Board-Header/Board-Views/Charts/Burndown-and-Velocity-Chart.md)
-* [Wait Spinners](Features/General/Troubleshooting/Wait-Spinners.md)
-* [Translations](./Features/General/Translations/Translations.md)
-* [Customize Translations](./Features/General/Translations/Customize-Translations.md)
+* [Wait Spinners](Features/Troubleshooting/Wait-Spinners.md)
+* [Translations](./Features/Translations/README.md)
+* [Customize Translations](./Features/Translations/Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
 * [Planning Poker](Features/Cards/Planning-Poker.md)
 * [Using WeKan for Scrum](Features/Cards/Scrum.md)
@@ -197,17 +197,17 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Subtasks](Features/Cards/Subtasks.md)
 * [Templates](Features/All-Boards/Templates.md)
 * [Shared Templates (Admin view)](Features/All-Boards/Templates.md#shared-templates-admin-view)
-* [Card Cover Image](Features/Cards/Cover/Cover.md)
-* [Stickers](Features/Cards/Stickers/Stickers.md)
-* [Card Locations](Features/Cards/Locations/Locations.md)
+* [Card Cover Image](Features/Cards/Cover/README.md)
+* [Stickers](Features/Cards/Stickers/README.md)
+* [Card Locations](Features/Cards/Locations/README.md)
 * [Board Background Images](Features/Board-Sidebar/Board-Settings/Background-Image.md)
-* [Attachments and File Storage](Features/Cards/Attachments/Attachments.md)
-* [Right-to-Left (RTL) UI](Features/General/Editor/RTL/RTL.md)
+* [Attachments and File Storage](Features/Cards/Attachments/README.md)
+* [Right-to-Left (RTL) UI](Features/Editor/RTL/README.md)
 * [Archive and Delete](Features/Board-Sidebar/Archive/Archive-and-Delete.md)
-* [Custom Fields](Features/Cards/CustomFields/CustomFields.md)
+* [Custom Fields](Features/Cards/CustomFields/README.md)
 * [Fix Export board menu not visible on some boards](https://github.com/wekan/wekan/issues/1060)
 * [RAM usage](https://github.com/wekan/wekan/issues/1088#issuecomment-311843230)
-* [Swimlanes](Features/Swimlanes/Swimlanes.md)
+* [Swimlanes](Features/Swimlanes/README.md)
 * [Group by Assignee](Features/Board-Header/Board-Views/Group-By-Assignee.md)
 * [Bigboard (all your boards stacked on one page)](Features/Board-Header/Board-Views/Bigboard.md)
 * [Roadmap (custom-field-grouped Gantt)](Features/Board-Header/Board-Views/Roadmap.md)
@@ -221,7 +221,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Email"></a>Email
 
-* [Email](./Features/General/Email/Troubleshooting-Mail.md)
+* [Email](./Features/Email/Troubleshooting-Mail.md)
 
 # <a name="Settings"></a>Required Settings
 
@@ -249,7 +249,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
     * [api.py](../api.py)
     * https://github.com/wekan/wekan-python-api-client
     * https://github.com/wekan/python-wekan
-    * Other Python features [Python](Features/General/Editor/Python.md)
+    * Other Python features [Python](Features/Editor/Python.md)
   * Go https://github.com/wekan/wego
 * Other API 
 * [REST API Code](API/Code.md)
@@ -325,5 +325,5 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Markdown](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+label%3AFeature%3AMarkdown)
 
 [kanban board]: https://en.wikipedia.org/wiki/Kanban_board
-[mit license]: [LICENSE](../LICENSE)
+[mit license]: ../LICENSE
 [sandstorm app demo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h# 

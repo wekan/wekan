@@ -26,7 +26,7 @@ ready to be filled in ([Card fields](Card-Fields.md)).
   how the panes go side by side or stacked.
 - In WeKan: [Card fields](Card-Fields.md),
   [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md) and
-  [Custom Fields](CustomFields/CustomFields.md).
+  [Custom Fields](CustomFields/README.md).
 
 ## How to use it
 

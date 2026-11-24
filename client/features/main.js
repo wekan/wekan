@@ -22,7 +22,7 @@ import '/client/components/main/starredItems.jade';
 // / Problems / Offices. A .jade file is not picked up by being on disk.
 import '/client/components/main/mapProvider.jade';
 import '/client/components/main/popup.tpl.jade';
-// The ? of every feature place (docs/Features/General/Help-Button.md).
+// The ? of every feature place (docs/Features/Help-Button.md).
 import '/client/components/main/featureHelp.jade';
 import '/client/components/main/spinner.jade';
 import '/client/components/main/spinner_bounce.jade';
@@ -39,10 +39,10 @@ import '/client/components/main/shareTarget.jade';
 // #2026 / #1377: the all-boards activity feed.
 import '/client/components/main/activityFeed.jade';
 import '/client/components/main/activityFeed.css';
-// Workload and capacity (docs/Features/Workload/Workload.md).
+// Workload and capacity (docs/Features/Workload/README.md).
 import '/client/components/main/workload.jade';
 import '/client/components/main/workload.css';
-// Budget and billing (docs/Features/Billing/Billing.md).
+// Budget and billing (docs/Features/Billing/README.md).
 import '/client/components/main/billing.jade';
 import '/client/components/main/billing.css';
 // Cloud Panel (docs/Features/Admin-Panel/Cloud-Panel.md).

@@ -13,7 +13,7 @@ pager, and a board can be dragged onto it to archive it.
 - [Archive](https://en.wikipedia.org/wiki/Archive) on Wikipedia
 - [Pagination](https://en.wikipedia.org/wiki/Pagination) - the server-side pager
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md),
-  [All Boards](All-Boards.md) and [Home](Home.md) in these docs
+  [All Boards](README.md) and [Home](Home.md) in these docs
 
 ## How to use it
 
@@ -164,8 +164,8 @@ the setting or selection and retry.
 
 ### Related
 
-- [All Boards](All-Boards.md) — one of the four places it is reached from
-- [The Table page design](../General/Table.md) — the rows-per-page it shares
+- [All Boards](README.md) — one of the four places it is reached from
+- [The Table page design](../Table.md) — the rows-per-page it shares
 
 ## Commits
 

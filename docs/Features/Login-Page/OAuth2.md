@@ -32,8 +32,8 @@ You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth
 - [More RocketChat fixes here](../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Chat/RocketChat.md)
 - [OAuth2 small bug](https://github.com/wekan/wekan/issues/1874) - currently OAuth2 works mostly
 - Provider pages: [Autologin](autologin.md), [ADFS](ADFS.md), [Apple](Apple.md),
-  [Authelia](Authelia.md), [Azure](Azure/Azure.md), [B2C](B2C.md),
-  [Keycloak](Keycloak/Keycloak.md), [Nextcloud](Nextcloud.md),
+  [Authelia](Authelia.md), [Azure](Azure/README.md), [B2C](B2C.md),
+  [Keycloak](Keycloak/README.md), [Nextcloud](Nextcloud.md),
   [Oracle Identity Cloud](Oracle-Identity-Cloud.md), [Oracle OIM](Oracle-OIM.md),
   [Zitadel](Zitadel.md)
 
@@ -249,7 +249,7 @@ sudo snap set wekan port='3001'
 sudo snap set core refresh.schedule=02:00-04:00
 sudo snap set wekan with-api='true'
 ```
-Email settings [ARE NOT REQUIRED](../General/Email/Troubleshooting-Mail.md), Wekan works without setting up Email.
+Email settings [ARE NOT REQUIRED](../Email/Troubleshooting-Mail.md), Wekan works without setting up Email.
 ```
 sudo snap set wekan mail-url='smtps://user:pass@MAILSERVER.YOURDOMAIN.COM:453'
 sudo snap set wekan mail-from='Wekan Boards <support@YOURDOMAIN.COM>'

@@ -29,7 +29,7 @@ Forgejo, and can import a whole GitHub organization.
   reads a GitHub wiki.
 - [Server-side request forgery](https://en.wikipedia.org/wiki/Server-side_request_forgery)
   at Wikipedia - what the import's SSRF guard prevents.
-- WeKan: [change history](../../General/History/History.md),
+- WeKan: [change history](../../History/README.md),
   [Labels with a due date](../../Board-Sidebar/Labels/Labels-Milestone-Due-Date.md),
   [list sync](../../Board-Sidebar/Board-Settings/Import-Export/Sync.md),
   [Board View settings](../../Board-Sidebar/Board-Settings/Board-View.md).
@@ -56,7 +56,7 @@ theme. It uses the board's own data, and no second copy of anything is kept:
 | Assignees | The card's assignees and members |
 | Author | The card's *Requested by* (an imported issue's author), else whoever made the card |
 | Files | The card's attachments |
-| History, git log | The board's [change history](../../General/History/History.md), where **Restore** undoes a change |
+| History, git log | The board's [change history](../../History/README.md), where **Restore** undoes a change |
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -122,7 +122,7 @@ moving it out would make the sync see the issue as gone.
 ### Importing and syncing
 
 **Import** at the top opens the existing importers for
-[GitHub](../../Board-Sidebar/Board-Settings/Import-Export/GitHub/GitHub.md),
+[GitHub](../../Board-Sidebar/Board-Settings/Import-Export/GitHub/README.md),
 [GitLab](../../Board-Sidebar/Board-Settings/Import-Export/GitLab), [Gitea](../../Board-Sidebar/Board-Settings/Import-Export/Gitea) and
 [Forgejo](../../Board-Sidebar/Board-Settings/Import-Export/Forgejo). They make a new board in the database
 WeKan is running on, with a card per issue in *Open* and *Closed* lists, the
@@ -172,7 +172,7 @@ repository of an organization, or of a user (`wekan` or
 | Issues | Cards in *Open* and *Closed*, with their comments, labels, milestones and files (always) |
 | Releases | A card per release in *Releases*: tag and name, notes, date |
 | Release files | The release's files attached to its card (off by default: they can be large) |
-| GitHub Actions | Rules, as [Rules → GitHub Actions workflows](../../Rules/Rules/Rules.md#github-actions-workflows) describes |
+| GitHub Actions | Rules, as [Rules → GitHub Actions workflows](../../Rules/Rules/README.md#github-actions-workflows) describes |
 | Wiki | A card per page in *Wiki*, with links and history (below) |
 
 The wiki is a git repository (`<repository>.wiki.git`), because GitHub has no

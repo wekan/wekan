@@ -10,7 +10,7 @@ list's own link and the date it was created. Nothing in it changes the board.
 
 - [Permalink](https://en.wikipedia.org/wiki/Permalink) on Wikipedia - a
   lasting address of one item.
-- [Board item links](../General/Board-Item-Links.md) - the addresses of
+- [Board item links](../Board-Item-Links.md) - the addresses of
   boards, swimlanes, lists and cards in WeKan.
 
 ## How to use it

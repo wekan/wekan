@@ -17,7 +17,7 @@ private again, shows its members every view and opens in Swimlanes.
 - [Wikipedia: Cumulative flow diagram](https://en.wikipedia.org/wiki/Cumulative_flow_diagram)
 - [Card field display order](Card.md) - the Card Settings
   popup this one is modelled on.
-- [Swimlanes](../../Swimlanes/Swimlanes.md), [Roadmap](../../Board-Header/Board-Views/Roadmap.md), [Bigboard](../../Board-Header/Board-Views/Bigboard.md),
+- [Swimlanes](../../Swimlanes/README.md), [Roadmap](../../Board-Header/Board-Views/Roadmap.md), [Bigboard](../../Board-Header/Board-Views/Bigboard.md),
   [Group by Assignee](../../Board-Header/Board-Views/Group-By-Assignee.md) - some of the views the menu offers.
 - [REST-API.md, Board Settings: Board View](../../../API/REST-API.md#board-settings-board-view)
 
@@ -263,7 +263,7 @@ its own group. A group none of whose views is shown has no heading.
   Published cards, Pages as the menu, the other cards as posts, the cards'
   attachments as their images and files - built from the board itself
   (`models/lib/websiteView.js`). A board imported from WordPress, Ghost,
-  Blogger or a static site ([Website](Import-Export/Website/Website.md)) is
+  Blogger or a static site ([Website](Import-Export/Website/README.md)) is
   laid out that way already; any board can be.
 - **A shop at the board's address.** With **Shop** as the public default -
   ticked in Board Settings / Shop as *Show the Shop instead of the public

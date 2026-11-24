@@ -12,9 +12,9 @@ own Member Settings colour is.
 - [Wikipedia: Theme (computing)](https://en.wikipedia.org/wiki/Theme_(computing))
 - [Wikipedia: Web colors](https://en.wikipedia.org/wiki/Web_colors), the hex
   colours the custom colours are written in
-- [Change color](../../General/Theme/Change-Color.md): the picker, its
+- [Change color](../../Theme/Change-Color.md): the picker, its
   categories and the order of themes
-- [Theme](../../General/Theme/Theme.md)
+- [Theme](../../Theme/README.md)
 - [Change Background Image](Background-Image.md)
 
 ## How to use it

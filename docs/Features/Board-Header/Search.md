@@ -17,8 +17,8 @@ field in the sidebar - so Search looks and behaves the same everywhere.
   Wikipedia - board search escapes every special character, so what you type is
   matched literally, never as a pattern.
 - [Filter](../Board-Sidebar/Filter/README.md) - the other way to narrow a board.
-- [All Boards](../All-Boards/All-Boards.md) and
-  [Multi-Selection](../General/Multi-Selection.md) - the other control the board
+- [All Boards](../All-Boards/README.md) and
+  [Multi-Selection](../Multi-Selection.md) - the other control the board
   header and All Boards share.
 
 ## How to use it
@@ -131,7 +131,7 @@ its full-width look, and that stylesheet is loaded everywhere.
 > default input size.
 
 > **The panel it opens in** is the All Boards sidebar, and where it sits and
-> how it is themed is [All Boards](../All-Boards/All-Boards.md#where-it-sits): pinned below the
+> how it is themed is [All Boards](../All-Boards/README.md#where-it-sits): pinned below the
 > header to the window bottom on a desktop, with the board icons moved left
 > rather than covered; full width on a phone; and painted with a theme at both
 > sizes, because a sidebar button is white text that needs a themed background
@@ -181,8 +181,8 @@ its full-width look, and that stylesheet is loaded everywhere.
 
 ## Related
 
-- [Multi-Selection](../General/Multi-Selection.md) — the other shared control
-- [All Boards](../All-Boards/All-Boards.md)
+- [Multi-Selection](../Multi-Selection.md) — the other shared control
+- [All Boards](../All-Boards/README.md)
 
 ## Commits
 

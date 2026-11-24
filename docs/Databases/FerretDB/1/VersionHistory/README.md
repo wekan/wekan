@@ -1,8 +1,8 @@
 # Version history in the database: Dolt and TerminusDB, and WeKan's undo and redo
 
 WeKan's undo and redo (Ctrl+Z, Ctrl+Y, History → Restore, see
-[History](../../../../Features/General/History/History.md) and
-[Undo](../../../../Features/General/Undo/Undo.md)) is application code: one
+[History](../../../../Features/History/) and
+[Undo](../../../../Features/Undo/)) is application code: one
 `changeHistory` row per change, with who, when and which field, and a restore that
 reapplies the old values oldest to newest. Some databases version their data
 themselves. This asks what that would give WeKan, by trying WeKan-shaped changes

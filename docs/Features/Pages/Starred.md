@@ -32,7 +32,7 @@ URLs landed, which is what made bookmarking them possible at all.
   Wikipedia - the browser idea this follows: a saved address with a title.
 - [The HTML `<title>` element](https://en.wikipedia.org/wiki/HTML_element#title)
   - what the browser tab, and so the bookmark's name, shows.
-- In WeKan: [Home](../All-Boards/Home.md), [All Boards](../All-Boards/All-Boards.md),
+- In WeKan: [Home](../All-Boards/Home.md), [All Boards](../All-Boards/README.md),
   [All Boards URLs](../All-Boards/URLs.md), [the header](../Header-Bar/Header.md),
   and the Star entries of the [swimlane](../Swimlanes/Star.md),
   [list](../Lists/Star.md) and [card](../Cards/Watch-Star.md) menus.
@@ -236,7 +236,7 @@ resolves them for both the dropdown and the Starred page
 ### Related
 
 - [Home](../All-Boards/Home.md) — the other mark on a board, and the other drag with a type of its own
-- [All Boards](../All-Boards/All-Boards.md) — the page the tiles are on
+- [All Boards](../All-Boards/README.md) — the page the tiles are on
 - [All Boards URLs](../All-Boards/URLs.md) — the addresses that made bookmarking possible
 - [The header](../Header-Bar/Header.md) — the bar the group sits in
 

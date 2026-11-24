@@ -69,7 +69,7 @@ Template.boardChangeTitlePopup.events({
     if (newTitle) {
       // The board this popup was opened FOR, when it was opened for one: the
       // All Boards Table view opens this same popup from a row whose data
-      // context is that row's board (docs/Features/All-Boards/All-Boards.md), and on
+      // context is that row's board (docs/Features/All-Boards/README.md), and on
       // that page there is no "current board" at all. The board header opens it
       // with the current board as its context, so that side is unchanged.
       const context = Template.currentData();
@@ -990,7 +990,7 @@ Template.boardViewMenu.helpers({
   boardView() {
     return Utils.boardView();
   },
-  // The ? of the view that is on (docs/Features/General/Help-Button.md).
+  // The ? of the view that is on (docs/Features/Help-Button.md).
   boardViewHelp() {
     return boardViewHelpId(Utils.boardView());
   },

@@ -591,9 +591,9 @@ test('the related-files table lists files that exist', () => {
 });
 
 test('the two page designs cross-link', () => {
-  assert.ok(/\[Table\]\(\.\.\/General\/Table\.md\)/.test(doc),
+  assert.ok(/\[Table\]\(\.\.\/Table\.md\)/.test(doc),
     'Left-Menu.md must link to Table.md - the two compose on the same page');
-  assert.ok(fs.existsSync(path.join(root, 'docs/Features/General/Table.md')));
+  assert.ok(fs.existsSync(path.join(root, 'docs/Features/Table.md')));
 });
 
 // ── the template and the pages must agree on the data shape ─────────────────

@@ -130,7 +130,7 @@ class AdminPage {
 
   // --- Pagination ---
   //
-  // People is a shared table page now (docs/Features/General/Table.md), so its pager is
+  // People is a shared table page now (docs/Features/Table.md), so its pager is
   // the shared one: the same `.js-table-page-prev` / `.js-table-page-next` every
   // table page in the Admin Panel uses. The old per-pane `.js-people-*-page`
   // buttons went away with that pane's own markup.

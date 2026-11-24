@@ -15,7 +15,7 @@ of them; a board can be starred, watched, archived and restored.
   star is
 - [Progressive web app](https://en.wikipedia.org/wiki/Progressive_web_app) - the
   standalone app mode
-- [All Boards](All-Boards.md), [Starred](../Pages/Starred.md),
+- [All Boards](README.md), [Starred](../Pages/Starred.md),
   [Archive](Archive.md) in these docs
 
 ## How to use it
@@ -92,7 +92,7 @@ Archived boards are not deleted - you can restore them from the archive.
 - There is no limit on how many boards you may have or star.
 
 The counts beside each All Boards section are explained in
-[All Boards](All-Boards.md#how-the-numbers-are-calculated).
+[All Boards](README.md#how-the-numbers-are-calculated).
 
 ## How it works in WeKan
 
@@ -115,11 +115,11 @@ The counts beside each All Boards section are explained in
 
 - [Board Background Images](../Board-Sidebar/Board-Settings/Background-Image.md)
 - [Allow private boards only: Disable Public Boards](../Admin-Panel/Settings/Appearance.md)
-- [Swimlanes](../Swimlanes/Swimlanes.md)
-- [WIP Limits](../Lists/WipLimit/WipLimit.md)
+- [Swimlanes](../Swimlanes/README.md)
+- [WIP Limits](../Lists/WipLimit/README.md)
 - [Templates](Templates.md)
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md)
-- [If board does not open and keeps loading](../General/Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
+- [If board does not open and keeps loading](../Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
 
 ## Commits
 

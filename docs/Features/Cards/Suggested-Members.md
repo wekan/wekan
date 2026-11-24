@@ -14,7 +14,7 @@ assignee, done here with plain points and no AI service.
   and [Kanban board](https://en.wikipedia.org/wiki/Kanban_board).
 - In WeKan: [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md),
   [Admin Panel / Settings / Features](../Admin-Panel/Settings/Features.md) and
-  the other [helpers that need no AI](../General/Assistants/Assistants.md).
+  the other [helpers that need no AI](../Assistants/README.md).
 
 ## How to use it
 

@@ -17,7 +17,7 @@ an exact place in a long list.
   [Move to Top, Move to Bottom](Move-To-Top-Bottom.md),
   [Linked cards](Linked-Cards.md),
   [List permissions](../Lists/List-Permissions.md),
-  [Moving a card to another board](Cards.md#moving-a-card-to-another-board).
+  [Moving a card to another board](README.md#moving-a-card-to-another-board).
 
 ## How to use it
 
@@ -64,7 +64,7 @@ card, or to a member who is not **Read only** or **Read assigned only**.
 
 A card moved to another board takes its comments, reactions, text note,
 checklists and attachments along; see
-[Moving a card to another board](Cards.md#moving-a-card-to-another-board).
+[Moving a card to another board](README.md#moving-a-card-to-another-board).
 Its labels are matched by name on the new board (a missing named label is
 created when you are an admin there), it takes the new board's next card
 number, members and watchers who are not active members of the new board are

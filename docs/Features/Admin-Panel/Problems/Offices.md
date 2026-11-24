@@ -19,7 +19,7 @@ out everybody behind it.
   why an address alone cannot establish someone's precise physical location.
 - WeKan: [Problems](README.md),
   [account lockout](../../Login-Page/Accounts-Lockout.md),
-  [People](../People/People.md).
+  [People](../People/README.md).
 
 ## How to use it
 

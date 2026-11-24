@@ -252,7 +252,7 @@ ZIP are different archives with different restore entry points.
 
 See [format coverage and round-trip limits](../Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md),
 [importing a previous WeKan export](../Features/Board-Sidebar/Board-Settings/Import-Export/WeKan/From-Previous-Export.md),
-[CSV/TSV](../Features/Board-Sidebar/Board-Settings/Import-Export/CSV/CSV.md),
+[CSV/TSV](../Features/Board-Sidebar/Board-Settings/Import-Export/CSV/README.md),
 [features by menu](../Features/Features.md) and the [REST API](../API/REST-API.md).
 The export/import/move screenshots above are the companion images already
 referenced by the issue's link to `docs/Backup`.

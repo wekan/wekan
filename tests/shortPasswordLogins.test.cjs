@@ -100,7 +100,7 @@ test('documented: the page, the URL list, the table list and both settings', () 
   }
   assert.match(read('docs/Features/Admin-Panel/Admin-Panel-URLs.md'), /`\/admin\/problems\/password-length` \| Password length \| `report-password-length`/);
   assert.match(read('docs/Features/Admin-Panel/Problems/README.md'), /\| Problems \/ Password length \| `password-length` \| \[Password-length\.md\]/);
-  assert.match(read('docs/Features/General/Table.md'), /\| Password length \| Admin Panel \/ Problems \/ Password length \|/);
+  assert.match(read('docs/Features/Table.md'), /\| Password length \| Admin Panel \/ Problems \/ Password length \|/);
   for (const file of ['Dockerfile', 'docker-compose.yml', 'snap-src/bin/config', 'start-wekan.sh', 'start-wekan.bat', 'docs/Security/Security-Settings.md']) {
     assert.ok(read(file).includes('PASSWORD_MIN_LENGTH_ENFORCE'), file);
   }

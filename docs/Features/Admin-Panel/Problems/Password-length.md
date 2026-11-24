@@ -16,7 +16,7 @@ only.
 - [NIST SP 800-63B](https://pages.nist.gov/800-63-3/sp800-63b.html) - the
   password guidance that recommends a minimum length.
 - WeKan: [Admin Panel / People / Login](../People/Login.md),
-  [table page](../../General/Table.md),
+  [table page](../../Table.md),
   [Security settings](../../../Security/Security-Settings.md).
 
 ## How to use it
@@ -69,7 +69,7 @@ report: an account that signs in every day is one row whose count grows.
 | Times logged in | How many times it has. |
 | Fixed | When its password was changed. Empty while it is still too short. |
 
-The filter above the table, as on every [table page](../../General/Table.md):
+The filter above the table, as on every [table page](../../Table.md):
 
 | Filter | Shows |
 | --- | --- |

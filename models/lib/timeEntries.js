@@ -1,6 +1,6 @@
 'use strict';
 
-// Time entries (docs/Features/Billing/Billing.md): the time spent on a card,
+// Time entries (docs/Features/Billing/README.md): the time spent on a card,
 // each entry with its day and who logged it, so time can be reported and
 // invoiced by period.
 //

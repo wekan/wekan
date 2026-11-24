@@ -1,4 +1,4 @@
-/* Budget and billing page (docs/Features/Billing/Billing.md). */
+/* Budget and billing page (docs/Features/Billing/README.md). */
 .billing-page {
   padding: 1rem;
   max-width: 100%;
@@ -145,7 +145,7 @@
   .billing-page { padding: 0.5rem; }
 }
 
-/* Expenses, fees, time to approve and quotes (docs/Features/Billing/Billing.md). */
+/* Expenses, fees, time to approve and quotes (docs/Features/Billing/README.md). */
 .billing-hint {
   color: #555;
   font-size: 0.9em;

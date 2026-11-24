@@ -3,7 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { canReadBoard } from '/models/lib/boardVisibility';
 
 // The server half of hiding the helpers that need no AI
-// (docs/Features/General/Assistants/Assistants.md). A hidden helper answers
+// (docs/Features/Assistants/README.md). A hidden helper answers
 // nothing, whoever calls it: the interface not drawing it is the visible half,
 // this is the half a crafted call meets.
 const { isCardFieldEnabled } = require('/models/lib/cardFieldVisibility');

@@ -20,7 +20,7 @@ second.
   board-wide forecasts of [Flow analytics](../../Board-Header/Board-Views/Charts/Flow-Analytics.md).
 - In WeKan: [Due date and the other card dates](Due-Date.md),
   [At risk](../At-Risk.md) and
-  [Helpers that need no AI](../../General/Assistants/Assistants.md).
+  [Helpers that need no AI](../../Assistants/README.md).
 
 ## How to use it
 

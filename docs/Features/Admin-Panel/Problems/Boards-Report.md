@@ -15,7 +15,7 @@ without opening every board.
   Wikipedia - what a board is.
 - WeKan: [Organizations](../People/Organizations.md),
   [Teams](../People/Teams.md), [Cards Report](Cards-Report.md),
-  [Table page](../../General/Table.md) (the shared table this pane uses).
+  [Table page](../../Table.md) (the shared table this pane uses).
 
 ## How to use it
 
@@ -56,7 +56,7 @@ The pane is read-only.
 
 ## How it works in WeKan
 
-The shared [table page](../../General/Table.md) renders it, fetched one page at a
+The shared [table page](../../Table.md) renders it, fetched one page at a
 time from the server:
 
 - [server/publications/boards.js](../../../../server/publications/boards.js) -

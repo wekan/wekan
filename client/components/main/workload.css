@@ -1,4 +1,4 @@
-/* Workload page (docs/Features/Workload/Workload.md). */
+/* Workload page (docs/Features/Workload/README.md). */
 .workload-page {
   padding: 1rem;
   max-width: 100%;
@@ -176,7 +176,7 @@
   .workload-cell { min-width: 5.5rem; }
 }
 
-/* Utilization and skills (docs/Features/Workload/Workload.md). */
+/* Utilization and skills (docs/Features/Workload/README.md). */
 .workload-person-utilization,
 .workload-placeholder-skill,
 .workload-candidates {

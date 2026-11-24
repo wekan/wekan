@@ -1,5 +1,5 @@
 // The Scrum meeting helpers of the board menu (models/lib/scrumMeetings.js,
-// docs/Features/Scrum/Meetings.md): the daily standup timer, kept in this
+// docs/Features/Board-Sidebar/Board-Settings/Scrum-Meetings.md): the daily standup timer, kept in this
 // browser only, and the button that makes a retrospective board.
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';

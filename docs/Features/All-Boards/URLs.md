@@ -174,7 +174,7 @@ that redirect.
 
 ### Related
 
-- [All Boards](All-Boards.md) — the page these URLs open
+- [All Boards](README.md) — the page these URLs open
 - [The Admin Panel's URLs](../Admin-Panel/Admin-Panel-URLs.md) — the same idea, for the Admin Panel
 
 ## Commits

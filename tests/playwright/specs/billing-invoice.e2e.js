@@ -1,5 +1,5 @@
 'use strict';
-// Budget and billing (docs/Features/Billing/Billing.md): a board admin sets a
+// Budget and billing (docs/Features/Billing/README.md): a board admin sets a
 // rate and a budget, sees the cost and the forecast in red over the budget,
 // and invoices the billable hours once. A member of the board does not see the
 // board on the page. tests/billing.test.cjs and tests/billingAccess.test.cjs

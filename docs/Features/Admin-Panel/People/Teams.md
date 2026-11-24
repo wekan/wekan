@@ -17,7 +17,7 @@ Teams work like [Organizations](Organizations.md), without the tenant part.
   what having both restrictions on means.
 - [Group members](../../All-Boards/Group-Members.md) - the Team's tab in All
   Boards.
-- [People](People.md) - the **Team:** filter and the **Teams** action.
+- [People](README.md) - the **Team:** filter and the **Teams** action.
 - [LDAP](../../Login-Page/LDAP.md) - syncing Teams from directory groups.
 
 ## How to use it

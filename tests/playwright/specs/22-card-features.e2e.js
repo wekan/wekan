@@ -4,10 +4,10 @@
  * Spec 22 — Card & list features that were documented but untested
  *
  * Covers documented features with no prior e2e coverage:
- *  - Stickers           (docs/Features/Stickers/Stickers.md)
- *  - Card Locations     (docs/Features/Locations/Locations.md)
- *  - Complete checkbox  (docs/Features/Cards/Cards.md)
- *  - WIP Limits         (docs/Features/WipLimit/WipLimit.md)
+ *  - Stickers           (docs/Features/Cards/Stickers/README.md)
+ *  - Card Locations     (docs/Features/Cards/Locations/README.md)
+ *  - Complete checkbox  (docs/Features/Cards/README.md)
+ *  - WIP Limits         (docs/Features/Lists/WipLimit/README.md)
  */
 
 const { test, expect } = require('../fixtures');

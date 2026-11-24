@@ -20,7 +20,7 @@ Butler calls these automation suggestions.
   is a plain count, not a learning algorithm.
 - [Trello Butler](https://trello.com/butler) - the automation in Trello these
   follow.
-- In WeKan: [Rules (Automation)](Rules/Rules.md),
+- In WeKan: [Rules (Automation)](Rules/README.md),
   [Admin Panel / Settings / Features](../Admin-Panel/Settings/Features.md).
 
 ## How to use it

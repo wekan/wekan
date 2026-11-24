@@ -1,6 +1,6 @@
 'use strict';
 // Server-only: the website imports of the Import page
-// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md). Each
+// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md). Each
 // reader turns one format into the plain items models/lib/websiteFormat.js
 // makes a board of. The XML is parsed with htmlparser2 (as Evernote's and
 // OPML's are); a .zip is opened by server/lib/chatArchives.js openZip, with its

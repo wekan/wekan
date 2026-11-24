@@ -9,7 +9,7 @@
 // only the title. Two rows of controls on one page, one styled like the board
 // header of the Swimlanes view and one not.
 //
-// Design: docs/Features/All-Boards/All-Boards.md
+// Design: docs/Features/All-Boards/README.md
 
 const assert = require('assert');
 const fs = require('fs');
@@ -20,7 +20,7 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 const jade = read('client/components/boards/boardsList.jade');
 const js = read('client/components/boards/boardsList.js');
-const design = read('docs/Features/All-Boards/All-Boards.md');
+const design = read('docs/Features/All-Boards/README.md');
 // The All Boards sidebar: Search and Multi-Selection open it, and the actions on
 // a selection live in it.
 const sidebar = read('client/components/boards/allBoardsSidebar.jade');
@@ -493,22 +493,22 @@ test('the design doc says what is different and links to the shared one', () => 
   // are is written once, in their own designs, and this one links to them.
   // (This used to assert "Search is a field" - it is a button now, and the
   // field is a view of the sidebar. docs/Features/Board-Header/Search.md.)
-  for (const shared of ['Search.md', 'Multi-Selection.md']) {
-    assert.ok(design.includes(shared), `it links to ${shared}`);
-    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Features/Page', shared)), `${shared} must exist`);
+  for (const shared of ['Board-Header/Search.md', 'Multi-Selection.md']) {
+    assert.ok(design.includes(path.basename(shared)), `it links to ${shared}`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'docs/Features', shared)), `${shared} must exist`);
   }
   assert.ok(!/Search is a field/i.test(design), 'and does not still call Search a field');
 
   // Every file any of the three names must exist.
   for (const doc of [design, read('docs/Features/Board-Header/Search.md'),
-    read('docs/Features/General/Multi-Selection.md')]) {
+    read('docs/Features/Multi-Selection.md')]) {
     for (const m of doc.matchAll(/`([\w.-]+\/[\w./-]+\.(?:jade|js|css|cjs))`/g)) {
       assert.ok(fs.existsSync(path.join(ROOT, m[1])),
         `a design doc names ${m[1]}, which does not exist`);
     }
   }
-  const table = read('docs/Features/General/Table.md');
-  assert.ok(/All-Boards\.md/.test(table),
+  const table = read('docs/Features/Table.md');
+  assert.ok(/All-Boards\/README\.md/.test(table),
     'Table.md must list the All Boards table among the pages that use it');
 });
 

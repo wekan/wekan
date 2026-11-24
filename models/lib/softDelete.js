@@ -1,6 +1,6 @@
 'use strict';
 
-// Soft-delete core (delete = mark, never destroy). Design: docs/Features/Undo/Undo.md.
+// Soft-delete core (delete = mark, never destroy). Design: docs/Features/Undo/README.md.
 //
 // Kept Meteor-free and CommonJS so these decisions are unit-testable
 // (tests/softDelete.test.cjs) AND importable from server model code (Meteor's

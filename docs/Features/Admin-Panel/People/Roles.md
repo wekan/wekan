@@ -11,14 +11,14 @@ an administrator build named roles out of what a board member may do, and a
 read-only **Roles Status** table shows what every role may do.
 
 Everything a role may do *inside* a board is described in
-[Members and Permissions](../../Board-Sidebar/Members/Members.md).
+[Members and Permissions](../../Board-Sidebar/Members/README.md).
 
 ## Read more
 
 - [Role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control)
   and [Access control](https://en.wikipedia.org/wiki/Access_control) on
   Wikipedia.
-- [Members and Permissions](../../Board-Sidebar/Members/Members.md)
+- [Members and Permissions](../../Board-Sidebar/Members/README.md)
 - [Invite People](../../Member-Settings/Invite-People.md)
 
 ## How to use it

@@ -1,0 +1,5 @@
+# Example input for docs/Features/Editor, from Emoji.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Emoji.md for the full explanation.
+
+:rainbow: :thumbsup: :100:

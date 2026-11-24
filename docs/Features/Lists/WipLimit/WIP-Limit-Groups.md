@@ -3,7 +3,7 @@
 ## What it is
 
 A **shared Work-In-Progress limit across two or more lists together**, on top
-of each list's own [per-list WIP limit](WipLimit.md)
+of each list's own [per-list WIP limit](README.md)
 ([#2489](https://github.com/wekan/wekan/issues/2489)). Useful when "in
 progress" spans several lists (e.g. "Doing" + "Review" + "Testing") and you
 want to cap the combined card count across all of them rather than each list
@@ -17,7 +17,7 @@ separately - or cap an entire swimlane at once
   together.
 - [The Kanban Guide](https://kanbanguides.org/english/) - *limit work in
   progress*.
-- WeKan: [WIP Limits](WipLimit.md),
+- WeKan: [WIP Limits](README.md),
   [Board Settings / Swimlane](../../Board-Sidebar/Board-Settings/Swimlane.md).
 
 ## How to use it

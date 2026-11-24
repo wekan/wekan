@@ -1,6 +1,6 @@
 'use strict';
 
-// Workload and capacity (docs/Features/Workload/Workload.md): how much work the
+// Workload and capacity (docs/Features/Workload/README.md): how much work the
 // people on a set of boards have, week by week, against the hours they have.
 //
 // Pure - no Meteor, no database - so every rule here is tested as arithmetic

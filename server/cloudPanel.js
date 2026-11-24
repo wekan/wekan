@@ -540,7 +540,7 @@ const METHODS = {
     return caddy;
   },
 
-  // The domains table (docs/Features/General/Table.md): the total once when
+  // The domains table (docs/Features/Table.md): the total once when
   // the page opens or the search changes, then one page at a time.
   async cloudPanelDomainsCount(search) {
     check(search, Match.Optional(String));

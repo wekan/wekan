@@ -6,12 +6,12 @@ How to move boards from Trello to WeKan: create the users, export the boards
 from Trello, and import them, mapping each Trello member to a WeKan user. The
 import brings the board, its labels, lists, cards, comments and attachments.
 The current steps and every detail of the format are on the
-[Trello](../Trello.md) page; this page keeps the earlier migration guide.
+[Trello](../README.md) page; this page keeps the earlier migration guide.
 
 ## Read more
 
 - [Wikipedia: Trello](https://en.wikipedia.org/wiki/Trello)
-- [Trello](../Trello.md): the Trello import and export in WeKan
+- [Trello](../README.md): the Trello import and export in WeKan
 - [trello-attachments-downloader](https://github.com/wekan/trello-attachments-downloader)
 - [Install and Update](../../../../../../Platforms/FOSS/Source/Install-and-Update.md)
 
@@ -20,7 +20,7 @@ The current steps and every detail of the format are on the
 **Today:** in WeKan, go to **All Boards → Add Board → Import → Import board →
 Trello**, paste or choose the board's JSON export (or a Trello `.zip`, or read
 it straight from Trello's API), map the members, and click **Import**; see
-[Trello](../Trello.md).
+[Trello](../README.md).
 
 ### Importing attachments from Trello
 
@@ -77,11 +77,11 @@ Yet, it has a few limitations:
 
 In current WeKan, step 4 is **All Boards → Add Board → Import → Import board
 → Trello**, and attachments are downloaded and stored as each card is made;
-see [Trello](../Trello.md).
+see [Trello](../README.md).
 
 ## How the numbers are calculated
 
-See the [Trello](../Trello.md) page: the size of a Trello `.zip` (at most 5,000
+See the [Trello](../README.md) page: the size of a Trello `.zip` (at most 5,000
 files, 100 MB per file), the Trello API's request spacing and retries, and the
 limits every import has.
 
@@ -91,7 +91,7 @@ The Trello JSON is read by
 [models/trelloCreator.js](../../../../../../../models/trelloCreator.js), with the
 member mapping step in
 [client/components/import/trelloMembersMapper.js](../../../../../../../client/components/import/trelloMembersMapper.js);
-details on the [Trello](../Trello.md) page.
+details on the [Trello](../README.md) page.
 
 ## Commits
 

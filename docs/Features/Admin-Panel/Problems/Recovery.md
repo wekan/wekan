@@ -1,6 +1,6 @@
 # Design: SQLite corruption/bloat safety, automatic recovery, and Admin Panel → Problems → Recovery
 
-> **This page uses the shared [Table Page](../../General/Table.md) design.**
+> **This page uses the shared [Table Page](../../Table.md) design.**
 > The layout, search, pagination, column spec and per-page data loading are defined
 > there and are not repeated here.
 
@@ -44,7 +44,7 @@ recorded in the Recovery table.
 - In WeKan: [Verified FerretDB SQLite recovery](../../../Databases/FerretDB/1/Verified-Recovery.md),
   [Durable operations](Durable-Operations.md),
   [Import run recovery](../../Board-Sidebar/Board-Settings/Import-Export/Import-Run-Recovery.md),
-  [Troubleshooting mail](../../General/Email/Troubleshooting-Mail.md),
+  [Troubleshooting mail](../../Email/Troubleshooting-Mail.md),
   [Delete](../Settings/Delete.md), [File status](File-status.md).
 
 ## How to use it
@@ -307,7 +307,7 @@ control collections have no client publication or direct client writes.
 Detailed terminal receipt metadata is compacted after 30 days by default.
 Minimal replay identities remain indefinitely, so an old cancellation cannot
 affect later messages. Pending or failed work and recipient holds are retained.
-See [receipt retention](../../General/Email/Troubleshooting-Mail.md#completed-notification-receipts)
+See [receipt retention](../../Email/Troubleshooting-Mail.md#completed-notification-receipts)
 for configuration and [durable operations](Durable-Operations.md) for remaining
 activity-to-delivery integration work.
 

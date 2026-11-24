@@ -1,4 +1,4 @@
-// Budget and billing page (docs/Features/Billing/Billing.md). It asks the
+// Budget and billing page (docs/Features/Billing/README.md). It asks the
 // server for the numbers (billingBoards / billingBoard, server/billing.js) and
 // writes through the other billing* methods.
 import { Meteor } from 'meteor/meteor';

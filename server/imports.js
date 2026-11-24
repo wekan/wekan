@@ -552,9 +552,9 @@ import '/server/methods/instrumentationReport';
 import '/server/moveBoardObjects';
 
 import '/server/scrum';
-// Workload and capacity (docs/Features/Workload/Workload.md).
+// Workload and capacity (docs/Features/Workload/README.md).
 import '/server/workload';
-// Budget and billing (docs/Features/Billing/Billing.md).
+// Budget and billing (docs/Features/Billing/README.md).
 import '/server/billing';
 // Board View / Shop: Board Settings / Shop and the orders (models/lib/shop.js).
 import '/server/shop';

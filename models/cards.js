@@ -141,7 +141,7 @@ Cards.attachSchema(
       type: Date,
       optional: true,
     },
-    // Soft delete (docs/Features/Undo/Undo.md): see the matching fields on Lists.
+    // Soft delete (docs/Features/Undo/README.md): see the matching fields on Lists.
     // A soft-deleted card is marked, not destroyed; deleteBatchId ties it to the
     // list (or other cascade) it was deleted with, so restore is all-or-nothing.
     deletedAt: {
@@ -690,7 +690,7 @@ Cards.attachSchema(
     estimatedHours: {
       /**
        * How many hours the card is estimated to take (Workload,
-       * docs/Features/Workload/Workload.md). What is still to do is this
+       * docs/Features/Workload/README.md). What is still to do is this
        * less spentTime.
        */
       type: Number,
@@ -700,7 +700,7 @@ Cards.attachSchema(
     },
     billable: {
       /**
-       * Budget and billing (docs/Features/Billing/Billing.md): false when the
+       * Budget and billing (docs/Features/Billing/README.md): false when the
        * card's time is not invoiced. Absent means billable.
        */
       type: Boolean,

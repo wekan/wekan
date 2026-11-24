@@ -12,7 +12,7 @@ Admin Panel / Problems / Impersonation Report.
 There is no outside article about this; it is a WeKan administrator feature.
 
 - The feature was added to WeKan v4.39 at https://github.com/wekan/wekan/pull/3280
-- WeKan: [Admin Panel / People / People](../Admin-Panel/People/People.md),
+- WeKan: [Admin Panel / People / People](../Admin-Panel/People/README.md),
   [Admin Panel / Problems](../Admin-Panel/Problems/README.md),
   [Adding users](Adding-users.md)
 

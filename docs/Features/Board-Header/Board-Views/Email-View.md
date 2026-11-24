@@ -21,21 +21,21 @@ address, so the answers come back to the board as cards and comments.
 - [Rate limiting](https://en.wikipedia.org/wiki/Rate_limiting) and
   [Pagination](https://en.wikipedia.org/wiki/Pagination) on Wikipedia - the
   hourly send limit and the ten-row pages.
-- [Email to card](../../General/Email/Email-To-Card.md), which gives the board
-  its address, and the [table page](../../General/Table.md).
+- [Email to card](../../Email/Email-To-Card.md), which gives the board
+  its address, and the [table page](../../Table.md).
 
 ## How to use it
 
 | Gmail | Email view |
 | --- | --- |
-| Inbox | The list that [email to card](../../General/Email/Email-To-Card.md) puts new cards in (Board → Notification Settings → Email to card → List for new cards), or the first list |
+| Inbox | The list that [email to card](../../Email/Email-To-Card.md) puts new cards in (Board → Notification Settings → Email to card → List for new cards), or the first list |
 | Sent | Emails sent from this view |
 | All mail | Every card that arrived or went out as email |
 | Folders | The board's lists: each one is a folder |
 | Labels | The board's labels, with their colours. They show on each message and filter the table |
 | A message | A card. It opens as the card popup, and its comments are the conversation |
 
-The messages are a [table page](../../General/Table.md), newest first and ten to a
+The messages are a [table page](../../Table.md), newest first and ten to a
 page. The server pages the rows, and the search box searches the subject, the
 body and the sender.
 

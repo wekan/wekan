@@ -13,7 +13,7 @@ limit per person.
 - [Wikipedia: Kanban (development)](https://en.wikipedia.org/wiki/Kanban_(development)),
   where explicit policies, the commitment point and WIP limits come from
 - [Wikipedia: Kanban board](https://en.wikipedia.org/wiki/Kanban_board)
-- [Lists](../../Lists/Lists.md): creation, multiline names, collapse state and
+- [Lists](../../Lists/README.md): creation, multiline names, collapse state and
   list actions
 - [Flow policies](../../Lists/Flow-Policies.md)
 

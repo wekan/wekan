@@ -16,7 +16,7 @@ opens the card.
   places on an image, which is what the markers are.
 - WeKan: [Board Settings → Board View](../../Board-Sidebar/Board-Settings/Board-View.md),
   [Admin Panel → Settings → Features](../../Admin-Panel/Settings/Features.md),
-  [Attachments](../../Cards/Attachments/Attachments.md).
+  [Attachments](../../Cards/Attachments/README.md).
 
 ## How to use it
 

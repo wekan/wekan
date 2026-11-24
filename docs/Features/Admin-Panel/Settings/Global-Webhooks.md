@@ -23,9 +23,9 @@ network that any webhook may reach, and the
 - [Server-side request forgery](https://en.wikipedia.org/wiki/Server-side_request_forgery)
   on Wikipedia, and [OWASP on SSRF](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery) -
   why internal addresses are refused unless listed.
-- [Outgoing webhooks](../../Webhooks/) — the payload, the types, and per-board
+- [Outgoing webhooks](../../Board-Sidebar/Board-Settings/Outgoing-Webhooks/) — the payload, the types, and per-board
   webhooks; [Webhook data](../../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md)
-  and [Notification delivery](../../General/Notifications/Notification-Delivery.md).
+  and [Notification delivery](../../Notifications/Notification-Delivery.md).
 
 ## How to use it
 

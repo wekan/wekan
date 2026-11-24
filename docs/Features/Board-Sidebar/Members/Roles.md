@@ -19,9 +19,9 @@ see [Keeping this page honest](#keeping-this-page-honest) at the end.
 
 - [Wikipedia: Role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control)
 - [Wikipedia: Principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)
-- [Members and Permissions](Members.md)
+- [Members and Permissions](README.md)
 - [Change Role at Web UI and API](../../../API/Role.md)
-- [Admin Panel](../../Admin-Panel/Admin-Panel.md)
+- [Admin Panel](../../Admin-Panel/README.md)
 - [List permissions](../../Lists/List-Permissions.md)
 
 ## How to use it

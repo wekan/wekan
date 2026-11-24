@@ -30,7 +30,7 @@ and defaults, how WeKan implements it, and its commits. See the pages below.
 | --- | --- | --- |
 | OAuth2 / OIDC | [OAuth2](OAuth2.md), [autologin](autologin.md) | `packages/wekan-oidc`, `packages/wekan-accounts-oidc` |
 | Google, GitHub, Facebook, Twitter, Meteor, Weibo, Meetup | [OAuth providers](OAuth-Providers.md), [Google login](Google-login.md), [Google Cloud](Google-Cloud.md) | `server/lib/oauthProviders.js` |
-| OIDC examples | [ADFS](ADFS.md), [Apple](Apple.md), [Authelia](Authelia.md), [Azure](Azure/Azure.md), [B2C](B2C.md), [Keycloak](Keycloak/Keycloak.md), [Nextcloud](Nextcloud.md), [Oracle Identity Cloud](Oracle-Identity-Cloud.md), [Oracle OIM](Oracle-OIM.md), [Zitadel](Zitadel.md) | `packages/wekan-oidc` |
+| OIDC examples | [ADFS](ADFS.md), [Apple](Apple.md), [Authelia](Authelia.md), [Azure](Azure/README.md), [B2C](B2C.md), [Keycloak](Keycloak/README.md), [Nextcloud](Nextcloud.md), [Oracle Identity Cloud](Oracle-Identity-Cloud.md), [Oracle OIM](Oracle-OIM.md), [Zitadel](Zitadel.md) | `packages/wekan-oidc` |
 | LDAP / Active Directory | [LDAP](LDAP.md), [LDAP AD simple auth](LDAP-AD-Simple-Auth.md) | `packages/wekan-ldap`, `server/ldapGroupSync.js` |
 | CAS | [CAS](CAS.md) | `packages/wekan-accounts-cas` |
 | SAML | [SAML](SAML.md) | `packages/wekan-accounts-saml`, `server/saml.js` |

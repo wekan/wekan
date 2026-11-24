@@ -27,7 +27,7 @@ feature appear.
   on Wikipedia.
 - WeKan: [Settings / Features](Settings/Features.md),
   [Settings / Feature profiles](Settings/Feature-Profiles.md),
-  [Members and Permissions](../Board-Sidebar/Members/Members.md),
+  [Members and Permissions](../Board-Sidebar/Members/README.md),
   [Board roles](../Board-Sidebar/Members/Roles.md) and
   [List permissions](../Lists/List-Permissions.md).
 
@@ -62,8 +62,8 @@ field and board layers are display only on purpose. Which is which, and why:
 
 | Layer | Who sets it | Where | Decides |
 | --- | --- | --- | --- |
-| Admin Panel access | Site admin | [People / People](People/People.md) | Site administrators manage the whole instance; Organization administrators only their own organization's scope. |
-| Board role | Board admin | [Members and Permissions](../Board-Sidebar/Members/Members.md), [Board roles](../Board-Sidebar/Members/Roles.md) | What a member may do on one board: Board admin, Normal, Read-only, Comment-only, Worker, Assigned-only and the rest. |
+| Admin Panel access | Site admin | [People / People](People/README.md) | Site administrators manage the whole instance; Organization administrators only their own organization's scope. |
+| Board role | Board admin | [Members and Permissions](../Board-Sidebar/Members/README.md), [Board roles](../Board-Sidebar/Members/Roles.md) | What a member may do on one board: Board admin, Normal, Read-only, Comment-only, Worker, Assigned-only and the rest. |
 | List exception | Board admin | [List permissions](../Lists/List-Permissions.md) | For one list, a role may do more or less than the board allows. A refusing list also refuses bulk writes, rule actions, and deleting or moving the list or its swimlane. A board admin is never restricted. |
 | Instance-wide role rules | Site admin | [People / Roles](People/Roles.md) | Which board roles may invite people to a board. |
 | Organization and team rules | Site admin | [People / Organizations](People/Organizations.md), [People / Teams](People/Teams.md) | Shared templates, members propagated to boards, members synced from the identity provider, and adding members only from the same organization or team. |
@@ -78,7 +78,7 @@ field and board layers are display only on purpose. Which is which, and why:
 3. Missing on **one board** only? The board's
    [Board Settings](../Board-Sidebar/Board-Settings/README.md) do not show it.
 4. **Shown but refused** when they use it? That is a permission: their
-   [board role](../Board-Sidebar/Members/Members.md) or a
+   [board role](../Board-Sidebar/Members/README.md) or a
    [list exception](../Lists/List-Permissions.md).
 
 ## How the numbers are calculated

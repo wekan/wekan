@@ -18,8 +18,8 @@ Every signed-in member sees it.
 - [Canvas fingerprinting](https://en.wikipedia.org/wiki/Canvas_fingerprinting) -
   the canvas text-width technique, which WeKan uses only to find which fonts
   are installed.
-- [Change Color](../General/Theme/Theme.md) and
-  [Admin Panel / Settings / Accessibility](../Admin-Panel/Settings/Accessibility.md).
+- [Change Color](../Theme/README.md) and
+  [Admin Panel / Settings / Accessibility](../Accessibility/Admin-Panel-Settings.md).
 
 ## How to use it
 

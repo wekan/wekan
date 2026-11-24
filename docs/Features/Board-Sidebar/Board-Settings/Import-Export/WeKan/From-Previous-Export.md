@@ -10,7 +10,7 @@ a very large board without its attachments, and reading the JSON into SQLite.
 ## Read more
 
 - [Wikipedia: JSON](https://en.wikipedia.org/wiki/JSON)
-- [WeKan](WeKan.md): the WeKan JSON and .zip formats, import and export
+- [WeKan](README.md): the WeKan JSON and .zip formats, import and export
 - [xclip](https://github.com/astrand/xclip)
 - [SQLite command line](https://sqlite.org/cli.html)
 
@@ -66,7 +66,7 @@ To be continued
   (#5870, [models/export.js](../../../../../../models/export.js)).
 - **Import size**: a WeKan board document read from a `.zip` may be at most
   256 MB ([models/importZip.js](../../../../../../models/importZip.js)); the
-  import's deadline is that of every import (see [WeKan](WeKan.md)).
+  import's deadline is that of every import (see [WeKan](README.md)).
 
 ## How it works in WeKan
 

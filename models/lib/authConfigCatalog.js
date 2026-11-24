@@ -229,7 +229,7 @@ const SECTIONS = {
         labelKey: 'attachment-retention-max-per-run' }],
     ],
   },
-  // Email to card and the email view's limits (docs/Features/General/Email/
+  // Email to card and the email view's limits (docs/Features/Email/
   // Email-To-Card.md), beside Admin Panel / People / Notification Settings /
   // Email to card, which holds the mailboxes and secrets. INBOUND_IMAP_DISABLED
   // is not here on purpose: it stops IMAP in ONE process of a multi-pod

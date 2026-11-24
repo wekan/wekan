@@ -3,7 +3,7 @@
 /**
  * Spec 45 - axe-core scan of the pages, in the default theme.
  *
- * docs/Features/General/Accessibility/Audit.md records an automated audit that
+ * docs/Features/Accessibility/Audit.md records an automated audit that
  * found colour contrast, Label in Name, unlabelled fields, a button holding
  * controls, and missing landmarks and headings. They are fixed, and this spec
  * keeps them fixed: every page below must have NO violation of the WCAG 2.0,

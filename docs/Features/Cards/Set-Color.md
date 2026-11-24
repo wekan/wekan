@@ -18,7 +18,7 @@ readable on it automatically.
 - [MDN: `<input type="color">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color),
   the browser's colour wheel used for **Custom color**.
 - In WeKan: [List menu / Set Color](../Lists/Set-Color.md),
-  [Multi-Selection](../General/Multi-Selection.md) and
+  [Multi-Selection](../Multi-Selection.md) and
   [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md).
 
 ## How to use it
@@ -54,7 +54,7 @@ A card without a colour of its own can be shown in its list's colour; see
 wins.
 
 Several cards can be coloured at once from
-[Multi-Selection](../General/Multi-Selection.md).
+[Multi-Selection](../Multi-Selection.md).
 
 ## How the numbers are calculated
 

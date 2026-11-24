@@ -20,8 +20,8 @@ an individual still have the final say for themselves. See
 - [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) on MDN -
   the browser notifications on this device.
 - [ntfy documentation](https://docs.ntfy.sh/) - the phone app channel.
-- [Notification delivery](../General/Notifications/Notification-Delivery.md) and
-  [ntfy](../General/Notifications/ntfy.md) in the WeKan docs.
+- [Notification delivery](../Notifications/Notification-Delivery.md) and
+  [ntfy](../Notifications/ntfy.md) in the WeKan docs.
 - [Activity on all my boards](Activity-Feed.md).
 
 ## How to use it
@@ -51,7 +51,7 @@ No**, where Default means "inherit from the level above".
 Below the on/off rows, each channel (Email, Notifications tray, Outgoing
 Webhooks) has its delivery settings - what a notification shows, whether
 several are combined, and when they are sent. See
-[Notification delivery](../General/Notifications/Notification-Delivery.md).
+[Notification delivery](../Notifications/Notification-Delivery.md).
 
 **What else the popup holds, by scope**
 
@@ -63,7 +63,7 @@ several are combined, and when they are sent. See
   notifications even while WeKan is closed.
 - **Member scope - ntfy phone notifications:** tick **Send my notifications to
   ntfy**, paste the **Topic address** (and an optional **Access token**), and
-  click **Save**. See [ntfy](../General/Notifications/ntfy.md).
+  click **Save**. See [ntfy](../Notifications/ntfy.md).
 - **Board scope - Due date reminders:** the days to remind on, **No due date
   reminders on this board**, and **Also send due date reminders to this
   board's outgoing webhooks**, then **Save**.

@@ -418,7 +418,7 @@ services:
       #- APM_APP_SECRET=
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
-      # https://github.com/wekan/wekan/blob/main/docs/Features/Logs.md
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Troubleshooting/Logs.md
       #
       # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
       # https://github.com/wekan/wekan-logstash
@@ -675,7 +675,7 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
-      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login-Page/Keycloak/README.md  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: redirect (default) or popup.
       #- OAUTH2_LOGIN_STYLE=redirect

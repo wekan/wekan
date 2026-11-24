@@ -31,7 +31,7 @@ const { paneHelpId } = require('/models/lib/featureHelp');
 
 Template.registerHelper('isLeftMenuCollapsed', () => Utils.getLeftMenuCollapseState());
 
-// The ? of the open pane (docs/Features/General/Help-Button.md): its help
+// The ? of the open pane (docs/Features/Help-Button.md): its help
 // depends on the page and on the open menu entry, which paneTitle() passes as
 // `paneId`.
 Template.paneTitle.helpers({

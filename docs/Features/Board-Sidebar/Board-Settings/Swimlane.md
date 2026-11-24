@@ -14,7 +14,7 @@ lists together.
 - [Wikipedia: Kanban (development)](https://en.wikipedia.org/wiki/Kanban_(development)),
   where work-in-progress limits come from
 - [WIP Limit Groups](../../Lists/WipLimit/WIP-Limit-Groups.md)
-- [Swimlanes](../../Swimlanes/Swimlanes.md)
+- [Swimlanes](../../Swimlanes/README.md)
 
 ## How to use it
 

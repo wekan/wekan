@@ -70,7 +70,7 @@ test('recordRecoveryEvent method is admin-gated', () => {
 
 test('client report is wired: config, columns, menu, rendering', () => {
   // The report no longer has a template of its own: it renders through the
-  // shared table page (docs/Features/General/Table.md) and differs from the other
+  // shared table page (docs/Features/Table.md) and differs from the other
   // reports only in its column list. Same wiring, one implementation.
   const js = read('client/components/settings/adminProblems.js');
   assert.ok(/'report-recovery':/.test(js), 'reportConfig has report-recovery');

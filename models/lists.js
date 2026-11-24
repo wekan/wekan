@@ -128,7 +128,7 @@ Lists.attachSchema(
       type: Date,
       optional: true,
     },
-    // Soft delete (docs/Features/Undo/Undo.md): a deleted list is MARKED, never
+    // Soft delete (docs/Features/Undo/README.md): a deleted list is MARKED, never
     // destroyed, so it can be restored/undone (#1023). `deletedAt: null` (or the
     // field being absent) means the list is live; a Date means soft-deleted.
     // deleteBatchId groups a list with the cards deleted alongside it, so restore

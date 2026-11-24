@@ -9,7 +9,7 @@ import { canReadBoard } from '/models/lib/boardVisibility';
 import { featureOnFor } from '/server/lib/assistGate';
 
 // Board menu -> Since your last visit
-// (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md). markVisited
+// (docs/Features/Since-Last-Visit/README.md). markVisited
 // is called when a board opens and answers with the visit BEFORE this one,
 // which is what the view lists from; it is kept while the feature is hidden,
 // so turning it on again shows the right changes. The list reads a board the

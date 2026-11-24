@@ -14,7 +14,7 @@ whatever the team thinks in - without moving a card out of its list.
 - [Faceted classification](https://en.wikipedia.org/wiki/Faceted_classification)
   on Wikipedia - sorting the same things along several independent
   dimensions, which is what several column sets do.
-- [Lists](../../Lists/Lists.md) and [Labels](../../Board-Sidebar/Labels/Labels-Milestone-Due-Date.md) -
+- [Lists](../../Lists/README.md) and [Labels](../../Board-Sidebar/Labels/Labels-Milestone-Due-Date.md) -
   the other ways a board groups its cards.
 
 ## How to use it

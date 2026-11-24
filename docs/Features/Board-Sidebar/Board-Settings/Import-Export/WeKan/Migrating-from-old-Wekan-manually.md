@@ -11,7 +11,7 @@ compare the old and new schema, and fix what differs.
 - [Wikipedia: Schema migration](https://en.wikipedia.org/wiki/Schema_migration)
 - [Backup](../../../../../Backup/Backup.md)
 - [History of schema migration systems](History-of-Schema-Migrations-Systems.md)
-- [WeKan](WeKan.md): exporting and importing a board as WeKan JSON
+- [WeKan](README.md): exporting and importing a board as WeKan JSON
 
 ## How to use it
 

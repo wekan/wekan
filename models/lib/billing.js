@@ -1,6 +1,6 @@
 'use strict';
 
-// Budget and billing (docs/Features/Billing/Billing.md): what a board's work
+// Budget and billing (docs/Features/Billing/README.md): what a board's work
 // costs, against its budget, and the invoices of the time spent on it.
 //
 // Pure - no Meteor, no database - so the money is tested as arithmetic

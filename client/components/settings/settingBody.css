@@ -240,7 +240,7 @@
 
    So: fit the panel, wrap the text, and let a genuinely wide table scroll inside
    `.main-body`, which keeps `overflow-x: auto` for exactly that. The shared table
-   page (docs/Features/General/Table-Page.md) already does this for itself - width:100% +
+   page (docs/Features/Table.md) already does this for itself - width:100% +
    table-layout:fixed with equal, wrapping columns - and is excluded so its equal
    columns are not turned back into content-sized ones. */
 .setting-content .content-body .main-body table:not(.table-page-table) {

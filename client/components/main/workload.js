@@ -1,4 +1,4 @@
-// Workload page (docs/Features/Workload/Workload.md). It asks the server for a
+// Workload page (docs/Features/Workload/README.md). It asks the server for a
 // report (Meteor method workloadReport, server/workload.js) and draws it; the
 // planning forms below the table write through the other workload* methods.
 import { Meteor } from 'meteor/meteor';

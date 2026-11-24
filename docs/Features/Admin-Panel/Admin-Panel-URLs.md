@@ -258,7 +258,7 @@ instead of in two places that can disagree.
 ## Related
 
 - [Left menu](../All-Boards/Left-Menu.md) — the menu these URLs open
-- [The Table page design](../General/Table.md) — what most of these panes render
+- [The Table page design](../Table.md) — what most of these panes render
 
 ## Commits
 

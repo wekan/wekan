@@ -46,7 +46,7 @@ switches.
 
 1. Open Admin Panel → **People**.
 2. Find the account and enable its login again
-   ([People](../People/People.md)).
+   ([People](../People/README.md)).
 
 **Acknowledge or clear the report**
 
@@ -110,11 +110,11 @@ user and its catalog key does not say otherwise, that account is disabled
 in" (`server/lib/blockOnSecurityEvent.js`). The reason, the name, the source
 and the address are kept in the user's `services.securityBlock`. The address is
 recorded, never blocked. An administrator re-enables the account in Admin Panel
-/ [People](../People/People.md).
+/ [People](../People/README.md).
 
 ### The table
 
-The shared [table page](../../General/Table.md), newest row first, 10 rows a
+The shared [table page](../../Table.md), newest row first, 10 rows a
 page, read-only:
 
 | Column | Holds |

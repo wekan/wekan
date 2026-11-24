@@ -30,7 +30,7 @@ slow. This report makes that visible.
   the Linux `/proc/meminfo` fields `MemTotal`, `MemAvailable`, `SwapTotal` and
   `SwapFree` the monitor reads.
 - In WeKan: [CPU-usage.md](CPU-usage.md), [Disk-usage.md](Disk-usage.md),
-  [Problems README](README.md), the shared [table page](../../General/Table.md).
+  [Problems README](README.md), the shared [table page](../../Table.md).
 
 ## How to use it
 

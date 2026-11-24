@@ -15,7 +15,7 @@ the first entry of the `emails` array in the token.
 - [OpenID on Wikipedia](https://en.wikipedia.org/wiki/OpenID) and
   [OAuth on Wikipedia](https://en.wikipedia.org/wiki/OAuth)
 - Original issue: [#5242](https://github.com/wekan/wekan/issues/5242)
-- WeKan: [OAuth2](OAuth2.md), [ADFS](ADFS.md), [Azure](Azure/Azure.md)
+- WeKan: [OAuth2](OAuth2.md), [ADFS](ADFS.md), [Azure](Azure/README.md)
 
 ## How to use it
 

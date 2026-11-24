@@ -29,7 +29,7 @@ import { errorMessage } from '/client/lib/errorMessage';
 
 // The All Boards right sidebar. Its shell mirrors the board sidebar's; what it
 // shows is this page's own. docs/Features/Board-Header/Search.md,
-// docs/Features/General/Multi-Selection.md
+// docs/Features/Multi-Selection.md
 
 Template.allBoardsSidebar.helpers({
   isSidebarOpen() {

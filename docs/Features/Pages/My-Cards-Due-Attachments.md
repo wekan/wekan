@@ -24,7 +24,7 @@ check each board individually:
 - [Pagination](https://en.wikipedia.org/wiki/Pagination) - Due Cards and My
   Attachments are shown a page at a time.
 - In WeKan: [Due date](../Cards/Dates/Due-Date.md),
-  [Attachments](../Cards/Attachments/Attachments.md),
+  [Attachments](../Cards/Attachments/README.md),
   [Starred](Starred.md), [Search](../Board-Header/Search.md).
 
 ## How to use it
@@ -74,7 +74,7 @@ those features are on.)
   one card.
 - **Due Cards** needs cards with a [due date](../Cards/Dates/Due-Date.md) set.
 - **My Attachments** needs at least one file you uploaded to a card you can
-  see - see [Attachments](../Cards/Attachments/Attachments.md).
+  see - see [Attachments](../Cards/Attachments/README.md).
 
 ## How the numbers are calculated
 

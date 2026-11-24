@@ -1,4 +1,4 @@
-// Pure helpers behind the shared table page (docs/Features/General/Table.md).
+// Pure helpers behind the shared table page (docs/Features/Table.md).
 //
 // Every paginated admin table — Security, Speed, Tests, CPU usage, Files, Rules,
 // Boards, Cards, Impersonation, Recovery — renders through ONE template driven by

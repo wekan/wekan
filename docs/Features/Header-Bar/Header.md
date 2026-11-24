@@ -441,8 +441,8 @@ be opened from.
 
 - [Admin Panel URLs](../Admin-Panel/Admin-Panel-URLs.md) — the panel's addresses and its title path
 - [All Boards URLs](../All-Boards/URLs.md) — the sections, workspaces and their title path
-- [All Boards](../All-Boards/All-Boards.md) — the four controls this bar holds there
-- [Linking to a swimlane, list or card](../General/Board-Item-Links.md) — where the card's copy button went
+- [All Boards](../All-Boards/README.md) — the four controls this bar holds there
+- [Linking to a swimlane, list or card](../Board-Item-Links.md) — where the card's copy button went
 
 ## Commits
 

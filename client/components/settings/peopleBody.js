@@ -82,7 +82,7 @@ const TENANT_ORG_FIELDS = [
   'orgLegalNotice',
 ];
 
-// One rows-per-page for the whole app (docs/Features/General/Table.md): these four
+// One rows-per-page for the whole app (docs/Features/Table.md): these four
 // panes page exactly like every other paginated page in WeKan.
 const orgsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
 const teamsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
@@ -623,15 +623,15 @@ function firstPeoplePaneId(user) {
   return items.length ? items[0].id : 'people-setting';
 }
 
-// Organizations through the shared table page (docs/Features/General/Table.md). Its
+// Organizations through the shared table page (docs/Features/Table.md). Its
 // rows are interactive - inline checkboxes and edit links - so it supplies a
 // rowTemplate instead of a text-cell spec, and three of its headers carry a
 // select-all pair, supplied as headerTemplate. Everything else - the layout, the
 // pager, the search, the total - comes from the shared page.
 // Teams: same shape as Organizations - interactive rows, three headers carrying
-// a select-all pair. Same two slots (docs/Features/General/Table.md).
+// a select-all pair. Same two slots (docs/Features/Table.md).
 // People: interactive rows again, and two of its headers are templates - the
-// new-user row and the select-all checkbox (docs/Features/General/Table.md).
+// new-user row and the select-all checkbox (docs/Features/Table.md).
 // One page of users: the ones the server put on this page, in its order.
 //
 // The 'people' publication applies limit/skip sorted createdAt:-1 server-side, so
@@ -1297,7 +1297,7 @@ function yesNo(value) {
 }
 
 Template.rolesGeneral.helpers({
-  // The shared table page's data context (docs/Features/General/Table.md).
+  // The shared table page's data context (docs/Features/Table.md).
   rolesStatusTable() {
     const tpl = Template.instance();
     const working = tpl.workingRoles.get() || [];
@@ -2951,7 +2951,7 @@ Template.domainGeneral.onCreated(function () {
   });
 });
 
-// Domains renders through the shared table page (docs/Features/General/Table.md):
+// Domains renders through the shared table page (docs/Features/Table.md):
 // one column spec instead of its own controls row, pagination markup and table.
 const DOMAIN_COLUMNS = [
   { labelKey: "domain", value: d => d.domain },

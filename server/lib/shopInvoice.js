@@ -1,5 +1,5 @@
 // Board View / Shop: an order as a Budget and billing invoice
-// (docs/Features/Board-Header/Board-Views/Shop.md, docs/Features/Billing/Billing.md).
+// (docs/Features/Board-Header/Board-Views/Shop.md, docs/Features/Billing/README.md).
 //
 // When Budget and billing is on for the shop's owner - the board admin whose
 // settings take the orders - server/shop.js shopPlaceOrder makes the order an

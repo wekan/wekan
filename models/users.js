@@ -1326,7 +1326,7 @@ Users.attachSchema(
        * When this user last opened each board: { <boardId>: Date }, at most
        * 500 boards. Board menu -> Since your last visit lists what changed
        * after the visit before the current one
-       * (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md); written
+       * (docs/Features/Since-Last-Visit/README.md); written
        * only by boards.markVisited.
        */
       type: Object,

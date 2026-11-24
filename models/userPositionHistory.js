@@ -189,7 +189,7 @@ UserPositionHistory.helpers({
   },
 
   /**
-   * Soft-delete apply/undo helper (docs/Features/Undo/Undo.md). Marks
+   * Soft-delete apply/undo helper (docs/Features/Undo/README.md). Marks
    * (`deleted=true`) or restores (`deleted=false`) the entity AND its cascade,
    * using the history entry's `batchId` as the canonical group so repeated
    * undo/redo cycles stay consistent. v1 wires lists (+ their cards); other entity
@@ -287,7 +287,7 @@ UserPositionHistory.helpers({
       this.entityType === 'card' ? this.previousListId : null);
 
     // Soft delete: undo of a 'delete' RESTORES the entity (+ batch); undo of a
-    // 'restore' re-deletes it. (docs/Features/Undo/Undo.md)
+    // 'restore' re-deletes it. (docs/Features/Undo/README.md)
     if (this.actionType === 'delete') {
       await this._applyDeleted(false);
       return;

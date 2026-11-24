@@ -24,7 +24,7 @@ whether a backup is already running, so an in-progress backup shows its status.
 - [Data retention](https://en.wikipedia.org/wiki/Data_retention) on Wikipedia.
 - WeKan: [Backup and restore](../../../Backup/Backup.md),
   [Continuous backup](../../../Backup/Continuous-Backup.md) and
-  [Attachments (cards)](../../Cards/Attachments/Attachments.md).
+  [Attachments (cards)](../../Cards/Attachments/README.md).
 
 ## How to use it
 
@@ -104,7 +104,7 @@ works on any more, and remove deleted attachments for good after another number
 of days. Each field overrides its environment variable (`ATTACHMENTS_RETENTION_*`,
 and `ATTACHMENTS_PURGE_DELETED_AFTER_DAYS` for the purge); an empty field falls
 back to it. Off unless set. See
-[Attachments.md](../../Cards/Attachments/Attachments.md#retention-removing-old-attachments-automatically).
+[Attachments.md](../../Cards/Attachments/README.md#retention-removing-old-attachments-automatically).
 
 ### MongoDB GridFS storage · Filesystem storage · S3 / MinIO storage · Azure Blob Storage · Google Cloud Storage · WebDAV
 
@@ -204,7 +204,7 @@ the app boots — see
 
 ## Related
 
-- [Attachments (cards)](../../Cards/Attachments/Attachments.md) — what a user sees.
+- [Attachments (cards)](../../Cards/Attachments/README.md) — what a user sees.
 - [Attachment migration system](../../Board-Sidebar/Board-Settings/Import-Export/Attachment/Attachment-Migration-System.md)
 
 ## The panes, in menu order
@@ -219,7 +219,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Move Attachment | `move` | — |
 | Attachments / Default Save Storage | `default-save-storage` | — |
 | Attachments / Limits | `limits` | — |
-| Attachments / Retention | `retention` | [Attachments.md](../../Cards/Attachments/Attachments.md) |
+| Attachments / Retention | `retention` | [Attachments.md](../../Cards/Attachments/README.md) |
 | Attachments / Encrypt | `encrypt` | [Encrypt.md](Encrypt.md) |
 | Attachments / MongoDB GridFS Storage | `gridfs` | — |
 | Attachments / Filesystem Storage | `filesystem` | — |

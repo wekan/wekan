@@ -404,7 +404,7 @@ Swimlanes.helpers({
       {
         boardId: this.boardId,
         //archived: false,
-        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/Undo.md)
+        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/README.md)
       },
       { sort: ['sort'] },
     );

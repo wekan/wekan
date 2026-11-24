@@ -142,7 +142,7 @@ async function requestedScrumRow(context, boardId, direction, requestId, batchId
 }
 
 // Server side of the universal change history
-// (docs/Features/General/History/History.md): the read method, the restore, and
+// (docs/Features/History/README.md): the read method, the restore, and
 // the undo/redo stack that generalises #6478 from position moves to every
 // recorded change.
 //

@@ -4,7 +4,7 @@ template(name="editCardSpentTimePopup")
       .fields
         label(for="time") {{_ 'time'}}
         input.js-time-field#time(type="number" step="0.01" name="time" value="{{card.getSpentTime}}" placeholder=timeFormat autofocus)
-        //- Workload (docs/Features/Workload/Workload.md): what the card is
+        //- Workload (docs/Features/Workload/README.md): what the card is
           estimated to take; what is left is this less the time spent.
         label(for="estimated-hours") {{_ 'workload-estimated-hours'}}
         input.js-estimated-hours-field#estimated-hours(type="number" min="0" max="10000" step="0.25" name="estimatedHours" value="{{card.getEstimatedHours}}")

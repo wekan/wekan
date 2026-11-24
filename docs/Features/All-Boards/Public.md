@@ -11,7 +11,7 @@ Clicking a row opens the board. It changes nothing.
 
 - [Table (information)](https://en.wikipedia.org/wiki/Table_(information)) and
   [Pagination](https://en.wikipedia.org/wiki/Pagination) on Wikipedia
-- [The Table page design](../General/Table.md),
+- [The Table page design](../Table.md),
   [Allow private boards only: Disable Public Boards](../Admin-Panel/Settings/Appearance.md)
   and [Starred](../Pages/Starred.md) in these docs
 
@@ -40,7 +40,7 @@ Clicking a row opens the board. It changes nothing.
 
 `/public` lists the boards anybody may open. It is a **table page**: everything
 about its layout, its controls and its paging is defined once in
-[the Table page design](../General/Table.md), and this page describes only what is different
+[the Table page design](../Table.md), and this page describes only what is different
 about this one.
 
 ### What it is not
@@ -160,7 +160,7 @@ board is public. The `/public` route itself still goes through
 ### Related files
 
 Only what is specific to this page; everything shared is in
-[Table.md's own list](../General/Table.md#related-files).
+[Table.md's own list](../Table.md#related-files).
 
 | File Path | File Type | Description |
 | --- | --- | --- |
@@ -173,7 +173,7 @@ Only what is specific to this page; everything shared is in
 
 ### Related
 
-- [The Table page design](../General/Table.md) — everything shared
+- [The Table page design](../Table.md) — everything shared
 - [Left menu](Left-Menu.md)
 
 ## Commits

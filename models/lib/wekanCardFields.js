@@ -20,7 +20,7 @@ export const COPIED = [
   // Keyed by the board's column sets, which the board import copies with
   // their ids (models/wekanCreator.js createBoardAndLabels).
   'columnSetValues',
-  // Workload (docs/Features/Workload/Workload.md): the card's estimate in hours.
+  // Workload (docs/Features/Workload/README.md): the card's estimate in hours.
   'estimatedHours',
   // Budget and billing: false when the card's time is not invoiced.
   'billable',

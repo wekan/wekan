@@ -15,7 +15,7 @@ contains a text under one label at once.
   narrowing a list by groups that each show their count
 - [Tag (metadata)](https://en.wikipedia.org/wiki/Tag_(metadata)) and
   [Folksonomy](https://en.wikipedia.org/wiki/Folksonomy) - personal labels
-- [All Boards](All-Boards.md), [Workspaces](Workspaces.md) and
+- [All Boards](README.md), [Workspaces](Workspaces.md) and
   [Group members](Group-Members.md) in these docs
 
 ## How to use it
@@ -123,7 +123,7 @@ label. The page adds that selector to its board query
 
 ### Related
 
-- [All Boards](All-Boards.md)
+- [All Boards](README.md)
 - [Workspaces](Workspaces.md) - another way to file boards
 - [Group members](Group-Members.md) - the organization and team tabs
 

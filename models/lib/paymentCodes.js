@@ -1,6 +1,6 @@
 'use strict';
 
-// Payment methods of an invoice (docs/Features/Billing/Billing.md): the
+// Payment methods of an invoice (docs/Features/Billing/README.md): the
 // payment references, the QR code payloads and the barcode, each by its
 // published standard, so the payer's bank or app reads them. Pure - nothing is
 // sent anywhere; the codes are drawn on the invoice (PDF, print).

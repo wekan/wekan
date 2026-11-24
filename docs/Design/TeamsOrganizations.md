@@ -139,7 +139,7 @@ OAuth2 only for existing users.
 | Membership | `models/users.js` `orgs[]` `{orgId, orgDisplayName, isAdmin}` and `teams[]` `{teamId, teamDisplayName}` | stored **on the user** (the 2021 suggestion of jrsupplee in #802). `orgs.$.isAdmin` = per-tenant admin. **No role inside a team, no source of the membership.** |
 | `orgUser` | `models/orgUser.js` | numeric-id join table from the early Grafana-like plan; unused by the current UI as far as could be found. |
 | Board sharing | `models/boards.js` `orgs[]`, `teams[]`, `domains[]` each with `isActive` | share entries; `isActive:false` is the revoke switch (`models/lib/boardVisibilitySelectors.js`). |
-| Board roles | `docs/Features/Board-Sidebar/Members/Members.md`, `models/lib/boardRoleCapabilities.js` | nine per-board roles on `board.members[]` (admin, normal, no comments, comment only, worker, read only, assigned-only variants). |
+| Board roles | `docs/Features/Board-Sidebar/Members/README.md`, `models/lib/boardRoleCapabilities.js` | nine per-board roles on `board.members[]` (admin, normal, no comments, comment only, worker, read only, assigned-only variants). |
 | Board permission | `models/lib/boardPermission.js` | `private`, `instance` (all signed-in users read), `public`. |
 
 Important consequence: **a share with an org/team grants read visibility only.**
@@ -164,11 +164,11 @@ in several places:
 
 - Panes: People, Organizations, Teams, Locked Users, Roles, Shared Templates,
   Domains, Login/OAuth2/SAML/LDAP settings (`client/components/settings/peopleBody.jade`).
-  Docs: [People](../Features/Admin-Panel/People/People.md),
+  Docs: [People](../Features/Admin-Panel/People/README.md),
   [Organizations](../Features/Admin-Panel/People/Organizations.md),
   [Teams](../Features/Admin-Panel/People/Teams.md),
   [Roles](../Features/Admin-Panel/People/Roles.md).
-- All are the shared paginated [table page](../Features/General/Table.md)
+- All are the shared paginated [table page](../Features/Table.md)
   (search, total, prev/next).
 - **Bulk:** People has per-row checkboxes, select-all for the page, and a
   **Teams** action that adds or removes one team for the selected users
@@ -827,7 +827,7 @@ Admin Panel / People / Teams (sketch):
 - Drag a tree node onto another to re-parent (reuse the workspace tree drop
   zones, `models/lib/workspacesTree.js`); drag selected table rows onto a tree
   node to add them to that team.
-- The table is the existing [table page](../Features/General/Table.md) with a
+- The table is the existing [table page](../Features/Table.md) with a
   selection column; counts in the tree come from one aggregate.
 - Tabs "Boards" and "Sync" on the right show the team's board shares (with
   role) and the IdP mapping.

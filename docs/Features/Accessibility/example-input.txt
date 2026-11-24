@@ -1,0 +1,5 @@
+# Example input for docs/Features/Accessibility, from Accessibility-Improvements.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Accessibility-Improvements.md for the full explanation.
+
+font: clamp(14px, 2.5vw, 18px) Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;

@@ -17,8 +17,8 @@ Related WeKan pages:
 
 - [Admin Panel / People / Login](../Admin-Panel/People/Login.md) (Login:
   Allow, Invite People)
-- [Admin Panel / People / People](../Admin-Panel/People/People.md)
-- [Troubleshooting Email](../General/Email/Troubleshooting-Mail.md)
+- [Admin Panel / People / People](../Admin-Panel/People/README.md)
+- [Troubleshooting Email](../Email/Troubleshooting-Mail.md)
 - [Forgot password](Forgot-Password.md), [Impersonate user](Impersonate-user.md)
 
 ## How to use it
@@ -40,7 +40,7 @@ Related WeKan pages:
    sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:457/'
    sudo snap set wekan mail-from='Example Wekan Support <support@example.com>'
    ```
-   For more options see [Troubleshooting Email](../General/Email/Troubleshooting-Mail.md)
+   For more options see [Troubleshooting Email](../Email/Troubleshooting-Mail.md)
 5. Login to WeKan at https://example.com/sign-in (your address + /sign-in)
 6. Click on top right your username / **Admin Panel**. In **People** →
    **People** you can change permissions, name, email address and password

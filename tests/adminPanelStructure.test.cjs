@@ -76,7 +76,7 @@ test('the docs mirror it, and explain the layers in one place', () => {
   }
   assert.ok(!fs.existsSync(path.join(__dirname, '..', 'docs/Features/Admin-Panel/Settings/Visibility.md')), 'Visibility.md became Appearance.md');
   const map = read('docs/Features/Admin-Panel/Who-Sees-What.md');
-  for (const link of ['Settings/Features.md', 'Settings/Feature-Profiles.md', '../Board-Sidebar/Members/Members.md', '../Lists/List-Permissions.md']) {
+  for (const link of ['Settings/Features.md', 'Settings/Feature-Profiles.md', '../Board-Sidebar/Members/README.md', '../Lists/List-Permissions.md']) {
     assert.ok(map.includes(link), link);
   }
 });

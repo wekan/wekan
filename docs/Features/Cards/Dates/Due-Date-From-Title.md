@@ -25,7 +25,7 @@ tools sell as AI - and needs no AI service.
   [Intl.RelativeTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat)
   and [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
 - In WeKan: [Due date and the other card dates](Due-Date.md) and
-  [Helpers that need no AI](../../General/Assistants/Assistants.md).
+  [Helpers that need no AI](../../Assistants/README.md).
 
 ## How to use it
 
@@ -98,7 +98,7 @@ Both are on by default (`allowsDueFromTitleOnMinicard`,
 `allowsDueFromTitleOnCard` on the board,
 [models/lib/cardSettingsRows.js](../../../../models/lib/cardSettingsRows.js)).
 A site admin hides it everywhere from Admin Panel / Settings / Features / Card
-fields. See [Helpers that need no AI](../../General/Assistants/Assistants.md).
+fields. See [Helpers that need no AI](../../Assistants/README.md).
 
 ### Implementation
 

@@ -16,8 +16,8 @@ is for board administrators, and it never runs generated code.
 - [Blockly](https://developers.google.com/blockly), the library the view uses.
 - [Event condition action](https://en.wikipedia.org/wiki/Event_condition_action)
   - the trigger-then-action model of a rule.
-- In WeKan: [Rules (Automation)](Rules.md), [IFTTT](../IFTTT/IFTTT.md),
-  [History](../../General/History/History.md).
+- In WeKan: [Rules (Automation)](README.md), [IFTTT](../IFTTT/README.md),
+  [History](../../History/README.md).
 
 ### Dependency references
 

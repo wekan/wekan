@@ -46,7 +46,7 @@ section also has an **Acceptance criteria** field.
 
 ### Story points as a numeric custom field
 
-Add a numeric [Custom Field](CustomFields/CustomFields.md) (for example
+Add a numeric [Custom Field](CustomFields/README.md) (for example
 named "Story Points") at board level, and attach it to the card types you
 use for stories. Custom fields also support a "show sum at top of list"
 toggle (`models/customFields.js`'s `showSumAtTopOfList`) - turn it on and
@@ -62,7 +62,7 @@ for existing burndown options if a graph is wanted on top of the sum.
 Step by step:
 
 1. **Board Settings → Card**, the **Custom Fields** section, **+** (**Create
-   Field**) - see [Custom Fields](CustomFields/CustomFields.md).
+   Field**) - see [Custom Fields](CustomFields/README.md).
 2. Name it (for example "Story Points"), choose the type **Number**, and tick
    **Show sum of fields at top of list** (and **Add field to all cards**, if
    every card is a story).
@@ -86,9 +86,9 @@ outside WeKan:
   visible side by side, and the numeric custom-field sum badge described
   above is naturally scoped per swimlane, so several sprint rows on the
   same board each show their own point total. See
-  [Swimlanes](../Swimlanes/Swimlanes.md).
+  [Swimlanes](../Swimlanes/README.md).
 
-Either way, [Card Dependencies ("Red Strings")](../General/Editor/RedStrings/RedStrings.md)
+Either way, [Card Dependencies ("Red Strings")](../Editor/RedStrings/README.md)
 and [Linked Cards](Linked-Cards.md) can connect a story on a sprint board
 back to its source card on the backlog/planning board below.
 
@@ -97,8 +97,8 @@ back to its source card on the backlog/planning board below.
 A separate board (or a "Backlog" list on the same board) holds stories not
 yet committed to a sprint. Move or copy a card into the active sprint
 board/swimlane when it is pulled into a sprint - WeKan's
-[Drag Drop](../General/DragDrop/Drag-Drop.md) and "move card to board" actions
-both work across boards. [WIP Limits](../Lists/WipLimit/WipLimit.md) on
+[Drag Drop](../DragDrop/Drag-Drop.md) and "move card to board" actions
+both work across boards. [WIP Limits](../Lists/WipLimit/README.md) on
 the sprint board's "Doing" list give a simple check against overcommitting
 mid-sprint.
 

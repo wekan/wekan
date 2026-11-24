@@ -112,7 +112,7 @@ sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:453'
 sudo snap set wekan mail-from='Wekan Boards <support@example.com>'
 ```
 
-[Troubleshooting Email](../../../../Features/General/Email/Troubleshooting-Mail.md)
+[Troubleshooting Email](../../../../Features/Email/Troubleshooting-Mail.md)
 
 ## LDAP
 

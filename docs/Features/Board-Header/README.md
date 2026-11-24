@@ -35,7 +35,7 @@ add; see [the header](../Header-Bar/Header.md).
 | Sort Cards | [Sort Cards](Sort-Cards.md) | Signed-in users |
 | Filter | [Filter](../Board-Sidebar/Filter/README.md) | Signed-in users |
 | Search | [Search](Search.md) | Signed-in users |
-| Multi-Selection | [Multi-Selection](../General/Multi-Selection.md) | Users who can modify the board |
+| Multi-Selection | [Multi-Selection](../Multi-Selection.md) | Users who can modify the board |
 
 Signed out, the bar shows only a **Log in** button.
 
@@ -112,8 +112,8 @@ draws it. Role permissions apply in every view; see
 
 | Menu entry | View | Implementation | Guide |
 | --- | --- | --- | --- |
-| Swimlanes | `board-view-swimlanes` | `swimlane` in `client/components/swimlanes/swimlanes.jade` | [Swimlanes](../Swimlanes/Swimlanes.md) |
-| Lists | `board-view-lists` | `listsGroup` in `client/components/swimlanes/swimlanes.jade` | [Lists](../Lists/Lists.md) |
+| Swimlanes | `board-view-swimlanes` | `swimlane` in `client/components/swimlanes/swimlanes.jade` | [Swimlanes](../Swimlanes/README.md) |
+| Lists | `board-view-lists` | `listsGroup` in `client/components/swimlanes/swimlanes.jade` | [Lists](../Lists/README.md) |
 | Table | `board-view-table` | `tableView` in `client/components/boards/tableView.jade` | [Table-View](Board-Views/Table-View.md) |
 | Calendar | `board-view-cal` | `calendarView` in `client/components/boards/boardBody.jade` | [Calendar](Board-Views/Calendar.md) |
 | Calendar Mode | `board-view-calendar-mode` | `calendarModeView` in `client/components/boards/calendarModeView.jade` | [Calendar-Mode](Board-Views/Calendar-Mode.md) |
@@ -164,7 +164,7 @@ draws it. Role permissions apply in every view; see
 | Distribution | `board-view-distribution` | `distributionView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
 | Dependency Map | `board-view-dependency-map` | `dependencyMapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
 | Activity Heatmap | `board-view-activity-heatmap` | `activityHeatmapView` in `client/components/boards/chartPlaceholderViews.jade` | [Board-Reports](Board-Views/Charts/Board-Reports.md) |
-| Website | `board-view-website` | `websiteView` in `client/components/boards/websiteView.jade` | [Website](../Board-Sidebar/Board-Settings/Import-Export/Website/Website.md) |
+| Website | `board-view-website` | `websiteView` in `client/components/boards/websiteView.jade` | [Website](../Board-Sidebar/Board-Settings/Import-Export/Website/README.md) |
 | Shop | `board-view-shop` | `shopView` in `client/components/boards/shopView.jade` | [Shop](Board-Views/Shop.md) |
 
 ## Commits

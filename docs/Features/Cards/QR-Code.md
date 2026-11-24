@@ -14,7 +14,7 @@ screen and the card opens there, without typing its address.
   its versions and error correction levels (the standard is ISO/IEC 18004).
 - [Reed–Solomon error correction](https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction) -
   how a QR code still reads with part of it hidden.
-- In WeKan: [Board item links](../General/Board-Item-Links.md).
+- In WeKan: [Board item links](../Board-Item-Links.md).
 
 ## How to use it
 
@@ -29,7 +29,7 @@ Every signed-in user who can open the card. It changes nothing.
 ### What it shows
 
 - The QR code of the card's absolute address (the same one **Copy link to
-  clipboard** copies; see [Board item links](../General/Board-Item-Links.md)),
+  clipboard** copies; see [Board item links](../Board-Item-Links.md)),
   264 × 264 pixels.
 - *Scan it to open this card on a phone or tablet.* and the address as text.
 - If the address is too long for the encoder: *The link of this card is too

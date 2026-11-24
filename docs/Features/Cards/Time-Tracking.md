@@ -6,7 +6,7 @@ Time tracking records how much time has been spent on a card. Each card has a
 **Spent time (hours)** total, an optional estimate, an **Overtime** flag and a
 **Time by day** log of who logged how many hours on which day. The total is
 what the [Time view](../Board-Header/Board-Views/Time-View.md),
-[Workload](../Workload/Workload.md) and [Billing](../Billing/Billing.md) read;
+[Workload](../Workload/README.md) and [Billing](../Billing/README.md) read;
 the [Flowtime and Pomodoro](Flowtime-and-Pomodoro.md) timers add to it.
 External time trackers such as Titra and calendars through iCal can be used
 with WeKan too.
@@ -20,7 +20,7 @@ with WeKan too.
 - In WeKan: [Flowtime and Pomodoro](Flowtime-and-Pomodoro.md),
   [Time view](../Board-Header/Board-Views/Time-View.md),
   [Time and issue audit](../Board-Header/Board-Views/Charts/Time-Issue-Audit.md),
-  [Workload](../Workload/Workload.md) and [Billing](../Billing/Billing.md).
+  [Workload](../Workload/README.md) and [Billing](../Billing/README.md).
 
 ### Titra
 

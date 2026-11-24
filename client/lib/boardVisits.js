@@ -3,7 +3,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { allowFeature } from '/client/lib/instanceFeatures';
 
 // The visit BEFORE the current one, per board, for Board menu -> Since your
-// last visit (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md).
+// last visit (docs/Features/Since-Last-Visit/README.md).
 // markVisited records this visit and answers with the one before, so the list
 // stays the same while the board is open and starts afresh on the next visit.
 const previous = new ReactiveDict();

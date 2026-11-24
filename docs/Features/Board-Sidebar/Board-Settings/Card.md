@@ -28,7 +28,7 @@ minicard does the same for the Show on Minicard pane, without headings.
   cards these are
 - [Card Settings](../../Cards/Card-Settings.md)
 - [Flow fields](../../Cards/Flow-Fields.md)
-- [Helpers that need no AI](../../General/Assistants/Assistants.md)
+- [Helpers that need no AI](../../Assistants/README.md)
 - Issues [#4448](https://github.com/wekan/wekan/issues/4448) and
   [#6688](https://github.com/wekan/wekan/issues/6688), the requests
 
@@ -174,7 +174,7 @@ its section. `tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` and
 
 ### The helpers that need no AI
 
-Seven rows turn the [helpers that need no AI](../../General/Assistants/Assistants.md)
+Seven rows turn the [helpers that need no AI](../../Assistants/README.md)
 on and off for this board. For them *Show on Card* and *Show on Minicard* mean
 where the helper works:
 

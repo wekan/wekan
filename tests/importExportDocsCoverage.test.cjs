@@ -35,7 +35,7 @@ test('every export format is on the page', () => {
   ];
   assert.ok(labels.length >= 40, `the export formats are found (${labels.length})`);
   assert.deepEqual(labels.filter(label => !named(label)), []);
-  assert.match(doc, /\| \[Wrike workflow\]\(\.\/Wrike\/Wrike\.md\) \|/, 'the Wrike workflow has its own row, linking its page');
+  assert.match(doc, /\| \[Wrike workflow\]\(\.\/Wrike\/README\.md\) \|/, 'the Wrike workflow has its own row, linking its page');
 });
 
 test('the README links the page from its import and export lists', () => {
@@ -93,13 +93,13 @@ test('every import source and export format has its own page, with the steps and
   assert.deepEqual(unmapped, [], 'a format with no directory page');
   const index = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md');
   for (const dir of new Set(Object.values(DIRECTORY))) {
-    const page = read(`docs/Features/Board-Sidebar/Board-Settings/Import-Export/${dir}/${dir}.md`);
+    const page = read(`docs/Features/Board-Sidebar/Board-Settings/Import-Export/${dir}/README.md`);
     // A heading is matched as text: its characters are escaped, not read as
     // regular-expression syntax.
     const at = HEADINGS.map(h => page.search(new RegExp(`^${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm')));
     assert.ok(at.every(i => i !== -1), `${dir}.md has every section: ${HEADINGS.filter((h, i) => at[i] === -1).join(', ')}`);
     assert.deepEqual([...at].sort((x, y) => x - y), at, `${dir}.md has them in order`);
-    assert.ok(index.includes(`](./${dir}/${dir}.md)`), `the coverage index links ${dir}`);
+    assert.ok(index.includes(`](./${dir}/README.md)`), `the coverage index links ${dir}`);
     assert.doesNotMatch(page, /\/api\/boards\/export-all\//, `${dir}.md names the mass export route as it is`);
     const commits = page.slice(page.search(/^## Commits$/m));
     assert.match(commits, /^ - \[[^\]]+\]\(https:\/\/github\.com\/wekan\/wekan\/commit\/[0-9a-f]{40}\)$/m, `${dir}.md links its commits`);

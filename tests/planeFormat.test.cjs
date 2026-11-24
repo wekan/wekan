@@ -359,11 +359,11 @@ async function main() {
     // Plane is in the Kanban and project tools group of the import list.
     assert.match(read('README.md'), /- Kanban and project tools: [^\n]*\n[^\n]*\bPlane\n/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Plane/Plane.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Plane/README.md');
     // The format details are a subsection of How it works in WeKan, since every
     // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
     assert.match(docPage, /^### Format details$/m);
-    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Plane\/Plane\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Plane\/README\.md\)/);
   });
 
   await test('the archive reader inflates only through the bounded reader and never uses entry names as paths', () => {

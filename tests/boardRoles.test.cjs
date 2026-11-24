@@ -314,7 +314,7 @@ test('the Roles Status table is READ-ONLY', () => {
 
 test('it is the shared table page, not a hand-written table', () => {
   assert.ok(/\+tablePage\(rolesStatusTable\)/.test(peopleJade),
-    'the pane must render the shared template (docs/Features/General/Table.md)');
+    'the pane must render the shared template (docs/Features/Table.md)');
   assert.ok(!/table\.roles-status|<table/.test(peopleJade.slice(
     peopleJade.indexOf('template(name="rolesGeneral")'),
     peopleJade.indexOf('template(name="templatesGeneral")'))),
@@ -365,9 +365,9 @@ test('every string in it is translatable', () => {
 });
 
 test('the table design doc no longer calls Roles a non-table pane', () => {
-  // docs/Features/General/Table.md lists the pages that do NOT use the shared design,
+  // docs/Features/Table.md lists the pages that do NOT use the shared design,
   // "so the gap is visible rather than forgotten". Roles has one now.
-  const design = read('docs/Features/General/Table.md');
+  const design = read('docs/Features/Table.md');
   const notUsing = design.slice(
     design.indexOf('## Pages that do not use this design'),
     design.indexOf('## Pages that use this design'));
@@ -377,7 +377,7 @@ test('the table design doc no longer calls Roles a non-table pane', () => {
 });
 
 test('the doc is reachable from the pages that talk about roles', () => {
-  assert.ok(read('docs/Features/Board-Sidebar/Members/Members.md').includes('Roles.md'),
+  assert.ok(read('docs/Features/Board-Sidebar/Members/README.md').includes('Roles.md'),
     'Members.md must link to it');
   assert.ok(read('docs/API/Role.md').includes('Roles.md'),
     'the API role page must link to it');

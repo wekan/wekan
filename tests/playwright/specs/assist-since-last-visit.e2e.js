@@ -1,7 +1,7 @@
 'use strict';
 
 // Board menu -> Since your last visit
-// (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md): another
+// (docs/Features/Since-Last-Visit/README.md): another
 // member's change shows with its count on the first visit, and the next visit
 // starts from the previous one, so it is gone.
 

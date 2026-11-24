@@ -24,7 +24,7 @@ one place, [Card Settings](Card-Settings.md) - **Board Settings / Card**.
   section menus.
 - In WeKan: [Card Settings](Card-Settings.md),
   [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md),
-  [Custom Fields](CustomFields/CustomFields.md),
+  [Custom Fields](CustomFields/README.md),
   [Flow fields](Flow-Fields.md) and
   [Admin Panel / Settings / Features](../Admin-Panel/Settings/Features.md).
 

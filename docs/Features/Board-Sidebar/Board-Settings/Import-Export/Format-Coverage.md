@@ -77,78 +77,78 @@ page or a format in the export menu has no page here.
 
 | Format | Import | Export |
 | --- | --- | --- |
-| [WeKan JSON and .zip](./WeKan/WeKan.md) | yes | yes |
-| [CSV / TSV](./CSV/CSV.md) | yes | yes |
-| [Excel](./Excel/Excel.md) | yes | yes (a sheet per board when many) |
-| [PDF](./PDF/PDF.md) | — | yes |
-| [HTML](./HTML/HTML.md) | — | yes |
-| [iCalendar](./iCalendar/iCalendar.md) | yes (REST) | yes |
-| [Dependencies JSON / SVG](./Dependencies/Dependencies.md) | yes | yes |
-| [Rules and workflows](./Rules/Rules.md) | yes | yes |
-| [Trello](./Trello/Trello.md) | yes | yes |
-| [Jira](./Jira/Jira.md) | yes | yes |
-| [Asana](./Asana/Asana.md) | yes | yes |
-| [Zenkit](./ZenKit/ZenKit.md) | yes | yes |
-| [Kanboard](./Kanboard/Kanboard.md) | yes | yes |
-| [Nextcloud Deck](./Nextcloud-Deck/Nextcloud-Deck.md) | yes | yes |
-| [OpenProject](./OpenProject/OpenProject.md) | yes | yes |
-| [GitHub](./GitHub/GitHub.md) | yes | yes |
-| [GitLab](./GitLab/GitLab.md) | yes | yes |
-| [Gitea](./Gitea/Gitea.md) | yes | yes |
-| [Forgejo](./Forgejo/Forgejo.md) | yes | yes |
-| [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | yes | yes |
-| [Azure DevOps Boards](./Azure-DevOps/Azure-DevOps.md) | yes | yes |
-| [Microsoft Lists](./Microsoft-Lists/Microsoft-Lists.md) | yes | yes |
-| [Microsoft Project](./Microsoft-Project/Microsoft-Project.md) | yes | yes |
-| [Microsoft Outlook](./Microsoft-Outlook/Microsoft-Outlook.md) | yes | yes |
-| [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | yes | yes |
-| [Microsoft OneNote](./Microsoft-OneNote/Microsoft-OneNote.md) | yes | yes |
-| [Sandstorm grain backups](./Sandstorm/Sandstorm.md) | yes | yes (not WeKan, Gogs, WordPress) |
-| [monday.com](./monday-com/monday-com.md) | yes | yes |
-| [Wrike and Wrike workflow](./Wrike/Wrike.md) | yes | yes |
-| [Teamwork.com](./Teamwork/Teamwork.md) | yes | yes |
-| [Businessmap (Kanbanize)](./Businessmap/Businessmap.md) | yes | yes |
-| [ClickUp](./ClickUp/ClickUp.md) | yes | yes |
-| [Linear](./Linear/Linear.md) | yes | yes |
-| [Notion](./Notion/Notion.md) | yes | yes |
-| [Redmine](./Redmine/Redmine.md) | yes | yes |
-| [Fizzy](./Fizzy/Fizzy.md) | yes | yes |
-| [Plane](./Plane/Plane.md) | yes | — |
-| [Taiga](./Taiga/Taiga.md) | yes | yes |
-| [Pivotal Tracker](./Pivotal-Tracker/Pivotal-Tracker.md) | yes | yes |
-| [MeisterTask](./MeisterTask/MeisterTask.md) | yes | yes |
-| [Quire](./Quire/Quire.md) | yes | yes |
-| [Todoist](./Todoist/Todoist.md) | yes | yes |
-| [TickTick](./TickTick/TickTick.md) | yes | yes |
-| [Tasks.org](./Tasks-org/Tasks-org.md) | yes | yes |
-| [Super Productivity](./Super-Productivity/Super-Productivity.md) | yes | yes |
-| [Vikunja](./Vikunja/Vikunja.md) | yes | yes |
-| [Focalboard](./Focalboard/Focalboard.md) | yes | yes |
-| [Kanri](./Kanri/Kanri.md) | yes | yes |
-| [Nullboard](./Nullboard/Nullboard.md) | yes | yes |
-| [Obsidian Kanban](./Obsidian-Kanban/Obsidian-Kanban.md) | yes | yes |
-| [Markdown](./Markdown/Markdown.md) | yes | yes |
-| [todo.txt](./Todo-txt/Todo-txt.md) | yes | yes |
-| [Taskwarrior](./Taskwarrior/Taskwarrior.md) | yes | yes |
-| [Org mode](./Org-mode/Org-mode.md) | yes | yes |
-| [OPML](./OPML/OPML.md) | yes | yes |
-| [Leo](./Leo/Leo.md) | yes | yes |
-| [Planka](./Planka/Planka.md) | yes | — |
-| [Microsoft To Do](./Microsoft-To-Do/Microsoft-To-Do.md) | yes | — |
-| [KanbanFlow](./KanbanFlow/KanbanFlow.md) | yes | — |
-| [Basecamp](./Basecamp/Basecamp.md) | yes | — |
-| [Google Tasks](./Google-Tasks/Google-Tasks.md) | yes | — |
-| [Google Keep](./Google-Keep/Google-Keep.md) | yes | — |
-| [Mail](./Mail/Mail.md) | yes | yes |
-| [Google Takeout](./Google-Takeout/Google-Takeout.md) | yes | — |
-| [Slack](./Slack/Slack.md) | yes | — |
-| [Mattermost](./Mattermost/Mattermost.md) | yes | yes |
-| [Telegram](./Telegram/Telegram.md) | yes | — |
-| [WhatsApp](./WhatsApp/WhatsApp.md) | yes | — |
-| [Discord](./Discord/Discord.md) | yes | — |
-| [Rocket.Chat](./Rocket-Chat/Rocket-Chat.md) | yes | yes |
-| [Evernote](./Evernote/Evernote.md) | yes | yes |
-| [Website](./Website/Website.md) | yes | yes |
+| [WeKan JSON and .zip](./WeKan/README.md) | yes | yes |
+| [CSV / TSV](./CSV/README.md) | yes | yes |
+| [Excel](./Excel/README.md) | yes | yes (a sheet per board when many) |
+| [PDF](./PDF/README.md) | — | yes |
+| [HTML](./HTML/README.md) | — | yes |
+| [iCalendar](./iCalendar/README.md) | yes (REST) | yes |
+| [Dependencies JSON / SVG](./Dependencies/README.md) | yes | yes |
+| [Rules and workflows](./Rules/README.md) | yes | yes |
+| [Trello](./Trello/README.md) | yes | yes |
+| [Jira](./Jira/README.md) | yes | yes |
+| [Asana](./Asana/README.md) | yes | yes |
+| [Zenkit](./ZenKit/README.md) | yes | yes |
+| [Kanboard](./Kanboard/README.md) | yes | yes |
+| [Nextcloud Deck](./Nextcloud-Deck/README.md) | yes | yes |
+| [OpenProject](./OpenProject/README.md) | yes | yes |
+| [GitHub](./GitHub/README.md) | yes | yes |
+| [GitLab](./GitLab/README.md) | yes | yes |
+| [Gitea](./Gitea/README.md) | yes | yes |
+| [Forgejo](./Forgejo/README.md) | yes | yes |
+| [Microsoft Planner](./Microsoft-Planner/README.md) | yes | yes |
+| [Azure DevOps Boards](./Azure-DevOps/README.md) | yes | yes |
+| [Microsoft Lists](./Microsoft-Lists/README.md) | yes | yes |
+| [Microsoft Project](./Microsoft-Project/README.md) | yes | yes |
+| [Microsoft Outlook](./Microsoft-Outlook/README.md) | yes | yes |
+| [Microsoft Teams](./Microsoft-Teams/README.md) | yes | yes |
+| [Microsoft OneNote](./Microsoft-OneNote/README.md) | yes | yes |
+| [Sandstorm grain backups](./Sandstorm/README.md) | yes | yes (not WeKan, Gogs, WordPress) |
+| [monday.com](./monday-com/README.md) | yes | yes |
+| [Wrike and Wrike workflow](./Wrike/README.md) | yes | yes |
+| [Teamwork.com](./Teamwork/README.md) | yes | yes |
+| [Businessmap (Kanbanize)](./Businessmap/README.md) | yes | yes |
+| [ClickUp](./ClickUp/README.md) | yes | yes |
+| [Linear](./Linear/README.md) | yes | yes |
+| [Notion](./Notion/README.md) | yes | yes |
+| [Redmine](./Redmine/README.md) | yes | yes |
+| [Fizzy](./Fizzy/README.md) | yes | yes |
+| [Plane](./Plane/README.md) | yes | — |
+| [Taiga](./Taiga/README.md) | yes | yes |
+| [Pivotal Tracker](./Pivotal-Tracker/README.md) | yes | yes |
+| [MeisterTask](./MeisterTask/README.md) | yes | yes |
+| [Quire](./Quire/README.md) | yes | yes |
+| [Todoist](./Todoist/README.md) | yes | yes |
+| [TickTick](./TickTick/README.md) | yes | yes |
+| [Tasks.org](./Tasks-org/README.md) | yes | yes |
+| [Super Productivity](./Super-Productivity/README.md) | yes | yes |
+| [Vikunja](./Vikunja/README.md) | yes | yes |
+| [Focalboard](./Focalboard/README.md) | yes | yes |
+| [Kanri](./Kanri/README.md) | yes | yes |
+| [Nullboard](./Nullboard/README.md) | yes | yes |
+| [Obsidian Kanban](./Obsidian-Kanban/README.md) | yes | yes |
+| [Markdown](./Markdown/README.md) | yes | yes |
+| [todo.txt](./Todo-txt/README.md) | yes | yes |
+| [Taskwarrior](./Taskwarrior/README.md) | yes | yes |
+| [Org mode](./Org-mode/README.md) | yes | yes |
+| [OPML](./OPML/README.md) | yes | yes |
+| [Leo](./Leo/README.md) | yes | yes |
+| [Planka](./Planka/README.md) | yes | — |
+| [Microsoft To Do](./Microsoft-To-Do/README.md) | yes | — |
+| [KanbanFlow](./KanbanFlow/README.md) | yes | — |
+| [Basecamp](./Basecamp/README.md) | yes | — |
+| [Google Tasks](./Google-Tasks/README.md) | yes | — |
+| [Google Keep](./Google-Keep/README.md) | yes | — |
+| [Mail](./Mail/README.md) | yes | yes |
+| [Google Takeout](./Google-Takeout/README.md) | yes | — |
+| [Slack](./Slack/README.md) | yes | — |
+| [Mattermost](./Mattermost/README.md) | yes | yes |
+| [Telegram](./Telegram/README.md) | yes | — |
+| [WhatsApp](./WhatsApp/README.md) | yes | — |
+| [Discord](./Discord/README.md) | yes | — |
+| [Rocket.Chat](./Rocket-Chat/README.md) | yes | yes |
+| [Evernote](./Evernote/README.md) | yes | yes |
+| [Website](./Website/README.md) | yes | yes |
 
 The [overview](./External-Tools.md) groups them by kind.
 

@@ -15,7 +15,7 @@ page lists what is sent, how to choose it, and an example of each event.
 
 - [Wikipedia: Webhook](https://en.wikipedia.org/wiki/Webhook)
 - [Wikipedia: JSON](https://en.wikipedia.org/wiki/JSON)
-- [Notification delivery](../../../General/Notifications/Notification-Delivery.md)
+- [Notification delivery](../../../Notifications/Notification-Delivery.md)
 - [Receiving webhooks](Receiving-Webhooks.md)
 
 ## How to use it
@@ -104,7 +104,7 @@ The built-in standard list is `cardId`, `listId`, `oldListId`, `boardId`,
 
 These are the webhook channel's *content* settings in the shared notification
 delivery model, beside its grouping and schedule - see
-[Notification delivery](../../../General/Notifications/Notification-Delivery.md). Each
+[Notification delivery](../../../Notifications/Notification-Delivery.md). Each
 setting is resolved on its own; the first level that sets it wins:
 
 1. **The webhook itself** - Board Settings / Outgoing Webhooks, or Admin Panel /

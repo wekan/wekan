@@ -216,7 +216,7 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnCard', flag: true, default: false, after: 'comments' },
     minicard: { toggle: 'js-board-card-flag', field: 'allowsUnreadCommentsOnMinicard', flag: true, default: true, after: 'commentCount' } },
 
-  // The helpers that need no AI (docs/Features/General/Assistants/Assistants.md).
+  // The helpers that need no AI (docs/Features/Assistants/README.md).
   // For these a side is where the helper works rather than something drawn:
   // the add-card form is the minicard's, the opened card is the card's.
   { key: 'dueFromTitle', icons: ['fa-calendar-plus-o'], label: ['due-from-title'],

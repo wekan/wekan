@@ -1,7 +1,7 @@
 'use strict';
 
 // Board View / Website (docs/Features/Board-Sidebar/Board-Settings/Board-View.md,
-// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): the
+// docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md): the
 // board as the website it was imported from - or one written on it - built
 // straight from its lists, swimlanes, cards and attachments. Chosen as the
 // board's public view in Board Settings / Board View, it is what a visitor

@@ -15,7 +15,7 @@ for good.
   and [Work breakdown structure](https://en.wikipedia.org/wiki/Work_breakdown_structure)
   (parent cards and subtasks) on Wikipedia.
 - In WeKan: [Subtasks](Subtasks.md),
-  [Board item links](../General/Board-Item-Links.md),
+  [Board item links](../Board-Item-Links.md),
   [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md).
 
 ## How to use it

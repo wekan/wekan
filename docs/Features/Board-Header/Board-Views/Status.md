@@ -25,9 +25,9 @@ earlier Status popup.
   [Admin Panel / Problems / Performance → card loading (automatic/adaptive)](../../Admin-Panel/Problems/Performance.md),
   [Problems](../../Admin-Panel/Problems/README.md),
   [Time view](Time-View.md) (the time spent summary),
-  [Members and permissions](../../Board-Sidebar/Members/Members.md),
-  [Swimlanes](../../Swimlanes/Swimlanes.md) · [Lists](../../Lists/Lists.md) ·
-  [Cards](../../Cards/Cards.md) · [Custom fields](../../Cards/CustomFields/CustomFields.md).
+  [Members and permissions](../../Board-Sidebar/Members/README.md),
+  [Swimlanes](../../Swimlanes/README.md) · [Lists](../../Lists/README.md) ·
+  [Cards](../../Cards/README.md) · [Custom fields](../../Cards/CustomFields/README.md).
 
 ## How to use it
 

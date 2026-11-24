@@ -272,7 +272,7 @@
       #export WORKLOAD_ABSENCE_RETENTION_DAYS=
       # WORKLOAD_ABSENCE_TYPE_RECORDED: false stores every new workload absence as "other", so no sick leave is recorded.
       #export WORKLOAD_ABSENCE_TYPE_RECORDED=
-      # Attachment retention, off unless set (docs/Features/Cards/Attachments/Attachments.md):
+      # Attachment retention, off unless set (docs/Features/Cards/Attachments/README.md):
       #export ATTACHMENTS_RETENTION_DAYS=730
       #export ATTACHMENTS_RETENTION_MODE=uploaded
       #export ATTACHMENTS_PURGE_DELETED_AFTER_DAYS=30

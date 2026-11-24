@@ -76,7 +76,7 @@ Popup.template.helpers({
     return MAXIMIZABLE_POPUPS.has(this.popupName);
   },
   // The ? of this popup's feature, in its title bar
-  // (docs/Features/General/Help-Button.md): models/lib/featureHelp.js POPUP_HELP.
+  // (docs/Features/Help-Button.md): models/lib/featureHelp.js POPUP_HELP.
   popupHelp() {
     return popupHelpId(this.popupName);
   },

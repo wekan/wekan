@@ -28,7 +28,7 @@ board; otherwise the name stays in the title.
   in the GitHub Flavored Markdown specification - the `- [ ]` lines.
 - In WeKan: [Checklist or subtasks from the description](Checklist-From-Description.md),
   [Comment replies](Comment-Replies-And-Editing-Restriction.md) and
-  [Helpers that need no AI](../General/Assistants/Assistants.md).
+  [Helpers that need no AI](../Assistants/README.md).
 
 ## How to use it
 

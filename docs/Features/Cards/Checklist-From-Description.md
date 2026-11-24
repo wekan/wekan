@@ -16,7 +16,7 @@ description itself is not changed.
   in the GitHub Flavored Markdown specification - the `[ ]` / `[x]` boxes.
 - In WeKan: [Checklists](Checklists.md), [Subtasks](Subtasks.md),
   [Action items](Action-Items.md) and
-  [Markdown](../General/Editor/Markdown/Markdown.md).
+  [Markdown](../Editor/Markdown/README.md).
 
 ## How to use it
 

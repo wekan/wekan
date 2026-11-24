@@ -25,7 +25,7 @@ it on this pane is empty — which is itself the answer.
   how the caller's address is found behind a proxy.
 - WeKan: [REST API](../../../API/REST-API.md), [README.md](README.md) (every
   pane of this page), [Design.md](Design.md) (why Problems records summaries and
-  not events), [Table page](../../General/Table.md) (the shared table this pane
+  not events), [Table page](../../Table.md) (the shared table this pane
   draws with).
 
 ## How to use it

@@ -19,7 +19,7 @@ on disk, in a bucket - is noticed and reported to the administrator.
 - [PDF.js](https://mozilla.github.io/pdf.js/) and
   [fflate](https://github.com/101arrowz/fflate) - the libraries that read the
   text of PDF and Office files.
-- In WeKan: [Attachments](Attachments.md) and the daily
+- In WeKan: [Attachments](README.md) and the daily
   [storage integrity scan](../../../Security/Remediation/WeKan.md).
 
 ## How to use it
@@ -49,7 +49,7 @@ and [server/lib/attachmentContentIndex.js](../../../../server/lib/attachmentCont
   checks nothing.
 - The **search text** is cut at 2 MB (`MAX_SEARCH_TEXT`); a text file is read
   for its first 4 MB (`MAX_TEXT_READ`). PDF and Office text is bounded as in
-  [Attachments](Attachments.md) (32 MiB source, 200 pages, 2 MiB text).
+  [Attachments](README.md) (32 MiB source, 200 pages, 2 MiB text).
 - Two attachments are indexed at a time (`MAX_CONCURRENT`).
 - The **known versions** are the hashes in the attachment's card history rows
   (their previous and new content).

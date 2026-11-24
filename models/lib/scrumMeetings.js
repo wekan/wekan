@@ -1,7 +1,7 @@
 'use strict';
 
 // Two Scrum meeting helpers that need no AI and no network
-// (docs/Features/Scrum/Meetings.md):
+// (docs/Features/Board-Sidebar/Board-Settings/Scrum-Meetings.md):
 //
 //   Daily standup timer   the board's people in a shuffled order, each with
 //                         the same timebox; the one speaking, their time left

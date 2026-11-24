@@ -250,7 +250,7 @@ const EXPORT_FORMAT_GROUPS = [
       { key: 'enex', icon: 'fa-sticky-note', label: 'Evernote (.enex)', path: 'export/enex', ext: 'enex', scopes: BOARD_ONLY },
       { key: 'mattermost', icon: 'fa-comments', label: 'Mattermost', path: 'export/mattermost', ext: 'jsonl', scopes: BOARD_ONLY },
       { key: 'rocketchat', icon: 'fa-comments', label: 'Rocket.Chat', path: 'export/rocketchat', ext: 'zip', scopes: BOARD_ONLY },
-      // Websites (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md).
+      // Websites (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md).
       { key: 'wordpress', icon: 'fa-wordpress', label: 'WordPress (.xml)', path: 'export/wordpress', ext: 'xml', scopes: BOARD_ONLY },
       { key: 'wordpressjson', icon: 'fa-wordpress', label: 'WordPress REST API (.json)', path: 'export/wordpressjson', ext: 'json', scopes: BOARD_ONLY },
       { key: 'ghost', icon: 'fa-file-text-o', label: 'Ghost', path: 'export/ghost', ext: 'json', scopes: BOARD_ONLY },

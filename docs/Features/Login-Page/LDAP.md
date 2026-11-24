@@ -299,7 +299,7 @@ services:
       #---------------------------------------------------------------
       # == EMAIL SETTINGS ==
       # Email settings are required in both MAIL_URL and Admin Panel,
-      #   see [Troubleshooting Mail](../General/Email/Troubleshooting-Mail.md)
+      #   see [Troubleshooting Mail](../Email/Troubleshooting-Mail.md)
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #---------------------------------------------------------------

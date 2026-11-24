@@ -476,7 +476,7 @@ from Snap on Ubuntu 18.04.
 [17:38:51] <k_sze> Like, I get 502 Bad Gateway from my nginx reverse proxy
 ```
 
-A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](../Features/General/Email/Troubleshooting-Mail.md).
+A: Did you set your domain SPF records (as TXT records) and DKIM records on your domain that your SMTP server uses? Problem is not in Wekan, it's your SMTP server. For example AWS SES works. Also see [Troubleshooting Email](../Features/Email/Troubleshooting-Mail.md).
 
 ***
 
@@ -487,7 +487,7 @@ other applications
 [03:32:50] <ajay> i am want to integrate it in QGIS for task management
 [03:33:01] <ajay> *i want
 ```
-A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Features/Board-Sidebar/Board-Settings/Outgoing-Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/Rules/IFTTT/IFTTT.md) for some automations.
+A: Use [Wekan REST API](../API/REST-API.md). For example, see [Wekan Gogs integration](https://github.com/wekan/wekan-gogs). You can also use [Outgoing Webhooks](../Features/Board-Sidebar/Board-Settings/Outgoing-Webhooks/Discord/Outgoing-Webhook-to-Discord.md) to send data to some Incoming Webhook. There is also [IFTTT Rules](../Features/Rules/IFTTT/README.md) for some automations.
 
 ***
 

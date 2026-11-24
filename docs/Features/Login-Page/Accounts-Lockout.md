@@ -14,7 +14,7 @@ password, is always let in, and a lock never disables the account itself.
 - [OWASP: Blocking Brute Force Attacks](https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks)
 - [Removing lockout from users, issue #3306](https://github.com/wekan/wekan/issues/3306)
 - WeKan: [Admin Panel / People / Locked Users](../Admin-Panel/People/Locked-Users.md),
-  [Admin Panel / People / People](../Admin-Panel/People/People.md),
+  [Admin Panel / People / People](../Admin-Panel/People/README.md),
   [Forgot password](Forgot-Password.md)
 
 ## How to use it

@@ -13,7 +13,7 @@ personal or shared.
 - [Wikipedia: Kanban board](https://en.wikipedia.org/wiki/Kanban_board)
 - [Nextcloud Deck](https://github.com/nextcloud/deck), whose auto-archive this
   follows
-- [All Boards](../../All-Boards/All-Boards.md)
+- [All Boards](../../All-Boards/README.md)
 - [List settings](List.md)
 - [Admin Panel / Settings / Appearance](../../Admin-Panel/Settings/Appearance.md)
 

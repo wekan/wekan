@@ -14,7 +14,7 @@
 // feature point a transactional-email-RECEIVING provider's inbound-parse
 // webhook (Mailgun Routes, SendGrid Inbound Parse, Postmark inbound) at this
 // endpoint; the provider does the receiving, and POSTs the parsed email here.
-// See docs/Features/Reply-By-Email.md for the provider-side setup this
+// See docs/Features/Email/Reply-By-Email.md for the provider-side setup this
 // requires - it is genuinely outside WeKan's own code.
 //
 // Security: a mail provider, not a logged-in WeKan user, calls this endpoint.

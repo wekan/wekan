@@ -1,5 +1,5 @@
 // Websites as boards, and boards as websites
-// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md).
+// (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md).
 //
 // Every website format WeKan reads is first read - on the server, by
 // server/lib/websiteImport.js - into the same plain items:

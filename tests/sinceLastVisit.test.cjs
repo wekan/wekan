@@ -1,7 +1,7 @@
 'use strict';
 
 // Board menu -> Since your last visit
-// (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md): what is
+// (docs/Features/Since-Last-Visit/README.md): what is
 // listed, from when, what never is, and who may read it.
 //
 // Run: node tests/sinceLastVisit.test.cjs

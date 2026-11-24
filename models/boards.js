@@ -1421,7 +1421,7 @@ Boards.attachSchema(
     allowsDescriptionBadgeOnCard: { type: Boolean, optional: true },
     allowsUnreadCommentsOnCard: { type: Boolean, optional: true },
     // Helpers that need no AI: on unless a board admin turned them off.
-    // docs/Features/General/Assistants/Assistants.md
+    // docs/Features/Assistants/README.md
     allowsDueFromTitleOnCard: { type: Boolean, optional: true },
     allowsDueFromTitleOnMinicard: { type: Boolean, optional: true },
     allowsSimilarCardsOnCard: { type: Boolean, optional: true },
@@ -2044,7 +2044,7 @@ Boards.helpers({
       {
         boardId: this._id,
         archived: false,
-        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/Undo.md)
+        deletedAt: null, // soft delete: hide deleted lists (docs/Features/Undo/README.md)
       },
       { sort: sortKey },
     );

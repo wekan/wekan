@@ -18,7 +18,7 @@ Gantt chart.
   [Frappe Gantt](https://github.com/frappe/gantt), the library each row is
   drawn with.
 - WeKan: [Gantt](Gantt.md) (the Frappe Gantt view the rows reuse),
-  [Custom Fields](../../Cards/CustomFields/CustomFields.md).
+  [Custom Fields](../../Cards/CustomFields/README.md).
 
 ## How to use it
 
@@ -49,7 +49,7 @@ Gantt chart.
 **Steps to use it:**
 
 1. Open a board that has at least one **text** or **dropdown**
-   [Custom Field](../../Cards/CustomFields/CustomFields.md) defined (e.g. a
+   [Custom Field](../../Cards/CustomFields/README.md) defined (e.g. a
    "Release" or "Epic" field) - other field types are not offered for
    grouping.
 2. Click **Board View** (top bar) → **Roadmap**.

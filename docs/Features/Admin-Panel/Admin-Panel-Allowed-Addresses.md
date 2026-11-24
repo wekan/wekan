@@ -25,7 +25,7 @@ Members are not affected at all, from any address.
   shares their code (`models/lib/cloudAddresses.js`).
 - [Security report](Problems/Security-Report.md) - where refused attempts are counted.
 - [Settings enforced on the server](Settings-Enforced-On-Server.md).
-- [Metrics](../General/Metrics.md) - `METRICS_ALLOWED_IP_ADDRESSES` is a separate list
+- [Metrics](../Metrics.md) - `METRICS_ALLOWED_IP_ADDRESSES` is a separate list
   for `/metrics` only.
 
 ## How to use it

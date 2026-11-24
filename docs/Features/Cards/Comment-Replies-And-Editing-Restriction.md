@@ -18,7 +18,7 @@ you hover the minicard's comment count.
   what board admins do when they may edit others' comments.
 - [Tooltip](https://en.wikipedia.org/wiki/Tooltip) - the badge's hover text.
 - In WeKan: [Action items](Action-Items.md) (cards from a comment's lines)
-  and [Cards](Cards.md).
+  and [Cards](README.md).
 
 ## How to use it
 

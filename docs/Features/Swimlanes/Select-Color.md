@@ -20,7 +20,7 @@ it automatically.
 - [`<input type="color">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)
   on MDN - the colour wheel the **Custom color** control uses.
 - In WeKan: [List menu / Set Color](../Lists/Set-Color.md),
-  [Swimlanes](Swimlanes.md).
+  [Swimlanes](README.md).
 
 ## How to use it
 

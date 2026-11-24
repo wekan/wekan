@@ -7,7 +7,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 import './sidebarSummary.jade';
 
-// Board menu -> Summary (docs/Features/General/Summary/Summary.md). The server
+// Board menu -> Summary (docs/Features/Summary/README.md). The server
 // builds it (server/methods/boardSummary.js, models/lib/boardSummary.js); this
 // draws it and copies it as Markdown.
 const { GROUPS, summaryMarkdown } = require('/models/lib/boardSummary');

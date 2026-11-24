@@ -18,7 +18,7 @@ Tokens are never shown, only whether one is set.
   Wikipedia - why an administrator wants to know where data is sent.
 - WeKan: [Turn off all webhooks](../Settings/Turn-Off-All-Webhooks.md),
   [Global Webhooks](../Settings/Global-Webhooks.md), the shared
-  [table page](../../General/Table.md).
+  [table page](../../Table.md).
 
 ## How to use it
 

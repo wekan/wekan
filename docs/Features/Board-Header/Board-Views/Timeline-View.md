@@ -13,7 +13,7 @@ views" in Admin Panel / Settings / Features.
 - [Undo](https://en.wikipedia.org/wiki/Undo) and
   [Audit trail](https://en.wikipedia.org/wiki/Audit_trail) at Wikipedia - the
   past is rebuilt by undoing the board's recorded activities.
-- WeKan: [History](../../General/History/History.md) (the board's change
+- WeKan: [History](../../History/README.md) (the board's change
   history and its Restore), [Time view](Time-View.md),
   [Roles](../../Board-Sidebar/Members/Roles.md),
   [Admin Panel / Settings / Features](../../Admin-Panel/Settings/Features.md).

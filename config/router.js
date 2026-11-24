@@ -507,7 +507,7 @@ function maybeRedirectMovedCard(urlBoardId, cardId) {
 // The route cannot scroll anything: it runs before the board has rendered, and
 // on a board that is already open it runs without re-creating anything. So it
 // names what to REVEAL in a Session value, and the board body reveals it once
-// the element exists. docs/Features/General/Board-Item-Links.md
+// the element exists. docs/Features/Board-Item-Links.md
 FlowRouter.route(SWIMLANE_ROUTE_PATH, {
   name: 'swimlane',
   action(params) {
@@ -722,7 +722,7 @@ FlowRouter.route('/due-cards', {
   },
 });
 
-// Workload and capacity (docs/Features/Workload/Workload.md): the people of the
+// Workload and capacity (docs/Features/Workload/README.md): the people of the
 // signed-in user's boards, week by week, against the hours they have.
 FlowRouter.route('/workload', {
   name: 'workload',
@@ -741,7 +741,7 @@ FlowRouter.route('/workload', {
   },
 });
 
-// Budget and billing (docs/Features/Billing/Billing.md): the money of the
+// Budget and billing (docs/Features/Billing/README.md): the money of the
 // boards the signed-in user is an admin of.
 FlowRouter.route('/billing', {
   name: 'billing',

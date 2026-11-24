@@ -2,7 +2,7 @@
 
 ## What it is
 
-Two per-field settings for managing a board's [Custom Fields](CustomFields.md)
+Two per-field settings for managing a board's [Custom Fields](README.md)
 as they grow in number: an **Admin only** flag that hides a field's value
 from everyone but board admins, and a drag-to-reorder **display order** that
 controls the order fields are listed and shown on a card. Beside them is a
@@ -13,7 +13,7 @@ change.
 
 - [Role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control)
   on Wikipedia - what a field restricted to the board admin role is.
-- In WeKan: [Custom Fields](CustomFields.md), [Card Settings](../Card-Settings.md)
+- In WeKan: [Custom Fields](README.md), [Card Settings](../Card-Settings.md)
   (where the fields are ordered) and [Linked custom fields](Linked-Custom-Fields.md)
   (which never carry an Admin only field).
 

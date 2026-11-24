@@ -3,7 +3,7 @@
 // An invoice as a UBL 2.1 e-invoice, Peppol BIS Billing 3.0 (EN 16931): the
 // format public bodies and many companies in Europe receive invoices in, and
 // that e-invoicing operators accept. A credit note is a UBL CreditNote (381).
-// Pure: tests/ublInvoice.test.cjs. docs/Features/Billing/Billing.md.
+// Pure: tests/ublInvoice.test.cjs. docs/Features/Billing/README.md.
 
 function xml(value) {
   return String(value === null || value === undefined ? '' : value)

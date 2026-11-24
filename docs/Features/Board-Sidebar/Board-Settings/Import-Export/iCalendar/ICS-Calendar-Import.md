@@ -20,7 +20,7 @@ show up on the board's **Calendar** and **Gantt** views.
 - [Wikipedia: ICalendar](https://en.wikipedia.org/wiki/ICalendar)
 - [RFC 5545](https://datatracker.ietf.org/doc/html/rfc5545), the iCalendar
   standard
-- [iCalendar](iCalendar.md): the iCalendar import and export of the Import page
+- [iCalendar](README.md): the iCalendar import and export of the Import page
 - [wekan-ical-server](https://github.com/wekan/wekan-ical-server)
 
 ## How to use it
@@ -60,7 +60,7 @@ To wire a full upload UI, read the selected `.ics` file's text on the client
 upload form in the board import dialog was **deferred** in this MVP; the Import
 page now has **iCalendar (.ics)** as a source of its own, through the
 generalized importer, which also reads to-dos (`VTODO`) - see
-[iCalendar](iCalendar.md).
+[iCalendar](README.md).
 
 The same import is a REST route:
 `POST /api/boards/:boardId/swimlanes/:swimlaneId/lists/:listId/ics`, which first
@@ -150,7 +150,7 @@ meteor test --once --driver-package meteortesting:mocha
   Nextcloud Calendar ([Date](../../Date.md)).
 - A board-import upload UI/dialog (call the method or `icsToCards` directly for
   now). *Since then:* the Import page's **iCalendar (.ics)** source, see
-  [iCalendar](iCalendar.md).
+  [iCalendar](README.md).
 - Recurrence rules (`RRULE`), attendees, alarms, and timezone (`VTIMEZONE` /
   `TZID`) conversion — date-times are treated as UTC.
 

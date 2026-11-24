@@ -245,7 +245,7 @@ async function main() {
   });
 
   await test('docs: the page has its sections in order', async () => {
-    const doc = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Microsoft-To-Do/Microsoft-To-Do.md');
+    const doc = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Microsoft-To-Do/README.md');
     const sections = doc.split('\n').filter(line => line.startsWith('## ')).map(line => line.slice(3));
     // Every feature page has the one structure; the steps and the REST API are
     // subsections of How to use it, the format details, what is kept and the

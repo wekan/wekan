@@ -17,7 +17,7 @@ user to Authelia and back.
   and [OpenID on Wikipedia](https://en.wikipedia.org/wiki/OpenID)
 - [OpenID Connect RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
 - Original issue: [#4210](https://github.com/wekan/wekan/issues/4210)
-- WeKan: [OAuth2](OAuth2.md), [Keycloak](Keycloak/Keycloak.md)
+- WeKan: [OAuth2](OAuth2.md), [Keycloak](Keycloak/README.md)
 
 ## How to use it
 
@@ -81,7 +81,7 @@ sudo snap set wekan oauth2-request-permissions='openid profile email'
 **Log out.** Unlike Keycloak, Authelia does not implement OpenID Connect
 RP-Initiated Logout 1.0 yet, so there is no `end_session_endpoint` to set as
 `OAUTH2_LOGOUT_ENDPOINT` (see [Keycloak's logout
-notes](./Keycloak/Keycloak.md#log-out-redirects-to-the-keycloak-home-page-issue-6158)
+notes](./Keycloak/README.md#log-out-redirects-to-the-keycloak-home-page-issue-6158)
 for what that setting does where a provider supports it). Leave
 `OAUTH2_LOGOUT_ENDPOINT` unset for Authelia; "Log Out" in WeKan ends the WeKan
 session only.

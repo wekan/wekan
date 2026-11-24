@@ -13,9 +13,9 @@ Address: `/admin/problems/rules`. Site administrators only.
 - [Business rules engine](https://en.wikipedia.org/wiki/Business_rules_engine)
   on Wikipedia - rules made of a trigger (an event) and an action, which is what
   a WeKan rule is.
-- In WeKan: [Rules](../../Automation/Rules/Rules.md),
+- In WeKan: [Rules](../../Rules/Rules/README.md),
   [Rules REST API](../../../API/Rules.md), the shared
-  [table page](../../General/Table.md).
+  [table page](../../Table.md).
 
 ## How to use it
 
@@ -43,7 +43,7 @@ Address: `/admin/problems/rules`. Site administrators only.
 
 ### The table
 
-The shared [table page](../../General/Table.md), 10 rows a page, sorted by
+The shared [table page](../../Table.md), 10 rows a page, sorted by
 board, fetched one page at a time from the server (`rulesReport` publication,
 `getRulesReportCount` method, `server/publications/rules.js`):
 
@@ -88,7 +88,7 @@ trigger (`rule.action()` and `rule.trigger()` in [models/rules.js](../../../../m
 
 ## Related
 
-- [Rules](../../Automation/Rules/Rules.md)
+- [Rules](../../Rules/Rules/README.md)
 - [Rules REST API](../../../API/Rules.md)
 
 ## Commits

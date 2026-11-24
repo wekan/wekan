@@ -27,7 +27,7 @@ person holds.
   Wikipedia.
 - [Scrum (software development)](https://en.wikipedia.org/wiki/Scrum_(software_development))
   on Wikipedia - the Definition of Done and of Ready.
-- WeKan: [WIP limits](WipLimit/WipLimit.md),
+- WeKan: [WIP limits](WipLimit/README.md),
   [WIP limit groups](WipLimit/WIP-Limit-Groups.md),
   [Board Settings / List](../Board-Sidebar/Board-Settings/List.md).
 

@@ -1,5 +1,5 @@
 'use strict';
-// Workload and capacity (docs/Features/Workload/Workload.md): the user menu's
+// Workload and capacity (docs/Features/Workload/README.md): the user menu's
 // page shows each person's estimated hours, week by week, against their
 // working time across their boards; a week over 100 % is red, an absence takes
 // the week's hours away, and another member's absence shows no type or note.

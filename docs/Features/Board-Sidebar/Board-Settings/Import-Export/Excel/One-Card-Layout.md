@@ -94,7 +94,7 @@ under bare node.
 Done since this design was written: the PDF embeds JPEG and PNG attachment
 images (`PDF_IMAGE_TYPES` and `attachmentImages` in
 [models/server/ExporterCardPDF.js](../../../../../../models/server/ExporterCardPDF.js)),
-and the PDF draws the shared card document; see [PDF](../PDF/PDF.md). The plan
+and the PDF draws the shared card document; see [PDF](../PDF/README.md). The plan
 as it was:
 
 The Excel export embeds JPEG, PNG, GIF and BMP attachments. A PDF can carry the

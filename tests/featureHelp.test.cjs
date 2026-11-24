@@ -1,6 +1,6 @@
 'use strict';
 
-// The ? of every feature place - docs/Features/General/Help-Button.md.
+// The ? of every feature place - docs/Features/Help-Button.md.
 //
 // One help point per place: a ? button that opens a big popup titled "How it
 // works", with "What is it?" and "How it works?" and a translated text under

@@ -4,12 +4,12 @@
 
 How to install [Leo](https://leo-editor.github.io/leo-editor/), the outlining
 editor whose `.leo` files WeKan imports and exports, on Linux arm64. This is a
-setup note for the [Leo format](Leo.md), not a WeKan feature of its own.
+setup note for the [Leo format](README.md), not a WeKan feature of its own.
 
 ## Read more
 
 - [Wikipedia: Leo (text editor)](https://en.wikipedia.org/wiki/Leo_(text_editor))
-- [Leo](Leo.md): importing and exporting Leo outlines in WeKan
+- [Leo](README.md): importing and exporting Leo outlines in WeKan
 
 ## How to use it
 

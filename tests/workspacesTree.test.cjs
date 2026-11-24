@@ -350,7 +350,7 @@ test('the design doc exists, and every file it lists does too', () => {
     assert.ok(fs.existsSync(path.join(__dirname, '..', rel)), `related file missing: ${rel}`);
   }
   // ...and the page it belongs to links to it, or nobody finds it.
-  assert.ok(/\(Workspaces\.md\)/.test(read('docs/Features/All-Boards/All-Boards.md')),
+  assert.ok(/\(Workspaces\.md\)/.test(read('docs/Features/All-Boards/README.md')),
     'All Boards links to it');
 });
 

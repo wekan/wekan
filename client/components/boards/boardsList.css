@@ -567,7 +567,7 @@
    The cursor stays `pointer`, not `grab`: clicking this row is what opens the
    workspace, and that is what a reader does with it nearly every time. Dragging
    is the second gesture on the same element, exactly as it is on a board tile
-   with handles off. docs/Features/All-Boards/All-Boards.md */
+   with handles off. docs/Features/All-Boards/README.md */
 .workspace-node .js-select-space[draggable="true"] {
   user-select: none;
   -webkit-user-select: none;
@@ -603,7 +603,7 @@
    `flex: 1`, and without this a long workspace name shrinks its two neighbours
    instead of ellipsing itself, which pushes the count off the row that is
    supposed to be showing it. The phone rules said this already; the desktop
-   ones had not. docs/Features/All-Boards/All-Boards.md */
+   ones had not. docs/Features/All-Boards/README.md */
 .workspace-node .workspace-count {
   background: #ddd;
   padding: 2px 6px;
@@ -714,7 +714,7 @@
    which boards are in it.
    So it keeps the same grey pill every other row has, and the rule that made it
    white is gone rather than re-tinted: there is no accent behind it to contrast
-   with. docs/Features/All-Boards/All-Boards.md */
+   with. docs/Features/All-Boards/README.md */
 
 .boards-right-grid {
   min-height: 200px;
@@ -758,7 +758,7 @@
    this the title would sit directly on top of the first row of board tiles.
    The board tiles carry a 7px margin of their own, so 12px of margin here plus
    that 7px is the same gap the Admin Panel's 12px gives above a flush pane.
-   docs/Features/All-Boards/All-Boards.md */
+   docs/Features/All-Boards/README.md */
 .boards-right-grid > .admin-pane-title {
   margin-bottom: 12px;
   /* The pager and the tiles below start at the tiles' own 7px inset, so the
@@ -2232,7 +2232,7 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
 }
 
 /* All Boards: the Table view.
- * Design: docs/Features/All-Boards/All-Boards.md, which is docs/Features/General/Table-Page.md.
+ * Design: docs/Features/All-Boards/README.md, which is docs/Features/Table.md.
  * Only what is particular to these rows; the table itself is tablePage.css. */
 .all-boards-row {
   cursor: default;

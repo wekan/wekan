@@ -1,5 +1,5 @@
 'use strict';
-// The Scrum meeting helpers of the board menu (docs/Features/Scrum/Meetings.md):
+// The Scrum meeting helpers of the board menu (docs/Features/Board-Sidebar/Board-Settings/Scrum-Meetings.md):
 // the daily standup timer, and the retrospective board with its four lists -
 // each hidden by the board's Scrum settings and by Admin Panel / Features.
 const { test, expect } = require('../fixtures');

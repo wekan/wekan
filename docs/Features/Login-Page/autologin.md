@@ -12,7 +12,7 @@ It needs a working [OAuth2 / OIDC](OAuth2.md) login.
 
 - [Single sign-on at Wikipedia](https://en.wikipedia.org/wiki/Single_sign-on)
 - [How OpenID Connect works](https://openid.net/developers/how-connect-works/)
-- [OAuth2 / OIDC](OAuth2.md) and [Keycloak](Keycloak/Keycloak.md)
+- [OAuth2 / OIDC](OAuth2.md) and [Keycloak](Keycloak/README.md)
 - [Pull request \#4588: direct login from OIDC](https://github.com/wekan/wekan/pull/4588)
 
 ## How to use it

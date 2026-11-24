@@ -19,7 +19,7 @@ Features.
 - WeKan: [Time tracking](../../Cards/Time-Tracking.md),
   [Statistics](Status.md), [Timeline](Timeline-View.md),
   [report charts](Charts/Board-Report-Charts.md) (the same export popup),
-  [History](../../General/History/History.md),
+  [History](../../History/README.md),
   [Roles](../../Board-Sidebar/Members/Roles.md).
 
 ## How to use it

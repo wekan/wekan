@@ -106,11 +106,11 @@ async function main() {
     assert.match(read('server/lib/renderExternalExport.js'), /taskwarrior: 'application\/json'/);
     assert.match(read('client/components/boards/exportScope.js'), /key: 'taskwarrior'.*path: 'export\/taskwarrior', ext: 'json'/);
     // Its details are on its own page, which the coverage index links.
-    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Taskwarrior/Taskwarrior.md');
+    const docPage = read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Taskwarrior/README.md');
     // The format details are a subsection of How it works in WeKan, since every
     // feature page took the one structure (tests/importExportDocsCoverage.test.cjs).
     assert.match(docPage, /^### Format details$/m);
-    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Taskwarrior\/Taskwarrior\.md\)/);
+    assert.match(read('docs/Features/Board-Sidebar/Board-Settings/Import-Export/Format-Coverage.md'), /\]\(\.\/Taskwarrior\/README\.md\)/);
     const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
     assert.match(en['import-board-instruction-taskwarrior'], /task export/);
   });

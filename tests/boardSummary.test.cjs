@@ -1,6 +1,6 @@
 'use strict';
 
-// Board menu -> Summary (docs/Features/General/Summary/Summary.md): the groups,
+// Board menu -> Summary (docs/Features/Summary/README.md): the groups,
 // the period, what is never listed, and who may read it.
 //
 // Run: node tests/boardSummary.test.cjs

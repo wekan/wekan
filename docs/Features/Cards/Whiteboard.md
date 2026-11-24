@@ -16,7 +16,7 @@ on it.
   [Collaborative real-time editor](https://en.wikipedia.org/wiki/Collaborative_real-time_editor)
   and [Scalable Vector Graphics](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics).
 - In WeKan: [Drawing](Drawing.md),
-  [Red Strings](../General/Editor/RedStrings/RedStrings.md) (the same drawing
+  [Red Strings](../Editor/RedStrings/README.md) (the same drawing
   tools) and [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md).
 
 ## How to use it

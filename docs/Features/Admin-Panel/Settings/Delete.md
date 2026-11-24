@@ -16,7 +16,7 @@ Until 2026-11-19 this pane was Admin Panel / Problems / Delete;
 ## Read more
 
 - [Undo](https://en.wikipedia.org/wiki/Undo) on Wikipedia, and WeKan's own
-  [Undo](../../General/Undo/Undo.md) - what soft delete makes possible.
+  [Undo](../../Undo/README.md) - what soft delete makes possible.
 - [Audit trail](https://en.wikipedia.org/wiki/Audit_trail) on Wikipedia - what
   Recovery keeps about every permanent delete.
 - [Right to be forgotten](https://en.wikipedia.org/wiki/Right_to_be_forgotten)
@@ -72,7 +72,7 @@ This pane has no numbers of its own. The only default is that the switch is off
 ## Related
 
 - [Admin Panel / Problems / Recovery](../Problems/Recovery.md)
-- [Undo](../../General/Undo/Undo.md)
+- [Undo](../../Undo/README.md)
 
 ## Commits
 

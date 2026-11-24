@@ -1,4 +1,4 @@
-// Workload and capacity planning (docs/Features/Workload/Workload.md): the
+// Workload and capacity planning (docs/Features/Workload/README.md): the
 // collections the Workload page plans with. Every write goes through a method
 // in server/workload.js, which checks who may make it, and nothing here is
 // published: the page asks the server for a computed report instead, so the

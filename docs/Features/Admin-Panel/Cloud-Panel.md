@@ -52,7 +52,7 @@ server, so a customer domain never shows the panel, whoever is signed in.
 
 ### Domains
 
-A table of the customer domains ([Table](../General/Table.md)): **Domain**,
+A table of the customer domains ([Table](../Table.md)): **Domain**,
 **Customer name**, **Customer email address**, **Start Date** and **End Date**
 - a domain is served from its Start Date to its End Date, both included - and
 where its data is. Each domain is one of two kinds:

@@ -25,7 +25,7 @@ disk is full — without a flood of rows.
 - [Disk storage](https://en.wikipedia.org/wiki/Disk_storage) and
   [Hysteresis](https://en.wikipedia.org/wiki/Hysteresis) on Wikipedia.
 - WeKan: [CPU-usage](CPU-usage.md), [RAM-usage](RAM-usage.md),
-  [Filename](../../General/Filename/Filename.md) (the pre-upload free-space
+  [Filename](../../Filename/README.md) (the pre-upload free-space
   check), [Database problems](Database-problems.md) (the database's own disk
   space finding).
 
@@ -82,7 +82,7 @@ and restart WeKan.
    WeKan/FerretDB were doing at the time.
 5. Best-effort and never throws; a no-op where free-space info is unavailable (e.g. a
    sandbox where `statfs` is not permitted) — this mirrors the existing upload
-   disk-space check in [Filename](../../General/Filename/Filename.md), which already falls back
+   disk-space check in [Filename](../../Filename/README.md), which already falls back
    to small-RAM chunked streaming when free space cannot be read.
 
 ### Design
@@ -150,7 +150,7 @@ the existing `sandstorm-disk-usage` translation.
   pins the wiring, the translations and that this page says Implemented.
 - Observe-and-report only, like [RAM-usage](RAM-usage.md): WeKan cannot free disk on
   its own, so the value is an early, self-describing warning. It complements the
-  existing **pre-upload** free-space check in [Filename](../../General/Filename/Filename.md),
+  existing **pre-upload** free-space check in [Filename](../../Filename/README.md),
   which already refuses/streams-carefully when the attachments disk is low.
 
 ## Commits

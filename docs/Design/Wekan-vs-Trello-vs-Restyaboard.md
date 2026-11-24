@@ -41,7 +41,7 @@ Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 Price | Free and Open Source, [MIT license](../../LICENSE). Free for Commercial Use. | Free with limitations, Monthly payment, Annual Subscription, Quote-based | Open Core
 Whitelabeling | Yes. Admin Panel/Layout: Hide Logo, Custom Product Name. | No | $ Yes
-Theming | [Yes](../Features/General/Theme/Custom-CSS-themes.md) | No | $ Yes
+Theming | [Yes](../Features/Theme/Custom-CSS-themes.md) | No | $ Yes
 Redistributing | Yes | No | $ Yes
 Hosting | [Self-host or SaaS provider](../Platforms) | SaaS | Self-host
 
@@ -194,7 +194,7 @@ Developer applications | Yes, using REST API | Yes | Yes
 Authorized OAuth applications | No, REST API [login as admin to get Bearer token](../API/REST-API.md#example-call---as-form-data) | Yes | Yes
 Webhooks | Yes, per board or global at Admin Panel | Yes | Yes
 Zapier (IFTTT like workflow automation with 500+ websites) | Yes | Yes | $ Yes
-Integrated IFTTT | [Yes](../Features/Rules/IFTTT/IFTTT.md) | No | No
+Integrated IFTTT | [Yes](../Features/Rules/IFTTT/README.md) | No | No
 
 ## Basic features: Email and Notifications
 

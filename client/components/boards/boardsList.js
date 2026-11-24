@@ -59,7 +59,7 @@ import {
 } from '/models/lib/boardSortReorder';
 // The sidebar the Search and Multi-Selection controls open. Its state is module
 // scope, not a template instance: this bar and the sidebar are separate Blaze
-// instances. docs/Features/Board-Header/Search.md, docs/Features/General/Multi-Selection.md
+// instances. docs/Features/Board-Header/Search.md, docs/Features/Multi-Selection.md
 import {
   openAllBoardsSidebar,
   closeAllBoardsSidebar,
@@ -397,11 +397,11 @@ Template.boardList.helpers({
 // map catches events from the templates rendered inside it, so these fire for
 // this bar's copy and the board header's map fires for its own. That is what
 // lets one piece of markup mean "search cards" on a board and "search boards"
-// here. docs/Features/Board-Header/Search.md, docs/Features/General/Multi-Selection.md
+// here. docs/Features/Board-Header/Search.md, docs/Features/Multi-Selection.md
 // Sort and the view menu, which were buttons in this page's second header bar
 // and are rows of the sidebar's home view now. A Blaze event map only sees
 // events inside its OWN template, so they had to move with their markup.
-// docs/Features/All-Boards/All-Boards.md
+// docs/Features/All-Boards/README.md
 Template.allBoardsHomeSidebar.events({
   // Titled "Sort Boards", from the key the app already has for that phrase -
   // the same reasoning as the starred-boards popup: a `boardsSortPopup-title`
@@ -429,7 +429,7 @@ Template.allBoardsHomeSidebar.helpers({
 // A Blaze event map only sees events inside its OWN template, so these are
 // their own map rather than shared with the sidebar's: the same
 // `js-all-boards-sidebar-search` markup exists in both places and each map
-// fires for its own copy. docs/Features/All-Boards/All-Boards.md
+// fires for its own copy. docs/Features/All-Boards/README.md
 Template.allBoardsHeaderButtons.helpers({
   // Every template registers the helpers IT uses. `BoardMultiSelection` is also
   // a helper of boardList, but a Blaze template cannot see a sibling's helpers -
@@ -500,7 +500,7 @@ function goToAllBoards(tpl, menuValue) {
 // The boards the page shows: the selected section, filtered by the search
 // field, sorted and paged. Extracted from the `boards` helper so the Table
 // view draws the SAME set - two copies of this would be two answers to
-// "which boards am I looking at". docs/Features/All-Boards/All-Boards.md
+// "which boards am I looking at". docs/Features/All-Boards/README.md
 // How many archived boards the section shows at once. The publication is
 // paginated and this is the page size it is asked for; the Archive is a place
 // you go to find one board, not a list to scroll for ever.
@@ -721,7 +721,7 @@ Template.boardList.onCreated(function () {
   // Shared with the right sidebar, which is a SEPARATE Blaze instance (it is
   // rendered beside the page, not inside it) and carries this page's controls. Assigned onto the instance so every `tpl.selectedMenu` /
   // `tpl.boardSearchVar` already written here keeps working unchanged.
-  // docs/Features/All-Boards/All-Boards.md
+  // docs/Features/All-Boards/README.md
   this.selectedMenu = allBoardsMenuVar;
   // Whatever the address named, else the section this user should land on:
   // Starred when anything is starred, Remaining when nothing is - opening on an
@@ -1045,7 +1045,7 @@ Template.boardList.helpers({
   // The Table view of the same boards the Lists view draws. Ten per page, the
   // shared TABLE_PAGE_ROWS_PER_PAGE, and a rowTemplate because the Edit cell is a
   // control and the row carries the board's colours.
-  // docs/Features/All-Boards/All-Boards.md
+  // docs/Features/All-Boards/README.md
   tablePageData() {
     const tpl = Template.instance();
     const all = boardsForView(tpl);
@@ -1228,7 +1228,7 @@ Template.boardList.helpers({
   // colour rather than two that drift apart. Its words are the section's own
   // title key - the same key the first header bar names the page with, and the
   // same one the highlighted menu row carries - so all three say the same
-  // thing. docs/Features/All-Boards/All-Boards.md
+  // thing. docs/Features/All-Boards/README.md
   //
   // `{ titleKey }` for a section, `{ label }` for a workspace: a workspace's
   // name is what somebody typed, and a workspace called "starred" is not the

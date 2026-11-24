@@ -12,8 +12,8 @@ readable).
 
 - [Wikipedia: Wallpaper (computing)](https://en.wikipedia.org/wiki/Wallpaper_(computing))
 - [Boards](../../All-Boards/Boards.md)
-- [Attachments and File Storage](../../Cards/Attachments/Attachments.md)
-- [Themes / Custom CSS](../../General/Theme/Custom-CSS-themes.md)
+- [Attachments and File Storage](../../Cards/Attachments/README.md)
+- [Themes / Custom CSS](../../Theme/Custom-CSS-themes.md)
 - [Migrating from Trello](Import-Export/Trello/trello/Migrating-from-Trello.md)
 
 ## How to use it

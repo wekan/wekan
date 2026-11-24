@@ -17,7 +17,7 @@ just all your boards at once. It is WeKan's equivalent of Kanboard's
   [BigBoard plugin](https://github.com/TimoStahl/kanboard_plugin_bigboard), which
   this view follows.
 - [Multi Board Calendar](Multi-Board-Calendar.md) - the other view over several
-  boards, and [All Boards](../../All-Boards/All-Boards.md).
+  boards, and [All Boards](../../All-Boards/README.md).
 
 ## How to use it
 

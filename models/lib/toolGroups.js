@@ -26,7 +26,7 @@ const TOOL_GROUPS = [
   { group: 'text', labelKey: 'tool-group-text' },
   { group: 'messages', labelKey: 'tool-group-messages' },
   // Websites and CMSes, read into a board and written from one
-  // (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md).
+  // (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md).
   { group: 'website', labelKey: 'tool-group-website' },
   { group: 'api', labelKey: 'tool-group-api' },
 ];

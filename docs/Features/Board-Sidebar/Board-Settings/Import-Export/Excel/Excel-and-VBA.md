@@ -11,7 +11,7 @@ and an earlier note on CSV and TSV.
 
 - [Wikipedia: Visual Basic for Applications](https://en.wikipedia.org/wiki/Visual_Basic_for_Applications)
 - [Wikipedia: Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel)
-- [Excel](Excel.md): the Excel import and export in full
+- [Excel](README.md): the Excel import and export in full
 - [REST API](../../../../../API/REST-API.md)
 
 ## How to use it
@@ -27,7 +27,7 @@ WeKan can import a board directly from an Excel `.xlsx` spreadsheet:
 
 The spreadsheet is parsed on the server and imported through the same engine as the
 CSV/TSV import. Member columns are not auto-mapped for Excel import (map members
-afterwards); see also [CSV/TSV import](../CSV/CSV.md).
+afterwards); see also [CSV/TSV import](../CSV/README.md).
 
 This complements the existing **Excel export** (Board Settings → Export → Excel), so
 boards can round-trip through `.xlsx`.
@@ -99,7 +99,7 @@ of the file. Then you use VBA base64 function to convert it to binary, and write
 
 ### CSV/TSV Import/Export
 
-WeKan imports and exports CSV and TSV now: see [CSV/TSV](../CSV/CSV.md). The
+WeKan imports and exports CSV and TSV now: see [CSV/TSV](../CSV/README.md). The
 rest of this section is the earlier note, from before that was built.
 
 There is [CSV/TSV pull request](https://github.com/wekan/wekan/pull/413), but it has been made
@@ -115,7 +115,7 @@ b) Use [Commercial Support](https://wekan.fi) and pay for the time to get it imp
 
 ## How the numbers are calculated
 
-See [Excel](Excel.md) for the Excel import's and export's limits (the column
+See [Excel](README.md) for the Excel import's and export's limits (the column
 mapping reads at most 10,000 header cells and shows 3 sample rows; a list name
 may be at most 255 characters). The REST API's login token expires at the time
 it answers (`tokenExpires`).

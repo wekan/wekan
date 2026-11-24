@@ -16,7 +16,7 @@ administrator finds those cards.
 - WeKan: [Summary](Summary.md) (the Repair broken cards button),
   [Repairs.md](Repairs.md) (what opening a board repairs),
   [Data health](Data-Health.md) (the nightly scan that also finds cards on a
-  list of another board), [Table page](../../General/Table.md).
+  list of another board), [Table page](../../Table.md).
 
 ## How to use it
 

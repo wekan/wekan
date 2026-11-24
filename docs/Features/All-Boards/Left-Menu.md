@@ -18,7 +18,7 @@ edge, and it moves to the right-hand side for right-to-left languages.
 - [CSS logical properties and values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values)
   and [Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
   (MDN) - how the mirroring and the width are done
-- [Table](../General/Table.md), [All Boards](All-Boards.md) and
+- [Table](../Table.md), [All Boards](README.md) and
   [Workspaces](Workspaces.md) in these docs
 
 ## How to use it
@@ -74,7 +74,7 @@ page-specific design doc describes only what is different about *that* page and
 links back here.
 
 Pages that pair this menu with a paginated table also use
-[Table](../General/Table.md) — the two designs compose: menu on the reading-start side,
+[Table](../Table.md) — the two designs compose: menu on the reading-start side,
 table beside it.
 
 ### Related files
@@ -106,7 +106,7 @@ table beside it.
 | Settings | Admin Panel / Settings | **Version** (first, and the pane that opens with the Admin Panel), Appearance, Features, Feature profiles, Security, Activities and notifications, Delete, Announcement, Accessibility, Translation, PWA, Global Webhooks, Shared labels. |
 | People | Admin Panel / People | E-mail, Notifications, Domains, Cloud, Organizations, Teams, People, Locked users, Audit log, Roles, Shared templates, Login, then the sign-in providers (SAML, LDAP, OAuth2, CAS, Header login, OAuth login providers, Passwordless login). |
 | Attachments | Admin Panel / Attachments | The storage backends and the attachment/avatar tools. |
-| Problems | Admin Panel / Problems | Summary, Backup, then a **Reports** heading over the reports — see [Table](../General/Table.md). |
+| Problems | Admin Panel / Problems | Summary, Backup, then a **Reports** heading over the reports — see [Table](../Table.md). |
 | Cloud Panel | `/cloud`, at the Cloud Panel Domain | The SuperAdmin's Domains, Invoices, Chat, Cloudflare and Caddy; a customer's Invoices and Chat — see [Cloud Panel](../Admin-Panel/Cloud-Panel.md). |
 
 Four pages, not seven: **Translation** and **Version** became panes of Settings,
@@ -123,7 +123,7 @@ pane title, with its own rows. From top to bottom:
 
 | Menu entry | Guide |
 | --- | --- |
-| Starred and Remaining (Starred first when anything is starred, Remaining first when nothing is) | [All Boards](All-Boards.md), [Starred](../Pages/Starred.md) |
+| Starred and Remaining (Starred first when anything is starred, Remaining first when nothing is) | [All Boards](README.md), [Starred](../Pages/Starred.md) |
 | Home | [Home](Home.md) |
 | Templates | [Templates](Templates.md) |
 | Share template with (under Templates, while it is selected) | [Share template with](Share-Template-With.md) |
@@ -346,7 +346,7 @@ title says it on the side you are reading.
   `.main-body`, above whatever pane is showing.
 - One class, `.admin-pane-title` (`settingBody.css`), sets the size and weight. The
   shared table page puts that class on its own `h1` too
-  ([Table](../General/Table.md)), so a **table pane and a form pane have the same title**.
+  ([Table](../Table.md)), so a **table pane and a form pane have the same title**.
 
 Deriving it from the menu is what keeps the panes identical: a pane cannot end up
 with a title of a different size, in different words, or with none at all, and

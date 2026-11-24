@@ -19,7 +19,7 @@ whose entries are listed below with the page that describes each one.
 
 | Entry | Guide or action | Who can change it |
 | --- | --- | --- |
-| Rules | [Automation rules](../../Rules/Rules/Rules.md) | Board admin; a member reads them where the board shows its Rules |
+| Rules | [Automation rules](../../Rules/Rules/README.md) | Board admin; a member reads them where the board shows its Rules |
 | List view, Workflow view | The Rules page opened in that view | Board admin |
 | Bots | [The Rules page's Bots view](Bots.md) | Board admin |
 | Blocks, History | The Rules page opened in that view | Board admin |
@@ -35,14 +35,14 @@ whose entries are listed below with the page that describes each one.
 | List | [Width resize lock, same width for all lists, and the flow policies: list policies, split lists, commitment point, WIP limit per person](List.md) | Board admin |
 | Shop | [The board's cards as a web shop: price, product code and stock fields, lists on sale, categories, Orders list, payment methods, and the Shop as the public board's view](Shop.md) | Board admin; hidden by its switch in Admin Panel / Settings / Features |
 | Card | [Field visibility and order, including the flow fields Blocked, Class of service, MoSCoW and WSJF](Card.md) | Board admin; personal Labels text remains available to members |
-| Export | [Export board content](Import-Export.md), in WeKan's own formats, some sixty other tools' and Sandstorm grain backups, under the same headings as Import - every format written a page of cards at a time | Export must be enabled |
-| Import | [Import into the board](Import-Export.md) | Write access; import must be enabled |
+| Export | [Export board content](Import-Export/README.md), in WeKan's own formats, some sixty other tools' and Sandstorm grain backups, under the same headings as Import - every format written a page of cards at a time | Export must be enabled |
+| Import | [Import into the board](Import-Export/README.md) | Write access; import must be enabled |
 | Notifications | [Board delivery defaults](Notifications.md) | Board admin |
 | Outgoing Webhooks | [Send events to integrations](Outgoing-Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Board admin |
 | Archive | [Review and restore archives](../Archive/Archive-and-Delete.md) | Actions depend on role |
-| Original positions | [Where swimlanes, lists and cards were made, and what moved](../../General/Original-Positions/Original-Positions.md) | Everyone who can see the board |
-| Summary | [The board at a glance](../../General/Summary/Summary.md) | Everyone who can see the board; hidden by its switch in Admin Panel / Settings / Features |
-| Since your last visit | [What changed since you were here](../../General/Since-Last-Visit/Since-Last-Visit.md) | Everyone who can see the board; hidden by its switch in Admin Panel / Settings / Features |
+| Original positions | [Where swimlanes, lists and cards were made, and what moved](../../Original-Positions/README.md) | Everyone who can see the board |
+| Summary | [The board at a glance](../../Summary/README.md) | Everyone who can see the board; hidden by its switch in Admin Panel / Settings / Features |
+| Since your last visit | [What changed since you were here](../../Since-Last-Visit/README.md) | Everyone who can see the board; hidden by its switch in Admin Panel / Settings / Features |
 | Daily standup | [A timer giving each member the same timebox](Scrum-Meetings.md) | Everyone who can see the board; hidden by the board's Scrum settings or Admin Panel / Settings / Features |
 | Retrospective board | [A new board with Start / Stop / Keep doing and Action items](Scrum-Meetings.md) | Whoever may create boards; hidden by the board's Scrum settings or Admin Panel / Settings / Features |
 | Save as Template | [Copy the board into your board templates](../../All-Boards/Templates.md#d-save-an-existing-board-as-a-board-template) | Board admin; not on a template board |

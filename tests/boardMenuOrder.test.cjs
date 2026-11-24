@@ -111,7 +111,7 @@ const EXPECTED = [
   'js-open-archives',
   'js-open-original-positions',
   // The board helpers that need no AI, each behind its Admin Panel /
-  // Settings / Visibility / Features tick (docs/Features/General/Assistants).
+  // Settings / Visibility / Features tick (docs/Features/Assistants).
   'js-open-board-summary',
   'js-open-since-last-visit',
   // The Scrum meeting helpers (models/lib/scrumMeetings.js, 2026-11-20): for

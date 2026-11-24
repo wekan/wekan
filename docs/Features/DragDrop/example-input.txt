@@ -1,0 +1,6 @@
+# Example input for docs/Features/DragDrop, from Touch-Screen-support.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Touch-Screen-support.md for the full explanation.
+
+Chrome shortcut > Properties >
+Target: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --touch-events

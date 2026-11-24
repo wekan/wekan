@@ -1,4 +1,4 @@
-// Workload and capacity planning (docs/Features/Workload/Workload.md).
+// Workload and capacity planning (docs/Features/Workload/README.md).
 //
 // The page asks for a REPORT - computed here by models/lib/workload.js - rather
 // than subscribing to cards: a report over every board of a team would

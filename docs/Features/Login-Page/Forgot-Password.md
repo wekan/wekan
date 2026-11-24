@@ -17,8 +17,8 @@ brute-force login locks, and making yourself BoardAdmin of boards.
 - WeKan: [Backup](../../Backup/Backup.md),
   [Brute force protection](Accounts-Lockout.md),
   [Admin Panel / People / Login](../Admin-Panel/People/Login.md),
-  [Admin Panel / People / People](../Admin-Panel/People/People.md),
-  [Troubleshooting Email](../General/Email/Troubleshooting-Mail.md)
+  [Admin Panel / People / People](../Admin-Panel/People/README.md),
+  [Troubleshooting Email](../Email/Troubleshooting-Mail.md)
 
 ## How to use it
 

@@ -1,6 +1,6 @@
 'use strict';
 
-// The findings of docs/Features/General/Accessibility/Audit.md (an axe-core scan
+// The findings of docs/Features/Accessibility/Audit.md (an axe-core scan
 // of the default theme), fixed and pinned by the shape of each fault, so none of
 // them can return anywhere in the tree. tests/playwright/specs/45-axe-accessibility
 // e2e.js scans the rendered pages; this reads the sources, where it can say "and

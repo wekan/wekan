@@ -117,14 +117,14 @@ template(name="boardList")
       //- There is NO bar above the boards, and no second header bar either.
         Every control of this page - Sort, Search, Multi-Selection, the view
         menu and the actions on a selection - is in the right sidebar, and the
-        page is named by the FIRST header bar. docs/Features/All-Boards/All-Boards.md
+        page is named by the FIRST header bar. docs/Features/All-Boards/README.md
       .boards-right-grid
         //- The heading of the pane: which list of boards this is. It sits above
           the view branch, so it is drawn ONCE whichever view is on - the board
           icons and the Table are two ways of showing the same section, not two
           sections.
           The Admin Panel's own `paneTitle`, so the two pages have one heading
-          at one size and colour. docs/Features/All-Boards/All-Boards.md
+          at one size and colour. docs/Features/All-Boards/README.md
         +paneTitle(allBoardsPaneTitle)
         if showsBoardSelectionControls
           .board-multiselection-controls
@@ -507,7 +507,7 @@ template(name="workspaceTree")
           NOT the whole row either: the row also holds the ⋯ menu and the board
           count, and a drag started on those is a drag of something else.
           `dragstart` bubbles, so the handler stays on the row in both cases.
-          docs/Features/All-Boards/All-Boards.md
+          docs/Features/All-Boards/README.md
         li.workspace-node(class="{{#if $eq id ../selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}")
           .workspace-node-content
             //- The caret that folds this workspace's own workspaces away, at
@@ -612,7 +612,7 @@ template(name="workspaceActionsPopup")
 //-
 //- Each names itself beside its icon where the bar has room, and the one rule
 //- in header.css drops every label at 1000px and narrower, leaving the tooltips.
-//- docs/Features/All-Boards/All-Boards.md
+//- docs/Features/All-Boards/README.md
 template(name="allBoardsHeaderButtons")
   a.board-header-btn.js-open-boards-sort(title="{{_ 'sort-boards'}}" class="{{#unless isBoardsSort 'custom'}}emphasis{{/unless}}")
     i.fa.fa-sort
@@ -631,7 +631,7 @@ template(name="allBoardsHeaderButtons")
       board's own Multi-Selection has. It looked identical whether or not a
       selection was running, so the one control that changes what a click on a
       board does gave no sign it had changed it, and the only way out was to
-      find the row inside the sidebar. docs/Features/General/Multi-Selection.md
+      find the row inside the sidebar. docs/Features/Multi-Selection.md
     a.board-header-btn.js-all-boards-sidebar-multiselection(
         title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
         class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")

@@ -16,12 +16,12 @@ from the board itself - no second copy of a product is kept:
 | A category | A label of the card |
 | An order | A new card in the Orders list, on a private board - and, with Budget and billing on, an invoice of the shop's board |
 | The buyer's receipt | An order confirmation by email, in the buyer's language |
-| How to pay | The payment methods of [Budget and billing](../../Billing/Billing.md): SEPA QR code, Finnish bank barcode, Swiss QR-bill, Swish, Pix, UPI, PayPal.me, a payment link, the regional QR codes, crypto addresses, bank transfer, cash and cheque |
+| How to pay | The payment methods of [Budget and billing](../../Billing/README.md): SEPA QR code, Finnish bank barcode, Swiss QR-bill, Swish, Pix, UPI, PayPal.me, a payment link, the regional QR codes, crypto addresses, bank transfer, cash and cheque |
 
 A public board can open in it: with **Show the Shop instead of the public
 board** ticked in [Board Settings / Shop](../../Board-Sidebar/Board-Settings/Shop.md),
 a visitor sees the shop at the board's address instead of the kanban, the way
-the [Website](../../Board-Sidebar/Board-Settings/Import-Export/Website/Website.md)
+the [Website](../../Board-Sidebar/Board-Settings/Import-Export/Website/README.md)
 view can be shown.
 
 ## Read more
@@ -39,7 +39,7 @@ view can be shown.
   [Creditor Reference (ISO 11649)](https://en.wikipedia.org/wiki/Creditor_Reference)
   - the SEPA QR code and the RF payment reference an order is paid with.
 - In WeKan: [Board Settings / Shop](../../Board-Sidebar/Board-Settings/Shop.md),
-  [Budget and billing](../../Billing/Billing.md) (the payment methods) and
+  [Budget and billing](../../Billing/README.md) (the payment methods) and
   [Board View](../../Board-Sidebar/Board-Settings/Board-View.md).
 
 ## How to use it

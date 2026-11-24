@@ -1,7 +1,7 @@
 'use strict';
 
 // Board menu -> Since your last visit
-// (docs/Features/General/Since-Last-Visit/Since-Last-Visit.md): what other
+// (docs/Features/Since-Last-Visit/README.md): what other
 // people changed on a board since this user last had it open - the catch-up
 // Jira and ClickUp write with AI, read here from the board's activities.
 //

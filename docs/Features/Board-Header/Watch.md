@@ -16,7 +16,7 @@ header controls and shows your current level.
 - [Member Settings / Notifications](../Member-Settings/Notifications.md) and
   [Board Settings / Notifications](../Board-Sidebar/Board-Settings/Notifications.md) -
   how a notification is delivered.
-- [Notification delivery](../General/Notifications/Notification-Delivery.md) and
+- [Notification delivery](../Notifications/Notification-Delivery.md) and
   [watching a card](../Cards/Watch-Star.md).
 
 ## How to use it
@@ -103,7 +103,7 @@ Who is notified of one activity is a set, worked out in two steps:
 
 ## Related
 
-- [Notification delivery](../General/Notifications/Notification-Delivery.md)
+- [Notification delivery](../Notifications/Notification-Delivery.md)
 
 ## Commits
 

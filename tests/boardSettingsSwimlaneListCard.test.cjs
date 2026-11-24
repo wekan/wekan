@@ -62,7 +62,7 @@ test('the three toggles are gone from the header (negative)', () => {
 
 test('Board Settings has an <hr> above and below the Swimlane/List/Card group', () => {
   const lines = boardMenu.split('\n').map(l => l.trim());
-  // The group's FIRST entry is Board View (docs/Features/Board/Board-View-
+  // The group's FIRST entry is Board View (docs/Features/Board-Header/Board-Views/Board-View-
   // Settings.md, tests/boardViewSettings.test.cjs), which sits directly
   // above Swimlane; the hr-above check is anchored on it, so that the group
   // still starts right after the rule. The Swimlane -> Card order stays.

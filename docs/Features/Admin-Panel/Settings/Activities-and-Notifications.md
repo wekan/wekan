@@ -18,7 +18,7 @@ Notifications, which is about email notifications.
   Wikipedia - the "who did what" feed that **Disable all activities** stops.
 - [General Data Protection Regulation](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)
   on Wikipedia - one reason a deployment limits tracking.
-- [Notification delivery](../../General/Notifications/Notification-Delivery.md)
+- [Notification delivery](../../Notifications/Notification-Delivery.md)
   and [Admin Panel / People / Notifications](../People/Notifications.md) - how
   notifications are sent when they are on.
 

@@ -1,6 +1,6 @@
-# Example input for docs/Features/Login-Page/Keycloak, from Keycloak.md.
+# Example input for docs/Features/Login-Page/Keycloak, from README.md.
 # Extracted automatically from the first fenced code block in that
-# document - see Keycloak.md for the full explanation.
+# document - see README.md for the full explanation.
 
 sudo snap set wekan oauth2-username-map='email'
 

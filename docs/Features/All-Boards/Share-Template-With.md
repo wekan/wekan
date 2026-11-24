@@ -32,7 +32,7 @@ Dragging a template board onto a row shares it with that group (#5850).
 2. Under **Share template with**, find the organization, team or domain.
    Each row's tooltip is *Drag a Template Board here to share it*.
 3. Drag the template board's icon onto the row and drop it. Several boards
-   selected with [Multi-Selection](../General/Multi-Selection.md) can be dropped
+   selected with [Multi-Selection](../Multi-Selection.md) can be dropped
    at once.
 
 With no targets, neither the heading nor rows are drawn.
@@ -75,7 +75,7 @@ setting when the instance has none yet.)
 ### Sharing
 
 Drag a template board's icon onto a row and drop it. Several selected boards
-can be dropped at once with [Multi-Selection](../General/Multi-Selection.md);
+can be dropped at once with [Multi-Selection](../Multi-Selection.md);
 boards dragged from the Archive are ignored. For each board the drop adds the
 group to the board and never removes an existing share:
 

@@ -1,4 +1,4 @@
-// Time entries (models/lib/timeEntries.js, docs/Features/Billing/Billing.md).
+// Time entries (models/lib/timeEntries.js, docs/Features/Billing/README.md).
 //
 // A card's spentTime is the total; the entries are its days. Two ways in:
 //

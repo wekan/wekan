@@ -15,7 +15,7 @@ removing it never changes the other card.
   where a card can be attached to another card.
 - [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink) - an attached card is a
   link to another card that also shows where it is.
-- In WeKan: [Attachments](Attachments.md), [Linked cards](../Linked-Cards.md)
+- In WeKan: [Attachments](README.md), [Linked cards](../Linked-Cards.md)
   (one card shown in a second place) and
   [Linked custom fields](../CustomFields/Linked-Custom-Fields.md).
 

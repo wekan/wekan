@@ -1,4 +1,4 @@
-// Budget and billing (docs/Features/Billing/Billing.md).
+// Budget and billing (docs/Features/Billing/README.md).
 //
 // Money is a board admin's business: every method here answers only a board's
 // active admins and site administrators, for that board - members, even with

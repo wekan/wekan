@@ -18,7 +18,7 @@ setup.
   blocked, idle and sent-back work are the flow problems a Kanban board shows.
 - In WeKan: [Due date](Dates/Due-Date.md), [Checklists](Checklists.md),
   [Flow fields](Flow-Fields.md) (Blocked), [Forecast](Dates/Forecast.md) and
-  [Helpers that need no AI](../General/Assistants/Assistants.md).
+  [Helpers that need no AI](../Assistants/README.md).
 
 ## How to use it
 

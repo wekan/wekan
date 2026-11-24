@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-// The ? of a feature place and its popup (docs/Features/General/Help-Button.md).
+// The ? of a feature place and its popup (docs/Features/Help-Button.md).
 // Which help a place shows is data: models/lib/featureHelp.js.
 const {
   featureHelp,

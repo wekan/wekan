@@ -29,7 +29,7 @@ The exported tables include the selected report parameters and underlying data.
 - In WeKan: [Board report charts](Board-Report-Charts.md),
   [Board reports](Board-Reports.md), [the time issue audit](Time-Issue-Audit.md),
   [Planning Poker](../../../Cards/Planning-Poker.md) and
-  [Dependencies export](../../../Board-Sidebar/Board-Settings/Import-Export/Dependencies/Dependencies.md).
+  [Dependencies export](../../../Board-Sidebar/Board-Settings/Import-Export/Dependencies/README.md).
 
 ## How to use it
 

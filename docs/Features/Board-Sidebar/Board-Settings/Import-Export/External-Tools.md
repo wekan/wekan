@@ -11,9 +11,9 @@ a page of its own for each.
 - [Wikipedia: Data portability](https://en.wikipedia.org/wiki/Data_portability)
 - [Wikipedia: Kanban board](https://en.wikipedia.org/wiki/Kanban_board)
 - [Format coverage: every field of every format](./Format-Coverage.md)
-- [Rules import and export, Wrike workflows](../../../Rules/Rules/Rules.md#import--export)
-- [Kanboard](./Kanboard/Kanboard.md), [Jira](./Jira/Jira.md),
-  [Trello](./Trello/trello/Migrating-from-Trello.md), [CSV/TSV](./CSV/CSV.md),
+- [Rules import and export, Wrike workflows](../../../Rules/Rules/README.md#import--export)
+- [Kanboard](./Kanboard/README.md), [Jira](./Jira/README.md),
+  [Trello](./Trello/trello/Migrating-from-Trello.md), [CSV/TSV](./CSV/README.md),
   [Excel](./Excel/Excel-and-VBA.md)
 - [Migrate all boards from another WeKan](./Sync.md)
 
@@ -38,9 +38,9 @@ You use them from the existing menus:
   Azure DevOps Boards, Lists, Project, Outlook, Teams, OneNote, Excel,
   GitHub). A company with one product stays under the heading of its kind.
 - **Sandstorm** is a heading of the same kind, after Microsoft: the apps whose
-  grain backups WeKan reads and writes (see [Sandstorm](./Sandstorm/Sandstorm.md)).
+  grain backups WeKan reads and writes (see [Sandstorm](./Sandstorm/README.md)).
 - **Rules and workflows**: **Board Settings → Rules → Import / Export rules**
-  (see [Rules](../../../Rules/Rules/Rules.md#import--export)).
+  (see [Rules](../../../Rules/Rules/README.md#import--export)).
 Every import follows the tool's documented or source-verified file format.
 After an import, a **loss report** lists what WeKan has no place for. It is
 shown on the import page and in **Admin Panel → Problems → Recovery**. Most
@@ -53,57 +53,57 @@ sources of the format.
 
 | Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
 | --- | --- | --- |
-| [Trello](./Trello/Trello.md) | Board JSON (Menu → More → Print and Export → Export JSON) | Trello board JSON |
-| [Jira](./Jira/Jira.md) | Issue-search JSON (`GET /rest/api/3/search/jql?fields=*all`) | Jira issues JSON |
-| [Asana](./Asana/Asana.md) | Tasks export JSON | Asana tasks JSON |
-| [Zenkit](./ZenKit/ZenKit.md) | List export JSON | Zenkit list JSON |
-| [Microsoft Planner](./Microsoft-Planner/Microsoft-Planner.md) | The Excel workbook from *Export as Excel* (classic: *Export plan to Excel*) | Planner Excel workbook (`.xlsx`) |
-| [monday.com](./monday-com/monday-com.md) | The workbook from *Export board to Excel* | monday.com Excel import table (`.xlsx`) |
-| [Wrike](./Wrike/Wrike.md) | Excel export, or Wrike's Excel import template; *Workflow* and *Custom Status* columns are read | Wrike Excel import template (`.xlsx`) with its *Workflow* / *Status* / *Custom Status* columns |
-| [Wrike workflow](./Wrike/Wrike.md) | Paste the JSON of Wrike's `GET /workflows` in Rules → Import / Export: statuses become lists, and status groups become rules | The board's lists as a Wrike workflow JSON (Export menu, or Rules → Import / Export) |
-| [Teamwork.com](./Teamwork/Teamwork.md) | The Excel template of its task import | Teamwork.com task import template (`.xlsx`) |
-| [Businessmap (Kanbanize)](./Businessmap/Businessmap.md) | Advanced Search Excel export, or its import tool's workbook | Businessmap Excel workbook (`.xlsx`) |
-| [ClickUp](./ClickUp/ClickUp.md) | Workspace export CSV, or its Spreadsheets importer CSV | ClickUp CSV |
-| [Linear](./Linear/Linear.md) | Issues CSV export | Linear CSV |
-| [Notion](./Notion/Notion.md) | *Markdown & CSV* export `.zip`, or one database CSV | Notion database CSV |
-| [Redmine](./Redmine/Redmine.md) | Issues list *Also available in: CSV* | Redmine issues CSV |
-| [Fizzy](./Fizzy/Fizzy.md) | Account export or personal data export `.zip`, or one card's `.json` | Fizzy account export `.zip` (its account import reads it) |
-| [Plane](./Plane/Plane.md) | Workspace Settings → Exports `.zip` (CSV, JSON or XLSX inside), or one file from it | — (Plane has no file import) |
-| [Taiga](./Taiga/Taiga.md) | Project export (dump) JSON | Taiga project dump JSON, with sprints |
-| [Pivotal Tracker](./Pivotal-Tracker/Pivotal-Tracker.md) | Stories CSV | Pivotal Tracker CSV |
-| [MeisterTask](./MeisterTask/MeisterTask.md) | Project CSV | MeisterTask CSV |
-| [Quire](./Quire/Quire.md) | Export CSV, or its Import CSV shape | Quire Import CSV |
-| [Todoist](./Todoist/Todoist.md) | Project template CSV | Todoist CSV |
-| [TickTick](./TickTick/TickTick.md) | Backup CSV | TickTick backup CSV |
-| [Tasks.org](./Tasks-org/Tasks-org.md) | Backup JSON | Tasks.org backup JSON |
-| [Super Productivity](./Super-Productivity/Super-Productivity.md) | Backup JSON | Super Productivity backup JSON |
-| [Vikunja](./Vikunja/Vikunja.md) | Data export `.zip` | Vikunja data export `.zip` |
-| [Kanboard](./Kanboard/Kanboard.md) | Project JSON | Kanboard JSON |
-| [Nextcloud Deck](./Nextcloud-Deck/Nextcloud-Deck.md) | Board with `stacks` | Deck board JSON |
-| [Focalboard](./Focalboard/Focalboard.md) | `board.jsonl` | Focalboard `.jsonl` |
-| [Kanri](./Kanri/Kanri.md) | Board or all-data JSON export | Kanri board JSON |
-| [Nullboard](./Nullboard/Nullboard.md) | `.nbx` board file | Nullboard `.nbx` |
-| [Obsidian Kanban](./Obsidian-Kanban/Obsidian-Kanban.md) | The plugin's board Markdown file | Obsidian Kanban `.md` |
-| [OpenProject](./OpenProject/OpenProject.md) | Work packages (`GET /api/v3/work_packages`) | OpenProject work packages JSON, with versions |
-| [Planka](./Planka/Planka.md) | Fetched from its API with your address, username and password | — |
-| [Microsoft To Do](./Microsoft-To-Do/Microsoft-To-Do.md) | Fetched from Microsoft Graph with your access token | — |
-| [Azure DevOps Boards](./Azure-DevOps/Azure-DevOps.md) | A query's *Export to CSV* (a tree query keeps parents) | The CSV *Import from CSV* reads |
-| [Microsoft Lists](./Microsoft-Lists/Microsoft-Lists.md) | A list's *Export to CSV* | The CSV *New list → From CSV* reads |
-| [Microsoft Project (XML)](./Microsoft-Project/Microsoft-Project.md) | *Save As → XML Format* (MSPDI) | Project XML that *File → Open* reads |
-| [Microsoft OneNote](./Microsoft-OneNote/Microsoft-OneNote.md) | Fetched from Microsoft Graph with your access token | OneNote pages `.zip` (Graph's create-page XHTML) |
-| [KanbanFlow](./KanbanFlow/KanbanFlow.md) | Fetched from its API with the board's API token | — |
-| [Basecamp](./Basecamp/Basecamp.md) | Fetched from its API with your account ID and access token: card tables and to-do lists | — |
-| [Google Tasks](./Google-Tasks/Google-Tasks.md) | Fetched from its API with your access token | — |
-| [Google Keep](./Google-Keep/Google-Keep.md) | Fetched from its API with your access token (Google Workspace) | — |
+| [Trello](./Trello/README.md) | Board JSON (Menu → More → Print and Export → Export JSON) | Trello board JSON |
+| [Jira](./Jira/README.md) | Issue-search JSON (`GET /rest/api/3/search/jql?fields=*all`) | Jira issues JSON |
+| [Asana](./Asana/README.md) | Tasks export JSON | Asana tasks JSON |
+| [Zenkit](./ZenKit/README.md) | List export JSON | Zenkit list JSON |
+| [Microsoft Planner](./Microsoft-Planner/README.md) | The Excel workbook from *Export as Excel* (classic: *Export plan to Excel*) | Planner Excel workbook (`.xlsx`) |
+| [monday.com](./monday-com/README.md) | The workbook from *Export board to Excel* | monday.com Excel import table (`.xlsx`) |
+| [Wrike](./Wrike/README.md) | Excel export, or Wrike's Excel import template; *Workflow* and *Custom Status* columns are read | Wrike Excel import template (`.xlsx`) with its *Workflow* / *Status* / *Custom Status* columns |
+| [Wrike workflow](./Wrike/README.md) | Paste the JSON of Wrike's `GET /workflows` in Rules → Import / Export: statuses become lists, and status groups become rules | The board's lists as a Wrike workflow JSON (Export menu, or Rules → Import / Export) |
+| [Teamwork.com](./Teamwork/README.md) | The Excel template of its task import | Teamwork.com task import template (`.xlsx`) |
+| [Businessmap (Kanbanize)](./Businessmap/README.md) | Advanced Search Excel export, or its import tool's workbook | Businessmap Excel workbook (`.xlsx`) |
+| [ClickUp](./ClickUp/README.md) | Workspace export CSV, or its Spreadsheets importer CSV | ClickUp CSV |
+| [Linear](./Linear/README.md) | Issues CSV export | Linear CSV |
+| [Notion](./Notion/README.md) | *Markdown & CSV* export `.zip`, or one database CSV | Notion database CSV |
+| [Redmine](./Redmine/README.md) | Issues list *Also available in: CSV* | Redmine issues CSV |
+| [Fizzy](./Fizzy/README.md) | Account export or personal data export `.zip`, or one card's `.json` | Fizzy account export `.zip` (its account import reads it) |
+| [Plane](./Plane/README.md) | Workspace Settings → Exports `.zip` (CSV, JSON or XLSX inside), or one file from it | — (Plane has no file import) |
+| [Taiga](./Taiga/README.md) | Project export (dump) JSON | Taiga project dump JSON, with sprints |
+| [Pivotal Tracker](./Pivotal-Tracker/README.md) | Stories CSV | Pivotal Tracker CSV |
+| [MeisterTask](./MeisterTask/README.md) | Project CSV | MeisterTask CSV |
+| [Quire](./Quire/README.md) | Export CSV, or its Import CSV shape | Quire Import CSV |
+| [Todoist](./Todoist/README.md) | Project template CSV | Todoist CSV |
+| [TickTick](./TickTick/README.md) | Backup CSV | TickTick backup CSV |
+| [Tasks.org](./Tasks-org/README.md) | Backup JSON | Tasks.org backup JSON |
+| [Super Productivity](./Super-Productivity/README.md) | Backup JSON | Super Productivity backup JSON |
+| [Vikunja](./Vikunja/README.md) | Data export `.zip` | Vikunja data export `.zip` |
+| [Kanboard](./Kanboard/README.md) | Project JSON | Kanboard JSON |
+| [Nextcloud Deck](./Nextcloud-Deck/README.md) | Board with `stacks` | Deck board JSON |
+| [Focalboard](./Focalboard/README.md) | `board.jsonl` | Focalboard `.jsonl` |
+| [Kanri](./Kanri/README.md) | Board or all-data JSON export | Kanri board JSON |
+| [Nullboard](./Nullboard/README.md) | `.nbx` board file | Nullboard `.nbx` |
+| [Obsidian Kanban](./Obsidian-Kanban/README.md) | The plugin's board Markdown file | Obsidian Kanban `.md` |
+| [OpenProject](./OpenProject/README.md) | Work packages (`GET /api/v3/work_packages`) | OpenProject work packages JSON, with versions |
+| [Planka](./Planka/README.md) | Fetched from its API with your address, username and password | — |
+| [Microsoft To Do](./Microsoft-To-Do/README.md) | Fetched from Microsoft Graph with your access token | — |
+| [Azure DevOps Boards](./Azure-DevOps/README.md) | A query's *Export to CSV* (a tree query keeps parents) | The CSV *Import from CSV* reads |
+| [Microsoft Lists](./Microsoft-Lists/README.md) | A list's *Export to CSV* | The CSV *New list → From CSV* reads |
+| [Microsoft Project (XML)](./Microsoft-Project/README.md) | *Save As → XML Format* (MSPDI) | Project XML that *File → Open* reads |
+| [Microsoft OneNote](./Microsoft-OneNote/README.md) | Fetched from Microsoft Graph with your access token | OneNote pages `.zip` (Graph's create-page XHTML) |
+| [KanbanFlow](./KanbanFlow/README.md) | Fetched from its API with the board's API token | — |
+| [Basecamp](./Basecamp/README.md) | Fetched from its API with your account ID and access token: card tables and to-do lists | — |
+| [Google Tasks](./Google-Tasks/README.md) | Fetched from its API with your access token | — |
+| [Google Keep](./Google-Keep/README.md) | Fetched from its API with your access token (Google Workspace) | — |
 
 ### Issue trackers and source code hosting
 
 | Tool | Import | Export |
 | --- | --- | --- |
-| [GitHub](./GitHub/GitHub.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | GitHub issues JSON |
-| [GitLab](./GitLab/GitLab.md) | Issues array (`GET /projects/ID/issues`) | GitLab issues JSON, with milestones |
-| [Gitea](./Gitea/Gitea.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | Gitea issues JSON |
-| [Forgejo](./Forgejo/Forgejo.md) | Issues array (the same API as Gitea) | Forgejo issues JSON |
+| [GitHub](./GitHub/README.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | GitHub issues JSON |
+| [GitLab](./GitLab/README.md) | Issues array (`GET /projects/ID/issues`) | GitLab issues JSON, with milestones |
+| [Gitea](./Gitea/README.md) | Issues array (`GET /repos/OWNER/REPO/issues`) | Gitea issues JSON |
+| [Forgejo](./Forgejo/README.md) | Issues array (the same API as Gitea) | Forgejo issues JSON |
 
 GitHub, GitLab, Gitea and Forgejo import their issues JSON only through their
 own API, so the exported file is for a script that calls it.
@@ -112,12 +112,12 @@ own API, so the exported file is for a script that calls it.
 
 | Format | Import | Export |
 | --- | --- | --- |
-| [Markdown](./Markdown/Markdown.md) | Task list | Markdown (`.md`) |
-| [todo.txt](./Todo-txt/Todo-txt.md) | `todo.txt` lines | `todo.txt` |
-| [Taskwarrior](./Taskwarrior/Taskwarrior.md) | `task export` JSON | Taskwarrior JSON |
-| [Org mode](./Org-mode/Org-mode.md) | `.org` file | Org mode (`.org`) |
-| [OPML](./OPML/OPML.md) | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
-| [Leo](./Leo/Leo.md) | Leo outline (`.leo`) | Leo outline |
+| [Markdown](./Markdown/README.md) | Task list | Markdown (`.md`) |
+| [todo.txt](./Todo-txt/README.md) | `todo.txt` lines | `todo.txt` |
+| [Taskwarrior](./Taskwarrior/README.md) | `task export` JSON | Taskwarrior JSON |
+| [Org mode](./Org-mode/README.md) | `.org` file | Org mode (`.org`) |
+| [OPML](./OPML/README.md) | Outline from Workflowy, Dynalist, OmniOutliner, Logseq and others | OPML (`.opml`) |
+| [Leo](./Leo/README.md) | Leo outline (`.leo`) | Leo outline |
 
 ### Mail, calendars, chats and notes
 
@@ -126,30 +126,30 @@ card, its messages the comments), and dated items in Calendar and Gantt.
 
 | Tool | Import (the file you give WeKan) | Export (the file WeKan writes) |
 | --- | --- | --- |
-| [Mail (mbox, .eml)](./Mail/Mail.md) | An `.mbox` (Thunderbird, Apple Mail, mutt, Gmail) or one `.eml` message | Mail (mbox) |
-| [iCalendar (.ics)](./iCalendar/iCalendar.md) | An `.ics` file: tasks (VTODO) by status, and events | Calendar feed of the board's dates |
-| [Google Takeout](./Google-Takeout/Google-Takeout.md) | The Takeout `.zip`: Tasks, Keep, Mail, Calendar and Google Chat | — (Takeout is not imported back into Google) |
-| [Slack](./Slack/Slack.md) | The workspace export `.zip` | — |
-| [Mattermost](./Mattermost/Mattermost.md) | Bulk export `.jsonl` (`mmctl export create`) | Mattermost bulk import `.jsonl` |
-| [Telegram](./Telegram/Telegram.md) | Telegram Desktop's JSON export `result.json` | — |
-| [WhatsApp](./WhatsApp/WhatsApp.md) | *Export chat* `.txt` | — |
-| [Discord (DiscordChatExporter)](./Discord/Discord.md) | DiscordChatExporter JSON | — |
-| [Rocket.Chat](./Rocket-Chat/Rocket-Chat.md) | "Download my data" as JSON `.zip`, one room's `.json`, or a CSV importer `.zip` | Rocket.Chat CSV importer `.zip` |
-| [Microsoft Outlook (.msg)](./Microsoft-Outlook/Microsoft-Outlook.md) | `.msg` files, or a `.zip` of `.msg` and `.eml` files | Microsoft Outlook (.eml) `.zip` |
-| [Microsoft Teams](./Microsoft-Teams/Microsoft-Teams.md) | Fetched from Microsoft Graph, the personal export `.tar`, or Graph chat messages `.json` | Teams chats as Graph chat messages `.json` |
-| [Evernote (.enex)](./Evernote/Evernote.md) | Notes export `.enex` | Evernote (.enex) |
+| [Mail (mbox, .eml)](./Mail/README.md) | An `.mbox` (Thunderbird, Apple Mail, mutt, Gmail) or one `.eml` message | Mail (mbox) |
+| [iCalendar (.ics)](./iCalendar/README.md) | An `.ics` file: tasks (VTODO) by status, and events | Calendar feed of the board's dates |
+| [Google Takeout](./Google-Takeout/README.md) | The Takeout `.zip`: Tasks, Keep, Mail, Calendar and Google Chat | — (Takeout is not imported back into Google) |
+| [Slack](./Slack/README.md) | The workspace export `.zip` | — |
+| [Mattermost](./Mattermost/README.md) | Bulk export `.jsonl` (`mmctl export create`) | Mattermost bulk import `.jsonl` |
+| [Telegram](./Telegram/README.md) | Telegram Desktop's JSON export `result.json` | — |
+| [WhatsApp](./WhatsApp/README.md) | *Export chat* `.txt` | — |
+| [Discord (DiscordChatExporter)](./Discord/README.md) | DiscordChatExporter JSON | — |
+| [Rocket.Chat](./Rocket-Chat/README.md) | "Download my data" as JSON `.zip`, one room's `.json`, or a CSV importer `.zip` | Rocket.Chat CSV importer `.zip` |
+| [Microsoft Outlook (.msg)](./Microsoft-Outlook/README.md) | `.msg` files, or a `.zip` of `.msg` and `.eml` files | Microsoft Outlook (.eml) `.zip` |
+| [Microsoft Teams](./Microsoft-Teams/README.md) | Fetched from Microsoft Graph, the personal export `.tar`, or Graph chat messages `.json` | Teams chats as Graph chat messages `.json` |
+| [Evernote (.enex)](./Evernote/README.md) | Notes export `.enex` | Evernote (.enex) |
 
 ### Website
 
 | Tool | Import | Export |
 | --- | --- | --- |
-| [WordPress (.xml)](./Website/Website.md) | Tools → Export (WXR) `.xml` | WordPress (.xml) |
-| [WordPress REST API (.json)](./Website/Website.md) | `/wp-json/wp/v2/posts` and `/pages` `.json` | WordPress REST API (.json) |
-| [Ghost](./Website/Website.md) | Settings → Labs → Export `.json` | Ghost |
-| [Blogger (.xml)](./Website/Website.md) | Settings → Back up content `.xml` | Blogger (.xml) |
-| [Hugo, Jekyll, Eleventy, Astro (.zip)](./Website/Website.md) | The site's Markdown sources `.zip` | Hugo, Jekyll, Eleventy, Astro (.zip) |
-| [HTML website, Medium (.zip)](./Website/Website.md) | The site's `.html` files `.zip`, or Medium's export | HTML website (.zip) |
-| [Substack (.zip)](./Website/Website.md) | Settings → Exports `.zip` | — |
+| [WordPress (.xml)](./Website/README.md) | Tools → Export (WXR) `.xml` | WordPress (.xml) |
+| [WordPress REST API (.json)](./Website/README.md) | `/wp-json/wp/v2/posts` and `/pages` `.json` | WordPress REST API (.json) |
+| [Ghost](./Website/README.md) | Settings → Labs → Export `.json` | Ghost |
+| [Blogger (.xml)](./Website/README.md) | Settings → Back up content `.xml` | Blogger (.xml) |
+| [Hugo, Jekyll, Eleventy, Astro (.zip)](./Website/README.md) | The site's Markdown sources `.zip` | Hugo, Jekyll, Eleventy, Astro (.zip) |
+| [HTML website, Medium (.zip)](./Website/README.md) | The site's `.html` files `.zip`, or Medium's export | HTML website (.zip) |
+| [Substack (.zip)](./Website/README.md) | Settings → Exports `.zip` | — |
 
 ### Sandstorm
 
@@ -160,29 +160,29 @@ and are not read.
 
 | App | Import | Export |
 | --- | --- | --- |
-| [Sandstorm WeKan](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
-| [Sandstorm Prioritize](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Prioritize grain backup `.zip` |
-| [Sandstorm Yet Another TODO list](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Yet Another TODO list grain backup `.zip` |
-| [Sandstorm μTodo](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm μTodo grain backup `.zip` |
-| [Sandstorm SandChat](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm SandChat grain backup `.zip` |
-| [Sandstorm EtherCalc](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm EtherCalc grain backup `.zip` |
-| [Sandstorm Radicale calendar](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale calendar grain backup `.zip` |
-| [Sandstorm Radicale address book](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale address book grain backup `.zip` |
-| [Sandstorm Davros](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Davros grain backup `.zip` |
-| [Sandstorm Hacker CMS](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | Sandstorm Hacker CMS grain backup `.zip` |
-| [Sandstorm Gogs](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
-| [Sandstorm WordPress](./Sandstorm/Sandstorm.md) | The grain backup `.zip` (Download backup) | — (import only) |
+| [Sandstorm WeKan](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | — (import only) |
+| [Sandstorm Prioritize](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Prioritize grain backup `.zip` |
+| [Sandstorm Yet Another TODO list](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Yet Another TODO list grain backup `.zip` |
+| [Sandstorm μTodo](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm μTodo grain backup `.zip` |
+| [Sandstorm SandChat](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm SandChat grain backup `.zip` |
+| [Sandstorm EtherCalc](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm EtherCalc grain backup `.zip` |
+| [Sandstorm Radicale calendar](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale calendar grain backup `.zip` |
+| [Sandstorm Radicale address book](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Radicale address book grain backup `.zip` |
+| [Sandstorm Davros](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Davros grain backup `.zip` |
+| [Sandstorm Hacker CMS](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | Sandstorm Hacker CMS grain backup `.zip` |
+| [Sandstorm Gogs](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | — (import only) |
+| [Sandstorm WordPress](./Sandstorm/README.md) | The grain backup `.zip` (Download backup) | — (import only) |
 
 ### WeKan's own formats and documents
 
 | Format | Import | Export |
 | --- | --- | --- |
-| [WeKan JSON](./WeKan/WeKan.md) | Board export, with attachments, rules and everything else | JSON, with or without attachments, or `.zip` with attachment files |
-| [CSV / TSV](./CSV/CSV.md) | Comma, semicolon or tab separated | CSV `,` / CSV `;` / TSV |
-| [Excel](./Excel/Excel.md) | WeKan-style `.xlsx` | Excel (`.xlsx`) |
-| [PDF](./PDF/PDF.md), [HTML](./HTML/HTML.md) | — | PDF and an HTML archive of the board |
-| [Dependencies](./Dependencies/Dependencies.md) | — | Dependency graph as JSON or SVG |
-| [Rules](./Rules/Rules.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
+| [WeKan JSON](./WeKan/README.md) | Board export, with attachments, rules and everything else | JSON, with or without attachments, or `.zip` with attachment files |
+| [CSV / TSV](./CSV/README.md) | Comma, semicolon or tab separated | CSV `,` / CSV `;` / TSV |
+| [Excel](./Excel/README.md) | WeKan-style `.xlsx` | Excel (`.xlsx`) |
+| [PDF](./PDF/README.md), [HTML](./HTML/README.md) | — | PDF and an HTML archive of the board |
+| [Dependencies](./Dependencies/README.md) | — | Dependency graph as JSON or SVG |
+| [Rules](./Rules/README.md) | WeKan rules JSON or CSV, Trello Butler text, n8n and Node-RED workflows, Wrike workflows | WeKan rules JSON or CSV, Wrike workflow |
 
 ### People in the file
 

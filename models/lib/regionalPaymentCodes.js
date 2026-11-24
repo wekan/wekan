@@ -1,7 +1,7 @@
 'use strict';
 
 // More payment codes, each by its published specification
-// (docs/Features/Billing/Billing.md), beside models/lib/paymentCodes.js.
+// (docs/Features/Billing/README.md), beside models/lib/paymentCodes.js.
 // Pure; tests/regionalPaymentCodes.test.cjs.
 //
 //   PromptPay (Thailand)      Bank of Thailand / Thai Bankers' Association, EMVCo MPM, AID A000000677010111

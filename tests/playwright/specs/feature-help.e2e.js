@@ -1,5 +1,5 @@
 'use strict';
-// The ? of a feature place (docs/Features/General/Help-Button.md,
+// The ? of a feature place (docs/Features/Help-Button.md,
 // models/lib/featureHelp.js): a click opens the big "How it works" popup with
 // "What is it?" and "How it works?" and their texts, Escape closes it and gives
 // the focus back to the ?, and under a right-to-left language the ? is on the

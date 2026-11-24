@@ -14,7 +14,7 @@ without opening Multi-Selection first; the cards can be restored later.
   the board whose columns are WeKan's lists.
 - [Select all cards in this list](Select-All-Cards.md) - picks the same cards
   without archiving them.
-- [Multi-Selection](../General/Multi-Selection.md) - the same server method
+- [Multi-Selection](../Multi-Selection.md) - the same server method
   archives a selection there.
 - [Archive and Delete](../Board-Sidebar/Archive/Archive-and-Delete.md) -
   where archived cards are restored.

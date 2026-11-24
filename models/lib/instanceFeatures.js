@@ -82,7 +82,7 @@ const FEATURES = [
   { key: 'views-column-sets', labelKey: 'feature-views-column-sets', descKey: 'feature-views-column-sets-desc',
     views: ['board-view-column-sets'] },
   // The board and search helpers that need no AI
-  // (docs/Features/General/Assistants/Assistants.md): no board view of their
+  // (docs/Features/Assistants/README.md): no board view of their
   // own, so `views` is empty and allowFeature() / featureOnFor() decide.
   { key: 'rule-suggestions', labelKey: 'feature-rule-suggestions', descKey: 'feature-rule-suggestions-desc',
     views: [] },
@@ -108,11 +108,11 @@ const FEATURES = [
     views: [] },
   { key: 'retrospective-board', labelKey: 'feature-retrospective-board', descKey: 'feature-retrospective-board-desc',
     views: [] },
-  // Workload and capacity (docs/Features/Workload/Workload.md): the user menu's
+  // Workload and capacity (docs/Features/Workload/README.md): the user menu's
   // page, and every workload* method behind it (server/workload.js).
   { key: 'workload', labelKey: 'workload-title', descKey: 'feature-workload-desc',
     views: [] },
-  // Budget and billing (docs/Features/Billing/Billing.md): the user menu's
+  // Budget and billing (docs/Features/Billing/README.md): the user menu's
   // page, and every billing* method behind it (server/billing.js).
   { key: 'billing', labelKey: 'billing-title', descKey: 'feature-billing-desc',
     views: [] },

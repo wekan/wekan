@@ -20,7 +20,7 @@ comparison is plain letter arithmetic, done on the server.
 - In WeKan: [Card fields](Card-Fields.md),
   [Board Settings / Card](../Board-Sidebar/Board-Settings/Card.md),
   [Admin Panel / Settings / Features](../Admin-Panel/Settings/Features.md) and
-  the other [helpers that need no AI](../General/Assistants/Assistants.md).
+  the other [helpers that need no AI](../Assistants/README.md).
 
 ## How to use it
 

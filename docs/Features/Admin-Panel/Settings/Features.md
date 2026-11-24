@@ -29,11 +29,11 @@ Save. Who among your users sees a feature is decided one level down, by
 - [Kanban (development)](https://en.wikipedia.org/wiki/Kanban_(development)) and
   [Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development)) on
   Wikipedia - where the flow and Scrum helpers come from.
-- WeKan: [helpers that need no AI](../../General/Assistants/Assistants.md),
+- WeKan: [helpers that need no AI](../../Assistants/README.md),
   [flow policies](../../Lists/Flow-Policies.md),
   [Scrum meetings](../../Board-Sidebar/Board-Settings/Scrum-Meetings.md),
   [flow fields](../../Cards/Flow-Fields.md),
-  [Workload](../../Workload/Workload.md), [Billing](../../Billing/Billing.md)
+  [Workload](../../Workload/README.md), [Billing](../../Billing/README.md)
   and [Optional APIs](../../../API/Optional-APIs.md).
 
 ## How to use it
@@ -61,7 +61,7 @@ Workload and capacity, Budget and billing. Swimlanes and lists are the core of
 a board and are never in it.
 
 Besides the board view groups, four
-[helpers that need no AI](../../General/Assistants/Assistants.md) are features
+[helpers that need no AI](../../Assistants/README.md) are features
 here: **Rule suggestions**, **Summary**, **Since your last visit** and
 **Search phrases**. The card helpers - Due date from title, Similar cards, At
 risk, Suggested members, Forecast, Checklist from description and Action

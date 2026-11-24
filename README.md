@@ -38,7 +38,7 @@ that by providing one-click installation on various platforms.
     build.bat.
 - [Features](https://github.com/wekan/wekan/tree/main/docs/Features):
   - Real-time user interface
-  - [Help button](docs/Features/General/Help-Button.md): a ? at every feature place - board views, sidebar, Board and Member Settings,
+  - [Help button](docs/Features/Help-Button.md): a ? at every feature place - board views, sidebar, Board and Member Settings,
     card sections, Admin Panel panes - shows What is it? and How it works? in your own language
   - All Boards page, Drag drop reorder with one or Multi-Selection:
     - Board icons at Remaining, (Sub)Workspaces, Archive
@@ -60,7 +60,7 @@ that by providing one-click installation on various platforms.
       - Text and outlines: Markdown, Leo, OPML, Org mode
       - Mail, calendars, chats and notes, each into the view it fits: Mail (mbox, .eml), iCalendar, Slack, Mattermost,
         Telegram, WhatsApp, Discord, Rocket.Chat, Evernote
-      - [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): WordPress (.xml, and Squarespace, Wix and others that write it),
+      - [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md): WordPress (.xml, and Squarespace, Wix and others that write it),
         WordPress REST API, Ghost, Blogger, Hugo / Jekyll / Eleventy / Astro (.zip of Markdown), HTML website and Medium (.zip), Substack
       - Fetched from the service's API with your credentials: Planka, KanbanFlow, Basecamp, Microsoft To Do, OneNote and Teams,
         Google Tasks and Keep
@@ -70,9 +70,9 @@ that by providing one-click installation on various platforms.
   - Change Color: Board theme and background image, Swimlane, List, Card
     - Overrides: 1 Admin Panel, 2 Board Settings, 3 Member Settings
   - Professional services (PSA), from the user menu:
-    - [Workload and capacity](docs/Features/Workload/Workload.md): each person's hours against their working time across boards,
+    - [Workload and capacity](docs/Features/Workload/README.md): each person's hours against their working time across boards,
       absences, public holidays, allocations, placeholders for roles, billable utilization against a target, skills and who could do the work
-    - [Budget and billing](docs/Features/Billing/Billing.md): rates and cost rates, budget against cost and forecast, margin and unbilled work,
+    - [Budget and billing](docs/Features/Billing/README.md): rates and cost rates, budget against cost and forecast, margin and unbilled work,
       time by day and its approval, expenses, fixed fees and monthly retainers, quotes, invoices of a period
       with VAT, payments and credit notes, as PDF, SVG, Excel, CSV and Peppol e-invoice, with the payment QR codes and
       bank barcodes of many countries, in each currency's own decimals
@@ -119,7 +119,7 @@ that by providing one-click installation on various platforms.
         Throughput Run Chart, Due Date Performance
       - Overview: Statistics, Dashboard, Pulse, Workload, Distribution, Dependency Map, Activity Heatmap
       - Communication and code: Email, Chat, Version Control,
-        [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/Website.md): the board as a website, which a public board can show at its own address instead of the kanban,
+        [Website](docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md): the board as a website, which a public board can show at its own address instead of the kanban,
         [Shop](docs/Features/Board-Header/Board-Views/Shop.md): the products on the cards as a web shop - cart, checkout, orders as cards, Budget and billing's payment methods - which a public board can show instead of the kanban
       - The charts and reports each have PDF and Excel export
    - Right Sidebar / Board Settings:

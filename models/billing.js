@@ -1,4 +1,4 @@
-// Budget and billing (docs/Features/Billing/Billing.md): the collections the
+// Budget and billing (docs/Features/Billing/README.md): the collections the
 // Budget and billing page works with. Every write goes through a method in
 // server/billing.js, which allows it only to the board's admins and to site
 // administrators, and nothing here is published: money is read through those

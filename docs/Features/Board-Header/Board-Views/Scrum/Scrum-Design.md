@@ -34,7 +34,7 @@ existing hidden metadata, alongside numeric time tracking. Jira import also maps
 open sprints, fix versions, rank and epic links to sprints, releases, backlog
 rank and parents, reporting closed and active sprints' missing snapshots
 (2026-10-02, models/lib/jiraScrumPlanning.js). See the
-[Jira guide](../../../Board-Sidebar/Board-Settings/Import-Export/Jira/Jira.md) for mappings, selection controls
+[Jira guide](../../../Board-Sidebar/Board-Settings/Import-Export/Jira/README.md) for mappings, selection controls
 and limitations. Since 2026-10-08 a card can be in several releases, and Jira
 import maps every fix version and Jira export writes them all (see
 [Several releases per card](#several-releases-per-card)). External sprint
@@ -77,7 +77,8 @@ native sprint lifecycle.
 ## Menu and documentation placement
 
 Keep the existing menu-based documentation index. Put new menu-owned guides
-under their actual menu path; retain forwarding pages for moved guides.
+under their actual menu path; when a guide moves, update every link to it
+instead of leaving a forwarding page.
 
 | Application location | Feature | Documentation location relative to `docs/Features` |
 | --- | --- | --- |

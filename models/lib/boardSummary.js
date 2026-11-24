@@ -1,6 +1,6 @@
 'use strict';
 
-// Board menu -> Summary (docs/Features/General/Summary/Summary.md): what
+// Board menu -> Summary (docs/Features/Summary/README.md): what
 // happened on a board, person by person - the standup report ClickUp and
 // Jira write with AI, written here from the board's activities and History.
 //

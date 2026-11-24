@@ -205,12 +205,12 @@
     "fields": [
       "estimatedHours"
     ],
-    "handling": "Workload (docs/Features/Workload/Workload.md): the card's estimate in hours. Planning data for the Workload and capacity page, not card content, so it is not part of rule or notification emails."
+    "handling": "Workload (docs/Features/Workload/README.md): the card's estimate in hours. Planning data for the Workload and capacity page, not card content, so it is not part of rule or notification emails."
   },
   {
     "fields": [
       "billable"
     ],
-    "handling": "Budget and billing (docs/Features/Billing/Billing.md): whether the card's time is invoiced. Money is a board admin's business and is shown only on the Budget and billing page, never in rule or notification emails."
+    "handling": "Budget and billing (docs/Features/Billing/README.md): whether the card's time is invoiced. Money is a board admin's business and is shown only on the Budget and billing page, never in rule or notification emails."
   }
 ]

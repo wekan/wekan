@@ -22,14 +22,14 @@ order:
 
 | Entry | What to use it for |
 | --- | --- |
-| Show My Dependencies | [Your own dependency lines](../General/Editor/RedStrings/Board-And-My-Dependencies.md#member-settings) |
-| Show Board Dependencies | [The board's dependency lines](../General/Editor/RedStrings/Board-And-My-Dependencies.md#member-settings) |
-| Import | [Import dependencies](../General/Editor/RedStrings/Board-And-My-Dependencies.md#import-and-export) |
-| Export | [Export dependencies](../General/Editor/RedStrings/Board-And-My-Dependencies.md#import-and-export) |
+| Show My Dependencies | [Your own dependency lines](../Editor/RedStrings/Board-And-My-Dependencies.md#member-settings) |
+| Show Board Dependencies | [The board's dependency lines](../Editor/RedStrings/Board-And-My-Dependencies.md#member-settings) |
+| Import | [Import dependencies](../Editor/RedStrings/Board-And-My-Dependencies.md#import-and-export) |
+| Export | [Export dependencies](../Editor/RedStrings/Board-And-My-Dependencies.md#import-and-export) |
 | My Cards | [Cards associated with you](../Pages/My-Cards-Due-Attachments.md) |
 | Due Cards | [Cards with deadlines](../Pages/My-Cards-Due-Attachments.md) |
-| Workload and capacity | [Workload](../Workload/Workload.md), when the feature is allowed |
-| Budget and billing | [Billing](../Billing/Billing.md), when the feature is allowed |
+| Workload and capacity | [Workload](../Workload/README.md), when the feature is allowed |
+| Budget and billing | [Billing](../Billing/README.md), when the feature is allowed |
 | My Attachments | [Your attachments](../Pages/My-Cards-Due-Attachments.md) |
 | Starred | [Favorite boards and items](../Pages/Starred.md) |
 | Search All Boards | [Search across accessible content](../Board-Header/Search.md) |
@@ -38,13 +38,13 @@ order:
 | Archive | [Archived content](../All-Boards/Archive.md) |
 | Help | The site's configured help link, when provided |
 | Templates | [Reusable content](../All-Boards/Templates.md), not for Worker accounts |
-| Admin Panel | [Administration](../Admin-Panel/Admin-Panel.md), for authorized administrators |
+| Admin Panel | [Administration](../Admin-Panel/README.md), for authorized administrators |
 | Invite People | [Invite people by e-mail](Invite-People.md), when self-registration is off and your domain may invite |
 | Edit Profile | [Name, username, initials, e-mail; delete or anonymize](Edit-Profile.md); not for OAuth2 accounts |
 | Privacy and my data | [Download my data](Download-My-Data.md), and the site's [legal pages](../Admin-Panel/Settings/Legal-Pages.md) |
 | Date | [Date format, week start and calendar system](Date/README.md) |
 | Change Settings | [Editing and display preferences](Change-Settings.md) |
-| Change Color | [Appearance](../General/Theme/Theme.md) |
+| Change Color | [Appearance](../Theme/README.md) |
 | Notifications | [Email and in-app delivery preferences](Notifications.md) |
 | Font | [Font, font size and text color](Change-Font.md) |
 | Change Avatar | [Your profile image](Change-Avatar.md) |

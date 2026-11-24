@@ -25,8 +25,8 @@ redirects here.
   [NTLM](https://en.wikipedia.org/wiki/NTLM) on Wikipedia - why some schemes are
   never linked and why `file` needs care.
 - [Throbber](https://en.wikipedia.org/wiki/Throbber) on Wikipedia - a wait
-  spinner; WeKan's are in [Wait Spinners](../../General/Troubleshooting/Wait-Spinners.md).
-- [Design / Change color](../../General/Theme/Change-Color.md),
+  spinner; WeKan's are in [Wait Spinners](../../Troubleshooting/Wait-Spinners.md).
+- [Design / Change color](../../Theme/Change-Color.md),
   [Card details width](../../Cards/Card-Details-Width.md) and
   [Multitenancy](../../../Design/Multitenancy/Multitenancy.md).
 
@@ -75,7 +75,7 @@ Each row is ticked when the thing is **hidden**.
 - **Board member list** — hide the member avatars on All Boards.
 - **Wait Spinner** — which spinner is shown while something loads, with a live
   preview beside the dropdown. See
-  [Wait Spinners](../../General/Troubleshooting/Wait-Spinners.md).
+  [Wait Spinners](../../Troubleshooting/Wait-Spinners.md).
 - **Custom private description** and **Custom public description** (\#4421) —
   the text shown under Private and Public in the board visibility popup and the
   create-board popup, for an organization whose "Public" means "public within
@@ -157,7 +157,7 @@ page and the progress dashboards. The tab title changes as soon as you save.
 The theme of this site: the same picker as Board Settings / Change Color and Member
 Settings / Change color — the categories of swatches, the "Default theme" row and the
 custom-colour wheels — described in
-[Design / Change color](../../General/Theme/Change-Color.md). It applies as soon as you
+[Design / Change color](../../Theme/Change-Color.md). It applies as soon as you
 click a colour; there is no Save button.
 
 **The order of themes**, weakest first:
@@ -252,7 +252,7 @@ copy the image link into the field here.
 ## Related
 
 - [All Boards](../../All-Boards/Boards.md)
-- [Members and Permissions](../../Board-Sidebar/Members/Members.md)
+- [Members and Permissions](../../Board-Sidebar/Members/README.md)
 
 ## Commits
 

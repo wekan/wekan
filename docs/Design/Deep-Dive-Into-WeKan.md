@@ -28,7 +28,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Javascript enabled Desktop and Mobile Safari/Chromium/Firefox based browsers
 - Apps at Play Store, Windows Microsoft Store, Ubuntu Touch OpenStore [Browser compatibility matrix](../Browsers/Browser-compatibility-matrix.md)
 - Alternatively, for self-hosted WeKan, create PWA icon [PWA](../Browsers/PWA.md)
-- Using WeKan with big touchscreen [Touch Screen support](../Features/General/DragDrop/Touch-Screen-support.md)
+- Using WeKan with big touchscreen [Touch Screen support](../Features/DragDrop/Touch-Screen-support.md)
 
 ## Meteor WeKan Server
 
@@ -46,13 +46,13 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Whitelabel: Change product name and product image at login screen and board left top corner. Not changing favicon, because there are 100+ favicons for different devices.
 - Drag Drop at Desktop and Mobile:
   - Board Icons, Swimlanes, Lists, Cards, Checklists, Checklist Items
-  - Drag handles, per screen [Drag Drop](../Features/General/DragDrop/Drag-Drop.md)
+  - Drag handles, per screen [Drag Drop](../Features/DragDrop/Drag-Drop.md)
 - Some features similar to Trello and Jira. Some features not in Trello and Jira.
-- IFTTT Rules like Trello Butler [IFTTT](../Features/Rules/IFTTT/IFTTT.md) , translated to all supported languages. Trello Butler is only In English.
+- IFTTT Rules like Trello Butler [IFTTT](../Features/Rules/IFTTT/README.md) , translated to all supported languages. Trello Butler is only In English.
 - Many Assignees like in Jira.
 - Change background image and Card Cover. Change Theme. Change color of Boards, Swimlane, List, Card, Label.
-- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/General/Editor/Markdown/Markdown.md)
-- Emoji [Emoji](../Features/General/Editor/Emoji.md)
+- Markdown at: Board name and description, Swimlane, List, Card title and description, Checklist and Checklist Item, Subtask title,  [Wekan Markdown](../Features/Editor/Markdown/README.md)
+- Emoji [Emoji](../Features/Editor/Emoji.md)
 - MathML
 - Preview card attachment image and PDF
 - Show Start at End Dates of card at Calendar of Swimlanes/Lists/Calendar dropdown menu
@@ -69,10 +69,10 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
   - Filter cards, by user etc
   - Multi-Selection, checkmark and drag many cards at once
   - Sort current board
-- Python and PHP based additional features [Python](../Features/General/Editor/Python.md)
+- Python and PHP based additional features [Python](../Features/Editor/Python.md)
 - Admin Panel:
   - Organizations/Teams/People. Impersonate User, logged to database when someone uses that feature.
-  - Customize Translations [Customize Translations](../Features/General/Translations/Customize-Translations.md)
+  - Customize Translations [Customize Translations](../Features/Translations/Customize-Translations.md)
 
 ## Technical details
 
@@ -93,8 +93,8 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
     - RocketChat [OAuth2](../Features/Login-Page/OAuth2.md#rocketchat-providing-oauth2-login-to-wekan)
     - Nextcloud [Nextcloud](../Features/Login-Page/Nextcloud.md)
     - ADFS 4.0 using OAuth2 and OpenID [ADFS](../Features/Login-Page/ADFS.md)
-    - Azure [Azure](../Features/Login-Page/Azure/Azure.md)
-    - Keycloak [Keycloak](../Features/Login-Page/Keycloak/Keycloak.md)
+    - Azure [Azure](../Features/Login-Page/Azure/README.md)
+    - Keycloak [Keycloak](../Features/Login-Page/Keycloak/README.md)
     - Google login [Google login](../Features/Login-Page/Google-login.md)
 - Custom LDAP
   - LDAP [LDAP](../Features/Login-Page/LDAP.md)

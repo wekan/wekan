@@ -15,7 +15,7 @@ the REST API as an ordinary WeKan user.
 - [Wikipedia: Webhook](https://en.wikipedia.org/wiki/Webhook)
 - [Rules / Bots](../../Rules/Bots.md): what the view shows and how a bot is
   added, run and answered
-- [Automation rules](../../Rules/Rules/Rules.md)
+- [Automation rules](../../Rules/Rules/README.md)
 
 ## How to use it
 

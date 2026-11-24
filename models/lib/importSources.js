@@ -123,7 +123,7 @@ export const IMPORT_SOURCES = [
   { key: 'sandstormdavros', name: 'Sandstorm Davros', ...GRAIN },
   { key: 'sandstormhackercms', name: 'Sandstorm Hacker CMS', ...GRAIN },
   { key: 'sandstormgogs', name: 'Sandstorm Gogs', ...GRAIN },
-  // Websites and CMSes (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website.md):
+  // Websites and CMSes (docs/Features/Board-Sidebar/Board-Settings/Import-Export/Website/README.md):
   // read on the server by server/lib/websiteImport.js into the pages and posts
   // models/lib/websiteFormat.js makes a board of.
   { key: 'wordpress', name: 'WordPress (.xml)', ...TEXT, files: ['.xml'] },

@@ -15,7 +15,7 @@ Board admins only.
 - [Value-added tax](https://en.wikipedia.org/wiki/Value-added_tax) and
   [Creditor Reference (ISO 11649)](https://en.wikipedia.org/wiki/Creditor_Reference).
 - In WeKan: [Shop](../../Board-Header/Board-Views/Shop.md),
-  [Budget and billing](../../Billing/Billing.md) and
+  [Budget and billing](../../Billing/README.md) and
   [Board View](Board-View.md).
 
 ## How to use it

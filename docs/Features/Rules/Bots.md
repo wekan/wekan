@@ -2,7 +2,7 @@
 
 ## What it is
 
-Board Settings → **Bots**, below **Workflow view**, is the [Rules](Rules/Rules.md)
+Board Settings → **Bots**, below **Workflow view**, is the [Rules](Rules/README.md)
 page's view for **bots**: runners on your own server that this board hands
 cards to. A runner can be an AI coding agent, a CI job or a script. The view
 looks and works like kanbots, in the board's own theme, Font Awesome icons and
@@ -21,7 +21,7 @@ public view.
   the runner works on the board.
 - [Server-side request forgery](https://en.wikipedia.org/wiki/Server-side_request_forgery)
   - what the webhook queue's SSRF guard prevents.
-- In WeKan: [Rules (Automation)](Rules/Rules.md),
+- In WeKan: [Rules (Automation)](Rules/README.md),
   [outgoing requests through a proxy](../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Proxy.md),
   [webhook data](../Board-Sidebar/Board-Settings/Outgoing-Webhooks/Webhook-data.md).
 

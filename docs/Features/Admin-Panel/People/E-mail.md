@@ -16,8 +16,8 @@ It is the pane Admin Panel / People opens on (`/admin/people/email`).
   Wikipedia.
 - [Nodemailer well-known services](https://nodemailer.com/smtp/well-known-services) -
   the provider list the **Email service** choice comes from.
-- [E-mail troubleshooting](../../General/Email/Troubleshooting-Mail.md)
-- [Bounces](../../General/Email/Bounces.md) - the bounce settings in detail.
+- [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)
+- [Bounces](../../Email/Bounces.md) - the bounce settings in detail.
 - [Domains](Domains.md) — which domains are actually in use.
 - [Invite People](../../Member-Settings/Invite-People.md)
 
@@ -62,7 +62,7 @@ explicitly enables the Admin Panel transport.
 
 1. Under **Bounces**, tick **Handle bounces in WeKan** to act on mail that comes
    back, choose an action per category and **After how many**, and save; see
-   [Bounces](../../General/Email/Bounces.md).
+   [Bounces](../../Email/Bounces.md).
 2. Under **Email Templates**, fill in **Invite email subject**, **Invite email
    body**, **Activity notification email subject** and **Activity
    notification email body**, and click **Save**. A field left empty keeps the
@@ -77,7 +77,7 @@ explicitly enables the Admin Panel transport.
 - **SMTP Port**: free text; the placeholder suggests `587`.
 - **Bounce threshold**: a whole number from 1 to 100 per category - how many
   bounces of that kind before the action is taken (see
-  [Bounces](../../General/Email/Bounces.md)).
+  [Bounces](../../Email/Bounces.md)).
 - The invite domain is not a number: it is an `endsWith` test of each of the
   inviter's addresses (`isNonAdminAllowedToSendMail` in
   [server/models/settings.js](../../../../server/models/settings.js)).

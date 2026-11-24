@@ -24,8 +24,8 @@ stream, `GET /api/admin/problems/:stream` one page of a stream, and
   Wikipedia - the person this tab is for.
 - [Dashboard (computing)](https://en.wikipedia.org/wiki/Dashboard_(computing))
   on Wikipedia - what the Summary pane is.
-- In WeKan: [Admin Panel](../Admin-Panel.md), [Admin Panel URLs](../Admin-Panel-URLs.md),
-  the shared [table page](../../General/Table.md),
+- In WeKan: [Admin Panel](../README.md), [Admin Panel URLs](../Admin-Panel-URLs.md),
+  the shared [table page](../../Table.md),
   [REST API](../../../API/REST-API.md#admin-panel-problems).
 
 ## How to use it
@@ -72,7 +72,7 @@ Admin Panel / Settings (see [The menu](#the-menu) below).
 | Problems / API | `api` | [API.md](API.md) |
 | Problems / Database problems | `database` | [Database-problems.md](Database-problems.md) |
 | Problems / Filesystem integrity | `integrity` | [Filesystem-integrity.md](Filesystem-integrity.md) |
-| Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
+| Problems / Email | `mail` | [Bounces.md](../../Email/Bounces.md#when-something-goes-wrong) |
 
 0 of these 25 panes has no page of its own: every pane above links one. A pane
 added to the menu without a page gets a dash here and is counted in this
@@ -105,7 +105,7 @@ Their old `/admin/problems/...` addresses redirect there.
 Performance, Speed, Tests, CPU usage, Memory usage, Disk usage,
 Instrumentation, Broken Cards, Files Report, Rules Report, All webhooks, Boards
 Report, Cards Report, Recovery, Offices, API, Database problems, Filesystem integrity and
-Email. Report tables use the shared [table page](../../General/Table.md): a
+Email. Report tables use the shared [table page](../../Table.md): a
 search box, the total, `page X / N`, prev/next, and one page of rows fetched
 from the server at a time. **Performance** sits with the Speed / Tests / CPU
 usage streams: card loading is automatic per board size, with

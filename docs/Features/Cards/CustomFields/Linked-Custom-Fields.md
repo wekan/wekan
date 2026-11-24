@@ -25,7 +25,7 @@ shared.
 - [Data synchronization](https://en.wikipedia.org/wiki/Data_synchronization)
   on Wikipedia - keeping the same data the same in two places, one way or
   both ways.
-- In WeKan: [Custom Fields](CustomFields.md), [Linked cards](../Linked-Cards.md),
+- In WeKan: [Custom Fields](README.md), [Linked cards](../Linked-Cards.md),
   [Attached cards](../Attachments/Attached-Cards.md) and
   [Admin only fields](Custom-Field-Admin-Only-And-Order.md).
 

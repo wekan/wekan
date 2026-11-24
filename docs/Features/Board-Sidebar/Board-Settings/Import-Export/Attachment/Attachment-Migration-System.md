@@ -24,7 +24,7 @@ current code.
 - [Wikipedia: Amazon S3](https://en.wikipedia.org/wiki/Amazon_S3)
 - [Meteor-Files](https://github.com/veliovgroup/Meteor-Files)
 - [Attachment backward compatibility](AttachmentBackwardCompatibility.md)
-- [Attachments](../../../../Cards/Attachments/Attachments.md)
+- [Attachments](../../../../Cards/Attachments/README.md)
 
 ## How to use it
 
