@@ -604,6 +604,8 @@ undefined for "not found", and accepts either now.
 
 </details>
 
+- [Browser tests: closing a form that already closed itself is no failure](https://github.com/wekan/wekan/commit/599c284d2a575f6e5c095172561b38bf51382629). Thanks to xet7.
+
 **Security downloads** - Artifact Hub's report of the Helm chart, beside
 GitHub's alerts.
 
