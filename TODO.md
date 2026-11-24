@@ -20,13 +20,13 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | - | The Firefox and WebKit stages, on a host; Odia's search words; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | - | The Firefox and WebKit stages, on a host; push the security fixes of ferretdb-test, hx, minio-metadata, trello-attachments-downloader and the caddy plugins; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
 | [weddy](https://github.com/wekan/weddy/blob/main/TODO.md) | 20 of WeKan's 174 templates in Go; attachments' Office preview and WebP thumbnails; more of WeKan's specs; Firefox and WebKit; netbsd/arm64 | Its "For the maintainer (on GitHub)" items |
-| [caddy-ferretdb-plugin](https://github.com/wekan/caddy-ferretdb-plugin/blob/main/TODO.md) | The Windows SQLite URI fix, checked on Linux only | Ignore the otel update in Dependabot |
-| [caddy-wekan-plugin](https://github.com/wekan/caddy-wekan-plugin/blob/main/TODO.md) | Weddy behind WeKan's newest settings; the Windows fixes, checked on Linux only | Ignore the otel update in Dependabot |
+| [caddy-ferretdb-plugin](https://github.com/wekan/caddy-ferretdb-plugin/blob/main/TODO.md) | The Windows SQLite URI fix, checked on Linux only | Push the otel ignore rule |
+| [caddy-wekan-plugin](https://github.com/wekan/caddy-wekan-plugin/blob/main/TODO.md) | Weddy behind WeKan's newest settings; the Windows fixes, checked on Linux only | Push the otel ignore rule |
 | [node-patches](https://github.com/wekan/node-patches/blob/main/TODO.md) | The clone retry, until the next Release All | - |
 | [wekango](https://github.com/wekan/wekango/blob/main/TODO.md) | The Windows and macOS fixes, checked on Linux only | Confirm the mongo-tools notice review |
 | [weror](https://github.com/wekan/weror/blob/main/TODO.md) | - | Decide on the demo account that takes any password |
@@ -37,33 +37,25 @@ details; WeKan's are below.
 
 ## For the maintainer: needs a person, not code
 
-- Dependabot alerts to work through, now that it is on (security download of
-  2026-11-24 00:30): ferretdb-test 93 (1 critical, 30 high), hx 69 (1
-  critical, 23 high), minio-metadata 39 (6 critical, 8 high) and
-  trello-attachments-downloader 6 (2 high, pyinstaller). nekan has 1 high its
-  Dependabot does not list as open (zod below 4.6.6, GHSA-mrhx-c7xc-m3w5).
-- ferretdb-test: Dependabot's npm update in `/node-deno-bun` fails (2026-11-23
-  22:22): the patched decode-uri-component would take minio from 7.1.3 back to
-  7.0.26, and uuid cannot be raised while its dependents still ask for a
-  vulnerable one. Raise minio and the packages that pin uuid by hand.
-- hx: 4 high CodeQL alerts, all in copied or generated files under
-  `prototypes/` - js/xss and js/incomplete-url-scheme-check in a copy of
-  `htmx.js` (fullmoon), and two js/redos in the built `ui/html5/build/html5/
-  Main.js`. Update the htmx copy and rebuild Main.js rather than editing them.
-- trello-attachments-downloader: push its `main` (the workflow permissions
-  that close its two CodeQL alerts are committed there). Its release workflow
-  also still uses `actions/upload-artifact@v1` and `download-artifact@v1`,
-  which GitHub has retired, so a release tag fails at those steps.
+- Push the security fixes committed locally on 2026-11-24, which close every
+  open Dependabot and CodeQL alert of the newest download once GitHub
+  re-scans: ferretdb-test (93, `a3b3058`), minio-metadata (5, `1ce090d`), hx
+  (47 Dependabot and 4 CodeQL, `02e5451` to `8f4699e` - htmx kept at 2.0.11, as
+  4.x drops the `htmx:afterOnLoad` event the fullmoon board uses) and
+  trello-attachments-downloader (6, and current upload/download-artifact,
+  `9c65a9f`). hx's two htmx CodeQL alerts may come back on the new copy, as
+  htmx still parses HTML and checks `javascript:` the same way: dismiss them as
+  vendored code if they do. nekan has 1 high its Dependabot does not list as
+  open (zod below 4.6.6, GHSA-mrhx-c7xc-m3w5).
 - Dependabot is still off (403) in 16 repositories: migratemongo,
   minio-express, waxe, we, webhook, wedos, wekan-aws, wekan-gantt-gpl,
   wekan-ondra, wekan-openstore, wekan-openstore2, wekan-prometheus-exporter,
   wekan-sandstorm-meteor3, wekan-test-alpha, wekanstudio and wodello. Of those,
   we and wekan-sandstorm-meteor3 have a medium Babel advisory
   (GHSA-968p-4wvh-cqc8, @babel/helpers and @babel/runtime below 7.26.10).
-- caddy-ferretdb-plugin and caddy-wekan-plugin: Dependabot's
-  go.opentelemetry.io/otel/sdk/log update fails on every scheduled run, as it
-  cannot resolve their local `replace` (the version is already on main); an
-  ignore rule for it in their `.github/dependabot.yml` would stop that.
+- caddy-ferretdb-plugin and caddy-wekan-plugin: push the `.github/dependabot.yml`
+  that ignores go.opentelemetry.io/otel/sdk/log, whose update fails on every run
+  (`42c839f`, `cdab5e43`).
 - wena: rerun Release all for haiku-amd64 (the Haiku VM never answered SSH);
   aros-i386 needs SDL's AHI audio driver off for i386, whose AROS toolchain has
   no AHI headers - not cloned or built here, as there is no Docker. Its
@@ -77,11 +69,6 @@ details; WeKan's are below.
 
 ## Needs a maintainer decision on the intended contract
 
-- Odia (`or_IN`) search operator words and their error messages are garbled
-  the way the rest of Odia was before 2026-11-24 ("ଅବ alid ଧ", "ତାଲିକା |").
-  They were left as they are because people type them: correcting them
-  changes which words a search accepts, so it needs a decision on accepting
-  the old spellings too.
 
 - WeKan's dev-only `glob` 13.0.6 under `@babel/cli`, which builds the vendored
   `npm-packages/`, is in the range of GHSA-3g3m-2fjr-6pw4 (medium,

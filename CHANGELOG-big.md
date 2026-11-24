@@ -366,6 +366,21 @@ HIPAA, NIS2, ISO 27001 and SOC 2. `tests/securityTxt.test.cjs`.
 
 and fixes the following bugs:
 
+**Search** - operators in every language.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2cb9f4416d69a2330c042585df09462bee475b7">An operator whose translation is more than one word works, in every language</a>. Thanks to xet7.</summary>
+
+The search reads an operator as one word followed by ":", so a translated
+operator with a space or a stray "|" could never be typed: 450 operator words
+in 142 languages, such as "pasgemaakte veld" for customfield in Afrikaans,
+did not work at all. Each is now read as the help shows it, and as one word.
+Odia's operators are one word each, and its old swimlane word, which did
+work, still does. `tests/searchOperatorWords.test.cjs` runs the real parser
+with every language's own words.
+
+</details>
+
 **Keyboard** - closing what is open.
 
 <details>
@@ -546,6 +561,7 @@ and updates the following translations:
 
 **Languages updated:** 232 languages.
 
+- [Omi's job progress strings in every language](https://github.com/wekan/wekan/commit/b7ea0843dced253cb694f6d109e5b39ccaa46db4). Thanks to xet7.
 - [Omi's Test the token and Stop strings in every language](https://github.com/wekan/wekan/commit/fc3ce327661bddd1af0e418bc286efb6cac0b291). Thanks to xet7.
 
 **Wrong-language words** - each locale in the language its tag names.
