@@ -460,6 +460,20 @@ a durable rule copy, whose plan writes it; the hash stays on the attachment.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56e1ad0980d7397db3eca3c74419164f1e1c976f">A PDF in the attachment slideshow uses the window again, not a third of it</a>. Thanks to xet7.</summary>
+
+The slideshow's text and archive viewers, given `display: flex` by an id rule
+that outranks `.hidden`, showed as two empty white boxes beside every PDF,
+image and video: a PDF was 468px wide in a 1600px window.
+`tests/hiddenNotOutrankedById.test.cjs` looks for that mistake in every
+template. Found in the same run: Problems / API's person links had no name
+for a screen reader, and Attachments / Encrypt, reachable without
+`ATTACHMENTS_PASSPHRASE`, had no title; seven browser tests that expected the
+old behaviour now check the current one.
+
+</details>
+
 **The Admin Panel** - Problems and Attachments, as found while documenting
 them.
 
