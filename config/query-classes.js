@@ -71,6 +71,9 @@ import {
   PREDICATE_START_AT,
   PREDICATE_WEEK,
   PREDICATE_YEAR,
+  compactOperatorWord,
+  rewriteMultiWordOperators,
+  searchOperatorAliasesFor,
 } from './search-const';
 import Boards from '../models/boards';
 
@@ -397,16 +400,33 @@ export class Query {
     Object.entries(predicates).forEach(([category, catPreds]) => {
       predicateTranslations[category] = {};
       Object.entries(catPreds).forEach(([tag, value]) => {
-        predicateTranslations[category][TAPi18n.__(tag)] = value;
+        const word = TAPi18n.__(tag);
+        predicateTranslations[category][word] = value;
+        // Also its compact form, so a multi-word predicate can be typed.
+        const compact = compactOperatorWord(word);
+        if (compact && !(compact in predicateTranslations[category])) {
+          predicateTranslations[category][compact] = value;
+        }
       });
     });
     // eslint-disable-next-line no-console
     // console.log('predicateTranslations:', predicateTranslations);
 
     const operatorMap = {};
+    // An operator word the language used before it was corrected keeps
+    // working (search-const.js SEARCH_OPERATOR_ALIASES); the current word wins.
+    const language = typeof TAPi18n.getLanguage === 'function' ? TAPi18n.getLanguage() : '';
+    Object.entries(searchOperatorAliasesFor(language)).forEach(([word, key]) => {
+      if (operators[key]) operatorMap[word.toLowerCase()] = operators[key];
+    });
     Object.entries(operators).forEach(([key, value]) => {
       operatorMap[TAPi18n.__(key).toLowerCase()] = value;
+      // A translation of more than one word is also known compact, and typed
+      // as shown it is rewritten to that (search-const.js).
+      const compact = compactOperatorWord(TAPi18n.__(key));
+      if (compact && !(compact in operatorMap)) operatorMap[compact] = value;
     });
+    queryText = rewriteMultiWordOperators(queryText, Object.keys(operatorMap));
     // eslint-disable-next-line no-console
     // console.log('operatorMap:', operatorMap);
 

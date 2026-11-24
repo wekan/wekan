@@ -54,3 +54,39 @@ export const PREDICATE_START_AT = 'startAt';
 export const PREDICATE_SYSTEM = 'system';
 export const PREDICATE_WEEK = 'week';
 export const PREDICATE_YEAR = 'year';
+
+// Translated search operators of more than one word (2026-11-24). The parser
+// reads an operator as letters and marks followed by ":", so a translation
+// with a space, a hyphen or a stray "|" could never be typed: 450 operator
+// words in 142 languages were like that. Each operator is also known by its
+// compact form - every character that is not a letter or a mark taken out -
+// and a query that types it as the help shows it is rewritten to that form.
+// tests/searchOperatorWords.test.cjs.
+export function compactOperatorWord(name) {
+  return String(name || '').toLowerCase().replace(/[^\p{Letter}\p{Mark}'’]/gu, '');
+}
+
+export function rewriteMultiWordOperators(query, names) {
+  let out = String(query || '');
+  const multi = [...new Set((names || []).map(n => String(n || '').toLowerCase()))]
+    .filter(n => compactOperatorWord(n) && compactOperatorWord(n) !== n)
+    .sort((a, b) => b.length - a.length);
+  for (const name of multi) {
+    const escaped = name.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    out = out.replace(new RegExp(`(^|\\s|-)${escaped}\\s*:`, 'giu'),
+      (whole, lead) => `${lead}${compactOperatorWord(name)}:`);
+  }
+  return out;
+}
+
+// Operator words a language used before they were corrected, kept working:
+// people type operators, so a fix must not turn a working search into an
+// error. Odia, 2026-11-24: a swimlane was "ସନ୍ତରଣ" (swimming). Old words with
+// a space or a "|" never worked, so they are not here.
+export const SEARCH_OPERATOR_ALIASES = {
+  or_IN: { 'ସନ୍ତରଣ': 'operator-swimlane' },
+};
+
+export function searchOperatorAliasesFor(language) {
+  return SEARCH_OPERATOR_ALIASES[String(language || '').replace('-', '_')] || {};
+}
