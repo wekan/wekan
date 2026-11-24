@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards P3 items; accessibility beyond the axe scan; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | Whether WeKan should encrypt attachments itself; the Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -40,9 +40,13 @@ details; WeKan's are below.
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
 section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
-- The help button (?): its Playwright spec `feature-help.e2e.js` has not been
-  run yet. The button, its texts and their translations into every language
-  are released (v13.28).
+- The help button (?): `feature-help.e2e.js` was run on 2026-11-24 against
+  a live server in Chromium - 1 passed, 2 failed. The popup opens with both
+  headings and texts, but Escape does not close it (the first test waits for
+  the popup to go and for the focus to return to the ?), and the second test
+  cannot find the board menu where it looks (`.board-sidebar
+  .js-open-board-menu`; in this layout it is the ☰ at the top right). The
+  button, its texts and their translations are released (v13.28).
 - The Meteor test build (`meteor test --full-app`) ran out of memory before
   any test started after the help texts grew every locale file; the release
   build (`meteor build`) still works. To find out why and fix it, then run
@@ -84,13 +88,6 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   motion and every theme's contrast to it, run through build.sh; 3.2.6
   Consistent Help, 3.3.7 Redundant Entry and 3.3.8 Accessible Authentication
   need a manual review.
-- Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 and
-  the P3 list are done, except app-level encryption of attachments on disk,
-  which needs a maintainer decision: it would change every read path
-  (download, thumbnails, previews, storage migration), and encrypting the
-  disk the attachments are on - docs/Security/Compliance/README.md - covers
-  the same need without that.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since
@@ -146,6 +143,14 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   patched 13 (13.0.7 is inside its range), so the fix is an override to glob
   14 - a major version over what `@babel/cli` asks for - or waiting for a
   `@babel/cli` that takes 14.
+- App-level encryption of attachments on disk, the one item of
+  `docs/Compliance/README.md`'s P3 list not done: WeKan would encrypt each
+  file itself, which changes every read path (download, thumbnails,
+  previews, Office preview, storage migration) and needs a key that
+  survives a restore. Encrypting the disk the attachments are on, as
+  docs/Security/Compliance/README.md recommends, covers the same need
+  without any of that; and the Admin Panel backups are already encrypted
+  with `BACKUP_PASSPHRASE`. Decide whether WeKan should do it at all.
 
 ## Repositories left out, and why
 
