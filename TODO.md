@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The test build that runs out of memory; wrong-language words in some locales; accessibility beyond the axe scan; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | Playwright specs in Firefox and WebKit; the last wrong-language words; running the accessibility spec 47; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -40,34 +40,15 @@ details; WeKan's are below.
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
 section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
-- The Meteor test build (`meteor test --full-app`) ran out of memory before
-  any test started after the help texts grew every locale file; the release
-  build (`meteor build`) still works. To find out why and fix it, then run
-  the Shop, webhooks and Admin Panel addresses server tests, and their
-  Playwright specs in Firefox and WebKit.
-- Wrong-language and wrong-meaning words seen by the help-text translators,
-  to correct now that the help texts are translated: Latvian (`lv`) has
-  Lithuanian words; Estonian (`et-EE`) calls a board "juhatus" (a company's
-  management board) in "Board Settings" and "Board View"; Aromanian (`rup`)
-  and Sicilian (`scn`) have Italian menu names; Northern Sami (`se`) has two
-  Finnish values; Shona (`sn`) has half-English menu names; Brazilian
-  Portuguese (`pt-BR`) calls an assignee "Administrador"; Somali (`so`) calls
-  card recurrence an automatic reset; Pashto and Sindhi (`ps`, `sd`) have odd
-  "Check Version" and "WIP Limit Groups" terms; Serbian (`sr`) uses списи,
-  предмет and Управа for board, card and Admin Panel; Macedonian (`mk`) has
-  Bulgarian values (Хора, Наблюдавай, Имейл, Описание, Разпределена от,
-  Поискан от); Luxembourgish (`lb`) is partly German; Punjabi and Odia (`pa`,
-  `or_IN`) call a swimlane "swimming"; Maltese (`mt`) has "Bord Ara" for
-  Board View. Seen by the 2026-11-24 translators: Venetian (`ve-CC`) has
-  Zulu "export" and "log in" values, Vietnamese (`vi-VN`) has the Malay
-  "Sejarah" for history, and Tagalog (`tl`) and Waray (`wa-RR`) have odd
-  "log in" values; Neapolitan and Sicilian (`nap`, `scn`) have the Italian
-  "Accedi" and "Esporta", and Luxembourgish "Board importieren"; Venetian "export" is Zulu, Veps
-  "export" is only "Ve", and Yoruba (`yo`) calls a board "Ọkọ" (vehicle);
-  Odia's "admin-panel" ends in a stray "|", Macedonian "people" is the
-  Bulgarian "Хора", the Luganda and Georgian Impersonation Report titles are
-  half English, and Norwegian Bokmål (`nb`) has "Anonymiser Bruker" for
-  Impersonate user.
+- The Shop, webhooks and Admin Panel addresses Playwright specs in Firefox and
+  WebKit. Their server tests pass (`meteor test --full-app`, 699 passing);
+  WebKit needs a host, as the sandbox cannot run it.
+- Wrong-language words the 2026-11-24 corrections left, for a speaker to
+  check: Shona (`sn`) long help texts still half English; Odia (`or_IN`)
+  garbled fragments in a few long values; Maltese (`mt`) half-English help
+  texts; Luxembourgish (`lb`) whiteboard is both "Whiteboard" and "Tafel";
+  Serbian (`sr`) "All Boards" is not named the same everywhere; one Spanish
+  value in Venetian (`ve-CC`).
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
@@ -76,11 +57,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 - Everything about accessibility in one folder, `docs/Features/Accessibility/`
   (from `General/Accessibility/` and the Admin Panel's Accessibility page).
 - Accessibility: the axe scan runs the WCAG 2.2 AA rules and passes on the
-  pages it visits (WP-13). Still to do: extend it to every popup and Admin
-  Panel pane, and add keyboard-only, 200 % zoom and 320 px reflow, reduced
-  motion and every theme's contrast to it, run through build.sh; 3.2.6
-  Consistent Help, 3.3.7 Redundant Entry and 3.3.8 Accessible Authentication
-  need a manual review.
+  pages it visits (WP-13). `tests/playwright/specs/47-accessibility-everywhere.e2e.js`
+  is written - every Admin Panel pane, the popups people open most, 320 px
+  reflow and reduced motion - and not run yet; then keyboard-only and every
+  theme's contrast through build.sh. 3.2.6 Consistent Help, 3.3.7 Redundant
+  Entry and 3.3.8 Accessible Authentication need a manual review.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since

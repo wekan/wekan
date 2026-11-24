@@ -14,8 +14,9 @@ kept. Administrators **export their lists as CSV**, see **who downloaded what**,
 check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
 every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
-contact. The **delay after a wrong password** is applied at last, and the
-**Problems Summary** and **attachment retention** form are fixed.
+contact. **Problems / Summary** groups **sign-in refusals by reason** with the
+fix for each, the **delay after a wrong password** is applied at last, and the
+server tests pass again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

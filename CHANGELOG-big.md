@@ -105,8 +105,9 @@ kept. Administrators **export their lists as CSV**, see **who downloaded what**,
 check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
 every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
-contact. The **delay after a wrong password** is applied at last, and the
-**Problems Summary** and **attachment retention** form are fixed.
+contact. **Problems / Summary** groups **sign-in refusals by reason** with the
+fix for each, the **delay after a wrong password** is applied at last, and the
+server tests pass again.
 
 This release adds the following new features:
 
@@ -300,6 +301,24 @@ against a live server. `tests/attachmentEncryption.test.cjs`,
 
 </details>
 
+**The Admin Panel** - Problems / Summary as a status dashboard.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/788131193ee52d1ad55039fc28c6dc45c130cc00">Sign-in refusals are grouped by reason, each with its count, latest account and fix</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+The person signing in still sees the same generic message whatever the
+reason, so nobody can tell "no such user" from "wrong password". Each refusal
+is recorded with its precise reason: wrong password, unknown user, disabled
+account, brake, malformed request, and the LDAP reasons. The LDAP handler
+records its reason and then returns its single generic error, including the
+two messages that used to name the account. The Summary shows one row per
+reason with its count, first and latest time, latest account and address,
+the fix and a button to the pane where it is made, and every problem area
+lists its three most frequent problems ([#6942](https://github.com/wekan/wekan/issues/6942)).
+`tests/loginRefusals.test.cjs`, `tests/ldapAccountBinding.test.cjs`.
+
+</details>
+
 **Security reporting** - where to report a vulnerability, which version is
 supported, and what a release is made of.
 
@@ -362,6 +381,41 @@ when a place that starts the lockout builds its settings by hand.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ba109852133de6c83d9a1fc16b22da4df82bb4d">A sign-in refused by policy is not counted as a wrong password</a>. Thanks to xet7.</summary>
+
+With password login off, a password sign-in was refused, and then the lockout
+counted it as a guess and threw its own 403 "Incorrect password" over the
+refusal: the person was told the wrong thing, and enough attempts locked the
+account because of a setting. Forgot password off and LDAP's password-login
+guard did the same. These refusals tell a guesser nothing and are no longer
+counted. `tests/loginFailureDecision.test.cjs`,
+`server/lib/tests/passwordLoginDisabled.tests.js`.
+
+</details>
+
+**Cards and attachments** - who did it, and how often it is listed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ba109852133de6c83d9a1fc16b22da4df82bb4d">Auto-archive is recorded as the board's admin, not as nobody</a>. Thanks to xet7.</summary>
+
+The hourly scan fetched its boards without their members, so the board actor
+was never found and every auto-archive activity had no user.
+`tests/boardActor.test.cjs`, `server/lib/tests/autoArchiveCards.tests.js`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ba109852133de6c83d9a1fc16b22da4df82bb4d">An upload is listed once in the card history, not twice</a>. Thanks to xet7.</summary>
+
+The upload hook and the attachment content index each wrote an "added" row.
+The index writes its row only for an attachment that has none, and never for
+a durable rule copy, whose plan writes it; the hash stays on the attachment.
+`tests/attachmentContent.test.cjs`,
+`server/lib/tests/storedRuleCopyCard.tests.js`.
+
+</details>
+
 **The Admin Panel** - Problems and Attachments, as found while documenting
 them.
 
@@ -393,6 +447,48 @@ stream to have the same name on the Summary as in the menu.
 "At most per run" accepted up to 1000000, and the retention cut anything above
 100000 without saying so. The form takes its default and maximum from the
 retention itself now. `tests/attachmentRetention.test.cjs`.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Tests** - the Meteor server tests run, and pass.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e39e4a12007736ef92eb190e8a5b516e311721e0">The Meteor test build no longer runs out of memory</a>. Thanks to xet7.</summary>
+
+In test mode the 170-190 MB client bundle was compiled a second time for the
+legacy browsers, which no test uses, and V8 ran out of memory. `build.sh` and
+`npm test` pass `--exclude-archs web.browser.legacy,web.cordova`, and set
+`METEOR_WATCH_FORCE_POLLING=true` because Meteor 3.6's watcher does not honour
+`.meteorignore` and walked all of `.tools`. `tests/testBuildMemory.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ba109852133de6c83d9a1fc16b22da4df82bb4d">All 699 server tests pass, from 693 with 6 failing</a>. Thanks to xet7.</summary>
+
+The four faults behind them are the Login and Cards and attachments entries
+above; the sixth expected null where Meteor 3's findOneAsync answers
+undefined for "not found", and accepts either now.
+
+</details>
+
+and updates the following translations:
+
+**Wrong-language words** - each locale in the language its tag names.
+
+**Languages updated:** 25 languages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60d49c0435ebe6316e66e713360fb4ff4b97e9e1">Wrong-language and wrong-meaning words replaced in 25 languages</a>. Thanks to xet7.</summary>
+
+Neapolitan and Sicilian that were Italian, Luxembourgish that was German,
+Macedonian that was Bulgarian, Latvian with Lithuanian letters, Venetian that
+was Zulu; a Serbian board was "списи" (records) and a card "предмет", an
+Estonian board "juhatus" (a management board), a Punjabi and Odia swimlane
+was swimming. Search operator words, date formats and values earlier reviews
+pinned were kept. `tests/wrongLanguageCorrections20261124b.test.cjs`.
 
 </details>
 
