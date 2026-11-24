@@ -11,7 +11,8 @@ A person can **download everything WeKan holds about them**
 and **be erased everywhere**; an operator publishes a **privacy notice, terms
 and imprint**, can **require accepting them**, and limits how long records are
 kept. Administrators **export their lists as CSV**, see **who downloaded what**,
-check a **Compliance** checklist, and every
+check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
+every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. The **delay after a wrong password** is applied at last, and the
 **Problems Summary** and **attachment retention** form are fixed.

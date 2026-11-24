@@ -102,7 +102,8 @@ Which databases WeKan supports
 and **be erased everywhere**; an operator publishes a **privacy notice, terms
 and imprint**, can **require accepting them**, and limits how long records are
 kept. Administrators **export their lists as CSV**, see **who downloaded what**,
-check a **Compliance** checklist, and every
+check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
+every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. The **delay after a wrong password** is applied at last, and the
 **Problems Summary** and **attachment retention** form are fixed.
@@ -223,6 +224,22 @@ links to the pane that changes it. `tests/complianceChecks.test.cjs`.
 
 </details>
 
+**Accessibility** - WCAG 2.2 AA.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/292d1db00dd8a82019c8fb7d4bcc288a40292f49">The pages pass axe's WCAG 2.2 AA rules, keyboard focus is never hidden, and a statement draft</a>. Thanks to xet7.</summary>
+
+The axe scan runs the 2.2 rules, and its one finding - the minicard's menu and
+collapse targets under 24 pixels - is fixed, as are the contrast and heading
+findings on the legal pages, the Compliance pane, the Audit log and Legal
+pages, which the scan now visits. A new check fails when a focused control is
+hidden behind the header or a popup. Admin Panel / Settings / Accessibility
+offers a draft statement with the parts the Web Accessibility Directive asks
+for. `tests/accessibilityStatementDraft.test.cjs`,
+`tests/playwright/specs/45-axe-accessibility.e2e.js`.
+
+</details>
+
 **Security reporting** - where to report a vulnerability, which version is
 supported, and what a release is made of.
 
@@ -240,6 +257,20 @@ HIPAA, NIS2, ISO 27001 and SOC 2. `tests/securityTxt.test.cjs`.
 </details>
 
 and fixes the following bugs:
+
+**Privacy and personal data** - accepting the terms, as a browser does it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa9a4ba2eab6d6f3e38ccafdef1b93a53aa2baec">Accepting the terms is kept on the account, and its checkbox can be ticked</a>. Thanks to xet7.</summary>
+
+Running the acceptance in a browser showed that the account schema dropped
+every acceptance without an error, so the next sign-in asked again, and that
+the global form rules hid the checkboxes of the acceptance dialog, the sign-up
+form and the Legal pages switches. Both are fixed, and the gate reads the
+requirement again before refusing anything, so one turned off elsewhere blocks
+nobody. `tests/playwright/specs/legal-acceptance.e2e.js` passes.
+
+</details>
 
 **Login** - the brake on password guessing.
 
