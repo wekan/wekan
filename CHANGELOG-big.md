@@ -98,22 +98,19 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** A person can **download everything WeKan holds about them**,
-**erasing a person** now removes their data from every place it is kept, and
-an operator can publish a **privacy notice, terms, cookie notice and imprint**
-that anybody can read before signing in, and **require every account to accept**
-the current terms and privacy notice. The **increasing delay after a wrong
-password** is applied
-at last. The **Admin
-Panel's Problems Summary** now counts and repairs the same broken cards its
-Broken cards pane lists and names every problem stream, and the **attachment
-retention** form accepts only the limit the retention really uses.
+**In short:** A person can **download everything WeKan holds about them**
+and **be erased everywhere**; an operator publishes a **privacy notice, terms
+and imprint**, can **require accepting them**, and limits how long records are
+kept. Administrators **export their lists as CSV** for access reviews, and every
+release carries a **CycloneDX SBOM**, with **security.txt** from the security
+contact. The **delay after a wrong password** is applied at last, and the
+**Problems Summary** and **attachment retention** form are fixed.
 
 This release adds the following new features:
 
 **Privacy and personal data** - a person's right to their data, to have it
 erased, and to have it kept no longer than needed (docs/Compliance/README.md,
-WP-4 to WP-8).
+WP-4 to WP-10).
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29a41bd51c39a1a42eeb63d3e3dd11b6096329d6">Legal pages: privacy notice, terms, cookie notice and imprint, readable before signing in</a>. Thanks to xet7.</summary>
@@ -184,6 +181,35 @@ their legal-pages strings, are now in their own languages.
 `tests/legalAcceptance.test.cjs`,
 `tests/playwright/specs/legal-acceptance.e2e.js`,
 `tests/wrongLanguageCorrections20261124.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea95943687724da1f8982408e62933b2e11f2567">CSV exports of People, Boards, Boards and roles, Security and the Audit log, and one's own sign-in history</a>. Thanks to xet7.</summary>
+
+Export CSV on Admin Panel / People, Problems / Boards, Problems / Security and
+the Audit log gives the whole list rather than the page on screen; Boards and
+roles is one row per board member with the role, for an access review. Only a
+site administrator can download them, every download is in the Audit log, no
+password, token or key is ever a column, and a cell a spreadsheet would run as
+a formula is written as text. Member Settings / Privacy and my data lists where
+the account signed in from. `tests/adminCsvExport.test.cjs`.
+
+</details>
+
+**Security reporting** - where to report a vulnerability, which version is
+supported, and what a release is made of.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1652c86f550d5cf9be6eb5e10888c423343d2550">security.txt from the security contact, a support period, and a CycloneDX SBOM on every release</a>. Thanks to xet7.</summary>
+
+`/.well-known/security.txt` (RFC 9116) is made from the security contact of
+Admin Panel / Settings / Legal pages, with Expires 180 days ahead, and answers
+404 while none is set. SECURITY.md states the support period: fixes go into
+the newest release only. Each release gets `wekan-<version>-sbom.cdx.json`
+from `npm sbom`, linked from Admin Panel / Settings / Version, and
+`docs/Security/Compliance/README.md` is a guide for operators under GDPR,
+HIPAA, NIS2, ISO 27001 and SOC 2. `tests/securityTxt.test.cjs`.
 
 </details>
 
