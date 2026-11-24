@@ -49,6 +49,7 @@ Admin Panel / Settings (see [The menu](#the-menu) below).
 | Menu path | URL slug | Page |
 | --- | --- | --- |
 | Problems / Summary | `summary` | [Summary.md](Summary.md) |
+| Problems / Compliance | `compliance` | [Compliance.md](Compliance.md) |
 | Problems / Backup | `backup` | [Backup.md](../../../Backup/Backup.md#did-the-backup-work-history-health-and-monitoring) |
 | Problems / Security Report | `security-report` | [Security-Report.md](Security-Report.md) |
 | Problems / Impersonation Report | `impersonation` | [Impersonation-Report.md](Impersonation-Report.md) |
@@ -73,7 +74,7 @@ Admin Panel / Settings (see [The menu](#the-menu) below).
 | Problems / Filesystem integrity | `integrity` | [Filesystem-integrity.md](Filesystem-integrity.md) |
 | Problems / Email | `mail` | [Bounces.md](../../General/Email/Bounces.md#when-something-goes-wrong) |
 
-0 of these 24 panes has no page of its own: every pane above links one. A pane
+0 of these 25 panes has no page of its own: every pane above links one. A pane
 added to the menu without a page gets a dash here and is counted in this
 sentence.
 

@@ -6255,6 +6255,62 @@
     {
       "key": "data-access-empty",
       "since": "2026-11-24"
+    },
+    {
+      "key": "compliance",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-info",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-2fa-admins",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-idle-logout",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-https",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-login-retention",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-audit-retention",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-privacy-published",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-imprint-published",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-security-contact",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-backup-encrypted",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-ok",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-check",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "compliance-for-information",
+      "since": "2026-11-24"
     }
   ]
 }

@@ -112,6 +112,8 @@ const ADMIN_PAGES = {
     defaultSlug: 'summary',
     panes: {
       summary: 'report-summary',
+      // What the laws and standards look for, checked (models/lib/complianceChecks.js).
+      compliance: 'report-compliance',
       // The Admin Panel backup's status and history (backupRunsStatus.jade).
       backup: 'features-backup',
       'security-report': 'report-security',
@@ -218,6 +220,7 @@ const ADMIN_PANE_TITLES = {
   },
   problems: {
     summary: { titleKey: 'summary' },
+    compliance: { titleKey: 'compliance' },
     backup: { titleKey: 'backup' },
     'security-report': { titleKey: 'securityReportTitle' },
     impersonation: { titleKey: 'impersonationReportTitle' },

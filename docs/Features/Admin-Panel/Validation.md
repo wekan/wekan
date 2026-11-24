@@ -115,6 +115,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Pane / URL slug | Implementation | Behavior and limits |
 | --- | --- | --- |
 | Summary (`summary`) | [systemStatus.js](../../../server/methods/systemStatus.js) | Actual startup/login checks, active migrations and problem streams. |
+| Compliance (`compliance`) | [complianceChecks.js](../../../server/methods/complianceChecks.js) | Read-only checklist of the settings GDPR, HIPAA, NIS2, ISO 27001 and SOC 2 look for, each linking to its pane; changes nothing. |
 | Backup (`backup`) | [backup.js](../../../server/methods/backup.js) | Recorded backup runs, health of the instance backup and its history (backupHistory method); settings stay in Attachments / Backup. |
 | Security Report (`security-report`) | [eventLog.js](../../../models/eventLog.js) | Recorded security events, search, detail and acknowledgement. |
 | Impersonation Report (`impersonation`) | [impersonationReport.js](../../../server/publications/impersonationReport.js) | Scoped event publication and counts. |

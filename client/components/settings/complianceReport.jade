@@ -1,0 +1,21 @@
+//- Admin Panel / Problems / Compliance (WP-12, models/lib/complianceChecks.js):
+//- the settings the laws and standards most asked about look for, read-only,
+//- each with a link to the pane that changes it. docs/Security/Compliance/
+//- says which matter for whom.
+template(name="complianceReport")
+  .compliance-report
+    p.quiet {{_ 'compliance-info'}}
+    if loading
+      +spinner
+    else
+      table.compliance-table
+        tbody
+          each rows
+            tr(class="compliance-{{status}}")
+              td.compliance-status
+                i.fa(class="{{icon}}" aria-hidden="true")
+                |  {{_ statusKey}}
+              td
+                a(href="{{href}}") {{_ labelKey}}
+              td
+                code {{value}}

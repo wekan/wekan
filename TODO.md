@@ -79,8 +79,9 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
   target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-11 and
-  WP-14 are done. Next: the Compliance pane (WP-12) and WCAG 2.2 (WP-13).
+  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-12 and
+  WP-14 are done. Next: WCAG 2.2 (WP-13), which is the accessibility item
+  above.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since

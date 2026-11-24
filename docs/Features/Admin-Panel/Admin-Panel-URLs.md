@@ -81,6 +81,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | URL | Pane | Pane id |
 | --- | --- | --- |
 | `/admin/problems/summary` | Summary | `report-summary` |
+| `/admin/problems/compliance` | Compliance (a read-only checklist, WP-12) | `report-compliance` |
 | `/admin/problems/backup` | Backup (status and history; settings stay in Attachments / Backup) | `features-backup` |
 | `/admin/problems/security-report` | Security Report | `report-security` |
 | `/admin/problems/impersonation` | Impersonation Report | `report-impersonation` |

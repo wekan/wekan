@@ -299,6 +299,8 @@ Template.adminProblems.onDestroyed(function () {
 // are now the single .js-left-menu-item one below.
 const PROBLEMS_MENU = [
   { id: 'report-summary', icon: 'fa-list', labelKey: 'summary' },
+  // What the laws and standards look for, checked (WP-12, models/lib/complianceChecks.js).
+  { id: 'report-compliance', icon: 'fa-check-square-o', labelKey: 'compliance' },
   // Security, Delete and Notifications were a "Settings" group here; they are
   // settings, not problems, and moved to Admin Panel / Settings on 2026-11-19
   // (Security, Activities and notifications, Delete). Their old addresses
@@ -530,6 +532,8 @@ function switchMenu(event, tmpl) {
 // nothing to fetch. Everything else falls through to loadReport().
 const SELF_LOADING_PANES = [
   'report-summary',
+  // complianceReport.js asks getComplianceChecks itself.
+  'report-compliance',
   'features-performance',
   // backupRunsStatus.jade loads its own data (the backupHistory method).
   'features-backup',
