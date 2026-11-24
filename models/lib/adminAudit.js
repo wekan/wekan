@@ -28,7 +28,7 @@ const AUDIT_KEEP_DAYS = 365;
 const AUDITED_METHODS = [
   // People
   'setCreateUser', 'setPassword', 'setUsername', 'setEmail', 'setUsernameAndEmail',
-  'setEmailVerified', 'setInitials', 'editUser', 'removeUser', 'impersonate',
+  'setEmailVerified', 'setInitials', 'editUser', 'removeUser', 'impersonate', 'adminLogoutUser',
   'adminSetAvatarUrl', 'unlockUser', 'unlockAllUsers', 'mergeImportedUser',
   'sendInvitation', 'setUserOrgsTeamsFromLdap', 'ldap_sync_now',
   // Organizations and teams

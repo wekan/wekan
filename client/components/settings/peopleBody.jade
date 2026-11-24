@@ -740,6 +740,11 @@ template(name="settingsUserPopup")
     //- impersonation is recorded as emergency access with the note, and every
     //- other administrator gets an e-mail at once (server/models/users.js
     //- impersonate, models/lib/emergencyAccess.js).
+    //- P3: end every session of this account (adminLogoutUser, audited).
+    li
+      a.js-admin-logout-user
+        i.fa.fa-sign-out
+        | {{_ 'log-out-everywhere'}}
     li.impersonate-emergency
       label
         input.js-impersonate-emergency(type="checkbox")

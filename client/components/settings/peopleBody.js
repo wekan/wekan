@@ -2818,6 +2818,12 @@ Template.settingsTeamPopup.events({
 });
 
 Template.settingsUserPopup.events({
+  'click .js-admin-logout-user'(event) {
+    event.preventDefault();
+    const userId = this.userId || this.user?._id;
+    if (!userId) return;
+    Meteor.call('adminLogoutUser', userId, () => Popup.back());
+  },
   'click .impersonate-user'(event) {
     event.preventDefault();
     const userId = this.userId || this.user?._id;

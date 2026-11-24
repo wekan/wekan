@@ -93,3 +93,19 @@ test('with a minimum age set, a sign-up must confirm it', async ({ browser, page
     db.deleteMany('users', { username: { $in: names } });
   }
 });
+
+test('Where I am signed in: every session, this browser marked, and one can be ended', async ({ page, user }) => {
+  await loginWithToken(page, user.id, user.token);
+  db.addResumeToken(user.id);
+  const sessions = (await call(page, 'getMySessions')).r;
+  expect(sessions.length).toBeGreaterThanOrEqual(2);
+  expect(sessions.filter(s => s.current)).toHaveLength(1);
+  expect(JSON.stringify(sessions)).not.toContain('hashedToken');
+  const other = sessions.find(s => !s.current);
+  expect((await call(page, 'endMySession', other.id)).ok).toBe(true);
+  const after = (await call(page, 'getMySessions')).r;
+  expect(after.map(s => s.id)).not.toContain(other.id);
+  expect(after.some(s => s.current), 'this browser is still signed in').toBe(true);
+  // Negative: a session id that is not the caller's is not found.
+  expect((await call(page, 'endMySession', 'ffffffffffffffff')).error).toBe('session-not-found');
+});

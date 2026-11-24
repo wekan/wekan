@@ -24,6 +24,12 @@ and no setting turns it off.
 2. Click **Privacy and my data**, then **Download my data**.
 3. The browser saves `wekan-personal-data-<your username>.zip`.
 
+The same popup lists **Where I am signed in**: every session of your account,
+this browser first, when each signed in (and when it was last active, where
+idle logout records it), each with **Sign out**, which ends just that one.
+An administrator can end every session of an account with **Log out
+everywhere** in Admin Panel / People; that is in the Audit log.
+
 The same popup lists **Where I signed in from**: each address your account
 signed in from, how many times, and the first and last time - the sign-in
 addresses WeKan keeps for `LOGIN_ADDRESS_RETENTION_DAYS`. It also lists the

@@ -547,6 +547,22 @@ template(name="privacyAndMyDataPopup")
         | {{_ 'download-my-data'}}
   +legalPageLinks
   +legalAcceptancesList
+  //- P3: every session of this account - when it signed in, and when last
+  //- active where idle logout records it - each with Sign out
+  //- (server/methods/sessions.js, models/lib/sessionList.js).
+  if mySessions.length
+    h4.privacy-sessions-title {{_ 'my-sessions'}}
+    ul.privacy-sessions
+      each mySessions
+        li
+          if current
+            strong {{_ 'session-this-browser'}}
+            |  · 
+          | {{_ 'session-signed-in' date=(date when)}}
+          if lastActiveAt
+            |  · {{date lastActiveAt}}
+          |  
+          button.js-end-session(type="button" data-session="{{id}}") {{_ 'session-end'}}
   //- WP-10: where this account signed in from, how often, first and last
   //- (getMyLoginHistory, server/methods/loginOffices.js).
   if myLoginHistory.length

@@ -526,14 +526,22 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
 ### P3
 
 - Active-session list with "end this session" (Member Settings) and admin
-  "Log out this user" (People ⋯).
+  "Log out this user" (People ⋯). *(done 2026-11-24: Where I am signed in, in
+  Member Settings / Privacy and my data, and Log out everywhere in People's
+  user popup - `models/lib/sessionList.js`, `server/methods/sessions.js`,
+  `tests/sessionList.test.cjs`.)*
 - Hash-chained admin audit log verified in Problems / Integrity. *(done
   2026-11-24: `models/lib/auditChain.js`, `server/lib/auditChainAppend.js` -
   each row's _id is its place, so a race takes the next one; a daily check
   reports a break in Problems / Integrity; `tests/auditChain.test.cjs`.)*
 - Passphrase encryption of full backups (reuse
   `server/lib/continuousBackup/encryption.js`); app-level encryption of
-  filesystem attachments.
+  filesystem attachments. *(backups done 2026-11-24: `BACKUP_PASSPHRASE`,
+  `server/lib/backupEncryption.js` - AES-256-GCM with the key stretched by
+  scrypt, the salt in the file, disk and cloud alike; restore decrypts;
+  `tests/backupEncryption.test.cjs`. App-level encryption of attachments is
+  left to a maintainer decision: it would change every read path, and disk
+  encryption covers it - docs/Security/Compliance/README.md.)*
 - Optional minimum-age confirmation on registration. *(done 2026-11-24:
   `REGISTRATION_MINIMUM_AGE`, `models/lib/registrationAge.js`,
   `tests/registrationAge.test.cjs`.)*

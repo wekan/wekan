@@ -53,8 +53,9 @@ says how to set it on Snap, Docker and the others):
 
 ### Encryption at rest
 
-WeKan does not encrypt its database or its attachments itself. Encrypt the
-storage they are on: an encrypted disk or volume (LUKS, BitLocker, FileVault, an
+WeKan encrypts its Admin Panel backups when `BACKUP_PASSPHRASE` is set, and
+the continuous backup when its key is; it does not encrypt the live database
+or attachments itself. Encrypt the storage they are on: an encrypted disk or volume (LUKS, BitLocker, FileVault, an
 encrypted cloud volume) for the database directory and the attachments
 directory (`WRITABLE_PATH`), and for every backup. Use TLS in front of WeKan
 (`ROOT_URL` with `https://`) so nothing travels unencrypted.

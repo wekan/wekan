@@ -38,7 +38,7 @@ const AREAS = [
   { id: 'lists', labelKey: 'lists', pattern: /list|wip/i },
   { id: 'cards', labelKey: 'cards', pattern: /card|vote|poker/i },
   { id: 'boards', labelKey: 'boards', pattern: /^shop|board|workspace|template|view|scrum|sprint|calendar|chart|chat|map|starred|dependenc|archive|quit|clone|key$|^vcs|(?<!re)move|copy/i },
-  { id: 'settings', labelKey: 'settings', pattern: /setting|config|feature|translation|theme|customui|matomo|webhook|dateformat|startday|calendarsystem|limit|api|version|accessibility|optional|accountsetting|softlimit|^set(leftmenu|mobilemode|sidebar|ui|permanentdelete)|^toggle|sitelogo|imageurl|unsaved-edits|activitypub|adminpanel|legalpage|legalcontact|legalacceptance|retentionoverview|compliancecheck|ropadraft|registrationminimumage/i },
+  { id: 'settings', labelKey: 'settings', pattern: /setting|config|feature|translation|theme|customui|matomo|webhook|dateformat|startday|calendarsystem|limit|api|version|accessibility|optional|accountsetting|softlimit|^set(leftmenu|mobilemode|sidebar|ui|permanentdelete)|^toggle|sitelogo|imageurl|unsaved-edits|activitypub|adminpanel|legalpage|legalcontact|legalacceptance|retentionoverview|compliancecheck|ropadraft|registrationminimumage|mysession|logoutuser/i },
 ];
 const OTHER = { id: 'other', labelKey: 'instrumentation-other' };
 

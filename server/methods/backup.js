@@ -174,6 +174,19 @@ async function doBackup(opts, storageName, orgId = null, { trigger = 'manual', u
     activeArchive = archive;
     archive.on('warning', error => archive.emit('error', error));
 
+    // BACKUP_PASSPHRASE (server/lib/backupEncryption.js, P3): the archive is
+    // encrypted as it is written, to disk or to cloud storage alike.
+    const backupCrypto = require('/server/lib/backupEncryption');
+    const passphrase = backupCrypto.backupPassphrase();
+    let source = archive;
+    if (passphrase) {
+      const encrypt = backupCrypto.encryptStream(passphrase);
+      encrypt.on('error', error => archive.emit('error', error));
+      source = archive.pipe(encrypt);
+    } else if (process.env.BACKUP_PASSPHRASE) {
+      console.error('[backup] BACKUP_PASSPHRASE is shorter than 16 characters; the backup is not encrypted.');
+    }
+
     // Attach the destination BEFORE finalizing so nothing is buffered in RAM.
     setProgress({ phase: 'zipping', detail: storageName || 'filesystem' });
     let dest;
@@ -186,10 +199,10 @@ async function doBackup(opts, storageName, orgId = null, { trigger = 'manual', u
       const out = fs.createWriteStream(partialPath, { flags: 'wx', mode: 0o600 });
       localOutput = out;
       donePromise = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', error => { reject(error); archive.emit('error', error); }); archive.on('error', reject); });
-      archive.pipe(out);
-      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts, orgId: orgId || null })); } catch (_) {}
+      source.pipe(out);
+      try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts, orgId: orgId || null, encrypted: !!passphrase })); } catch (_) {}
     } else {
-      const cloud = await streamArchiveToCloud(archive, storageName, key);
+      const cloud = await streamArchiveToCloud(source, storageName, key);
       dest = cloud.dest;
       donePromise = cloud.promise;
     }
@@ -335,9 +348,20 @@ async function restoreDataLines(entryStream, coll, mode, tenant = null) {
   return refused;
 }
 
-async function doRestore(zipPath, mode, orgId = null) {
-  setProgress({ running: true, orgId, phase: 'restore', detail: zipPath, success: null, error: '' });
+async function doRestore(givenPath, mode, orgId = null) {
+  setProgress({ running: true, orgId, phase: 'restore', detail: givenPath, success: null, error: '' });
+  // An encrypted backup (server/lib/backupEncryption.js) is decrypted to a
+  // file beside it first, and that file is removed whatever happens.
+  let decrypted = null;
+  let zipPath = givenPath;
   try {
+    const backupCrypto = require('/server/lib/backupEncryption');
+    if (await backupCrypto.isEncryptedBackup(givenPath)) {
+      setProgress({ phase: 'decrypting' });
+      decrypted = `${givenPath}.decrypted-${Date.now()}`;
+      await backupCrypto.decryptBackup(givenPath, decrypted, backupCrypto.backupPassphrase());
+      zipPath = decrypted;
+    }
     const inspected = await inspectInstanceBackup(zipPath);
     if (inspected) {
       if (orgId) throw new Meteor.Error('not-authorized', 'Instance backup cannot be restored as an Organization');
@@ -462,6 +486,7 @@ async function doRestore(zipPath, mode, orgId = null) {
     setProgress({ phase: 'error', success: false, error: String(e && e.message ? e.message : e).slice(0, 500) });
     throw e;
   } finally {
+    if (decrypted) fs.promises.rm(decrypted, { force: true }).catch(() => {});
     progress.running = false;
   }
 }

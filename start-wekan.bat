@@ -926,6 +926,8 @@ REM # USERS_ANONYMIZE_INACTIVE_AFTER_DAYS: Days after an account was disabled fo
 REM SET USERS_ANONYMIZE_INACTIVE_AFTER_DAYS=
 REM # REGISTRATION_MINIMUM_AGE: Ask "I am at least N years old" on the sign-up form and refuse a password sign-up without it (GDPR Art. 8: 16, or 13-16 where a country lowers it; COPPA: 13). Off unless set; no birth date is stored.
 REM SET REGISTRATION_MINIMUM_AGE=16
+REM # BACKUP_PASSPHRASE: Encrypt every Admin Panel backup with this passphrase (AES-256-GCM, at least 16 characters), on disk and in cloud storage; restoring one needs the same passphrase. Keep it somewhere other than the backups.
+REM SET BACKUP_PASSPHRASE=
 REM # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
 REM SET ADMIN_AUDIT_RETENTION_DAYS=365
 REM # AUDIT_LOG_STDOUT: Write every audit log row, security problem and data access also to standard output as one JSON line, for a SIEM. Off unless set to json.

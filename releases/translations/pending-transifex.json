@@ -6339,6 +6339,22 @@
     {
       "key": "ropa-draft",
       "since": "2026-11-24"
+    },
+    {
+      "key": "my-sessions",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "session-this-browser",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "session-signed-in",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "session-end",
+      "since": "2026-11-24"
     }
   ]
 }

@@ -37,12 +37,24 @@ Template.memberMenuPopup.onCreated(function () {
 });
 
 Template.privacyAndMyDataPopup.onCreated(function () {
+  this.sessions = new ReactiveVar([]);
+  this.reloadSessions = () => Meteor.call('getMySessions', (error, rows) => { if (!error && Array.isArray(rows)) this.sessions.set(rows); });
+  this.reloadSessions();
   this.loginHistory = new ReactiveVar([]);
   Meteor.call('getMyLoginHistory', (error, rows) => { if (!error && Array.isArray(rows)) this.loginHistory.set(rows); });
 });
 
+Template.privacyAndMyDataPopup.events({
+  // Ends one session; ending this browser's signs it out (Meteor closes it).
+  'click .js-end-session'(event, tpl) {
+    event.preventDefault();
+    Meteor.call('endMySession', event.currentTarget.dataset.session, () => tpl.reloadSessions());
+  },
+});
+
 Template.privacyAndMyDataPopup.helpers({
   myLoginHistory() { return Template.instance().loginHistory.get(); },
+  mySessions() { return Template.instance().sessions.get(); },
   date(value) { return value ? new Date(value).toLocaleDateString() : ''; },
   // "Download my data" (WP-5): the person's own export, signed in by token
   // like the board exports' downloads.

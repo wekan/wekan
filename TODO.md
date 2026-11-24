@@ -85,9 +85,12 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   Consistent Help, 3.3.7 Redundant Entry and 3.3.8 Accessible Authentication
   need a manual review.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 are
-  done. Left: the P3 list of `docs/Compliance/README.md` (an active-session
-  list, passphrase-encrypted full backups).
+  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 and
+  the P3 list are done, except app-level encryption of attachments on disk,
+  which needs a maintainer decision: it would change every read path
+  (download, thumbnails, previews, storage migration), and encrypting the
+  disk the attachments are on - docs/Security/Compliance/README.md - covers
+  the same need without that.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since
