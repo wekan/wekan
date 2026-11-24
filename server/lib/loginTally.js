@@ -26,6 +26,8 @@ const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
 const { locationFromHeaders, locationLabel } = require('/models/lib/geoHeaders');
 
 export async function recordLogin(user, connection) {
+  // LOGIN_ADDRESS_RECORDED=false: no address is written down at all.
+  if (!require('/models/lib/loginAddressRetention').addressRecorded({ LOGIN_ADDRESS_RECORDED: process.env.LOGIN_ADDRESS_RECORDED })) return;
   const raw = resolveClientKey({
     headers: connection && connection.httpHeaders,
     socketAddress: connection && connection.clientAddress,

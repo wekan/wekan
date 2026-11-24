@@ -82,7 +82,37 @@ function inactiveCandidateSelector(days, now = new Date()) {
   };
 }
 
+// USERS_ANONYMIZE_INACTIVE_AFTER_DAYS (docs/Compliance/README.md P3; [GDPR]
+// Art. 5(1)(e) storage limitation): an account disabled for inactivity is
+// anonymised that many days after it was disabled - the same erasure as
+// Member Settings / Anonymize (models/lib/userErasure.js). Off unless set; an
+// administrator, an account disabled for another reason or by hand, and one
+// enabled again (which clears loginDisabledAt) are never touched.
+function anonymizeDueSelector(days, now = new Date()) {
+  const cutoff = new Date(toTime(now) - days * DAY_MS);
+  return {
+    loginDisabled: true,
+    loginDisabledReason: REASON_INACTIVE,
+    loginDisabledAt: { $lte: cutoff },
+    isAdmin: { $ne: true },
+    anonymized: { $ne: true },
+  };
+}
+
+// Accounts disabled for inactivity before loginDisabledAt existed: their
+// clock starts now, so none is anonymised without the full number of days.
+function undatedInactiveSelector() {
+  return {
+    loginDisabled: true,
+    loginDisabledReason: REASON_INACTIVE,
+    $or: [{ loginDisabledAt: { $exists: false } }, { loginDisabledAt: null }],
+    anonymized: { $ne: true },
+  };
+}
+
 module.exports = {
+  anonymizeDueSelector,
+  undatedInactiveSelector,
   DAY_MS,
   REASON_INACTIVE,
   REASON_LDAP,

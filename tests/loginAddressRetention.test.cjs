@@ -40,3 +40,18 @@ assert.match(server, /ShortPasswordLogins\.rawCollection\(\)\.deleteMany\(\{ at:
 assert.match(server, /LoginAddresses\.rawCollection\(\)\.deleteMany\(\{ at: \{ \$lt: cutoff \} \}\)/);
 assert.match(read('server/imports.js'), /import '\/server\/lib\/loginAddressRetention';/);
 console.log('loginAddressRetention: stale addresses expire, recent ones stay, 0 keeps them');
+
+// P3 (docs/Compliance/README.md): LOGIN_ADDRESS_RECORDED=false writes no
+// sign-in address down at all.
+assert.equal(lib.addressRecorded({}), true);
+assert.equal(lib.addressRecorded({ LOGIN_ADDRESS_RECORDED: 'false' }), false);
+assert.equal(lib.addressRecorded({ LOGIN_ADDRESS_RECORDED: ' FALSE ' }), false);
+assert.equal(lib.addressRecorded({ LOGIN_ADDRESS_RECORDED: 'true' }), true);
+{
+  const tally = read('server/lib/loginTally.js');
+  const body = tally.slice(tally.indexOf('export async function recordLogin('));
+  assert.match(body.slice(0, 400), /if \(!require\('\/models\/lib\/loginAddressRetention'\)\.addressRecorded\(\{ LOGIN_ADDRESS_RECORDED: process\.env\.LOGIN_ADDRESS_RECORDED \}\)\) return;/,
+    'checked first, before anything is written');
+  assert.match(read('server/lib/shortPasswordLogins.js'), /address: recorded \? value : ''/,
+    'a short-password sign-in is still listed, without where from');
+}

@@ -22,9 +22,11 @@ export async function recordShortPasswordLogin(user, connection) {
     forwardedCount: process.env.HTTP_FORWARDED_COUNT,
   });
   const { value, family } = addressOf(raw);
+  // LOGIN_ADDRESS_RECORDED=false: the sign-in is listed, without where from.
+  const recorded = require('/models/lib/loginAddressRetention').addressRecorded({ LOGIN_ADDRESS_RECORDED: process.env.LOGIN_ADDRESS_RECORDED });
   await ShortPasswordLogins.upsertAsync({ userId: user._id }, shortLoginUpdate({
-    username: user.username, now: new Date(), address: value, family,
-    location: locationFromHeaders(connection && connection.httpHeaders),
+    username: user.username, now: new Date(), address: recorded ? value : '', family,
+    location: recorded ? locationFromHeaders(connection && connection.httpHeaders) : null,
   }));
 }
 

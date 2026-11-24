@@ -534,7 +534,11 @@ statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).
 - Optional minimum-age confirmation on registration.
 - "Security update available" flag in Problems / Summary.
 - (Imprint link in the logged-in Member menu moved to WP-6.) "Do not record login addresses"
-  switch; delete/anonymise accounts N days after auto-disable.
+  switch; delete/anonymise accounts N days after auto-disable. *(done
+  2026-11-24: `LOGIN_ADDRESS_RECORDED=false` and
+  `USERS_ANONYMIZE_INACTIVE_AFTER_DAYS`, `models/lib/loginAddressRetention.js`,
+  `models/lib/inactiveUsers.js`; tests in `tests/loginAddressRetention.test.cjs`
+  and `tests/inactiveUsers.test.cjs`.)*
 - Emergency-access impersonation category that notifies all admins.
 
 ## Search log (for MISSING claims)

@@ -18,6 +18,9 @@ is an environment variable on every platform (Snap: `sudo snap set wekan
 | `LOGOUT_WITH_TIMER`, `LOGOUT_IN`, `LOGOUT_ON_HOURS`, `LOGOUT_ON_MINUTES` | | off | Sign everybody out at a deadline after signing in, however busy. **Admin Panel / People / Login** |
 | `ACCOUNTS_LOCKOUT_*` | | on | Lock an account or an address after failed logins; [Brute force protection](brute-force-protection.md). **Admin Panel / People / Locked Users** |
 | `USERS_DISABLE_INACTIVE_AFTER_DAYS` | | off | Disable accounts unused for this many days. **Admin Panel / People / Login** |
+| `USERS_ANONYMIZE_INACTIVE_AFTER_DAYS` | `users-anonymize-inactive-after-days` | off | Anonymise an account this many days after it was disabled for inactivity, as Member Settings / Anonymize does: its data elsewhere is erased first. An administrator, an account disabled by hand or by LDAP, and one enabled again are never touched. |
+| `LOGIN_ADDRESS_RETENTION_DAYS` | `login-address-retention-days` | `365` | Days a sign-in address is kept on the account and in the login reports after its last use; `0` keeps them. |
+| `LOGIN_ADDRESS_RECORDED` | `login-address-recorded` | `true` | `false` records no sign-in address at all: not on the account, not in Admin Panel / People / Login locations or Problems / Offices, not with a short-password sign-in (which is still listed). The lockout still counts failed sign-ins per address, to stop guessing. |
 
 Each member can turn on two-factor authentication for themselves in Member
 Settings, whatever `REQUIRE_2FA` says, and can add passkeys.

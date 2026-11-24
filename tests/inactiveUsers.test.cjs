@@ -113,12 +113,37 @@ test('the setting is in Admin Panel / People / Login, beside the logout timer', 
 test('the nightly job resolves the setting each run, Admin Panel first', () => {
   const job = read('server/disableInactiveUsers.js');
   assert.match(job, /import \{ authEnv, authConfigReady \} from '\/server\/lib\/authConfig';/);
-  assert.match(job, /await authConfigReady;\n\s+return disableInactiveUsers\(inactiveDaysSetting\(\), new Date\(\)\);/);
+  // The same nightly run also anonymises accounts disabled long enough ago
+  // (USERS_ANONYMIZE_INACTIVE_AFTER_DAYS, P3), after the disabling.
+  assert.match(job, /await authConfigReady;\n\s+const now = new Date\(\);\n\s+const result = await disableInactiveUsers\(inactiveDaysSetting\(\), now\);/);
   // negative: not read once from the environment at startup, which would
   // ignore the Admin Panel and need a restart for every change.
   assert.doesNotMatch(job, /process\.env\.USERS_DISABLE_INACTIVE_AFTER_DAYS/);
   const startup = job.slice(job.indexOf('Meteor.startup('));
   assert.doesNotMatch(startup, /if \(!days\)/, 'the job is registered even while the setting is off');
+});
+
+// USERS_ANONYMIZE_INACTIVE_AFTER_DAYS (docs/Compliance/README.md P3).
+test('an account disabled for inactivity is anonymised that many days later, and nobody else', () => {
+  const { anonymizeDueSelector, undatedInactiveSelector } = require('../models/lib/inactiveUsers.js');
+  const now = new Date('2026-11-24T00:00:00Z');
+  const sel = anonymizeDueSelector(90, now);
+  assert.deepStrictEqual(sel.loginDisabledAt, { $lte: new Date(now.getTime() - 90 * DAY_MS) });
+  assert.strictEqual(sel.loginDisabledReason, REASON_INACTIVE, 'disabled for inactivity, not by hand or by LDAP');
+  assert.deepStrictEqual(sel.isAdmin, { $ne: true }, 'never an administrator');
+  assert.deepStrictEqual(sel.anonymized, { $ne: true });
+  assert.strictEqual(sel.loginDisabled, true);
+  // Accounts disabled before the date existed start their clock now.
+  assert.deepStrictEqual(undatedInactiveSelector().$or, [{ loginDisabledAt: { $exists: false } }, { loginDisabledAt: null }]);
+  const job = fs.readFileSync(path.join(__dirname, '..', 'server/disableInactiveUsers.js'), 'utf8');
+  assert.match(job, /loginDisabledReason: REASON_INACTIVE, loginDisabledAt: now \}/, 'disabling records when');
+  assert.match(job, /await runUserErasure\(await Meteor\.users\.findOneAsync\(user\._id\), 'anonymize'\);/, 'the same erasure as Anonymize');
+  assert.match(job, /Meteor\.users\.updateAsync\(\{ _id: user\._id, \.\.\.anonymizeDueSelector\(days, now\) \}/, 're-checked in the write');
+  assert.match(job, /if \(!days\) return \{ anonymized: 0, dated: 0 \};/, 'off unless set');
+  const hook = fs.readFileSync(path.join(__dirname, '..', 'server/models/users.js'), 'utf8');
+  assert.match(hook, /if \(!\('loginDisabledAt' in modifier\.\$set\)\) \{\s*modifier\.\$unset = \{ \.\.\.\(modifier\.\$unset \|\| \{\}\), loginDisabledAt: '' \};/,
+    'negative: enabled again, the account is no longer on its way to being anonymised');
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'models/users.js'), 'utf8'), /loginDisabledAt: \{[\s\S]{0,300}?type: Date,/);
 });
 
 console.log(`\n${passed} tests passed`);

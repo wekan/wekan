@@ -104,6 +104,9 @@ test('no other server path removes or anonymizes a user past the rule (negative,
         if (!removals.length && !anonymizations.length) continue;
         if (rel === 'models/lib/userAnonymization.js') continue; // defines it
         if (rel === 'server/cloudPanel.js') continue; // shadow accounts of another WeKan's customers
+        // USERS_ANONYMIZE_INACTIVE_AFTER_DAYS: a retention rule the operator sets, never
+        // a member removing themselves; administrators are excluded in its selector.
+        if (rel === 'server/disableInactiveUsers.js') continue;
         if (!/selfRemovalRefusal|decideAnonymize/.test(src)) offenders.push(rel);
       }
     }

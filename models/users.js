@@ -1539,6 +1539,14 @@ Users.attachSchema(
       type: Date,
       optional: true,
     },
+    loginDisabledAt: {
+      /**
+       * when loginDisabled was set for inactivity; USERS_ANONYMIZE_INACTIVE_AFTER_DAYS
+       * counts from it, and enabling the account clears it
+       */
+      type: Date,
+      optional: true,
+    },
     loginDisabledReason: {
       /**
        * why loginDisabled was set automatically: 'inactive'

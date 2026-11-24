@@ -2233,7 +2233,7 @@ const INVENTORY = Object.freeze([
     retention: { env: 'LOGIN_ADDRESS_RETENTION_DAYS', default: 'until the account is deleted; sign-in address entries 365 days', where: 'server/lib/loginAddressRetention.js' },
     erasure: 'delete',
     erasureWhere: 'server/models/users.js',
-    notes: 'Meteor accounts collection (Meteor.users), so no new Mongo.Collection line. removeUser deletes the document and Users.after.remove runs models/lib/userDeletionCleanup.js; anonymizeUser (models/lib/userAnonymization.js) rewrites names and e-mail and removes loginAddresses, passkeys, sqrl, webPushSubscriptions, ntfy, profile.emailToCard, profile.emailBuffer and every login token (WP-4); legalAcceptances stays, as it names nobody.',
+    notes: 'Meteor accounts collection (Meteor.users), so no new Mongo.Collection line. removeUser deletes the document and Users.after.remove runs models/lib/userDeletionCleanup.js; anonymizeUser (models/lib/userAnonymization.js) rewrites names and e-mail and removes loginAddresses, passkeys, sqrl, webPushSubscriptions, ntfy, profile.emailToCard, profile.emailBuffer and every login token (WP-4); legalAcceptances stays, as it names nobody. LOGIN_ADDRESS_RECORDED=false records no sign-in address at all, and USERS_ANONYMIZE_INACTIVE_AFTER_DAYS anonymises an account that many days after it was disabled for inactivity.',
   },
   {
     collection: 'webPushKeys',

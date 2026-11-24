@@ -22,6 +22,15 @@ function retentionDays(env = {}) {
   return Number.isFinite(raw) && raw >= 0 ? raw : DEFAULT_DAYS;
 }
 
+// LOGIN_ADDRESS_RECORDED=false (docs/Compliance/README.md P3; [GDPR] Art.
+// 5(1)(c) data minimisation): WeKan writes down no sign-in address at all -
+// not on the account, not in the login reports, not with a short-password
+// sign-in. What the lockout counts per address to stop guessing is kept: it
+// is security, and it expires on its own.
+function addressRecorded(env = {}) {
+  return String((env && env.LOGIN_ADDRESS_RECORDED) || '').trim().toLowerCase() !== 'false';
+}
+
 function cutoffFor(days, now = Date.now()) {
   return days > 0 ? new Date(now - days * DAY_MS) : null;
 }
@@ -56,4 +65,4 @@ function addressDecision(row, cutoff) {
   return { remove: false, unset: keys.length ? Object.fromEntries(keys.map(k => [`users.entries.${k}`, ''])) : null };
 }
 
-module.exports = { DEFAULT_DAYS, retentionDays, cutoffFor, staleKeys, userUnset, addressDecision };
+module.exports = { DEFAULT_DAYS, retentionDays, addressRecorded, cutoffFor, staleKeys, userUnset, addressDecision };

@@ -84,8 +84,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 are
   done. Left: the P3 list of `docs/Compliance/README.md` (an active-session
   list, a hash-chained audit log, passphrase-encrypted full backups, a
-  minimum-age option, a "security update available" flag, a "do not record
-  login addresses" switch, an emergency-access impersonation category) and
+  minimum-age option, a "security update available" flag, an emergency-access
+  impersonation category) and
   the ROPA draft of row 2.2.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry

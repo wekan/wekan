@@ -3636,6 +3636,11 @@ Users.before.update(function(userId, doc, fields, modifier) {
     if (!('loginDisabledReason' in modifier.$set)) {
       modifier.$unset = { ...(modifier.$unset || {}), loginDisabledReason: '' };
     }
+    // USERS_ANONYMIZE_INACTIVE_AFTER_DAYS counts from this; enabled again,
+    // the account is no longer on its way to being anonymised.
+    if (!('loginDisabledAt' in modifier.$set)) {
+      modifier.$unset = { ...(modifier.$unset || {}), loginDisabledAt: '' };
+    }
   }
 });
 Meteor.startup(async () => {

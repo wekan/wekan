@@ -12,6 +12,7 @@ import { authEnv, authConfigReady } from '/server/lib/authConfig';
 
 const {
   REASON_INACTIVE, normalizeInactiveDays, inactivityAction, inactiveCandidateSelector,
+  anonymizeDueSelector, undatedInactiveSelector,
 } = require('/models/lib/inactiveUsers');
 
 export async function disableInactiveUsers(days, now = new Date()) {
@@ -40,7 +41,7 @@ export async function disableInactiveUsers(days, now = new Date()) {
         // eslint-disable-next-line no-await-in-loop
         const n = await Meteor.users.updateAsync(
           { _id: user._id, ...inactiveCandidateSelector(days, now) },
-          { $set: { loginDisabled: true, loginDisabledReason: REASON_INACTIVE } },
+          { $set: { loginDisabled: true, loginDisabledReason: REASON_INACTIVE, loginDisabledAt: now } },
         );
         if (n) {
           disabled += n;
@@ -55,6 +56,40 @@ export async function disableInactiveUsers(days, now = new Date()) {
     }
   }
   return { disabled, clocksStarted };
+}
+
+// USERS_ANONYMIZE_INACTIVE_AFTER_DAYS (models/lib/inactiveUsers.js
+// anonymizeDueSelector): the accounts disabled for inactivity that many days
+// ago are anonymised, as Member Settings / Anonymize does - the person's data
+// elsewhere first (server/lib/userErasureRun.js), then the account itself.
+export async function anonymizeInactiveUsers(days, now = new Date()) {
+  if (!days) return { anonymized: 0, dated: 0 };
+  const dated = await Meteor.users.updateAsync(undatedInactiveSelector(), { $set: { loginDisabledAt: now } }, { multi: true });
+  const due = await Meteor.users.find(anonymizeDueSelector(days, now), { fields: { _id: 1, username: 1, emails: 1 } }).fetchAsync();
+  const { runUserErasure } = require('/server/lib/userErasureRun');
+  const { buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
+  const { Random } = require('meteor/random');
+  let anonymized = 0;
+  for (const user of due) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await runUserErasure(await Meteor.users.findOneAsync(user._id), 'anonymize');
+      // Re-check in the write: an account enabled meanwhile is left alone.
+      // eslint-disable-next-line no-await-in-loop
+      anonymized += await Meteor.users.updateAsync({ _id: user._id, ...anonymizeDueSelector(days, now) },
+        buildAnonymizeUpdate(`deleted-user-${Random.id(8).toLowerCase()}`));
+      // eslint-disable-next-line no-console
+      console.log(`anonymizeInactiveUsers: anonymised ${user._id} (disabled ${days} days ago)`);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('anonymizeInactiveUsers: could not anonymise', user._id, e.message);
+    }
+  }
+  return { anonymized, dated };
+}
+
+function anonymizeDaysSetting() {
+  return normalizeInactiveDays(process.env.USERS_ANONYMIZE_INACTIVE_AFTER_DAYS);
 }
 
 // The setting is resolved on every run, Admin Panel / People / Login first and
@@ -83,7 +118,9 @@ Meteor.startup(() => {
       },
       async job() {
         await authConfigReady;
-        return disableInactiveUsers(inactiveDaysSetting(), new Date());
+        const now = new Date();
+        const result = await disableInactiveUsers(inactiveDaysSetting(), now);
+        return { ...result, ...(await anonymizeInactiveUsers(anonymizeDaysSetting(), now)) };
       },
     });
   } catch (e) {

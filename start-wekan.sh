@@ -252,6 +252,10 @@
       #export EVENTLOG_RETENTION_DAYS=90
       # LOGIN_ADDRESS_RETENTION_DAYS: Days a sign-in address is kept on the account, in loginAddresses and in shortPasswordLogins after its last use. Default 365; 0 keeps them.
       #export LOGIN_ADDRESS_RETENTION_DAYS=365
+      # LOGIN_ADDRESS_RECORDED: false records no sign-in address at all: not on the account, not in the login reports. The lockout still counts failed sign-ins per address.
+      #export LOGIN_ADDRESS_RECORDED=true
+      # USERS_ANONYMIZE_INACTIVE_AFTER_DAYS: Days after an account was disabled for inactivity (USERS_DISABLE_INACTIVE_AFTER_DAYS) that it is anonymised, as Member Settings / Anonymize does. Off unless set; administrators are never anonymised.
+      #export USERS_ANONYMIZE_INACTIVE_AFTER_DAYS=
       # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
       #export ADMIN_AUDIT_RETENTION_DAYS=365
       # AUDIT_LOG_STDOUT: Write every audit log row, security problem and data access also to standard output as one JSON line, for a SIEM. Off unless set to json.
