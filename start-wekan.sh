@@ -254,6 +254,8 @@
       #export LOGIN_ADDRESS_RETENTION_DAYS=365
       # ADMIN_AUDIT_RETENTION_DAYS: Days the administrators' audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.
       #export ADMIN_AUDIT_RETENTION_DAYS=365
+      # AUDIT_LOG_STDOUT: Write every audit log row, security problem and data access also to standard output as one JSON line, for a SIEM. Off unless set to json.
+      #export AUDIT_LOG_STDOUT=json
       # ACTIVITIES_RETENTION_DAYS: Days board activity rows are kept; off unless set. The change history of cards is never removed.
       #export ACTIVITIES_RETENTION_DAYS=
       # WORKLOAD_ABSENCE_RETENTION_DAYS: Days after its end a workload absence is kept; off unless set. Absences can be health data.

@@ -95,6 +95,9 @@ function buildUserErasure(user, mode = 'delete') {
     ...(mode === 'delete' ? [
       { collection: 'checklistItems', action: 'unset', selector: { assigneeId: id }, fields: ['assigneeId'] },
     ] : []),
+    // The data-access log (WP-11) keeps that a download happened, not who
+    // made it or from where: the anonymous id stays, as in the audit log.
+    { collection: 'dataAccessLog', action: 'unset', selector: { userId: id }, fields: ['username', 'ip'] },
     // Recovery events keep what happened to the board, not who did it.
     { collection: 'recoveryEvents', action: 'unset', selector: { userId: id },
       fields: ['userId', 'username', 'ipv4', 'ipv6', 'location'] },

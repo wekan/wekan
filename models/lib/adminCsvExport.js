@@ -12,6 +12,7 @@
 //                the access review itself
 //   security     Admin Panel / Problems / Security: every summarised problem
 //   audit        Admin Panel / People / Audit log: every administrator action
+//   data-access  its Data access tab: who downloaded what (WP-11)
 //
 // Served by server/routes/adminCsvExport.js to a site administrator only, and
 // each download is in the Audit log. A dataset names the fields it reads, so
@@ -109,6 +110,22 @@ const DATASETS = Object.freeze({
       ['last username', e => e.username],
       ['last IP', e => e.ip],
       ['detail', e => e.detail],
+    ],
+  },
+  'data-access': {
+    collection: 'dataAccessLog',
+    fields: { day: 1, firstAt: 1, at: 1, userId: 1, username: 1, kind: 1, target: 1, count: 1, ip: 1 },
+    sort: { at: -1 },
+    columns: [
+      ['day', d => d.day],
+      ['first', d => d.firstAt],
+      ['last', d => d.at],
+      ['user id', d => d.userId],
+      ['username', d => d.username],
+      ['what', d => d.kind],
+      ['of', d => d.target],
+      ['times', d => d.count],
+      ['last IP', d => d.ip],
     ],
   },
   audit: {

@@ -2,8 +2,16 @@ template(name="adminAuditLog")
   //- Admin Panel / People / Audit log (models/lib/adminAudit.js): every
   //- administrative action of a site administrator, newest first. The
   //- arguments are shown as stored - passwords and secrets never are.
+  //- The Data access tab (WP-11, models/lib/dataAccessLog.js) is who
+  //- downloaded what: one row per person, day, kind and target, with a count.
   .admin-audit-log
-    p {{_ 'admin-audit-log-info'}}
+    .admin-audit-log-tabs(role="tablist")
+      button.js-admin-audit-tab(type="button" role="tab" data-tab="audit" class="{{#if isTab 'audit'}}is-active{{/if}}" aria-selected="{{isTab 'audit'}}") {{_ 'admin-audit-log'}}
+      button.js-admin-audit-tab(type="button" role="tab" data-tab="access" class="{{#if isTab 'access'}}is-active{{/if}}" aria-selected="{{isTab 'access'}}") {{_ 'data-access'}}
+    if isTab 'audit'
+      p {{_ 'admin-audit-log-info'}}
+    else
+      p {{_ 'data-access-info'}}
     .admin-audit-log-search
       input.wekan-form-control.js-admin-audit-search(type="search" placeholder="{{_ 'search'}}" value=search)
       each csvLinks
@@ -12,7 +20,7 @@ template(name="adminAuditLog")
           |  {{_ labelKey}}
     if loading
       +spinner
-    else
+    else if isTab 'audit'
       table.admin-audit-log-table
         thead
           tr
@@ -37,6 +45,29 @@ template(name="adminAuditLog")
           else
             tr
               td(colspan="5") {{_ 'admin-audit-log-empty'}}
+    else
+      table.admin-audit-log-table.js-data-access-table
+        thead
+          tr
+            th {{_ 'admin-audit-log-when'}}
+            th {{_ 'admin-audit-log-who'}}
+            th {{_ 'data-access-what'}}
+            th {{_ 'data-access-times'}}
+            th IP
+        tbody
+          each rows
+            tr
+              td {{when firstAt}} – {{when at}}
+              td {{username}}
+              td
+                code {{kind}}
+                |  {{target}}
+              td {{count}}
+              td {{ip}}
+          else
+            tr
+              td(colspan="5") {{_ 'data-access-empty'}}
+    unless loading
       .admin-audit-log-pager
         button.js-admin-audit-prev(type="button" disabled=noPrev) ‹
         span {{page}} / {{pages}} ({{total}})

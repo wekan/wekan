@@ -65,7 +65,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   Zulu "export" and "log in" values, Vietnamese (`vi-VN`) has the Malay
   "Sejarah" for history, and Tagalog (`tl`) and Waray (`wa-RR`) have odd
   "log in" values; Neapolitan and Sicilian (`nap`, `scn`) have the Italian
-  "Accedi" and "Esporta", and Luxembourgish "Board importieren".
+  "Accedi" and "Esporta", and Luxembourgish "Board importieren"; Venetian "export" is Zulu, Veps
+  "export" is only "Ve", and Yoruba (`yo`) calls a board "Ọkọ" (vehicle).
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
@@ -78,9 +79,8 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
   target size, reduced motion and every theme's contrast - run through build.sh.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-10 and
-  WP-14 are done. Next: a data-access log and SIEM output (WP-11), the
-  Compliance pane (WP-12) and WCAG 2.2 (WP-13).
+  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-11 and
+  WP-14 are done. Next: the Compliance pane (WP-12) and WCAG 2.2 (WP-13).
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since

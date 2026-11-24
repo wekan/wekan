@@ -120,6 +120,11 @@ export async function foldEvent(doc = {}) {
     ...(summary.$unset ? { $unset: summary.$unset } : {}),
   });
 
+  // AUDIT_LOG_STDOUT=json (WP-11, models/lib/auditStdout.js): each security
+  // occurrence is also one JSON line on stdout, for a SIEM. The database keeps
+  // the summary; the line is the event, and stdout is not the database.
+  if (evt.stream === 'security') require('/models/lib/auditStdout').writeStdout('security', { ...evt, at: when });
+
   // Remember what this attempt added, so the next one from the same actor
   // increments instead of paying for a read.
   for (const field of Object.keys(actors.$inc)) {

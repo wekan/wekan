@@ -92,7 +92,7 @@ function seed() {
 test('every rule erases a collection the inventory points here for, and every such entry has a rule', () => {
   const here = INVENTORY.filter(e => e.erasureWhere === 'models/lib/userErasure.js').map(e => e.collection).sort();
   assert.deepEqual(here, [...ERASED_COLLECTIONS]);
-  assert.equal(here.length, 33);
+  assert.equal(here.length, 34);
 });
 
 test('deleting Ann removes or unlinks her data everywhere, and leaves Bob as he was', async () => {

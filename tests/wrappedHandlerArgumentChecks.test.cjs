@@ -125,6 +125,7 @@ function loadAdminAudit(setPassword = careful) {
     require: p => {
       if (p === '/models/lib/adminAudit') return require('../models/lib/adminAudit');
       if (p === '/server/lib/loginAttemptThrottle') return { resolveClientKey: () => 'ip' };
+      if (p === '/models/lib/auditStdout') return require('../models/lib/auditStdout');
       return require(p);
     },
     module: { exports: {} },

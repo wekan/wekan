@@ -6235,6 +6235,26 @@
     {
       "key": "my-login-history",
       "since": "2026-11-24"
+    },
+    {
+      "key": "data-access",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "data-access-info",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "data-access-what",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "data-access-times",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "data-access-empty",
+      "since": "2026-11-24"
     }
   ]
 }

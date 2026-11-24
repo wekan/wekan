@@ -9,3 +9,6 @@
 .admin-audit-args { white-space: pre-wrap; word-break: break-all; font-size: 0.85em; }
 .admin-audit-failed .admin-audit-error { color: #c0392b; }
 .admin-audit-log-pager { margin-top: 0.5rem; display: flex; gap: 0.5rem; align-items: center; }
+/* WP-11: Audit log | Data access. */
+.admin-audit-log-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem; }
+.admin-audit-log-tabs button.is-active { font-weight: bold; border-bottom: 2px solid currentColor; }

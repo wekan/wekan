@@ -87,7 +87,7 @@ test('the pages offer the downloads, and the person sees their own login history
   const problems = read('client/components/settings/adminProblems.js');
   assert.match(problems, /name: 'boards', labelKey: 'export-csv'/);
   assert.match(problems, /t\.stream === 'security' \? adminCsvLinks\(\[\{ name: 'security'/);
-  assert.match(read('client/components/settings/adminAuditLog.js'), /name: 'audit', labelKey: 'export-csv'/);
+  assert.match(read('client/components/settings/adminAuditLog.js'), /const name = Template\.instance\(\)\.tab\.get\(\) === 'access' \? 'data-access' : 'audit';/);
   const offices = read('server/methods/loginOffices.js');
   const mine = offices.slice(offices.indexOf('async getMyLoginHistory()'));
   assert.match(mine, /Meteor\.users\.findOneAsync\(this\.userId,/, 'only one\'s own account');

@@ -86,8 +86,8 @@ not in security:
 
 *(Status 2026-11-24: gaps 1, 2, 3 and 6 are closed by WP-4 to WP-9 below,
 and gap 4's retention by WP-7; what each did is in its work package. Still
-open: the ROPA draft of gap 4 (row 2.2), gap 5 (WP-10, WP-11) and gap 7
-(WP-13).)*
+open: the ROPA draft of gap 4 (row 2.2) and gap 7 (WP-13); gap 5 is closed by
+WP-1 (Settings writes audited), WP-7, WP-10 and WP-11.)*
 
 EU AI Act (Regulation (EU) 2024/1689, **amended by Regulation (EU)
 2026/1744**, consolidated 2026-07-27 - its Art. 113 dates changed): **not
@@ -222,8 +222,8 @@ a reading of the text, not legal advice.
 | # | Requirement | Legal basis (exact provision; key links to official source) | Status | Evidence | What is missing / smallest addition | Menu | Prio |
 |---|---|---|---|---|---|---|---|
 | 4.1 | Audit log of administrative actions | [HIPAA] § 164.312(b), § 164.308(a)(1)(ii)(D); [CRA] Annex I Part I(2)(l) (from 2027-12-11); [NIS2] Art. 21(2)(b); ISO A.8.15 / SOC2 CC7.2, CC8.1 UNVERIFIED | **EXISTS** | `server/adminAudit.js` wraps `AUDITED_METHODS` (`models/lib/adminAudit.js`), secrets redacted, failures recorded; Admin Panel / People / Audit log. | Done (commit 377a7b3abc and the follow-up): the admin-only collections written from the browser (settings, announcements, translation, accessibilitySettings, lockoutSettings, inviteToBoardRolesSettings, attachmentStorageSettings, accountSettings, tableVisibilityModeSettings) through their /insert, /update and /remove methods, and `anonymizeUser`, are in `AUDITED_COLLECTIONS`/`AUDITED_METHODS`. Still open: the DSAR export (WP-5) when it exists; custom board roles are board admins' writes, not site settings. | Admin Panel / People / Audit log | P1 |
-| 4.2 | Audit of access to / export of data (who exported which board, downloaded attachments in bulk, impersonated) | [HIPAA] § 164.312(b); [GDPR] Art. 32(1)(b), Art. 5(2) accountability (UNVERIFIED, not re-read); [CRA] Annex I Part I(2)(l) "access to or modification of data"; ISO A.8.15 / SOC2 CC7.2 / 27701 UNVERIFIED | **PARTIAL** | Impersonation recorded with reason; refused exports logged (`authz.export-disabled`). Successful exports not recorded (searched `export` in `server/adminAudit.js` / `models/lib/adminAudit.js`). | A "data access" stream: one row per export (who, board/format, IP) written from `refuseDisabledExport`'s success path and `server/routes/exportAllBoards.js`; fold per user/day to avoid growth (CLAUDE.md summary rule). Board-view logging is P3 (high volume). | Admin Panel / People / Audit log (tab "Data access") | P2 |
-| 4.3 | Audit log export / SIEM forwarding | [NIS2] Art. 21(2)(b), Art. 23(4) (24 h / 72 h reports need evidence); [HIPAA] § 164.308(a)(1)(ii)(D); ISO A.8.15-A.8.16 / SOC2 CC7 UNVERIFIED | **PARTIAL** | Login & registration webhook (`server/accountWebhook.js`, `docs/Features/Admin-Panel/Settings/Login-and-Registration-Webhook.md`). Security event fold writes only to DB (`server/lib/eventLogFold.js`, console only on `DEBUG`). No CSV/JSON download of audit log (`adminAuditLog.jade` has search + pager only). | (a) "Download CSV/JSON" on the Audit log and Security report; (b) env `AUDIT_LOG_STDOUT=json`: one JSON line per audit row and per security fold to stdout, so Docker/journald/Fluent Bit ship it to a SIEM - no new dependency. (a) Done in WP-10 (2026-11-24): Export CSV on the Audit log and the Security report. (b) is WP-11. | Admin Panel / People / Audit log; Problems / Security report | P2 |
+| 4.2 | Audit of access to / export of data (who exported which board, downloaded attachments in bulk, impersonated) | [HIPAA] § 164.312(b); [GDPR] Art. 32(1)(b), Art. 5(2) accountability (UNVERIFIED, not re-read); [CRA] Annex I Part I(2)(l) "access to or modification of data"; ISO A.8.15 / SOC2 CC7.2 / 27701 UNVERIFIED | **EXISTS** | Impersonation recorded with reason; refused exports logged (`authz.export-disabled`). Successful exports not recorded (searched `export` in `server/adminAudit.js` / `models/lib/adminAudit.js`). | A "data access" stream: one row per export (who, board/format, IP) written from `refuseDisabledExport`'s success path and `server/routes/exportAllBoards.js`; fold per user/day to avoid growth (CLAUDE.md summary rule). Board-view logging is P3 (high volume). Done in WP-11 (2026-11-24): Audit log / Data access, one row per person, day, kind and target, from every export route. | Admin Panel / People / Audit log (tab "Data access") | P2 |
+| 4.3 | Audit log export / SIEM forwarding | [NIS2] Art. 21(2)(b), Art. 23(4) (24 h / 72 h reports need evidence); [HIPAA] § 164.308(a)(1)(ii)(D); ISO A.8.15-A.8.16 / SOC2 CC7 UNVERIFIED | **EXISTS** | Login & registration webhook (`server/accountWebhook.js`, `docs/Features/Admin-Panel/Settings/Login-and-Registration-Webhook.md`). Security event fold writes only to DB (`server/lib/eventLogFold.js`, console only on `DEBUG`). No CSV/JSON download of audit log (`adminAuditLog.jade` has search + pager only). | (a) "Download CSV/JSON" on the Audit log and Security report; (b) env `AUDIT_LOG_STDOUT=json`: one JSON line per audit row and per security fold to stdout, so Docker/journald/Fluent Bit ship it to a SIEM - no new dependency. (a) Done in WP-10 (2026-11-24): Export CSV on the Audit log and the Security report. (b) is WP-11. (b) Done in WP-11 (2026-11-24): `AUDIT_LOG_STDOUT=json`. | Admin Panel / People / Audit log; Problems / Security report | P2 |
 | 4.4 | Log integrity (tamper evidence) | [HIPAA] § 164.312(c)(1); [CRA] Annex I Part I(2)(f) "report on corruptions"; ISO A.8.15 / SOC2 UNVERIFIED | **PARTIAL** | Change history is hash-chained; `adminAuditLog` is a plain collection. | Chain audit rows with `models/lib/changeHistoryIntegrity.js` (`hashHistoryRow`, `previousHash`) and verify in Problems / Integrity. | Admin Panel / Problems / Integrity | P3 |
 | 4.5 | Security monitoring / detection | [NIS2] Art. 21(2)(b); [CRA] Annex I Part I(2)(l); ISO A.8.16 / SOC2 CC7.2 UNVERIFIED | **EXISTS** | Problems / Security report with catalog `models/lib/securityCategories.js`, folded rows, account blocking; CPU/RAM/disk monitors; canary tokens (`models/lib/canaryTokens.js`). | - | - | - |
 | 4.6 | Clock synchronisation / timestamps in UTC | ISO A.8.17 UNVERIFIED (no statutory clock rule was found in the texts read) | **EXISTS (platform)** | Dates stored as BSON Date (UTC); NTP is the host's job. | Mention in compliance guide. | - | P3 |
@@ -480,7 +480,14 @@ log (server-side, admin only, streamed); "Boards and roles" view in People ⋯;
 own login history in Member Settings / Privacy and my data. Tests: admin-only
 negative test, CSV columns test, no secret columns.
 
-**WP-11 Data-access log + SIEM output.** Folded "data access" rows for
+**WP-11 Data-access log + SIEM output.** *(done 2026-11-24: a raw
+middleware (`server/lib/dataAccessLog.js`) counts every export route that
+answers 200 - one row per person, day, kind and target
+(`models/lib/dataAccessLog.js`) - shown in the Audit log's Data access tab
+and exported as CSV; kept as the audit log; erasure removes the username and
+address. `AUDIT_LOG_STDOUT=json` (`models/lib/auditStdout.js`) writes audit
+rows, security problems and data access as JSON lines. Tests:
+`tests/dataAccessLog.test.cjs`.)* Folded "data access" rows for
 successful exports (`server/routes/exportAllBoards.js`, board export methods,
 `exportUserPersonalData`) into Audit log tab; `AUDIT_LOG_STDOUT=json` line
 writer in `server/adminAudit.js` and `server/lib/eventLogFold.js`. Tests: fold

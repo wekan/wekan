@@ -38,6 +38,7 @@ const ENV_ONLY = {
   WEKAN_IMPORT_RUN_STALE_MS: { platforms: true, reason: 'operational tuning of interrupted-import detection' },
   LOGIN_ADDRESS_RETENTION_DAYS: { platforms: true, reason: 'how long sign-in addresses are kept (docs/Compliance/README.md WP-2); 0 keeps them' },
   ADMIN_AUDIT_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days the administrators audit log (Admin Panel / People / Audit log) is kept. Default 365; 0 keeps it; a HIPAA deployment sets 2190 or more.' },
+  AUDIT_LOG_STDOUT: { platforms: true, reason: 'where this process writes its log (docs/Compliance/README.md WP-11, models/lib/auditStdout.js): json copies every audit row, security problem and data access to stdout for a SIEM; a server setting, not an Admin Panel one' },
   ACTIVITIES_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days board activity rows are kept; off unless set. The change history of cards is never removed.' },
   WORKLOAD_ABSENCE_RETENTION_DAYS: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): Days after its end a workload absence is kept; off unless set. Absences can be health data.' },
   WORKLOAD_ABSENCE_TYPE_RECORDED: { platforms: true, reason: 'retention (docs/Compliance/README.md WP-7, models/lib/retentionSettings.js): false stores every new workload absence as "other", so no sick leave is recorded.' },

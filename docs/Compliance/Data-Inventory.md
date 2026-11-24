@@ -11,7 +11,7 @@ the operator of an instance completes: the legal basis column is a hint, the
 operator decides it, and the recipients depend on what the instance has
 enabled (mail server, file storage, webhooks, integrations).
 
-- **186 collections**, 129 of them with personal data.
+- **187 collections**, 130 of them with personal data.
 - **Health data** ([GDPR] Art. 9 special category): `workloadAbsences`.
 - **Financial data**: `billingBudgets`, `billingExpenses`, `billingFees`, `billingInvoices`, `billingProfiles`, `billingQuotes`, `billingRates`, `cloudDomains`, `cloudInvoices`, `shopOrders`, `timeEntries`.
 - **Not erased yet** (erasure should delete or anonymise, nothing does it today;
@@ -88,6 +88,7 @@ keep-pseudonymous (kept, linked only by an id) or n/a.
 | `cronJobs` | none | - | synced-cron run log of scheduled jobs. | n/a | 2 days (collectionTTL 172800 s) | n/a | defined: `server/cron/syncedCron.js`; retention: `server/cron/syncedCron.js`; erasure: nothing yet | Job names and times only. |
 | `customBoardRoles` | none | - | Custom board roles and their capabilities. | n/a | until deleted | n/a | defined: `models/customBoardRoles.js`; erasure: nothing yet | Role definitions; assignments live in boards.members. |
 | `customFields` | none | - | Custom field definitions of boards. | n/a | board lifetime | n/a | defined: `models/customFields.js`; erasure: nothing yet | Definitions only; the values are on cards. |
+| `dataAccessLog` | identity, network, usage | `userId` | Who downloaded what (WP-11): one row per person, day, kind of export and target, with a count, the last address and the username. | legitimate interest | as the audit log: 365 days (0 keeps it) (ADMIN_AUDIT_RETENTION_DAYS) | anonymize | defined: `server/lib/dataAccessLog.js`; retention: `server/lib/dataAccessLog.js`; erasure: `models/lib/userErasure.js` | On erasure the username and address are removed and the anonymous user id stays, so the record of the download remains. |
 | `dataHealth` | identity | - | Last nightly data-health scan result and repair claims. | legitimate interest | replaced by the next scan | keep-pseudonymous | defined: `server/lib/dataHealthScan.js`; retention: `server/lib/dataHealthScan.js`; erasure: nothing yet | Findings list document ids, including user ids (for example user-duplicate-email); no names or addresses. |
 | `documentPreviews` | content | - | Plain text extracted from attachments, for searching attachment contents. | contract | attachment lifetime | n/a | defined: `server/lib/documentGif.js`; retention: `server/lib/documentGif.js`; erasure: nothing yet | Follows the attachment (replaced on re-index); may contain any personal data written in the document. |
 | `email_bounces` | contact, usage | `email` | One row per e-mail address that bounced or complained, with counts and recent events, to stop mailing it. | legitimate interest | until an administrator clears the address | delete | defined: `server/emailBounces.js`; retention: `server/emailBounces.js`; erasure: `models/lib/userErasure.js` | Keyed by e-mail address, not user id; the history holds diagnostic text from the receiving mail server. |

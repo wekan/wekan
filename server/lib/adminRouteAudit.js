@@ -9,7 +9,7 @@ const { auditArgs } = require('/models/lib/adminAudit');
 export function recordAdminRouteAction(actor, method, args, ip, error) {
   const failed = e => console.error('[admin-audit] could not record', method, e && e.message);
   try {
-    return AdminAuditLog.insertAsync({
+    const doc = {
       at: new Date(),
       actorId: actor._id,
       actorUsername: actor.username || '',
@@ -18,7 +18,10 @@ export function recordAdminRouteAction(actor, method, args, ip, error) {
       ok: !error,
       error: error ? String(error.message || error).slice(0, 200) : undefined,
       ip: ip || '',
-    }).catch(failed);
+    };
+    // AUDIT_LOG_STDOUT=json (WP-11): the same row, as stored, on stdout.
+    require('/models/lib/auditStdout').writeStdout('audit', doc);
+    return AdminAuditLog.insertAsync(doc).catch(failed);
   } catch (e) {
     // The audit trail must never change what the route did or answered.
     failed(e);

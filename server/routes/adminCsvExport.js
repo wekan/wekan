@@ -19,7 +19,10 @@ const { MAX_ROWS, dataset, headerLine, rowLine, memberRows, filename } = require
 
 const collection = name => MongoInternals.defaultRemoteCollectionDriver().mongo.db.collection(name);
 
+// Admin Panel can turn all export off (CrossBoardExportBleed); these lists
+// are exports too, so the switch applies to them as well.
 WebApp.handlers.get('/api/admin/export/:file', safeRoute(async function (req, res) {
+  if (await require('/models/lib/importExportSecurity').refuseDisabledExport(res)) return;
   const match = /^([a-z-]+)\.csv$/.exec(String(req.params.file || ''));
   const spec = match ? dataset(match[1]) : null;
   if (!spec) {

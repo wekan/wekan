@@ -75,6 +75,7 @@ function loadServer(storedUsers, { failInsert = false } = {}) {
     require: p => {
       if (p === '/models/lib/adminAudit') return audit;
       if (p === '/server/lib/loginAttemptThrottle') return { resolveClientKey: ({ socketAddress }) => socketAddress };
+      if (p === '/models/lib/auditStdout') return require('../models/lib/auditStdout');
       return require(p);
     },
     module: { exports: {} },
@@ -172,7 +173,11 @@ test('the trail is for site administrators, and the Admin Panel shows it', () =>
   assert.match(server, /AdminAuditLog\.removeAsync\(\{ at: \{ \$lt: cutoff \} \}\)/, 'then removed');
   assert.equal(require('../models/lib/retentionSettings').retentionDays('ADMIN_AUDIT_RETENTION_DAYS', {}), audit.AUDIT_KEEP_DAYS, 'a year by default');
   assert.match(read('server/imports.js'), /import '\/server\/adminAudit';/);
-  assert.match(read('client/components/settings/adminAuditLog.js'), /Meteor\.call\('adminAuditLogPage'/);
+  // The pane has two tabs since WP-11 - the audit log and Data access - and
+  // calls the method of the open one; the audit log is still the first.
+  const pane = read('client/components/settings/adminAuditLog.js');
+  assert.match(pane, /const method = this\.tab\.get\(\) === 'access' \? 'adminDataAccessPage' : 'adminAuditLogPage';\s*this\.loading\.set\(true\);\s*Meteor\.call\(method,/);
+  assert.match(pane, /this\.tab = new ReactiveVar\('audit'\);/);
   assert.match(read('client/components/settings/peopleBody.js'), /id: 'audit-log-setting'/);
   assert.match(read('client/components/settings/peopleBody.jade'), /\+adminAuditLog/);
 });

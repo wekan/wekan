@@ -32,6 +32,30 @@ when" for people, login, storage and backup changes.
 4. Use the **‹** and **›** buttons under the table to move between pages; the
    line between them shows `page / pages (total)`.
 
+**Data access**
+
+1. Click the **Data access** tab above the table.
+2. It lists who downloaded what: each export of a board (JSON, CSV, Excel,
+   PDF, ZIP, a chart or a card), of every board, of a person's data and of an
+   Admin Panel list - one row per person, day, kind and target, with how
+   many **Times**, the first and last time, and the last address. A public
+   board's export by somebody not signed in has no username.
+3. **Export CSV** downloads the whole list.
+
+The rows are kept as long as the audit log (`ADMIN_AUDIT_RETENTION_DAYS`).
+Erasing an account removes its username and address from them, and keeps the
+anonymous id.
+
+**Send it to a SIEM**
+
+Set `AUDIT_LOG_STDOUT=json` (Snap: `sudo snap set wekan
+audit-log-stdout='json'`). Every audit log row, every security problem and
+every data access is then also written to standard output as one JSON line,
+`{"wekan":"audit", ...}`, `{"wekan":"security", ...}` or
+`{"wekan":"data-access", ...}`, for Docker, journald or Fluent Bit to ship. A
+line carries only what this page shows: the arguments as stored, already
+redacted.
+
 **Search it**
 
 1. Type into the search box above the table.

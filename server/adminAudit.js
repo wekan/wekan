@@ -10,6 +10,7 @@ import { deferArgumentAudit, applyAudited } from '/server/lib/argumentChecks';
 // models/lib/adminAudit.js.
 const { AUDITED_METHODS, auditedMutationMethods, auditArgs } = require('/models/lib/adminAudit');
 const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
+const { writeStdout } = require('/models/lib/auditStdout');
 
 export const AdminAuditLog = new Mongo.Collection('adminAuditLog');
 
@@ -32,7 +33,7 @@ function clientAddress(connection) {
 
 async function record(invocation, actor, method, args, error) {
   try {
-    await AdminAuditLog.insertAsync({
+    const doc = {
       at: new Date(),
       actorId: actor._id,
       actorUsername: actor.username || '',
@@ -41,7 +42,10 @@ async function record(invocation, actor, method, args, error) {
       ok: !error,
       error: error ? String(error.error || error.message || error).slice(0, 200) : undefined,
       ip: clientAddress(invocation.connection),
-    });
+    };
+    await AdminAuditLog.insertAsync(doc);
+    // AUDIT_LOG_STDOUT=json (WP-11): the same row, as stored, on stdout.
+    writeStdout('audit', doc);
   } catch (e) {
     // The audit trail must never change what the method did or answered.
     console.error('[admin-audit] could not record', method, e && e.message);
