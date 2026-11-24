@@ -539,6 +539,22 @@ undefined for "not found", and accepts either now.
 
 </details>
 
+**Security downloads** - Artifact Hub's report of the Helm chart, beside
+GitHub's alerts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87b0638da1f84e1ae9ae26a76eb3ee47a2f6381d">The whole Artifact Hub security report is downloaded too</a>. Thanks to xet7.</summary>
+
+`releases/sec/download-artifacthub-security.sh` saves the Trivy report Artifact
+Hub makes of every image the chart names
+([helm/wekan/wekan](https://artifacthub.io/packages/helm/wekan/wekan)) to
+`.tools/log/sec/_artifacthub/`, with a file per image and a SUMMARY.md of every
+vulnerability with its installed and fixed version. The API is public, so it
+needs no login; `download-github-security.sh wekan` runs it too.
+`tests/securityDownloadArtifactHub.test.cjs`.
+
+</details>
+
 and reorganises the documentation:
 
 **Feature docs** - one folder per topic, as GitHub shows it.
