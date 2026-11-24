@@ -49,7 +49,8 @@ describe('Admin Panel allowed addresses', function () {
     const user = await as(admin, '203.0.113.9', 'x', () => Meteor.users.findOneAsync(admin));
     assert.equal(user.isAdmin, false);
     assert.equal(user.username, `apa-admin-${admin}`, 'still found: their boards work');
-    assert.equal(await as(admin, '203.0.113.9', 'x', () => Meteor.users.findOneAsync({ _id: admin, isAdmin: true })), null);
+    // Not found: Meteor 3's findOneAsync answers undefined, the driver null.
+    assert.equal(await as(admin, '203.0.113.9', 'x', () => Meteor.users.findOneAsync({ _id: admin, isAdmin: true })) == null, true);
     const stored = await Meteor.users.findOneAsync(admin);
     assert.equal(stored.isAdmin, true, 'outside any caller the stored flag is read as it is');
   });

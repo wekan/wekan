@@ -28,10 +28,23 @@
 //   every two-factor login; counting it would lock out legitimate 2FA users
 //   after a few ordinary sign-ins.
 //
+//   'password-login-disabled', 'forgot-password-disabled',
+//   'ldap-password-login-disabled' — a policy refusal from server/authentication.js
+//   (models/lib/passwordLoginPolicy.js, server/lib/ldapPasswordLoginGuard.js),
+//   made whether or not the password was right. It tells a guesser nothing, so
+//   it is no guess to count - and counting it made this hook throw its own 403
+//   "Incorrect password" over the policy's error, so the person was told the
+//   wrong thing and their account was locked by a setting.
+//
 // A wrong second factor ('invalid-2fa-code') is intentionally NOT excluded: the
 // password was correct, so repeated wrong codes are a real guessing attempt and
 // should count.
-const NON_FAILURE_ERROR_CODES = new Set(['no-2fa-code']);
+const NON_FAILURE_ERROR_CODES = new Set([
+  'no-2fa-code',
+  'password-login-disabled',
+  'forgot-password-disabled',
+  'ldap-password-login-disabled',
+]);
 
 function isNonFailureError(error) {
   return (

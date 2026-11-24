@@ -56,3 +56,14 @@ test('a scheduled rule acts as the board, and its created card names its author'
   const create = helper.slice(helper.indexOf("if (action.actionType === 'createCard') {"));
   assert.match(create.slice(0, 1200), /const authorId = resolveActingUserId\(activity\);[\s\S]*\.\.\.\(authorId \? \{ userId: authorId \} : \{\}\),/);
 });
+
+test('auto-archive fetches the members boardActorId decides from (negative: not createdBy)', () => {
+  // The scan projected { createdBy } only, so boardActorId saw no members and
+  // every auto-archive was recorded as nobody.
+  const src = read('server/autoArchiveCards.js');
+  const scan = src.slice(src.indexOf('export async function scanAutoArchive'));
+  const fields = /fields:\s*\{([^}]*)\}/.exec(scan);
+  assert.ok(fields, 'scanAutoArchive projects its boards');
+  assert.match(fields[1], /\bmembers:\s*1\b/);
+  assert.doesNotMatch(fields[1], /createdBy/);
+});

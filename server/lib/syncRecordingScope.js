@@ -79,6 +79,14 @@ function deferSyncChecklistRecording(kind, doc) {
   scope.kinds.delete(kind);
   return true;
 }
+// Whether a durable rule copy names this attachment, active or not: its History
+// row is the plan's, so the content index must not write another one
+// (server/lib/attachmentContentIndex.js indexNewAttachment, deferred from the
+// upload and so still inside this scope's async context).
+function isSyncCopiedAttachment(attachmentId) {
+  const scope=storage.getStore();
+  return !!scope && typeof attachmentId==='string' && scope.attachmentId===attachmentId;
+}
 // The same one-shot slot for the one attachment a scope names.
 function deferSyncAttachmentRecording(kind, doc) {
   const scope=storage.getStore();
@@ -103,4 +111,4 @@ function deferSyncSwimlaneActivity(doc) {
   return true;
 }
 module.exports={withSyncRecordingDeferred,deferSyncRecording,deferSyncLabelActivities,deferSyncItemRecording,deferSyncChecklistRecording,
-  deferSyncAttachmentRecording,withSyncSwimlaneActivityDeferred,deferSyncSwimlaneActivity};
+  deferSyncAttachmentRecording,isSyncCopiedAttachment,withSyncSwimlaneActivityDeferred,deferSyncSwimlaneActivity};

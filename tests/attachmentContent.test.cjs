@@ -80,6 +80,10 @@ test('server: added -> hashed and indexed with an "added" history row; a whole r
   const index = read('server/lib/attachmentContentIndex.js');
   assert.match(index, /changeType: 'added', previousContent: null,\s*newContent: \{ deleted: false, name: attachment\.name \|\| '', contentHash: result\.hash\.value \}/);
   assert.match(index, /group: 'lifecycle'/, 'a lifecycle row: its undo only ever soft-deletes or restores');
+  // Only when it has none yet: the upload hook and a durable rule copy already
+  // wrote one, and a second "added" row listed the upload twice in History.
+  assert.match(index, /isSyncCopiedAttachment\(attachmentId\)\) return;/);
+  assert.match(index, /findOne\(\s*\{ entityType: 'attachment', entityId: attachmentId, changeType: 'added' \}[^;]*;\s*if \(added\) return;/);
   assert.match(index, /contentHash: \{ algorithm: lib\.ALGORITHM, value: actual\.value, size: actual\.size, at \}/, 'with the time it was made');
   assert.match(index, /searchText,\s*generatedAt: at,/, 'the search text with the time it was made');
   const server = read('server/routes/universalFileServer.js');

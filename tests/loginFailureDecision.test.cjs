@@ -158,6 +158,15 @@ test('unknown: non-password logins are ignored', () => {
   );
 });
 
+test('known: a policy refusal is NOT a failure, and does not replace its error', () => {
+  for (const code of ['password-login-disabled', 'forgot-password-disabled', 'ldap-password-login-disabled']) {
+    assert.strictEqual(shouldProcessKnownUser({ type: 'password', user: { _id: 'u1' }, error: { error: code } }), false, code);
+    assert.strictEqual(isCountableFailure({ error: code }), false, code);
+  }
+  // Negative: an ordinary credential failure still counts.
+  assert.strictEqual(isCountableFailure({ error: 403, reason: AMBIGUOUS }), true);
+});
+
 // --- Robustness ------------------------------------------------------------
 
 test('never throws on missing / malformed loginInfo', () => {

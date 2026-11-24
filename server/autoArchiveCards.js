@@ -46,7 +46,7 @@ export async function autoArchiveBoard(board, now = new Date()) {
 
 export async function scanAutoArchive(now = new Date()) {
   const boards = await Boards.find(AUTO_ARCHIVE_BOARD_SELECTOR, {
-    fields: { _id: 1, autoArchiveInactiveDays: 1, createdBy: 1 },
+    fields: { _id: 1, autoArchiveInactiveDays: 1, members: 1 },
   }).fetchAsync();
   for (const board of boards) {
     // eslint-disable-next-line no-await-in-loop

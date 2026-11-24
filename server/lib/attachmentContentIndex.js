@@ -177,6 +177,16 @@ export async function indexNewAttachment(attachmentId) {
     if (!attachment) return;
     const meta = attachment.meta || {};
     const ChangeHistory = require('/models/changeHistory').default;
+    // One "added" row per attachment. An upload already has one from
+    // server/models/changeHistoryHooks.js, and a durable rule copy one from its
+    // plan; a second row here showed the upload twice in the card history. The
+    // hash is on the attachment itself (contentHash), so nothing is lost. This
+    // row is written only for an attachment that has no "added" row - one the
+    // hook skips, such as an import.
+    if (require('/server/lib/syncRecordingScope').isSyncCopiedAttachment(attachmentId)) return;
+    const added = await ChangeHistory.rawCollection().findOne(
+      { entityType: 'attachment', entityId: attachmentId, changeType: 'added' }, { projection: { _id: 1 } });
+    if (added) return;
     await ChangeHistory.record({
       boardId: meta.boardId || null, swimlaneId: meta.swimlaneId || null, listId: meta.listId || null,
       cardId: meta.cardId || null, entityType: 'attachment', entityId: attachment._id, group: 'lifecycle',
