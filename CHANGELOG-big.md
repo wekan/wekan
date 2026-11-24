@@ -110,8 +110,9 @@ retention** form accepts only the limit the retention really uses.
 
 This release adds the following new features:
 
-**Privacy and personal data** - a person's right to their data, and to have it
-erased (docs/Compliance/README.md, WP-4 to WP-6).
+**Privacy and personal data** - a person's right to their data, to have it
+erased, and to have it kept no longer than needed (docs/Compliance/README.md,
+WP-4 to WP-7).
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29a41bd51c39a1a42eeb63d3e3dd11b6096329d6">Legal pages: privacy notice, terms, cookie notice and imprint, readable before signing in</a>. Thanks to xet7.</summary>
@@ -151,6 +152,19 @@ and on anonymisation; an invoiced time entry is kept without the person, and
 an anonymised account keeps its references. Anonymisation now also removes
 every sign-in service, passkeys and sign-in addresses.
 `tests/userErasure.test.cjs`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/176771109ceebe5b2ac5e2edc3b69a5b88c9950e">The audit log, board activities and workload absences each have a retention an operator sets</a>. Thanks to xet7.</summary>
+
+`ADMIN_AUDIT_RETENTION_DAYS` replaces the audit log's fixed year (365 by
+default, 0 keeps it, HIPAA sets 2190 or more). `ACTIVITIES_RETENTION_DAYS` and
+`WORKLOAD_ABSENCE_RETENTION_DAYS` remove older activity rows and ended
+absences, both off by default; a card's change history is never removed.
+`WORKLOAD_ABSENCE_TYPE_RECORDED=false` records no sick leave at all. Admin
+Panel / Settings / Legal pages shows every personal-data collection with its
+retention on this server. `tests/retentionSettings.test.cjs`.
 
 </details>
 
