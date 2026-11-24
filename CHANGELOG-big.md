@@ -241,6 +241,21 @@ for. `tests/accessibilityStatementDraft.test.cjs`,
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a7af5391abc435b5a71a5f9862e4273be15da35">Every Admin Panel pane and the most used popups pass too, at 320 px and with reduced motion</a>. Thanks to xet7.</summary>
+
+A new spec scans every Admin Panel pane and the member, list, swimlane and
+card details menus, checks 320 px reflow, and checks that nothing animates when
+reduced motion is asked for. What it found is fixed: unnamed inputs and selects
+are named by the label beside them, faint descriptions, badges and the default
+theme's menu hover pass 4.5:1, small checkbox rows and links are 24 x 24 px,
+the member menu's dependency toggles are checkboxes in a proper list, and one
+reduced-motion rule in its own CSS layer stops every animation and transition.
+`tests/playwright/specs/47-accessibility-everywhere.e2e.js` passes in Chromium,
+`tests/accessibilitySpec47Fixes.test.cjs`.
+
+</details>
+
 **Privacy and personal data, the rest** - what was left on the compliance list.
 
 <details>
@@ -438,6 +453,16 @@ Their lines read "Admin Panel → Problems → database", "integrity" and "mail"
 They now say Database problems, Filesystem integrity and Email, as the Problems
 menu does, and `tests/problemsSummaryLabels.test.cjs` requires every problem
 stream to have the same name on the Summary as in the menu.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8c606aeb994a4dcdd8f7f4bb28654f01600a484">The Recovery pane's rule email text says Review resends, marks sent or drops, in every language</a>. Thanks to xet7.</summary>
+
+It said "This report does not retry or cancel delivery", which stopped being
+true when Review, Resend, Mark as sent and Drop were added on 2026-09-30.
+`tests/ruleEmailRecoveryDescription.test.cjs` fails when a language keeps the
+old sentence or does not name its own Review button.
 
 </details>
 

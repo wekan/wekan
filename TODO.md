@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | Playwright specs in Firefox and WebKit; the last wrong-language words; running the accessibility spec 47; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The last wrong-language words; a keyboard-only accessibility walk; the docs folders | Firefox and WebKit stages on a host | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -40,15 +40,18 @@ details; WeKan's are below.
 Work being done now. Each item moves to the `# Upcoming WeKan ® release`
 section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
-- The Shop, webhooks and Admin Panel addresses Playwright specs in Firefox and
-  WebKit. Their server tests pass (`meteor test --full-app`, 699 passing);
-  WebKit needs a host, as the sandbox cannot run it.
 - Wrong-language words the 2026-11-24 corrections left, for a speaker to
   check: Shona (`sn`) long help texts still half English; Odia (`or_IN`)
   garbled fragments in a few long values; Maltese (`mt`) half-English help
   texts; Luxembourgish (`lb`) whiteboard is both "Whiteboard" and "Tafel";
   Serbian (`sr`) "All Boards" is not named the same everywhere; one Spanish
   value in Venetian (`ve-CC`).
+- Translation keys for the English written into the code, found by spec 47:
+  the Problems report tables' column names, filter labels and options
+  (`client/components/settings/adminProblems.js`: "Title", "Archived?",
+  "Show", "Permission", "All", "Done" ...) and the Email pane's "Email
+  service" and "Enable below email settings". Each needs a key in every
+  language.
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the
@@ -56,17 +59,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   the folders of `# Moved` stubs are removed, with every link updated.
 - Everything about accessibility in one folder, `docs/Features/Accessibility/`
   (from `General/Accessibility/` and the Admin Panel's Accessibility page).
-- Accessibility: the axe scan runs the WCAG 2.2 AA rules and passes on the
-  pages it visits (WP-13). `tests/playwright/specs/47-accessibility-everywhere.e2e.js`
-  is written - every Admin Panel pane, the popups people open most, 320 px
-  reflow and reduced motion - and not run yet; then keyboard-only and every
-  theme's contrast through build.sh. 3.2.6 Consistent Help, 3.3.7 Redundant
-  Entry and 3.3.8 Accessible Authentication need a manual review.
-- Found while documenting, to fix: the Recovery pane's rule email text
-  (`rule-email-recovery-description`) still says "This report does not retry
-  or cancel delivery", though Review, Resend, Mark as sent and Drop exist since
-  2026-09-30. The sentence is in every locale, so the fix is a translation
-  batch: the corrected sentence in each language.
+- Accessibility: specs 45 to 47 pass in Chromium - the axe WCAG 2.2 AA rules
+  on every page they visit, every Admin Panel pane, the most used popups,
+  every theme's contrast, 320 px reflow and reduced motion. Still to do: a
+  keyboard-only walk through the main tasks; 3.2.6 Consistent Help, 3.3.7
+  Redundant Entry and 3.3.8 Accessible Authentication need a manual review.
 
 ## For the maintainer: needs a person, not code
 
@@ -132,6 +129,10 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
 
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
+- Firefox cannot run in the Flatpak sandbox either: Playwright's Firefox 159
+  needs NSS 3.126, newer than the runtime's. Run the Firefox stage on a host -
+  in particular the Shop, webhooks, Admin Panel addresses and accessibility
+  (47) specs, which pass in Chromium.
 
 ## Need accounts on the tools, or a running copy of one
 
