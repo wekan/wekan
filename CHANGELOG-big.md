@@ -106,8 +106,8 @@ check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
 every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. **Problems / Summary** groups **sign-in refusals by reason** with the
-fix for each, the **delay after a wrong password** is applied at last, and the
-server tests pass again.
+fix for each, the **delay after a wrong password** is applied at last, the
+**Docker image is distroless**, and the server tests pass again.
 
 This release adds the following new features:
 
@@ -512,6 +512,42 @@ use translation keys now, 17 of them new.
 "At most per run" accepted up to 1000000, and the retention cut anything above
 100000 without saying so. The form takes its default and maximum from the
 retention itself now. `tests/attachmentRetention.test.cjs`.
+
+</details>
+
+**The Docker image** - distroless: no shell, no package manager, and none of
+the Debian packages WeKan never ran.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/130af564c9b88c2915d1038a4bb612da649590d0">The image is distroless, and its entrypoint is Node.js</a>. Thanks to xet7.</summary>
+
+Artifact Hub's Trivy report of v13.30 listed 218 vulnerabilities in
+`ghcr.io/wekan/wekan`: 214 in Debian packages - util-linux, login, tar,
+coreutils, systemd libraries, sqlite - that WeKan never runs and Debian has
+no fix for yet, so no update could remove them. The image is now built on
+`gcr.io/distroless/cc-debian13`: glibc, libstdc++, libgcc, libatomic, CA
+certificates and tzdata, then node, WeKan, FerretDB and the MongoDB tools.
+That base alone scans at 55 findings, 2 of them HIGH (from 214 and 50).
+Distroless publishes no linux/386, so for 386 the same Debian 13 packages are
+assembled into `scratch`, each with its dpkg record so scanners still list
+them; the image keeps all seven platforms.
+
+With no shell, `releases/ferretdb/wekan-entrypoint.mjs` replaces
+`wekan-entrypoint.sh`: the same backend choice, heap and GOMEMLIMIT, MPTCP
+off, `MONGO_URL_FILE`, requested restore and backup, recovery and
+waiting-for-database pages, and cpu-exec's qemu-user decision. That fixes a
+fault the shell one had since v11.52: it ran `/build/node
+sqlite-recovery.mjs`, and the image never had a `/build/node`, so every start
+with the bundled FerretDB stopped with status 127. The UCS migration's
+launcher and tools, the UCS hook's volume preparation, the MongoDB tool
+launchers (now symlinks to `mongo-tools`) and the Nextcloud capability check
+use node too. The `wekan` user keeps uid 999. `docker exec -it wekan-app bash`
+no longer works; `node` does. The scanned Go libraries of `mongo-tools` are
+updated in
+[mongo-tools-patches](https://github.com/wekan/mongo-tools-patches/commit/1695d570e5c053be26394825f1fa06323047dbf9),
+and the FerretDB image is distroless too, in
+[FerretDB](https://github.com/wekan/FerretDB/commit/967f34415bb706eb95d12a4687dce080d9c63f54).
+`tests/dockerEntrypoint.test.cjs` runs the entrypoint with stand-in binaries.
 
 </details>
 

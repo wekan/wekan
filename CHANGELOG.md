@@ -15,8 +15,8 @@ check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
 every
 release carries a **CycloneDX SBOM**, with **security.txt** from the security
 contact. **Problems / Summary** groups **sign-in refusals by reason** with the
-fix for each, the **delay after a wrong password** is applied at last, and the
-server tests pass again.
+fix for each, the **delay after a wrong password** is applied at last, the
+**Docker image is distroless**, and the server tests pass again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
