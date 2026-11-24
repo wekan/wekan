@@ -81,7 +81,7 @@ for (const rel of SCRIPTS) {
 
 for (const rel of [
   'releases/ferretdb/start-wekan.sh',
-  'releases/ferretdb/wekan-entrypoint.sh',
+  'releases/ferretdb/wekan-entrypoint.mjs',
 ]) {
   test(`${rel}: standalone polling has no simulated OpLog reset`, () => {
     assert.ok(!/local\.sqlite|WEKAN_FERRETDB_RESET_OPLOG/.test(read(rel)));

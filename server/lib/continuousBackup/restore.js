@@ -223,7 +223,7 @@ async function restoreSqlite({ target, name, database, until, out, quickCheck, c
 // continuous-backup restore, and ask for it with their RESTORE_REQUESTED
 // marker (mode "continuous"): the next restart, before FerretDB opens its
 // files, keeps the live database in continuous-restore/replaced and copies
-// this one in (releases/ferretdb/wekan-entrypoint.sh, start-wekan.sh,
+// this one in (releases/ferretdb/wekan-entrypoint.mjs, start-wekan.sh,
 // snap-src/bin/ferretdb-control). Only wekan.sqlite: the scripts restore no
 // other database. A pending request of any kind is never overwritten.
 async function stageSqliteRestore({ file, database, sqliteDir }) {

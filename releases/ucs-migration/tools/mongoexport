@@ -1,2 +1,14 @@
-#!/bin/sh
-exec node "$(dirname -- "$0")/../docker-exec.mjs" wekan-db mongoexport "$@"
+#!/usr/local/bin/node
+// Run the SOURCE's matching mongoexport; no source credentials or host port needed.
+// docker-exec.mjs talks to the Docker socket directly: the image has no Docker
+// CLI, and - being distroless - no shell either, so this is Node.js with an
+// absolute interpreter path (no /usr/bin/env in the image).
+//
+// No require, import or __dirname: this file is CommonJS in the image and an
+// ES module in the repository (releases/package.json), and these work in both.
+const path = process.getBuiltinModule('node:path');
+const { spawnSync } = process.getBuiltinModule('node:child_process');
+const here = path.dirname(process.argv[1]);
+const r = spawnSync(process.execPath, [path.join(here, '..', 'docker-exec.mjs'), 'wekan-db', 'mongoexport', ...process.argv.slice(2)],
+  { stdio: 'inherit' });
+process.exit(r.status === null ? 125 : r.status);

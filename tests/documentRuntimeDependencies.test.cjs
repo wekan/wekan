@@ -57,11 +57,17 @@ function load(name, extra = '') {
     // Source development also resolves through the parent node_modules.
     const sourceRequire = require('node:module').createRequire(path.join(root, 'npm/package.json'));
     assert.equal(sourceRequire.resolve('fflate'), require.resolve('fflate'));
+    // The Docker image is distroless since the Artifact Hub security report:
+    // Debian's `file` and its libmagic are no longer in it, and MIME detection
+    // uses the bundled WASM libmagic (wasmagic) that the portable and Windows
+    // installs already use - the fallback models/lib/mimeDetection.js takes
+    // when no native `file` answers (tests/portableMimeDetection.test.cjs).
     const docker = read('Dockerfile');
-    assert.match(docker, /apt-get install --assume-yes --no-install-recommends file(?:[ \t]+[^\n]*)?\n/);
-    // No removable build-dependency list any more; nothing may purge `file`.
-    assert.doesNotMatch(docker, /apt-get (?:remove|purge)[^\n]*\bfile\b/);
-    assert.doesNotMatch((docker.match(/ENV BUILD_DEPS="([^"]+)"/) || ['', ''])[1], /\bfile\b/);
-    console.log('Release dependencies: XLSX/DOCX/PPTX extraction, rejected archives, PDF assets, native-image lookup and Docker MIME utility pass.');
+    const image = docker.slice(docker.lastIndexOf('\nFROM '));
+    assert.doesNotMatch(image, /apt-get|\bfile\b(?! ?[a-z.\/-]*\.(json|mjs))/, 'the image installs nothing, `file` included');
+    const mime = read('models/lib/mimeDetection.js');
+    assert.match(mime, /if \(native\) return native;\n\s+try \{ return await portableMime\(bytes\); \}/, 'no native file: the WASM engine answers');
+    assert.match(mime, /runtimeRequire\('wasmagic'\)/);
+    console.log('Release dependencies: XLSX/DOCX/PPTX extraction, rejected archives, PDF assets, native-image lookup and Docker MIME detection without `file` pass.');
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

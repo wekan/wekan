@@ -37,10 +37,12 @@ assert.ok(!ucs.includes('packages: write'));
 assert.ok(read('release-all.yml').includes('ucs-release.py check-image --version "$VERSION"'));
 assert.ok(read('release-all-missing.yml').includes('releases/retry-failed-release.py'));
 const dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
-assert.match(dockerfile, /apt-get install --assume-yes --no-install-recommends file libatomic1\n/);
+// Distroless: no shell in the image, so UCS and Nextcloud start it with node.
+assert.match(dockerfile, /^FROM gcr\.io\/distroless\/cc-debian13:nonroot AS distroless$/m);
 assert.match(dockerfile, /COPY releases\/ucs-migration \/opt\/ucs-migration/);
+assert.match(dockerfile, /COPY --chmod=755 releases\/ucs-migration\/tools \/opt\/ucs-migration\/tools/);
 assert.match(dockerfile, /USER wekan/);
-assert.match(dockerfile, /CMD \["bash", "\/build\/wekan-entrypoint.sh"\]/);
+assert.match(dockerfile, /CMD \["\/usr\/local\/bin\/node", "\/build\/wekan-entrypoint\.mjs"\]/);
 assert.ok(!dockerfile.includes('VOLUME /var/run/docker.sock'));
 const nc = read('nextcloud.yml');
 // Packed by releases/nextcloud-pack.sh, which works with GNU tar and with
@@ -56,6 +58,9 @@ assert.ok(nc.includes('curl --fail-with-body'), 'App Store HTTP rejection fails 
 assert.ok(nc.includes('if [ "$new_archive" = true ]'), 'published tarballs are reused rather than overwritten');
 assert.ok(nc.includes('persist-credentials: false'));
 assert.ok(nc.includes('nextcloud-exapp-capability.json'));
+// The capability check runs node, which every image has, old and distroless alike.
+assert.ok(nc.includes('docker run --rm --entrypoint /usr/local/bin/node "ghcr.io/wekan/wekan:v$VERSION" -e'));
+assert.ok(!/--entrypoint \/bin\/sh|--entrypoint bash/.test(nc), 'no shell in the WeKan image');
 assert.ok(nc.includes('node --test exapp/tests/*.test.mjs'));
 assert.ok(nc.includes('--platform linux/amd64,linux/arm64'));
 assert.ok(!nc.includes('--clobber'));

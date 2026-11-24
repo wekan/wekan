@@ -19,7 +19,7 @@ const launchers = [
   'Dockerfile',
   'releases/ferretdb/start-wekan.sh',
   'releases/ferretdb/start-wekan.bat',
-  'releases/ferretdb/wekan-entrypoint.sh',
+  'releases/ferretdb/wekan-entrypoint.mjs',
   'snap-src/bin/ferretdb-control',
   'snap-src/bin/wekan-control',
   'snap/hooks/configure',

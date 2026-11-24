@@ -65,9 +65,11 @@ test('the server applies the files before any application code', () => {
   assert.doesNotMatch(main, /console\.\w+\([^)]*process\.env\.(MAIL_URL|S3_SECRET_KEY)\b/, 'never logs a value');
 });
 
-// The launchers. The Docker entrypoint's block is run for real; the others
-// must carry the same rule.
-const LAUNCHERS = ['releases/ferretdb/wekan-entrypoint.sh', 'snap-src/bin/wekan-control', 'start-wekan.sh'];
+// The launchers. The Docker entrypoint is run for real; the shell launchers
+// must carry the same rule. The Docker image is distroless, so its entrypoint
+// is Node.js (releases/ferretdb/wekan-entrypoint.mjs).
+const LAUNCHERS = ['snap-src/bin/wekan-control', 'start-wekan.sh'];
+const DOCKER_ENTRY = 'releases/ferretdb/wekan-entrypoint.mjs';
 test('every launcher reads MONGO_URL_FILE before starting WeKan', () => {
   for (const rel of LAUNCHERS) {
     const src = read(rel);
@@ -78,35 +80,40 @@ test('every launcher reads MONGO_URL_FILE before starting WeKan', () => {
   const block = bat.indexOf('if not defined MONGO_URL if defined MONGO_URL_FILE');
   assert.ok(block !== -1 && block < bat.indexOf('\nnode main.js'));
   assert.match(bat, /set \/p MONGO_URL=<"%MONGO_URL_FILE%"/);
-  const entry = read('releases/ferretdb/wekan-entrypoint.sh');
-  assert.ok(entry.indexOf('MONGO_URL_FILE (#5724)') < entry.indexOf('want_ferret=false'),
+  const entry = read(DOCKER_ENTRY);
+  assert.ok(entry.indexOf('env.MONGO_URL = mongoUrlFromFile(env);') > 0);
+  assert.ok(entry.indexOf('env.MONGO_URL = mongoUrlFromFile(env);') < entry.indexOf('ferret = wantFerret(env'),
     'before the backend choice, which looks at MONGO_URL');
   const start = read('start-wekan.sh');
   assert.ok(start.indexOf('MONGO_URL="$(cat "$MONGO_URL_FILE")"') < start.indexOf('exec node main.js"'));
 });
 
-const bashBlock = () => {
-  const src = read('releases/ferretdb/wekan-entrypoint.sh');
-  return src.slice(src.indexOf('# MONGO_URL_FILE (#5724)'), src.indexOf('FERRETDB_BIN="/build/ferretdb"'));
-};
-const runBlock = env => spawnSync('bash', ['-c', `set -euo pipefail\n${bashBlock()}\nprintf '%s' "$MONGO_URL"`],
-  { env: { PATH: process.env.PATH, ...env }, encoding: 'utf8' });
+// The entrypoint, in a bundle directory whose main.js prints what it was given.
+const BUNDLE = path.join(TMP, 'bundle');
+fs.mkdirSync(BUNDLE);
+fs.copyFileSync(path.join(ROOT, DOCKER_ENTRY), path.join(BUNDLE, 'wekan-entrypoint.mjs'));
+fs.writeFileSync(path.join(BUNDLE, 'main.js'), "process.stdout.write('\\n' + process.env.MONGO_URL);\n");
+const runBlock = env => spawnSync(process.execPath, [path.join(BUNDLE, 'wekan-entrypoint.mjs')],
+  { env: { PATH: process.env.PATH, WEKAN_DB: 'mongodb', WEKAN_DB_WAIT_PAGE: 'false', ...env }, encoding: 'utf8' });
 
 test('Docker entrypoint, for real: the file gives MONGO_URL, the variable still wins', () => {
   const url = 'mongodb://wekan:p@ss@db:27017/wekan';
   const fromFile = runBlock({ MONGO_URL_FILE: file('mongo', `${url}\n`) });
   assert.equal(fromFile.status, 0, fromFile.stderr);
-  assert.equal(fromFile.stdout.split('\n').pop(), url);
-  assert.doesNotMatch(fromFile.stdout.split('\n')[0], /p@ss/, 'the log line does not print it');
+  const lines = fromFile.stdout.split('\n');
+  assert.equal(lines.pop(), url);
+  assert.ok(lines.includes('Using MONGO_URL from MONGO_URL_FILE'));
+  assert.ok(lines.every(l => !/p@ss/.test(l)), 'the log does not print it');
   const fromEnv = runBlock({ MONGO_URL: 'mongodb://env/wekan', MONGO_URL_FILE: file('mongo2', 'mongodb://file/x') });
-  assert.equal(fromEnv.stdout, 'mongodb://env/wekan');
+  assert.equal(fromEnv.stdout.split('\n').pop(), 'mongodb://env/wekan');
 });
 
 test('negative, for real: an unreadable or empty MONGO_URL_FILE stops the start instead of using a default', () => {
   for (const env of [{ MONGO_URL_FILE: path.join(TMP, 'missing') }, { MONGO_URL_FILE: file('blank', '\n') }]) {
     const result = runBlock(env);
     assert.equal(result.status, 1, JSON.stringify(env));
-    assert.match(result.stderr, /^ERROR: MONGO_URL_FILE=/);
+    assert.match(result.stderr, /^ERROR: MONGO_URL_FILE=/m);
+    assert.doesNotMatch(result.stdout, /mongodb:/, 'WeKan was not started');
   }
 });
 

@@ -14,7 +14,9 @@ const { stageSqliteRestore } = require('../server/lib/continuousBackup/restore')
 
 const root = path.join(__dirname, '..');
 const SCRIPTS = [
-  ['releases/ferretdb/wekan-entrypoint.sh', 'FERRETDB_SQLITE_DIR'],
+  // The Docker image is distroless: its entrypoint is Node.js, and its own
+  // requestedRestore() is what runs.
+  ['releases/ferretdb/wekan-entrypoint.mjs', 'FERRETDB_SQLITE_DIR'],
   ['releases/ferretdb/start-wekan.sh', 'FERRETDB_SQLITE_DIR'],
   ['snap-src/bin/ferretdb-control', 'SQLITE_DIR'],
 ];
@@ -28,7 +30,12 @@ function restoreBlock(rel) {
   assert.ok(start > 0 && end > start, `${rel}: restore block not found`);
   return lines.slice(start, end).join('\n');
 }
-function run(rel, variable, dir, env = {}) {
+async function run(rel, variable, dir, env = {}) {
+  if (rel.endsWith('.mjs')) {
+    const { requestedRestore } = await import(require('node:url').pathToFileURL(path.join(root, rel)).href);
+    const quiet = () => {};
+    return requestedRestore(dir, env, quiet, quiet);
+  }
   return execFileSync('sh', ['-c', `${restoreBlock(rel)}\n`], { env: { PATH: process.env.PATH, [variable]: dir, ...env },
     encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
@@ -42,7 +49,7 @@ for (const [rel, variable] of SCRIPTS) {
     const built = path.join(dir, 'built.sqlite'); fs.writeFileSync(built, 'restored database');
     await stageSqliteRestore({ file: built, database: 'wekan', sqliteDir: dir });
     assert.equal(fs.readFileSync(path.join(dir, 'RESTORE_REQUESTED'), 'utf8'), 'continuous\n');
-    run(rel, variable, dir);
+    await run(rel, variable, dir);
     assert.equal(fs.readFileSync(path.join(dir, 'wekan.sqlite'), 'utf8'), 'restored database');
     assert.equal(fs.existsSync(path.join(dir, 'wekan.sqlite-wal')), false, 'a stale WAL never meets the restored file');
     assert.equal(fs.readFileSync(path.join(dir, 'continuous-restore', 'replaced', 'wekan.sqlite'), 'utf8'), 'live database');
@@ -55,7 +62,7 @@ for (const [rel, variable] of SCRIPTS) {
     const dir = sandbox(); t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
     fs.writeFileSync(path.join(dir, 'wekan.sqlite'), 'live database');
     fs.writeFileSync(path.join(dir, 'RESTORE_REQUESTED'), 'continuous\n');
-    try { run(rel, variable, dir); } catch (error) { /* the scripts may report on stderr */ }
+    try { await run(rel, variable, dir); } catch (error) { /* the scripts may report on stderr */ }
     assert.equal(fs.readFileSync(path.join(dir, 'wekan.sqlite'), 'utf8'), 'live database');
     assert.equal(fs.existsSync(path.join(dir, 'RESTORE_REQUESTED')), true, 'the request is kept for a retry');
     assert.equal(events(dir).at(-1).type, 'manual-required');

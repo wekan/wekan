@@ -17,7 +17,11 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const releaseAll = read('.github/workflows/release-all.yml');
 const sandstormYml = read('.github/workflows/sandstorm.yml');
 const buildDeps = read('sandstorm-src/build-deps.sh');
-const entrypoint = read('releases/ferretdb/wekan-entrypoint.sh');
+// The Docker image is distroless - no bash for cpu-exec - so its Node.js
+// entrypoint makes cpu-exec's decision itself (cpuExecPlan, run in
+// tests/dockerEntrypoint.test.cjs).
+const entrypoint = read('releases/ferretdb/wekan-entrypoint.mjs');
+const dockerfile = read('Dockerfile');
 const startWekan = read('releases/ferretdb/start-wekan.sh');
 const snapcraft = read('snapcraft.yaml');
 
@@ -162,16 +166,18 @@ test('the snap runs node (the app and the maintenance page) through cpu-exec', (
 
 // --- Docker entrypoint ----------------------------------------------------------
 
-test('Docker entrypoint routes ferretdb and node through cpu-exec when present', () => {
-  assert.ok(/if \[ -x \/build\/cpu-exec \]; then\s*\n\s*\/build\/cpu-exec "\$FERRETDB_BIN"/.test(entrypoint));
-  assert.ok(/if \[ -x \/build\/cpu-exec \]; then\s*\n\s*exec \/build\/cpu-exec node \/build\/main\.js/.test(entrypoint));
+test('Docker entrypoint routes ferretdb and node through the cpu-exec decision', () => {
+  assert.ok(/const \[cmd, args\] = cpuExecPlan\(ferretBin, \[/.test(entrypoint), 'FerretDB');
+  assert.ok(/cpuExecPlan\(node, \[path\.join\(build, 'main\.js'\)\], cpuOptions\(\)\)/.test(entrypoint), 'node');
+  assert.ok(/spec: env\.WEKAN_REQUIRED_CPU_FEATURES/.test(entrypoint), 'the same variable as cpu-exec');
+  assert.ok(/path\.join\(build, name\)/.test(entrypoint), 'the qemu-user beside the bundle first, after WEKAN_QEMU_USER');
 });
 
-test('negative: Docker entrypoint still works without cpu-exec (older bundles)', () => {
-  // the guarded blocks must keep direct-exec fallbacks
-  assert.ok(/\nexec node \/build\/main\.js/.test(entrypoint), 'plain node fallback kept');
-  const direct = entrypoint.match(/"\$FERRETDB_BIN" \\\n/g) || [];
-  assert.ok(direct.length >= 1, 'plain ferretdb fallback kept');
+test('negative: the image ships no cpu-exec - a bash script - but keeps the qemu-user', () => {
+  assert.ok(/rm -f bundle\/start-wekan\.sh bundle\/start-wekan\.bat bundle\/cpu-exec\n/.test(dockerfile));
+  assert.ok(!/rm -f[^\n]*bundle\/qemu-/.test(dockerfile), 'the qemu-user stays');
+  assert.ok(!/cpu-exec['"]/.test(entrypoint.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n')),
+    'the entrypoint never runs the script');
 });
 
 // --- Bundle launcher -------------------------------------------------------------

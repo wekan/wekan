@@ -4000,18 +4000,43 @@ jobs:
           # resolves to arm/v5 - Debian armel, SOFT-float - and the hard-float
           # node-armv6 inside the armv6 bundle cannot run on that userland. Ask the
           # base once, and treat a platform it does not publish exactly like a bundle
-          # that did not land. The base is read out of the Dockerfile so there is no
-          # second copy of its name here. arm64 is recorded as arm64/v8, which
+          # that did not land. The bases are read out of the Dockerfile so there is
+          # no second copy of their names here. arm64 is recorded as arm64/v8, which
           # everyone writes as linux/arm64, so the implied /v8 is normalised away -
-          # the same normalisation the push-verify does below. It is the LAST FROM:
-          # the first is the bundle stage, which runs on the build machine
-          # (--platform=$BUILDPLATFORM) and is not what the image is made of.
-          base_image="$(awk '/^FROM /{base=$2} END{print base}' Dockerfile)"
-          base_plats="$(docker buildx imagetools inspect "$base_image" \
-            --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}' \
-            | sed 's#/v8 # #g')" || {
-              echo "::error::Cannot read the platform list of the base image ${base_image}."; exit 1; }
-          echo "Base image ${base_image} publishes: ${base_plats}"
+          # the same normalisation the push-verify does below.
+          #
+          # There are TWO bases since the image became distroless, and a platform
+          # needs both. runtime-root (debian:trixie) runs as the target CPU for
+          # every platform and must publish it exactly, for the arm/v6 reason
+          # above. The image's root is distroless, which publishes no linux/386,
+          # so the Dockerfile assembles that root itself - a `FROM scratch AS
+          # runtime-<arch>` stage - and such a platform needs only debian. The
+          # bundle stage runs on the build machine (--platform=$BUILDPLATFORM)
+          # and is not what the image is made of.
+          plats_of() {
+            docker buildx imagetools inspect "$1" \
+              --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}' \
+              | sed 's#/v8 # #g; s#/v8$##'
+          }
+          root_image="$(awk '$1 == "FROM" && $NF == "runtime-root" {print $2}' Dockerfile)"
+          distroless_image="$(awk '$1 == "FROM" && $NF == "distroless" {print $2}' Dockerfile)"
+          assembled="$(awk '$1 == "FROM" && $2 == "scratch" && $NF ~ /^runtime-/ {sub(/^runtime-/, "", $NF); print "linux/" $NF}' Dockerfile | tr '\n' ' ')"
+          if [ -z "$root_image" ] || [ -z "$distroless_image" ]; then
+            echo "::error::The Dockerfile names no runtime-root or distroless stage."; exit 1
+          fi
+          root_plats="$(plats_of "$root_image")" || {
+            echo "::error::Cannot read the platform list of the base image ${root_image}."; exit 1; }
+          distroless_plats="$(plats_of "$distroless_image")" || {
+            echo "::error::Cannot read the platform list of the base image ${distroless_image}."; exit 1; }
+          echo "Base image ${root_image} publishes: ${root_plats}"
+          echo "Base image ${distroless_image} publishes: ${distroless_plats}"
+          echo "Root assembled by the Dockerfile for: ${assembled:-none}"
+          base_plats=""
+          for p in $root_plats; do
+            case " $distroless_plats $assembled " in *" $p "*) base_plats="$base_plats $p" ;; esac
+          done
+          base_image="${root_image} and ${distroless_image}"
+          echo "Both bases cover: ${base_plats}"
           base_has() { case " $base_plats " in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
 
           platforms=""; want=""; arches=""

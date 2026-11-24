@@ -43,7 +43,7 @@ In `wekan/univention`:
   connects only to FerretDB. No intermediate MongoDB version upgrade is needed.
   The temporary database uses the same FerretDB image as the final compose
   service. `releases/ucs-release.py` converts the companion hook to run the
-  ordinary WeKan image with `bash /opt/ucs-migration/start.sh`.
+  ordinary WeKan image with `/usr/local/bin/node /opt/ucs-migration/start.mjs`.
 - `component/inst` and `component/test`: use the app's MongoDB driver to access
   FerretDB instead of expecting a Mongo shell in `wekan-db`.
 - `component/compose-6.09`: original template retained for reference/rollback.
@@ -113,7 +113,7 @@ Inspect the result and verify that the selected WeKan image has Node and the
 modern MongoDB driver under the bundle's `programs/server` tree. The selected
 FerretDB image must use the SQLite handler and `/ferretdb` entrypoint, with UID
 1000 owning its `/state` mount. Verify Docker CLI compatibility on each supported
-UCS version. `start.sh --check` checks the packaged files and driver without
+UCS version. `start.mjs --check` checks the packaged files and driver without
 starting migration or requiring a source database/socket.
 
 Keep version tags fixed per UCS release. `releases/ucs-release.py` prepares the

@@ -70,7 +70,7 @@ test('startup scripts mark recovery in progress during a restore/remigrate', () 
   for (const rel of [
     'snap-src/bin/ferretdb-control',
     'releases/ferretdb/start-wekan.sh',
-    'releases/ferretdb/wekan-entrypoint.sh',
+    'releases/ferretdb/wekan-entrypoint.mjs',
   ]) {
     assert.ok(/RECOVERY_IN_PROGRESS/.test(read(rel)), `${rel} writes the marker`);
   }
@@ -97,7 +97,7 @@ test('the snap serves a BRIDGE recovery page, bounded so it never blocks WeKan',
 test('release + Docker start scripts serve the SAME bounded bridge page', () => {
   assert.ok(fs.existsSync(path.join(__dirname, '..', 'releases/ferretdb/recovery-bridge.mjs')),
     'the portable recovery-bridge page exists');
-  for (const rel of ['releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {
+  for (const rel of ['releases/ferretdb/start-wekan.sh']) {
     const src = read(rel);
     assert.ok(/recovery-bridge\.mjs/.test(src), `${rel} runs the bridge page`);
     assert.ok(/RECOVERY_IN_PROGRESS/.test(src), `${rel} gates the bridge on the marker`);
@@ -105,6 +105,13 @@ test('release + Docker start scripts serve the SAME bounded bridge page', () => 
     // The bridge is guarded so it is skipped cleanly when the page file is absent.
     assert.ok(/\[ -f .*recovery-bridge\.mjs"? \]/.test(src), `${rel} skips the bridge if the page is missing`);
   }
+  // The Docker image is distroless, so its entrypoint is Node.js: the same
+  // bounded bridge, skipped when the page is missing.
+  const entry = read('releases/ferretdb/wekan-entrypoint.mjs');
+  assert.ok(/const bridge = path\.join\(build, 'recovery-bridge\.mjs'\);/.test(entry), 'the Docker entrypoint runs the bridge page');
+  assert.ok(/if \(fs\.existsSync\(inProgress\) && fs\.existsSync\(bridge\)\)/.test(entry), 'gated on the marker, skipped if the page is missing');
+  assert.ok(/fs\.existsSync\(inProgress\) && waited < grace; waited \+= 2/.test(entry), 'bounded (never blocks WeKan)');
+  assert.ok(/WEKAN_RECOVERY_BRIDGE_SECONDS/.test(entry), 'grace window is overridable');
   assert.ok(/COPY[^\n]*recovery-bridge\.mjs[^\n]*\/build\/recovery-bridge\.mjs/.test(read('Dockerfile')),
     'Dockerfile ships the bridge page into the image');
 });
@@ -119,10 +126,10 @@ test('the recovery marker is cleared by the SERVER (drives the in-app spinner ev
   for (const rel of [
     'snap-src/bin/ferretdb-control',
     'releases/ferretdb/start-wekan.sh',
-    'releases/ferretdb/wekan-entrypoint.sh',
+    'releases/ferretdb/wekan-entrypoint.mjs',
   ]) {
     const src = read(rel);
-    assert.ok(!/rm\s+-f[^\n]*RECOVERY_IN_PROGRESS/.test(src),
+    assert.ok(!/rm\s+-f[^\n]*RECOVERY_IN_PROGRESS|rmSync\(inProgress/.test(src),
       `${rel} must not delete the recovery marker (the server does, after a health probe)`);
   }
 });

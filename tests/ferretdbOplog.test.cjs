@@ -9,7 +9,7 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const ferretPaths = [
   'releases/ferretdb/start-wekan.sh',
   'releases/ferretdb/start-wekan.bat',
-  'releases/ferretdb/wekan-entrypoint.sh',
+  'releases/ferretdb/wekan-entrypoint.mjs',
   'docker-compose.yml',
   'docker-compose-ferretdb-v1-postgresql.yml',
   'docker-compose-ferretdb-v1-mysql.yml',
@@ -29,7 +29,7 @@ for (const rel of ferretPaths) {
   test(`${rel} keeps WeKan on polling`, () => {
     const source = read(rel);
     assert.doesNotMatch(source, /MONGO_OPLOG_URL=.*mongodb:|WEKAN_FERRETDB_OPLOG|WEKAN_FERRETDB_REPL_SET/);
-    assert.match(source, /METEOR_REACTIVITY_ORDER[=:]"?polling/);
+    assert.match(source, /METEOR_REACTIVITY_ORDER(?:[=:]| = )["']?polling/);
     assert.doesNotMatch(source, /METEOR_REACTIVITY_ORDER[=:][^\n]*oplog/);
   });
 }

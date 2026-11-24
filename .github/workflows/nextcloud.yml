@@ -93,8 +93,10 @@ jobs:
           unset credentials
           docker pull "ghcr.io/wekan/wekan:v$VERSION"
           # Old releases lack the connection-bound Nextcloud authentication.
-          docker run --rm --entrypoint /bin/sh "ghcr.io/wekan/wekan:v$VERSION" -ec \
-            'test -f /build/nextcloud-exapp-capability.json && test -x /build/ferretdb'
+          # node, not /bin/sh: the image is distroless and has no shell. Every
+          # image, old or new, has /usr/local/bin/node.
+          docker run --rm --entrypoint /usr/local/bin/node "ghcr.io/wekan/wekan:v$VERSION" -e \
+            'const fs = require("fs"); fs.statSync("/build/nextcloud-exapp-capability.json"); fs.accessSync("/build/ferretdb", fs.constants.X_OK)'
           node --test exapp/tests/*.test.mjs
           image="ghcr.io/wekan/wekan-exapp:v$VERSION"
           if docker buildx imagetools inspect "$image" > .tools/exapp-image.txt 2> .tools/exapp-image-error.txt; then

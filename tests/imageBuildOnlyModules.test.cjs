@@ -12,7 +12,7 @@
 //
 // Two build tools, shipped by accident. `npm` runs exactly once in the image -
 // the `npm install` that populates programs/server - and the container starts
-// bash + wekan-entrypoint.sh, which never calls it. node-gyp and
+// wekan-entrypoint.mjs, which never calls it. node-gyp and
 // @mapbox/node-pre-gyp are there to COMPILE native modules during that install,
 // and the bundle compiles none: uWebSockets.js, bcrypt and argon2 all ship
 // prebuilt .node files that node-gyp-build picks at require time.

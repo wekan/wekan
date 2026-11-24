@@ -66,7 +66,7 @@ test('every docker-compose file in the repo asks for sockjs', () => {
 
 test('the launchers and dev scripts ask for sockjs', () => {
   for (const f of ['start-wekan.sh', 'start-wekan.bat', 'build.sh', 'build.bat',
-    'releases/ferretdb/start-wekan.sh', 'releases/ferretdb/wekan-entrypoint.sh']) {
+    'releases/ferretdb/start-wekan.sh']) {
     if (!exists(f)) continue;
     for (const value of settings(read(f))) {
       assert.strictEqual(value, 'sockjs', `${f} sets DDP_TRANSPORT=${value}`);
@@ -87,7 +87,7 @@ test('the Sandstorm grain pins it, because its environ is the WHOLE environment'
 });
 
 // The coercion: what keeps an existing deployment working across the upgrade.
-for (const launcher of ['releases/ferretdb/wekan-entrypoint.sh', 'releases/ferretdb/start-wekan.sh']) {
+for (const launcher of ['releases/ferretdb/start-wekan.sh']) {
   test(`${path.basename(launcher)} coerces an inherited uws back to sockjs`, () => {
     const s = read(launcher);
     assert.ok(/if \[ "\$\{DDP_TRANSPORT:-\}" = "uws" \]; then/.test(s),
@@ -100,10 +100,16 @@ for (const launcher of ['releases/ferretdb/wekan-entrypoint.sh', 'releases/ferre
   });
 }
 
-test('the coercion runs before the server is started, not after', () => {
-  const s = read('releases/ferretdb/wekan-entrypoint.sh');
-  assert.ok(s.indexOf('DDP_TRANSPORT:-sockjs') < s.indexOf('exec node /build/main.js'),
-    'a transport chosen after exec would never be read');
+// The Docker image is distroless, so its entrypoint is Node.js: ddpTransport(),
+// run for real in tests/dockerEntrypoint.test.cjs.
+test('wekan-entrypoint.mjs coerces an inherited uws back to sockjs, before the server is started', () => {
+  const s = read('releases/ferretdb/wekan-entrypoint.mjs');
+  assert.ok(/if \(value === 'uws'\)/.test(s), 'it must notice the value it cannot honour');
+  assert.ok(/log\('WeKan: DDP_TRANSPORT=uws is not available/.test(s), 'and SAY so');
+  assert.ok(/return value \|\| 'sockjs';/.test(s), 'and set a value either way');
+  assert.ok(s.indexOf('env.DDP_TRANSPORT = ddpTransport(') > 0);
+  assert.ok(s.indexOf('env.DDP_TRANSPORT = ddpTransport(') < s.indexOf("path.join(build, 'main.js')"),
+    'a transport chosen after the start would never be read');
 });
 
 // The trim: every place a bundle is assembled has to run it, or one platform

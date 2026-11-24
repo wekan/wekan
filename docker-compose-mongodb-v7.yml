@@ -58,8 +58,9 @@
 # https://github.com/wekan/wekan/tree/main/docs/Backup
 # If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
 # 1) Going inside containers:
-#    a) Wekan app, does not contain data
-#         docker exec -it wekan-app bash
+#    a) Wekan app, does not contain data. The image is distroless and has no
+#       shell; node is there:
+#         docker exec -it wekan-app node
 #    b) MongoDB, contains all data
 #         docker exec -it wekan-db bash
 # 2) Copying database to outside of container:

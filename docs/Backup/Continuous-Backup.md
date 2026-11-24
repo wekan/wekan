@@ -326,7 +326,7 @@ mirrored into that bucket under **Folder in the bucket**. It uses the same
 | `server/lib/continuousBackup/encryption.js` | AES-256-GCM, the key file, the stream's key check, keyed blob names |
 | `server/lib/continuousBackup/cloud.js` | The mirror to S3/MinIO, Azure or GCS, and fetching it back |
 | `server/continuousBackup.js` | Settings, status, restore points, fetch from cloud and restore, all for site administrators only |
-| `releases/ferretdb/wekan-entrypoint.sh`, `releases/ferretdb/start-wekan.sh`, `snap-src/bin/ferretdb-control` | The `continuous` restore mode on startup |
+| `releases/ferretdb/wekan-entrypoint.mjs`, `releases/ferretdb/start-wekan.sh`, `snap-src/bin/ferretdb-control` | The `continuous` restore mode on startup |
 | `client/components/settings/attachments.{jade,js}` | The pane |
 
 ## Tests

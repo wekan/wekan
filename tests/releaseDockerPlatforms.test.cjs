@@ -111,9 +111,13 @@ test('the manifest verify reads the CPU variant, so linux/arm/v7 is not misread 
     "docker verify must strip a trailing /v8 so arm64 (recorded as arm64/v8) matches 'linux/arm64'");
 });
 
-test('the base image is debian:trixie (which publishes i386 and arm/v7)', () => {
-  assert.ok(/^FROM\s+debian:trixie/m.test(dockerfile),
-    'Dockerfile base must be debian:trixie - the base that lets linux/386 be an image');
+test('the runtime root is debian:trixie (which publishes i386 and arm/v7) under distroless', () => {
+  assert.ok(/^FROM\s+debian:trixie AS runtime-root$/m.test(dockerfile),
+    'the emulated stage must be debian:trixie - the base that lets linux/386 be an image');
+  assert.ok(/^FROM gcr\.io\/distroless\/cc-debian13:nonroot AS distroless$/m.test(dockerfile),
+    'the image is distroless');
+  assert.ok(/^FROM scratch AS runtime-386$/m.test(dockerfile),
+    'distroless publishes no linux/386, so its root is assembled from debian:trixie');
 });
 
 test('the Dockerfile can install Node for every candidate platform, with the right bundle', () => {
@@ -168,12 +172,33 @@ test('a candidate platform the BASE image does not publish is dropped, not silen
   // run the hard-float node-armv6 the armv6 bundle carries. The Decide step must
   // therefore ask the base what it publishes and treat a platform it lacks like a
   // bundle that did not land.
-  // The LAST FROM: the first is the bundle stage, which runs on the build
-  // machine (--platform=$BUILDPLATFORM) and is not what the image is made of.
-  assert.ok(/base_image="\$\(awk '\/\^FROM \/\{base=\$2\} END\{print base\}' Dockerfile\)"/.test(body),
-    'the base image name must be read out of the Dockerfile, not written a second time here');
-  assert.ok(/docker buildx imagetools inspect "\$base_image"/.test(body),
-    'the Decide step must ask the base image which platforms it publishes');
+  // Two bases since the image is distroless: runtime-root (debian:trixie, run
+  // as the target for every platform) and the distroless root - except where
+  // the Dockerfile assembles the root itself (FROM scratch AS runtime-<arch>).
+  // Both names are read out of the Dockerfile, not written a second time here.
+  const awk = name => body.match(new RegExp(`${name}="\\$\\((awk '[^\\n]*' Dockerfile[^\\n]*)\\)"`));
+  for (const name of ['root_image', 'distroless_image', 'assembled']) {
+    assert.ok(awk(name), `the Decide step reads ${name} out of the Dockerfile`);
+  }
+  assert.ok(/plats_of\(\) \{\n\s+docker buildx imagetools inspect "\$1"/.test(body),
+    'the Decide step must ask the base images which platforms they publish');
+  assert.ok(/root_plats="\$\(plats_of "\$root_image"\)"/.test(body) && /distroless_plats="\$\(plats_of "\$distroless_image"\)"/.test(body));
+  // Run those awk lines on the real Dockerfile: the names and 386 come out.
+  const { execFileSync } = require('child_process');
+  const run = name => execFileSync('sh', ['-c', `${awk(name)[1]}`], { cwd: path.join(__dirname, '..'), encoding: 'utf8' }).trim();
+  assert.strictEqual(run('root_image'), 'debian:trixie');
+  assert.strictEqual(run('distroless_image'), 'gcr.io/distroless/cc-debian13:nonroot');
+  assert.strictEqual(run('assembled'), 'linux/386');
+  // A platform needs runtime-root to publish it exactly AND (distroless or an
+  // assembled root): run the loop on the platform lists both bases publish.
+  const loop = body.slice(body.indexOf('base_plats=""'), body.indexOf('base_image="${root_image}'));
+  const both = execFileSync('sh', ['-c', `root_plats="linux/386 linux/amd64 linux/arm/v5 linux/arm/v7 linux/arm64 linux/ppc64le linux/riscv64 linux/s390x"
+distroless_plats="linux/amd64 linux/arm64 linux/arm/v7 linux/s390x linux/ppc64le linux/riscv64"
+assembled="linux/386 "
+${loop}
+echo $base_plats`], { encoding: 'utf8' }).trim().split(' ').sort();
+  assert.deepStrictEqual(both, ['linux/386', 'linux/amd64', 'linux/arm/v7', 'linux/arm64', 'linux/ppc64le', 'linux/riscv64', 'linux/s390x'],
+    'every platform the image had before; arm/v5 (and so arm/v6) is not among them');
   assert.ok(/base_has\(\)/.test(body) && /if ! base_has "\$p"; then/.test(body),
     'both the core and the optional loop must check the base publishes the platform');
   assert.ok(/publishes no \$p, and a request for it would resolve to a lower-variant base/.test(body),

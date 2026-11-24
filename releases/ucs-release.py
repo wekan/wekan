@@ -147,14 +147,49 @@ app_mirror=$(ucs_compose_image "$ucs_compose" wekan)
 db_mirror=$(ucs_compose_image "$ucs_compose" wekandb)
 ucs_pull_image "$image" "$app_mirror"
 ucs_pull_image "$dbimage" "$db_mirror"
-docker run --rm --entrypoint bash "$image" /opt/ucs-migration/start.sh --check
+docker run --rm --entrypoint /usr/local/bin/node "$image" /opt/ucs-migration/start.mjs --check
 """)
     worker_tail = '-v /var/run/docker.sock:/var/run/docker.sock -v "$target:/data" "$helper"'
     if hook.count(worker_tail) != 1:
         raise ValueError('Expected one UCS migration worker command')
-    hook = hook.replace(worker_tail, worker_tail + ' bash /opt/ucs-migration/start.sh')
+    hook = hook.replace(worker_tail, worker_tail + ' /usr/local/bin/node /opt/ucs-migration/start.mjs')
+    hook = distroless_ownership(hook)
     (destination / 'preinst').write_text(hook, encoding='utf-8')
     return {'app_image': app_image, 'helper_image': helper_image, 'database_image': database_image}
+
+
+# The companion hook prepares the data volume with the app image's shell:
+#   "$image" bash -ec 'mkdir -p ...; touch ...; chown -R wekan:wekan /data; ...'
+# The WeKan image is distroless since the Artifact Hub security report and has
+# no shell, so each of those runs node instead, doing the same: wekan is
+# 999:999 in the image, FerretDB's files are 1000:1000. A JavaScript string in
+# shell single quotes, so it has no single quote of its own.
+_OWNERSHIP_JS = ('const fs = require("fs"), path = require("path");'
+                 ' const own = (p, u, g) => { fs.lchownSync(p, u, g);'
+                 ' if (fs.lstatSync(p).isDirectory()) for (const n of fs.readdirSync(p)) own(path.join(p, n), u, g); };')
+_OWNERSHIP_STEPS = {
+    'mkdir -p /data/files/db': 'fs.mkdirSync("/data/files/db", { recursive: true });',
+    'touch /data/.ucs-migration-complete': ('fs.closeSync(fs.openSync("/data/.ucs-migration-complete", "a"));'
+                                             ' fs.utimesSync("/data/.ucs-migration-complete", new Date(), new Date());'),
+    'chown -R wekan:wekan /data': 'own("/data", 999, 999);',
+    'chown -R 1000:1000 /data/files/db': 'own("/data/files/db", 1000, 1000);',
+    'chmod 1777 /ucs-tmp': 'fs.chmodSync("/ucs-tmp", 0o1777);',
+}
+_SHELL_RUN = re.compile(r'"\$image" bash -ec \\\n(\s*)\'([^\'\n]*)\'')
+
+
+def distroless_ownership(hook):
+    def node(match):
+        steps = [step.strip() for step in match.group(2).split(';') if step.strip()]
+        unknown = [step for step in steps if step not in _OWNERSHIP_STEPS]
+        if unknown:
+            raise ValueError(f'preinst runs a shell command the distroless image cannot: {unknown[0]}')
+        js = ' '.join([_OWNERSHIP_JS] + [_OWNERSHIP_STEPS[step] for step in steps])
+        return f'--entrypoint /usr/local/bin/node "$image" -e \\\n{match.group(1)}\'{js}\''
+    hook = _SHELL_RUN.sub(node, hook)
+    if re.search(r'"\$(image|helper)" (bash|sh)\b', hook):
+        raise ValueError('preinst still runs a shell in the distroless WeKan image')
+    return hook
 
 
 def catalog_versions(data):
@@ -233,7 +268,7 @@ def verify_public_images(directory=None, app_image=None):
                     f'UCS cannot pull {reference} anonymously from any mirror. Ensure the version exists '
                     'and its package is public, then retry. Portal draft not uploaded.')
         result = subprocess.run(['docker', '--config', config, 'run', '--rm', '--entrypoint',
-                                 'bash', references[0], '/opt/ucs-migration/start.sh', '--check'],
+                                 '/usr/local/bin/node', references[0], '/opt/ucs-migration/start.mjs', '--check'],
                                 capture_output=True, text=True)
         if result.returncode:
             raise RuntimeError('Selected WeKan image lacks working bundled UCS migration tools; '

@@ -15,8 +15,10 @@
 // Now stage 1 runs on the BUILD machine (--platform=$BUILDPLATFORM) for each
 // target: download that target's .zip, check it against the release's own
 // .sha256sum, re-run the telemetry check, and read bundle/node's ELF header to
-// prove it is the target's CPU. Stage 2, the only emulated part, adds the WeKan
-// user, an OS update and three runtime packages, and copies stage 1's result.
+// prove it is the target's CPU - and it writes the wekan user (999:999), since
+// the image has no useradd. The image is distroless: runtime-root, the only
+// emulated part, unpacks libatomic1 (and, for 386, which distroless does not
+// publish, the whole cc root) from Debian 13; the image itself is only COPY.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -36,17 +38,29 @@ function test(name, fn) {
 }
 
 const froms = [...dockerfile.matchAll(/^FROM .*$/gm)].map((m) => m[0]);
-const stage1 = dockerfile.slice(dockerfile.indexOf(froms[0]), dockerfile.indexOf(froms[froms.length - 1]));
-const stage2 = dockerfile.slice(dockerfile.indexOf(froms[froms.length - 1]));
+const stage1 = dockerfile.slice(dockerfile.indexOf(froms[0]), dockerfile.indexOf(froms[1]));
+const emulated = dockerfile.slice(dockerfile.indexOf('FROM debian:trixie AS runtime-root'), dockerfile.indexOf('FROM gcr.io/distroless'));
+const stage2 = dockerfile.slice(dockerfile.lastIndexOf(`\n${froms[froms.length - 1]}`));
 
 console.log('dockerImageFromBundle:');
 
-test('two stages: the bundle on the build machine, the image on the target', () => {
+test('the bundle on the build machine, the runtime root per platform, the image on top', () => {
   assert.deepStrictEqual(froms, [
     'FROM --platform=$BUILDPLATFORM debian:trixie AS bundle',
-    'FROM debian:trixie',
+    'FROM debian:trixie AS runtime-root',
+    'FROM gcr.io/distroless/cc-debian13:nonroot AS distroless',
+    'FROM distroless AS runtime-amd64',
+    'FROM distroless AS runtime-arm64',
+    'FROM distroless AS runtime-arm',
+    'FROM distroless AS runtime-ppc64le',
+    'FROM distroless AS runtime-s390x',
+    'FROM distroless AS runtime-riscv64',
+    'FROM scratch AS runtime-386',
+    'FROM runtime-${TARGETARCH}',
   ]);
+  assert.ok(/^ARG TARGETARCH$/m.test(dockerfile.slice(0, dockerfile.indexOf(froms[0]))), 'the platform in the global scope, for the last FROM');
   assert.ok(/^COPY --from=bundle \/out\/ \/$/m.test(stage2), 'the image takes stage 1\'s result');
+  assert.ok(/^COPY --from=runtime-root \/extra\/ \/$/m.test(stage2), 'and what the distroless root lacks');
 });
 
 test('stage 1 builds from the published .zip, verified', () => {
@@ -78,21 +92,29 @@ test('no reinstall, no second Node.js download, no toolchain', () => {
   const all = code(dockerfile);
   assert.ok(!/npm install|npm-retry|node \/tmp\//.test(all), 'no npm install and no bundle post-processing');
   assert.ok(!/nodejs\.org|unofficial-builds|resolve-node-source/.test(all), 'no Node.js download of its own');
-  assert.ok(!/build-essential|\bg\+\+|\bgcc\b|BUILD_DEPS/.test(all), 'no compiler toolchain');
+  assert.ok(!/build-essential|\bg\+\+|\bgcc\b(?!-14-base)|BUILD_DEPS/.test(all), 'no compiler toolchain (gcc-14-base is libgcc\'s data package)');
 });
 
-test('stage 2, the emulated one, does only what needs the target CPU', () => {
-  const s = code(stage2);
-  const runs = [...s.matchAll(/^RUN /gm)].length;
-  assert.strictEqual(runs, 2, 'one RUN for user + packages, one chmod');
-  assert.ok(/apt-get install --assume-yes --no-install-recommends file libatomic1\n/.test(s),
-    'exactly the two runtime packages - no docker-cli, whose Go stdlib filled the image scan');
+test('runtime-root, the emulated stage, only unpacks Debian packages for the target CPU', () => {
+  const s = code(emulated);
+  assert.strictEqual([...s.matchAll(/^RUN /gm)].length, 1);
+  assert.ok(/^unpack \/extra libatomic1$/m.test(s), 'every platform: libatomic1');
+  assert.ok(/unpack \/rootfs base-files netbase tzdata ca-certificates libc6 gcc-14-base libgcc-s1 libstdc\+\+6 libssl3t64 libatomic1/.test(s),
+    '386: distroless cc-debian13\'s packages');
+  assert.ok(!/docker|golang|\bfile\b/.test(s), 'no docker-cli, whose Go stdlib filled the image scan, and no file');
   assert.ok(!/wget|curl|unzip|python3/.test(s), 'nothing downloaded or checked here: that is stage 1');
 });
 
-test('the docker job reads the base image from the last FROM', () => {
+test('the image itself runs nothing: distroless has no shell', () => {
+  const s = code(stage2);
+  assert.strictEqual([...s.matchAll(/^RUN /gm)].length, 0);
+  assert.ok(/^USER wekan$/m.test(s));
+});
+
+test('the docker job reads both bases from the Dockerfile', () => {
   const wf = read('.github/workflows/release-all.yml');
-  assert.ok(/base_image="\$\(awk '\/\^FROM \/\{base=\$2\} END\{print base\}' Dockerfile\)"/.test(wf));
+  assert.ok(wf.includes(`root_image="$(awk '$1 == "FROM" && $NF == "runtime-root" {print $2}' Dockerfile)"`));
+  assert.ok(wf.includes(`distroless_image="$(awk '$1 == "FROM" && $NF == "distroless" {print $2}' Dockerfile)"`));
 });
 
 console.log(`\ndockerImageFromBundle: all ${passed} tests passed`);

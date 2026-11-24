@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -149,17 +149,28 @@ test('the image installs no Docker CLI or other Go client, and the migration too
   const dockerfile = fs.readFileSync(path.join(ROOT, 'Dockerfile'), 'utf8');
   const installs = [...dockerfile.matchAll(/^[^#\n]*apt-get install[^\n]*/gm)].map((m) => m[0]).join('\n');
   assert.doesNotMatch(installs, /\b(docker-cli|docker\.io|docker-ce|docker-ce-cli|containerd|podman|golang)\b/);
+  // The image is distroless - no shell, no /usr/bin/env - so the tools are
+  // Node.js with an absolute interpreter, which the kernel runs directly.
   for (const tool of ['mongo', 'mongoexport']) {
-    const src = fs.readFileSync(path.join(ROOT, 'releases/ucs-migration/tools', tool), 'utf8');
-    assert.match(src, /exec node "\$\(dirname -- "\$0"\)\/\.\.\/docker-exec\.mjs" wekan-db /);
-    assert.doesNotMatch(src, /\bdocker exec\b/);
-    assert.ok(fs.statSync(path.join(ROOT, 'releases/ucs-migration/tools', tool)).mode & 0o111, `${tool} is executable`);
+    const file = path.join(ROOT, 'releases/ucs-migration/tools', tool);
+    const src = fs.readFileSync(file, 'utf8');
+    assert.match(src, /^#!\/usr\/local\/bin\/node\n/);
+    assert.ok(src.includes(`[path.join(here, '..', 'docker-exec.mjs'), 'wekan-db', '${tool}', ...process.argv.slice(2)]`));
+    assert.doesNotMatch(src.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n'), /\brequire\(|^import |__dirname/m, 'CommonJS in the image, ESM in the repository: neither may be assumed');
+    assert.doesNotMatch(src, /\bdocker exec\b|#!\/bin\/sh/);
+    assert.ok(fs.statSync(file).mode & 0o111, `${tool} is executable`);
+    // For real: no Docker socket answers, so the status is Docker's own 125.
+    const r = spawnSync(process.execPath, [file, '--quiet'], { encoding: 'utf8',
+      env: { ...process.env, DOCKER_HOST: `unix://${path.join(ROOT, '.tools', 'tmp', 'no-such-docker.sock')}` } });
+    assert.equal(r.status, 125, r.stderr);
   }
-  const start = fs.readFileSync(path.join(ROOT, 'releases/ucs-migration/start.sh'), 'utf8');
+  const start = fs.readFileSync(path.join(ROOT, 'releases/ucs-migration/start.mjs'), 'utf8');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'releases/ucs-migration/start.sh')), 'no shell launcher: there is no shell');
   assert.doesNotMatch(start, /docker --version/, 'the --check must not need a Docker CLI');
-  assert.match(start, /docker-exec\.mjs; do node --check/);
+  assert.match(start, /for \(const script of \['run\.mjs', 'importer\.mjs', 'verify\.mjs', 'docker-exec\.mjs'\]\)/);
+  assert.match(start, /\['--check', path\.join\(root, script\)\]/);
   // Nothing else in the migration calls a docker binary either.
-  for (const f of ['run.mjs', 'importer.mjs', 'verify.mjs', 'start.sh']) {
+  for (const f of ['run.mjs', 'importer.mjs', 'verify.mjs', 'start.mjs']) {
     const src = fs.readFileSync(path.join(ROOT, 'releases/ucs-migration', f), 'utf8');
     assert.doesNotMatch(src, /spawn(Sync)?\(\s*['"]docker['"]|exec docker |^\s*docker /m, f);
   }

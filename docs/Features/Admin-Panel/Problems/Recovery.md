@@ -142,7 +142,7 @@ Recovery evidence required when work is reclaimed after a restart.
 #### WeKan startup (the launch scripts, files at rest)
 
 Before FerretDB opens the files, every launch path (snap `ferretdb-control`, the
-bundled release `start-wekan.sh`, the Docker `wekan-entrypoint.sh`):
+bundled release `start-wekan.sh`, the Docker `wekan-entrypoint.mjs`):
 
 - **Backs up the text data.** Copies `wekan.sqlite*` into a `backup/` subfolder of the
   same data dir, keeping the previous generation under `backup/prev`. It only ever

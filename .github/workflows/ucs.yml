@@ -104,7 +104,7 @@ jobs:
 
       # The standard WeKan release already published the migration tools inside
       # the app image on Docker Hub, GHCR and Quay. upload checks anonymous pulls
-      # with mirror fallback and runs start.sh --check before any portal write.
+      # with mirror fallback and runs start.mjs --check before any portal write.
       - name: Upload or finish the UCS portal draft
         id: upload
         if: steps.config.outputs.enabled == 'true' && steps.portal.outputs.skip != 'true'

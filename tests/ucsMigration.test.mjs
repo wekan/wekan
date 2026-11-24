@@ -78,7 +78,7 @@ if (a[0] === 'exec' && a.includes('mongodump')) {
   if (process.env.TEST_MODE === 'dump-fail') process.exit(1);
   fs.mkdirSync(path.join(base, a[a.indexOf('--out')+1], 'wekan'), { recursive: true });
 }
-if (a[0] === 'run' && a.some(arg => arg.includes('touch /data/.ucs-migration-complete'))) {
+if (a[0] === 'run' && a.some(arg => arg.includes('/data/.ucs-migration-complete'))) {
   fs.mkdirSync(path.join(base, 'ferretdb/files/db'), { recursive: true });
   fs.writeFileSync(path.join(base, 'ferretdb/.ucs-migration-complete'), 'fresh');
 }
@@ -196,7 +196,8 @@ for (const [mode, registry] of [['ucs-only', 'docker.software-univention.de/'],
     assert.ok(!pulls.some(image => image.includes('wekan-ucs-migration')));
     assert.ok(call(r, 'tag', 'ghcr.io/wekan/wekan:v12.32') < call(r, 'stop', 'wekan-app'));
     const worker = r.calls.find(a => a[0] === 'run' && a.includes('wekan-ucs-migration'));
-    assert.deepEqual(worker.slice(-3), ['ghcr.io/wekan/wekan:v12.32', 'bash', '/opt/ucs-migration/start.sh']);
+    // node, not bash: the image is distroless and has no shell.
+    assert.deepEqual(worker.slice(-3), ['ghcr.io/wekan/wekan:v12.32', '/usr/local/bin/node', '/opt/ucs-migration/start.mjs']);
   });
 }
 

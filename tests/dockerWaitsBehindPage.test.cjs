@@ -26,7 +26,9 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
-const entrypoint = read('releases/ferretdb/wekan-entrypoint.sh');
+// The Docker image is distroless, so its entrypoint is Node.js; the page and
+// its probe are run for real in tests/dockerEntrypoint.test.cjs.
+const entrypoint = read('releases/ferretdb/wekan-entrypoint.mjs');
 const bridge = read('releases/ferretdb/recovery-bridge.mjs');
 const ready = read('releases/ferretdb/db-ready.mjs');
 const dockerfile = read('Dockerfile');
@@ -37,20 +39,19 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('dockerWaitsBehindPage:');
 
 test('the entrypoint asks whether the database answers', () => {
-  assert.ok(/node \/build\/db-ready\.mjs "\$MONGO_URL"/.test(entrypoint), 'it asks');
-  assert.ok(/NODE_PATH="\$_db_node_path"/.test(entrypoint),
-    'with the driver from the bundle, so nothing extra is installed');
-  assert.ok(/_db_node_path="\/build\/programs\/server\/node_modules"/.test(entrypoint),
-    'which is where the bundle keeps it');
+  assert.ok(entrypoint.includes("runQuiet(node, [dbReady, env.MONGO_URL], probeEnv)"), 'it asks');
+  assert.ok(entrypoint.includes("const dbReady = path.join(build, 'db-ready.mjs');"), 'the probe beside it');
+  assert.ok(entrypoint.includes("NODE_PATH: path.join(build, 'programs/server/node_modules')"),
+    'with the driver from the bundle, so nothing extra is installed - which is where the bundle keeps it');
 });
 
 test('while it does not, the page holds the web port', () => {
   // Both facts, not one literal line: the bridge is told this is the database
   // reason, and it is given the web port. They were on one line until the
   // failure detail was added beside them.
-  assert.ok(/WEKAN_BRIDGE_REASON=database/.test(entrypoint),
+  assert.ok(/WEKAN_BRIDGE_REASON: 'database'/.test(entrypoint),
     'the bridge serves the database reason');
-  assert.ok(/PORT="\$\{PORT:-8080\}" PRODUCT_NAME=/.test(entrypoint),
+  assert.ok(/PORT: env\.PORT \|\| '8080', PRODUCT_NAME:/.test(entrypoint),
     'on the web port');
   assert.ok(/REASON === 'database'/.test(bridge), 'which the bridge knows');
   assert.ok(/is waiting for its database/.test(bridge), 'and says so');
@@ -62,9 +63,9 @@ test('the page stops before WeKan binds the port (negative)', () => {
   // Two servers cannot hold one port. The page has to be gone first, and gone
   // whichever way the loop ended.
   const tail = entrypoint.slice(entrypoint.indexOf('#6595: WAIT FOR THE DATABASE'));
-  assert.ok(/kill "\$_dbpid"/.test(tail) && /wait "\$_dbpid"/.test(tail),
-    'it is killed and reaped');
-  assert.ok(tail.indexOf('kill "$_dbpid"') < tail.indexOf('exec node /build/main.js'),
+  assert.ok(/await stop\(page\);/.test(tail),
+    'it is stopped and its exit awaited');
+  assert.ok(tail.lastIndexOf('await stop(page);') < tail.indexOf("path.join(build, 'main.js')"),
     'before WeKan starts');
 });
 
@@ -74,8 +75,8 @@ test('the wait is not a timeout on the database (negative)', () => {
   const tail = entrypoint.slice(entrypoint.indexOf('#6595: WAIT FOR THE DATABASE'));
   assert.ok(/starting WeKan anyway, which will keep waiting for it/.test(tail),
     'that is what the end of the window means');
-  assert.ok(/WEKAN_DB_WAIT_MAX_SECONDS:-600/.test(tail), 'and it is a page window, in seconds');
-  assert.ok(/WEKAN_DB_WAIT_PAGE:-true/.test(tail), 'with a way to turn it off');
+  assert.ok(/Number\(env\.WEKAN_DB_WAIT_MAX_SECONDS \|\| 600\)/.test(tail), 'and it is a page window, in seconds');
+  assert.ok(/\(env\.WEKAN_DB_WAIT_PAGE \|\| 'true'\) === 'true'/.test(entrypoint), 'with a way to turn it off');
 });
 
 test('a database that is already up is not waited for at all (negative)', () => {
@@ -83,8 +84,8 @@ test('a database that is already up is not waited for at all (negative)', () => 
   // The test used to pin `if ! …`, which could not tell the three answers apart
   // once "I could not ask" became one of them; it pins the exit code instead.
   const tail = entrypoint.slice(entrypoint.indexOf('#6595: WAIT FOR THE DATABASE'));
-  assert.ok(/_db_rc=\$\?/.test(tail), 'the probe\'s answer is kept');
-  assert.ok(/elif \[ "\$_db_rc" != "0" \]/.test(tail),
+  assert.ok(/const first = probe\(\);/.test(tail), 'the probe\'s answer is kept');
+  assert.ok(/\} else if \(first\.status !== 0\) \{/.test(tail),
     'and the page is only for the case where it does not answer');
 });
 
@@ -157,7 +158,7 @@ test('"I could not ask" never puts a page in front of the database (negative)', 
   // shown on that basis hides a healthy WeKan. Exit 2 is distinct from 1 so the
   // caller can tell the two apart.
   assert.ok(/process\.exit\(2\)/.test(ready), 'no driver exits 2, not 1');
-  assert.ok(/_db_rc" = "2"/.test(entrypoint), 'and the entrypoint checks for it');
+  assert.ok(/if \(first\.status === 2\)/.test(entrypoint), 'and the entrypoint checks for it');
   assert.ok(/starting WeKan without the waiting page/.test(entrypoint),
     'and starts WeKan instead of serving the page');
 });
@@ -166,9 +167,9 @@ test('the reason reaches the log and the page', () => {
   // A probe that fails silently is why this took a bug report to find.
   assert.ok(/console\.error\(`db-ready: \$\{err\.name\}/.test(ready),
     'the probe prints why it failed');
-  assert.ok(!/node \/build\/db-ready\.mjs "\$MONGO_URL" 2>\/dev\/null$/m.test(entrypoint),
-    'and the entrypoint no longer throws that reason away');
-  assert.ok(/WEKAN_BRIDGE_DETAIL="\$_db_why"/.test(entrypoint),
+  assert.ok(/stderr: String\(r\.stderr \|\| ''\)\.trim\(\)/.test(entrypoint),
+    'and the entrypoint keeps that reason');
+  assert.ok(/WEKAN_BRIDGE_DETAIL: first\.stderr/.test(entrypoint),
     'the page is given it too - whoever waits is looking at a browser, not at docker logs');
   assert.ok(/WEKAN_BRIDGE_DETAIL/.test(bridge) && /class="detail"/.test(bridge),
     'and the page renders it');

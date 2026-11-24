@@ -63,7 +63,7 @@ that far would already have failed.
 
 **The database column is a default, not a limit.** Every bundle carries a
 `ferretdb` binary, so FerretDB v1 runs on every platform; the default is decided
-by [`releases/ferretdb/wekan-entrypoint.sh`](../../../../../releases/ferretdb/wekan-entrypoint.sh)
+by [`releases/ferretdb/wekan-entrypoint.mjs`](../../../../../releases/ferretdb/wekan-entrypoint.mjs)
 from a `/build/.ferretdb-default` marker that every extra-architecture bundle
 carries and the amd64/arm64 bundles have removed. `WEKAN_DB=ferretdb` or
 `WEKAN_DB=mongodb` overrides it on any platform, and setting `MONGO_URL` on a
@@ -79,10 +79,15 @@ does this before it builds anything:
    `opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64
    linux/386:i386 linux/arm/v6:armv6 linux/arm/v7:armhf"` — where each entry is
    *docker platform : the bundle arch the Dockerfile downloads for it*.
-2. It asks the **base image** which platforms it publishes
-   (`docker buildx imagetools inspect`, with the base name read out of the
-   `Dockerfile` so there is no second copy of it), and drops any candidate the
-   base lacks.
+2. It asks the **base images** which platforms they publish
+   (`docker buildx imagetools inspect`, with the names read out of the
+   `Dockerfile` so there is no second copy of them), and drops any candidate
+   they lack. There are two since the image became distroless: `debian:trixie`,
+   which the `runtime-root` stage runs as the target CPU, must publish the
+   platform exactly; and the root, `gcr.io/distroless/cc-debian13`, must publish
+   it too - unless the `Dockerfile` assembles that root itself in a
+   `FROM scratch AS runtime-<arch>` stage, as it does for `386`, which distroless
+   does not publish.
 3. It asks the **release**, with an HTTP `HEAD`, whether
    `wekan-<version>-<arch>.zip` is there.
 

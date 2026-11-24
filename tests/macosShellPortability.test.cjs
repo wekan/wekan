@@ -79,7 +79,7 @@ test('/proc memory, load and command lines only with a macOS fallback', () => {
   // macOS and the BSDs have no /proc. db-conformance.sh read a run's command
   // line there, so on a Mac every live run looked dead and a second run
   // removed its containers. The Docker entrypoint only ever runs on Linux.
-  const linuxOnly = new Set(['releases/ferretdb/wekan-entrypoint.sh']);
+  const linuxOnly = new Set(['releases/ferretdb/wekan-entrypoint.mjs']);
   assert.deepStrictEqual(offenders(c => /\/proc\/(meminfo|loadavg|\$[A-Za-z_{][^/]*\/cmdline)/.test(c)
     && !/sysctl -n|ps -o command=/.test(c)).filter(rel => !linuxOnly.has(rel)), []);
 });

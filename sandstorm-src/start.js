@@ -46,7 +46,7 @@ const NODE_MODULES = path.join(APPROOT, 'programs/server/node_modules');
 // back to bundled qemu-user instead of dying instantly with SIGILL (exit 132).
 // Sandstorm has the least control over its hardware of any WeKan platform, and
 // was the only launcher still spawning binaries directly: Docker
-// (releases/ferretdb/wekan-entrypoint.sh), the bundle
+// (releases/ferretdb/wekan-entrypoint.mjs), the bundle
 // (releases/ferretdb/start-wekan.sh) and the snap (snap-src/bin/mongodb-control)
 // already route through it.
 //

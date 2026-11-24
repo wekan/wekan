@@ -1,6 +1,32 @@
 Which CPU platforms the image is published for, and why some bundle platforms are
 not images: [CPU-platforms.md](CPU-platforms.md).
 
+## The image is distroless
+
+The WeKan image is built on [distroless](https://github.com/GoogleContainerTools/distroless)
+`cc-debian13` (on linux/386, which distroless does not publish, the same Debian 13
+packages assembled the same way): glibc, libstdc++, libgcc, libatomic, CA
+certificates and tzdata, and then node, WeKan, FerretDB and the MongoDB tools.
+There is no shell, no package manager and no coreutils in it, so the hundreds of
+Debian packages a security scanner used to list in the image are not there.
+
+What that changes when you run it:
+
+- `docker exec -it wekan-app bash` (or `sh`) does not work. `node` does:
+  `docker exec -it wekan-app node`, and so do the MongoDB Database Tools:
+  `docker exec wekan-app /build/mongodump --uri "$MONGO_URL" --archive=/data/wekan.archive`.
+- The container starts with `CMD ["/usr/local/bin/node", "/build/wekan-entrypoint.mjs"]`.
+  A compose file or Helm values that override the command with
+  `bash /build/wekan-entrypoint.sh` must drop that override.
+- An image built `FROM` the WeKan image cannot use a shell-form `RUN`; use the exec
+  form, e.g. `RUN ["/usr/local/bin/node", "-e", "..."]`, or build in another stage
+  and `COPY` the result.
+- The `wekan` user is still uid and gid 999, so existing volumes keep working.
+- `ulimit -s` is no longer raised by the entrypoint. V8's own stack limit is far
+  below the default 8 MiB, so this only matters if you raise `--stack-size` in
+  `NODE_OPTIONS`; then set `ulimits: stack:` in compose, or `--ulimit stack=` with
+  `docker run`.
+
 ## WeKan in self-hosting app stores
 
 Ready files, and the pull request each store expects, for stores that do not have

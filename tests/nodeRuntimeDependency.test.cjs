@@ -8,13 +8,14 @@ test('runtime bundler rejects foreign architectures and preserves licensing', ()
   const result = spawnSync('python3', ['-B', 'tests/bundle-node-runtime.py'], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
 });
-test('Docker keeps libatomic outside the removable build dependencies', () => {
+test('Docker gives every platform libatomic, which distroless cc lacks and node needs', () => {
   const docker = read('Dockerfile');
-  assert.match(docker, /apt-get install[^\n]*file libatomic1/);
-  // There is no removable build-dependency list any more (nothing in the image
-  // is compiled); what must hold is that nothing purges it again.
+  // Unpacked from Debian 13 for the target CPU, with its dpkg record, then
+  // copied over the distroless (or, for 386, the assembled) root.
+  assert.match(docker, /^unpack \/extra libatomic1$/m);
+  assert.match(docker, /^COPY --from=runtime-root \/extra\/ \/$/m);
+  assert.ok(docker.indexOf('COPY --from=runtime-root /extra/ /') > docker.lastIndexOf('\nFROM '), 'into the image itself');
   assert.doesNotMatch(docker, /apt-get (?:remove|purge)[^\n]*libatomic1/);
-  assert.doesNotMatch((docker.match(/ENV BUILD_DEPS="[^"]*"/) || [''])[0], /libatomic1/);
 });
 test('native and emulated Linux bundles both package their own runtime', () => {
   assert.match(read('releases/embed-verified-node.sh'), /python3 "\$here\/bundle-node-runtime.py" "\$dest" \|\| exit 1/);

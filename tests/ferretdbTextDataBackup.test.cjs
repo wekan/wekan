@@ -27,8 +27,11 @@ console.log('ferretdbTextDataBackup:');
 const SCRIPTS = [
   'snap-src/bin/ferretdb-control',
   'releases/ferretdb/start-wekan.sh',
-  'releases/ferretdb/wekan-entrypoint.sh',
 ];
+// The Docker image is distroless, so its entrypoint is Node.js: the same rules,
+// pinned below on releases/ferretdb/wekan-entrypoint.mjs and run for real in
+// tests/dockerEntrypoint.test.cjs.
+const DOCKER_ENTRY = 'releases/ferretdb/wekan-entrypoint.mjs';
 
 // The live MAIN database file (the top-level one, not a backup subfolder copy, and not
 // the -wal/-shm side files). A restore legitimately drops the stale -wal/-shm and
@@ -129,6 +132,39 @@ for (const rel of SCRIPTS) {
       !/cp[^\n]*(attachments|avatars)[^\n]*backup/.test(src),
       'the text-data backup must not copy attachments/avatars',
     );
+  });
+}
+
+{
+  const src = read(DOCKER_ENTRY);
+  const code = src.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n');
+  test(`${DOCKER_ENTRY}: copies the live text-data db into backup/, keeping backup/prev`, () => {
+    assert.match(code, /const backup = path\.join\(dir, 'backup'\);/);
+    assert.match(code, /if \(copySqliteFiles\(dir, backup\)\)/);
+    assert.match(code, /const prev = path\.join\(backup, 'prev'\);/);
+    assert.match(code, /name\.startsWith\('wekan\.sqlite'\)/, 'only wekan.sqlite*');
+  });
+  test(`${DOCKER_ENTRY}: backup is guarded (WEKAN_SQLITE_BACKUP default on, file must exist)`, () => {
+    assert.match(code, /\(env\.WEKAN_SQLITE_BACKUP \|\| 'true'\) === 'true'/);
+    assert.match(code, /if \(!dir \|\| !fs\.existsSync\(path\.join\(dir, 'wekan\.sqlite'\)\)\) return null;/);
+  });
+  test(`${DOCKER_ENTRY}: NEGATIVE — the live text data and the backups are never moved or deleted`, () => {
+    const removals = code.split('\n').filter(l => /\b(rmSync|renameSync|unlinkSync|rmdirSync)\(/.test(l));
+    assert.ok(removals.length > 0);
+    for (const line of removals) {
+      assert.doesNotMatch(line, /'wekan\.sqlite'\)|\b(dir|backup|source)\)\s*[,)]/, `never the live database, a backup or the data dir: ${line.trim()}`);
+    }
+    assert.ok(!/renameSync|unlinkSync/.test(code), 'nothing is moved');
+  });
+  test(`${DOCKER_ENTRY}: restore copies a backup INTO the live db, request-gated, reported when it fails`, () => {
+    assert.match(code, /if \(copySqliteFiles\(source, dir\)\)/);
+    assert.ok(/WEKAN_FORCE_RESTORE/.test(code) && /RESTORE_REQUESTED/.test(code));
+    for (const type of ['backup-failed', 'restore-failed', 'manual-required']) assert.ok(code.includes(`type: '${type}'`), type);
+    const failed = src.indexOf("type: 'restore-failed'");
+    assert.ok(failed >= 0 && src.indexOf('request retained for retry', failed) >= 0);
+  });
+  test(`${DOCKER_ENTRY}: NEGATIVE — attachments/avatars are not copied into the backup`, () => {
+    assert.ok(!/attachments|avatars/.test(code));
   });
 }
 

@@ -238,7 +238,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + 'that restores the reviewed historical human values after protected-token '
       + 'markers are decoded, not a standalone menu action',
     'ferretdb/start-wekan.sh': 'runs INSIDE the built snap/bundle, not here',
-    'ferretdb/wekan-entrypoint.sh': 'the Docker image entrypoint',
+    'ferretdb/wekan-entrypoint.mjs': 'the Docker image entrypoint (Node.js: the image is distroless)',
     'ferretdb/recovery-bridge.mjs': 'runs inside the running server',
     'ferretdb/db-ready.mjs': 'runs inside the container, from the entrypoint: it '
       + 'asks whether the database answers yet so the wait can be a page rather '
@@ -399,7 +399,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   SKIP['check-addon-arch.mjs'] = 'native-addon checker called by Windows bundle jobs';
   SKIP['platform-native-packages.mjs'] = 'target-package installer called by platform bundle jobs';
   SKIP['ucs-pull-image.sh'] = 'registry fallback helper called by UCS release scripts';
-  for (const helper of ['importer.mjs', 'run.mjs', 'start.sh', 'verify.mjs']) {
+  for (const helper of ['importer.mjs', 'run.mjs', 'start.mjs', 'verify.mjs']) {
     SKIP[`ucs-migration/${helper}`] = 'in-container UCS migration implementation, covered by ucsMigration';
   }
   SKIP['ucs-migration/docker-exec.mjs'] = 'in-container docker exec the UCS migration tools call, covered by ucsDockerExec';

@@ -17,7 +17,10 @@ const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 let passed = 0;
 const test = (name, fn) => { fn(); passed += 1; console.log('  ok -', name); };
-const LAUNCHERS = ['releases/ferretdb/wekan-entrypoint.sh', 'releases/ferretdb/start-wekan.sh'];
+const LAUNCHERS = ['releases/ferretdb/start-wekan.sh'];
+// The Docker image's entrypoint is Node.js (the image is distroless):
+// godebugWithoutMptcp, run in tests/dockerEntrypoint.test.cjs.
+const DOCKER_ENTRY = 'releases/ferretdb/wekan-entrypoint.mjs';
 const SNIPPET = /case ",\$\{GODEBUG:-\}," in\n  \*,multipathtcp=\*\) ;;\n  \*\) GODEBUG="\$\{GODEBUG:\+\$GODEBUG,\}multipathtcp=0"; export GODEBUG ;;\nesac\n/;
 
 test('the snap turns it off for every app, Caddy and FerretDB among them', () => {
@@ -35,10 +38,14 @@ test('the Docker entrypoint and the bundle launcher set it before anything start
     assert.ok(at > 0, file);
     assert.ok(at < text.indexOf('ferretdb', text.indexOf('esac', at)), `${file}: before FerretDB is started`);
   }
+  const entry = read(DOCKER_ENTRY);
+  const set = entry.indexOf('env.GODEBUG = godebugWithoutMptcp(env.GODEBUG);');
+  assert.ok(set > 0, DOCKER_ENTRY);
+  assert.ok(set < entry.indexOf('spawn(cmd, args', set), `${DOCKER_ENTRY}: before FerretDB is started`);
 });
 
 test('the launcher line: added when unset, appended to a setting, an operator\'s choice kept', () => {
-  const snippet = read(LAUNCHERS[1]).match(SNIPPET)[0];
+  const snippet = read(LAUNCHERS[0]).match(SNIPPET)[0];
   const run = value => execFileSync('sh', ['-c', `${snippet}printf %s "$GODEBUG"`],
     { encoding: 'utf8', env: { PATH: process.env.PATH, ...(value === null ? {} : { GODEBUG: value }) } });
   assert.equal(run(null), 'multipathtcp=0');

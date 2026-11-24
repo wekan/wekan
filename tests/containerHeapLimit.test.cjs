@@ -11,7 +11,9 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const entry = fs.readFileSync(path.join(ROOT, 'releases/ferretdb/wekan-entrypoint.sh'), 'utf8');
+// The Docker image's entrypoint is Node.js (the image is distroless); its
+// arithmetic is run in tests/dockerEntrypoint.test.cjs, and pinned here.
+const entry = fs.readFileSync(path.join(ROOT, 'releases/ferretdb/wekan-entrypoint.mjs'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -24,30 +26,30 @@ test('the image reads both cgroup v2 and v1 memory limits', () => {
 });
 
 test('three fifths go to V8 and room stays for Go and native memory', () => {
-  assert.ok(entry.includes('_heap_mb=$((_memory_bytes/1024/1024*3/5))'));
-  assert.ok(/--max-old-space-size=\$_heap_mb/.test(entry));
-  assert.ok(entry.includes('_go_mb=$((_memory_bytes/1024/1024/5))'));
-  assert.ok(/export GOMEMLIMIT="\${_go_mb}MiB"/.test(entry));
+  assert.ok(entry.includes('Math.floor((mb * 3) / 5)'));
+  assert.ok(entry.includes('`--max-old-space-size=${heapMb}`'));
+  assert.ok(entry.includes('Math.floor(mb / 5)'));
+  assert.ok(entry.includes('env.GOMEMLIMIT = `${goMb}MiB`'));
 });
 
 test('the automatic heap never imposes a host-exceeding floor and has an upper bound', () => {
-  assert.ok(!/_heap_mb=768/.test(entry),
+  assert.ok(!/768/.test(entry),
     'a fixed floor can exceed a small container limit');
-  assert.ok(/\[ "\$_heap_mb" -gt 4096 \] && _heap_mb=4096/.test(entry),
+  assert.ok(entry.includes('Math.min(Math.floor((mb * 3) / 5), 4096)'),
     'large hosts keep the documented 4 GiB ceiling');
 });
 
 test('an explicit administrator setting always wins (negative)', () => {
-  const at = entry.indexOf('if [ -z "${NODE_OPTIONS:-}" ]; then');
+  const at = entry.indexOf('    if (!env.NODE_OPTIONS) {');
   assert.notStrictEqual(at, -1);
-  const block = entry.slice(at, entry.indexOf('\nfi', at) + 3);
-  assert.ok(/export NODE_OPTIONS=/.test(block));
-  assert.strictEqual((entry.match(/export NODE_OPTIONS=/g) || []).length, 1,
+  const block = entry.slice(at, entry.indexOf('\n    }', at));
+  assert.ok(/env\.NODE_OPTIONS = /.test(block));
+  assert.strictEqual((entry.match(/env\.NODE_OPTIONS = /g) || []).length, 1,
     'NODE_OPTIONS must only be written inside the unset guard');
 });
 
 test('heap selection happens before the server exec', () => {
-  assert.ok(entry.indexOf('export NODE_OPTIONS=') < entry.indexOf('exec node /build/main.js'));
+  assert.ok(entry.indexOf('env.NODE_OPTIONS = ') < entry.indexOf("path.join(build, 'main.js')"));
 });
 
 test('every packaged runtime derives memory and preserves overrides', () => {

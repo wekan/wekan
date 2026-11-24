@@ -147,6 +147,26 @@ print(json.dumps({'authenticated': True}))
         self.assertNotIn('private settings', str(error.exception))
         self.assertIn('exit 1', str(error.exception))
 
+    def test_distroless_image_prepares_the_volume_with_node(self):
+        # The WeKan image has no shell: the companion hook's bash -ec runs
+        # become node -e runs that do the same, and anything else is refused.
+        hook = ('docker run --rm --user 0 -v "$target:/data" -v "$base/tmp:/ucs-tmp" "$image" bash -ec \\\n'
+                "    'mkdir -p /data/files/db; touch /data/.ucs-migration-complete; chown -R wekan:wekan /data; "
+                "chown -R 1000:1000 /data/files/db; chmod 1777 /ucs-tmp'\n")
+        out = ucs.distroless_ownership(hook)
+        self.assertNotIn('bash', out)
+        self.assertIn('--entrypoint /usr/local/bin/node "$image" -e \\\n', out)
+        for js in ('fs.mkdirSync("/data/files/db", { recursive: true });', 'own("/data", 999, 999);',
+                   'own("/data/files/db", 1000, 1000);', 'fs.chmodSync("/ucs-tmp", 0o1777);',
+                   'fs.openSync("/data/.ucs-migration-complete", "a")'):
+            self.assertIn(js, out)
+        self.assertEqual(out.count("'"), 2, 'one single-quoted shell word, no quote inside it')
+        with self.assertRaisesRegex(ValueError, 'cannot: rm -rf /data'):
+            ucs.distroless_ownership(hook.replace('chmod 1777 /ucs-tmp', 'rm -rf /data'))
+        with self.assertRaisesRegex(ValueError, 'still runs a shell'):
+            ucs.distroless_ownership('docker run --rm "$image" sh -c true\n')
+        self.assertEqual(ucs.distroless_ownership('docker run --rm "$image" --version\n'), 'docker run --rm "$image" --version\n')
+
     def test_prepare_keeps_history_and_synchronizes_images(self):
         compose = (self.output / 'component/compose').read_text()
         self.assertIn('# Image was: old-mongo:6.09', compose)
@@ -156,7 +176,7 @@ print(json.dumps({'authenticated': True}))
         hook = (self.output / 'component/preinst').read_text()
         self.assertIn('dbimage='+DATABASE_IMAGE, hook)
         self.assertIn('helper=ghcr.io/wekan/wekan:v12.28', hook)
-        self.assertIn('\"$helper\" bash /opt/ucs-migration/start.sh', hook)
+        self.assertIn('\"$helper\" /usr/local/bin/node /opt/ucs-migration/start.mjs', hook)
         self.assertIn('ucs_pull_image \"$image\"', hook)
         self.assertNotIn('docker pull \"$helper\"', hook)
         self.assertFalse((self.output / 'component/migration/Dockerfile').exists())

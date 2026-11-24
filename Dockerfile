@@ -1,16 +1,28 @@
-# debian:trixie (Debian 13), not ubuntu:26.04: Ubuntu publishes no linux/386
-# image, which stopped the image from ever building for i386. Debian ships every
-# arch this image targets - amd64, arm64, 386, arm/v7, ppc64le, riscv64, s390x -
-# so ONE base covers them all, and it is the same base WeKan's per-arch .zip
-# bundles are already built in (releases/... build-extra-arches).
+# The image is DISTROLESS: gcr.io/distroless/cc-debian13 - glibc, libstdc++,
+# libgcc, CA certificates and tzdata, and nothing else. No shell, no apt, no
+# coreutils, util-linux, login, tar or systemd libraries. Those were most of
+# Artifact Hub's Trivy report of the image (218 findings in v13.30, 214 of them
+# Debian packages WeKan never runs, none with a fix to update to). What runs is
+# node, WeKan, and the static Go binaries FerretDB and the MongoDB tools; the
+# entrypoint is Node.js (releases/ferretdb/wekan-entrypoint.mjs) because there
+# is no bash to run a shell script with.
 #
-# The ONE it does not ship is arm/v6: debian:trixie's manifest list has arm/v5
-# and arm/v7 and nothing between them. That matters because containerd treats a
-# LOWER ARM variant as compatible, so a linux/arm/v6 request does not fail - it
-# quietly resolves to the arm/v5 (armel, SOFT-float) image, whose loader and
-# glibc cannot run the hard-float node-armv6 in the armv6 bundle. The docker job
-# therefore asks this base what it publishes and drops a platform it lacks; see
+# Distroless publishes amd64, arm64, arm/v7, ppc64le, s390x and riscv64. It
+# publishes no linux/386, so for 386 the same root - the same Debian 13
+# packages, each with its dpkg record so a scanner still sees them - is
+# assembled from debian:trixie into scratch (the runtime-root stage). That is
+# also where every platform gets libatomic1, which node needs and the cc image
+# lacks.
+#
+# arm/v6 has neither: debian:trixie's manifest list has arm/v5 and arm/v7 and
+# nothing between them, and containerd treats a LOWER ARM variant as compatible,
+# so a linux/arm/v6 request would quietly resolve to the arm/v5 (armel,
+# SOFT-float) userland the hard-float node-armv6 cannot run on. The docker job
+# therefore asks the bases what they publish and drops a platform they lack; see
 # docs/Platforms/FOSS/Container/Docker/CPU-platforms.md.
+
+# FROM runtime-${TARGETARCH} below needs the platform in the global scope.
+ARG TARGETARCH
 
 # ── Stage 1: the release bundle, prepared ON THE BUILD MACHINE ───────────────
 #
@@ -121,29 +133,115 @@ if got != want:
 print(f'{path}: ELF machine {got}, as expected')
 EOP
 
-# /out is laid out as the image's root: the app at /build, node on PATH.
-mkdir -p /out/usr/local/bin
+# /out is laid out as the image's root: the app at /build, node on PATH, and
+# the accounts. The image has no useradd, so /etc/passwd and /etc/group are
+# written here: distroless's own root, nonroot and nobody, and wekan as
+# 999:999 - the uid every earlier image's `useradd --system` gave it, which
+# existing volumes are owned by and the Helm chart's init container chowns to.
+# /owned holds what the wekan user must own: /data and its home.
+mkdir -p /out/usr/local/bin /out/etc /owned/data /owned/home/wekan
+cat > /out/etc/passwd <<'EOP'
+root:x:0:0:root:/root:/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/sbin/nologin
+nonroot:x:65532:65532:nonroot:/home/nonroot:/sbin/nologin
+wekan:x:999:999:WeKan:/home/wekan:/sbin/nologin
+EOP
+cat > /out/etc/group <<'EOP'
+root:x:0:
+nogroup:x:65534:
+nonroot:x:65532:
+wekan:x:999:
+EOP
 mv bundle/node /out/usr/local/bin/node
 chmod 755 /out/usr/local/bin/node
 ln -s "/usr/local/bin/node" "/out/usr/local/bin/nodejs"
 # The .zip's self-contained launchers start its bundled node; the image starts
-# wekan-entrypoint.sh instead. /build/ferretdb (used by the entrypoint) and the
-# per-arch MongoDB Database Tools stay, for backup/restore inside the container.
-rm -f bundle/start-wekan.sh bundle/start-wekan.bat
+# wekan-entrypoint.mjs instead. cpu-exec is a bash script, and the image has no
+# bash: the entrypoint makes cpu-exec's decision itself, with the qemu-user that
+# stays beside it. /build/ferretdb (used by the entrypoint) and the per-arch
+# MongoDB Database Tools stay, for backup/restore inside the container.
+rm -f bundle/start-wekan.sh bundle/start-wekan.bat bundle/cpu-exec
+# The bundle's MongoDB tool launchers (mongodump, mongorestore, ...) are #!/bin/sh
+# scripts that run the one program mongo-tools beside them (fetch-mongo-tools.sh).
+# The image has no sh, but mongo-tools also picks the tool by the name it is run
+# as, so here each launcher becomes a symlink to it: `docker exec wekan-app
+# /build/mongodump ...` still works. Found by the line every launcher carries,
+# so the list of tools is not written a second time here.
+for launcher in $(grep -l 'mongo-tools beside this file' bundle/* 2>/dev/null); do
+  ln -sf mongo-tools "$launcher"
+done
 mv bundle /out/build
 EOR
 
-# ── Stage 2: the image, for the TARGET platform ──────────────────────────────
+# ── Stage 2: what the distroless root lacks, for the TARGET platform ─────────
 #
-# The only work left that runs as the target CPU (under QEMU for all but amd64):
-# the WeKan user, an OS update, and the three runtime packages the app needs.
-FROM debian:trixie
-LABEL maintainer="wekan"
-LABEL org.opencontainers.image.ref.name="debian"
-LABEL org.opencontainers.image.version="trixie"
-LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
-
+# The only work that runs as the target CPU (under QEMU for all but amd64):
+# fetch the newest Debian 13 packages and unpack them. Nothing of this stage is
+# in the image except what is copied out of /extra and /rootfs. Each package
+# also leaves its dpkg record in var/lib/dpkg/status.d/, the way distroless
+# records its own, so Trivy and the other scanners list it rather than miss it.
+FROM debian:trixie AS runtime-root
+ARG TARGETARCH
 ARG DEBIAN_FRONTEND=noninteractive
+RUN <<EOR
+set -o xtrace
+set -eo pipefail
+apt-get update --assume-yes
+apt-get upgrade --assume-yes
+unpack() {
+  dest="$1"; shift
+  mkdir -p "$dest/var/lib/dpkg/status.d" /work
+  apt-get install --assume-yes --no-install-recommends "$@"
+  (cd /work && apt-get download "$@")
+  for pkg in "$@"; do
+    dpkg-deb --extract /work/"${pkg}"_*.deb "$dest"
+    dpkg-query --status "$pkg" > "$dest/var/lib/dpkg/status.d/$pkg"
+  done
+  rm -rf /work
+}
+# Every platform: node needs libatomic.so.1, which distroless cc does not have.
+unpack /extra libatomic1
+mkdir -p /rootfs
+if [ "$TARGETARCH" = "386" ]; then
+  # distroless cc-debian13's packages, for the one platform it does not publish.
+  unpack /rootfs base-files netbase tzdata ca-certificates libc6 gcc-14-base libgcc-s1 libstdc++6 libssl3t64 libatomic1
+  for d in bin sbin lib; do [ -e "/rootfs/$d" ] || ln -s "usr/$d" "/rootfs/$d"; done
+  mkdir -p /rootfs/etc/ssl/certs /rootfs/tmp /rootfs/root /rootfs/home/nonroot
+  chmod 1777 /rootfs/tmp
+  chmod 700 /rootfs/root
+  # The certificate bundle update-ca-certificates made; the package's sources
+  # and its shell-script updater are not needed beside it.
+  cp /etc/ssl/certs/ca-certificates.crt /rootfs/etc/ssl/certs/ca-certificates.crt
+  rm -rf /rootfs/usr/share/ca-certificates /rootfs/usr/sbin/update-ca-certificates
+  printf 'passwd: files\ngroup: files\nhosts: files dns\n' > /rootfs/etc/nsswitch.conf
+fi
+rm -rf /var/lib/apt/lists/*
+EOR
+
+# ── Stage 3: the runtime root, per platform ──────────────────────────────────
+#
+# Not pinned to a digest, for the same reason debian:trixie is not: distroless
+# rebuilds it whenever Debian publishes a security update, and every release
+# should get those. A platform not listed here has no runtime root, and the
+# build for it stops at FROM runtime-${TARGETARCH}.
+FROM gcr.io/distroless/cc-debian13:nonroot AS distroless
+FROM distroless AS runtime-amd64
+FROM distroless AS runtime-arm64
+FROM distroless AS runtime-arm
+FROM distroless AS runtime-ppc64le
+FROM distroless AS runtime-s390x
+FROM distroless AS runtime-riscv64
+FROM scratch AS runtime-386
+COPY --from=runtime-root /rootfs/ /
+
+# ── Stage 4: the image ───────────────────────────────────────────────────────
+#
+# No RUN from here on: there is no shell to run one with. Everything is COPY.
+FROM runtime-${TARGETARCH}
+LABEL maintainer="wekan"
+LABEL org.opencontainers.image.ref.name="distroless-cc-debian13"
+LABEL org.opencontainers.image.version="debian13"
+LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 ENV \
     DEBUG=false \
@@ -397,44 +495,20 @@ ENV \
     MONGO_URL_FILE="" \
     S3_SECRET_KEY_FILE=""
 
-RUN <<EOR
-set -o xtrace
-set -eo pipefail
-
-# Create Wekan user. --create-home is required because --system users do not
-# get a home directory by default.
-useradd --user-group --system --create-home --home-dir /home/wekan wekan
-
-# OS Updates
-apt-get update --assume-yes
-apt-get upgrade --assume-yes
-# Runtime MIME detection and Node.js atomics. Nothing in this image compiles
-# anything, so no compiler is installed (and none has to be purged).
-# No docker-cli: it is a Go program whose Go 1.24 standard library was most of
-# the image's vulnerability scan, for a client only the UCS migration used. That
-# talks to the Docker socket itself now (releases/ucs-migration/docker-exec.mjs).
-apt-get install --assume-yes --no-install-recommends file libatomic1
-# Remove unused Go-based pebble binary shipped by base image to reduce CVE surface.
-apt-get remove --purge --assume-yes pebble || true
-rm -f /usr/bin/pebble
-apt-get autoremove --assume-yes
-apt-get clean --assume-yes
-rm -Rf /var/lib/apt/lists/*
-
-mkdir -p /data
-chown wekan:wekan --recursive /data
-EOR
-
+COPY --from=runtime-root /extra/ /
 # The bundle and its node, prepared in stage 1. npm is not in this image at all:
 # nothing here installs anything, and the entrypoint never calls it.
 COPY --from=bundle /out/ /
+# Only /data and wekan's home are the wekan user's; /home itself stays root's.
+COPY --from=bundle --chown=999:999 /owned/data /data
+COPY --from=bundle --chown=999:999 /owned/home/wekan /home/wekan
 
-# Database-backend selector entrypoint. Every arch's bundle now ships a FerretDB
-# binary (baked into the .zip and moved to /build/ferretdb above); this script
-# starts FerretDB v1 (SQLite) or leaves the DB external based on WEKAN_DB and the
+# Database-backend selector entrypoint. Every arch's bundle ships a FerretDB
+# binary (baked into the .zip and moved to /build/ferretdb above); this starts
+# FerretDB v1 (SQLite) or leaves the DB external based on WEKAN_DB and the
 # /build/.ferretdb-default marker (present only on MongoDB-less arches). See
-# releases/ferretdb/wekan-entrypoint.sh.
-COPY --chmod=755 releases/ferretdb/wekan-entrypoint.sh /build/wekan-entrypoint.sh
+# releases/ferretdb/wekan-entrypoint.mjs.
+COPY --chmod=644 releases/ferretdb/wekan-entrypoint.mjs /build/wekan-entrypoint.mjs
 # #6492: standalone "recovering data" page the entrypoint serves as a brief bridge on
 # the web port while a just-restored FerretDB comes back up during a data recovery.
 COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mjs
@@ -443,10 +517,11 @@ COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mj
 # for a reverse proxy to time out on.
 COPY --chmod=644 releases/ferretdb/db-ready.mjs /build/db-ready.mjs
 
-# UCS runs this same image with an explicit migration command. Only that
-# temporary container receives the Docker socket; normal startup is unchanged.
+# UCS runs this same image with an explicit migration command,
+# `/usr/local/bin/node /opt/ucs-migration/start.mjs`. Only that temporary
+# container receives the Docker socket; normal startup is unchanged.
 COPY releases/ucs-migration /opt/ucs-migration
-RUN chmod 755 /opt/ucs-migration/start.sh /opt/ucs-migration/tools/*
+COPY --chmod=755 releases/ucs-migration/tools /opt/ucs-migration/tools
 
 COPY releases/nextcloud/capability.json /build/nextcloud-exapp-capability.json
 
@@ -456,4 +531,4 @@ EXPOSE $PORT
 STOPSIGNAL SIGKILL
 WORKDIR /build
 
-CMD ["bash", "/build/wekan-entrypoint.sh"]
+CMD ["/usr/local/bin/node", "/build/wekan-entrypoint.mjs"]
