@@ -140,6 +140,9 @@ template(name="userFormsLayout")
               | {{_ 'legalNotice'}}
           if getLegalNoticeWithWritTraduction
             div
+        //- WP-6: the published legal pages - privacy notice, terms, cookie
+        //- notice, imprint - readable before signing in.
+        +legalPageLinks
         div.at-form-lang
           label(for="userform-set-language-select") {{_ 'changeLanguagePopup-title'}}
           select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'changeLanguagePopup-title'}}")

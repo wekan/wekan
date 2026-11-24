@@ -21,7 +21,7 @@ and no setting turns it off.
 ## How to use it
 
 1. Click your username or avatar at the top right.
-2. Click **Download my data**.
+2. Click **Privacy and my data**, then **Download my data**.
 3. The browser saves `wekan-personal-data-<your username>.zip`.
 
 An administrator can download the same for any account:

@@ -41,7 +41,7 @@ order:
 | Admin Panel | [Administration](../Admin-Panel/Admin-Panel.md), for authorized administrators |
 | Invite People | [Invite people by e-mail](Invite-People.md), when self-registration is off and your domain may invite |
 | Edit Profile | [Name, username, initials, e-mail; delete or anonymize](Edit-Profile.md); not for OAuth2 accounts |
-| Download my data | [Everything WeKan holds about you, as JSON](Download-My-Data.md) |
+| Privacy and my data | [Download my data](Download-My-Data.md), and the site's [legal pages](../Admin-Panel/Settings/Legal-Pages.md) |
 | Date | [Date format, week start and calendar system](Date/README.md) |
 | Change Settings | [Editing and display preferences](Change-Settings.md) |
 | Change Color | [Appearance](../General/Theme/Theme.md) |

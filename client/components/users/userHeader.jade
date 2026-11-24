@@ -104,13 +104,11 @@ template(name="memberMenuPopup")
           a.js-edit-profile
             i.fa.fa-user
             | {{_ 'edit-profile'}}
-      //- WP-5: everything WeKan holds about the signed-in person, as a ZIP of
-      //- JSON (server/routes/personalDataExport.js). For every account, the
-      //- right of access is not a setting.
+      //- WP-6: the legal pages and the person's own data, in one place.
       li
-        a.js-download-my-data(href="{{myDataUrl}}" download)
-          i.fa.fa-download
-          | {{_ 'download-my-data'}}
+        a.js-privacy-and-my-data
+          i.fa.fa-user-secret
+          | {{_ 'privacy-and-my-data'}}
       li
         a.js-member-date-settings
           i.fa.fa-calendar
@@ -536,3 +534,15 @@ template(name="userAnonymizePopup")
   unless currentUser.isWorker
     p {{_ 'anonymize-account-confirm-popup'}}
     button.js-confirm.negate.full(type="submit") {{_ 'anonymize-account'}}
+
+//- WP-6: Member Settings / Privacy and my data - the published legal pages and
+//- "Download my data" (WP-5, server/routes/personalDataExport.js: everything
+//- WeKan holds about the signed-in person, as a ZIP of JSON; for every account,
+//- the right of access is not a setting).
+template(name="privacyAndMyDataPopup")
+  ul.pop-over-list
+    li
+      a.js-download-my-data(href="{{myDataUrl}}" download)
+        i.fa.fa-download
+        | {{_ 'download-my-data'}}
+  +legalPageLinks

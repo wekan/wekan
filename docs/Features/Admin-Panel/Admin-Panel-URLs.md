@@ -44,6 +44,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/settings/delete` | Delete | `delete-setting` |
 | `/admin/settings/announcement` | Announcement | `announcement-setting` |
 | `/admin/settings/accessibility` | Accessibility | `accessibility-setting` |
+| `/admin/settings/privacy` | Legal pages | `legal-pages-setting` |
 | `/admin/settings/translation` | Translation | `translation-setting` |
 | `/admin/settings/pwa` | PWA | `layout-setting` |
 | `/admin/settings/global-webhooks` | Global Webhooks | `webhook-setting` |

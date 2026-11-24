@@ -63,6 +63,8 @@ const ADMIN_PAGES = {
       delete: 'delete-setting',
       announcement: 'announcement-setting',
       accessibility: 'accessibility-setting',
+      // WP-6: the legal pages and the privacy contacts.
+      privacy: 'legal-pages-setting',
       translation: 'translation-setting',
       pwa: 'layout-setting',
       'global-webhooks': 'webhook-setting',
@@ -188,6 +190,7 @@ const ADMIN_PANE_TITLES = {
     delete: { titleKey: 'delete' },
     announcement: { titleKey: 'admin-announcement' },
     accessibility: { titleKey: 'accessibility' },
+    privacy: { titleKey: 'legal-pages' },
     translation: { titleKey: 'translation' },
     pwa: { title: 'PWA' },
     'global-webhooks': { titleKey: 'global-webhook' },

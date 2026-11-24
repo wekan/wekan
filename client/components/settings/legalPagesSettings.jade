@@ -1,0 +1,57 @@
+//- Admin Panel / Settings / Legal pages (WP-6, docs/Compliance/README.md):
+//- each legal page as the operator publishes it, and the privacy contacts.
+//- Saved through saveLegalPage / saveLegalContacts (server/methods/legalPages.js),
+//- which are in the Audit log.
+template(name="legalPagesSettings")
+  .legal-pages-settings
+    if loading
+      +spinner
+    else
+      each pages
+        section.legal-page-editor(data-page="{{_id}}")
+          h3
+            a(href="/{{_id}}" target="_blank" rel="noopener noreferrer") {{label}}
+            if version
+              span.quiet  {{_ 'legal-page-version' version=version}}
+          label.legal-page-check
+            input.js-legal-enabled(type="checkbox" checked="{{enabled}}")
+            |  {{_ 'legal-page-published'}}
+          label
+            | {{_ 'title'}}
+            input.js-legal-title.wekan-form-control(type="text" value="{{title}}" maxlength="200")
+          label
+            | {{_ 'legal-page-external-url'}}
+            input.js-legal-url.wekan-form-control(type="url" value="{{url}}")
+          if isImprint
+            each imprintFields
+              label
+                | {{label}}
+                input.wekan-form-control(class="js-legal-field" data-field="{{key}}" type="text" value="{{value}}")
+          label
+            | {{_ 'legal-page-text'}}
+            textarea.js-legal-body.wekan-form-control(rows="10")= body
+          if isPrivacy
+            button.js-legal-draft {{_ 'legal-privacy-draft'}}
+          button.primary.js-legal-save {{_ 'save'}}
+      section.legal-page-editor.js-legal-contacts
+        h3 {{_ 'privacy-contacts'}}
+        each contactFields
+          label
+            | {{label}}
+            input.wekan-form-control(class="js-legal-contact" data-field="{{key}}" type="text" value="{{value}}")
+        button.primary.js-legal-contacts-save {{_ 'save'}}
+      if message
+        p.quiet(role="status") {{message}}
+      //- What this WeKan stores about people (models/lib/personalDataInventory.js):
+      //- what the privacy notice describes.
+      details.legal-inventory
+        summary {{_ 'data-inventory'}}
+        .legal-inventory-table
+          table
+            each inventory
+              tr
+                td
+                  code {{collection}}
+                td {{categories}}
+                td {{purpose}}
+                td {{retention}}

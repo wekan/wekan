@@ -1,4 +1,6 @@
 import '/client/components/main/accessibility.jade';
+import '/client/components/legal/legalPage.jade';
+import '/client/components/settings/legalPagesSettings.jade';
 import '/client/components/main/bookmarks.jade';
 import '/client/components/main/brokenCards.jade';
 import '/client/components/main/dueCards.jade';
@@ -52,6 +54,8 @@ import '/client/components/main/featureHelp.js';
 import '/client/lib/pageSidebar';
 import '/client/components/main/pageSidebar.js';
 import '/client/components/main/accessibility.js';
+import '/client/components/legal/legalPage.js';
+import '/client/components/settings/legalPagesSettings.js';
 import '/client/components/main/bookmarks.js';
 import '/client/components/main/brokenCards.js';
 import '/client/components/main/dueCards.js';
@@ -80,6 +84,7 @@ import '/client/components/cloud/cloudPanel.js';
 
 import '/client/components/main/mapProvider.css';
 import '/client/components/main/accessibility.css';
+import '/client/components/legal/legalPage.css';
 import '/client/components/main/brokenCards.css';
 import '/client/components/main/dueCards.css';
 import '/client/components/main/editor.css';

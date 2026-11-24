@@ -146,6 +146,7 @@ Template.setting.onCreated(function () {
   this.translationSetting = new ReactiveVar(false);
   this.announcementSetting = new ReactiveVar(false);
   this.accessibilitySetting = new ReactiveVar(false);
+  this.legalPagesSetting = new ReactiveVar(false);
   this.layoutSetting = new ReactiveVar(false);
   this.webhookSetting = new ReactiveVar(false);
   this.sharedLabelsSetting = new ReactiveVar(false);
@@ -204,6 +205,7 @@ const SETTINGS_PANE_VARS = {
   'delete-setting': 'deleteSetting',
   'announcement-setting': 'announcementSetting',
   'accessibility-setting': 'accessibilitySetting',
+  'legal-pages-setting': 'legalPagesSetting',
   'translation-setting': 'translationSetting',
   'layout-setting': 'layoutSetting',
   'webhook-setting': 'webhookSetting',
@@ -245,6 +247,9 @@ function settingsMenu(user) {
     { id: 'delete-setting', icon: 'fa-trash', labelKey: 'delete', emoji: true },
     { id: 'announcement-setting', icon: 'fa-bullhorn', labelKey: 'admin-announcement', emoji: true },
     { id: 'accessibility-setting', icon: 'fa-universal-access', labelKey: 'accessibility', emoji: true },
+    // WP-6 (docs/Compliance/README.md): privacy notice, terms, cookie notice,
+    // imprint, and the privacy contacts.
+    { id: 'legal-pages-setting', icon: 'fa-balance-scale', labelKey: 'legal-pages', emoji: true },
     // PWA is an acronym, not a translated string - a literal label, like the
     // Sandstorm entry in Admin Panel / Attachments.
     { id: 'translation-setting', icon: 'fa-globe', labelKey: 'translation', emoji: true },
@@ -282,6 +287,7 @@ function activeSettingId(inst) {
     ['deleteSetting', 'delete-setting'],
     ['announcementSetting', 'announcement-setting'],
     ['accessibilitySetting', 'accessibility-setting'],
+    ['legalPagesSetting', 'legal-pages-setting'],
     ['translationSetting', 'translation-setting'],
     ['layoutSetting', 'layout-setting'],
     ['webhookSetting', 'webhook-setting'],
@@ -328,6 +334,10 @@ Template.setting.helpers({
   isAccessibilitySetting() {
     const inst = Template.instance();
     return inst.accessibilitySetting && inst.accessibilitySetting.get();
+  },
+  isLegalPagesSetting() {
+    const inst = Template.instance();
+    return inst.legalPagesSetting && inst.legalPagesSetting.get();
   },
   isLayoutSetting() {
     const inst = Template.instance();

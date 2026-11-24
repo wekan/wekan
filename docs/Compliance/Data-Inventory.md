@@ -11,7 +11,7 @@ the operator of an instance completes: the legal basis column is a hint, the
 operator decides it, and the recipients depend on what the instance has
 enabled (mail server, file storage, webhooks, integrations).
 
-- **185 collections**, 128 of them with personal data.
+- **186 collections**, 129 of them with personal data.
 - **Health data** ([GDPR] Art. 9 special category): `workloadAbsences`.
 - **Financial data**: `billingBudgets`, `billingExpenses`, `billingFees`, `billingInvoices`, `billingProfiles`, `billingQuotes`, `billingRates`, `cloudDomains`, `cloudInvoices`, `shopOrders`, `timeEntries`.
 - **Not erased yet** (erasure should delete or anonymise, nothing does it today;
@@ -108,6 +108,7 @@ keep-pseudonymous (kept, linked only by an id) or n/a.
 | `integrations` | auth, content | `userId` | Outgoing webhooks of a board (URL, token, events). | contract | board lifetime | keep-pseudonymous | defined: `models/integrations.js`; erasure: nothing yet | userId is the creator; the token and URL are credentials of the receiving service. |
 | `invitation_codes` | contact | `email, authorId` | Registration invitations sent by e-mail. | legitimate interest | until used (then valid: false, kept) or removed by an admin or a bounce | delete | defined: `models/invitationCodes.js`; retention: `server/models/settings.js`; erasure: `models/lib/userErasure.js` | Holds the invitee e-mail address; a used code is only invalidated, not removed. server/emailBounces.js removes valid codes of a bouncing address. |
 | `inviteToBoardRolesSettings` | none | - | Which board roles may invite members. | n/a | until deleted | n/a | defined: `models/inviteToBoardRolesSettings.js`; erasure: nothing yet | - |
+| `legalPages` | contact | - | The privacy notice, terms, cookie notice and imprint, and the privacy contacts, that the operator publishes (Admin Panel / Settings / Privacy). | legal obligation | until changed | n/a | defined: `models/legalPages.js`; erasure: nothing yet | The imprint and the contacts name the operator and the people to contact, as the operator writes them; modifiedBy is the administrator who saved a page. Published on purpose. |
 | `lists` | content, usage | `watchers` | Lists of a board. | contract | board lifetime | delete | defined: `models/lists.js`; erasure: `models/lib/userDeletionCleanup.js` | The deleted user is pulled from watchers; titles are board content. |
 | `listSyncCredentials` | auth | `runAsUserId` | Server-only credentials (token, remote username) of a synced list. | contract | list lifetime | anonymize | defined: `models/listSyncCredentials.js`; erasure: `models/lib/userErasure.js` | Never published. runAsUserId names the WeKan account the sync acts as; nothing removes it when that account is deleted. On erasure the link to the account (runAsUserId) is removed and the sync waits for an administrator to pick another account. |
 | `listSyncLeases` | none | - | Leases so only one server syncs a list at a time. | n/a | until released or taken over | n/a | defined: `server/lib/listSyncLease.js`; erasure: nothing yet | No provider URLs or credentials. |

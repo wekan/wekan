@@ -63,6 +63,7 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 | Delete (`delete`) | [settings.js](../../../server/models/settings.js) | Explicit administrator permanent-delete setting; purge remains a separate action. Was Problems / Delete. |
 | Announcement (`announcement`) | [announcements.js](../../../models/announcements.js) | Saved banner content and visibility; rendered through announcement controls. |
 | Accessibility (`accessibility`) | [accessibilitySettings.js](../../../models/accessibilitySettings.js) | Saved accessibility content and configuration. |
+| Legal pages (`privacy`) | [legalPages.js](../../../server/methods/legalPages.js) | Published pages and contacts, saved only by a site administrator, audited. |
 | Translation (`translation`) | [translation.js](../../../server/models/translation.js) | Add/edit/delete custom translation records with administrator checks. |
 | PWA (`pwa`) | [settingBody.js](../../../client/components/settings/settingBody.js) | Saved head/manifest/assetlinks configuration; device installation requires a device check. |
 | Global Webhooks (`global-webhooks`) | [outgoing.js](../../../server/notifications/outgoing.js) | Global integration configuration and event delivery; endpoint delivery requires a configured receiver. |

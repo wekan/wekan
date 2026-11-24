@@ -29,6 +29,7 @@ they may do is [People](../People/README.md); what is going wrong is
 | Settings / Delete | `delete` | [Delete.md](Delete.md) | Whether Global Admins may permanently delete soft-deleted content. Was Problems / Delete. |
 | Settings / Announcement | `announcement` | [Announcement.md](Announcement.md) | The instance-wide banner. |
 | Settings / Accessibility | `accessibility` | [Accessibility.md](Accessibility.md) | The accessibility page and its content. |
+| Settings / Legal pages | `privacy` | [Legal-Pages.md](Legal-Pages.md) | Privacy notice, terms, cookie notice, imprint, and the privacy contacts. |
 | Settings / Translation | `translation` | [Translation.md](Translation.md) | Custom translation strings. |
 | Settings / PWA | `pwa` | [PWA.md](PWA.md) | Custom head tags, web manifest and assetlinks.json. |
 | Settings / Global Webhooks | `global-webhooks` | [Global-Webhooks.md](Global-Webhooks.md) | Outgoing webhooks for the whole instance. |

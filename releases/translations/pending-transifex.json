@@ -6075,6 +6075,126 @@
     {
       "key": "download-my-data",
       "since": "2026-11-23"
+    },
+    {
+      "key": "privacy-and-my-data",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "privacy-notice",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "terms-of-use",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "cookie-notice",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-pages",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-page-published",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-page-text",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-page-external-url",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-page-version",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-page-not-published",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-name",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-legal-form",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-representative",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-address",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-phone-or-form",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-register",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-register-number",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-vat-id",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-supervisory-authority",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-professional-rules",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "imprint-media-disclosure",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "privacy-contacts",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "privacy-contact",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "dpo-contact",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "eu-representative",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "security-contact",
+      "since": "2026-11-23"
+    },
+    {
+      "key": "legal-privacy-draft",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "data-inventory",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "privacyAndMyDataPopup-title",
+      "since": "2026-11-24"
     }
   ]
 }

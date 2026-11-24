@@ -1,0 +1,41 @@
+//- WP-6: one legal page - privacy notice, terms, cookie notice or imprint - as
+//- the operator published it, with the links to the others. The same for
+//- everybody, signed in or not.
+template(name="legalPage")
+  .legal-page(role="article")
+    if loading
+      +spinner
+    else if page
+      h1 {{pageTitle}}
+      if page.url
+        p
+          a(href="{{page.url}}" target="_blank" rel="noopener noreferrer") {{page.url}}
+      if page.fields
+        dl.legal-page-fields
+          each page.fields
+            dt {{fieldLabel key}}
+            dd {{value}}
+      if page.body
+        .legal-page-body
+          +viewer
+            | {{page.body}}
+      if isPrivacy
+        if contacts.length
+          h2 {{_ 'privacy-contacts'}}
+          dl.legal-page-fields
+            each contacts
+              dt {{fieldLabel key}}
+              dd {{value}}
+      p.quiet {{_ 'legal-page-version' version=page.version}}
+    else
+      h1 {{pageTitle}}
+      p {{_ 'legal-page-not-published'}}
+    +legalPageLinks
+
+//- The published legal pages, as a row of links: under every legal page, on the
+//- login page and in Member Settings / Privacy and my data.
+template(name="legalPageLinks")
+  if links.length
+    nav.legal-page-links(aria-label="{{_ 'legal-pages'}}")
+      each links
+        a(href="/{{_id}}") {{label}}

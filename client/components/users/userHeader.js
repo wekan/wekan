@@ -36,13 +36,16 @@ Template.memberMenuPopup.onCreated(function () {
   Meteor.subscribe('setting');
 });
 
-Template.memberMenuPopup.helpers({
+Template.privacyAndMyDataPopup.helpers({
   // "Download my data" (WP-5): the person's own export, signed in by token
   // like the board exports' downloads.
   myDataUrl() {
     const params = new URLSearchParams({ authToken: Accounts._storedLoginToken() || '' });
     return `/api/user/export?${params.toString()}`;
   },
+});
+
+Template.memberMenuPopup.helpers({
   // #2460: Member Settings / SQRL, when the site admin offers SQRL.
   sqrlOffered() { return require('/client/lib/sqrl').sqrlOffered(ReactiveCache.getCurrentSetting()); },
   isSupportPageEnabled() {
@@ -119,6 +122,7 @@ Template.memberMenuPopup.events({
   },
   'click .js-invite-people': Popup.open('invitePeople'),
   'click .js-edit-profile': Popup.open('editProfile'),
+  'click .js-privacy-and-my-data': Popup.open('privacyAndMyData'),
   'click .js-member-date-settings': Popup.open('memberDateSettings', { titleKey: 'date' }),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-color': Popup.open('changeColor'),

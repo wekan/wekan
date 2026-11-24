@@ -48,6 +48,8 @@ const AUDITED_METHODS = [
   'cleanupUnusedTemplateContainers', 'sandstormDeleteRawMongo', 'setRecoveryMaintenance',
   // Personal data (docs/Compliance/README.md WP-1)
   'anonymizeUser',
+  // Legal pages and privacy contacts (WP-6)
+  'saveLegalPage', 'saveLegalContacts',
 ];
 
 // The collections the Admin Panel writes straight from the browser - Settings

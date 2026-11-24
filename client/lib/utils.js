@@ -1036,6 +1036,11 @@ export const Utils = {
 
   setMatomo(data) {
     window._paq = window._paq || [];
+    // No cookies, ever: Matomo then stores nothing on the visitor's device, so
+    // the statistics need no cookie consent ([EPD] Art. 5(3), [TDDDG25] § 25,
+    // [PECR6] reg. 6; docs/Compliance/README.md row 1.8, WP-6). First, so no
+    // tracking call before it can set one.
+    window._paq.push(['disableCookies']);
     window._paq.push(['setDoNotTrack', data.doNotTrack]);
     if (data.withUserName) {
       window._paq.push(['setUserId', ReactiveCache.getCurrentUser().username]);

@@ -1057,6 +1057,18 @@ const INVENTORY = Object.freeze([
     notes: '',
   },
   {
+    collection: 'legalPages',
+    definedIn: 'models/legalPages.js',
+    categories: ['contact'],
+    subjectField: null,
+    purpose: 'The privacy notice, terms, cookie notice and imprint, and the privacy contacts, that the operator publishes (Admin Panel / Settings / Privacy).',
+    legalBasisHint: 'legal obligation',
+    retention: { env: null, default: 'until changed', where: null },
+    erasure: 'n/a',
+    erasureWhere: null,
+    notes: 'The imprint and the contacts name the operator and the people to contact, as the operator writes them; modifiedBy is the administrator who saved a page. Published on purpose.',
+  },
+  {
     collection: 'lists',
     definedIn: 'models/lists.js',
     categories: ['content', 'usage'],

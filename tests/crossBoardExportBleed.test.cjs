@@ -99,6 +99,12 @@ test('negative: every HTTP export route asks the switch first', () => {
       const route = m[2];
       if (!/export|\.ics\b/i.test(route) || /\/import/.test(route)) continue;
       routes.push(route);
+      // The person's OWN data (WP-5), not board content: the right of access
+      // cannot be switched off, so this one route must NOT ask the switch.
+      if (route === '/api/user/export') {
+        if (/refuseDisabledExport/.test(text)) offenders.push(`${file}: ${route} must not obey the board export switch`);
+        continue;
+      }
       if (!/refuseDisabledExport\(res\)\) return;/.test(m[3])) offenders.push(`${file}: ${route}`);
     }
   }
