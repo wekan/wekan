@@ -1,5 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Template } from 'meteor/templating';
+import { adminCsvLinks } from '/client/lib/adminCsvLinks';
 
 // Admin Panel / People / Audit log: pages of server/adminAudit.js's trail.
 Template.adminAuditLog.onCreated(function () {
@@ -18,6 +19,8 @@ Template.adminAuditLog.onCreated(function () {
 });
 
 Template.adminAuditLog.helpers({
+  // WP-10: the whole log as CSV (server/routes/adminCsvExport.js).
+  csvLinks() { return adminCsvLinks([{ name: 'audit', labelKey: 'export-csv' }]); },
   loading() { return Template.instance().loading.get(); },
   rows() { return Template.instance().result.get().rows; },
   total() { return Template.instance().result.get().total; },

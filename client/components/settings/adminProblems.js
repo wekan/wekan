@@ -6,6 +6,7 @@ import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Admin-Panel/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
+import { adminCsvLinks } from '/client/lib/adminCsvLinks';
 import { TAPi18n } from '/imports/i18n';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
@@ -856,6 +857,11 @@ function reportTablePageData(tmpl) {
     totalPages: info.totalPages,
     hasPrev: info.hasPrev,
     hasNext: info.hasNext,
+    // WP-10: every board, and who has which role on which board.
+    csvLinks: reportId === 'report-boards' ? adminCsvLinks([
+      { name: 'boards', labelKey: 'export-csv' },
+      { name: 'board-roles', labelKey: 'export-csv-board-roles' },
+    ]) : [],
   };
 }
 // Broken cards has no template of its own any more: it is a column spec in
@@ -1194,6 +1200,8 @@ Template.eventStreamReport.helpers({
       // problems" - it is "nothing has called the API", which on most instances
       // means WITH_API is off.
       emptyKey: t.stream === 'api' ? 'api-no-calls' : 'no-new-problems',
+      // WP-10: every summarised security problem, for an incident report.
+      csvLinks: t.stream === 'security' ? adminCsvLinks([{ name: 'security', labelKey: 'export-csv' }]) : [],
       searchTerm: t.search.get(),
       header: buildHeader(columnsFor(t.stream)),
       rows: buildRows(rows, columnsFor(t.stream)),

@@ -6,6 +6,10 @@ template(name="adminAuditLog")
     p {{_ 'admin-audit-log-info'}}
     .admin-audit-log-search
       input.wekan-form-control.js-admin-audit-search(type="search" placeholder="{{_ 'search'}}" value=search)
+      each csvLinks
+        a.js-table-page-csv.button(href="{{url}}" data-dataset="{{name}}" download)
+          i.fa.fa-download
+          |  {{_ labelKey}}
     if loading
       +spinner
     else

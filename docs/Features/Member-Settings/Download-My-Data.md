@@ -24,6 +24,12 @@ and no setting turns it off.
 2. Click **Privacy and my data**, then **Download my data**.
 3. The browser saves `wekan-personal-data-<your username>.zip`.
 
+The same popup lists **Where I signed in from**: each address your account
+signed in from, how many times, and the first and last time - the sign-in
+addresses WeKan keeps for `LOGIN_ADDRESS_RETENTION_DAYS`. It also lists the
+versions of the terms and the privacy notice you accepted, when this WeKan
+asks for acceptance.
+
 An administrator can download the same for any account:
 `/api/user/export?authToken=<their own token>&userId=<the account's id>`.
 Every such download is recorded in Admin Panel / People / Audit log as

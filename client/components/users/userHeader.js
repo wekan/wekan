@@ -36,7 +36,14 @@ Template.memberMenuPopup.onCreated(function () {
   Meteor.subscribe('setting');
 });
 
+Template.privacyAndMyDataPopup.onCreated(function () {
+  this.loginHistory = new ReactiveVar([]);
+  Meteor.call('getMyLoginHistory', (error, rows) => { if (!error && Array.isArray(rows)) this.loginHistory.set(rows); });
+});
+
 Template.privacyAndMyDataPopup.helpers({
+  myLoginHistory() { return Template.instance().loginHistory.get(); },
+  date(value) { return value ? new Date(value).toLocaleDateString() : ''; },
   // "Download my data" (WP-5): the person's own export, signed in by token
   // like the board exports' downloads.
   myDataUrl() {

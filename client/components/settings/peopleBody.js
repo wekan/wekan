@@ -28,6 +28,7 @@ import LockoutSettings from '/models/lockoutSettings';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Admin-Panel/Admin-Panel-URLs.md
 import { adminPath } from '/models/lib/adminUrls';
+import { adminCsvLinks } from '/client/lib/adminCsvLinks';
 import Org from '/models/org';
 import Settings from '/models/settings';
 import Team from '/models/team';
@@ -796,6 +797,11 @@ Template.people.helpers({
       hasNext: tpl.peoplePage.get() < totalPages,
       total,
       totalLabelKey: 'people-number',
+      // WP-10: every account, and who has which role on which board.
+      csvLinks: adminCsvLinks([
+        { name: 'people', labelKey: 'export-csv' },
+        { name: 'board-roles', labelKey: 'export-csv-board-roles' },
+      ]),
     };
   },
   teamTablePageData() {

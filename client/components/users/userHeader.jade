@@ -547,3 +547,14 @@ template(name="privacyAndMyDataPopup")
         | {{_ 'download-my-data'}}
   +legalPageLinks
   +legalAcceptancesList
+  //- WP-10: where this account signed in from, how often, first and last
+  //- (getMyLoginHistory, server/methods/loginOffices.js).
+  if myLoginHistory.length
+    h4.privacy-login-history-title {{_ 'my-login-history'}}
+    ul.privacy-login-history
+      each myLoginHistory
+        li
+          code {{address}}
+          if locationLabel
+            |  {{locationLabel}}
+          |  · {{logins}} · {{date firstAt}} – {{date at}}

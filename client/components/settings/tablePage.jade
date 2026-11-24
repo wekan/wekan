@@ -48,6 +48,12 @@ template(name="tablePage")
           if icon
             i.fa(class="{{icon}}")
           | {{_ labelKey}}
+      //- WP-10: the whole list as CSV (server/routes/adminCsvExport.js), for
+      //- the pages that pass csvLinks (client/lib/adminCsvLinks.js).
+      each csvLinks
+        a.js-table-page-csv.button(href="{{url}}" data-dataset="{{name}}" download)
+          i.fa.fa-download
+          |  {{_ labelKey}}
       if total
         span.table-page-total
           if totalLabelKey

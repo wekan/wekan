@@ -252,3 +252,18 @@ if (Meteor.isServer) {
     },
   });
 }
+
+// Member Settings / Privacy and my data (WP-10): the signed-in person's own
+// sign-in addresses - where from, how often, first and last time - from the
+// same tally Admin Panel / People / Login locations reads. Only one's own.
+Meteor.methods({
+  async getMyLoginHistory() {
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const user = await Meteor.users.findOneAsync(this.userId, { fields: { username: 1, profile: 1, loginDisabled: 1, loginAddresses: 1 } });
+    if (!user) return [];
+    const [person] = await peopleSummaries([user]);
+    return person.addresses.map(a => ({
+      address: a.address, locationLabel: a.locationLabel, logins: a.logins, firstAt: a.firstAt, at: a.at,
+    }));
+  },
+});

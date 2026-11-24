@@ -61,7 +61,11 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   Bulgarian values (Хора, Наблюдавай, Имейл, Описание, Разпределена от,
   Поискан от); Luxembourgish (`lb`) is partly German; Punjabi and Odia (`pa`,
   `or_IN`) call a swimlane "swimming"; Maltese (`mt`) has "Bord Ara" for
-  Board View.
+  Board View. Seen by the 2026-11-24 translators: Venetian (`ve-CC`) has
+  Zulu "export" and "log in" values, Vietnamese (`vi-VN`) has the Malay
+  "Sejarah" for history, and Tagalog (`tl`) and Waray (`wa-RR`) have odd
+  "log in" values; Neapolitan and Sicilian (`nap`, `scn`) have the Italian
+  "Accedi" and "Esporta", and Luxembourgish "Board importieren".
 - The docs folders keep their main page as `README.md` instead of a page named
   after the folder, and `docs/Features/README.md` holds the website's feature
   overview. Every topic in one folder at the `docs/Features/` level: the

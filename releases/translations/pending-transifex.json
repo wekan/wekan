@@ -6223,6 +6223,18 @@
     {
       "key": "legal-acceptance-signup",
       "since": "2026-11-24"
+    },
+    {
+      "key": "export-csv",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "export-csv-board-roles",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "my-login-history",
+      "since": "2026-11-24"
     }
   ]
 }

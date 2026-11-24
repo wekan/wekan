@@ -27,6 +27,15 @@ On any table page:
 4. Read the total beside the controls.
 5. Move between pages with the previous and next arrows at the end of the
    controls row.
+6. On Admin Panel / People, Problems / Boards and Problems / Security, click
+   **Export CSV** for the whole list - every row, not only the page on screen
+   - as a CSV file; People and Boards also have **Boards and roles as CSV**,
+   one row per board member with the role, for an access review. Only a site
+   administrator can download them, and each download is in Admin Panel /
+   People / Audit log as `exportAdminCsv` (the Audit log has its own Export
+   CSV). The files come from `server/routes/adminCsvExport.js`; their columns
+   are in `models/lib/adminCsvExport.js`, and no password, token or key is
+   ever one of them.
 
 ## How the numbers are calculated
 
