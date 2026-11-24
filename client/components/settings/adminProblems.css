@@ -127,3 +127,11 @@ button.instrumentation-area.is-active {
   overflow-wrap: anywhere;
   max-width: 32rem;
 }
+
+/* #6942: Problems / Summary as a status dashboard - each area's most frequent
+   kinds under it, and the sign-in refusals by reason with how to fix them. */
+.admin-problem-top { margin: 0.25rem 0 0.75rem 2.2rem; padding: 0; list-style: none; font-size: 0.92em; }
+.admin-problem-top li { margin: 0.15rem 0; overflow-wrap: anywhere; }
+.admin-problem-kind { font-weight: 600; }
+.admin-login-refusals { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.admin-login-refusals td { padding: 0.35rem 0.5rem; border-bottom: 1px solid rgba(128, 128, 128, 0.3); vertical-align: top; overflow-wrap: anywhere; }

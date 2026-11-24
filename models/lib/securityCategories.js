@@ -41,6 +41,10 @@ const CATALOG = {
   'authn.ldap-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.cas-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.inactive': { category: 'authn', bleed: 'InactiveBleed', severity: 'critical', cwe: 'CWE-613' },
+  // #6942: every refused sign-in, with its reason in the source
+  // (models/lib/loginRefusals.js). A typo is ordinary; the account tried is the
+  // target, and nothing here may block it.
+  'authn.login-refused': { category: 'authn', bleed: 'Login refused', severity: 'low', cwe: 'CWE-287', blocksAccount: false },
   'authz.subtask-deposit': { category: 'authz', bleed: 'SubtaskDepositBleed', severity: 'high', cwe: 'CWE-639' },
   // ImportPlacementBleed: an import into a board placed beside a list,
   // swimlane or card of ANOTHER board. blocksAccount: false - an import menu

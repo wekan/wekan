@@ -88,6 +88,28 @@ template(name="problemsSummary")
           i.fa.fa-search
         | {{_ 'start'}}
 
+    //- #6942: why sign-ins were refused - one row per reason, how often, the
+    //- latest account and address, and how to fix it. The person signing in
+    //- still sees one generic message (models/lib/loginRefusals.js).
+    if loginRefusals.length
+      h2 {{_ 'login-refusals'}}
+      table.admin-login-refusals
+        tbody
+          each loginRefusals
+            tr
+              td
+                strong {{_ labelKey}}
+              td {{_ 'data-access-times'}} {{count}}
+              td
+                if at
+                  | {{when at}}
+                if username
+                  |  · {{username}}
+                if ip
+                  |  · {{ip}}
+              td
+                a(href="{{paneHref pane}}") {{_ fixKey}}
+
     h2 {{_ 'problems'}}
     if hasProblems
       p {{_ 'problems-summary-help'}}
@@ -98,6 +120,19 @@ template(name="problemsSummary")
             i.fa.fa-exclamation-triangle
             span.admin-problem-path {{_ 'admin-panel'}} → {{_ 'problems'}} → {{areaLabel area.stream}}
             span.admin-problem-count {{_ 'new-problems-count' count=area.count}}
+          //- #6942: the area's most frequent kinds, as a status dashboard does.
+          if area.top.length
+            ul.admin-problem-top
+              each row in area.top
+                li
+                  span.admin-problem-kind {{row.bleed}}
+                  if row.source
+                    span.quiet  {{row.source}}
+                  |  · {{_ 'data-access-times'}} {{row.count}}
+                  if row.at
+                    |  · {{when row.at}}
+                  if row.who
+                    |  · {{row.who}}
         .admin-problem-actions
           button.js-ack-checked.primary {{_ 'acknowledge'}}
           button.js-clear-checked {{_ 'clear-problems'}}

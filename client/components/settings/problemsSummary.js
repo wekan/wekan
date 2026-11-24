@@ -27,6 +27,7 @@ const STREAM_LABEL_KEY = {
 
 Template.problemsSummary.onCreated(function () {
   this.areas = new ReactiveVar([]);
+  this.loginRefusals = new ReactiveVar([]);
   // "Broken cards N" repair button state (see the repairBrokenCards method in
   // server/methods/repairBrokenCards.js).
   this.repairRunning = new ReactiveVar(false);
@@ -46,6 +47,9 @@ Template.problemsSummary.onCreated(function () {
   this.dataHealthResults = new ReactiveVar({});
   this.dataHealthScanRequested = new ReactiveVar(false);
   this.reload = () => {
+    Meteor.call('loginRefusalSummary', (err, res) => {
+      if (!err) this.loginRefusals.set(Array.isArray(res) ? res : []);
+    });
     Meteor.call('eventLogProblemAreas', (err, res) => {
       if (!err) this.areas.set(Array.isArray(res) ? res : []);
     });
@@ -64,6 +68,15 @@ Template.problemsSummary.onDestroyed(function () {
 Template.problemsSummary.helpers({
   areas() {
     return Template.instance().areas.get();
+  },
+  loginRefusals() {
+    return Template.instance().loginRefusals.get();
+  },
+  paneHref(pane) {
+    return Array.isArray(pane) ? require('/models/lib/adminUrls').adminPath(pane[0], pane[1]) : '';
+  },
+  when(at) {
+    return at ? new Date(at).toLocaleString() : '';
   },
   hasProblems() {
     return (Template.instance().areas.get() || []).length > 0;

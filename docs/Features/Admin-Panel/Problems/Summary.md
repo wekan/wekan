@@ -57,6 +57,21 @@ not `isAdmin`. Organization administrators do not see it.
 2. Click **Acknowledge** to reset their new-problem count (the rows stay), or
    **Clear** to delete their rows up to now.
 
+### Sign-in refusals (#6942)
+
+When somebody could not sign in, **Sign-in refusals** says why: one row per
+reason - wrong password, no such account, account disabled, too many
+attempts, an incomplete request, and for LDAP: the directory refused the
+password, not in the allowed group, an account with that name not linked to
+the directory, or the account belongs to another directory entry - with how
+many times it happened, the latest account and address, and one line on how
+to fix it, which opens the pane where it is fixed. The person signing in
+still sees the same generic message whatever the reason, so the sign-in page
+never tells a stranger which accounts exist.
+
+Under each problem area, its most frequent kinds are listed too: what
+happened, how many times, when last, and the latest account or address.
+
 ## How the numbers are calculated
 
 - **A newer WeKan is available**: shown when the last **Check version** in

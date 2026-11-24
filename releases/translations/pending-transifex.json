@@ -6383,6 +6383,82 @@
     {
       "key": "attachment-encryption-progress",
       "since": "2026-11-24"
+    },
+    {
+      "key": "login-refusals",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-bad-password",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-bad-password-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-unknown-user",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-unknown-user-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-account-disabled",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-account-disabled-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-braked",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-braked-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-malformed-credentials",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-malformed-credentials-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-bad-credentials",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-bad-credentials-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-not-in-allowed-group",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-not-in-allowed-group-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-account-not-linked",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-account-not-linked-fix",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-bound-to-another-entry",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "login-refused-ldap-bound-to-another-entry-fix",
+      "since": "2026-11-24"
     }
   ]
 }

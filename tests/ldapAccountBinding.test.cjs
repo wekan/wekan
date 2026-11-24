@@ -49,7 +49,10 @@ test('the login refuses such an account before it logs in, syncs or sets a passw
   assert.ok(guard > 0);
   assert.ok(guard < src.indexOf('// Login user if they exist'));
   assert.ok(guard > src.indexOf("'emails.0.address' : email"), 'after the username and e-mail lookups');
-  assert.ok(/boundToAnotherEntry[\s\S]{0,300}throw new Meteor\.Error\('LDAP-login-error', 'LDAP authentication failed'\)/.test(src));
+  // #6942: refused through refuseLdapLogin, which records the reason for Admin
+  // Panel / Problems and returns the same generic LDAP-login-error.
+  assert.ok(/boundToAnotherEntry[\s\S]{0,300}throw refuseLdapLogin\('ldap-bound-to-another-entry'/.test(src));
+  assert.ok(/function refuseLdapLogin[\s\S]{0,400}return new Meteor\.Error\('LDAP-login-error', 'LDAP authentication failed'\);/.test(src));
 });
 
 test('LDAP_EMAIL_MATCH_REQUIRE looks the user up by username, not by _id', () => {

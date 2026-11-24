@@ -54,6 +54,13 @@ causes.
 | **LDAP connection exhaustion** | Leaked LDAP connections exhaust the directory server's connection limit, so logins are slow or fail intermittently. | Check the LDAP server's connection count / limits. |
 | **Sandstorm base path** | A Sandstorm grain authenticates asynchronously; a wrong base path strands the user on a "Must be logged in" page. | Ensure the base path / `ROOT_URL` is correct. |
 
+**Why one person could not sign in.** The checks above are about the site;
+for a single person, Problems / Summary / **Sign-in refusals** lists every
+refused sign-in by its precise reason, including the LDAP ones, with the fix
+(models/lib/loginRefusals.js, server/lib/loginRefusals.js; #6942). Each
+reason is one summarised row in the security stream - never a row per
+attempt - and recording it never blocks the account that was tried.
+
 ## How the numbers are calculated
 
 This feature has no numbers of its own: each check is a severity and an

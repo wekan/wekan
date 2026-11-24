@@ -212,10 +212,22 @@ if (Meteor.isServer) {
         // problem being mitigated or clearing (the CPU stream writes several of
         // those per short spike), so an idle server does not report dozens of
         // "new problems".
-        const count = await EventLog.find(
-          newProblemsSelector(stream, ack && ack.at),
-        ).countAsync();
-        if (count > 0) areas.push({ stream, count });
+        const selector = newProblemsSelector(stream, ack && ack.at);
+        const count = await EventLog.find(selector).countAsync();
+        if (count > 0) {
+          // #6942: what the area is made of, like a status dashboard - its
+          // most frequent kinds, how often each happened, when last and the
+          // latest account or address. Each row is already a summary
+          // (models/lib/eventLogSummary.js), so this reads a handful of rows.
+          const top = await EventLog.find(selector, {
+            sort: { count: -1, at: -1 }, limit: 3,
+            fields: { bleed: 1, source: 1, count: 1, at: 1, username: 1, ip: 1 },
+          }).fetchAsync();
+          areas.push({
+            stream, count,
+            top: top.map(r => ({ bleed: r.bleed || '', source: r.source || '', count: r.count || 1, at: r.at || null, who: r.username || r.ip || '' })),
+          });
+        }
       }
       return areas;
     },

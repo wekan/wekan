@@ -39,6 +39,17 @@ function fallbackDefaultAccountSystem(bind, username, password) {
   return Accounts._runLoginHandlers(bind, loginRequest);
 }
 
+// #6942: every refusal is recorded for Admin Panel / Problems with its precise
+// reason (server/lib/loginRefusals.js), and the person signing in gets the
+// same generic message whatever it was - naming "no such user" or "that
+// account exists" would let anybody list the accounts.
+function refuseLdapLogin(reason, username, targetUserId) {
+  try {
+    if (typeof global.__wekanLoginRefused === 'function') global.__wekanLoginRefused(reason, username, targetUserId);
+  } catch (e) { /* the record must never change the refusal */ }
+  return new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+}
+
 Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   if (!loginRequest.ldap || !loginRequest.ldapOptions) {
     return undefined;
@@ -49,7 +60,7 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   try {
     requireUserCredentials(loginRequest.username, loginRequest.ldapPass);
   } catch (error) {
-    throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+    throw refuseLdapLogin('malformed-credentials', typeof loginRequest.username === 'string' ? loginRequest.username : '');
   }
 
   log_info('Init LDAP login', loginRequest.username);
@@ -88,7 +99,7 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
         return fallbackDefaultAccountSystem(self, loginRequest.username, loginRequest.ldapPass);
       }
 
-      throw new Meteor.Error('LDAP-login-error', `LDAP Authentication failed with provided username [${ loginRequest.username }]`);
+      throw refuseLdapLogin('ldap-bad-credentials', loginRequest.username);
     }
 
     // The directory group policy applies to both user-bind and service-bind
@@ -100,7 +111,7 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
           global.__wekanTripCanary('ldap.group-denied');
         }
       } catch (e) { /* logging must never break the guard */ }
-      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+      throw refuseLdapLogin('ldap-not-in-allowed-group', loginRequest.username);
     }
 
     // In service-search mode the group lookup must still use the service
@@ -109,7 +120,7 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
       if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
         return fallbackDefaultAccountSystem(self, loginRequest.username, loginRequest.ldapPass);
       }
-      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+      throw refuseLdapLogin('ldap-bad-credentials', loginRequest.username);
     }
 
     // Look to see if user already exists
@@ -203,14 +214,16 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
     // open the previous owner's boards.
     if (user && boundToAnotherEntry(user, Unique_Identifier_Field)) {
       log_warn('LDAP login matched an existing account by name or e-mail, but that account belongs to another directory entry; refusing', user._id);
-      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+      throw refuseLdapLogin('ldap-bound-to-another-entry', loginRequest.username, user._id);
     }
 
     // Login user if they exist
     if (user) {
       if (user.authenticationMethod !== 'ldap' && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') !== true) {
         log_info('User exists without "authenticationMethod : ldap"');
-        throw new Meteor.Error('LDAP-login-error', `LDAP Authentication succeded, but there's already a matching Wekan account in MongoDB`);
+        // The caller is told nothing about that account existing; the
+        // administrator sees "not linked" and can set LDAP_MERGE_EXISTING_USERS.
+        throw refuseLdapLogin('ldap-account-not-linked', loginRequest.username, user._id);
       }
 
       log_info('Logging user');
