@@ -6559,6 +6559,18 @@
     {
       "key": "admin-email-settings-enable",
       "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-job-progress",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-job-newest-lines",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "gitea-job-errors",
+      "since": "2026-11-24"
     }
   ]
 }
