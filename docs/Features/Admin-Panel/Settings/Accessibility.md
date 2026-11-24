@@ -36,6 +36,14 @@ contrast, right-to-left languages — see
 Unticking hides the sidebar link. A signed-in user who opens `/accessibility`
 while it is off sees *"Accessibility info has not been added yet"*.
 
+
+To start the statement, click **Start from WeKan's draft** under an empty
+text: it fills in the parts an accessibility statement needs (compliance
+status, what is not accessible, how to give feedback, the enforcement
+procedure and the date), with the places to complete marked "fill in"
+(`models/lib/accessibilityStatementDraft.js`). It never replaces text you
+wrote.
+
 ## How the numbers are calculated
 
 This pane has no numbers of its own. The only default is that the page is off

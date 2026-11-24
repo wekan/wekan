@@ -7,7 +7,8 @@
   vertical-align: top;
 }
 .admin-audit-args { white-space: pre-wrap; word-break: break-all; font-size: 0.85em; }
-.admin-audit-failed .admin-audit-error { color: #c0392b; }
+/* Dark enough for WCAG 1.4.3 contrast on the failed row (WP-13 axe scan). */
+.admin-audit-failed .admin-audit-error { color: #8a1c12; }
 .admin-audit-log-pager { margin-top: 0.5rem; display: flex; gap: 0.5rem; align-items: center; }
 /* WP-11: Audit log | Data access. */
 .admin-audit-log-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem; }

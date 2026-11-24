@@ -3,6 +3,6 @@
 .compliance-table td { padding: 0.4rem 0.5rem; border-bottom: 1px solid rgba(128, 128, 128, 0.3); vertical-align: top; }
 .compliance-table code { overflow-wrap: anywhere; }
 .compliance-status { white-space: nowrap; }
-.compliance-ok .compliance-status { color: #1b7f3a; }
-.compliance-warn .compliance-status { color: #a65e00; }
-.compliance-info .compliance-status { color: #3a6ea5; }
+.compliance-ok .compliance-status { color: #0b5a24; }
+.compliance-warn .compliance-status { color: #7a3f00; }
+.compliance-info .compliance-status { color: #1f4f80; }

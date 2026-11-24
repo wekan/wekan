@@ -9,7 +9,7 @@ template(name="legalPagesSettings")
     else
       each pages
         section.legal-page-editor(data-page="{{_id}}")
-          h3
+          h2.legal-page-editor-title
             a(href="/{{_id}}" target="_blank" rel="noopener noreferrer") {{label}}
             if version
               span.quiet  {{_ 'legal-page-version' version=version}}
@@ -40,7 +40,7 @@ template(name="legalPagesSettings")
             button.js-legal-draft {{_ 'legal-privacy-draft'}}
           button.primary.js-legal-save {{_ 'save'}}
       section.legal-page-editor.js-legal-contacts
-        h3 {{_ 'privacy-contacts'}}
+        h2.legal-page-editor-title {{_ 'privacy-contacts'}}
         each contactFields
           label
             | {{label}}

@@ -1056,6 +1056,13 @@ Template.accessibilitySettings.events({
       $('.accessibility-content').slideDown();
     }
   },
+  'click button.js-accessibility-draft'(event) {
+    event.preventDefault();
+    const body = document.getElementById('admin-accessibility-content');
+    if (body && !body.value.trim()) {
+      body.value = require('/models/lib/accessibilityStatementDraft').draftAccessibilityStatement();
+    }
+  },
   'click button.js-accessibility-save'(event, tpl) {
     tpl.loading.set(true);
     const title = $('#admin-accessibility-title').val().trim();

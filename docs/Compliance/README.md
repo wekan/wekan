@@ -86,7 +86,7 @@ not in security:
 
 *(Status 2026-11-24: gaps 1, 2, 3 and 6 are closed by WP-4 to WP-9 below,
 and gap 4's retention by WP-7; what each did is in its work package. Still
-open: the ROPA draft of gap 4 (row 2.2) and gap 7 (WP-13); gap 5 is closed by
+open: the ROPA draft of gap 4 (row 2.2); gap 7 is closed by WP-13, and gap 5 by
 WP-1 (Settings writes audited), WP-7, WP-10 and WP-11.)*
 
 EU AI Act (Regulation (EU) 2024/1689, **amended by Regulation (EU)
@@ -244,9 +244,9 @@ a reading of the text, not legal advice.
 
 | # | Requirement | Legal basis (exact provision; key links to official source) | Status | Evidence | What is missing / smallest addition | Menu | Prio |
 |---|---|---|---|---|---|---|---|
-| 6.1 | Accessibility statement page | [WAD] Art. 7(1) accessibility statement - **public sector bodies only** (websites since 2019/2020, apps since 2021-06-23). Not EAA: EAA Annex V is the service-provider information in the terms and conditions ([EAA] Art. 13(2)), and a kanban tool is not an EAA service ([EAA] Art. 2(2)) - corrected. | **EXISTS** | `/accessibility` route (`config/router.js:355`), `models/accessibilitySettings.js` (enabled/title/body), Admin Panel / Settings / Accessibility (`settingBody.jade:734`). | Statement template text with the required parts (compliance status, non-accessible content, feedback contact, enforcement procedure, date) as the default body; link it from the login footer (WP-1). | Admin Panel / Settings / Accessibility | P2 |
+| 6.1 | Accessibility statement page | [WAD] Art. 7(1) accessibility statement - **public sector bodies only** (websites since 2019/2020, apps since 2021-06-23). Not EAA: EAA Annex V is the service-provider information in the terms and conditions ([EAA] Art. 13(2)), and a kanban tool is not an EAA service ([EAA] Art. 2(2)) - corrected. | **EXISTS** | `/accessibility` route (`config/router.js:355`), `models/accessibilitySettings.js` (enabled/title/body), Admin Panel / Settings / Accessibility (`settingBody.jade:734`). | Statement template text with the required parts (compliance status, non-accessible content, feedback contact, enforcement procedure, date) as the default body; link it from the login footer (WP-1). Done in WP-13 (2026-11-24): Start from WeKan's draft in Admin Panel / Settings / Accessibility fills the required parts. | Admin Panel / Settings / Accessibility | P2 |
 | 6.2 | Skip link, focus visible, keyboard, screen reader basics | [WAD] Art. 4 via [EN301549] V3.2.1 (WCAG 2.1 AA) for public bodies; [EAA] Art. 4(3), Annex I only for in-scope consumer services (since 2025-06-28; microenterprises exempt, Art. 4(5)) (WAD Art. 4 UNVERIFIED, not re-read) | **EXISTS** | Skip link (`client/components/main/layouts.jade`, `layouts.css`), `tests/playwright/specs/19-accessibility.e2e.js`, `45-axe-accessibility.e2e.js`, `46-axe-theme-contrast.e2e.js`, keyboard move/copy (`move-copy-keyboard-shortcut-6904.e2e.js`), `prefers-reduced-motion` in several CSS files, `docs/Features/General/Accessibility/Audit.md`. | - | - | - |
-| 6.3 | WCAG 2.2-only criteria (2.4.11 Focus Not Obscured, 2.5.7 Dragging Movements, 2.5.8 Target Size 24px, 3.2.6 Consistent Help, 3.3.7 Redundant Entry, 3.3.8 Accessible Authentication) | [WCAG22] (W3C Recommendation 12 Dec 2024) - voluntary today: the harmonised [EN301549] V3.2.1 references WCAG 2.1; an EN revision referencing 2.2 is UNVERIFIED | **PARTIAL** | Axe tags `['wcag2a','wcag2aa','wcag21a','wcag21aa','best-practice']` (`tests/playwright/specs/45-axe-accessibility.e2e.js:19`) - no `wcag22aa`; docs say "WCAG 2.1 AA". `TODO.md:37-40` lists the work. Passkeys and paste-friendly password fields help 3.3.8; card move has a non-drag menu (2.5.7) but list/swimlane reorder needs checking. | Add `wcag22aa` to TAGS, fix findings, add a target-size test and a non-drag reorder path for lists/swimlanes; update the docs' target to 2.2. | - (tests + CSS) | P2 |
+| 6.3 | WCAG 2.2-only criteria (2.4.11 Focus Not Obscured, 2.5.7 Dragging Movements, 2.5.8 Target Size 24px, 3.2.6 Consistent Help, 3.3.7 Redundant Entry, 3.3.8 Accessible Authentication) | [WCAG22] (W3C Recommendation 12 Dec 2024) - voluntary today: the harmonised [EN301549] V3.2.1 references WCAG 2.1; an EN revision referencing 2.2 is UNVERIFIED | **EXISTS** | Axe tags `['wcag2a','wcag2aa','wcag21a','wcag21aa','best-practice']` (`tests/playwright/specs/45-axe-accessibility.e2e.js:19`) - no `wcag22aa`; docs say "WCAG 2.1 AA". `TODO.md:37-40` lists the work. Passkeys and paste-friendly password fields help 3.3.8; card move has a non-drag menu (2.5.7) but list/swimlane reorder needs checking. | Add `wcag22aa` to TAGS, fix findings, add a target-size test and a non-drag reorder path for lists/swimlanes; update the docs' target to 2.2. Done in WP-13 (2026-11-24): `wcag22aa` runs and passes; target-size fixed on the minicard; a focus-not-obscured check; Move list and Move swimlane are the non-drag paths; docs say WCAG 2.2 AA. 3.2.6, 3.3.7 and 3.3.8 have no automated rule and stay a manual review. | - (tests + CSS) | P2 |
 
 ## 7. Legal pages and transparency
 
@@ -506,7 +506,16 @@ only)", "audit retention ≥ 2190 days
 used here as a conservative choice for audit records)", "privacy page published", "backups encrypted", each linking to the
 pane that changes it. Pure `models/lib/complianceChecks.js` + test.
 
-**WP-13 WCAG 2.2.** (Good practice: [WCAG22]; the legal baseline is [EN301549] V3.2.1 = WCAG 2.1 AA, via [WAD] for public bodies.) Add `wcag22aa` to `TAGS` in
+**WP-13 WCAG 2.2.** *(done 2026-11-24: `wcag22aa` in the axe spec, run in
+Chromium against a live server - its one finding, the minicard's menu and
+collapse targets under 24 px, fixed, and the contrast and heading-order
+findings on the new pages fixed too; the legal pages, Compliance pane, Audit
+log and Legal pages editor added to the scan; a 2.4.11 check that keyboard
+focus is never hidden on a board; Move list and Move swimlane already serve
+2.5.7; a statement draft in Admin Panel / Settings / Accessibility
+(`models/lib/accessibilityStatementDraft.js`); the docs say WCAG 2.2 AA.
+Tests: `tests/accessibilityStatementDraft.test.cjs`,
+`tests/playwright/specs/45-axe-accessibility.e2e.js`.)* (Good practice: [WCAG22]; the legal baseline is [EN301549] V3.2.1 = WCAG 2.1 AA, via [WAD] for public bodies.) Add `wcag22aa` to `TAGS` in
 `tests/playwright/specs/45-axe-accessibility.e2e.js`, target-size and
 focus-not-obscured checks, non-drag reorder for lists/swimlanes, default
 statement template (6.1), docs to "WCAG 2.2 AA" (this is `TODO.md:37-40`).

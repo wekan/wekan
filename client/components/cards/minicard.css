@@ -82,6 +82,18 @@
 .minicard .minicard-collapse:hover {
   color: #4d4d4d;
 }
+/* WCAG 2.2, 2.5.8 Target Size (Minimum): the collapse caret and the card
+   actions menu are at least 24 x 24 CSS pixels to click or tap, though their
+   icons stay small (WP-13, tests/playwright/specs/45-axe-accessibility.e2e.js
+   runs axe's wcag22aa rules). */
+.minicard .minicard-collapse,
+.minicard .minicard-details-menu-with-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+}
 .minicard-details-menu-with-handle {
   float: inline-end;
   padding-inline-start: 10px;

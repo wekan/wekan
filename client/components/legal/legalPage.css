@@ -28,3 +28,7 @@
   vertical-align: top;
   padding: 0.2em 0.5em;
 }
+
+/* Admin Panel / Settings / Legal pages: each editor's heading, an h2 under the
+   pane title (heading order, WP-13), at the size the h3 had. */
+.legal-page-editor-title { font-size: 1.17em; margin-block: 1em 0.5em; }

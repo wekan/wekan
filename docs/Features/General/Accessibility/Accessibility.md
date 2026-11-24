@@ -3,7 +3,7 @@
 ## What it is
 
 WeKan aims to be usable with a keyboard and with assistive technologies such as
-screen readers, following the WCAG 2.1 AA guidelines: visible focus, a skip
+screen readers, following the WCAG 2.2 AA guidelines: visible focus, a skip
 link, landmarks, named controls, keyboard reordering and right-to-left support
 on every page. An admin can also publish the site's own accessibility
 statement at `/accessibility`.
@@ -12,7 +12,7 @@ statement at `/accessibility`.
 
 - [Web accessibility](https://en.wikipedia.org/wiki/Web_accessibility) and
   [Screen reader](https://en.wikipedia.org/wiki/Screen_reader) on Wikipedia.
-- [WCAG 2.1 quick reference](https://www.w3.org/WAI/WCAG21/quickref/), the
+- [WCAG 2.2 quick reference](https://www.w3.org/WAI/WCAG22/quickref/), the
   [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) and
   [axe-core](https://github.com/dequelabs/axe-core), the checker the audit uses.
 - WeKan pages: [Accessibility audit](Audit.md),
@@ -53,8 +53,12 @@ Tests: [tests/accessibilityAuditFixes.test.cjs](../../../../tests/accessibilityA
 and [tests/playwright/specs/45-axe-accessibility.e2e.js](../../../../tests/playwright/specs/45-axe-accessibility.e2e.js).
 
 WeKan aims to be usable with a keyboard and with assistive technologies such as
-screen readers, following the [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/quickref/)
-guidelines.
+screen readers, following the [WCAG 2.2 AA](https://www.w3.org/WAI/WCAG22/quickref/)
+guidelines. `tests/playwright/specs/45-axe-accessibility.e2e.js` scans the
+pages with axe against the WCAG 2.0, 2.1 and 2.2 A and AA rules - 2.2 adds
+2.5.8 Target Size, at least 24 x 24 pixels to click - and checks that
+keyboard focus is never hidden behind the header or a popup (2.4.11).
+Moving cards, lists and swimlanes has a menu besides dragging (2.5.7).
 
 This page describes:
 

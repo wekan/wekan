@@ -143,7 +143,10 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  opacity: 0.6;
+  /* Full colour: at 0.6 opacity the heading failed WCAG 1.4.3 contrast
+     (axe, tests/playwright/specs/45-axe-accessibility.e2e.js, WP-13);
+     uppercase and bold already mark it as a heading. */
+  opacity: 1;
   cursor: default;
 }
 .setting-content .content-body .side-menu ul li.left-menu-separator:hover,

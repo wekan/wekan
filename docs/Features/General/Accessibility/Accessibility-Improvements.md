@@ -274,7 +274,9 @@ margin: clamp(12px, 1.5vw, 20px);
 
 ---
 
-**Note**: This implementation ensures Wekan meets WCAG 2.1 AA standards and provides an excellent user experience across all devices and assistive technologies.
+**Note**: WeKan follows WCAG 2.2 AA; the automated checks are in
+`tests/playwright/specs/45-axe-accessibility.e2e.js`. Automated tests cover only
+part of WCAG, so this is a floor, not a conformance claim.
 
 ## Commits
 

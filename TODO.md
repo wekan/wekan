@@ -20,7 +20,7 @@ details; WeKan's are below.
 
 | Repository | In progress, or not verified yet | Needs a person |
 | --- | --- | --- |
-| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards WP-4 onwards; accessibility; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
+| WeKan | The help button's Playwright spec; the test build that runs out of memory; wrong-language words in some locales; laws and standards P3 items; accessibility beyond the axe scan; the docs folders | The Dependabot and CodeQL alerts of ferretdb-test, hx, minio-metadata and trello-attachments-downloader; Dependabot off in 16 repositories; the dev-only glob 13 |
 | [gitea-patches](https://github.com/wekan/gitea-patches/blob/main/TODO.md) | 90 new upstream Gitea strings not yet in Finnish | Run "Migrate all Gitea to backups" with `--dry-run` first |
 | [omi](https://github.com/wekan/omi/blob/main/TODO.md) | Delete and import not yet run on a real Gitea folder or against the real GitHub; the import has no reactions, review comments, LFS, Actions or fork branches | Stop and back up Gitea before the first real write |
 | [welite](https://github.com/wekan/welite/blob/main/TODO.md) | WeKan data folders: no zip archives, GridFS or object-storage downloads, avatars or cross-target builds yet; retro-browser acceptance | - |
@@ -74,14 +74,19 @@ section of `CHANGELOG-big.md`, and to the docs, when it is committed.
   the folders of `# Moved` stubs are removed, with every link updated.
 - Everything about accessibility in one folder, `docs/Features/Accessibility/`
   (from `General/Accessibility/` and the Admin Panel's Accessibility page).
-- Accessibility: every missing WCAG 2.2 AA feature added, and the accessibility
-  tests extended to every page, popup and Admin Panel pane - axe with the WCAG
-  2.2 rules, keyboard-only use, visible focus, 200 % zoom and 320 px reflow,
-  target size, reduced motion and every theme's contrast - run through build.sh.
+- Accessibility: the axe scan runs the WCAG 2.2 AA rules and passes on the
+  pages it visits (WP-13). Still to do: extend it to every popup and Admin
+  Panel pane, and add keyboard-only, 200 % zoom and 320 px reflow, reduced
+  motion and every theme's contrast to it, run through build.sh; 3.2.6
+  Consistent Help, 3.3.7 Redundant Entry and 3.3.8 Accessible Authentication
+  need a manual review.
 - Laws and standards - GDPR, NIS2, ISO 27001, HIPAA and the others - checked
-  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-12 and
-  WP-14 are done. Next: WCAG 2.2 (WP-13), which is the accessibility item
-  above.
+  against what WeKan already has (`docs/Compliance/`). WP-1 to WP-14 are
+  done. Left: the P3 list of `docs/Compliance/README.md` (an active-session
+  list, a hash-chained audit log, passphrase-encrypted full backups, a
+  minimum-age option, a "security update available" flag, a "do not record
+  login addresses" switch, an emergency-access impersonation category) and
+  the ROPA draft of row 2.2.
 - Found while documenting, to fix: the Recovery pane's rule email text
   (`rule-email-recovery-description`) still says "This report does not retry
   or cancel delivery", though Review, Resend, Mark as sent and Drop exist since

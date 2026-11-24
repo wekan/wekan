@@ -764,6 +764,10 @@ template(name='accessibilitySettings')
             .title {{_ 'accessibility-content'}}
             textarea#admin-accessibility-content.wekan-form-control(data-editor-submit=".js-accessibility-save")= currentAccessibility.body
           li
+            //- WP-13, row 6.1: the statement's required parts, as a starting
+            //- text (models/lib/accessibilityStatementDraft.js); only into an
+            //- empty text, never over what the operator wrote.
+            button.js-accessibility-draft(type="button") {{_ 'legal-privacy-draft'}}
             button.js-accessibility-save.primary {{_ 'save'}}
 
 template(name='pwaSettings')
