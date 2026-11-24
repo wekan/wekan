@@ -67,7 +67,8 @@ assert.match(et['custom-field-link-send'], /Ühes suunas.*põhikaardile/);
 assert.match(et['field-link-not-allowed'], /õigus mõlemat kaarti muuta/);
 assert.equal(et['import-members-mode-me'], 'Asenda kõik minu kasutajakontoga');
 assert.match(et['import-many-boards-hint'], /liikmeid vastendamata/);
-assert.match(et['import-many-boards-hint'], /Üht eksporti sisaldav.*on üks juhatus/);
+// A board is tahvel; juhatus is a management board (2026-11-24, TODO.md).
+assert.match(et['import-many-boards-hint'], /Üht eksporti sisaldav.*on üks tahvel/);
 assert.match(et['export-all-boards-hint'], /õigus eksportida.*ühe töövihikuna.*\.zip/);
 assert.match(et['webhook-payload-description'], /säilitatakse päritud seadistus/);
 assert.match(et['notification-delivery-quiet'], /oota nende lõpuni/);

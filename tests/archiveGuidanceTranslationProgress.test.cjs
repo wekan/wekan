@@ -57,7 +57,8 @@ for (const code of batchFive) {
  assert.doesNotMatch(value, /gceanntásc|Ваше име|горњем десном|able|clicking|button|header/);
 }
 assert.match(read('ga')['close-board-pop'], /an clár a thabhairt ar ais/);
-assert.match(read('sr')['close-board-pop'], /^Списе можете да повратите/);
+// A board is табла, not списи (2026-11-24, TODO.md's wrong-word list).
+assert.match(read('sr')['close-board-pop'], /^Таблу можете да повратите/);
 assert.match(read('tl')['close-board-pop'], /^Maaari mong ibalik ang pisara/);
 console.log('Archive batch five: Irish restoration sense, Serbian local terminology and Tagalog mixed-language repair');
 

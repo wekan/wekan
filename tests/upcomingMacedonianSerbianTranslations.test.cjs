@@ -95,7 +95,8 @@ assert.match(serbianRecovery['interrupted-import-description'], /све што �
 assert.match(serbianRecovery['interrupted-import-counts'], /__swimlanes__ поступака/);
 assert.match(serbianRecovery['interrupted-import-discard-confirm'], /трајно се уклањају/);
 assert.match(serbianRecovery['interrupted-import-keep-confirm'], /Ништа се не уклања/);
-assert.match(serbianRecovery['interrupted-import-foreign-board'], /нису промењени/);
+// One board (табла), so singular (2026-11-24: not списи, records).
+assert.match(serbianRecovery['interrupted-import-foreign-board'], /није промењена/);
 assert.match(serbianRecovery['interrupted-import-truncated'], /50 најстаријих/);
 assert.match(serbianRecovery['interrupted-import-scrum-busy'], /још уписује или опоравља/);
 

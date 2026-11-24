@@ -217831,5 +217831,19 @@
     "before": "Si in Tabula administrationis / Problemata / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
     "after": "Si in Tabula administrationis / Optiones / Dele electum est ut administrator globalis res in perpetuum delere possit, hic apparebit globulus delendi.",
     "reason": "2026-11-22: the Enable permanent delete switch is in Admin Panel / Settings / Delete, not Problems / Delete; the menu path only is corrected."
+  },
+  {
+    "locale": "sr",
+    "key": "copyManyCardsPopup-format",
+    "before": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "after": "[{\"title\": \"Наслов прве картице\",\"description\": \"Опис прве картице\"},{\"title\": \"Наслов друге картице\",\"description\": \"Опис друге картице\"},{\"title\": \"Наслов последње картице\",\"description\": \"Опис последње картице\"}]",
+    "reason": "Serbian: a card is картица, not предмет (an item); reported in TODO.md's wrong-word list, 2026-11-24."
+  },
+  {
+    "locale": "sr",
+    "key": "close-board-pop",
+    "before": "Списе можете да повратите из одељка „Средишња архива“ на страници „Полица са списима“.",
+    "after": "Таблу можете да повратите из одељка „Средишња архива“ на страници „Све табле“.",
+    "reason": "Serbian: a board is табла, not списи (records), and All Boards is Све табле; reported in TODO.md's wrong-word list, 2026-11-24."
   }
 ]
