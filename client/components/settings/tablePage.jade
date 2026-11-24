@@ -36,7 +36,9 @@ template(name="tablePage")
       //- render. They came from Admin Panel / People, where they were hand-written
       //- into that page's own markup; they are general enough for any table.
       each filters
-        select.js-table-page-filter(data-filter="{{id}}" title="{{_ labelKey}}")
+        //- Named by its labelKey, or by its plain label when a filter gives one
+        //- (adminProblems.js) - a select with neither has no accessible name.
+        select.js-table-page-filter(data-filter="{{id}}" title="{{#if labelKey}}{{_ labelKey}}{{else}}{{label}}{{/if}}" aria-label="{{#if labelKey}}{{_ labelKey}}{{else}}{{label}}{{/if}}")
           each options
             option(value="{{value}}" selected="{{selected}}")
               if labelKey
@@ -152,7 +154,7 @@ template(name="tablePage")
                       .table-page-people
                         each users
                           span.table-page-person
-                            a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                            a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}" aria-label="{{personLinkLabel userId initials text avatarUrl}}")
                               if avatarUrl
                                 img.avatar.avatar-image(src="{{avatarSrc avatarUrl}}" alt="{{text}}")
                               else
@@ -162,7 +164,7 @@ template(name="tablePage")
                               span.table-page-people-count {{count}}
                     else if userId
                       .table-page-single-person
-                        a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                        a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}" aria-label="{{personLinkLabel userId initials text userAvatarUrl}}")
                           if userAvatarUrl
                             img.avatar.avatar-image(src="{{avatarSrc userAvatarUrl}}" alt="{{text}}")
                           else

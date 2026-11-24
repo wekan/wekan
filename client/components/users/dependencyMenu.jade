@@ -2,11 +2,11 @@
 //- Design: docs/Features/General/Editor/RedStrings/Board-And-My-Dependencies.md
 template(name="memberDependencyMenuItems")
   li
-    a.js-toggle-my-dependencies(role="menuitemcheckbox" aria-checked="{{#if showMyDependencies}}true{{else}}false{{/if}}")
+    a.js-toggle-my-dependencies(role="checkbox" aria-checked="{{#if showMyDependencies}}true{{else}}false{{/if}}")
       i.fa(class="{{#if showMyDependencies}}fa-check-square-o{{else}}fa-square-o{{/if}}")
       | {{_ 'show-my-dependencies'}}
   li
-    a.js-toggle-board-dependencies(role="menuitemcheckbox" aria-checked="{{#if showBoardDependencies}}true{{else}}false{{/if}}")
+    a.js-toggle-board-dependencies(role="checkbox" aria-checked="{{#if showBoardDependencies}}true{{else}}false{{/if}}")
       i.fa(class="{{#if showBoardDependencies}}fa-check-square-o{{else}}fa-square-o{{/if}}")
       | {{_ 'show-board-dependencies'}}
   li

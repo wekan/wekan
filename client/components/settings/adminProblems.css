@@ -61,7 +61,9 @@
 .instrumentation-area-head {
   font-weight: 700;
   font-size: 0.85em;
-  opacity: 0.7;
+  /* WCAG 1.4.3: a solid colour instead of opacity 0.7, which faded the
+     headings to 2.8:1 on the Admin Panel's #dedede; #4f5156 is 5.9:1 there. */
+  color: #4f5156;
 }
 .setting-content .content-body .main-body button.instrumentation-area,
 button.instrumentation-area {
@@ -114,7 +116,8 @@ button.instrumentation-area.is-active {
   font-variant-numeric: tabular-nums;
 }
 .instrumentation-area-num.has-errors {
-  color: #b04632;
+  /* #b04632 was 4.1:1 on #dedede; #9a3b29 keeps the red at 5.2:1. */
+  color: #9a3b29;
   font-weight: 700;
 }
 

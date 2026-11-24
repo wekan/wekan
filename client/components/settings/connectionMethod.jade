@@ -1,7 +1,7 @@
 template(name='connectionMethod')
   div.at-form-authentication
     label {{_ 'authentication-method'}}
-    select.select-authentication
+    select.select-authentication(aria-label="{{_ 'authentication-method'}}")
       each authentications
         if isSelected value
           option(value="{{value}}" selected) {{_ value}}

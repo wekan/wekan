@@ -206,7 +206,9 @@
 /* Cloud storage (S3 / Azure / GCS): example value shown below each input. */
 .attachments-content .cloud-input-example {
   display: block;
-  color: #888;
+  /* WCAG 1.4.3: #888 was 2.6:1 and #6a737d 3.6:1 on the Admin Panel's
+     #dedede; #555 and #4a5159 are 5.5:1 and 6.0:1. */
+  color: #555;
   font-size: 0.82em;
   font-family: monospace;
   word-break: break-all;
@@ -216,7 +218,7 @@
 /* Cloud storage: where-to-find-this-value path shown below the example. */
 .attachments-content .cloud-input-path {
   display: block;
-  color: #6a737d;
+  color: #4a5159;
   font-size: 0.82em;
   line-height: 1.4;
   margin-top: 2px;
@@ -233,7 +235,7 @@
 /* Cloud storage: description text (English literal and translated). */
 .attachments-content .cloud-input-desc {
   display: block;
-  color: #6a737d;
+  color: #4a5159;
   font-size: 0.82em;
   line-height: 1.4;
   margin-top: 2px;

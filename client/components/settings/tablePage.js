@@ -1,5 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
+import { ReactiveCache } from '/imports/reactiveCache';
 import { selectedMapProvider } from '/client/components/main/mapProvider';
 import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
@@ -17,6 +18,25 @@ const { mapLinkFor } = require('/models/lib/mapLink');
 // What does NOT belong here is anything a page owns: search, paging and loading
 // differ per report (each has its own state and its own method), so they stay
 // with their page.
+
+Template.tablePage.helpers({
+  // WCAG 2.5.3 Label in Name: a person's link shows their initials when they
+  // have no avatar image, and a speech-input user says what they see. The
+  // link's name ("E2E Test User (user1)") did not contain them ("ETU"), so it
+  // starts with them. With an avatar image the image's alt is the visible
+  // label, and that already is the name.
+  personLinkLabel(userId, initials, text, avatarUrl) {
+    const name = typeof text === 'string' ? text : '';
+    if (avatarUrl) return name;
+    let shown = typeof initials === 'string' && initials ? initials : '';
+    if (!shown && userId) {
+      const user = ReactiveCache.getUser(userId, { fields: { username: 1, 'profile.initials': 1, 'profile.fullname': 1 } });
+      shown = (user && user.getInitials && user.getInitials()) || '';
+    }
+    if (!shown || name.toLowerCase().includes(shown.toLowerCase())) return name;
+    return `${shown} ${name}`;
+  },
+});
 
 Template.tablePage.events({
   // A user cell: the same "Edit user" popup Admin Panel / People opens, from

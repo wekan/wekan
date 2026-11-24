@@ -55,6 +55,8 @@ Template.sharedLabelsSettings.helpers({
         colorSink: { set: color => change(tpl, id, 'color', color) },
         scopeOptions: Object.keys(SCOPE_LABELS).map(value => ({ value, labelKey: SCOPE_LABELS[value], selected: value === row.scope })),
         needsScopeId: row.scope !== 'instance',
+        // The organization or team picker is named after the scope it picks for.
+        scopeLabelKey: SCOPE_LABELS[row.scope],
         scopeIdOptions: scopeIds.map(o => ({ ...o, selected: o.value === row.scopeId })),
       };
     });

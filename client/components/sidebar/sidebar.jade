@@ -641,9 +641,9 @@ template(name="outgoingWebhooksPopup")
         .materialCheckBox(class="{{#if mattermostDirectMessages}}is-checked{{/if}}")
         span {{_ 'webhook-mattermost-dm'}}
       textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")= title
-      input.js-outgoing-webhooks-url(type="text" name="url" value=url)
+      input.js-outgoing-webhooks-url(type="text" name="url" value=url aria-label="{{_ 'settings-group-url'}}")
       input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")
-      select.js-outgoing-webhooks-type(name="type")
+      select.js-outgoing-webhooks-type(name="type" aria-label="{{_ 'type'}}")
           each _type in types
               if($eq _type this.type)
                   option(value=_type selected="selected") {{_ _type}}
@@ -672,7 +672,7 @@ template(name="outgoingWebhooksPopup")
     textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")
     input.js-outgoing-webhooks-url(placeholder="{{_ 'settings-group-url' }}" type="text" name="url")
     input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" name="token")
-    select.js-outgoing-webhooks-type(name="type")
+    select.js-outgoing-webhooks-type(name="type" aria-label="{{_ 'type'}}")
         each _type in types
             option(value=_type) {{_ _type}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")

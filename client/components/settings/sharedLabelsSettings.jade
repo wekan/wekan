@@ -16,7 +16,7 @@ template(name="sharedLabelsSettings")
             each scopeOptions
               option(value=value selected=selected) {{_ labelKey}}
           if needsScopeId
-            select.js-shared-label-scope-id
+            select.js-shared-label-scope-id(aria-label="{{_ scopeLabelKey}}")
               each scopeIdOptions
                 option(value=value selected=selected) {{label}}
           if isNew

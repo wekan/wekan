@@ -1480,3 +1480,29 @@ body.has-login-background hr {
   width: 100%;
   height: auto;
 }
+
+/* WCAG 2.3.3 Animation from Interactions: somebody whose system asks for
+   reduced motion gets no animation and no transition anywhere - not only in
+   the three components that used to opt out on their own. The duration is
+   made effectively zero rather than `none`, so animationend/transitionend
+   listeners still fire and nothing waits forever for an event.
+   `!important` because component rules and inline styles set their own
+   durations - and INSIDE a cascade layer because some of those are
+   `!important` themselves on an id selector (header.css `#header-quick-access
+   .mobile-mode-toggle .board-header-btn { transition: ... !important }`),
+   which a plain `*` cannot outrank. An important declaration in a layer wins
+   over every unlayered important one, whatever its specificity. */
+@layer wekan-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

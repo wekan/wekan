@@ -26,7 +26,7 @@ template(name="attachments")
               li
                 .description {{_ 'default-save-storage-description'}}
                 .form-group
-                  select.wekan-form-control.js-default-save-storage
+                  select.wekan-form-control.js-default-save-storage(aria-label="{{_ 'default-save-storage'}}")
                     each defaultStorageOptions
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group
@@ -44,48 +44,48 @@ template(name="attachments")
               li
                 .title {{_ 'attachment-upload-limit-label'}}
                 .form-group
-                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsUploadMaxBytes")
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsUploadMaxBytes" aria-label="{{_ 'attachment-upload-limit-label'}}")
                     each attachmentTransferLimitModeOptions 'attachmentsUploadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group(class="{{#if isAttachmentLimitMode 'attachmentsUploadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
-                  input.wekan-form-control#attachments-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsUploadMaxBytes'}}")
-                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsUploadMaxBytes")
+                  input.wekan-form-control#attachments-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsUploadMaxBytes'}}" aria-label="{{_ 'attachment-upload-limit-label'}}: {{_ 'attachment-limit-mode-max-size'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsUploadMaxBytes" aria-label="{{_ 'attachment-upload-limit-label'}}: {{_ 'attachment-limit-unit-bytes'}} / {{_ 'attachment-limit-unit-mb'}} / {{_ 'attachment-limit-unit-gb'}}")
                     each attachmentTransferLimitUnitOptions 'attachmentsUploadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
 
               li
                 .title {{_ 'attachment-download-limit-label'}}
                 .form-group
-                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsDownloadMaxBytes")
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="attachmentsDownloadMaxBytes" aria-label="{{_ 'attachment-download-limit-label'}}")
                     each attachmentTransferLimitModeOptions 'attachmentsDownloadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group(class="{{#if isAttachmentLimitMode 'attachmentsDownloadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
-                  input.wekan-form-control#attachments-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsDownloadMaxBytes'}}")
-                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsDownloadMaxBytes")
+                  input.wekan-form-control#attachments-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'attachmentsDownloadMaxBytes'}}" aria-label="{{_ 'attachment-download-limit-label'}}: {{_ 'attachment-limit-mode-max-size'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="attachmentsDownloadMaxBytes" aria-label="{{_ 'attachment-download-limit-label'}}: {{_ 'attachment-limit-unit-bytes'}} / {{_ 'attachment-limit-unit-mb'}} / {{_ 'attachment-limit-unit-gb'}}")
                     each attachmentTransferLimitUnitOptions 'attachmentsDownloadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
 
               li
                 .title {{_ 'api-upload-limit-label'}}
                 .form-group
-                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiUploadMaxBytes")
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiUploadMaxBytes" aria-label="{{_ 'api-upload-limit-label'}}")
                     each attachmentTransferLimitModeOptions 'apiUploadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group(class="{{#if isAttachmentLimitMode 'apiUploadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
-                  input.wekan-form-control#api-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiUploadMaxBytes'}}")
-                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiUploadMaxBytes")
+                  input.wekan-form-control#api-upload-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiUploadMaxBytes'}}" aria-label="{{_ 'api-upload-limit-label'}}: {{_ 'attachment-limit-mode-max-size'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiUploadMaxBytes" aria-label="{{_ 'api-upload-limit-label'}}: {{_ 'attachment-limit-unit-bytes'}} / {{_ 'attachment-limit-unit-mb'}} / {{_ 'attachment-limit-unit-gb'}}")
                     each attachmentTransferLimitUnitOptions 'apiUploadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
 
               li
                 .title {{_ 'api-download-limit-label'}}
                 .form-group
-                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiDownloadMaxBytes")
+                  select.wekan-form-control.js-attachment-limit-mode(data-field="apiDownloadMaxBytes" aria-label="{{_ 'api-download-limit-label'}}")
                     each attachmentTransferLimitModeOptions 'apiDownloadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
                 .form-group(class="{{#if isAttachmentLimitMode 'apiDownloadMaxBytes' 'max-size'}}{{else}}hide{{/if}}")
-                  input.wekan-form-control#api-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiDownloadMaxBytes'}}")
-                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiDownloadMaxBytes")
+                  input.wekan-form-control#api-download-limit-value(type="number" min="1" step="any" value="{{attachmentTransferLimitValue 'apiDownloadMaxBytes'}}" aria-label="{{_ 'api-download-limit-label'}}: {{_ 'attachment-limit-mode-max-size'}}")
+                  select.wekan-form-control.js-attachment-limit-unit(data-field="apiDownloadMaxBytes" aria-label="{{_ 'api-download-limit-label'}}: {{_ 'attachment-limit-unit-bytes'}} / {{_ 'attachment-limit-unit-mb'}} / {{_ 'attachment-limit-unit-gb'}}")
                     each attachmentTransferLimitUnitOptions 'apiDownloadMaxBytes'
                       option(value=value selected=selected) {{_ labelKey}}
 
@@ -127,17 +127,17 @@ template(name="attachments")
 
                 .form-group
                   label {{_ 'writable-path'}}
-                  input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
+                  input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly aria-label="{{_ 'writable-path'}}")
                   small.form-text.text-muted {{_ 'filesystem-path-description'}}
 
                 .form-group
                   label {{_ 'attachments-path'}}
-                  input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
+                  input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly aria-label="{{_ 'attachments-path'}}")
                   small.form-text.text-muted {{_ 'attachments-path-description'}}
 
                 .form-group
                   label {{_ 'avatars-path'}}
-                  input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
+                  input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly aria-label="{{_ 'avatars-path'}}")
                   small.form-text.text-muted {{_ 'avatars-path-description'}}
 
           else if isGridFsActive
@@ -225,7 +225,7 @@ template(name="attachments")
                 .form-group
                   label Endpoint
                   small.form-text.cloud-input-label-tr {{_ 's3-endpoint'}}
-                  input.wekan-form-control#s3-endpoint(type="text" value=cloudValue.s3.endpoint)
+                  input.wekan-form-control#s3-endpoint(type="text" value=cloudValue.s3.endpoint aria-label="{{_ 's3-endpoint'}}")
                   small.form-text.cloud-input-example https://s3.eu-west-1.amazonaws.com
                   small.form-text.cloud-input-desc {{englishText 's3-endpoint-description'}}
                   if translatedDiffers 's3-endpoint-description'
@@ -236,7 +236,7 @@ template(name="attachments")
                 .form-group
                   label AWS Region
                   small.form-text.cloud-input-label-tr {{_ 's3-region'}}
-                  input.wekan-form-control#s3-region(type="text" value=cloudValue.s3.region)
+                  input.wekan-form-control#s3-region(type="text" value=cloudValue.s3.region aria-label="{{_ 's3-region'}}")
                   small.form-text.cloud-input-example eu-west-1
                   small.form-text.cloud-input-desc {{englishText 's3-region-description'}}
                   if translatedDiffers 's3-region-description'
@@ -247,7 +247,7 @@ template(name="attachments")
                 .form-group
                   label Bucket name
                   small.form-text.cloud-input-label-tr {{_ 's3-bucket'}}
-                  input.wekan-form-control#s3-bucket(type="text" value=cloudValue.s3.bucket)
+                  input.wekan-form-control#s3-bucket(type="text" value=cloudValue.s3.bucket aria-label="{{_ 's3-bucket'}}")
                   small.form-text.cloud-input-example wekan-s3-test-369341155299-eu-west-1-an
                   small.form-text.cloud-input-desc {{englishText 's3-bucket-description'}}
                   if translatedDiffers 's3-bucket-description'
@@ -258,7 +258,7 @@ template(name="attachments")
                 .form-group
                   label Access key ID
                   small.form-text.cloud-input-label-tr {{_ 's3-access-key'}}
-                  input.wekan-form-control#s3-access-key(type="text" value=cloudValue.s3.accessKeyId)
+                  input.wekan-form-control#s3-access-key(type="text" value=cloudValue.s3.accessKeyId aria-label="{{_ 's3-access-key'}}")
                   small.form-text.cloud-input-example AKIAIOSFODNN7EXAMPLE
                   small.form-text.cloud-input-desc {{englishText 's3-access-key-description'}}
                   if translatedDiffers 's3-access-key-description'
@@ -269,7 +269,7 @@ template(name="attachments")
                 .form-group
                   label Secret access key
                   small.form-text.cloud-input-label-tr {{_ 's3-secret-key'}}
-                  input.wekan-form-control#s3-secret-key(type="password" placeholder=cloudSecretPlaceholder.s3.secretAccessKey)
+                  input.wekan-form-control#s3-secret-key(type="password" placeholder=cloudSecretPlaceholder.s3.secretAccessKey aria-label="{{_ 's3-secret-key'}}")
                   small.form-text.cloud-input-example wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                   small.form-text.cloud-input-desc {{englishText 'cloud-secret-keep-blank'}}
                   if translatedDiffers 'cloud-secret-keep-blank'
@@ -286,14 +286,14 @@ template(name="attachments")
                 //- Encryption at rest (models/lib/s3Encryption.js).
                 .form-group
                   label(for="s3-sse") {{_ 's3-sse'}}
-                  select.wekan-form-control#s3-sse
+                  select.wekan-form-control#s3-sse(aria-label="{{_ 's3-sse'}}")
                     option(value="" selected="{{s3SseSelected ''}}") {{_ 's3-sse-none'}}
                     option(value="AES256" selected="{{s3SseSelected 'AES256'}}") SSE-S3 (AES256)
                     option(value="aws:kms" selected="{{s3SseSelected 'aws:kms'}}") SSE-KMS (aws:kms)
                   small.form-text.text-muted {{_ 's3-sse-description'}}
                 .form-group
                   label(for="s3-sse-kms-key-id") {{_ 's3-sse-kms-key-id'}}
-                  input.wekan-form-control#s3-sse-kms-key-id(type="text" value="{{cloudValue.s3.sseKmsKeyId}}" placeholder="arn:aws:kms:eu-north-1:111122223333:key/…")
+                  input.wekan-form-control#s3-sse-kms-key-id(type="text" value="{{cloudValue.s3.sseKmsKeyId}}" placeholder="arn:aws:kms:eu-north-1:111122223333:key/…" aria-label="{{_ 's3-sse-kms-key-id'}}")
 
                 .form-group
                   button.js-test-cloud-connection.btn.btn-secondary(data-provider="s3") {{_ 'test-cloud-connection'}}
@@ -340,7 +340,7 @@ template(name="attachments")
                 .form-group
                   label Storage account name
                   small.form-text.cloud-input-label-tr {{_ 'azure-account-name'}}
-                  input.wekan-form-control#azure-account-name(type="text" value=cloudValue.azure.accountName)
+                  input.wekan-form-control#azure-account-name(type="text" value=cloudValue.azure.accountName aria-label="{{_ 'azure-account-name'}}")
                   small.form-text.cloud-input-example wekanstorage
                   small.form-text.cloud-input-desc {{englishText 'azure-account-name-description'}}
                   if translatedDiffers 'azure-account-name-description'
@@ -351,7 +351,7 @@ template(name="attachments")
                 .form-group
                   label Storage account key
                   small.form-text.cloud-input-label-tr {{_ 'azure-account-key'}}
-                  input.wekan-form-control#azure-account-key(type="password" placeholder=cloudSecretPlaceholder.azure.accountKey)
+                  input.wekan-form-control#azure-account-key(type="password" placeholder=cloudSecretPlaceholder.azure.accountKey aria-label="{{_ 'azure-account-key'}}")
                   small.form-text.cloud-input-example base64AccountKey==
                   small.form-text.cloud-input-desc {{englishText 'cloud-secret-keep-blank'}}
                   if translatedDiffers 'cloud-secret-keep-blank'
@@ -362,7 +362,7 @@ template(name="attachments")
                 .form-group
                   label Connection string
                   small.form-text.cloud-input-label-tr {{_ 'azure-connection-string'}}
-                  input.wekan-form-control#azure-connection-string(type="password" placeholder=cloudSecretPlaceholder.azure.connectionString)
+                  input.wekan-form-control#azure-connection-string(type="password" placeholder=cloudSecretPlaceholder.azure.connectionString aria-label="{{_ 'azure-connection-string'}}")
                   small.form-text.cloud-input-example DefaultEndpointsProtocol=https;AccountName=wekanstorage;AccountKey=...;EndpointSuffix=core.windows.net
                   small.form-text.cloud-input-desc {{englishText 'azure-connection-string-description'}}
                   if translatedDiffers 'azure-connection-string-description'
@@ -373,7 +373,7 @@ template(name="attachments")
                 .form-group
                   label Container name
                   small.form-text.cloud-input-label-tr {{_ 'azure-container'}}
-                  input.wekan-form-control#azure-bucket(type="text" value=cloudValue.azure.bucket)
+                  input.wekan-form-control#azure-bucket(type="text" value=cloudValue.azure.bucket aria-label="{{_ 'azure-container'}}")
                   small.form-text.cloud-input-example wekan-attachments
                   small.form-text.cloud-input-desc {{englishText 'azure-container-description'}}
                   if translatedDiffers 'azure-container-description'
@@ -429,7 +429,7 @@ template(name="attachments")
                 .form-group
                   label Project ID
                   small.form-text.cloud-input-label-tr {{_ 'gcs-project-id'}}
-                  input.wekan-form-control#gcs-project-id(type="text" value=cloudValue.gcs.projectId)
+                  input.wekan-form-control#gcs-project-id(type="text" value=cloudValue.gcs.projectId aria-label="{{_ 'gcs-project-id'}}")
                   small.form-text.cloud-input-example my-gcp-project-123456
                   small.form-text.cloud-input-desc {{englishText 'gcs-project-id-description'}}
                   if translatedDiffers 'gcs-project-id-description'
@@ -440,7 +440,7 @@ template(name="attachments")
                 .form-group
                   label Bucket name
                   small.form-text.cloud-input-label-tr {{_ 'gcs-bucket'}}
-                  input.wekan-form-control#gcs-bucket(type="text" value=cloudValue.gcs.bucket)
+                  input.wekan-form-control#gcs-bucket(type="text" value=cloudValue.gcs.bucket aria-label="{{_ 'gcs-bucket'}}")
                   small.form-text.cloud-input-example wekan-attachments
                   small.form-text.cloud-input-desc {{englishText 'gcs-bucket-description'}}
                   if translatedDiffers 'gcs-bucket-description'
@@ -451,7 +451,7 @@ template(name="attachments")
                 .form-group
                   label Service account key file path
                   small.form-text.cloud-input-label-tr {{_ 'gcs-key-filename'}}
-                  input.wekan-form-control#gcs-key-filename(type="text" value=cloudValue.gcs.keyFilename)
+                  input.wekan-form-control#gcs-key-filename(type="text" value=cloudValue.gcs.keyFilename aria-label="{{_ 'gcs-key-filename'}}")
                   small.form-text.cloud-input-example /data/gcs-service-account.json
                   small.form-text.cloud-input-desc {{englishText 'gcs-key-filename-description'}}
                   if translatedDiffers 'gcs-key-filename-description'
@@ -462,7 +462,7 @@ template(name="attachments")
                 .form-group
                   label Service account key (JSON)
                   small.form-text.cloud-input-label-tr {{_ 'gcs-credentials'}}
-                  textarea.wekan-form-control#gcs-credentials(data-editor-submit=".js-save-cloud-settings" rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials)
+                  textarea.wekan-form-control#gcs-credentials(data-editor-submit=".js-save-cloud-settings" rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials aria-label="{{_ 'gcs-credentials'}}")
                   small.form-text.cloud-input-example { "type": "service_account", "project_id": "my-gcp-project", "client_email": "wekan@my-gcp-project.iam.gserviceaccount.com", "private_key": "-----BEGIN PRIVATE KEY-----..." }
                   small.form-text.cloud-input-desc {{englishText 'gcs-credentials-description'}}
                   if translatedDiffers 'gcs-credentials-description'
@@ -498,18 +498,18 @@ template(name="attachments")
                       span {{_ 'storage-read'}}
                 .form-group
                   label {{_ 'webdav-endpoint'}}
-                  input.wekan-form-control#webdav-endpoint(type="text" value=cloudValue.webdav.endpoint)
+                  input.wekan-form-control#webdav-endpoint(type="text" value=cloudValue.webdav.endpoint aria-label="{{_ 'webdav-endpoint'}}")
                   small.form-text.cloud-input-example https://cloud.example.com/remote.php/dav/files/USER
                 .form-group
                   label {{_ 'username'}}
-                  input.wekan-form-control#webdav-username(type="text" value=cloudValue.webdav.username)
+                  input.wekan-form-control#webdav-username(type="text" value=cloudValue.webdav.username aria-label="{{_ 'username'}}")
                 .form-group
                   label {{_ 'webdav-password'}}
-                  input.wekan-form-control#webdav-password(type="password" placeholder=cloudSecretPlaceholder.webdav.password)
+                  input.wekan-form-control#webdav-password(type="password" placeholder=cloudSecretPlaceholder.webdav.password aria-label="{{_ 'webdav-password'}}")
                   small.form-text.cloud-input-desc {{_ 'cloud-secret-keep-blank'}}
                 .form-group
                   label {{_ 'webdav-folder'}}
-                  input.wekan-form-control#webdav-folder(type="text" value=cloudValue.webdav.bucket)
+                  input.wekan-form-control#webdav-folder(type="text" value=cloudValue.webdav.bucket aria-label="{{_ 'webdav-folder'}}")
                 .form-group
                   button.js-test-cloud-connection.btn.btn-secondary(data-provider="webdav") {{_ 'test-cloud-connection'}}
                   button.js-save-cloud-settings.btn.btn-primary(data-provider="webdav") {{_ 'save'}}
@@ -548,7 +548,7 @@ template(name="attachments")
                 if showBackupScope
                   .form-group
                     label {{_ 'backup-scope'}}
-                    select.wekan-form-control.js-backup-scope
+                    select.wekan-form-control.js-backup-scope(aria-label="{{_ 'backup-scope'}}")
                       if isSiteAdmin
                         option(value="") {{_ 'backup-scope-instance'}}
                       each backupScopes
@@ -570,7 +570,7 @@ template(name="attachments")
                     span {{_ 'backup-data'}}
                 .form-group
                   label {{_ 'backup-storage'}}
-                  select.wekan-form-control.js-backup-storage
+                  select.wekan-form-control.js-backup-storage(aria-label="{{_ 'backup-storage'}}")
                     option(value="filesystem" selected="{{backupStorageSelected 'filesystem'}}") {{_ 'filesystem-storage'}}
                     option(value="s3" selected="{{backupStorageSelected 's3'}}") {{_ 's3-minio-storage'}}
                     option(value="azure" selected="{{backupStorageSelected 'azure'}}") {{_ 'azure-blob-storage'}}
@@ -591,14 +591,14 @@ template(name="attachments")
                 h4 {{_ 'backup-schedule'}}
                 .form-group
                   label {{_ 'backup-frequency'}}
-                  select.wekan-form-control.js-backup-frequency
+                  select.wekan-form-control.js-backup-frequency(aria-label="{{_ 'backup-frequency'}}")
                     option(value="off" selected=scheduleOff) {{_ 'backup-frequency-off'}}
                     option(value="daily" selected=scheduleDaily) {{_ 'backup-frequency-daily'}}
                     option(value="weekly" selected=scheduleWeekly) {{_ 'backup-frequency-weekly'}}
                     option(value="monthly" selected=scheduleMonthly) {{_ 'backup-frequency-monthly'}}
                 .form-group
                   label {{_ 'backup-time'}}
-                  input.wekan-form-control.js-backup-time(type="time" value=scheduleTime)
+                  input.wekan-form-control.js-backup-time(type="time" value=scheduleTime aria-label="{{_ 'backup-time'}}")
                 .form-group
                   label {{_ 'backup-day-of-week'}}
                   //- One button per day, in the reader's own language, instead of a
@@ -657,7 +657,7 @@ template(name="attachments")
                         td {{path}}
                   .form-group
                     label {{_ 'backup-restore-mode'}}
-                    select.wekan-form-control.js-restore-mode
+                    select.wekan-form-control.js-restore-mode(aria-label="{{_ 'backup-restore-mode'}}")
                       option(value="add-missing") {{_ 'backup-restore-add-missing'}}
                       option(value="replace-all") {{_ 'backup-restore-replace-all'}}
                   .form-group
@@ -682,7 +682,7 @@ template(name="attachments")
                       span {{_ 'continuous-backup-enabled'}}
                   .form-group
                     label {{_ 'continuous-backup-target'}}
-                    input.wekan-form-control.js-cb-target(type="text" value=cbSettings.target)
+                    input.wekan-form-control.js-cb-target(type="text" value=cbSettings.target aria-label="{{_ 'continuous-backup-target'}}")
                   .form-group
                     label {{_ 'continuous-backup-include'}}
                     .checkbox-row
@@ -700,7 +700,7 @@ template(name="attachments")
                         span {{_ 'continuous-backup-logs'}}
                   .form-group
                     label {{_ 'continuous-backup-engine'}}
-                    select.wekan-form-control.js-cb-engine
+                    select.wekan-form-control.js-cb-engine(aria-label="{{_ 'continuous-backup-engine'}}")
                       option(value="auto" selected="{{cbEngineSelected 'auto'}}") {{_ 'continuous-backup-engine-auto'}}
                       option(value="oplog" selected="{{cbEngineSelected 'oplog'}}") {{_ 'continuous-backup-engine-oplog'}}
                       option(value="sqlite" selected="{{cbEngineSelected 'sqlite'}}") {{_ 'continuous-backup-engine-sqlite'}}
@@ -717,36 +717,36 @@ template(name="attachments")
                       span {{_ 'continuous-backup-encrypt'}}
                   .form-group
                     label {{_ 'continuous-backup-key-file'}}
-                    input.wekan-form-control.js-cb-encryptionKeyFile(type="text" value=cbSettings.encryptionKeyFile placeholder="/etc/wekan/continuous-backup.key")
+                    input.wekan-form-control.js-cb-encryptionKeyFile(type="text" value=cbSettings.encryptionKeyFile placeholder="/etc/wekan/continuous-backup.key" aria-label="{{_ 'continuous-backup-key-file'}}")
                   .form-group
                     label {{_ 'continuous-backup-upload'}}
-                    select.wekan-form-control.js-cb-upload
+                    select.wekan-form-control.js-cb-upload(aria-label="{{_ 'continuous-backup-upload'}}")
                       option(value="none" selected="{{cbUploadSelected 'none'}}") {{_ 'continuous-backup-upload-none'}}
                       option(value="s3" selected="{{cbUploadSelected 's3'}}") {{_ 's3-minio-storage'}}
                       option(value="azure" selected="{{cbUploadSelected 'azure'}}") {{_ 'azure-blob-storage'}}
                       option(value="gcs" selected="{{cbUploadSelected 'gcs'}}") {{_ 'gcs-storage'}}
                   .form-group
                     label {{_ 'continuous-backup-upload-prefix'}}
-                    input.wekan-form-control.js-cb-uploadPrefix(type="text" value=cbSettings.uploadPrefix)
+                    input.wekan-form-control.js-cb-uploadPrefix(type="text" value=cbSettings.uploadPrefix aria-label="{{_ 'continuous-backup-upload-prefix'}}")
                   if cbLitestream
                     .form-group
                       label {{_ 'continuous-backup-litestream-binary'}}
-                      input.wekan-form-control.js-cb-litestreamBinary(type="text" value=cbSettings.litestreamBinary)
+                      input.wekan-form-control.js-cb-litestreamBinary(type="text" value=cbSettings.litestreamBinary aria-label="{{_ 'continuous-backup-litestream-binary'}}")
                     .form-group
                       label {{_ 'continuous-backup-litestream-url'}}
-                      input.wekan-form-control.js-cb-litestreamReplicaUrl(type="text" value=cbSettings.litestreamReplicaUrl placeholder="s3://bucket/wekan")
+                      input.wekan-form-control.js-cb-litestreamReplicaUrl(type="text" value=cbSettings.litestreamReplicaUrl placeholder="s3://bucket/wekan" aria-label="{{_ 'continuous-backup-litestream-url'}}")
                   .form-group
                     label {{_ 'continuous-backup-sqlite-interval'}}
-                    input.wekan-form-control.js-cb-sqliteIntervalSeconds(type="number" min="5" max="3600" value=cbSettings.sqliteIntervalSeconds)
+                    input.wekan-form-control.js-cb-sqliteIntervalSeconds(type="number" min="5" max="3600" value=cbSettings.sqliteIntervalSeconds aria-label="{{_ 'continuous-backup-sqlite-interval'}}")
                   .form-group
                     label {{_ 'continuous-backup-file-scan'}}
-                    input.wekan-form-control.js-cb-fileScanSeconds(type="number" min="30" max="86400" value=cbSettings.fileScanSeconds)
+                    input.wekan-form-control.js-cb-fileScanSeconds(type="number" min="30" max="86400" value=cbSettings.fileScanSeconds aria-label="{{_ 'continuous-backup-file-scan'}}")
                   .form-group
                     label {{_ 'continuous-backup-base-every'}}
-                    input.wekan-form-control.js-cb-baseEveryHours(type="number" min="1" max="720" value=cbSettings.baseEveryHours)
+                    input.wekan-form-control.js-cb-baseEveryHours(type="number" min="1" max="720" value=cbSettings.baseEveryHours aria-label="{{_ 'continuous-backup-base-every'}}")
                   .form-group
                     label {{_ 'continuous-backup-keep-days'}}
-                    input.wekan-form-control.js-cb-keepDays(type="number" min="1" max="3650" value=cbSettings.keepDays)
+                    input.wekan-form-control.js-cb-keepDays(type="number" min="1" max="3650" value=cbSettings.keepDays aria-label="{{_ 'continuous-backup-keep-days'}}")
                   .form-group
                     button.js-cb-save.btn.btn-primary(type="button") {{_ 'save'}}
 
@@ -785,10 +785,10 @@ template(name="attachments")
                         td {{untilText}}
                   .form-group
                     label {{_ 'continuous-backup-restore-to'}}
-                    input.wekan-form-control.js-cb-until(type="datetime-local")
+                    input.wekan-form-control.js-cb-until(type="datetime-local" aria-label="{{_ 'continuous-backup-restore-to'}}")
                   .form-group
                     label {{_ 'continuous-backup-restore-what'}}
-                    select.wekan-form-control.js-cb-what
+                    select.wekan-form-control.js-cb-what(aria-label="{{_ 'continuous-backup-restore-what'}}")
                       option(value="database") {{_ 'continuous-backup-database'}}
                       option(value="files") {{_ 'attachments'}} / {{_ 'avatars'}} / {{_ 'continuous-backup-logs'}}
                       option(value="sqlite") {{_ 'continuous-backup-restore-sqlite'}}
@@ -798,7 +798,7 @@ template(name="attachments")
                       span {{_ 'continuous-backup-apply-on-restart'}}
                   .form-group
                     label {{_ 'backup-restore-mode'}}
-                    select.wekan-form-control.js-cb-mode
+                    select.wekan-form-control.js-cb-mode(aria-label="{{_ 'backup-restore-mode'}}")
                       option(value="add-missing") {{_ 'backup-restore-add-missing'}}
                       option(value="replace-all") {{_ 'backup-restore-replace-all'}}
                   .form-group
@@ -866,13 +866,13 @@ template(name="moveAttachments")
     .move-storage-selects
       .form-group
         label {{_ 'move-scope'}}
-        select.wekan-form-control.js-move-scope
+        select.wekan-form-control.js-move-scope(aria-label="{{_ 'move-scope'}}")
           option(value="attachments") {{_ 'attachments'}}
           option(value="avatars") {{_ 'move-scope-avatars'}}
           option(value="both") {{_ 'move-scope-both'}}
       .form-group
         label {{_ 'move-source'}}
-        select.wekan-form-control.js-move-source-storage
+        select.wekan-form-control.js-move-source-storage(aria-label="{{_ 'move-source'}}")
           option(value="all") {{_ 'move-storage-all'}}
           option(value="collectionfs") {{_ 'move-storage-collectionfs'}}
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
@@ -882,7 +882,7 @@ template(name="moveAttachments")
           option(value="gcs") {{_ 'move-storage-gcs'}}
       .form-group
         label {{_ 'move-destination'}}
-        select.wekan-form-control.js-move-dest-storage
+        select.wekan-form-control.js-move-dest-storage(aria-label="{{_ 'move-destination'}}")
           option(value="gridfs") {{_ 'move-storage-gridfs'}}
           option(value="fs") {{_ 'move-storage-fs'}}
           option(value="s3") {{_ 'move-storage-s3'}}

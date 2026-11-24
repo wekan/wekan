@@ -229,7 +229,10 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   // Save button at the bottom reads.
   const pane = jade.slice(jade.indexOf("ul#tableVisibilityMode-setting"),
     jade.indexOf("template(name='announcementSettings')"));
-  const groups = [...pane.matchAll(/h2\.admin-pane-group-title \{\{_ '([\w-]+)'\}\}/g)]
+  // A group title may carry an id: Product name's is the accessible name of its
+  // one field (aria-labelledby, WCAG 4.1.2 - spec 47), which keeps the string
+  // shown once instead of adding a second label.
+  const groups = [...pane.matchAll(/h2\.admin-pane-group-title(?:#[\w-]+)? \{\{_ '([\w-]+)'\}\}/g)]
     .map(m => m[1]);
   // The site-theme picker is a group of its own now - the same picker as the
   // per-user "Change color", one layer below it - and it sits between the product

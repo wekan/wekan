@@ -41,7 +41,10 @@
      small text; this blue keeps the hue and gives 5.14 and 4.59. */
   --board-theme-accent: #2573a7;
   --board-theme-dark: #216694;
-  --board-theme-hover: #2e90d0;
+  /* The hover of a popup menu item, under white bold text: #2e90d0 gave 3.49
+     (spec 47 found it on the list and swimlane menus); #277bb3 is 4.60 and
+     still lighter than the accent, so a hovered header item stays visible. */
+  --board-theme-hover: #277bb3;
   --board-theme-emphasis: #b96229;
   --board-theme-emphasis-hover: #a75825;
   --board-theme-emphasis-close: #944e21;

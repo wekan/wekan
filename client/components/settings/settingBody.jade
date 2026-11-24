@@ -138,7 +138,7 @@ template(name="general")
           ul
             li
               .title {{_ 'invite-people'}}
-              textarea#email-to-invite.wekan-form-control(data-editor-submit=".js-email-invite" rows='5', placeholder="{{_ 'email-addresses'}}")
+              textarea#email-to-invite.wekan-form-control(data-editor-submit=".js-email-invite" rows='5', placeholder="{{_ 'email-addresses'}}" aria-label="{{_ 'invite-people'}}")
             li
               .title {{_ 'to-boards'}}
               .bg-white
@@ -158,7 +158,7 @@ template(name="general")
       li.accounts-form
         .title {{_ 'oidc-button-text'}}
         .form-group
-          input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
+          input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}" aria-label="{{_ 'oidc-button-text'}}")
         button.js-account-access-save.primary {{_ 'save'}}
 
     //- LDAP has a section of its own now, drawn from the login settings
@@ -184,17 +184,17 @@ template(name="general")
             span.ldap-source-badge  ({{oauthProviderSourceLabel key 'enabled'}})
           .form-group
             label {{_ 'oauth-provider-client-id'}}
-            input.wekan-form-control(type="text" class="js-oauth-provider-field" data-provider="{{key}}" data-field="id" placeholder="{{idVar}}" value="{{oauthProviderFieldValue key 'id'}}")
+            input.wekan-form-control(type="text" class="js-oauth-provider-field" data-provider="{{key}}" data-field="id" placeholder="{{idVar}}" value="{{oauthProviderFieldValue key 'id'}}" aria-label="{{_ 'oauth-provider-client-id'}}")
             span.ldap-source-badge  ({{oauthProviderSourceLabel key 'id'}})
           .form-group
             label {{_ 'oauth-provider-secret'}}
             .description {{oauthProviderSecretStatusText key}}
-            input.wekan-form-control(type="password" class="js-oauth-provider-secret" data-provider="{{key}}" placeholder="{{secretVar}}" value="" autocomplete="new-password")
+            input.wekan-form-control(type="password" class="js-oauth-provider-secret" data-provider="{{key}}" placeholder="{{secretVar}}" value="" autocomplete="new-password" aria-label="{{_ 'oauth-provider-secret'}}")
           button.js-oauth-provider-save.primary(data-provider="{{key}}") {{_ 'save'}}
       li.accounts-form
         .title {{_ 'oauth-providers-login-style'}}
         .form-group
-          select.wekan-form-control#oauth-providers-login-style
+          select.wekan-form-control#oauth-providers-login-style(aria-label="{{_ 'oauth-providers-login-style'}}")
             each oauthLoginStyleOptions
               option(value=value selected=selected)= label
           span.ldap-source-badge  ({{oauthSharedSourceLabel 'loginStyle'}})
@@ -233,7 +233,7 @@ template(name='email')
         span Enable below email settings
     if mailSettingsEnabled
       li.smtp-form
-        .title Email service
+        label.title(for="mail-service") Email service
         .form-group
           select.wekan-form-control#mail-service
             each mailServices
@@ -243,12 +243,12 @@ template(name='email')
           .title {{_ 'smtp-host'}}
           .description {{_ 'smtp-host-description'}}
           .form-group
-            input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{mailConfiguration.host}}")
+            input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{mailConfiguration.host}}" aria-label="{{_ 'smtp-host'}}")
         li.smtp-form
           .title {{_ 'smtp-port'}}
           .description {{_ 'smtp-port-description'}}
           .form-group
-            input.wekan-form-control#mail-server-port(type="text", placeholder="587" value="{{mailConfiguration.port}}")
+            input.wekan-form-control#mail-server-port(type="text", placeholder="587" value="{{mailConfiguration.port}}" aria-label="{{_ 'smtp-port'}}")
         li.smtp-form
           a.flex.js-toggle-tls
             .materialCheckBox#mail-server-tls(class="{{#if mailConfiguration.secure}}is-checked{{/if}}")
@@ -256,16 +256,16 @@ template(name='email')
       li.smtp-form
         .title {{_ 'smtp-username'}}
         .form-group
-          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{mailConfiguration.username}}")
+          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{mailConfiguration.username}}" aria-label="{{_ 'smtp-username'}}")
       li.smtp-form
         .title {{_ 'smtp-password'}}
         .description {{passwordDescription}}
         .form-group
-          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
+          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password" aria-label="{{_ 'smtp-password'}}")
       li.smtp-form
         .title {{_ 'send-from'}}
         .form-group
-          input.wekan-form-control#mail-server-from(type="text", placeholder="WeKan <no-reply@domain.com>" value="{{mailConfiguration.from}}")
+          input.wekan-form-control#mail-server-from(type="text", placeholder="WeKan <no-reply@domain.com>" value="{{mailConfiguration.from}}" aria-label="{{_ 'send-from'}}")
     li
       button.mail-settings-save.primary {{_ 'save'}}
 
@@ -289,22 +289,22 @@ template(name='email')
       .title {{_ 'email-templates-invite-subject'}}
       .description {{_ 'email-templates-invite-vars-hint'}}
       .form-group
-        input.wekan-form-control#email-template-invite-subject(type="text" value="{{currentSetting.inviteEmailSubjectTemplate}}")
+        input.wekan-form-control#email-template-invite-subject(type="text" value="{{currentSetting.inviteEmailSubjectTemplate}}" aria-label="{{_ 'email-templates-invite-subject'}}")
     li.smtp-form
       .title {{_ 'email-templates-invite-body'}}
       .description {{_ 'email-templates-invite-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-invite-body(data-editor-submit=".js-email-templates-save" rows="4")= currentSetting.inviteEmailBodyTemplate
+        textarea.wekan-form-control#email-template-invite-body(data-editor-submit=".js-email-templates-save" rows="4" aria-label="{{_ 'email-templates-invite-body'}}")= currentSetting.inviteEmailBodyTemplate
     li.smtp-form
       .title {{_ 'email-templates-activity-subject'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
       .form-group
-        input.wekan-form-control#email-template-activity-subject(type="text" value="{{currentSetting.activityEmailSubjectTemplate}}")
+        input.wekan-form-control#email-template-activity-subject(type="text" value="{{currentSetting.activityEmailSubjectTemplate}}" aria-label="{{_ 'email-templates-activity-subject'}}")
     li.smtp-form
       .title {{_ 'email-templates-activity-body'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-activity-body(data-editor-submit=".js-email-templates-save" rows="4")= currentSetting.activityEmailBodyTemplate
+        textarea.wekan-form-control#email-template-activity-body(data-editor-submit=".js-email-templates-save" rows="4" aria-label="{{_ 'email-templates-activity-body'}}")= currentSetting.activityEmailBodyTemplate
     li
       button.js-email-templates-save.primary {{_ 'save'}}
 
@@ -315,7 +315,7 @@ template(name='email')
       //- in server/models/settings.js. It restricts nothing about signing in.
       .title {{_ 'email-domain-allowed-to-invite'}}
       .form-group
-        input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}")
+        input.wekan-form-control#mailDomainNamevalue(type="text", placeholder="" value="{{currentSetting.mailDomainName}}" aria-label="{{_ 'email-domain-allowed-to-invite'}}")
     li.accounts-form
       //- One checkbox, not a Yes/No pair: the setting is on or off, and this is the
       //- checkbox the rest of the Admin Panel uses (Announcement's "Active
@@ -375,7 +375,7 @@ template(name='tableVisibilityModeSettings')
         li.tableVisibilityMode-form
           .title {{_ 'feature-pilot-users'}}
           .form-group
-            textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= featurePilotUsernames
+            textarea.wekan-form-control#feature-pilot-users(data-editor-submit=".js-visibility-features-save" rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}" aria-label="{{_ 'feature-pilot-users'}}")= featurePilotUsernames
         //- The card fields every board shows: one tick per field type of Board
         //- Settings / Card, all ticked by default. Unticked hides it on every
         //- card, minicard and Board Settings / Card - visibility only, no data or
@@ -464,7 +464,7 @@ template(name='tableVisibilityModeSettings')
           li.tableVisibilityMode-form.js-feature-profile(data-profile-id=profile._id)
             .form-group
               label {{_ 'feature-profile-name'}}
-              input.wekan-form-control.js-feature-profile-name(type="text" value=profile.name maxlength="100")
+              input.wekan-form-control.js-feature-profile-name(type="text" value=profile.name maxlength="100" aria-label="{{_ 'feature-profile-name'}}")
             .title {{_ 'feature-profile-hides'}}
             each row in profile.rows
               a.flex.js-toggle-feature.js-feature-profile-hide(data-feature=row.key)
@@ -472,13 +472,13 @@ template(name='tableVisibilityModeSettings')
                 span {{_ row.labelKey}}
             .form-group
               label {{_ 'feature-profile-users'}}
-              textarea.wekan-form-control.js-feature-profile-users(rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}")= profile.usernames
+              textarea.wekan-form-control.js-feature-profile-users(rows="2" placeholder="{{_ 'feature-pilot-users-placeholder'}}" aria-label="{{_ 'feature-profile-users'}}")= profile.usernames
             .form-group
               label {{_ 'feature-profile-teams'}}
-              textarea.wekan-form-control.js-feature-profile-teams(rows="2")= profile.teams
+              textarea.wekan-form-control.js-feature-profile-teams(rows="2" aria-label="{{_ 'feature-profile-teams'}}")= profile.teams
             .form-group
               label {{_ 'feature-profile-orgs'}}
-              textarea.wekan-form-control.js-feature-profile-orgs(rows="2")= profile.orgs
+              textarea.wekan-form-control.js-feature-profile-orgs(rows="2" aria-label="{{_ 'feature-profile-orgs'}}")= profile.orgs
             button.js-feature-profile-remove(type="button") {{_ 'feature-profile-remove'}}
         li
           button.js-feature-profile-add(type="button") {{_ 'feature-profile-add'}}
@@ -541,11 +541,11 @@ template(name='tableVisibilityModeSettings')
         li.tableVisibilityMode-form
           .title {{_ 'custom-private-desc'}}
           .form-group
-            textarea.wekan-form-control#custom-private-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-private-desc-placeholder'}}")= currentSetting.customPrivateBoardDesc
+            textarea.wekan-form-control#custom-private-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-private-desc-placeholder'}}" aria-label="{{_ 'custom-private-desc'}}")= currentSetting.customPrivateBoardDesc
         li.tableVisibilityMode-form
           .title {{_ 'custom-public-desc'}}
           .form-group
-            textarea.wekan-form-control#custom-public-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-public-desc-placeholder'}}")= currentSetting.customPublicBoardDesc
+            textarea.wekan-form-control#custom-public-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-public-desc-placeholder'}}" aria-label="{{_ 'custom-public-desc'}}")= currentSetting.customPublicBoardDesc
         li
           //- One Save per section, at its end, above the rule that closes it. It writes
           //- this section's fields and nothing else, so saving one group can never
@@ -603,23 +603,23 @@ template(name='tableVisibilityModeSettings')
                   span {{_ 'public'}}
               li
                 .title {{_ 'support-title'}}
-                textarea#support-title.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportTitle
+                textarea#support-title.wekan-form-control(data-editor-submit=".js-visibility-url-save" aria-label="{{_ 'support-title'}}")= currentSetting.supportTitle
               li
                 .title {{_ 'support-content'}}
-                textarea#support-page-text.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportPageText
+                textarea#support-page-text.wekan-form-control(data-editor-submit=".js-visibility-url-save" aria-label="{{_ 'support-content'}}")= currentSetting.supportPageText
         li.tableVisibilityMode-form
           .title {{_ 'custom-help-link-url'}}
           .form-group
-            input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
+            input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}" aria-label="{{_ 'custom-help-link-url'}}")
         li.tableVisibilityMode-form
           .title {{_ 'custom-legal-notice-link-url'}}
           .form-group
-            input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
+            input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}" aria-label="{{_ 'custom-legal-notice-link-url'}}")
         li.tableVisibilityMode-form
           .title {{_ 'automatic-linked-url-schemes'}}
           .description {{_ 'automatic-linked-url-schemes-hint'}}
           .form-group
-            textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.automaticLinkedUrlSchemes
+            textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save" aria-label="{{_ 'automatic-linked-url-schemes'}}")= currentSetting.automaticLinkedUrlSchemes
         li
           button.js-visibility-url-save.primary {{_ 'save'}}
 
@@ -634,21 +634,21 @@ template(name='tableVisibilityModeSettings')
         li.tableVisibilityMode-form
           .title {{_ 'external-link-pattern-prefix'}}
           .form-group
-            input.wekan-form-control#external-link-pattern-prefix(type="text", placeholder="#" value="{{currentSetting.externalLinkPatternPrefix}}")
+            input.wekan-form-control#external-link-pattern-prefix(type="text", placeholder="#" value="{{currentSetting.externalLinkPatternPrefix}}" aria-label="{{_ 'external-link-pattern-prefix'}}")
         li.tableVisibilityMode-form
           .title {{_ 'external-link-pattern-url'}}
           .form-group
-            input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}")
+            input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}" aria-label="{{_ 'external-link-pattern-url'}}")
         //- #1463: more rules, with {identifier}, and abbreviations for it.
         li.tableVisibilityMode-form
           .title {{_ 'external-link-rules'}}
           p.description {{_ 'external-link-rules-description'}}
           .form-group
-            textarea.wekan-form-control#external-link-rules(rows="4" placeholder="[{identifier}:{number}] = https://spirateam.example.com/SpiraTeam/{identifier}/{number}.aspx")= currentSetting.externalLinkRules
+            textarea.wekan-form-control#external-link-rules(rows="4" placeholder="[{identifier}:{number}] = https://spirateam.example.com/SpiraTeam/{identifier}/{number}.aspx" aria-label="{{_ 'external-link-rules'}}")= currentSetting.externalLinkRules
         li.tableVisibilityMode-form
           .title {{_ 'external-link-identifier-aliases'}}
           .form-group
-            input.wekan-form-control#external-link-identifier-aliases(type="text", placeholder="TK=Task, IN=Incident" value="{{currentSetting.externalLinkIdentifierAliases}}")
+            input.wekan-form-control#external-link-identifier-aliases(type="text", placeholder="TK=Task, IN=Incident" value="{{currentSetting.externalLinkIdentifierAliases}}" aria-label="{{_ 'external-link-identifier-aliases'}}")
         li
           button.js-visibility-external-link-pattern-save.primary {{_ 'save'}}
 
@@ -658,10 +658,10 @@ template(name='tableVisibilityModeSettings')
           //- The group title IS the field's label here: the group holds one field, so a
           //- title above a label that says the same thing said it twice. The group title
           //- keeps its size and takes the field's existing translation.
-          h2.admin-pane-group-title {{_ 'custom-product-name'}}
+          h2.admin-pane-group-title#product-name-title {{_ 'custom-product-name'}}
         li.tableVisibilityMode-form
           .form-group
-            textarea.wekan-form-control#product-name(data-editor-submit=".js-visibility-product-name-save" rows="2" placeholder="")= currentSetting.productName
+            textarea.wekan-form-control#product-name(data-editor-submit=".js-visibility-product-name-save" rows="2" placeholder="" aria-labelledby="product-name-title")= currentSetting.productName
         li
           button.js-visibility-product-name-save.primary {{_ 'save'}}
 
@@ -697,35 +697,35 @@ template(name='tableVisibilityModeSettings')
         li.tableVisibilityMode-form
           .title {{_ 'custom-login-logo-image-url'}}
           .form-group
-            input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+            input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}" aria-label="{{_ 'custom-login-logo-image-url'}}")
             input.js-site-logo-upload(type="file" data-kind="login" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-login-logo-image-url'}}")
         li.tableVisibilityMode-form
           .title {{_ 'custom-login-logo-link-url'}}
           .form-group
-            input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
+            input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}" aria-label="{{_ 'custom-login-logo-link-url'}}")
         li.tableVisibilityMode-form
           .title {{_ 'text-below-custom-login-logo'}}
           .form-group
-            textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save")= currentSetting.textBelowCustomLoginLogo
+            textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save" aria-label="{{_ 'text-below-custom-login-logo'}}")= currentSetting.textBelowCustomLoginLogo
         li.tableVisibilityMode-form
           .title {{_ 'login-background-color'}}
           .form-group
-            input.wekan-form-control#login-background-color(type="text", placeholder="#1b365d" value="{{currentSetting.loginBackgroundColor}}")
+            input.wekan-form-control#login-background-color(type="text", placeholder="#1b365d" value="{{currentSetting.loginBackgroundColor}}" aria-label="{{_ 'login-background-color'}}")
         li.tableVisibilityMode-form
           .title {{_ 'custom-top-left-corner-logo-image-url'}}
           .form-group
-            input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+            input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}" aria-label="{{_ 'custom-top-left-corner-logo-image-url'}}")
             input.js-site-logo-upload(type="file" data-kind="header" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-top-left-corner-logo-image-url'}}")
         li.tableVisibilityMode-form
           span.js-site-logo-upload-status(role="status" aria-live="polite")
         li.tableVisibilityMode-form
           .title {{_ 'custom-top-left-corner-logo-link-url'}}
           .form-group
-            input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
+            input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" aria-label="{{_ 'custom-top-left-corner-logo-link-url'}}")
         li.tableVisibilityMode-form
           .title {{_ 'custom-top-left-corner-logo-height'}}
           .form-group
-            input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
+            input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}" aria-label="{{_ 'custom-top-left-corner-logo-height'}}")
         li
           button.js-visibility-logo-save.primary {{_ 'save'}}
 
@@ -741,7 +741,7 @@ template(name='announcementSettings')
         ul
           li
             .title {{_ 'admin-announcement-title'}}
-            textarea#admin-announcement.wekan-form-control(data-editor-submit=".js-announcement-save")= currentAnnouncements.body
+            textarea#admin-announcement.wekan-form-control(data-editor-submit=".js-announcement-save" aria-label="{{_ 'admin-announcement-title'}}")= currentAnnouncements.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
 
@@ -759,10 +759,10 @@ template(name='accessibilitySettings')
         ul
           li
             .title {{_ 'accessibility-title'}}
-            textarea#admin-accessibility-title.wekan-form-control(data-editor-submit=".js-accessibility-save")= currentAccessibility.title
+            textarea#admin-accessibility-title.wekan-form-control(data-editor-submit=".js-accessibility-save" aria-label="{{_ 'accessibility-title'}}")= currentAccessibility.title
           li
             .title {{_ 'accessibility-content'}}
-            textarea#admin-accessibility-content.wekan-form-control(data-editor-submit=".js-accessibility-save")= currentAccessibility.body
+            textarea#admin-accessibility-content.wekan-form-control(data-editor-submit=".js-accessibility-save" aria-label="{{_ 'accessibility-content'}}")= currentAccessibility.body
           li
             //- WP-13, row 6.1: the statement's required parts, as a starting
             //- text (models/lib/accessibilityStatementDraft.js); only into an
@@ -781,10 +781,10 @@ template(name='pwaSettings')
         ul
           li
             .title {{_ 'custom-head-meta-tags'}}
-            textarea#custom-head-meta.wekan-form-control(data-editor-submit=".js-custom-head-save")= customHeadMetaTagsValue
+            textarea#custom-head-meta.wekan-form-control(data-editor-submit=".js-custom-head-save" aria-label="{{_ 'custom-head-meta-tags'}}")= customHeadMetaTagsValue
           li
             .title {{_ 'custom-head-link-tags'}}
-            textarea#custom-head-links.wekan-form-control(data-editor-submit=".js-custom-head-save")= customHeadLinkTagsValue
+            textarea#custom-head-links.wekan-form-control(data-editor-submit=".js-custom-head-save" aria-label="{{_ 'custom-head-link-tags'}}")= customHeadLinkTagsValue
           li
             a.flex.js-toggle-custom-manifest
               .materialCheckBox(class="{{#if currentSetting.customManifestEnabled}}is-checked{{/if}}")
@@ -792,7 +792,7 @@ template(name='pwaSettings')
           li
             .custom-manifest-settings(class="{{#if currentSetting.customManifestEnabled}}{{else}}hide{{/if}}")
               .title {{_ 'custom-head-manifest-content'}}
-              textarea#custom-manifest-content.wekan-form-control(data-editor-submit=".js-custom-head-save")= customManifestContentValue
+              textarea#custom-manifest-content.wekan-form-control(data-editor-submit=".js-custom-head-save" aria-label="{{_ 'custom-head-manifest-content'}}")= customManifestContentValue
           li
             button.js-custom-head-save.primary {{_ 'save'}}
     li
@@ -804,7 +804,7 @@ template(name='pwaSettings')
         ul
           li
             .title {{_ 'custom-assetlinks-content'}}
-            textarea#custom-assetlinks-content.wekan-form-control(data-editor-submit=".js-custom-assetlinks-save")= customAssetLinksContentValue
+            textarea#custom-assetlinks-content.wekan-form-control(data-editor-submit=".js-custom-assetlinks-save" aria-label="{{_ 'custom-assetlinks-content'}}")= customAssetLinksContentValue
           li
             button.js-custom-assetlinks-save.primary {{_ 'save'}}
 template(name='selectSpinnerName')
@@ -813,13 +813,13 @@ template(name='selectSpinnerName')
   //- which is what flex-wrap does on its own, so no width is guessed here or in a
   //- media query (settingBody.css .spinner-select-row).
   .spinner-select-row
-    select#spinnerName
+    select#spinnerName(aria-label="{{_ 'wait-spinner'}}")
       each spinner in spinners
         if isSelected spinner
           option(value="{{spinner}}" selected) {{_ spinner}}
         else
           option(value="{{spinner}}") {{_ spinner}}
-    .spinner-preview(title="{{_ 'preview'}}" aria-label="{{_ 'preview'}}")
+    .spinner-preview(role="img" title="{{_ 'preview'}}" aria-label="{{_ 'preview'}}")
       //- Follows the DROPDOWN, not the saved setting: an admin sees what they are
       //- about to save before pressing Save.
       +Template.dynamic(template=previewTemplate)

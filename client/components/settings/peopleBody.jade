@@ -246,7 +246,7 @@ template(name="peopleRow")
         | ⋯
     if userData.loginDisabled
       td.username
-        a.js-edit-people-avatar(data-user-id=userData._id)
+        a.js-edit-people-avatar(data-user-id=userData._id aria-label="{{#unless hasAvatarUrl}}{{userData.getInitials}} {{/unless}}{{_ 'change-avatar'}}: {{userData.username}}")
           if hasAvatarUrl
             .avatar
               img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
@@ -255,7 +255,7 @@ template(name="peopleRow")
         <s>{{ userData.username }}</s>
     else if isUserLocked
       td.username
-        a.js-edit-people-avatar(data-user-id=userData._id)
+        a.js-edit-people-avatar(data-user-id=userData._id aria-label="{{#unless hasAvatarUrl}}{{userData.getInitials}} {{/unless}}{{_ 'change-avatar'}}: {{userData.username}}")
           if hasAvatarUrl
             .avatar
               img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
@@ -264,7 +264,7 @@ template(name="peopleRow")
         | {{ userData.username }}
     else
       td.username
-        a.js-edit-people-avatar(data-user-id=userData._id)
+        a.js-edit-people-avatar(data-user-id=userData._id aria-label="{{#unless hasAvatarUrl}}{{userData.getInitials}} {{/unless}}{{_ 'change-avatar'}}: {{userData.username}}")
           if hasAvatarUrl
             .avatar
               img.avatar-image(src="{{avatarSrc userData.profile.avatarUrl}}", alt="{{userData.username}}", title="{{_ 'change-avatar'}}")
@@ -321,10 +321,10 @@ template(name="peopleRow")
       td {{ displayDate userData.createdAt 'LLL' }}
     if userData.loginDisabled
       td
-        input.selectUserChkBox(type="checkbox", disabled="disabled", id="{{userData._id}}")
+        input.selectUserChkBox(type="checkbox", disabled="disabled", id="{{userData._id}}", aria-label="{{userData.username}}")
     else
       td
-        input.selectUserChkBox(type="checkbox", id="{{userData._id}}")
+        input.selectUserChkBox(type="checkbox", id="{{userData._id}}", aria-label="{{userData.username}}")
 
 template(name="editOrgPopup")
   form
