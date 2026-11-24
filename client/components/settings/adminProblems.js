@@ -94,7 +94,7 @@ function collectionResultsCount(collection) {
 // --- adminProblems template ---
 
 // Rows per page for the paginated reports (files, rules, boards, cards). The one
-// rows-per-page of the whole app (docs/Features/General/Table.md), so every list pages
+// rows-per-page of the whole app (docs/Features/Table.md), so every list pages
 // alike - a report is not a different kind of page than People or Translation.
 const REPORTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 
@@ -453,7 +453,7 @@ Template.adminProblems.events({
   },
 
   // --- Controls: ONE handler each, for every table page ---
-  // The shared table page (docs/Features/General/Table.md) emits the same three
+  // The shared table page (docs/Features/Table.md) emits the same three
   // controls for every report, so the report is identified by activeReport
   // rather than by a per-report js- class. Twelve prev/next handlers and six
   // search handlers collapsed to these.
@@ -614,7 +614,7 @@ function openReportPane(tmpl, targetID) {
 // currentPage/totalPages helpers, and the same click/keydown handlers, retyped
 // with a different js- prefix each time. They now differ only in the COLUMN
 // SPEC below; everything else - markup, layout, paging, search - comes from the
-// shared table page. See docs/Features/General/Table.md.
+// shared table page. See docs/Features/Table.md.
 //
 // A column is { label | labelKey, value(doc), align, nowrap, cls, userId(doc) }.
 
@@ -701,12 +701,12 @@ const REPORT_TABLES = {
       },
       // The name is URL-decoded, homoglyphs folded and invisible / exploit
       // characters removed, so it is always shown as a plain, readable name.
-      { label: 'Filename', value: d => cleanFileName(d.name) },
-      { label: 'Size (kB)', align: 'end', value: d => fileSizeHelper(d.size) },
-      { label: 'MIME Type', value: d => d.type },
-      { label: 'Attachment ID', value: d => d._id },
-      { label: 'Board ID', value: d => d.meta?.boardId },
-      { label: 'Card ID', value: d => d.meta?.cardId },
+      { labelKey: 'export-card-attachment-filename', value: d => cleanFileName(d.name) },
+      { labelKey: 'problems-col-size-kb', align: 'end', value: d => fileSizeHelper(d.size) },
+      { labelKey: 'problems-col-mime-type', value: d => d.type },
+      { labelKey: 'attachment-id', value: d => d._id },
+      { labelKey: 'board-id', value: d => d.meta?.boardId },
+      { labelKey: 'card-id', value: d => d.meta?.cardId },
     ],
   },
   'report-rules': {
@@ -722,8 +722,8 @@ const REPORT_TABLES = {
         trigger: rule.trigger(),
       })),
     columns: [
-      { label: 'Rule Title', value: d => d.title },
-      { label: 'Board Title', value: d => d.boardTitle },
+      { labelKey: 'problems-col-rule-title', value: d => d.title },
+      { labelKey: 'board-title', value: d => d.boardTitle },
       { label: 'actionType', value: d => d.action?.actionType },
       { label: 'activityType', value: d => d.trigger?.activityType },
     ],
@@ -732,14 +732,14 @@ const REPORT_TABLES = {
     emptyKey: 'no-results',
     docs: () => reportPageResults(Boards, 'report-boards'),
     columns: [
-      { label: 'Title', value: d => abbreviate(d.title) },
-      { label: 'Id', value: d => abbreviate(d._id) },
-      { label: 'Permission', value: d => d.permission },
-      { label: 'Archived?', value: d => yesOrNo(d.archived) },
-      { label: 'Members', value: d => memberNames(d.members) },
-      { label: 'Organizations', value: d => (d.orgs || [])
+      { labelKey: 'title', value: d => abbreviate(d.title) },
+      { labelKey: 'problems-col-id', value: d => abbreviate(d._id) },
+      { labelKey: 'problems-col-permission', value: d => d.permission },
+      { labelKey: 'problems-col-archived', value: d => yesOrNo(d.archived) },
+      { labelKey: 'members', value: d => memberNames(d.members) },
+      { labelKey: 'organizations', value: d => (d.orgs || [])
           .map(o => ReactiveCache.getOrg(o.orgId)?.orgDisplayName || o.orgId).join(', ') },
-      { label: 'Teams', value: d => (d.teams || [])
+      { labelKey: 'teams', value: d => (d.teams || [])
           .map(t => ReactiveCache.getTeam(t.teamId)?.teamDisplayName || t.teamId).join(', ') },
     ],
   },
@@ -751,12 +751,12 @@ const REPORT_TABLES = {
     // minimongo": that is what made this report one endless page.
     docs: () => reportPageResults(Cards, 'report-broken'),
     columns: [
-      { label: 'Card Title', value: d => abbreviate(d.title) },
-      { label: 'Id', value: d => abbreviate(d._id) },
-      { label: 'Board', value: d => abbreviate(d.board()?.title) },
-      { label: 'Swimlane', value: d => abbreviate(d.swimlane()?.title) },
-      { label: 'List', value: d => abbreviate(d.list()?.title) },
-      { label: 'Type', value: d => d.type },
+      { labelKey: 'problems-col-card-title', value: d => abbreviate(d.title) },
+      { labelKey: 'problems-col-id', value: d => abbreviate(d._id) },
+      { labelKey: 'board', value: d => abbreviate(d.board()?.title) },
+      { labelKey: 'swimlane', value: d => abbreviate(d.swimlane()?.title) },
+      { labelKey: 'list', value: d => abbreviate(d.list()?.title) },
+      { labelKey: 'type', value: d => d.type },
       { labelKey: 'createdAt', nowrap: true, value: d => formatDate(d.createdAt) },
     ],
   },
@@ -765,12 +765,12 @@ const REPORT_TABLES = {
     // The publication's page, in the publication's order (see cards.js).
     docs: () => reportPageResults(Cards, 'report-cards'),
     columns: [
-      { label: 'Card Title', value: d => abbreviate(d.title) },
-      { label: 'Board', value: d => abbreviate(d.board()?.title) },
-      { label: 'Swimlane', value: d => abbreviate(d.swimlane()?.title) },
-      { label: 'List', value: d => abbreviate(d.list()?.title) },
-      { label: 'Members', value: d => userIdNames(d.members) },
-      { label: 'Assignees', value: d => userIdNames(d.assignees) },
+      { labelKey: 'problems-col-card-title', value: d => abbreviate(d.title) },
+      { labelKey: 'board', value: d => abbreviate(d.board()?.title) },
+      { labelKey: 'swimlane', value: d => abbreviate(d.swimlane()?.title) },
+      { labelKey: 'list', value: d => abbreviate(d.list()?.title) },
+      { labelKey: 'members', value: d => userIdNames(d.members) },
+      { labelKey: 'assignees', value: d => userIdNames(d.assignees) },
     ],
   },
   'report-impersonation': {
@@ -815,7 +815,7 @@ const REPORT_TABLES = {
       },
       { labelKey: 'date', nowrap: true, value: d => formatDate(d.createdAt) },
       { labelKey: 'recovery-event', value: d => d.type },
-      { label: 'User ID', value: d => d.userId },
+      { labelKey: 'problems-col-user-id', value: d => d.userId },
       { labelKey: 'username', value: d => d.username },
       ...addressReportColumns(),
       { labelKey: 'recovery-detail', value: d => d.detail },
@@ -842,14 +842,14 @@ function reportTablePageData(tmpl) {
     emptyKey: spec.emptyKey,
     searchTerm: cfg.search.get(),
     filters: cfg.filter ? buildFilters([reportId === 'report-recovery' ? {
-      id: 'recovery-status', label: 'Show', options: [
-        { value: 'all', label: 'All' }, { value: 'done', label: 'Done' },
-        { value: 'failed', label: 'Failed' },
-        { value: 'deleted', label: 'Deleted' },
+      id: 'recovery-status', labelKey: 'problems-filter-show', options: [
+        { value: 'all', labelKey: 'problems-filter-all' }, { value: 'done', labelKey: 'done' },
+        { value: 'failed', labelKey: 'problems-filter-failed' },
+        { value: 'deleted', labelKey: 'problems-filter-deleted' },
       ],
     } : {
-      id: 'board-permission', label: 'Permission', options: [
-        { value: 'all', label: 'All' },
+      id: 'board-permission', labelKey: 'problems-col-permission', options: [
+        { value: 'all', labelKey: 'problems-filter-all' },
         { value: 'public', labelKey: 'public' },
         { value: 'instance', labelKey: 'instance' },
         { value: 'private', labelKey: 'private' },
@@ -889,13 +889,13 @@ const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 // cpuReportTitle - so the words are unchanged and there is only one of them.
 
 const INSTRUMENTATION_COLUMNS = [
-  { label: 'Type', value: row => row.kind },
-  { label: 'Method or publication', value: row => row.name },
-  { label: 'Calls', align: 'end', value: row => row.calls },
-  { label: 'Completed', align: 'end', value: row => row.completed },
-  { label: 'Errors', align: 'end', value: row => row.errors },
-  { label: 'Avg ms', align: 'end', value: row => row.averageMs ?? '' },
-  { label: 'Max ms', align: 'end', value: row => row.maxMs ?? '' },
+  { labelKey: 'type', value: row => row.kind },
+  { labelKey: 'problems-col-method', value: row => row.name },
+  { labelKey: 'api-calls', align: 'end', value: row => row.calls },
+  { labelKey: 'completed', align: 'end', value: row => row.completed },
+  { labelKey: 'errors', align: 'end', value: row => row.errors },
+  { labelKey: 'problems-col-avg-ms', align: 'end', value: row => row.averageMs ?? '' },
+  { labelKey: 'problems-col-max-ms', align: 'end', value: row => row.maxMs ?? '' },
 ];
 
 const { summarizeByArea, areaOf } = require('/models/lib/instrumentationAreas');
@@ -1368,7 +1368,7 @@ for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
 // so IPv4, IPv6, location and that person's successful-login count stay exact.
 //
 // Through the shared table page like every other report here
-// (docs/Features/General/Table.md): same layout, same controls, same paginator.
+// (docs/Features/Table.md): same layout, same controls, same paginator.
 const OFFICES_PER_PAGE = 25;
 
 const OFFICE_COLUMNS = [

@@ -29,7 +29,8 @@ for (const field of ['enabled', 'service', 'configurations', 'passwords', 'passw
 assert.ok(!/['"]mailServer\.(?:password|passwords)['"]\s*:/.test(publication),
   'passwords are not published to the browser');
 assert.ok(/mailServer\.passwordSet/.test(publication), 'only secret presence is published');
-assert.ok(/Enable below email settings/.test(template));
+// Translated since 2026-11-24 (tests/problemsTablesTranslated.test.cjs).
+assert.ok(/\{\{_ 'admin-email-settings-enable'\}\}/.test(template));
 assert.ok(/#mail-service/.test(template));
 assert.ok(/autocomplete="new-password"/.test(template));
 assert.ok(/'click button\.mail-settings-save'/.test(client));

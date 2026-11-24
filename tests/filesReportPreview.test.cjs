@@ -16,7 +16,7 @@ test('Files Report puts preview controls in its leftmost column', () => {
   const tables = reports.slice(reports.indexOf('const REPORT_TABLES = {'));
   const files = tables.slice(tables.indexOf("'report-files':"),
     tables.indexOf("'report-rules':"));
-  assert.ok(files.indexOf("labelKey: 'preview'") < files.indexOf("label: 'Filename'"));
+  assert.ok(files.indexOf("labelKey: 'preview'") < files.indexOf("labelKey: 'export-card-attachment-filename'"));
   assert.match(files, /attachmentKind\(d\)/);
   assert.match(files, /Attachments\.link\.call\(d\)/);
   assert.match(files, /name: cleanFileName\(d\.name\)/);

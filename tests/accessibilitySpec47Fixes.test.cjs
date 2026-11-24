@@ -147,7 +147,7 @@ test('the product name is named by its group title, so the string is shown once'
 });
 
 test('the mail service select is labelled by its visible title', () => {
-  assert.match(read(`${SETTINGS}/settingBody.jade`), /label\.title\(for="mail-service"\) Email service/);
+  assert.match(read(`${SETTINGS}/settingBody.jade`), /label\.title\(for="mail-service"\) \{\{_ 'admin-email-service'\}\}/);
 });
 
 test('table-page filters keep their plain label and name the select with it', () => {

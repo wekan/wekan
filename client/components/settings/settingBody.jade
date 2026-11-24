@@ -230,10 +230,10 @@ template(name='email')
     li.smtp-form
       a.flex.js-toggle-admin-mail-settings
         .materialCheckBox#admin-mail-settings-enabled(class="{{#if mailSettingsEnabled}}is-checked{{/if}}")
-        span Enable below email settings
+        span {{_ 'admin-email-settings-enable'}}
     if mailSettingsEnabled
       li.smtp-form
-        label.title(for="mail-service") Email service
+        label.title(for="mail-service") {{_ 'admin-email-service'}}
         .form-group
           select.wekan-form-control#mail-service
             each mailServices

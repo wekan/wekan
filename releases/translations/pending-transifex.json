@@ -6491,6 +6491,74 @@
     {
       "key": "gitea-job-stop-requested",
       "since": "2026-11-24"
+    },
+    {
+      "key": "problems-filter-all",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-filter-show",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-filter-failed",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-filter-deleted",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-id",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-archived",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-avg-ms",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-max-ms",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-card-title",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-mime-type",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-method",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-permission",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-rule-title",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-size-kb",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "problems-col-user-id",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "admin-email-service",
+      "since": "2026-11-24"
+    },
+    {
+      "key": "admin-email-settings-enable",
+      "since": "2026-11-24"
     }
   ]
 }
