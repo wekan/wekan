@@ -275,6 +275,19 @@ from what this server really stores and uses. `tests/emergencyAccess.test.cjs`,
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a242275be82d1befa2fa209f7c5782b1141c89e3">Where I am signed in, with Sign out per session, and BACKUP_PASSPHRASE encrypts the backups</a>. Thanks to xet7.</summary>
+
+Member Settings / Privacy and my data lists every session of the account,
+each with Sign out, and Admin Panel / People can log an account out
+everywhere. `BACKUP_PASSPHRASE` encrypts every Admin Panel backup on disk and
+in cloud storage, and a restore decrypts it; a wrong passphrase or a changed
+file is refused. Both were run against a live server.
+`tests/sessionList.test.cjs`, `tests/backupEncryption.test.cjs`,
+`tests/playwright/specs/backup-passphrase.e2e.js`.
+
+</details>
+
 **Security reporting** - where to report a vulnerability, which version is
 supported, and what a release is made of.
 
