@@ -1,5 +1,9 @@
-# The image is DISTROLESS: gcr.io/distroless/cc-debian13 - glibc, libstdc++,
-# libgcc, CA certificates and tzdata, and nothing else. No shell, no apt, no
+# The image is DISTROLESS: gcr.io/distroless/base-nossl-debian13 - glibc, CA
+# certificates and tzdata - plus the C++ runtime node needs (libstdc++6,
+# libgcc-s1, libatomic1), and nothing else. Not distroless cc-debian13: that
+# adds libssl3t64 and libgomp1, which nothing here loads - node links OpenSSL
+# statically, and no native module needs either - and which were 20 of its 55
+# scanner findings. No shell, no apt, no
 # coreutils, util-linux, login, tar or systemd libraries. Those were most of
 # Artifact Hub's Trivy report of the image (218 findings in v13.30, 214 of them
 # Debian packages WeKan never runs, none with a fix to update to). What runs is
@@ -11,8 +15,7 @@
 # publishes no linux/386, so for 386 the same root - the same Debian 13
 # packages, each with its dpkg record so a scanner still sees them - is
 # assembled from debian:trixie into scratch (the runtime-root stage). That is
-# also where every platform gets libatomic1, which node needs and the cc image
-# lacks.
+# also where every platform gets the C++ runtime, the same way.
 #
 # arm/v6 has neither: debian:trixie's manifest list has arm/v5 and arm/v7 and
 # nothing between them, and containerd treats a LOWER ARM variant as compatible,
@@ -199,12 +202,13 @@ unpack() {
   done
   rm -rf /work
 }
-# Every platform: node needs libatomic.so.1, which distroless cc does not have.
-unpack /extra libatomic1
+# Every platform: the C++ runtime node needs (libstdc++.so.6, libgcc_s.so.1,
+# libatomic.so.1), which distroless base-nossl does not have.
+unpack /extra gcc-14-base libgcc-s1 libstdc++6 libatomic1
 mkdir -p /rootfs
 if [ "$TARGETARCH" = "386" ]; then
-  # distroless cc-debian13's packages, for the one platform it does not publish.
-  unpack /rootfs base-files netbase tzdata ca-certificates libc6 gcc-14-base libgcc-s1 libstdc++6 libssl3t64 libatomic1
+  # distroless base-nossl-debian13's packages, for the one platform it does not publish.
+  unpack /rootfs base-files netbase tzdata ca-certificates libc6
   for d in bin sbin lib; do [ -e "/rootfs/$d" ] || ln -s "usr/$d" "/rootfs/$d"; done
   mkdir -p /rootfs/etc/ssl/certs /rootfs/tmp /rootfs/root /rootfs/home/nonroot
   chmod 1777 /rootfs/tmp
@@ -224,7 +228,7 @@ EOR
 # rebuilds it whenever Debian publishes a security update, and every release
 # should get those. A platform not listed here has no runtime root, and the
 # build for it stops at FROM runtime-${TARGETARCH}.
-FROM gcr.io/distroless/cc-debian13:nonroot AS distroless
+FROM gcr.io/distroless/base-nossl-debian13:nonroot AS distroless
 FROM distroless AS runtime-amd64
 FROM distroless AS runtime-arm64
 FROM distroless AS runtime-arm
@@ -239,7 +243,7 @@ COPY --from=runtime-root /rootfs/ /
 # No RUN from here on: there is no shell to run one with. Everything is COPY.
 FROM runtime-${TARGETARCH}
 LABEL maintainer="wekan"
-LABEL org.opencontainers.image.ref.name="distroless-cc-debian13"
+LABEL org.opencontainers.image.ref.name="distroless-base-nossl-debian13"
 LABEL org.opencontainers.image.version="debian13"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 

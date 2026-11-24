@@ -17,7 +17,7 @@
 // .sha256sum, re-run the telemetry check, and read bundle/node's ELF header to
 // prove it is the target's CPU - and it writes the wekan user (999:999), since
 // the image has no useradd. The image is distroless: runtime-root, the only
-// emulated part, unpacks libatomic1 (and, for 386, which distroless does not
+// emulated part, unpacks the C++ runtime (and, for 386, which distroless does not
 // publish, the whole cc root) from Debian 13; the image itself is only COPY.
 
 const assert = require('assert');
@@ -48,7 +48,7 @@ test('the bundle on the build machine, the runtime root per platform, the image 
   assert.deepStrictEqual(froms, [
     'FROM --platform=$BUILDPLATFORM debian:trixie AS bundle',
     'FROM debian:trixie AS runtime-root',
-    'FROM gcr.io/distroless/cc-debian13:nonroot AS distroless',
+    'FROM gcr.io/distroless/base-nossl-debian13:nonroot AS distroless',
     'FROM distroless AS runtime-amd64',
     'FROM distroless AS runtime-arm64',
     'FROM distroless AS runtime-arm',
@@ -98,9 +98,9 @@ test('no reinstall, no second Node.js download, no toolchain', () => {
 test('runtime-root, the emulated stage, only unpacks Debian packages for the target CPU', () => {
   const s = code(emulated);
   assert.strictEqual([...s.matchAll(/^RUN /gm)].length, 1);
-  assert.ok(/^unpack \/extra libatomic1$/m.test(s), 'every platform: libatomic1');
-  assert.ok(/unpack \/rootfs base-files netbase tzdata ca-certificates libc6 gcc-14-base libgcc-s1 libstdc\+\+6 libssl3t64 libatomic1/.test(s),
-    '386: distroless cc-debian13\'s packages');
+  assert.ok(/^unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1$/m.test(s), 'every platform: the C++ runtime');
+  assert.ok(/unpack \/rootfs base-files netbase tzdata ca-certificates libc6$/m.test(s),
+    '386: distroless base-nossl-debian13\'s packages');
   assert.ok(!/docker|golang|\bfile\b/.test(s), 'no docker-cli, whose Go stdlib filled the image scan, and no file');
   assert.ok(!/wget|curl|unzip|python3/.test(s), 'nothing downloaded or checked here: that is stage 1');
 });

@@ -84,7 +84,7 @@ does this before it builds anything:
    `Dockerfile` so there is no second copy of them), and drops any candidate
    they lack. There are two since the image became distroless: `debian:trixie`,
    which the `runtime-root` stage runs as the target CPU, must publish the
-   platform exactly; and the root, `gcr.io/distroless/cc-debian13`, must publish
+   platform exactly; and the root, `gcr.io/distroless/base-nossl-debian13`, must publish
    it too - unless the `Dockerfile` assembles that root itself in a
    `FROM scratch AS runtime-<arch>` stage, as it does for `386`, which distroless
    does not publish.

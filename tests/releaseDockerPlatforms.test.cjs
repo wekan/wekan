@@ -114,7 +114,7 @@ test('the manifest verify reads the CPU variant, so linux/arm/v7 is not misread 
 test('the runtime root is debian:trixie (which publishes i386 and arm/v7) under distroless', () => {
   assert.ok(/^FROM\s+debian:trixie AS runtime-root$/m.test(dockerfile),
     'the emulated stage must be debian:trixie - the base that lets linux/386 be an image');
-  assert.ok(/^FROM gcr\.io\/distroless\/cc-debian13:nonroot AS distroless$/m.test(dockerfile),
+  assert.ok(/^FROM gcr\.io\/distroless\/base-nossl-debian13:nonroot AS distroless$/m.test(dockerfile),
     'the image is distroless');
   assert.ok(/^FROM scratch AS runtime-386$/m.test(dockerfile),
     'distroless publishes no linux/386, so its root is assembled from debian:trixie');
@@ -187,7 +187,7 @@ test('a candidate platform the BASE image does not publish is dropped, not silen
   const { execFileSync } = require('child_process');
   const run = name => execFileSync('sh', ['-c', `${awk(name)[1]}`], { cwd: path.join(__dirname, '..'), encoding: 'utf8' }).trim();
   assert.strictEqual(run('root_image'), 'debian:trixie');
-  assert.strictEqual(run('distroless_image'), 'gcr.io/distroless/cc-debian13:nonroot');
+  assert.strictEqual(run('distroless_image'), 'gcr.io/distroless/base-nossl-debian13:nonroot');
   assert.strictEqual(run('assembled'), 'linux/386');
   // A platform needs runtime-root to publish it exactly AND (distroless or an
   // assembled root): run the loop on the platform lists both bases publish.

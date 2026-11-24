@@ -38,7 +38,7 @@ assert.ok(read('release-all.yml').includes('ucs-release.py check-image --version
 assert.ok(read('release-all-missing.yml').includes('releases/retry-failed-release.py'));
 const dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
 // Distroless: no shell in the image, so UCS and Nextcloud start it with node.
-assert.match(dockerfile, /^FROM gcr\.io\/distroless\/cc-debian13:nonroot AS distroless$/m);
+assert.match(dockerfile, /^FROM gcr\.io\/distroless\/base-nossl-debian13:nonroot AS distroless$/m);
 assert.match(dockerfile, /COPY releases\/ucs-migration \/opt\/ucs-migration/);
 assert.match(dockerfile, /COPY --chmod=755 releases\/ucs-migration\/tools \/opt\/ucs-migration\/tools/);
 assert.match(dockerfile, /USER wekan/);

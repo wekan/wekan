@@ -4,9 +4,10 @@ not images: [CPU-platforms.md](CPU-platforms.md).
 ## The image is distroless
 
 The WeKan image is built on [distroless](https://github.com/GoogleContainerTools/distroless)
-`cc-debian13` (on linux/386, which distroless does not publish, the same Debian 13
-packages assembled the same way): glibc, libstdc++, libgcc, libatomic, CA
-certificates and tzdata, and then node, WeKan, FerretDB and the MongoDB tools.
+`base-nossl-debian13` (on linux/386, which distroless does not publish, the same
+Debian 13 packages assembled the same way): glibc, CA certificates and tzdata,
+plus libstdc++, libgcc and libatomic for node, and then node, WeKan, FerretDB
+and the MongoDB tools. No OpenSSL library: node has its own built in.
 There is no shell, no package manager and no coreutils in it, so the hundreds of
 Debian packages a security scanner used to list in the image are not there.
 
