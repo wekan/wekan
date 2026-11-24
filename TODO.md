@@ -93,7 +93,9 @@ details; WeKan's are below.
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 - Firefox cannot run in the Flatpak sandbox either: Playwright's Firefox 159
-  needs NSS 3.126, newer than the runtime's. Run the Firefox stage on a host -
+  needs NSS 3.126, newer than the runtime's, and with a newer NSS supplied it
+  still crashes, as its own sandbox cannot create a user namespace there -
+  the same as WebKit, and turning that sandbox off is not allowed. Run the Firefox stage on a host -
   in particular the Shop, webhooks, Admin Panel addresses and accessibility
   (47) specs, which pass in Chromium.
 
