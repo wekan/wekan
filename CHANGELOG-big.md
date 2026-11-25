@@ -624,6 +624,12 @@ needs no login; `download-github-security.sh wekan` runs it too.
 
 and reorganises the documentation:
 
+**Licenses** - what WeKan accepts, in plain words.
+
+- [Permissive licenses only - MIT, BSD, ISC, Apache-2.0 and the like - and no GPL](https://github.com/wekan/wekan/commit/e30a3129bb3b57f5f9cb80961cbcdffaa0a9f059):
+  the Code of Conduct and the docs say it so; GPL is not used, since it would
+  turn the license of the whole program into GPL. Thanks to xet7.
+
 **Feature docs** - one folder per topic, as GitHub shows it.
 
 <details>
