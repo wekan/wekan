@@ -32,6 +32,14 @@ test('Board Settings / Card hides the minicard caret and menu, and the content w
   const labelsWidth = () => mini.locator('.minicard-labels').evaluate(el => el.getBoundingClientRect().width);
   await expect(mini.locator('.minicard-labels')).toBeVisible();
   const before = await labelsWidth();
+  const cardHeight = () => mini.locator('.minicard').evaluate(el => el.getBoundingClientRect().height);
+  const heightWithControls = await cardHeight();
+  // WCAG 2.5.8: each is still a 24 x 24 target.
+  for (const control of ['.js-collapse-minicard', '.js-open-minicard-details-menu']) {
+    const box = await mini.locator(control).boundingBox();
+    expect(box.width).toBeGreaterThanOrEqual(24);
+    expect(box.height).toBeGreaterThanOrEqual(24);
+  }
 
   await toggleMinicardRow(page, 'minicardMenu');
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsMinicardMenu).toBe(false);
@@ -42,6 +50,9 @@ test('Board Settings / Card hides the minicard caret and menu, and the content w
   await toggleMinicardRow(page, 'collapse');
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).allowsMinicardCollapse).toBe(false);
   await expect(mini.locator('.js-collapse-minicard')).toHaveCount(0);
+  // The controls never made the card taller: v13.31's 24px targets did, on
+  // every card's first line.
+  expect(Math.abs(await cardHeight() - heightWithControls)).toBeLessThanOrEqual(1);
 
   // It stays so after a reload, and the title starts at the card's edge.
   await page.reload();

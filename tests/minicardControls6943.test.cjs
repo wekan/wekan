@@ -73,6 +73,16 @@ test('with the menu hidden the content takes the corner it kept free', () => {
   assert.match(css, /\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-labels,\n\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-custom-fields \{\n\s+margin-inline-end: 0;/);
 });
 
+test('the 24px targets do not make the card taller', () => {
+  const css = read('client/components/cards/minicard.css');
+  const rule = css.slice(css.indexOf('.minicard .minicard-collapse,\n.minicard .minicard-details-menu-with-handle {'));
+  const body = rule.slice(0, rule.indexOf('}'));
+  assert.match(body, /min-width: 24px;/);
+  assert.match(body, /min-height: 24px;/);
+  // 24px tall on a ~16px line: the extra 8px is taken back, 4px above and below.
+  assert.match(body, /margin-block: -4px;/);
+});
+
 test('the board stores the menu flag, and a member may change it', () => {
   assert.match(read('models/boards.js'), /allowsMinicardMenu: \{ type: Boolean, optional: true \}/);
   assert.match(read('models/lib/wekanBoardFields.js'), /'allowsMinicardMenu'/);

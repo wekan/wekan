@@ -93,6 +93,11 @@
   justify-content: center;
   min-width: 24px;
   min-height: 24px;
+  /* #6943: ...without making the card taller. Both float on the title's
+     line, and a 24px box made every minicard's first line, and so every card,
+     taller than in v13.30. The negative margins take the extra height out of
+     the line while the box - what is clicked - stays 24 x 24. */
+  margin-block: -4px;
 }
 .minicard-details-menu-with-handle {
   float: inline-end;
