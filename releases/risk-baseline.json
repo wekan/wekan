@@ -54,6 +54,9 @@
       "https://api\\.cloudflare\\.com.*",
       "https://\\$\\{domain\\.domain.*"
     ],
+    "server/lib/azureBlobAdapter.js": [
+      "https://\\$\\{accountName"
+    ],
     "models/lib/taskwarriorFormat.js": [
       "https://taskwarrior\\.org/docs/design/task/"
     ],

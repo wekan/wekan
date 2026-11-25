@@ -69,8 +69,10 @@ function loadAdapterClass(provider) {
         mod = require('@tweedegolf/sab-adapter-amazon-s3');
         break;
       case STORAGE_NAME_AZURE:
+        // WeKan's own, on @azure/storage-blob alone: the package adapter
+        // loaded @azure/identity and MSAL, 36 MiB, for a sign-in WeKan never uses.
         // eslint-disable-next-line global-require
-        mod = require('@tweedegolf/sab-adapter-azure-blob');
+        mod = require('/server/lib/azureBlobAdapter');
         break;
       case STORAGE_NAME_GCS:
         // eslint-disable-next-line global-require
