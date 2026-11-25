@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.30
+  version: v13.31
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -8792,6 +8792,14 @@ definitions:
            anything else (server/passwordChangeRequired.js)
         type: boolean
         x-nullable: true
+      legalAcceptances:
+        description: |
+           the versions of the terms and the privacy notice this account
+           accepted: { terms: { version, at }, privacy: { version, at } }
+           (models/lib/legalAcceptance.js, WP-8). Without this the schema
+           silently dropped every acceptance.
+        type: object
+        x-nullable: true
       authenticationMethod:
         description: |
            authentication method of the user
@@ -8817,6 +8825,12 @@ definitions:
            USERS_DISABLE_INACTIVE_AFTER_DAYS: when the inactivity clock last
            (re)started for an account with no lastConnectionDate, or was re-enabled
            (models/lib/inactiveUsers.js)
+        type: string
+        x-nullable: true
+      loginDisabledAt:
+        description: |
+           when loginDisabled was set for inactivity; USERS_ANONYMIZE_INACTIVE_AFTER_DAYS
+           counts from it, and enabling the account clears it
         type: string
         x-nullable: true
       loginDisabledReason:
