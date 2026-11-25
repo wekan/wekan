@@ -103,9 +103,12 @@ test('#6458 cpu-exec: qemu-user only for a declared feature the CPU lacks', asyn
   assert.deepEqual(cpuExecPlan('/build/ferretdb', ['--x'], { spec: 'aarch64=atomics', machine: 'x86_64', cpuinfo, qemuCandidates: ['/q'], log: quiet }),
     ['/build/ferretdb', ['--x']], 'another architecture\'s entry is not this one\'s');
   const said = [];
-  assert.deepEqual(cpuExecPlan('/build/ferretdb', ['--x'], { spec: 'x86_64=avx512f', machine: 'x86_64', cpuinfo, qemuCandidates: ['/build/qemu-x86_64'], log: m => said.push(m) }),
+  assert.deepEqual(cpuExecPlan('/build/ferretdb', ['--x'], { spec: 'x86_64=avx512f', machine: 'x86_64', cpuinfo, qemuCandidates: ['/build/qemu-x86_64'], log: m => said.push(m), name: 'FerretDB' }),
     ['/build/qemu-x86_64', ['/build/ferretdb', '--x']]);
-  assert.match(said[0], /lacks avx512f/);
+  assert.match(said[0], /lacks a feature that WEKAN_REQUIRED_CPU_FEATURES requires on x86_64; running FerretDB through qemu-user/);
+  // Negative (CodeQL js/clear-text-logging): nothing read from the
+  // environment - the feature list, a path, the qemu found - is logged.
+  assert.doesNotMatch(said.join('\n'), /avx512f|\/build\//);
   // "avx" is not found inside "avx2": a whole word.
   assert.deepEqual(cpuExecPlan('/n', [], { spec: 'x86_64=avx', machine: 'x86_64', cpuinfo, qemuCandidates: ['/q'], log: quiet }), ['/q', ['/n']]);
   // ARM lists them on "Features" lines.
@@ -114,6 +117,22 @@ test('#6458 cpu-exec: qemu-user only for a declared feature the CPU lacks', asyn
   said.length = 0;
   assert.deepEqual(cpuExecPlan('/n', [], { spec: 'x86_64=avx512f', machine: 'x86_64', cpuinfo, qemuCandidates: [], log: m => said.push(m) }), ['/n', []]);
   assert.match(said.join('\n'), /expect SIGILL/);
+  assert.doesNotMatch(said.join('\n'), /avx512f|\/n\b/, 'negative: no feature list or path in it either');
+});
+
+test('negative: the entrypoint logs no value taken from the environment (CodeQL js/clear-text-logging)', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'releases', 'ferretdb', 'wekan-entrypoint.mjs'), 'utf8');
+  // What a log or warn line may interpolate: counts, the port, the listen
+  // address, a child's exit, the CPU architecture and the caller's own name
+  // for a program. A path, the CPU feature list or a qemu path is not on it.
+  const allowed = new Set(['heapMb', 'rc', 'listen', 'grace', 'max', 'e.message', 'signal || code', 'machine', 'name',
+    "first.stderr || 'no reason given'", "env.PORT || '8080'", 'from', 'ferretBin']);
+  const found = [];
+  for (const m of src.matchAll(/\b(?:log|warn)\(`([^`]*)`/g)) {
+    for (const v of m[1].matchAll(/\$\{([^}]*)\}/g)) if (!allowed.has(v[1].trim())) found.push(v[1]);
+  }
+  assert.deepEqual(found, [], 'a log line interpolates something not on the list');
+  assert.doesNotMatch(src, /\b(?:log|warn)\(`[^`]*\$\{(?:source|backup|binary|qemu|missing[^}]*)\}/, 'the six CodeQL found are gone');
 });
 
 function tmp() { return fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'entry-')); }

@@ -128,9 +128,13 @@ export function wantFerret(env, markerExists) {
 // that script with. node and ferretdb are baseline builds needing no special
 // features, so with none declared this is a plain start.
 //
-// Returns [command, args] to spawn.
+// Returns [command, args] to spawn. What it logs is in fixed words: the
+// feature list, the program and the qemu path all come from the environment
+// (CodeQL js/clear-text-logging), and the administrator who set
+// WEKAN_REQUIRED_CPU_FEATURES has its value already. `name` is the caller's
+// own word for the program, never a path.
 export function cpuExecPlan(binary, args, {
-  spec = '', machine = os.machine(), cpuinfo = '', qemuCandidates = [], log = console.error,
+  spec = '', machine = os.machine(), cpuinfo = '', qemuCandidates = [], log = console.error, name = 'the program',
 } = {}) {
   let required = '';
   for (const entry of String(spec).split(',')) {
@@ -147,12 +151,12 @@ export function cpuExecPlan(binary, args, {
   if (!missing.length) return [binary, args];
   const qemu = qemuCandidates.find(Boolean);
   if (qemu) {
-    log(`cpu-exec: this CPU lacks ${missing.join(' ')}; running ${binary} through qemu-user emulation (${qemu}).`);
+    log(`cpu-exec: this CPU lacks a feature that WEKAN_REQUIRED_CPU_FEATURES requires on ${machine}; running ${name} through qemu-user emulation.`);
     log('cpu-exec: emulation is slower — consider migrating to FerretDB (no special CPU features needed).');
     return [qemu, [binary, ...args]];
   }
-  log(`cpu-exec: ERROR: this CPU lacks ${missing.join(' ')} and no qemu-user (qemu-${machine}) was found;`);
-  log(`cpu-exec: running ${binary} directly — expect SIGILL (Illegal instruction). Install qemu-user(-static) or migrate to FerretDB.`);
+  log(`cpu-exec: ERROR: this CPU lacks a feature that WEKAN_REQUIRED_CPU_FEATURES requires on ${machine}, and no qemu-user (qemu-${machine}) was found;`);
+  log(`cpu-exec: running ${name} directly — expect SIGILL (Illegal instruction). Install qemu-user(-static) or migrate to FerretDB.`);
   return [binary, args];
 }
 
@@ -215,11 +219,13 @@ export function requestedRestore(dir, env, log = console.log, warn = console.err
   const backup = path.join(dir, 'backup');
   const has = sub => fs.existsSync(path.join(sub, 'wekan.sqlite'));
   let source = '';
-  if (mode === 'backup' && has(backup)) source = backup;
-  else if (mode === 'prev' && has(path.join(backup, 'prev'))) source = path.join(backup, 'prev');
+  // Where it came from, said relative to the data folder in fixed words.
+  let from = '';
+  if (mode === 'backup' && has(backup)) { source = backup; from = 'backup/'; }
+  else if (mode === 'prev' && has(path.join(backup, 'prev'))) { source = path.join(backup, 'prev'); from = 'backup/prev/'; }
   // Admin Panel / Attachments / Continuous backup stages a rebuilt
   // database here (server/continuousBackup.js), never over the live one.
-  else if (mode === 'continuous' && has(path.join(dir, 'continuous-restore'))) source = path.join(dir, 'continuous-restore');
+  else if (mode === 'continuous' && has(path.join(dir, 'continuous-restore'))) { source = path.join(dir, 'continuous-restore'); from = 'continuous-restore/'; }
   try { fs.writeFileSync(path.join(dir, 'RECOVERY_IN_PROGRESS'), `recovery ${mode}\n`); } catch { /* best effort */ }
   // A continuous-backup restore replaces the live database the administrator
   // chose to roll back: keep that one first, at rest with its WAL, beside the
@@ -233,7 +239,7 @@ export function requestedRestore(dir, env, log = console.log, warn = console.err
     if (copySqliteFiles(source, dir)) {
       for (const side of ['wekan.sqlite-wal', 'wekan.sqlite-shm']) fs.rmSync(path.join(dir, side), { force: true });
       appendEvent(dir, { type: `restore-${mode}`, severity: 'warning', source: 'startup', detail: 'Restored wekan.sqlite from a backup copy' });
-      log(`Recovery: restored text-data database from ${source}.`);
+      log(`Recovery: restored text-data database from ${from} of the data folder.`);
       fs.rmSync(request, { force: true });
       return 'restored';
     }
@@ -270,7 +276,7 @@ export function rotatingBackup(dir, log = console.log, warn = console.error) {
     copySqliteFiles(backup, prev);
   }
   if (copySqliteFiles(dir, backup)) {
-    log(`Backed up text-data database (wekan.sqlite*) to ${backup} (previous kept in ${backup}/prev).`);
+    log('Backed up text-data database (wekan.sqlite*) to backup/ of the data folder (previous kept in backup/prev/).');
     appendEvent(dir, { type: 'backup-created', severity: 'info', source: 'startup', detail: 'Backed up wekan.sqlite to backup/' });
     return true;
   }
@@ -372,7 +378,7 @@ export async function main({ build = path.dirname(fileURLToPath(import.meta.url)
       `--listen-addr=${listen}`,
       '--telemetry=disable',
       '--log-level=error',
-    ], cpuOptions());
+    ], { ...cpuOptions(), name: 'FerretDB' });
     const db = spawn(cmd, args, { env, stdio: 'inherit' });
     db.on('error', e => warn(`FerretDB could not start: ${e.message}`));
     db.on('exit', (code, signal) => { if (!stopping) warn(`FerretDB exited (${signal || code}).`); });
@@ -445,7 +451,7 @@ export async function main({ build = path.dirname(fileURLToPath(import.meta.url)
   // stack, so it never changed what WeKan could do. A deployment that raises
   // --stack-size in NODE_OPTIONS sets the stack with `docker run --ulimit stack=`
   // or the compose file's `ulimits:`.)
-  const [cmd, args] = cpuExecPlan(node, [path.join(build, 'main.js')], cpuOptions());
+  const [cmd, args] = cpuExecPlan(node, [path.join(build, 'main.js')], { ...cpuOptions(), name: 'WeKan (node)' });
   const wekan = spawn(cmd, args, { env, stdio: 'inherit', cwd: build });
   children.push(wekan);
   for (const signal of ['SIGTERM', 'SIGINT', 'SIGHUP']) {
