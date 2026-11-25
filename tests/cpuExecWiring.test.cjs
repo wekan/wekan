@@ -168,7 +168,10 @@ test('the snap runs node (the app and the maintenance page) through cpu-exec', (
 
 test('Docker entrypoint routes ferretdb and node through the cpu-exec decision', () => {
   assert.ok(/const \[cmd, args\] = cpuExecPlan\(ferretBin, \[/.test(entrypoint), 'FerretDB');
-  assert.ok(/cpuExecPlan\(node, \[path\.join\(build, 'main\.js'\)\], cpuOptions\(\)\)/.test(entrypoint), 'node');
+  // Each with the caller's own word for the program, which is all cpu-exec's
+  // messages name (CodeQL js/clear-text-logging: no path from the environment).
+  assert.ok(/\], \{ \.\.\.cpuOptions\(\), name: 'FerretDB' \}\);/.test(entrypoint), 'FerretDB, by name');
+  assert.ok(/cpuExecPlan\(node, \[path\.join\(build, 'main\.js'\)\], \{ \.\.\.cpuOptions\(\), name: 'WeKan \(node\)' \}\)/.test(entrypoint), 'node');
   assert.ok(/spec: env\.WEKAN_REQUIRED_CPU_FEATURES/.test(entrypoint), 'the same variable as cpu-exec');
   assert.ok(/path\.join\(build, name\)/.test(entrypoint), 'the qemu-user beside the bundle first, after WEKAN_QEMU_USER');
 });
