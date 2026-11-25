@@ -101,8 +101,9 @@ Which databases WeKan supports
 **In short:** A **board export without archived items** moves a board to
 another WeKan without its archive. The **UCS App Center** publisher works again
 with the distroless FerretDB image, so v13.32 can go to Univention. **Omi** gets
-strings for deleting a Gitea folder's orphans in every language, and the Azure
-Blob test no longer hangs where no node is on the PATH.
+strings for deleting a Gitea folder's orphans in every language, **Walloon** is
+Walloon again instead of French and invented words, and the Azure Blob test no
+longer hangs where no node is on the PATH.
 
 This release adds the following new features:
 
@@ -122,7 +123,7 @@ attachment files in the export, because attachments are read by the board,
 not by the cards. An ordinary export is still a complete backup.
 `tests/exportExcludeArchived.test.cjs` runs the selectors against sample rows
 and fails when a whole-board attachment read is left unfiltered; an e2e test
-exports through the API with and without the archive.
+exports through the API with and without the archive, and passes in Chromium.
 
 </details>
 
@@ -161,7 +162,8 @@ now runs Azurite's script with `process.execPath`: 3 tests in 4 s.
 
 and updates the translations:
 
-**Translations** - strings for Omi's Gitea folder pages and the board export.
+**Translations** - strings for Omi's Gitea folder pages and the board export,
+and Walloon corrected.
 
 **Languages updated:** 244 languages.
 
@@ -169,6 +171,22 @@ and updates the translations:
   four new strings Omi copies into its catalogs. Thanks to xet7.
 - [Without archived items, in every language](https://github.com/wekan/wekan/commit/3f0647e2d8b962b6974b7b95c75d53c62fa99b83):
   the board export's new entry. Thanks to Raymond-Voogt and xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/901d9d0eea579513678867e0280b2e69768a4012">Walloon is Walloon, not French, Catalan or invented words</a>. Thanks to xet7.</summary>
+
+About 1340 of the 5804 Walloon values were French ("Ajouter une checklist"),
+Catalan/Occitan or invented ("Esportar la căte", "Mintrepond" for log in, move
+and uploaded by alike), spelled with "ă" where Walloon writes "å", left in
+English, or translations of an older English text. They are rewritten in
+Walloon with the file's own vocabulary, the assignee is "responsåve"
+throughout, and every correction is in `audited-corrections.json`, so a
+Transifex pull that brings an old value back is repaired. The corrected search
+operators keep their old words as aliases. `wa-RR` is Waray-Waray and is
+unchanged. `tests/walloonCorrections20261125.test.cjs` fails on French,
+invented words, "ă" or a changed placeholder.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
