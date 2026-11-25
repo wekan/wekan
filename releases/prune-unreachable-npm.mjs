@@ -100,6 +100,15 @@ const POLICY = [
     why: 'a TypeScript compiler. A devDependency of 196 packages in this tree '
       + '(the @aws-sdk family) and a runtime dependency of none.',
     test: dir => basename(dir) === 'typescript',
+    // Named everywhere, loaded nowhere: a language map's "typescript" value
+    // and the package.json files rspack inlines into app/app.js, a Babel and
+    // a Prettier parser named "typescript", Meteor's own typescript build
+    // plugin in packages/modules.js, and i18next's OPTIONAL peer dependency
+    // (npm installs none of those either). So for this entry only a LOAD
+    // counts - require(), import, import(), module.link(), Npm.require(),
+    // require.resolve(), or a declared dependency - and a load anywhere
+    // still keeps it.
+    loadedOnly: true,
   },
   {
     why: 'TypeScript declaration packages. Verified to contain no .js at all, so '
@@ -181,6 +190,10 @@ const CODE = /\.(js|cjs|mjs)$/;
 // es-module-lexer's minified lexer took longer than two seconds by itself. The
 // optional trailing `/` keeps `require('querystring-es3/')`, the form that
 // names a package rather than a built-in module, which the old pattern missed.
+// What comes right before a specifier that is LOADED: require("x"),
+// require.resolve("x"), Npm.require("x"), module.link("x"), import("x"),
+// import "x", and ... from "x".
+const LOAD = /(?:\b(?:require|require\.resolve|Npm\.require|module\.link|import)\s*\(\s*|\b(?:from|import)\s*)$/;
 const SPECIFIER = /["']((?:\/node_modules\/)?(?:@[a-zA-Z0-9_.-]+\/)?[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_.-]+)*\/?)["']/g;
 
 function filesOf(dir, out = []) {
@@ -226,8 +239,17 @@ function resolvePackage(name, from) {
 const reached = new Set();
 const queue = [];
 const reasons = new Map();
-function retain(dir, reason) {
+// A package whose policy entry says loadedOnly is kept only by a load of it;
+// its mere mentions are recorded, and decide nothing.
+const mentions = new Map();
+const loadedOnly = dir => POLICY.some(e => e.loadedOnly && e.test(dir));
+function retain(dir, reason, loaded = true) {
   if (!dir) return;
+  if (!loaded && loadedOnly(dir)) {
+    if (!mentions.has(dir)) mentions.set(dir, new Set());
+    mentions.get(dir).add(reason);
+    return;
+  }
   if (!reasons.has(dir)) reasons.set(dir, new Set());
   reasons.get(dir).add(reason);
   if (!reached.has(dir)) { reached.add(dir); queue.push(dir); }
@@ -241,7 +263,8 @@ function scanFile(file, from) {
     const name = packageOf(nested ? nested[2] : m[1]);
     if (!name) continue;
     const dir = resolvePackage(name, nested ? join(NPM, 'meteor', nested[1]) : from);
-    retain(dir, `specifier ${m[1]} in ${file.slice(SERVER.length + 1)}`);
+    const loaded = LOAD.test(src.slice(Math.max(0, m.index - 40), m.index));
+    retain(dir, `${loaded ? 'load' : 'specifier'} ${m[1]} in ${file.slice(SERVER.length + 1)}`, loaded);
   }
 }
 
@@ -271,7 +294,12 @@ while (queue.length) {
   if (existsSync(metadata)) {
     const pkg = JSON.parse(readFileSync(metadata, 'utf8'));
     for (const name of Object.keys({ ...pkg.dependencies, ...pkg.optionalDependencies, ...pkg.peerDependencies })) {
-      retain(resolvePackage(name, dir), `runtime dependency of ${dir.slice(SERVER.length + 1)}`);
+      // A peer dependency the package marks optional is one npm does not
+      // install for it either: a mention, not a load.
+      const optionalPeer = !(pkg.dependencies && name in pkg.dependencies)
+        && !(pkg.optionalDependencies && name in pkg.optionalDependencies)
+        && Boolean(pkg.peerDependenciesMeta && pkg.peerDependenciesMeta[name] && pkg.peerDependenciesMeta[name].optional);
+      retain(resolvePackage(name, dir), `${optionalPeer ? 'optional peer' : 'runtime'} dependency of ${dir.slice(SERVER.length + 1)}`, !optionalPeer);
     }
   }
   for (const f of filesOf(dir)) scanFile(f, dirname(f));
@@ -336,6 +364,7 @@ if (reportFile) {
     package: rel(dir), bytes: sizeOf(dir),
     action: reached.has(dir) ? 'keep-referenced' : POLICY.some(e => e.test(dir)) ? 'remove' : 'keep-unreviewed',
     reasons: [...(reasons.get(dir) || [])],
+    ...(mentions.has(dir) ? { mentionedNotLoaded: [...mentions.get(dir)] } : {}),
   })).sort((a, b) => b.bytes - a.bytes);
   writeFileSync(reportFile, JSON.stringify(report, null, 2) + '\n');
 }

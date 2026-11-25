@@ -326,4 +326,71 @@ test('every policy entry states WHY, because the why is what gets re-checked', (
     'openpgp must not come back into the policy without a reason that survives a boot');
 });
 
+// TypeScript is NAMED all over a WeKan bundle and LOADED nowhere: 23 MiB the
+// graph kept for a language map's "typescript" value, the package.json files
+// rspack inlines, a Babel parser's plugin name and i18next's optional peer.
+// Its entry counts only a load; a load of any form still vetoes it.
+test('typescript named but never loaded goes, and says where it was named', dir => {
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': 'const p={ts:"typescript",py:"python"};const pj={devDependencies:{"typescript":"^5.1.6"}};',
+      'programs/server/packages/modules.js': 'install("typescript");' },
+    pkg('typescript', '// a compiler'),
+    pkg('i18next', 'plugins.push("typescript");'),
+    { [`${NM}/i18next/package.json`]: JSON.stringify({ name: 'i18next', version: '27.1.1',
+      peerDependencies: { typescript: '^5 || ^6 || ^7' }, peerDependenciesMeta: { typescript: { optional: true } } }) },
+  ));
+  fs.writeFileSync(path.join(bundle, 'programs/server/app/app.js'),
+    fs.readFileSync(path.join(bundle, 'programs/server/app/app.js'), 'utf8') + 'require("i18next");');
+  const report = path.join(dir, 'report.json');
+  const out = prune(bundle, ['--report-json', report]);
+  assert.ok(!has(bundle, `${NM}/typescript`), `typescript goes: ${out}`);
+  assert.ok(has(bundle, `${NM}/i18next`), 'and the package that names it stays');
+  const row = JSON.parse(fs.readFileSync(report)).find(r => r.package === 'typescript');
+  assert.equal(row.action, 'remove');
+  for (const where of ['app/app.js', 'packages/modules.js', 'optional peer dependency of npm/node_modules/i18next']) {
+    assert.ok(row.mentionedNotLoaded.some(m => m.includes(where)), `${where}: ${row.mentionedNotLoaded}`);
+  }
+});
+
+test('negative: every form of LOADING typescript still keeps it', dir => {
+  const forms = {
+    'import from': 'import ts from "typescript";',
+    'side-effect import': 'import "typescript";',
+    'dynamic import': 'const ts = await import("typescript");',
+    'Meteor link': 'module.link("typescript", { default: v => ts = v }, 0);',
+    'Npm.require': 'const ts = Npm.require("typescript");',
+    'require.resolve': 'const at = require.resolve("typescript");',
+    'export from': 'export * from "typescript";',
+  };
+  for (const [form, code] of Object.entries(forms)) {
+    const sub = fs.mkdtempSync(path.join(dir, 'form-'));
+    const bundle = makeBundle(sub, Object.assign({ 'programs/server/app/app.js': code }, pkg('typescript')));
+    const out = prune(bundle);
+    assert.ok(has(bundle, `${NM}/typescript`), `${form}: it stays`);
+    assert.ok(/KEEPING typescript/.test(out), `${form}: and it says so: ${out}`);
+  }
+  // A dependency, and a peer dependency that is NOT optional, are loads too.
+  for (const [kind, meta] of [['dependencies', {}], ['peerDependencies', {}],
+    ['peerDependencies', { peerDependenciesMeta: { typescript: { optional: false } } }]]) {
+    const sub = fs.mkdtempSync(path.join(dir, 'dep-'));
+    const bundle = makeBundle(sub, Object.assign({ 'programs/server/app/app.js': 'require("uses-ts");' },
+      pkg('typescript'), pkg('uses-ts'),
+      { [`${NM}/uses-ts/package.json`]: JSON.stringify({ name: 'uses-ts', [kind]: { typescript: '5' }, ...meta }) }));
+    prune(bundle);
+    assert.ok(has(bundle, `${NM}/typescript`), `${kind} ${JSON.stringify(meta)}: it stays`);
+  }
+});
+
+test('negative: only the typescript entry counts loads; another named package is still kept by its name', dir => {
+  const bundle = makeBundle(dir, Object.assign(
+    { 'programs/server/app/app.js': 'const views={blocks:"blockly"};' },
+    pkg('blockly', '// browser only'),
+  ));
+  const out = prune(bundle);
+  assert.ok(has(bundle, `${NM}/blockly`), 'a mention still keeps a package whose entry does not say loadedOnly');
+  assert.ok(/KEEPING blockly/.test(out), out);
+  const policy = fs.readFileSync(PRUNE, 'utf8');
+  assert.equal((policy.match(/^\s*loadedOnly: true,$/gm) || []).length, 1, 'one entry, typescript, counts only loads');
+});
+
 console.log(`\npruneUnreachableNpm: ${passed} tests passed`);
