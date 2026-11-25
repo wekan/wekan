@@ -84,9 +84,11 @@ test('negative: no other S3 write path skips the encryption', () => {
     'server', 'models'], { cwd: repoRoot, encoding: 'utf8' }).split('\n').filter(Boolean)
     .filter(l => !/\/tests?\//.test(l) && !/^[^:]+:\d+:\s*(\/\/|\*)/.test(l));
   // continuousBackup encrypts its own stream before upload ("no plaintext at
-  // rest"); webdavAdapter is WebDAV, not S3.
+  // rest"); webdavAdapter is WebDAV and azureBlobAdapter is Azure Blob, not
+  // S3 - each is the provider's own adapter, defining these methods.
   const allowed = [/^models\/lib\/fileStoreStrategy\.js:/, /^server\/methods\/backup\.js:/,
-    /^server\/lib\/continuousBackup\/cloud\.js:/, /^server\/lib\/webdavAdapter\.js:/];
+    /^server\/lib\/continuousBackup\/cloud\.js:/, /^server\/lib\/webdavAdapter\.js:/,
+    /^server\/lib\/azureBlobAdapter\.js:/];
   assert.deepStrictEqual(hits.filter(l => !allowed.some(re => re.test(l))), []);
 });
 
