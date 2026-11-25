@@ -850,6 +850,7 @@
   "export": "Dışa aktar",
   "export-board": "Panoyu dışarı aktar",
   "export-board-without-attachments": "eklentiler olmadan",
+  "export-board-without-archive": "arşivlenmiş öğeler olmadan",
   "export-ical-feed": "Takvim (iCal)",
   "user-can-not-export-excel": "Bu kullanıcı Excel olarak dışa aktaramaz.",
   "export-card": "Kartı dışa aktar",

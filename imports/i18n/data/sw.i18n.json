@@ -850,6 +850,7 @@
   "export": "Hamisha",
   "export-board": "Bodi ya kuuza nje",
   "export-board-without-attachments": "bila viambatisho",
+  "export-board-without-archive": "bila vipengee vilivyohifadhiwa",
   "export-ical-feed": "Kalenda (iCal)",
   "user-can-not-export-excel": "Mtumiaji hawezi kuhamisha Excel",
   "export-card": "Hamisha kadi",

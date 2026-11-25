@@ -850,6 +850,7 @@
   "export": "Thumela ngaphandle",
   "export-board": "Ibhodi lokuthekelisa",
   "export-board-without-attachments": "ngaphandle kokunamathiselwe",
+  "export-board-without-archive": "ngaphandle kwezinto ezifakwe kungobo yomlando",
   "export-ical-feed": "Ikhalenda (iCal)",
   "user-can-not-export-excel": "Umsebenzisi akakwazi ukuthekelisa i-Excel",
   "export-card": "Khipha ikhadi",

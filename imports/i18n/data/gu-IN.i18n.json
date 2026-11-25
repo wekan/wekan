@@ -850,6 +850,7 @@
   "export": "નિકાસ કરો",
   "export-board": "નિકાસ બોર્ડ",
   "export-board-without-attachments": "જોડાણો વગર",
+  "export-board-without-archive": "આર્કાઇવ કરેલી આઇટમ્સ વગર",
   "export-ical-feed": "કેલેન્ડર (iCal)",
   "user-can-not-export-excel": "વપરાશકર્તા Excel નિકાસ કરી શકતા નથી",
   "export-card": "નિકાસ કાર્ડ",

@@ -850,6 +850,7 @@
   "export": "Esporta",
   "export-board": "Esportare sa tàula",
   "export-board-without-attachments": "chene alligados",
+  "export-board-without-archive": "chene elementos archiviados",
   "export-ical-feed": "Flussu de calendàriu (iCal)",
   "user-can-not-export-excel": "S'utente non podet esportare in Excel",
   "export-card": "Esporta carta",

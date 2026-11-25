@@ -850,6 +850,7 @@
   "export": "রপ্তানি",
   "export-board": "বোর্ড রপ্তানি",
   "export-board-without-attachments": "সংযুক্তি ছাড়া",
+  "export-board-without-archive": "সংরক্ষিত আইটেম ছাড়া",
   "export-ical-feed": "পঞ্জিকা (iCal)",
   "user-can-not-export-excel": "ব্যবহারকারী Excel-এ রপ্তানি করতে পারেন না",
   "export-card": "কার্ড রপ্তানি করুন",

@@ -850,6 +850,7 @@
   "export": "Izvozi",
   "export-board": "Izvozi tablo",
   "export-board-without-attachments": "brez priponk",
+  "export-board-without-archive": "brez arhiviranih elementov",
   "export-ical-feed": "Koledar (iCal)",
   "user-can-not-export-excel": "Uporabnik ne more izvoziti v Excel",
   "export-card": "Izvozi kartico",

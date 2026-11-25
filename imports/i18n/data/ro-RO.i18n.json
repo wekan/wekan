@@ -850,6 +850,7 @@
   "export": "Exportă",
   "export-board": "Exportă panoul",
   "export-board-without-attachments": "fără atașamente",
+  "export-board-without-archive": "fără elemente arhivate",
   "export-ical-feed": "Flux de calendar (iCal)",
   "user-can-not-export-excel": "Utilizatorul nu poate exporta în Excel",
   "export-card": "Exportă cardul",

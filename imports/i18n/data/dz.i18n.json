@@ -850,6 +850,7 @@
   "export": "ཕྱིར་སྐྱེལ།",
   "export-board": "པད་ཤིང་ཕྱིར་བསྐྱལ།",
   "export-board-without-attachments": "མཉམ་སྦྲགས་མེད་པར།",
+  "export-board-without-archive": "ཡིག་མཛོད་ནང་བཞག་མི་ཅ་ཆས་མེད་པར།",
   "export-ical-feed": "ལོ་ཐོ། (iCal)",
   "user-can-not-export-excel": "ལག་ལེན་པ་གིས་ Excel ཕྱིར་འདྲེན་འབད་མི་ཚུགས།",
   "export-card": "ཤོག་བྱང་ཕྱིར་འདྲེན་འབད།",

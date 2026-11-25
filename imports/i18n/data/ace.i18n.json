@@ -850,6 +850,7 @@
   "export": "Eksport",
   "export-board": "Ekspor papan",
   "export-board-without-attachments": "hana lampiran",
+  "export-board-without-archive": "hana item nyang geuarsip",
   "export-ical-feed": "Feed kalender (iCal)",
   "user-can-not-export-excel": "Ureueng ngui hana jeuet ekspor Excel",
   "export-card": "Ekspor kad",

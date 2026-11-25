@@ -850,6 +850,7 @@
   "export": "Ekspotem",
   "export-board": "Sendem bod i go",
   "export-board-without-attachments": "we i no gat ol fael we oli joen",
+  "export-board-without-archive": "we i no gat ol samting we oli kipim",
   "export-ical-feed": "Fid blong kalenda (iCal)",
   "user-can-not-export-excel": "Yusa i no save karem i go long Excel",
   "export-card": "Karem i go kad",

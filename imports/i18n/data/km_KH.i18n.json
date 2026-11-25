@@ -850,6 +850,7 @@
   "export": "នាំចេញ",
   "export-board": "បន្ទះនាំចេញ",
   "export-board-without-attachments": "គ្មានឯកសារភ្ជាប់",
+  "export-board-without-archive": "គ្មានធាតុដែលបានទុកក្នុងប័ណ្ណសារ",
   "export-ical-feed": "ប្រតិទិន (iCal)",
   "user-can-not-export-excel": "អ្នកប្រើប្រាស់មិនអាចនាំចេញ Excel បានទេ។",
   "export-card": "កាតនាំចេញ",

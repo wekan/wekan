@@ -850,6 +850,7 @@
   "export": "Hamoaka",
   "export-board": "Hamoaka ny solaitra",
   "export-board-without-attachments": "tsy misy rakitra miaraka",
+  "export-board-without-archive": "tsy misy zavatra voatahiry",
   "export-ical-feed": "Kalandrie (iCal)",
   "user-can-not-export-excel": "Tsy afaka manondrana Excel ny mpampiasa",
   "export-card": "Manondrana karatra",

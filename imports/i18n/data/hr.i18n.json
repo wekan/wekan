@@ -850,6 +850,7 @@
   "export": "Izvezi",
   "export-board": "Izvezi ploču",
   "export-board-without-attachments": "bez privitaka",
+  "export-board-without-archive": "bez arhiviranih stavki",
   "export-ical-feed": "Kalendar (iCal)",
   "user-can-not-export-excel": "Korisnik ne može izvesti u Excel",
   "export-card": "Izvezi karticu",

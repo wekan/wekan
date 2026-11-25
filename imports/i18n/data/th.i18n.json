@@ -850,6 +850,7 @@
   "export": "ส่งออก",
   "export-board": "ส่งออกกระดาน",
   "export-board-without-attachments": "โดยไม่มีไฟล์แนบ",
+  "export-board-without-archive": "โดยไม่มีรายการที่เก็บถาวร",
   "export-ical-feed": "ฟีดปฏิทิน (iCal)",
   "user-can-not-export-excel": "ผู้ใช้ไม่สามารถส่งออกเป็น Excel ได้",
   "export-card": "ส่งออกการ์ด",

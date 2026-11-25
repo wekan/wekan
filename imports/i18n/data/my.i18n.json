@@ -850,6 +850,7 @@
   "export": "ထုတ်ယူရန်",
   "export-board": "ဘုတ်ကို ထုတ်ယူရန်",
   "export-board-without-attachments": "ပူးတွဲဖိုင်များမပါဘဲ",
+  "export-board-without-archive": "မှတ်တမ်းတင်ထားသောအရာများမပါဘဲ",
   "export-ical-feed": "ပြက္ခဒိန် (iCal)",
   "user-can-not-export-excel": "အသုံးပြုသူသည် Excel သို့ မထုတ်ယူနိုင်ပါ",
   "export-card": "ကတ် ထုတ်ယူရန်",

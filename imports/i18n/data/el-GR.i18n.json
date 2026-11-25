@@ -850,6 +850,7 @@
   "export": "Εξαγωγή",
   "export-board": "Εξαγωγή πίνακα",
   "export-board-without-attachments": "χωρίς συνημμένα",
+  "export-board-without-archive": "χωρίς αρχειοθετημένα στοιχεία",
   "export-ical-feed": "Ημερολόγιο (iCal)",
   "user-can-not-export-excel": "Ο χρήστης δε μπορεί να εξάγει σε Excel",
   "export-card": "Εξαγωγή κάρτας",

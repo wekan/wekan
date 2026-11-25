@@ -850,6 +850,7 @@
   "export": "Экспорттау",
   "export-board": "Тақтаны экспорттау",
   "export-board-without-attachments": "тіркемелерсіз",
+  "export-board-without-archive": "мұрағатталған элементтерсіз",
   "export-ical-feed": "Күнтізбе (iCal)",
   "user-can-not-export-excel": "Пайдаланушы Excel файлын экспорттай алмайды",
   "export-card": "Карточканы экспорттау",

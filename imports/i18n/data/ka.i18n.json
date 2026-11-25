@@ -850,6 +850,7 @@
   "export": "Ექსპორტი",
   "export-board": "დაფის ექსპორტი",
   "export-board-without-attachments": "დანართების გარეშე",
+  "export-board-without-archive": "დაარქივებული ელემენტების გარეშე",
   "export-ical-feed": "კალენდარი (iCal)",
   "user-can-not-export-excel": "მომხმარებელს არ შეუძლია Excel-ში გატანა",
   "export-card": "ბარათის გატანა",

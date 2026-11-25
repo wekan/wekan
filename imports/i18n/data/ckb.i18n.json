@@ -850,6 +850,7 @@
   "export": "هەناردەکردنی",
   "export-board": "هەناردەکردنی تەختە",
   "export-board-without-attachments": "بێ هاوپێچەکان",
+  "export-board-without-archive": "بێ بڕگە ئەرشیفکراوەکان",
   "export-ical-feed": "ڕۆژژمێر (iCal)",
   "user-can-not-export-excel": "بەکارهێنەر ناتوانێت Excel هەناردە بکات",
   "export-card": "کارت هەناردە بکە",

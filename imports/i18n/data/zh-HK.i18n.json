@@ -850,6 +850,7 @@
   "export": "匯出",
   "export-board": "匯出看板",
   "export-board-without-attachments": "無附件",
+  "export-board-without-archive": "無已封存項目",
   "export-ical-feed": "日曆 (iCal)",
   "user-can-not-export-excel": "使用者無法匯出至 Excel",
   "export-card": "匯出卡片",

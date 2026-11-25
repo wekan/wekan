@@ -850,6 +850,7 @@
   "export": "تصدير",
   "export-board": "صدّر اللوحة",
   "export-board-without-attachments": "بدون مرفقات",
+  "export-board-without-archive": "بدون العناصر المأرشفة",
   "export-ical-feed": "التقويم (iCal)",
   "user-can-not-export-excel": "المستخدم ما يقدرش يصدّر Excel",
   "export-card": "تصدير البطاقة",

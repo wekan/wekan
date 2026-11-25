@@ -850,6 +850,7 @@
   "export": "Espuarte",
   "export-board": "Espuarte la taule",
   "export-board-without-attachments": "senza zontis",
+  "export-board-without-archive": "senze elements archiviâts",
   "export-ical-feed": "Flus dal calendari (iCal)",
   "user-can-not-export-excel": "L'utent no può effettuare l'espuartezione in Excel",
   "export-card": "Espuarte cjarte",

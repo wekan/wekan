@@ -850,6 +850,7 @@
   "export": "Exporta",
   "export-board": "Tabulam exporta",
   "export-board-without-attachments": "sine adiunctis",
+  "export-board-without-archive": "sine rebus in tabulario",
   "export-ical-feed": "Fluxus calendarii (iCal)",
   "user-can-not-export-excel": "Usor in Excel exportare non potest",
   "export-card": "Exporta chartam",

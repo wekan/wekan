@@ -850,6 +850,7 @@
   "export": "Fulumya",
   "export-board": "Fulumya olubaawo",
   "export-board-without-attachments": "awatali ebiyungiddwa",
+  "export-board-without-archive": "awatali bintu ebiterekeddwa",
   "export-ical-feed": "Kalenda ey'okugoberera (iCal)",
   "user-can-not-export-excel": "Mukozesa sobola si fulumya Excel",
   "export-card": "Fulumya kaadi",

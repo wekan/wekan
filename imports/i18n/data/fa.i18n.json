@@ -850,6 +850,7 @@
   "export": "برون‌بری",
   "export-board": "انتقال به بیرون برد",
   "export-board-without-attachments": "بدون ضمیمه‌ها",
+  "export-board-without-archive": "بدون موارد بایگانی شده",
   "export-ical-feed": "تقویم (iCal)",
   "user-can-not-export-excel": "کاربر قادر به گرفتن خروجی اکسلب نیست",
   "export-card": "برون‌بری کارت",

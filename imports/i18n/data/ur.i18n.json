@@ -850,6 +850,7 @@
   "export": "برآمد کریں",
   "export-board": "بورڈ برآمد کریں",
   "export-board-without-attachments": "منسلکات کے بغیر",
+  "export-board-without-archive": "محفوظ شدہ اشیاء کے بغیر",
   "export-ical-feed": "کیلنڈر فیڈ (iCal)",
   "user-can-not-export-excel": "صارف Excel برآمد نہیں کر سکتا",
   "export-card": "کارڈ برآمد کریں",

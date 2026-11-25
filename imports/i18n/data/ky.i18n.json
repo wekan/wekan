@@ -850,6 +850,7 @@
   "export": "Экспорттоо",
   "export-board": "Тактаны экспорттоо",
   "export-board-without-attachments": "тиркемелерсиз",
+  "export-board-without-archive": "архивделген элементтерсиз",
   "export-ical-feed": "Жылнаама (iCal)",
   "user-can-not-export-excel": "Колдонуучу Excel форматына экспорттой албайт",
   "export-card": "Карточканы экспорттоо",

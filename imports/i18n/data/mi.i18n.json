@@ -850,6 +850,7 @@
   "export": "Kaweatu",
   "export-board": "Kaweatu i te papa",
   "export-board-without-attachments": "kāore he āpitihanga",
+  "export-board-without-archive": "kāore he tūemi kua purangatia",
   "export-ical-feed": "Maramataka (iCal)",
   "user-can-not-export-excel": "Kāore e taea e te kaiwhakamahi te kaweake Excel",
   "export-card": "Kaweake kāri",

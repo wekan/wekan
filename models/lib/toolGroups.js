@@ -32,7 +32,7 @@ const TOOL_GROUPS = [
 ];
 
 const MEMBERS = {
-  wekan: ['wekan', 'json', 'json-no-attachments', 'zip'],
+  wekan: ['wekan', 'json', 'json-no-attachments', 'json-no-archive', 'zip'],
   '37signals': ['basecamp', 'fizzy'],
   atlassian: ['trello', 'trello-api', 'trellozip', 'jira'],
   google: ['googletakeout', 'googletasks', 'googlekeep'],

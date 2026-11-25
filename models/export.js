@@ -101,6 +101,9 @@ if (Meteor.isServer) {
     // so a menu's `listId` means the same thing at every export route.
     const exportOptions = {
       excludeAttachments: req.query.attachments === 'false',
+      // ?archived=false leaves the board's archive out of the export, so a
+      // migration can start clean (models/exporter.js).
+      excludeArchived: req.query.archived === 'false',
       scope: parseExportScope(req.query),
       fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
     };
@@ -296,6 +299,8 @@ if (Meteor.isServer) {
     }
 
     const options = {
+      // #6946: the .zip can leave the archive behind too, as the JSON does.
+      excludeArchived: req.query.archived === 'false',
       scope: parseExportScope(req.query),
       fields: parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS),
     };

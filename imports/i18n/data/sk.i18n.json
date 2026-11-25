@@ -850,6 +850,7 @@
   "export": "Exportovať",
   "export-board": "Exportovať nástenku",
   "export-board-without-attachments": "bez príloh",
+  "export-board-without-archive": "bez archivovaných položiek",
   "export-ical-feed": "Kalendárový kanál (iCal)",
   "user-can-not-export-excel": "Používateľ nemôže exportovať do Excelu",
   "export-card": "Exportovať kartu",

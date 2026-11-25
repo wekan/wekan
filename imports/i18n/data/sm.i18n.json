@@ -850,6 +850,7 @@
   "export": "Auina atu",
   "export-board": "Auina atu le laupapa",
   "export-board-without-attachments": "e aunoa ma faapipii",
+  "export-board-without-archive": "e aunoa ma mea ua teuina",
   "export-ical-feed": "Kalena (iCal)",
   "user-can-not-export-excel": "E lē mafai e le tagata faaaoga ona auina atu i Excel",
   "export-card": "Auina atu le pepa",

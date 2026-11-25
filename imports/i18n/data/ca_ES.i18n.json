@@ -850,6 +850,7 @@
   "export": "Exporta",
   "export-board": "Exporta tauler",
   "export-board-without-attachments": "sense adjunts",
+  "export-board-without-archive": "sense elements arxivats",
   "export-ical-feed": "Calendari (iCal)",
   "user-can-not-export-excel": "L'usuari no pot exportar Excel",
   "export-card": "Exporta la fitxa",

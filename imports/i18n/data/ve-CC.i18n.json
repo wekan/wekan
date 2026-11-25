@@ -850,6 +850,7 @@
   "export": "Esporta",
   "export-board": "Esporta el quadro",
   "export-board-without-attachments": "sensa ałegati",
+  "export-board-without-archive": "sensa elementi archivià",
   "export-ical-feed": "Calendario (iCal)",
   "user-can-not-export-excel": "El utente no el pol esportar Excel",
   "export-card": "Esporta ła scheda",

@@ -850,6 +850,7 @@
   "export": "Flytja út",
   "export-board": "Flytja töflu út",
   "export-board-without-attachments": "án viðhengja",
+  "export-board-without-archive": "án atriða í safni",
   "export-ical-feed": "Dagatal (iCal)",
   "user-can-not-export-excel": "Notandi getur ekki flutt út í Excel",
   "export-card": "Flytja spjald út",

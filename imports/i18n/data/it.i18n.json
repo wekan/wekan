@@ -850,6 +850,7 @@
   "export": "Esporta",
   "export-board": "Esporta bacheca",
   "export-board-without-attachments": "senza allegati",
+  "export-board-without-archive": "senza elementi archiviati",
   "export-ical-feed": "Calendario (iCal)",
   "user-can-not-export-excel": "L'utente non può effettuare l'esportazione in Excel",
   "export-card": "Esporta scheda",

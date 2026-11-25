@@ -850,6 +850,7 @@
   "export": "Ekspor",
   "export-board": "Ekspor papan",
   "export-board-without-attachments": "tanpa lampiran",
+  "export-board-without-archive": "tanpa item sing diarsipake",
   "export-ical-feed": "Tanggalan (iCal)",
   "user-can-not-export-excel": "Pangguna ora bisa ngekspor Excel",
   "export-card": "Ekspor kertu",

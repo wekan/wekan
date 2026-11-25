@@ -850,6 +850,7 @@
   "export": "Xuất",
   "export-board": "Xuất bảng",
   "export-board-without-attachments": "không có tập tin đính kèm",
+  "export-board-without-archive": "không có mục đã lưu trữ",
   "export-ical-feed": "Lịch (iCal)",
   "user-can-not-export-excel": "Người dùng không thể xuất Excel",
   "export-card": "Xuất thẻ",

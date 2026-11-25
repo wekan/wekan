@@ -850,6 +850,7 @@
   "export": "ஏற்றுமதி செய்",
   "export-board": "பலகையை ஏற்றுமதி செய்",
   "export-board-without-attachments": "இணைப்புகள் இல்லாமல்",
+  "export-board-without-archive": "காப்பகப்படுத்தப்பட்ட உருப்படிகள் இல்லாமல்",
   "export-ical-feed": "நாள்காட்டி (iCal)",
   "user-can-not-export-excel": "பயனரால் Excel ஏற்றுமதி செய்ய முடியாது",
   "export-card": "அட்டையை ஏற்றுமதி செய்",

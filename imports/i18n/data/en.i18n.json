@@ -850,6 +850,7 @@
   "export": "Export",
   "export-board": "Export board",
   "export-board-without-attachments": "without attachments",
+  "export-board-without-archive": "without archived items",
   "export-ical-feed": "Calendar feed (iCal)",
   "user-can-not-export-excel": "User can not export Excel",
   "export-card": "Export card",

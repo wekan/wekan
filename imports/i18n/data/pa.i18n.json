@@ -850,6 +850,7 @@
   "export": "ਨਿਰਯਾਤ ਕਰੋ",
   "export-board": "ਨਿਰਯਾਤ ਬੋਰਡ",
   "export-board-without-attachments": "ਅਟੈਚਮੈਂਟਾਂ ਤੋਂ ਬਿਨਾਂ",
+  "export-board-without-archive": "ਪੁਰਾਲੇਖ ਕੀਤੀਆਂ ਆਈਟਮਾਂ ਤੋਂ ਬਿਨਾਂ",
   "export-ical-feed": "ਕੈਲੰਡਰ (iCal)",
   "user-can-not-export-excel": "ਉਪਭੋਗਤਾ ਐਕਸਲ ਨੂੰ ਨਿਰਯਾਤ ਨਹੀਂ ਕਰ ਸਕਦਾ ਹੈ",
   "export-card": "ਕਾਰਡ ਐਕਸਪੋਰਟ ਕਰੋ",

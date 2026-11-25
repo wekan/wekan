@@ -850,6 +850,7 @@
   "export": "Ekspordi",
   "export-board": "Ekspordilaudtee",
   "export-board-without-attachments": "ilma manusteta",
+  "export-board-without-archive": "ilma arhiveeritud üksusteta",
   "export-ical-feed": "Kalender (iCal)",
   "user-can-not-export-excel": "Kasutaja ei saa eksportida Exceli",
   "export-card": "Ekspordikaart",

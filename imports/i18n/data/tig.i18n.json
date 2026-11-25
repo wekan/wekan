@@ -850,6 +850,7 @@
   "export": "አግዕዞ",
   "export-board": "ምዱድ አግዕዞ",
   "export-board-without-attachments": "ብዘይ ተለጠፍቲ",
+  "export-board-without-archive": "ብዘይ ዝተዓቀበ ኣቕሑ",
   "export-ical-feed": "ዓውደ ኣዋርሕ (iCal)",
   "user-can-not-export-excel": "መትነፍዓይ ናብ Excel ከውጽእ ኣይክእልን",
   "export-card": "ወረቀት ካርድ ኣውጽእ",

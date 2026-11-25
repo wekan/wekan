@@ -850,6 +850,7 @@
   "export": "Извези",
   "export-board": "Извези табла",
   "export-board-without-attachments": "без прилози",
+  "export-board-without-archive": "без архивирани ставки",
   "export-ical-feed": "Календар (iCal)",
   "user-can-not-export-excel": "Корисникот не може да извезува во Excel",
   "export-card": "Извези карта",

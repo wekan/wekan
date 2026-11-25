@@ -850,6 +850,7 @@
   "export": "ರಫ್ತು ಮಾಡಿ",
   "export-board": "ಫಲಕ ರಫ್ತು ಮಾಡಿ",
   "export-board-without-attachments": "ಲಗತ್ತುಗಳಿಲ್ಲದೆ",
+  "export-board-without-archive": "ಸಂಗ್ರಹಿಸಿದ ಐಟಂಗಳಿಲ್ಲದೆ",
   "export-ical-feed": "ಕ್ಯಾಲೆಂಡರ್ (iCal)",
   "user-can-not-export-excel": "ಬಳಕೆದಾರರು Excel ಗೆ ರಫ್ತು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ",
   "export-card": "ಕಾರ್ಡ್ ರಫ್ತು ಮಾಡಿ",

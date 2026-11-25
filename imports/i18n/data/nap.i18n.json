@@ -850,6 +850,7 @@
   "export": "Sporta",
   "export-board": "Spurtà 'a tavula",
   "export-board-without-attachments": "senza allegate",
+  "export-board-without-archive": "senza elemente archiviate",
   "export-ical-feed": "Calannàrio (iCal)",
   "user-can-not-export-excel": "L'utente nun può effettuare l'esportazione 'n Excel",
   "export-card": "Sporta carta",

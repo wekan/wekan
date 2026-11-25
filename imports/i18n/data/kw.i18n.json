@@ -850,6 +850,7 @@
   "export": "Esperthi",
   "export-board": "Esperthi an estyllen",
   "export-board-without-attachments": "heb stagellow",
+  "export-board-without-archive": "heb taklow kovskrifys",
   "export-ical-feed": "Kalender (iCal)",
   "user-can-not-export-excel": "An usyer ny yll esperthi Excel",
   "export-card": "Esperthi karten",

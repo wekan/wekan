@@ -850,6 +850,7 @@
   "export": "エクスポート",
   "export-board": "ボードのエクスポート",
   "export-board-without-attachments": "添付ファイルなし",
+  "export-board-without-archive": "アーカイブ済みアイテムなし",
   "export-ical-feed": "カレンダー (iCal)",
   "user-can-not-export-excel": "ユーザーはExcelにエクスポートできません",
   "export-card": "カードをエクスポート",

@@ -850,6 +850,7 @@
   "export": "Espurtà",
   "export-board": "Espurtà a tavula",
   "export-board-without-attachments": "senza appicci",
+  "export-board-without-archive": "senza elementi archiviati",
   "export-ical-feed": "Flussu di calendariu (iCal)",
   "user-can-not-export-excel": "L’utilizatore ùn pò micca espurtà in Excel",
   "export-card": "Spurtà carta",

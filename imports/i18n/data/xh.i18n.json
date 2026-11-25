@@ -850,6 +850,7 @@
   "export": "Thumela ngaphandle",
   "export-board": "Ibhodi yokuthumela ngaphandle",
   "export-board-without-attachments": "ngaphandle kweziqhoboshelo",
+  "export-board-without-archive": "ngaphandle kwezinto ezigciniweyo",
   "export-ical-feed": "Ikhalenda (iCal)",
   "user-can-not-export-excel": "Umsebenzisi akakwazi ukuthumela ngaphandle i-Excel",
   "export-card": "Ikhadi lokuthumela ngaphandle",

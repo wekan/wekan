@@ -850,6 +850,7 @@
   "export": "Exporteren",
   "export-board": "Exporteer bord",
   "export-board-without-attachments": "zonder bijlagen",
+  "export-board-without-archive": "zonder gearchiveerde items",
   "export-ical-feed": "Kalender (iCal)",
   "user-can-not-export-excel": "Gebruiker kan niet exporteren naar Excel",
   "export-card": "Exporteer kaart",

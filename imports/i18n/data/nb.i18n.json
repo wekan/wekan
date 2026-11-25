@@ -850,6 +850,7 @@
   "export": "Eksporter",
   "export-board": "Eksporter tavle",
   "export-board-without-attachments": "uten vedlegg",
+  "export-board-without-archive": "uten arkiverte elementer",
   "export-ical-feed": "Kalender (iCal)",
   "user-can-not-export-excel": "Bruker kan ikke eksportere til Excel",
   "export-card": "Eksportér kort",

@@ -850,6 +850,7 @@
   "export": "برآمد ڪريو",
   "export-board": "بورڊ برآمد ڪريو",
   "export-board-without-attachments": "منسلڪن کان سواءِ",
+  "export-board-without-archive": "آرڪائيو ٿيل شين کان سواءِ",
   "export-ical-feed": "ڪئلينڊر (iCal)",
   "user-can-not-export-excel": "استعمال ڪندڙ Excel ۾ برآمد نٿو ڪري سگهي",
   "export-card": "ڪارڊ برآمد ڪريو",

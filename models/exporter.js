@@ -78,6 +78,12 @@ export class Exporter {
     // without overflowing V8's max string length in JSON.stringify or loading
     // every attachment buffer into memory at once. Default false (full export).
     this._excludeAttachments = options.excludeAttachments === true;
+    // #6946: when true, the board's ARCHIVE stays behind - archived cards,
+    // lists and swimlanes, the cards on an archived list or swimlane, and what
+    // hangs off those cards (comments, checklists, attachments). For moving a
+    // board to another WeKan and starting clean there. Default false, so an
+    // ordinary export stays a complete backup (models/lib/exportArchivedFilter.js).
+    this._excludeArchived = options.excludeArchived === true;
     // Language used for the anonymized user placeholder word ("user" -> user1,
     // "käyttäjä" -> käyttäjä1). Defaults to English when the caller cannot supply
     // the exporting user's language.
@@ -106,6 +112,40 @@ export class Exporter {
   // No selection means everything, the same rule every other exporter follows.
   hasField(key) { return this._fields === null || this._fields.has(key); }
 
+  // #6946: a lists / swimlanes selector without the archived ones, when asked.
+  _liveOnly(selector) {
+    return require('/models/lib/exportArchivedFilter').liveOnlySelector(selector, this._excludeArchived);
+  }
+
+  // #6946: the ids of the board's archived lists and swimlanes, read once.
+  async _archivedContainers(boardId) {
+    if (!this._excludeArchived) return { lists: [], swimlanes: [] };
+    if (!this._archivedContainersCache) {
+      const listsRaw = require('/models/lists').default.rawCollection();
+      const swimlanesRaw = require('/models/swimlanes').default.rawCollection();
+      const ids = async raw => (await raw.find({ boardId, archived: true }, { projection: { _id: 1 } }).toArray()).map(d => d._id);
+      const [lists, swimlanes] = await Promise.all([ids(listsRaw), ids(swimlanesRaw)]);
+      this._archivedContainersCache = { lists, swimlanes };
+    }
+    return this._archivedContainersCache;
+  }
+
+  // #6946: a cards selector without the archive, when asked.
+  async _liveCards(selector, boardId) {
+    if (!this._excludeArchived) return selector;
+    const { lists, swimlanes } = await this._archivedContainers(boardId);
+    return require('/models/lib/exportArchivedFilter').liveCardSelector(selector, true, lists, swimlanes);
+  }
+
+  // #6946: an attachments selector keeping only the exported cards' files and
+  // the board's own, when asked.
+  async _liveAttachments(selector, boardId) {
+    if (!this._excludeArchived) return selector;
+    const cardsRaw = require('/models/cards').default.rawCollection();
+    const cards = await cardsRaw.find(await this._scopedCardSelector(boardId), { projection: { _id: 1 } }).toArray();
+    return require('/models/lib/exportArchivedFilter').liveAttachmentSelector(selector, true, cards.map(c => c._id));
+  }
+
   // The cards this export is about. A card scope is one card; a checklist scope
   // is the card that checklist is on, because a checklist without its card
   // cannot be imported anywhere.
@@ -133,7 +173,7 @@ export class Exporter {
       if (this._scope.swimlaneId) selector.swimlaneId = this._scope.swimlaneId;
       if (this._scope.listId) selector.listId = this._scope.listId;
     }
-    return selector;
+    return this._liveCards(selector, boardId);
   }
 
   hasScope() {
@@ -224,7 +264,7 @@ export class Exporter {
     });
     const byBoardAndAttachment = this._attachmentId
       ? { 'meta.boardId': this._boardId, _id: this._attachmentId }
-      : byBoardAttachment;
+      : await this._liveAttachments(byBoardAttachment, this._boardId);
     const attachmentDocs = await ReactiveCache.getAttachments(liveAttachments(byBoardAndAttachment));
     result.attachments = [];
     for (const attachment of attachmentDocs) {
@@ -251,9 +291,9 @@ export class Exporter {
       return result.attachments.length > 0 ? result.attachments[0] : {};
     }
 
-    result.lists = await ReactiveCache.getLists(byBoard, noBoardId);
-    result.cards = await ReactiveCache.getCards(byBoardNoLinked, noBoardId);
-    result.swimlanes = await ReactiveCache.getSwimlanes(byBoard, noBoardId);
+    result.lists = await ReactiveCache.getLists(this._liveOnly(byBoard), noBoardId);
+    result.cards = await ReactiveCache.getCards(await this._liveCards(byBoardNoLinked, this._boardId), noBoardId);
+    result.swimlanes = await ReactiveCache.getSwimlanes(this._liveOnly(byBoard), noBoardId);
     result.customFields = await ReactiveCache.getCustomFields(
       { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
@@ -294,10 +334,10 @@ export class Exporter {
         }),
       );
       result.subtaskItems.push(
-        ...await ReactiveCache.getCards({
+        ...await ReactiveCache.getCards(await this._liveCards({
           boardId: card.boardId,
           parentId: card._id,
-        }),
+        }, this._boardId)),
       );
     }
     const { ruleTriggerIds: partTriggerIds, ruleActionIds: partActionIds } = require('/models/lib/ruleParts');
@@ -481,7 +521,7 @@ export class Exporter {
     let scrumExport = null;
     if (this.hasField('scrum')) {
       const selectedCards = await cardsRaw.find(await this._scopedCardSelector(boardId), { projection: { _id: 1, listId: 1, swimlaneId: 1 } }).toArray();
-      const selectContainers = (ids, scopeId) => this.hasScope() ? { boardId, _id: { $in: [...new Set([...ids, scopeId].filter(Boolean))] } } : { boardId };
+      const selectContainers = (ids, scopeId) => this._liveOnly(this.hasScope() ? { boardId, _id: { $in: [...new Set([...ids, scopeId].filter(Boolean))] } } : { boardId });
       const [selectedLists, selectedLanes] = await Promise.all([
         listsRaw.find(selectContainers(selectedCards.map(c => c.listId), this._scope.listId), { projection: { _id: 1 } }).toArray(),
         swimlanesRaw.find(selectContainers(selectedCards.map(c => c.swimlaneId), this._scope.swimlaneId), { projection: { _id: 1 } }).toArray(),
@@ -565,7 +605,7 @@ export class Exporter {
         ? { _id: '__none__' }
         : (scoped
           ? { 'meta.cardId': { $in: scopedCardIds } }
-          : { 'meta.boardId': boardId });
+          : await this._liveAttachments({ 'meta.boardId': boardId }, boardId));
       const cursor = attachmentsRaw.find(attachmentSelector);
       let i = 0;
       for await (const att of cursor) {
@@ -632,11 +672,11 @@ export class Exporter {
       listSelector = { boardId, _id: { $in: [...new Set(listIds)] } };
       swimlaneSelector = { boardId, _id: { $in: [...new Set(swimlaneIds)] } };
     }
-    await streamArray('lists', listsRaw, listSelector, noBoardId, d => {
+    await streamArray('lists', listsRaw, this._liveOnly(listSelector), noBoardId, d => {
       userIds.add(d.userId);
       if (!this.hasField('scrum')) { delete d.scrum; delete d.scrumRevision; }
     });
-    await streamArray('swimlanes', swimlanesRaw, swimlaneSelector, {}, d => {
+    await streamArray('swimlanes', swimlanesRaw, this._liveOnly(swimlaneSelector), {}, d => {
       if (!this.hasField('scrum')) { delete d.scrum; delete d.scrumRevision; }
       if (anonMap) anonymizeBoardTextInPlace({ swimlanes: [d] }, anonMap.byUsername);
     });

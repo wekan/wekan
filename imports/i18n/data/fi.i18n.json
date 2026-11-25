@@ -850,6 +850,7 @@
   "export": "Vie",
   "export-board": "Vie taulu",
   "export-board-without-attachments": "ilman liitetiedostoja",
+  "export-board-without-archive": "ilman arkistoituja kohteita",
   "export-ical-feed": "Kalenteri (iCal)",
   "user-can-not-export-excel": "Käyttäjä ei voi viedä Excel tiedostoon",
   "export-card": "Vie kortti",

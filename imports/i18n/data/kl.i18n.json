@@ -850,6 +850,7 @@
   "export": "Nuussuk",
   "export-board": "Ilisarnaat anisikkit",
   "export-board-without-attachments": "ilanngussaqanngitsumik",
+  "export-board-without-archive": "toqqorsimasunik ilaqanngitsumik",
   "export-ical-feed": "Ullorsiut (iCal)",
   "user-can-not-export-excel": "Atuisoq Excelimut annissisinnaanngilaq",
   "export-card": "Kortsi anniguk",

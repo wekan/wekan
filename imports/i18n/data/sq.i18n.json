@@ -850,6 +850,7 @@
   "export": "Eksporto",
   "export-board": "Eksporto tabelën",
   "export-board-without-attachments": "pa bashkëngjitje",
+  "export-board-without-archive": "pa artikujt e arkivuar",
   "export-ical-feed": "Kalendari (iCal)",
   "user-can-not-export-excel": "Përdoruesi nuk mund të eksportojë Excel",
   "export-card": "Eksporto kartën",

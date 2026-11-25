@@ -850,6 +850,7 @@
   "export": "ኣውጽእ",
   "export-board": "ሰሌዳ ኣውጽእ",
   "export-board-without-attachments": "ብዘይ መተሓሓዚታት",
+  "export-board-without-archive": "ብዘይ ዝተመዝገቡ ኣቕሑ",
   "export-ical-feed": "ዓውደ ኣዋርሕ (iCal)",
   "user-can-not-export-excel": "ተጠቃሚ ናብ Excel ክልእኽ ኣይክእልን",
   "export-card": "ካርድ ልኣኽ",

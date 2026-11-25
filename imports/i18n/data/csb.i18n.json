@@ -850,6 +850,7 @@
   "export": "Ekspòrtowac",
   "export-board": "Ekspòrtowac tôflã",
   "export-board-without-attachments": "bez załącznikòw",
+  "export-board-without-archive": "bez zarchiwizowónëch elementów",
   "export-ical-feed": "Kanał kalãdôrza (iCal)",
   "user-can-not-export-excel": "Brëkòwnik nie mòże ekspòrtowac do Excel",
   "export-card": "Ekspòrtëjë kôrtã",

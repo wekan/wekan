@@ -850,6 +850,7 @@
   "export": "Ixrac et",
   "export-board": "İxrac lövhəsi",
   "export-board-without-attachments": "qoşmalar olmadan",
+  "export-board-without-archive": "arxivləşdirilmiş elementlər olmadan",
   "export-ical-feed": "Təqvim (iCal)",
   "user-can-not-export-excel": "İstifadəçi Excel-i ixrac edə bilməz",
   "export-card": "İxrac kartı",

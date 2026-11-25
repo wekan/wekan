@@ -850,6 +850,7 @@
   "export": "Ekavön",
   "export-board": "Seveigön tabi",
   "export-board-without-attachments": "nen keblünots",
+  "export-board-without-archive": "nen dins in ragiv",
   "export-ical-feed": "Kalendri inkavön (iCal)",
   "user-can-not-export-excel": "Geban no kanon seveigön lü Excel",
   "export-card": "Kadi seveigön",

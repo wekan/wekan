@@ -850,6 +850,7 @@
   "export": "ئېكسپورت قىلىش",
   "export-board": "ئېكسپورت تاختىسى",
   "export-board-without-attachments": "قوشۇمچىلارسىز",
+  "export-board-without-archive": "ئارخىپلاشتۇرۇلغان تۈرلەرسىز",
   "export-ical-feed": "كالېندار (iCal)",
   "user-can-not-export-excel": "ئىشلەتكۈچى Excel نى ئېكسپورت قىلالمايدۇ",
   "export-card": "كارتا چىقىرىش",

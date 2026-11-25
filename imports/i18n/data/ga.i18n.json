@@ -850,6 +850,7 @@
   "export": "Easpórtáil",
   "export-board": "Easpórtáil an clár",
   "export-board-without-attachments": "gan cheangaltáin",
+  "export-board-without-archive": "gan míreanna cartlannaithe",
   "export-ical-feed": "Féilire (iCal)",
   "user-can-not-export-excel": "Ní féidir leis an úsáideoir easpórtáil go Excel",
   "export-card": "Easpórtáil cárta",

@@ -850,6 +850,7 @@
   "export": "Kessa",
   "export-board": "Bookkiya kessa",
   "export-board-without-attachments": "gattidobata bayinnan",
+  "export-board-without-archive": "naagettida miishshaa bayinnan",
   "export-ical-feed": "Wodiyaa qoodaa (iCal)",
   "user-can-not-export-excel": "Oosanchchay Excel kessana danddayenna",
   "export-card": "Kaardiya kessa",

@@ -850,6 +850,7 @@
   "export": "Exportar",
   "export-board": "Exportar la tabella",
   "export-board-without-attachments": "senza agiuntas",
+  "export-board-without-archive": "senza elements archivads",
   "export-ical-feed": "Calendario (iCal)",
   "user-can-not-export-excel": "L’utilisader na po betg exportar en Excel",
   "export-card": "Exportar la carta",

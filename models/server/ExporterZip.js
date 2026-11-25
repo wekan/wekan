@@ -124,7 +124,9 @@ class ExporterZip {
     if (!exporter.hasField('attachments')) return [];
 
     if (!exporter.hasScope()) {
-      return ReactiveCache.getAttachments(liveAttachments({ 'meta.boardId': this._boardId }));
+      // #6946: without the archive, only the exported cards' files.
+      const live = liveAttachments({ 'meta.boardId': this._boardId });
+      return ReactiveCache.getAttachments(await exporter._liveAttachments(live, this._boardId));
     }
 
     const cardsRaw = require('/models/cards').default.rawCollection();

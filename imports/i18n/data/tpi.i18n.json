@@ -850,6 +850,7 @@
   "export": "Salim i go aut",
   "export-board": "Salim bot i go",
   "export-board-without-attachments": "Na i no gat ol fail i pas",
+  "export-board-without-archive": "Na i no gat ol samting i stap long akaiv",
   "export-ical-feed": "Kalenda (iCal)",
   "user-can-not-export-excel": "Yusa i no inap salim i go aut long Excel",
   "export-card": "Salim i go kat",

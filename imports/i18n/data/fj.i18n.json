@@ -850,6 +850,7 @@
   "export": "Vakau yani",
   "export-board": "Kauta yani na vola",
   "export-board-without-attachments": "sega na ka e semati",
+  "export-board-without-archive": "sega na iyaya sa maroroi",
   "export-ical-feed": "Kaleda (iCal)",
   "user-can-not-export-excel": "E sega ni rawa ni vakauta na Excel na vakayagataka",
   "export-card": "Vakauta na kadi",

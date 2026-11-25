@@ -850,6 +850,7 @@
   "export": "Eksport et",
   "export-board": "Eksport tagtasy",
   "export-board-without-attachments": "goşundylarsyz",
+  "export-board-without-archive": "arhiwlenen elementlersiz",
   "export-ical-feed": "Senenama (iCal)",
   "user-can-not-export-excel": "Ulanyjy Excel eksport edip bilmez",
   "export-card": "Kart eksport ediň",

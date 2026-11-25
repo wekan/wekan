@@ -850,6 +850,7 @@
   "export": "Sohora",
   "export-board": "Sohora icapa",
   "export-board-without-attachments": "ata vyometse",
+  "export-board-without-archive": "ata bintu vyabitswe",
   "export-ical-feed": "Ikirangamisi (iCal)",
   "user-can-not-export-excel": "Uwukoresha ntashobora gusohora muri Excel",
   "export-card": "Sohora ikarata",

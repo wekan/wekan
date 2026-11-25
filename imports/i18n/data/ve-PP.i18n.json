@@ -850,6 +850,7 @@
   "export": "Ve",
   "export-board": "Vedä laud",
   "export-board-without-attachments": "ilma ličtusita",
+  "export-board-without-archive": "ilma arhivaha sirttud elementaid",
   "export-ical-feed": "Kalendar'-virduz (iCal)",
   "user-can-not-export-excel": "Kävutai ei voi vedäda Excel-failaha",
   "export-card": "Ve kart",

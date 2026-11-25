@@ -850,6 +850,7 @@
   "export": "Okeere",
   "export-board": "Okeere pátákó",
   "export-board-without-attachments": "laisi awọn asomọ",
+  "export-board-without-archive": "laisi awọn ohun ti a fipamọ",
   "export-ical-feed": "Kalẹnda (iCal)",
   "user-can-not-export-excel": "Olumulo ko le okeere Excel",
   "export-card": "Kaadi okeere",

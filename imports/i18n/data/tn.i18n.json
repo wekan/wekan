@@ -850,6 +850,7 @@
   "export": "Ntsha",
   "export-board": "Ntsha boto",
   "export-board-without-attachments": "kwa ntle ga tse di tshwaraganeng",
+  "export-board-without-archive": "kwa ntle ga dilo tse di bolokilweng",
   "export-ical-feed": "Tshedimosetso: Calendar (iCal)",
   "user-can-not-export-excel": "Modirisi ga a kgone go romela Excel",
   "export-card": "Romela karata",

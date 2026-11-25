@@ -89,7 +89,9 @@ function response() {
     for (const excludeAttachments of [false, true]) {
       const res = response();
       const exporter = { ...writer, _boardId: 'board1', _scope: {}, _excludeAttachments: excludeAttachments,
-        hasField: () => true, hasScope: () => false, _scopedCardSelector: async () => ({ boardId: 'board1' }) };
+        hasField: () => true, hasScope: () => false, _scopedCardSelector: async () => ({ boardId: 'board1' }),
+        // #6946: no ?archived=false here, so the archive filters pass through.
+        _liveOnly: s => s, _liveAttachments: async s => s };
       await route(res, exporter);
       assert.equal(res.destroyed, undefined);
       assert.equal(res.ended, true);
@@ -110,7 +112,9 @@ function response() {
       refuseFieldExport = true;
       const res = response();
       const exporter = { ...writer, _boardId: 'board1', _scope: {}, _excludeAttachments: true,
-        hasField: () => true, hasScope: () => false, _scopedCardSelector: async () => ({ boardId: 'board1' }) };
+        hasField: () => true, hasScope: () => false, _scopedCardSelector: async () => ({ boardId: 'board1' }),
+        // #6946: no ?archived=false here, so the archive filters pass through.
+        _liveOnly: s => s, _liveAttachments: async s => s };
       await route(res, exporter);
       refuseFieldExport = false;
       assert.equal(res.statusCode, 500);

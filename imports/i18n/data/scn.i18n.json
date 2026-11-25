@@ -850,6 +850,7 @@
   "export": "Spurta",
   "export-board": "Spurtari a tavula",
   "export-board-without-attachments": "senza alligati",
+  "export-board-without-archive": "senza elementi archiviati",
   "export-ical-feed": "Calannariu (iCal)",
   "user-can-not-export-excel": "L'utenti nun pò fari l'esportazzioni n Excel",
   "export-card": "Spurta carta",

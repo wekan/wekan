@@ -850,6 +850,7 @@
   "export": "Eksportować",
   "export-board": "Taflu eksportować",
   "export-board-without-attachments": "bjez přiwěškow",
+  "export-board-without-archive": "bjez archiwowanych elementow",
   "export-ical-feed": "Protyka (iCal)",
   "user-can-not-export-excel": "Wužiwar njemóže do Excela eksportować",
   "export-card": "Kartu eksportować",

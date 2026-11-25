@@ -850,6 +850,7 @@
   "export": "Útflyt",
   "export-board": "Útflyt talvuna",
   "export-board-without-attachments": "uttan viðheft",
+  "export-board-without-archive": "uttan goymdar lutir",
   "export-ical-feed": "Kalendari (iCal)",
   "user-can-not-export-excel": "Brúkarin kann ikki útflyta Excel",
   "export-card": "Útflyt kort",

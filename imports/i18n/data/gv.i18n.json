@@ -850,6 +850,7 @@
   "export": "Cur magh",
   "export-board": "Cur magh yn boayrd",
   "export-board-without-attachments": "gyn kiangltaghyn",
+  "export-board-without-archive": "gyn reddyn tashtit",
   "export-ical-feed": "Feaillere (iCal)",
   "user-can-not-export-excel": "Cha nod yn ymmydeyr cur magh gys Excel",
   "export-card": "Cur kaart magh",

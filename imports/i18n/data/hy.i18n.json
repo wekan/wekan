@@ -850,6 +850,7 @@
   "export": "Արտահանել",
   "export-board": "Արտահանման տախտակ",
   "export-board-without-attachments": "առանց կցորդների",
+  "export-board-without-archive": "առանց արխիվացված տարրերի",
   "export-ical-feed": "Օրացույց (iCal)",
   "user-can-not-export-excel": "Օգտվողը չի կարող արտահանել Excel-ը",
   "export-card": "Արտահանման քարտ",

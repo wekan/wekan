@@ -850,6 +850,7 @@
   "export": "Às-phortaich",
   "export-board": "Às-phortaich am bòrd",
   "export-board-without-attachments": "gun cheanglachain",
+  "export-board-without-archive": "gun nithean tasglannaichte",
   "export-ical-feed": "Mìosachan (iCal)",
   "user-can-not-export-excel": "Chan urrainn dhan chleachdaiche às-phortadh gu Excel",
   "export-card": "Às-phortaich cairt",

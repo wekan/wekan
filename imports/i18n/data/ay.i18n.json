@@ -850,6 +850,7 @@
   "export": "Apsuña",
   "export-board": "Pirqa mistuyaña",
   "export-board-without-attachments": "jani attachments",
+  "export-board-without-archive": "jani imata yänakani",
   "export-ical-feed": "Aymar aruna: Calendar (iCal)",
   "user-can-not-export-excel": "apnaqiri can jani anqäxar apayaña Excel",
   "export-card": "anqäxar apayaña tarjeta",

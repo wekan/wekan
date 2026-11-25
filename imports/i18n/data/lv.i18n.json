@@ -850,6 +850,7 @@
   "export": "Eksportēt",
   "export-board": "Eksportēt dēli",
   "export-board-without-attachments": "bez pielikumiem",
+  "export-board-without-archive": "bez arhivētiem vienumiem",
   "export-ical-feed": "Kalendārs (iCal)",
   "user-can-not-export-excel": "Lietotājs nevar eksportēt uz Excel",
   "export-card": "Eksportēt kartiņu",

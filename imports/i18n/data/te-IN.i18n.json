@@ -850,6 +850,7 @@
   "export": "ఎగుమతి చేయి",
   "export-board": "ఎగుమతి బోర్డు",
   "export-board-without-attachments": "అటాచ్‌మెంట్‌లు లేకుండా",
+  "export-board-without-archive": "ఆర్కైవ్ చేసిన అంశాలు లేకుండా",
   "export-ical-feed": "క్యాలెండర్ (iCal)",
   "user-can-not-export-excel": "వినియోగదారు Excelని ఎగుమతి చేయలేరు",
   "export-card": "ఎగుమతి కార్డ్",

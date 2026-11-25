@@ -850,6 +850,7 @@
   "export": "Sohora",
   "export-board": "Sohora ikibaho",
   "export-board-without-attachments": "nta migereka",
+  "export-board-without-archive": "nta bintu byashyizwe mu bubiko",
   "export-ical-feed": "Kalendari (iCal)",
   "user-can-not-export-excel": "Ukoresha ntashobora gusohora Excel",
   "export-card": "Sohora ikarita",

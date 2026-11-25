@@ -850,6 +850,7 @@
   "export": "Ekspòte",
   "export-board": "Ekspòte tablo a",
   "export-board-without-attachments": "san pyès atache",
+  "export-board-without-archive": "san eleman achive",
   "export-ical-feed": "Kalandriye (iCal)",
   "user-can-not-export-excel": "Itilizatè a pa ka ekspòte nan Excel",
   "export-card": "Ekspòte kat",

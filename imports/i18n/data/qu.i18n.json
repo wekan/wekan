@@ -850,6 +850,7 @@
   "export": "Hurquy",
   "export-board": "Pirqata lloqsichiy",
   "export-board-without-attachments": "mana watasqakunawan",
+  "export-board-without-archive": "mana waqaychasqa imakunawan",
   "export-ical-feed": "Watanqillqa willakuy (iCal)",
   "user-can-not-export-excel": "Runaqa manam Excelman hurquyta atinchu",
   "export-card": "Kartata hurquy",

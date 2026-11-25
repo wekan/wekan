@@ -850,6 +850,7 @@
   "export": "Ezporzhiañ",
   "export-board": "Ezporzhiañ an daolenn",
   "export-board-without-attachments": "hep stagadennoù",
+  "export-board-without-archive": "hep an elfennoù diellet",
   "export-ical-feed": "Fodenn kalendr (iCal)",
   "user-can-not-export-excel": "Ne c’hall ket an implijer ezporzhiañ da Excel",
   "export-card": "Ezporzhiañ ar gartenn",

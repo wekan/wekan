@@ -850,6 +850,7 @@
   "export": "Eksportearje",
   "export-board": "Eksportearje board",
   "export-board-without-attachments": "sûnder taheaksels",
+  "export-board-without-archive": "sûnder argivearre items",
   "export-ical-feed": "Kalinder (iCal)",
   "user-can-not-export-excel": "Brûker kin Excel net eksportearje",
   "export-card": "Eksportearje card",

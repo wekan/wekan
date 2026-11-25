@@ -228,6 +228,17 @@ const EXPORT_FORMAT_GROUPS = [
         query: { attachments: 'false' },
       },
       {
+        // Leave the board's archive behind, so a migration to another instance
+        // starts clean instead of carrying every archived card/list/swimlane.
+        key: 'json-no-archive',
+        icon: 'fa-file-code-o',
+        labelKey: 'export-board-without-archive',
+        labelPrefix: 'JSON',
+        path: 'export',
+        ext: 'json',
+        query: { archived: 'false' },
+      },
+      {
         key: 'zip',
         icon: 'fa-file-archive-o',
         labelKey: 'attachments',

@@ -850,6 +850,7 @@
   "export": "내보내기",
   "export-board": "보드 내보내기",
   "export-board-without-attachments": "첨부 파일 제외",
+  "export-board-without-archive": "보관된 항목 제외",
   "export-ical-feed": "달력 (iCal)",
   "user-can-not-export-excel": "엑셀로 내보낼 수 없습니다.",
   "export-card": "카드 내보내기",

@@ -850,6 +850,7 @@
   "export": "Esporta",
   "export-board": "Esporta l-bord",
   "export-board-without-attachments": "mingħajr annessi",
+  "export-board-without-archive": "mingħajr oġġetti arkivjati",
   "export-ical-feed": "Fluss tal-kalendarju (iCal)",
   "user-can-not-export-excel": "L-utent ma jistax jesporta f’Excel",
   "export-card": "Esporta l-karta",

@@ -850,6 +850,7 @@
   "export": "Soo saar",
   "export-board": "Soo saar sabuuradda",
   "export-board-without-attachments": "lifaaqyo la'aan",
+  "export-board-without-archive": "walxaha la kaydiyay la'aan",
   "export-ical-feed": "Kalandar (iCal)",
   "user-can-not-export-excel": "Isticmaaluhu uma dhoofin karo Excel",
   "export-card": "Dhoofso kaarka",

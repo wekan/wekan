@@ -850,6 +850,7 @@
   "export": "صادرول",
   "export-board": "تخته صادرول",
   "export-board-without-attachments": "له ضميمو پرته",
+  "export-board-without-archive": "له ارشيف شويو توکو پرته",
   "export-ical-feed": "جنتري (iCal)",
   "user-can-not-export-excel": "کاروونکی Excel ته صادرول نه شي کولی",
   "export-card": "کارت صادر کړئ",

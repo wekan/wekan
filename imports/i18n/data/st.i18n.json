@@ -850,6 +850,7 @@
   "export": "Ntsha",
   "export-board": "Ntsha boto",
   "export-board-without-attachments": "ntle le diphuthelwana",
+  "export-board-without-archive": "ntle le dintho tse bolokiloeng",
   "export-ical-feed": "Khalendara (iCal)",
   "user-can-not-export-excel": "Mosebedisi ha a kgone ho ntsha Excel",
   "export-card": "Ntsha karete",

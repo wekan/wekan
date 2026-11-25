@@ -850,6 +850,7 @@
   "export": "නිර්යාත කරන්න",
   "export-board": "පුවරුව නිර්යාත කරන්න",
   "export-board-without-attachments": "ඇමුණුම් නොමැතිව",
+  "export-board-without-archive": "සංරක්ෂිත අයිතම නොමැතිව",
   "export-ical-feed": "දින දර්ශනය (iCal)",
   "user-can-not-export-excel": "පරිශීලකයාට Excel වෙත නිර්යාත කළ නොහැක",
   "export-card": "කාඩ්පත නිර්යාත කරන්න",

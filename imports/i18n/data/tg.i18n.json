@@ -850,6 +850,7 @@
   "export": "Содир кардан",
   "export-board": "Тахтаро содир кардан",
   "export-board-without-attachments": "бе замимаҳо",
+  "export-board-without-archive": "бе ҷузъҳои бойгонишуда",
   "export-ical-feed": "Тақвим (iCal)",
   "user-can-not-export-excel": "Корбар ба Excel содир карда наметавонад",
   "export-card": "Содир кардани корт",

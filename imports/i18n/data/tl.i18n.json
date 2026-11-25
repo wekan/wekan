@@ -850,6 +850,7 @@
   "export": "I-export",
   "export-board": "I-export ang pisara",
   "export-board-without-attachments": "nang walang kalakips",
+  "export-board-without-archive": "nang walang mga naka-archive na item",
   "export-ical-feed": "Kalendaryo (iCal)",
   "user-can-not-export-excel": "Gumagamit maaaring hindi i-export Excel",
   "export-card": "I-export kard",

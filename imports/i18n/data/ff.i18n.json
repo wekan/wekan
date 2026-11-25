@@ -850,6 +850,7 @@
   "export": "Yaltin",
   "export-board": "Yaltin alluwal",
   "export-board-without-attachments": "tawa alaa ceŋaaɗi",
+  "export-board-without-archive": "tawa alaa geɗe mooftaaɗe",
   "export-ical-feed": "Haatumeere (iCal)",
   "user-can-not-export-excel": "Kuutoro waawaa yaltinde Excel",
   "export-card": "Yaltin kartal",

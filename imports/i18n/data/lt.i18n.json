@@ -850,6 +850,7 @@
   "export": "Eksportuoti",
   "export-board": "Eksporto lenta",
   "export-board-without-attachments": "be priedų",
+  "export-board-without-archive": "be suarchyvuotų elementų",
   "export-ical-feed": "Kalendorius (iCal)",
   "user-can-not-export-excel": "Vartotojas negali eksportuoti Excel",
   "export-card": "Eksporto kortelė",

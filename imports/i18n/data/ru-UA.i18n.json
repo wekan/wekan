@@ -850,6 +850,7 @@
   "export": "Экспортировать",
   "export-board": "Экспортировать доску",
   "export-board-without-attachments": "без вложений",
+  "export-board-without-archive": "без архивированных элементов",
   "export-ical-feed": "Календарь (iCal)",
   "user-can-not-export-excel": "Пользователь не может экспортировать в Excel",
   "export-card": "Экспорт карточки",

@@ -850,6 +850,7 @@
   "export": "Génne",
   "export-board": "Génne tablo",
   "export-board-without-attachments": "te amul takkaay",
+  "export-board-without-archive": "te amul lu ñu àrsiw",
   "export-ical-feed": "Feed kalendari (iCal)",
   "user-can-not-export-excel": "Jëfandikukat bi manul a génne Excel",
   "export-card": "Génne kaart bi",

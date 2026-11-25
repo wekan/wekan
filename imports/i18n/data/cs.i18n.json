@@ -850,6 +850,7 @@
   "export": "Exportovat",
   "export-board": "Exportovat tablo",
   "export-board-without-attachments": "bez příloh",
+  "export-board-without-archive": "bez archivovaných položek",
   "export-ical-feed": "Kalendář (iCal)",
   "user-can-not-export-excel": "Uživatel nemůže exportovat do Excelu",
   "export-card": "Exportovat kartu",

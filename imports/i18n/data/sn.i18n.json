@@ -850,6 +850,7 @@
   "export": "Buritsa",
   "export-board": "Buritsa bhodhi",
   "export-board-without-attachments": "pasina zvinamatidzwa",
+  "export-board-without-archive": "pasina zvinhu zvakachengetwa",
   "export-ical-feed": "Mutsara wezviitiko zvekarenda (iCal)",
   "user-can-not-export-excel": "Mushandisi haagoni kubuditsa Excel",
   "export-card": "Buritsa kadhi",

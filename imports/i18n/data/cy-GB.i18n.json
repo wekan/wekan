@@ -850,6 +850,7 @@
   "export": "Allforio",
   "export-board": "Bwrdd allforio",
   "export-board-without-attachments": "heb ymlyniadau",
+  "export-board-without-archive": "heb eitemau wedi'u harchifo",
   "export-ical-feed": "Calendr (iCal)",
   "user-can-not-export-excel": "Ni all y defnyddiwr allforio Excel",
   "export-card": "Allforio cerdyn",

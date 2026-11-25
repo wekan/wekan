@@ -850,6 +850,7 @@
   "export": "Eksport qilish",
   "export-board": "Eksport paneli",
   "export-board-without-attachments": "biriktirmalarsiz",
+  "export-board-without-archive": "arxivlangan elementlarsiz",
   "export-ical-feed": "Kalendar (iCal)",
   "user-can-not-export-excel": "Foydalanuvchi Excelni eksport qila olmaydi",
   "export-card": "Eksport kartasi",

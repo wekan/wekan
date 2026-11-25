@@ -850,6 +850,7 @@
   "export": "निर्यात करू",
   "export-board": "पट्ट निर्यात करू",
   "export-board-without-attachments": "संलग्नक बिना",
+  "export-board-without-archive": "संग्रहित वस्तु बिना",
   "export-ical-feed": "कैलेंडर (iCal)",
   "user-can-not-export-excel": "उपयोगकर्ता Excel निर्यात नहि कऽ सकैत अछि",
   "export-card": "कार्ड निर्यात करू",

@@ -850,6 +850,7 @@
   "export": "Humesa",
   "export-board": "Humesa bodo",
   "export-board-without-attachments": "mhaka swikhomanisiwa",
+  "export-board-without-archive": "handle ka swilo leswi hlayisiweke",
   "export-ical-feed": "khalendara (iCal)",
   "user-can-not-export-excel": "Mutirhisi a nga swi koti ku humesa eka Excel",
   "export-card": "humesa khadi",

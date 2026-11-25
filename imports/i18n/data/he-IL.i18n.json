@@ -850,6 +850,7 @@
   "export": "ייצוא",
   "export-board": "ייצוא לוח",
   "export-board-without-attachments": "ללא צרופות",
+  "export-board-without-archive": "ללא פריטים בארכיון",
   "export-ical-feed": "לוח שנה (iCal)",
   "user-can-not-export-excel": "המשתמש לא יכול לייצא ל־Excel",
   "export-card": "ייצוא כרטיס",

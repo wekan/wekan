@@ -850,6 +850,7 @@
   "export": "കയറ്റുമതി ചെയ്യുക",
   "export-board": "ബോർഡ് കയറ്റുമതി ചെയ്യുക",
   "export-board-without-attachments": "അറ്റാച്ച്മെന്റുകളില്ലാതെ",
+  "export-board-without-archive": "ശേഖരിച്ച ഇനങ്ങളില്ലാതെ",
   "export-ical-feed": "കലണ്ടർ (iCal)",
   "user-can-not-export-excel": "ഉപയോക്താവിന് Excel കയറ്റുമതി ചെയ്യാനാവില്ല",
   "export-card": "കാർഡ് കയറ്റുമതി ചെയ്യുക",

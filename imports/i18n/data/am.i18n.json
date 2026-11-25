@@ -850,6 +850,7 @@
   "export": "ላክ",
   "export-board": "ሰሌዳ ላክ",
   "export-board-without-attachments": "ያለ አባሪዎች",
+  "export-board-without-archive": "ያለ ማህደር ንጥሎች",
   "export-ical-feed": "የቀን መቁጠሪያ (iCal)",
   "user-can-not-export-excel": "ተጠቃሚው ወደ Excel መላክ አይችልም",
   "export-card": "ካርድን ወደ ውጭ ላክ",

@@ -850,6 +850,7 @@
   "export": "Esportatu",
   "export-board": "Esportatu arbela",
   "export-board-without-attachments": "eranskinik gabe",
+  "export-board-without-archive": "gordetako elementurik gabe",
   "export-ical-feed": "Egutegia (iCal)",
   "user-can-not-export-excel": "Erabiltzaileak ezin du esportatu Excel gisa",
   "export-card": "Esportatu txartela",

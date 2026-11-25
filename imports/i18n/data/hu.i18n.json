@@ -850,6 +850,7 @@
   "export": "Exportálás",
   "export-board": "Tábla exportálása",
   "export-board-without-attachments": "mellékletek nélkül",
+  "export-board-without-archive": "archivált elemek nélkül",
   "export-ical-feed": "Naptár (iCal)",
   "user-can-not-export-excel": "Felhasználó nem tud Excelbe exportálni",
   "export-card": "Kártya exportálása",

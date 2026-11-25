@@ -850,6 +850,7 @@
   "export": "Ebaguer",
   "export-board": "Ebaguer li tåvlea",
   "export-board-without-attachments": "sins pîces djondowes",
+  "export-board-without-archive": "sins les cayets archyvés",
   "export-ical-feed": "Fléete calandair (iCal)",
   "user-can-not-export-excel": "L' uzeu ni pout nén ebaguer viè Excel",
   "export-card": "Esportar la căte",

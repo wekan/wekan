@@ -850,6 +850,7 @@
   "export": "Tulutsani",
   "export-board": "Tulutsani bolodi",
   "export-board-without-attachments": "popanda zolumikizidwa",
+  "export-board-without-archive": "popanda zinthu zosungidwa",
   "export-ical-feed": "Kalendala (iCal)",
   "user-can-not-export-excel": "Wogwiritsa ntchito sangathe kutumiza ku Excel",
   "export-card": "Tumizani khadi",

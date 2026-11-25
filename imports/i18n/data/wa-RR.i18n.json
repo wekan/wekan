@@ -850,6 +850,7 @@
   "export": "Pag-eksport",
   "export-board": "I-export an board",
   "export-board-without-attachments": "waray mga attachment",
+  "export-board-without-archive": "waray mga naka-arkibo nga butang",
   "export-ical-feed": "Kalendaryo (iCal)",
   "user-can-not-export-excel": "Diri makaka-export hin Excel an tagagamit",
   "export-card": "I-export an card",

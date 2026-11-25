@@ -850,6 +850,7 @@
   "export": "Экспортлохо",
   "export-board": "Самбар гаргаха",
   "export-board-without-attachments": "хабсаргалтануудгүй",
+  "export-board-without-archive": "хадагалагдаһан зүйлнүүдгүй",
   "export-ical-feed": "Хуанли (iCal)",
   "user-can-not-export-excel": "Хэрэглэгчэ Excel рүү гаргажа шадахагүй",
   "export-card": "Карта гаргаха",

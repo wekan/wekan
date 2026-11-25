@@ -850,6 +850,7 @@
   "export": "Экспортлас",
   "export-board": "Хӑмана экспортлас",
   "export-board-without-attachments": "хушӑннисӗр",
+  "export-board-without-archive": "архивланӑ элементсӑр",
   "export-ical-feed": "Календарь (iCal)",
   "user-can-not-export-excel": "Усӑҫӑ Excel форматне экспортлама пултараймасть",
   "export-card": "Карточкӑна экспортлас",

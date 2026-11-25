@@ -850,6 +850,7 @@
   "export": "Xicquixti",
   "export-board": "Xicquixti huapalli",
   "export-board-without-attachments": "amo ica tlanamictiltin",
+  "export-board-without-archive": "amo ica tlamantli opixquiltin",
   "export-ical-feed": "Tonalamatl (iCal)",
   "user-can-not-export-excel": "Tlacatl amo huel tlaquixtia Excel",
   "export-card": "Xicquixti amatlapalli",

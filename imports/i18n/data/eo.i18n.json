@@ -850,6 +850,7 @@
   "export": "Eksporti",
   "export-board": "Eksporti tabulon",
   "export-board-without-attachments": "sen aldonaĵoj",
+  "export-board-without-archive": "sen arkivitaj eroj",
   "export-ical-feed": "Kalendara fluo (iCal)",
   "user-can-not-export-excel": "Uzanto ne povas eksporti al Excel",
   "export-card": "Eksporti karton",

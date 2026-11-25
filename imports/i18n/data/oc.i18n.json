@@ -850,6 +850,7 @@
   "export": "Exportar",
   "export-board": "Exportar lo tablèu",
   "export-board-without-attachments": "sens pèças jonchas",
+  "export-board-without-archive": "sens los elements archivats",
   "export-ical-feed": "Calendièr (iCal)",
   "user-can-not-export-excel": "L’utilizaire pòt pas exportar cap a Excel",
   "export-card": "Exportar la carta",

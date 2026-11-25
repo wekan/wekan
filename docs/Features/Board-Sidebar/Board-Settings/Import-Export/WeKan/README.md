@@ -4,10 +4,15 @@
 
 WeKan's own export is the board as one JSON document, `wekan-board-1.0.0`. It
 is the lossless format: it carries what a board has, and importing it makes the
-same board again with new ids. It comes in three forms:
+same board again with new ids. It comes in four forms:
 
 - **JSON**: the document, with attachment files as base64 inside it;
 - **JSON (without attachments)**: the document without the attachment data;
+- **JSON (without archived items)**: the document without the board's archive,
+  that is without archived cards, lists or swimlanes, the cards on an archived
+  list or swimlane, and their comments, checklists and attachments; for moving
+  a board to another WeKan and starting clean there
+  ([#6946](https://github.com/wekan/wekan/issues/6946));
 - **.zip (Attachments)**: the same document as `wekan.json`, with each
   attachment as the file it is under `attachments/`.
 
@@ -107,6 +112,8 @@ For pasting a very large JSON on Linux, see
    - **JSON**: one `.json` file, attachments inside as base64;
    - **JSON (without attachments)**: one `.json` file without attachment data,
      for very large boards;
+   - **JSON (without archived items)**: one `.json` file without the board's
+     archive, for moving the board to another WeKan;
    - **.zip (Attachments)**: a `.zip` with `wekan.json` and the attachment
      files. Use it when the attachments are too large for one JSON document.
 4. Import the file into another WeKan as described above.
@@ -138,7 +145,8 @@ python3 api.py exportallboards wekan boards.zip               # GET /api/export-
 ```
 
 - `GET /api/boards/:boardId/export?authToken=TOKEN` exports the JSON.
-  `&attachments=false` leaves out the attachment data. `&fields=a,b,c`
+  `&attachments=false` leaves out the attachment data, `&archived=false` the
+  board's archive. `&fields=a,b,c`
   selects the parts, and `swimlaneId`, `listId`, `cardId` or `checklistId`
   export only that part of the board.
 - `GET /api/boards/:boardId/exportZip?authToken=TOKEN` exports the `.zip`,
