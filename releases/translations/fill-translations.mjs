@@ -1137,7 +1137,9 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']),
   wo: new Set(['pomodoro']),
-  wa: new Set(['pomodoro']),
+  // Walloon writes a date "date", as English does (wa.wiktionary.org); its old
+  // "Date do calendri" said calendar date, which is not what the field is.
+  wa: new Set(['pomodoro', 'date']),
 };
 
 // Exact reviewed shared terms must not be offered for machine filling again.

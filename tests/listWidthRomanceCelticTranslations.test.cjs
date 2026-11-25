@@ -22,7 +22,8 @@ const cases = [
   ['oc', /largor de la tièra.*entièr.*almens 200 pixèls/u],
   ['pap', /ancho di e lista.*entero.*na e ménos 200 píxeles/u],
   ['lb', /Breet vun der Lëscht.*ganz Zuel.*mindestens 200 Pixel/u],
-  ['wa', /lårdjeur del djîveye.*nombe etîr.*å moens 200 picsels/u],
+  // Walloon's list is "djivêye", as in the rest of wa.i18n.json (2026-11-25).
+  ['wa', /lårdjeur del djivêye.*nombe etîr.*å moens 200 picsels/u],
   ['ht', /Lajè lis la.*nonb antye.*omwen 200 piksèl/u],
   ['eo', /Listlarĝo.*entjero.*almenaŭ 200 rastrumeroj/u],
   ['la', /Latitudo indicis.*numerus integer.*saltem 200 pixelorum/u],

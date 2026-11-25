@@ -139,7 +139,9 @@ for (const [codes, protection, pause, units] of [
   [['nap'], /nun scrive maje ncopp'ô file ca se sta ausanno/, /generazione scèveta ô mumento scèveto.*se ferma pe nu poco mentre se torna arreto/, ['sicunne', 'ore', 'juorne']],
   [['ee'], /womagbugbɔ aŋlɔ ɖe agbalẽ si wole zãm la dzi gbeɖe o/, /ƒome si wotia.*ɣeyiɣi si wotia.*atɔ vie esi gbugbɔɖoɖote la le edzi yim/, ['sekend', 'gaƒoƒo', 'ŋkeke']],
   [['kw'], /heb troskrifa an restr usys nevra/, /henedh dewisys dhe'n termyn dewisys.*a bowes pols hag an dasserghi ow mos yn-rag/, ['eylennow', 'ourys', 'dedhyow']],
-  [['wa'], /sins måy sipotchî l' fitchî eployî/, /djenêråcion tchoezeye å moumint tchoezi.*s' arestêye on moumint tins kel restauraedje rote/, ['segondes', 'eures', 'djoûs']],
+  // Walloon restores with "rimete" throughout since 2026-11-25, so the restore
+  // is "rimetaedje", no longer the French-shaped "restauraedje".
+  [['wa'], /sins måy sipotchî l' fitchî eployî/, /djenêråcion tchoezeye å moumint tchoezi.*s' arestêye on moumint tins ki l' rimetaedje rote/, ['segondes', 'eures', 'djoûs']],
   [['gv'], /gyn scrieu harrish y coadan ta ayns ymmyd dy bragh/, /sheeloghe reih't gys y traa reih't.*stad son tammylt choud as ta'n aavioghey goll er/, ['grigyn', 'ooraghyn', 'laghyn']],
   [['ak'], /wɔntwerɛ ngu fael a wɔde reyɛ adwuma no so da/, /mfonini kuw a wɔapaw no.*bere a wɔapaw no.*begyina kakra bere a wɔresan de aba no/, ['sikɔne', 'nnɔnhwere', 'nna']],
   [['wo'], /du bind mukk ci kaw fiise bi ñuy jëfandikoo/, /maas bi ñu tànn ci waxtu wi ñu tànn.*dina taxaw tuuti bi delloo gi di dox/, ['simili', 'waxtu', 'fan']],

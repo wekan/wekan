@@ -85,6 +85,8 @@ export function rewriteMultiWordOperators(query, names) {
 // a space or a "|" never worked, so they are not here.
 export const SEARCH_OPERATOR_ALIASES = {
   or_IN: { 'ସନ୍ତରଣ': 'operator-swimlane' },
+  // Walloon, corrected 2026-11-25 from French and invented words.
+  wa: { 'statuts': 'operator-status', 'dû': 'operator-due', 'creé': 'operator-created', 'modifié': 'operator-modified', 'târte': 'operator-sort', 'rawete': 'operator-comment', 'tèm': 'operator-team' },
 };
 
 export function searchOperatorAliasesFor(language) {

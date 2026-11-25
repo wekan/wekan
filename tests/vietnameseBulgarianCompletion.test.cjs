@@ -2369,7 +2369,8 @@ for (const code of ['kw', 'as', 'am', 'km', 'km_KH', 'km-KH', 'my', 'mg', 'ug', 
   for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
   assert.match(locale['rule-email-recovery-actions-hint'], /ni renvoeye måy tot seu/);
   assert.match(locale['rule-email-recovery-resend-confirm'], /deus côps/);
-  assert.match(locale['rule-email-legacy-description'], /oteur del rèle a co accès/);
+  // Walloon's rule is "rîle", as in its Rules menu (2026-11-25).
+  assert.match(locale['rule-email-legacy-description'], /oteur del rîle a co accès/);
   assert.match(locale['rule-email-legacy-discard-confirm'], /n' serè måy evoyî/);
   assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
 }
