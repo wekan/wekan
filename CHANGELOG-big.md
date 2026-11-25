@@ -98,9 +98,12 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The Docker image's start no longer logs paths or settings read
-from the environment, as **GitHub CodeQL** found, and WeKan's documentation
-says its license rule plainly: **permissive licenses, no GPL**.
+**In short:** Every bundle, snap and Docker image is **about 160 MiB
+smaller**: translations are one copy on the server, and the files of a test
+build no longer ship. Languages that are a copy of another, such as en-IT, no
+longer fail on the server. The Docker image's start no longer logs paths read
+from the environment, as **GitHub CodeQL** found, and the documentation says
+the license rule plainly: **permissive licenses, no GPL**.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
@@ -123,7 +126,45 @@ Problems: this changes what a log line carries, and there is no attempt to see.
 
 </details>
 
-and has the following developer-tooling fix:
+and fixes the following bugs:
+
+**Release size** - what every bundle, zip, snap and image carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cd1be72381b9136f00e34df3443336eabab906e">Translations are one copy, on the server, and a language that is a copy of another loads</a>. Thanks to xet7.</summary>
+
+Every dictionary but English was in the bundle twice: a server asset (140 MiB)
+and a client chunk (144 MiB). Now the browser's module for a language is only
+the dictionary's hash, and the browser fetches `/i18n/<hash>.json` from the
+server's copy, at the page's origin under ROOT_URL's path prefix, kept a year
+as private and immutable. The client part of the bundle is 41 MiB instead of
+184 MiB. The server's assets were named `<tag>.<hash>.json`, and the build kept
+one file per content, so where two dictionaries are the same bytes (en-IT,
+en-MY and en-YS are en-BR; en_SG, en_TR and en_ZA are en_AU) the server failed
+with ENOENT reading the others. Named by content alone, they share one file.
+Checked on a built bundle: a Finnish Chromium gets Finnish from the route.
+`tests/i18nAssetServing.test.cjs`, `tests/i18nServerAssets.test.cjs` and the
+Playwright spec `i18n-one-copy.e2e.js` pin it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21b0131b8c0afb2334cdd8a8af90ea9a0155c834">A test build's client assets no longer ship in a release bundle, 16 MiB less</a>. Thanks to xet7.</summary>
+
+`meteor test` writes the test app's assets to
+`public/build-assets-local-test-app-test/`, and `public/` goes into every later
+build, so a bundle built after the tests carried them. `bundle-trim.mjs`, which
+every release path runs, drops them with their manifest entries.
+`tests/bundleTrim.test.cjs` pins it.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**Tests** - guards that read the source.
+
+- [The cpu-exec wiring guard reads the entrypoint's named programs](https://github.com/wekan/wekan/commit/524ea6a41e1e4eaa280df747547643b63ef003e2).
+  Thanks to xet7.
 
 **Security downloads** - Artifact Hub's report of the Helm chart.
 

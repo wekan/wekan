@@ -7,9 +7,12 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The Docker image's start no longer logs paths or settings read
-from the environment, as **GitHub CodeQL** found, and WeKan's documentation
-says its license rule plainly: **permissive licenses, no GPL**.
+Every bundle, snap and Docker image is **about 160 MiB
+smaller**: translations are one copy on the server, and the files of a test
+build no longer ship. Languages that are a copy of another, such as en-IT, no
+longer fail on the server. The Docker image's start no longer logs paths read
+from the environment, as **GitHub CodeQL** found, and the documentation says
+the license rule plainly: **permissive licenses, no GPL**.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
