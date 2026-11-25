@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ehichapụrụ",
   "gitea-freed": "tọhapụrụ",
   "gitea-deleted-list": "Ebe nchekwa koodu ehichapụrụ",
-  "gitea-index-stale": "Ọ dịkwaghị ọhụrụ kemgbe ihichapụ: tụọ ọzọ maka nha ziri ezi."
+  "gitea-index-stale": "Ọ dịkwaghị ọhụrụ kemgbe ihichapụ: tụọ ọzọ maka nha ziri ezi.",
+  "gitea-db-migration-version": "Ụdị mbugharị nchekwa data Gitea",
+  "gitea-orphans-delete": "Hichapụ ihe niile na-enweghị nne na nna",
+  "gitea-orphans-delete-confirm": "Nke a na-ehichapụ ruo mgbe ebighị ebi na folda Gitea faịlụ na-enweghị nne na nna nke ọ dịghị ihe ọ bụla n'ime nchekwa data na-eji, na ahịrị nchekwa data ndị faịlụ ha furu efu. A na-edobe ihe ọ bụla a na-eji mgbe a na-ehichapụ ya. Pịnye ọnụ ọgụgụ ihe na-enweghị nne na nna ka ịga n'ihu:",
+  "gitea-orphans-delete-wrong-number": "Nọmba e pịnyere abụghị ọnụ ọgụgụ ihe na-enweghị nne na nna. Ọ dịghị ihe e hichapụrụ."
 }

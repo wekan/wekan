@@ -5797,5 +5797,9 @@
   "gitea-deleted": "刪除於",
   "gitea-freed": "騰出",
   "gitea-deleted-list": "已刪除嘅儲存庫",
-  "gitea-index-stale": "自從刪除之後已經過時：再量一次就有準確大小。"
+  "gitea-index-stale": "自從刪除之後已經過時：再量一次就有準確大小。",
+  "gitea-db-migration-version": "Gitea 資料庫遷移版本",
+  "gitea-orphans-delete": "刪除所有孤兒",
+  "gitea-orphans-delete-confirm": "呢個操作會將資料庫入面冇嘢用緊嘅孤兒檔案，同埋檔案已經唔見咗嘅資料庫行，由 Gitea 資料夾永久刪除。刪除嗰陣仲用緊嘅嘢都會保留。輸入孤兒嘅數目嚟繼續：",
+  "gitea-orphans-delete-wrong-number": "輸入嘅數字唔係孤兒嘅數目。乜嘢都冇刪除。"
 }

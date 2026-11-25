@@ -5797,5 +5797,9 @@
   "gitea-deleted": "E phumotšwe",
   "gitea-freed": "e lokolotšwe",
   "gitea-deleted-list": "Direpository tše di phumotšwego",
-  "gitea-index-stale": "E tšofetše go tloga ge go phumolwa: lekanya gape bakeng sa bogolo bjo bo nepagetšego."
+  "gitea-index-stale": "E tšofetše go tloga ge go phumolwa: lekanya gape bakeng sa bogolo bjo bo nepagetšego.",
+  "gitea-db-migration-version": "Phetolelo ya go huduga ga database ya Gitea",
+  "gitea-orphans-delete": "Phumola ditšhiwana ka moka",
+  "gitea-orphans-delete-confirm": "Se se phumola ka mo go sa felego go tšwa foltareng ya Gitea difaele tša ditšhiwana tšeo go se nago selo ka gare ga database seo se di šomišago, le methaladi ya database yeo faele ya yona e timetšego. Se sengwe le se sengwe seo se šomišwago ge se phumolwa se a bolokwa. Ngwala palo ya ditšhiwana go tšwela pele:",
+  "gitea-orphans-delete-wrong-number": "Nomoro yeo e ngwadilwego ga se palo ya ditšhiwana. Ga go selo seo se phumotšwego."
 }

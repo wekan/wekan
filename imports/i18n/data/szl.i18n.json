@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Wyciepniōne",
   "gitea-freed": "uwolniōne",
   "gitea-deleted-list": "Wyciepniōne repozytoria",
-  "gitea-index-stale": "Niyaktualne ôd wyciepniyńciŏ: zmierz jeszcze rŏz dlŏ dokładnych srogości."
+  "gitea-index-stale": "Niyaktualne ôd wyciepniyńciŏ: zmierz jeszcze rŏz dlŏ dokładnych srogości.",
+  "gitea-db-migration-version": "Wersyjŏ migracyje bazy danych Gitea",
+  "gitea-orphans-delete": "Wyciep wszyjske sieroty",
+  "gitea-orphans-delete-confirm": "To na zawdy wyciepuje z ôrdnera Gitea ôsierocōne zbiory, kerych nic we bazie danych niy używŏ, i wiersze bazy danych, kerych zbiōr przepŏd. Wszyjsko, co je używane, kej je wyciepowane, ôstŏwŏ. Wpisz liczba sierot, żeby jechać dalij:",
+  "gitea-orphans-delete-wrong-number": "Wpisanŏ liczba niy ma liczbōm sierot. Nic niy było wyciepniōne."
 }

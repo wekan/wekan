@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Pemoükon",
   "gitea-freed": "pelivükon",
   "gitea-deleted-list": "Dakipöps pemoüköl",
-  "gitea-index-stale": "No plu nulik sis moükam: mafön dönu ad gretots kuratik."
+  "gitea-index-stale": "No plu nulik sis moükam: mafön dönu ad gretots kuratik.",
+  "gitea-db-migration-version": "Fomam tevoda nünodema Gitea",
+  "gitea-orphans-delete": "Moükön pälöfanis valik",
+  "gitea-orphans-delete-confirm": "Atos moükon ai se dosiär de Gitea ragivodis pälöfik, kelis nos in nünodem no gebon, e kedis nünodema, kelas ragiv peron. Valikos, kel pagebon ven pamoükon, pakipon. Penolös numi pälöfanas ad fovön:",
+  "gitea-orphans-delete-wrong-number": "Num pepenöl no binon num pälöfanas. Nos pemoükon."
 }

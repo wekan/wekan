@@ -5797,5 +5797,9 @@
   "gitea-deleted": "ተደምሲሱ",
   "gitea-freed": "ተፈቲሑ",
   "gitea-deleted-list": "ዝተደምሰሱ መኽዘናት",
-  "gitea-index-stale": "ካብ ምድምሳስ ጀሚሩ ዘይተሓደሰ: ንልክዕ ዓቐናት ደጊምካ ዓቅን።"
+  "gitea-index-stale": "ካብ ምድምሳስ ጀሚሩ ዘይተሓደሰ: ንልክዕ ዓቐናት ደጊምካ ዓቅን።",
+  "gitea-db-migration-version": "ናይ Gitea ዳታቤዝ ምግዓዝ ስሪት",
+  "gitea-orphans-delete": "ኩሎም ዘኽታማት ደምስስ",
+  "gitea-orphans-delete-confirm": "እዚ ካብ ማህደር Gitea ነቶም ኣብ ዳታቤዝ ዝኾነ ነገር ዘይጥቀመሎም ዘኽታማት ፋይላትን ፋይሎም ዝጠፍኦም መስመራት ዳታቤዝን ንሓዋሩ ይድምስስ። ኣብ ግዜ ምድምሳስ ኣብ ጥቕሚ ዘሎ ዝኾነ ነገር ይዕቀብ። ንምቕጻል ብዝሒ ዘኽታማት ጽሓፍ:",
+  "gitea-orphans-delete-wrong-number": "እቲ ዝተጻሕፈ ቍጽሪ ብዝሒ ዘኽታማት ኣይኮነን። ዝተደምሰሰ የለን።"
 }

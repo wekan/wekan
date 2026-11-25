@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Zhašany",
   "gitea-freed": "wuswobodźene",
   "gitea-deleted-list": "Zhašane repozitorije",
-  "gitea-index-stale": "Zestarjene wot zhašenja: znowa měrić za eksaktne wulkosće."
+  "gitea-index-stale": "Zestarjene wot zhašenja: znowa měrić za eksaktne wulkosće.",
+  "gitea-db-migration-version": "Wersija migracije datoweje banki Gitea",
+  "gitea-orphans-delete": "Wšě syroty zhašeć",
+  "gitea-orphans-delete-confirm": "To z rjadowaka Gitea na přeco zhaša syrotne dataje, kotrež ničo w datowej bance njewužiwa, a linki datoweje banki, kotrychž dataja je preč. Wšitko, štož so při zhašenju wužiwa, so wobchowa. Zapodajće ličbu syrotow, zo byšće pokročował:",
+  "gitea-orphans-delete-wrong-number": "Zapodata ličba njeje ličba syrotow. Ničo njeje so zhašało."
 }

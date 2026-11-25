@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Tāmateʻi",
   "gitea-freed": "fakataʻataʻaʻi",
   "gitea-deleted-list": "Ngaahi tauhiʻanga kuo tāmateʻi",
-  "gitea-index-stale": "Kuo motuʻa talu mei ha tāmateʻi: toe fua ki he ngaahi lahi totonu."
+  "gitea-index-stale": "Kuo motuʻa talu mei ha tāmateʻi: toe fua ki he ngaahi lahi totonu.",
+  "gitea-db-migration-version": "Paaki hiki ʻo e kulupu fakamatala ʻa Gitea",
+  "gitea-orphans-delete": "Tāmateʻi ʻa e ngaahi paeʻa kotoa",
+  "gitea-orphans-delete-confirm": "ʻOku tāmateʻi taʻengata ʻe he meʻá ni mei he fōlitā Gitea ʻa e ngaahi faile paeʻa ʻoku ʻikai ngāueʻaki ʻe ha meʻa ʻi he kulupu fakamatalá, mo e ngaahi laine ʻo e kulupu fakamatalá kuo mole honau faile. Ko ha meʻa pē ʻoku lolotonga ngāueʻaki ʻi he taimi ʻoku tāmateʻi ai ʻe tauhi ia. Tohiʻi ʻa e lahi ʻo e ngaahi paeʻá ke hoko atu:",
+  "gitea-orphans-delete-wrong-number": "Ko e fika naʻe tohiʻí ʻoku ʻikai ko e lahi ia ʻo e ngaahi paeʻá. Naʻe ʻikai tāmateʻi ha meʻa."
 }

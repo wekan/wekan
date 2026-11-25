@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Slettet",
   "gitea-freed": "frigjort",
   "gitea-deleted-list": "Slettede pakkebrønner",
-  "gitea-index-stale": "Utdatert siden en sletting: mål på nytt for nøyaktige størrelser."
+  "gitea-index-stale": "Utdatert siden en sletting: mål på nytt for nøyaktige størrelser.",
+  "gitea-db-migration-version": "Migreringsversjon for Gitea-databasen",
+  "gitea-orphans-delete": "Slett alle foreldreløse",
+  "gitea-orphans-delete-confirm": "Dette sletter for godt fra Gitea-mappen de foreldreløse filene som ingenting i databasen bruker, og databaseradene der filen er borte. Alt som er i bruk når det slettes, beholdes. Skriv inn antall foreldreløse for å fortsette:",
+  "gitea-orphans-delete-wrong-number": "Tallet som ble skrevet, er ikke antall foreldreløse. Ingenting ble slettet."
 }

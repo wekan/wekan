@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Silinib",
   "gitea-freed": "boşaldıldı",
   "gitea-deleted-list": "Silinmiş repozitorilər",
-  "gitea-index-stale": "Silinmədən bəri köhnəlib: dəqiq ölçülər üçün yenidən ölçün."
+  "gitea-index-stale": "Silinmədən bəri köhnəlib: dəqiq ölçülər üçün yenidən ölçün.",
+  "gitea-db-migration-version": "Gitea verilənlər bazasının miqrasiya versiyası",
+  "gitea-orphans-delete": "Bütün yetimləri silin",
+  "gitea-orphans-delete-confirm": "Bu, verilənlər bazasında heç nəyin istifadə etmədiyi yetim faylları və faylı itmiş verilənlər bazası sətirlərini Gitea qovluğundan həmişəlik silir. Silinən anda istifadədə olan hər şey saxlanılır. Davam etmək üçün yetimlərin sayını yazın:",
+  "gitea-orphans-delete-wrong-number": "Yazılan rəqəm yetimlərin sayı deyil. Heç nə silinmədi."
 }

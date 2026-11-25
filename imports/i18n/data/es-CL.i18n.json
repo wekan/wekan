@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Eliminado",
   "gitea-freed": "liberados",
   "gitea-deleted-list": "Repositorios eliminados",
-  "gitea-index-stale": "Desactualizado desde una eliminación: mida de nuevo para obtener tamaños exactos."
+  "gitea-index-stale": "Desactualizado desde una eliminación: mida de nuevo para obtener tamaños exactos.",
+  "gitea-db-migration-version": "Versión de migración de la base de datos de Gitea",
+  "gitea-orphans-delete": "Eliminar todos los huérfanos",
+  "gitea-orphans-delete-confirm": "Esto elimina para siempre, de la carpeta de Gitea, los archivos huérfanos que nada en la base de datos usa y las filas de la base de datos cuyo archivo ya no existe. Lo que esté en uso en el momento de eliminarlo se conserva. Escriba el número de huérfanos para continuar:",
+  "gitea-orphans-delete-wrong-number": "El número escrito no es el número de huérfanos. No se eliminó nada."
 }

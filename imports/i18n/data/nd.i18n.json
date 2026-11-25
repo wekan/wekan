@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Kususiwe",
   "gitea-freed": "kukhululiwe",
   "gitea-deleted-list": "Amarepository asusiweyo",
-  "gitea-index-stale": "Sekudala kusukela ekususweni: linganisa futhi ukuze uthole ubukhulu obuqondileyo."
+  "gitea-index-stale": "Sekudala kusukela ekususweni: linganisa futhi ukuze uthole ubukhulu obuqondileyo.",
+  "gitea-db-migration-version": "Inguqulo yokuthutha idatabhesi yeGitea",
+  "gitea-orphans-delete": "Susa zonke izintandane",
+  "gitea-orphans-delete-confirm": "Lokhu kususa unomphela efoldeni yeGitea amafayili azintandane okungelalutho kudatabhesi olusebenzisayo, lemigca yedatabhesi elahlekelwe ngamafayili ayo. Loba yini esetshenziswayo ngesikhathi isuswa iyagcinwa. Bhala inani lezintandane ukuze uqhubeke:",
+  "gitea-orphans-delete-wrong-number": "Inombolo ebhaliweyo kayisilo inani lezintandane. Kakulalutho olususiweyo."
 }

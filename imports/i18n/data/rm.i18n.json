@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Stizzà",
   "gitea-freed": "liberà",
   "gitea-deleted-list": "Repositoris stizzads",
-  "gitea-index-stale": "Betg actual dapi ina stizzada: mesirar anc ina giada per grondezzas exactas."
+  "gitea-index-stale": "Betg actual dapi ina stizzada: mesirar anc ina giada per grondezzas exactas.",
+  "gitea-db-migration-version": "Versiun da migraziun da la banca da datas da Gitea",
+  "gitea-orphans-delete": "Stizzar tut ils orfens",
+  "gitea-orphans-delete-confirm": "Quai stizza per adina da l'ordinatur da Gitea las datotecas orfnas che nagut en la banca da datas na dovra, e las lingias da la banca da datas che lur datoteca è svanida. Tut quai ch'è en diever il mument ch'i vegn stizzà vegn mantegnì. Tippa il dumber dad orfens per cuntinuar:",
+  "gitea-orphans-delete-wrong-number": "Il dumber tippà n'è betg il dumber dad orfens. Nagut n'è vegnì stizzà."
 }

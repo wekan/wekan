@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dileys",
   "gitea-freed": "delivrys",
   "gitea-deleted-list": "Gwithvaow kod dileys",
-  "gitea-index-stale": "Koth a-dhia dhileans: musur arta rag mentow ewn."
+  "gitea-index-stale": "Koth a-dhia dhileans: musur arta rag mentow ewn.",
+  "gitea-db-migration-version": "Versyon divroa databas Gitea",
+  "gitea-orphans-delete": "Dilea oll an omddivasow",
+  "gitea-orphans-delete-confirm": "Hemm a dhilea bys vykken a'n plegel Gitea an restrennow omddifas na vydh usys gans travydh y'n databas, ha'n rewow y'n databas may yw aga restren gyllys. Pypynag yw usys pan vydh dileys a vydh gwithys. Skrifewgh niver an omddivasow rag pesya:",
+  "gitea-orphans-delete-wrong-number": "Nyns yw an niver skrifys niver an omddivasow. Ny veu travydh dileys."
 }

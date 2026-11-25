@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Deletum",
   "gitea-freed": "liberata",
   "gitea-deleted-list": "Repositoria deleta",
-  "gitea-index-stale": "Obsoletum post deletionem: iterum metire ut magnitudines exactas habeas."
+  "gitea-index-stale": "Obsoletum post deletionem: iterum metire ut magnitudines exactas habeas.",
+  "gitea-db-migration-version": "Versio migrationis basis datorum Gitea",
+  "gitea-orphans-delete": "Dele omnia orba",
+  "gitea-orphans-delete-confirm": "Hoc e capsa Gitea in perpetuum delet plicas orbas quibus nihil in basi datorum utitur, et ordines basis datorum quorum plica abest. Quidquid in usu est cum deletur servatur. Numerum orborum scribe ut pergas:",
+  "gitea-orphans-delete-wrong-number": "Numerus scriptus non est numerus orborum. Nihil deletum est."
 }

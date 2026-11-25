@@ -5797,5 +5797,9 @@
   "gitea-deleted": "削除日",
   "gitea-freed": "解放",
   "gitea-deleted-list": "削除されたリポジトリ",
-  "gitea-index-stale": "削除以降、古くなっています: 正確なサイズを得るには再測定してください。"
+  "gitea-index-stale": "削除以降、古くなっています: 正確なサイズを得るには再測定してください。",
+  "gitea-db-migration-version": "Gitea データベースのマイグレーションバージョン",
+  "gitea-orphans-delete": "孤立データをすべて削除",
+  "gitea-orphans-delete-confirm": "この操作は、データベース内のどこからも使われていない孤立ファイルと、ファイルが失われたデータベースの行を、Gitea フォルダーから完全に削除します。削除の時点で使用中のものは保持されます。続けるには孤立データの数を入力してください:",
+  "gitea-orphans-delete-wrong-number": "入力された数は孤立データの数ではありません。何も削除されませんでした。"
 }

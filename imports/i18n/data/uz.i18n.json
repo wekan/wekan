@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Oʻchirildi",
   "gitea-freed": "boʻshatildi",
   "gitea-deleted-list": "Oʻchirilgan repozitoriylar",
-  "gitea-index-stale": "Oʻchirishdan beri eskirgan: aniq hajmlar uchun qayta oʻlchang."
+  "gitea-index-stale": "Oʻchirishdan beri eskirgan: aniq hajmlar uchun qayta oʻlchang.",
+  "gitea-db-migration-version": "Gitea maʼlumotlar bazasining migratsiya versiyasi",
+  "gitea-orphans-delete": "Barcha yetimlarni oʻchirish",
+  "gitea-orphans-delete-confirm": "Bu Gitea jildidan maʼlumotlar bazasida hech narsa foydalanmaydigan yetim fayllarni va fayli yoʻqolgan maʼlumotlar bazasi qatorlarini butunlay oʻchiradi. Oʻchirish paytida foydalanilayotgan har qanday narsa saqlanadi. Davom etish uchun yetimlar sonini yozing:",
+  "gitea-orphans-delete-wrong-number": "Yozilgan son yetimlar soni emas. Hech narsa oʻchirilmadi."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Izbrisano",
   "gitea-freed": "sproščenih",
   "gitea-deleted-list": "Izbrisani repozitoriji",
-  "gitea-index-stale": "Zastarelo od izbrisa: izmerite znova za natančne velikosti."
+  "gitea-index-stale": "Zastarelo od izbrisa: izmerite znova za natančne velikosti.",
+  "gitea-db-migration-version": "Različica migracije podatkovne zbirke Gitea",
+  "gitea-orphans-delete": "Izbriši vse sirote",
+  "gitea-orphans-delete-confirm": "S tem trajno izbrišete iz mape Gitea osirotele datoteke, ki jih nič v podatkovni zbirki ne uporablja, in vrstice podatkovne zbirke, katerih datoteke ni več. Vse, kar je v uporabi v trenutku brisanja, se ohrani. Za nadaljevanje vnesite število sirot:",
+  "gitea-orphans-delete-wrong-number": "Vneseno število ni število sirot. Nič ni bilo izbrisano."
 }

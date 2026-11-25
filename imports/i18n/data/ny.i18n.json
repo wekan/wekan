@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Zachotsedwa",
   "gitea-freed": "zamasulidwa",
   "gitea-deleted-list": "Malo osungira ochotsedwa",
-  "gitea-index-stale": "Zakale kuyambira pomwe chinachotsedwa: yezaninso kuti mupeze makulidwe enieni."
+  "gitea-index-stale": "Zakale kuyambira pomwe chinachotsedwa: yezaninso kuti mupeze makulidwe enieni.",
+  "gitea-db-migration-version": "Mtundu wa kusamutsa database ya Gitea",
+  "gitea-orphans-delete": "Fufutani ana amasiye onse",
+  "gitea-orphans-delete-confirm": "Izi zimachotsa kwamuyaya mu foda ya Gitea mafayilo amasiye omwe palibe chilichonse mu database chimawagwiritsa ntchito, ndi mizere ya database yomwe fayilo yake yasowa. Chilichonse chomwe chikugwiritsidwa ntchito pamene chikuchotsedwa chimasungidwa. Lembani chiwerengero cha ana amasiye kuti mupitirize:",
+  "gitea-orphans-delete-wrong-number": "Nambala yolembedwa si chiwerengero cha ana amasiye. Palibe chomwe chachotsedwa."
 }

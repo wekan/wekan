@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dibusak",
   "gitea-freed": "dibebasake",
   "gitea-deleted-list": "Repositori sing dibusak",
-  "gitea-index-stale": "Kedaluwarsa wiwit ana pambusakan: ukur maneh kanggo ukuran sing pas."
+  "gitea-index-stale": "Kedaluwarsa wiwit ana pambusakan: ukur maneh kanggo ukuran sing pas.",
+  "gitea-db-migration-version": "Versi migrasi basis data Gitea",
+  "gitea-orphans-delete": "Busak kabeh yatim",
+  "gitea-orphans-delete-confirm": "Iki mbusak ing salawas-lawase saka folder Gitea berkas yatim sing ora dienggo apa-apa ing basis data, lan baris basis data sing berkase wis ilang. Apa wae sing lagi dienggo nalika dibusak tetep disimpen. Ketik cacahe yatim kanggo nerusake:",
+  "gitea-orphans-delete-wrong-number": "Angka sing diketik dudu cacahe yatim. Ora ana sing dibusak."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Smazáno",
   "gitea-freed": "uvolněno",
   "gitea-deleted-list": "Smazané repozitáře",
-  "gitea-index-stale": "Zastaralé od smazání: změřte znovu pro přesné velikosti."
+  "gitea-index-stale": "Zastaralé od smazání: změřte znovu pro přesné velikosti.",
+  "gitea-db-migration-version": "Verze migrace databáze Gitea",
+  "gitea-orphans-delete": "Smazat všechny sirotky",
+  "gitea-orphans-delete-confirm": "Tímto se ze složky Gitea natrvalo smažou osiřelé soubory, které nic v databázi nepoužívá, a řádky databáze, jejichž soubor chybí. Cokoli, co se v okamžiku mazání používá, zůstane zachováno. Pro pokračování napište počet sirotků:",
+  "gitea-orphans-delete-wrong-number": "Napsané číslo není počet sirotků. Nic nebylo smazáno."
 }

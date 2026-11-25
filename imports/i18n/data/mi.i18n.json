@@ -5797,5 +5797,9 @@
   "gitea-deleted": "I mukua",
   "gitea-freed": "kua wātea",
   "gitea-deleted-list": "Ngā rākau pūmanawa kua mukua",
-  "gitea-index-stale": "Kua tawhito mai i tētahi mukunga: inea anō mō ngā rahi tika."
+  "gitea-index-stale": "Kua tawhito mai i tētahi mukunga: inea anō mō ngā rahi tika.",
+  "gitea-db-migration-version": "Te putanga hekenga o te pātengi raraunga o Gitea",
+  "gitea-orphans-delete": "Mukua ngā pani katoa",
+  "gitea-orphans-delete-confirm": "Ka mukua mō ake tonu atu i te kōpaki Gitea ngā kōnae pani kāore e whakamahia e tētahi mea i te pātengi raraunga, me ngā rārangi o te pātengi raraunga kua ngaro tō rātou kōnae. Ka puritia ngā mea katoa e whakamahia ana i te wā e mukua ai. Patohia te maha o ngā pani kia haere tonu:",
+  "gitea-orphans-delete-wrong-number": "Ehara te tau i patohia i te maha o ngā pani. Kāore he mea i mukua."
 }

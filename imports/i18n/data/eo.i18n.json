@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Forigita",
   "gitea-freed": "liberigitaj",
   "gitea-deleted-list": "Forigitaj deponejoj",
-  "gitea-index-stale": "Malaktuala ekde forigo: mezuru denove por precizaj grandecoj."
+  "gitea-index-stale": "Malaktuala ekde forigo: mezuru denove por precizaj grandecoj.",
+  "gitea-db-migration-version": "Migra versio de la Gitea-datumbazo",
+  "gitea-orphans-delete": "Forigi ĉiujn orfojn",
+  "gitea-orphans-delete-confirm": "Ĉi tio forigas por ĉiam el la Gitea-dosierujo la orfajn dosierojn, kiujn nenio en la datumbazo uzas, kaj la datumbazajn vicojn, kies dosiero malaperis. Ĉio, kio estas uzata kiam ĝi estas forigata, estas konservata. Tajpu la nombron de orfoj por daŭrigi:",
+  "gitea-orphans-delete-wrong-number": "La tajpita nombro ne estas la nombro de orfoj. Nenio estis forigita."
 }

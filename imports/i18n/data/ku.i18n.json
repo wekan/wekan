@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Hat jêbirin",
   "gitea-freed": "hat azadkirin",
   "gitea-deleted-list": "Repozîtoriyên jêbirî",
-  "gitea-index-stale": "Ji jêbirinekê ve kevn e: ji bo mezinahiyên rast dîsa bipîve."
+  "gitea-index-stale": "Ji jêbirinekê ve kevn e: ji bo mezinahiyên rast dîsa bipîve.",
+  "gitea-db-migration-version": "Guhertoya koçberiya danegeha Gitea",
+  "gitea-orphans-delete": "Hemû sêwiyan jê bibe",
+  "gitea-orphans-delete-confirm": "Ev ji peldanka Gitea her û her pelên sêwî yên ku tiştek di danegehê de wan bi kar nayîne, û rêzên danegehê yên ku pelê wan winda bûye jê dibe. Her tiştê ku dema jêbirinê tê bikaranîn tê parastin. Ji bo berdewamiyê hejmara sêwiyan binivîse:",
+  "gitea-orphans-delete-wrong-number": "Hejmara nivîsandî ne hejmara sêwiyan e. Tiştek nehat jêbirin."
 }

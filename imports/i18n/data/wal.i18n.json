@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Xayidi",
   "gitea-freed": "birshshettiis",
   "gitea-deleted-list": "Xayida riippoziitoriyaa",
-  "gitea-index-stale": "Xayssiyoogaappe simmin ooratettibeenna: suure gitatettaatau zaarettada zaalla."
+  "gitea-index-stale": "Xayssiyoogaappe simmin ooratettibeenna: suure gitatettaatau zaarettada zaalla.",
+  "gitea-db-migration-version": "Gitea daataa keexaa sohuwaa laamettaa",
+  "gitea-orphans-delete": "Aawaa bayinnaabaa ubbaa xayssa",
+  "gitea-orphans-delete-confirm": "Hagee daataa keexaa giddon aybibaikka goettiyoogaa gidenna aawaa bayinnaa faayilee, qassi bantta faayilee dhayssida daataa keexaa caddaata Gitea fooldariyaappe merinaw xayssees. Xayssiya wode goettiyoogaa ay baakka naagettees. Sinthi aadhanaw aawaa bayinnaabaa qooduwaa xaafa:",
+  "gitea-orphans-delete-wrong-number": "Xaafettida qoodey aawaa bayinnaabaa qooduwaa gidenna. Aybanne xayibeenna."
 }

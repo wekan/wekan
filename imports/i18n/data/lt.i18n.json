@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ištrinta",
   "gitea-freed": "atlaisvinta",
   "gitea-deleted-list": "Ištrintos saugyklos",
-  "gitea-index-stale": "Pasenę nuo ištrynimo: išmatuokite iš naujo, kad gautumėte tikslius dydžius."
+  "gitea-index-stale": "Pasenę nuo ištrynimo: išmatuokite iš naujo, kad gautumėte tikslius dydžius.",
+  "gitea-db-migration-version": "Gitea duomenų bazės migracijos versija",
+  "gitea-orphans-delete": "Ištrinti visus našlaičius",
+  "gitea-orphans-delete-confirm": "Tai visam laikui ištrina iš Gitea aplanko našlaičių failus, kurių niekas duomenų bazėje nenaudoja, ir duomenų bazės eilutes, kurių failas dingo. Viskas, kas naudojama trynimo metu, išsaugoma. Įveskite našlaičių skaičių, kad tęstumėte:",
+  "gitea-orphans-delete-wrong-number": "Įvestas skaičius nėra našlaičių skaičius. Niekas neištrinta."
 }

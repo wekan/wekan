@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Heittud",
   "gitea-freed": "vapautadud",
   "gitea-deleted-list": "Heittud repozitorijad",
-  "gitea-index-stale": "Ei ole veresine heitmižes saden: mitta udes tarkoiden suruzihe täht."
+  "gitea-index-stale": "Ei ole veresine heitmižes saden: mitta udes tarkoiden suruzihe täht.",
+  "gitea-db-migration-version": "Gitea-tetbazan migracijan versii",
+  "gitea-orphans-delete": "Heitä kaik orpod",
+  "gitea-orphans-delete-confirm": "Nece heitab igaks Gitea-papkaspäi orpfailad, miid nimi tetbazas ei kävuta, i tetbazan rivid, kudamiden fail om kadonu. Kaik, mi om kävutamas heitmižen aigan, jäb. Kirjuta orpoiden lugu, miše jatkta:",
+  "gitea-orphans-delete-wrong-number": "Kirjutadud lugu ei ole orpoiden lugu. Nimidä ei heittud."
 }

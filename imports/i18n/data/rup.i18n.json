@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ashtirsu",
   "gitea-freed": "liberats",
   "gitea-deleted-list": "Depozite ashtirsi",
-  "gitea-index-stale": "Nu easti di dzua di cãndu fu unã ashtearere: mãsoarã nãoarã tra mãrimi exacti."
+  "gitea-index-stale": "Nu easti di dzua di cãndu fu unã ashtearere: mãsoarã nãoarã tra mãrimi exacti.",
+  "gitea-db-migration-version": "Versia di migrare a bazãljei di dati Gitea",
+  "gitea-orphans-delete": "Ashteardzi tuts orfanjlji",
+  "gitea-orphans-delete-confirm": "Aestu ashteardzi tra totna dit dosarlu Gitea fishierili orfani tsi tsiva tu baza di dati nu-lj ufilisea, shi arãdzli dit baza di dati a curor fishier s-chiru. Tutã tsi easti tu ufilisiri cãndu s-ashteardzi s-tsãni. Scrie numirlu di orfanj tra s-continuj:",
+  "gitea-orphans-delete-wrong-number": "Numirlu scriat nu easti numirlu di orfanj. Tsiva nu fu ashtirsã."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "U fshi",
   "gitea-freed": "të liruara",
   "gitea-deleted-list": "Depo të fshira",
-  "gitea-index-stale": "E vjetëruar që nga një fshirje: matni përsëri për madhësi të sakta."
+  "gitea-index-stale": "E vjetëruar që nga një fshirje: matni përsëri për madhësi të sakta.",
+  "gitea-db-migration-version": "Versioni i migrimit të bazës së të dhënave të Gitea",
+  "gitea-orphans-delete": "Fshi të gjithë jetimët",
+  "gitea-orphans-delete-confirm": "Kjo fshin përgjithmonë nga dosja e Gitea skedarët jetimë që nuk i përdor asgjë në bazën e të dhënave dhe rreshtat e bazës së të dhënave skedari i të cilëve mungon. Gjithçka që është në përdorim në çastin e fshirjes ruhet. Shkruani numrin e jetimëve për të vazhduar:",
+  "gitea-orphans-delete-wrong-number": "Numri i shkruar nuk është numri i jetimëve. Asgjë nuk u fshi."
 }

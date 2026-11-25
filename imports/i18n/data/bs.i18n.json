@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Obrisano",
   "gitea-freed": "oslobođeno",
   "gitea-deleted-list": "Obrisani repozitoriji",
-  "gitea-index-stale": "Zastarjelo nakon brisanja: izmjerite ponovo za tačne veličine."
+  "gitea-index-stale": "Zastarjelo nakon brisanja: izmjerite ponovo za tačne veličine.",
+  "gitea-db-migration-version": "Verzija migracije Gitea baze podataka",
+  "gitea-orphans-delete": "Obriši svu siročad",
+  "gitea-orphans-delete-confirm": "Ovo trajno briše iz Gitea foldera datoteke siročad koje ništa u bazi podataka ne koristi i redove baze podataka čija datoteka više ne postoji. Sve što je u upotrebi u trenutku brisanja se zadržava. Upišite broj siročadi da nastavite:",
+  "gitea-orphans-delete-wrong-number": "Upisani broj nije broj siročadi. Ništa nije obrisano."
 }

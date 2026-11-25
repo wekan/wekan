@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dilëwyd",
   "gitea-freed": "wedi'u rhyddhau",
   "gitea-deleted-list": "Ystorfeydd wedi'u dileu",
-  "gitea-index-stale": "Wedi dyddio ers dileu: mesurwch eto am feintiau union."
+  "gitea-index-stale": "Wedi dyddio ers dileu: mesurwch eto am feintiau union.",
+  "gitea-db-migration-version": "Fersiwn mudo cronfa ddata Gitea",
+  "gitea-orphans-delete": "Dileu pob amddifad",
+  "gitea-orphans-delete-confirm": "Mae hyn yn dileu am byth, o ffolder Gitea, y ffeiliau amddifad nad oes dim yn y gronfa ddata yn eu defnyddio a'r rhesi yn y gronfa ddata y mae eu ffeil wedi mynd. Cedwir unrhyw beth sy'n cael ei ddefnyddio pan gaiff ei ddileu. Teipiwch nifer yr amddifaid i barhau:",
+  "gitea-orphans-delete-wrong-number": "Nid nifer yr amddifaid yw'r rhif a deipiwyd. Ni ddilëwyd dim."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Scancellato",
   "gitea-freed": "libberate",
   "gitea-deleted-list": "Repository scancellate",
-  "gitea-index-stale": "Viecchio 'a na scancellazione: misura n'ata vota pe' 'e grandezze esatte."
+  "gitea-index-stale": "Viecchio 'a na scancellazione: misura n'ata vota pe' 'e grandezze esatte.",
+  "gitea-db-migration-version": "Verzione d''a migrazione d''o database 'e Gitea",
+  "gitea-orphans-delete": "Scancella tutte ll'orfane",
+  "gitea-orphans-delete-confirm": "Chesto scancella pe' sempe d''a cartella 'e Gitea 'e file orfane ca niente dint''o database ausa, e 'e righe d''o database ca 'o file lloro nun ce sta cchiù. Chello ca se sta ausanno quanno se scancella se tene. Scrive 'o nummero 'e orfane pe' ghì annanze:",
+  "gitea-orphans-delete-wrong-number": "'O nummero scritto nun è 'o nummero 'e orfane. Nun s'è scancellato niente."
 }

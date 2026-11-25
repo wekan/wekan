@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Bokoci",
   "gitea-freed": "sereki",
   "gitea-deleted-list": "Maroroi ni kode sa bokoci",
-  "gitea-index-stale": "Sa makawa mai na gauna e bokoci kina: vakarauta tale me kilai na levu dodonu."
+  "gitea-index-stale": "Sa makawa mai na gauna e bokoci kina: vakarauta tale me kilai na levu dodonu.",
+  "gitea-db-migration-version": "Na kena iwiliwili ni veisiko ni Kato ni itukutuku ni Gitea",
+  "gitea-orphans-delete": "Bokoca na luveniyali kece",
+  "gitea-orphans-delete-confirm": "Oqo ena bokoca tawamudu mai na kato ni faile ni Gitea na faile luveniyali e sega ni vakayagataka e dua na ka ena Kato ni itukutuku, kei na laini ni Kato ni itukutuku sa yali na nodra faile. Na ka kece e vakayagataki ena gauna e bokoci kina ena maroroi. Vola na iwiliwili ni luveniyali mo toso:",
+  "gitea-orphans-delete-wrong-number": "Na iwiliwili o volara e sega ni iwiliwili ni luveniyali. E sega ni bokoci e dua na ka."
 }

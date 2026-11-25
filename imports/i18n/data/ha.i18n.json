@@ -5797,5 +5797,9 @@
   "gitea-deleted": "An share",
   "gitea-freed": "an 'yanta",
   "gitea-deleted-list": "Rumbunan lamba da aka share",
-  "gitea-index-stale": "Ya tsufa tun bayan sharewa: sake aunawa don girman daidai."
+  "gitea-index-stale": "Ya tsufa tun bayan sharewa: sake aunawa don girman daidai.",
+  "gitea-db-migration-version": "Sigar ƙaura ta rumbun bayanai na Gitea",
+  "gitea-orphans-delete": "Share duk marayu",
+  "gitea-orphans-delete-confirm": "Wannan yana share har abada daga babban fayil na Gitea fayilolin marayu waɗanda babu abin da ke amfani da su a cikin rumbun bayanai, da layukan rumbun bayanai waɗanda fayilolinsu suka ɓace. Duk abin da ake amfani da shi a lokacin da ake share shi za a ajiye shi. Rubuta adadin marayu don ci gaba:",
+  "gitea-orphans-delete-wrong-number": "Lambar da aka rubuta ba adadin marayu ba ce. Ba a share komai ba."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Cantzelladu",
   "gitea-freed": "liberados",
   "gitea-deleted-list": "Depòsitos cantzellados",
-  "gitea-index-stale": "Non atualizadu dae una cantzelladura: mesura torra pro mannàrias esatas."
+  "gitea-index-stale": "Non atualizadu dae una cantzelladura: mesura torra pro mannàrias esatas.",
+  "gitea-db-migration-version": "Versione de migratzione de sa base de datos de Gitea",
+  "gitea-orphans-delete": "Cantzella totu sos òrfanos",
+  "gitea-orphans-delete-confirm": "Custu cantzellat pro sempre dae sa cartella de Gitea sos files òrfanos chi nudda in sa base de datos impreat, e sas filas de sa base de datos chi su file issoro no b'est prus. Totu su chi est in impreu cando benit cantzelladu si mantenet. Iscrie su nùmeru de òrfanos pro sighire:",
+  "gitea-orphans-delete-wrong-number": "Su nùmeru iscritu no est su nùmeru de òrfanos. Nudda est istadu cantzelladu."
 }

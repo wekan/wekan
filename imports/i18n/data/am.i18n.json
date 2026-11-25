@@ -5797,5 +5797,9 @@
   "gitea-deleted": "ተሰርዟል",
   "gitea-freed": "ተለቋል",
   "gitea-deleted-list": "የተሰረዙ ማከማቻዎች",
-  "gitea-index-stale": "ከአንድ ስረዛ በኋላ ጊዜው ያለፈበት ነው: ለትክክለኛ መጠኖች እንደገና ለካ።"
+  "gitea-index-stale": "ከአንድ ስረዛ በኋላ ጊዜው ያለፈበት ነው: ለትክክለኛ መጠኖች እንደገና ለካ።",
+  "gitea-db-migration-version": "የGitea መረጃ ቋት የፍልሰት ስሪት",
+  "gitea-orphans-delete": "ሁሉንም ወላጅ አልባዎች ሰርዝ",
+  "gitea-orphans-delete-confirm": "ይህ በመረጃ ቋቱ ውስጥ ምንም የማይጠቀምባቸውን ወላጅ አልባ ፋይሎችና ፋይላቸው የጠፋባቸውን የመረጃ ቋት ረድፎች ከGitea አቃፊ ለዘለቄታው ይሰርዛል። በሚሰረዝበት ጊዜ በጥቅም ላይ ያለ ማንኛውም ነገር ይቀመጣል። ለመቀጠል የወላጅ አልባዎቹን ብዛት ይተይቡ:",
+  "gitea-orphans-delete-wrong-number": "የተተየበው ቁጥር የወላጅ አልባዎቹ ብዛት አይደለም። ምንም አልተሰረዘም።"
 }

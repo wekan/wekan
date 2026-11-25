@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Oñemboguete",
   "gitea-freed": "oñemosãso",
   "gitea-deleted-list": "Ñongatuha oñemboguetéva",
-  "gitea-index-stale": "Ndaha'evéima ko'ag̃agua peteĩ ñemboguete guive: eha'ã jey tuichakue hekopete hag̃ua."
+  "gitea-index-stale": "Ndaha'evéima ko'ag̃agua peteĩ ñemboguete guive: eha'ã jey tuichakue hekopete hag̃ua.",
+  "gitea-db-migration-version": "Gitea mba'ekuaarenda ñemoambue jehaipyre",
+  "gitea-orphans-delete": "Emboguete opavave tyre'ỹ",
+  "gitea-orphans-delete-confirm": "Kóva omboguete opa ára g̃uarã Gitea ñongatuhágui marandurenda tyre'ỹ ni mba'eve mba'ekuaarendápe oipurúva'ỹ, ha mba'ekuaarenda tysýi imarandurenda'ỹva. Opa mba'e ojeipurúva ojeboguete jave oñeñongatu. Ehai mboy tyre'ỹ oĩ eho haguã tenonde:",
+  "gitea-orphans-delete-wrong-number": "Papapy ojehaíva ndaha'éi mboy tyre'ỹ oĩ. Ni mba'eve noñemboguetéi."
 }

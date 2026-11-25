@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Disfait",
   "gitea-freed": "libetés",
   "gitea-deleted-list": "Dipôts disfaits",
-  "gitea-index-stale": "Pus a djoû dispoy on disfaçaedje: ri-mezurez po des grandeus egzactes."
+  "gitea-index-stale": "Pus a djoû dispoy on disfaçaedje: ri-mezurez po des grandeus egzactes.",
+  "gitea-db-migration-version": "Modêye di migråcion del båze di dnêyes Gitea",
+  "gitea-orphans-delete": "Disfacer tos les orfulins",
+  "gitea-orphans-delete-confirm": "Çouchal disfåt po todi foû do ridant Gitea les fitchîs orfulins ki rén el båze di dnêyes n' eploye, eyet les royes del båze di dnêyes dont l' fitchî a stî pierdou. Tot çou k' est eployî cwand on l' disfåt est wårdé. Tapez l' nombe d' orfulins po continuwer:",
+  "gitea-orphans-delete-wrong-number": "Li nombe tapé n' est nén l' nombe d' orfulins. Rén n' a stî disfait."
 }

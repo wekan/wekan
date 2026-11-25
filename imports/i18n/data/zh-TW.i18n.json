@@ -5797,5 +5797,9 @@
   "gitea-deleted": "刪除於",
   "gitea-freed": "已釋放",
   "gitea-deleted-list": "已刪除的儲存庫",
-  "gitea-index-stale": "自刪除後已過時：重新測量以取得準確大小。"
+  "gitea-index-stale": "自刪除後已過時：重新測量以取得準確大小。",
+  "gitea-db-migration-version": "Gitea 資料庫遷移版本",
+  "gitea-orphans-delete": "刪除所有孤立項目",
+  "gitea-orphans-delete-confirm": "此操作將從 Gitea 資料夾中永久刪除資料庫中沒有任何內容使用的孤立檔案，以及其檔案已不存在的資料庫列。刪除時仍在使用的任何內容都會保留。輸入孤立項目的數量以繼續：",
+  "gitea-orphans-delete-wrong-number": "輸入的數字不是孤立項目的數量。未刪除任何內容。"
 }

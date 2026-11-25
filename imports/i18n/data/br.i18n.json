@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Diverket",
   "gitea-freed": "dieubet",
   "gitea-deleted-list": "Kladennoù diverket",
-  "gitea-index-stale": "Dispredet abaoe un diverkadenn: muzuliit en-dro evit kaout ar mentoù resis."
+  "gitea-index-stale": "Dispredet abaoe un diverkadenn: muzuliit en-dro evit kaout ar mentoù resis.",
+  "gitea-db-migration-version": "Stumm divroañ diaz roadennoù Gitea",
+  "gitea-orphans-delete": "Diverkañ an holl emzivaded",
+  "gitea-orphans-delete-confirm": "Kement-mañ a ziverk da viken eus an teuliad Gitea ar restroù emzivad ha n'int implijet gant netra en diaz roadennoù, hag al linennoù en diaz roadennoù ma'z eo aet o restr da get. Pep tra a vez implijet pa vez diverket a vez miret. Skrivit niver an emzivaded evit kenderc'hel:",
+  "gitea-orphans-delete-wrong-number": "An niver skrivet n'eo ket niver an emzivaded. Netra n'eo bet diverket."
 }

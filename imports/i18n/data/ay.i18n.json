@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Chhaqtayata",
   "gitea-freed": "luqtata",
   "gitea-deleted-list": "Chhaqtayat imañ utanaka",
-  "gitea-index-stale": "Mä chhaqtayañat jichhakam machaqäxiti: wasitat tupt'am chiqap jach'a tupunakataki."
+  "gitea-index-stale": "Mä chhaqtayañat jichhakam machaqäxiti: wasitat tupt'am chiqap jach'a tupunakataki.",
+  "gitea-db-migration-version": "Gitea datos imañ utan mayjt'ayaña versionapa",
+  "gitea-orphans-delete": "Taqi wajchanaka chhaqtayaña",
+  "gitea-orphans-delete-confirm": "Akax wiñayatak Gitea imañ q'ipit chhaqtayi, datos imañ utan janiw kunas apnaqkiti uka wajcha qillqatanaka, ukhamarak qillqatapax chhaqataxi uka datos imañ utan siqinakapa. Chhaqtayañ pachan apnaqaskki ukax imatäniwa. Wajchanakan jakhüwip qillqt'am sarantañataki:",
+  "gitea-orphans-delete-wrong-number": "Qillqt'at jakhüwix janiw wajchanakan jakhüwipäkiti. Janiw kunas chhaqtaykiti."
 }

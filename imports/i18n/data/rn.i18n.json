@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Vyafuswe",
   "gitea-freed": "vyarekuwe",
   "gitea-deleted-list": "Ububiko bwafuswe",
-  "gitea-index-stale": "Ntibigezweho kuva habaye ugufuta: subira upime kugira ubone ubunini nyabwo."
+  "gitea-index-stale": "Ntibigezweho kuva habaye ugufuta: subira upime kugira ubone ubunini nyabwo.",
+  "gitea-db-migration-version": "Verisiyo y'iyimurwa ry'ububiko bw'amakuru bwa Gitea",
+  "gitea-orphans-delete": "Futa impfuvyi zose",
+  "gitea-orphans-delete-confirm": "Ivyo bifuta burundu mu bubiko bwa Gitea amadosiye y'impfuvyi ata kintu na kimwe co mu bubiko bw'amakuru gikoresha, n'imirongo y'ububiko bw'amakuru yatakaje idosiye yayo. Ikintu cose gikoreshwa igihe gifutwa kirabikwa. Andika igitigiri c'impfuvyi kugira ngo ubandanye:",
+  "gitea-orphans-delete-wrong-number": "Igitigiri wanditse si igitigiri c'impfuvyi. Nta kintu cafuswe."
 }

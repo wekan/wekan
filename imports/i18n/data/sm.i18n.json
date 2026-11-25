@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ua tapeina",
   "gitea-freed": "ua faasaolotoina",
   "gitea-deleted-list": "Fale teu ua tapeina",
-  "gitea-index-stale": "Ua le fou talu ai se tapeina: toe fua mo lapopoa saʻo."
+  "gitea-index-stale": "Ua le fou talu ai se tapeina: toe fua mo lapopoa saʻo.",
+  "gitea-db-migration-version": "Lomiga o le femalaga'iga o le faamaumauga a Gitea",
+  "gitea-orphans-delete": "Tape mea matuaoti uma",
+  "gitea-orphans-delete-confirm": "O lenei e tape e faavavau mai le faila Gitea faila matuaoti e le o faaaogaina e se mea i le faamaumauga, ma laina o le faamaumauga ua leiloa a latou faila. Soo se mea o loo faaaogaina i le taimi e tape ai o le a teuina. Lolomi le aofai o mea matuaoti e faaauau ai:",
+  "gitea-orphans-delete-wrong-number": "O le numera na lolomi e le o le aofai o mea matuaoti. E leai se mea na tapeina."
 }

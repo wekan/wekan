@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Sihkkojuvvon",
   "gitea-freed": "friddjejuvvon",
   "gitea-deleted-list": "Sihkkojuvvon ráját",
-  "gitea-index-stale": "Boaresmuvvan sihkkuma rájes: mihtit fas dárkilis sturrodagaid várás."
+  "gitea-index-stale": "Boaresmuvvan sihkkuma rájes: mihtit fas dárkilis sturrodagaid várás.",
+  "gitea-db-migration-version": "Gitea-diehtovuođu sirdinveršuvdna",
+  "gitea-orphans-delete": "Sihko buot orbmosiid",
+  "gitea-orphans-delete-confirm": "Dát sihkku agibeaivái Gitea-máhpas orbmosfiillaid maid mihkkege diehtovuođus ii geavat, ja diehtovuođu rávnniid main fiila lea jávkan. Buot mii lea geavahusas go dat sihkkojuvvo, seilu. Čále orbmosiid logu joatkit:",
+  "gitea-orphans-delete-wrong-number": "Čállon lohku ii leat orbmosiid lohku. Mihkkege ii sihkkojuvvon."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Wɔapepa",
   "gitea-freed": "agye",
   "gitea-deleted-list": "Kɔd akorabea a wɔapepa",
-  "gitea-index-stale": "Ɛnyɛ foforo bio fi pepa bi akyi: susuw bio na wunya kɛseyɛ pɔtee."
+  "gitea-index-stale": "Ɛnyɛ foforo bio fi pepa bi akyi: susuw bio na wunya kɛseyɛ pɔtee.",
+  "gitea-db-migration-version": "Gitea data akorabea nsesae ɔfa",
+  "gitea-orphans-delete": "Popa nnyanka no nyinaa",
+  "gitea-orphans-delete-confirm": "Eyi pepa nnyanka fael a biribiara nni data akorabea mu a ɛde di dwuma, ne data akorabea ntoatoaso a wɔn fael ayera, fi Gitea fɔda no mu daa. Biribiara a wɔde redi dwuma bere a wɔrepepa no, wɔbɛkora so. Kyerɛw nnyanka dodow no na toa so:",
+  "gitea-orphans-delete-wrong-number": "Nɔma a wɔakyerɛw no nnyɛ nnyanka dodow no. Wɔampepa biribiara."
 }

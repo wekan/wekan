@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Usunięto",
   "gitea-freed": "zwolniono",
   "gitea-deleted-list": "Usunięte repozytoria",
-  "gitea-index-stale": "Nieaktualne od usunięcia: zmierz ponownie, aby uzyskać dokładne rozmiary."
+  "gitea-index-stale": "Nieaktualne od usunięcia: zmierz ponownie, aby uzyskać dokładne rozmiary.",
+  "gitea-db-migration-version": "Wersja migracji bazy danych Gitea",
+  "gitea-orphans-delete": "Usuń wszystkie sieroty",
+  "gitea-orphans-delete-confirm": "To trwale usuwa z folderu Gitea osierocone pliki, których nic w bazie danych nie używa, oraz wiersze bazy danych, których plik zniknął. Wszystko, co jest używane w chwili usuwania, zostaje zachowane. Wpisz liczbę sierot, aby kontynuować:",
+  "gitea-orphans-delete-wrong-number": "Wpisana liczba nie jest liczbą sierot. Nic nie zostało usunięte."
 }

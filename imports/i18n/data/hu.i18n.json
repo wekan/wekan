@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Törölve",
   "gitea-freed": "felszabadítva",
   "gitea-deleted-list": "Törölt tárolók",
-  "gitea-index-stale": "Egy törlés óta elavult: mérje újra a pontos méretekért."
+  "gitea-index-stale": "Egy törlés óta elavult: mérje újra a pontos méretekért.",
+  "gitea-db-migration-version": "A Gitea-adatbázis migrációs verziója",
+  "gitea-orphans-delete": "Összes árva törlése",
+  "gitea-orphans-delete-confirm": "Ez véglegesen törli a Gitea mappából azokat az árva fájlokat, amelyeket semmi sem használ az adatbázisban, és azokat az adatbázissorokat, amelyek fájlja eltűnt. Ami a törlés pillanatában használatban van, megmarad. A folytatáshoz írja be az árvák számát:",
+  "gitea-orphans-delete-wrong-number": "A beírt szám nem az árvák száma. Semmi sem lett törölve."
 }

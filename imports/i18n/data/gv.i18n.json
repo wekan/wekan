@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dollit magh",
   "gitea-freed": "feaysht",
   "gitea-deleted-list": "Tashteyn dollit magh",
-  "gitea-index-stale": "Ass date neayr's dollaghey magh: tomhays reesht son mooadyssyn kiart."
+  "gitea-index-stale": "Ass date neayr's dollaghey magh: tomhays reesht son mooadyssyn kiart.",
+  "gitea-db-migration-version": "Lhieggan imraa y vun-daaue Gitea",
+  "gitea-orphans-delete": "Doll magh ooilley ny dhilleeidyn",
+  "gitea-orphans-delete-confirm": "Ta shoh dollaghey magh son dy bragh veih'n filleyder Gitea ny coadanyn dhilleeid nagh vel nhee erbee ayns y bun-daaue jannoo ymmyd jeu, as ny linnaghyn ayns y bun-daaue ta'n coadan oc ersooyl. Bee nhee erbee ta ry-hoi ymmyd tra t'eh dollit magh freilt. Screeu earroo ny dhilleeidyn dy gholl er:",
+  "gitea-orphans-delete-wrong-number": "Cha nee earroo ny dhilleeidyn yn earroo va screeuit. Cha row nhee erbee dollit magh."
 }

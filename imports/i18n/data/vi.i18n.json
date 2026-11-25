@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Đã xóa",
   "gitea-freed": "được giải phóng",
   "gitea-deleted-list": "Các kho mã đã xóa",
-  "gitea-index-stale": "Đã lỗi thời kể từ một lần xóa: đo lại để có kích thước chính xác."
+  "gitea-index-stale": "Đã lỗi thời kể từ một lần xóa: đo lại để có kích thước chính xác.",
+  "gitea-db-migration-version": "Phiên bản di chuyển cơ sở dữ liệu Gitea",
+  "gitea-orphans-delete": "Xóa tất cả mục mồ côi",
+  "gitea-orphans-delete-confirm": "Thao tác này xóa vĩnh viễn khỏi thư mục Gitea các tệp mồ côi mà không gì trong cơ sở dữ liệu sử dụng, và các hàng cơ sở dữ liệu có tệp đã mất. Mọi thứ đang được sử dụng tại thời điểm xóa sẽ được giữ lại. Nhập số lượng mục mồ côi để tiếp tục:",
+  "gitea-orphans-delete-wrong-number": "Số đã nhập không phải là số lượng mục mồ côi. Không có gì bị xóa."
 }

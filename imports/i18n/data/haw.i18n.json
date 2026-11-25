@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Holoi ʻia",
   "gitea-freed": "hoʻokuʻu ʻia",
   "gitea-deleted-list": "Nā lepokikolawa i holoi ʻia",
-  "gitea-index-stale": "Ua kahiko mai ka holoi ʻana: e ana hou no nā nui pololei."
+  "gitea-index-stale": "Ua kahiko mai ka holoi ʻana: e ana hou no nā nui pololei.",
+  "gitea-db-migration-version": "Ka mana hoʻoneʻe o ka kakapake Gitea",
+  "gitea-orphans-delete": "Holoi i nā mea makua ʻole a pau",
+  "gitea-orphans-delete-confirm": "Holoi mau loa kēia mai ka wahī Gitea i nā faila makua ʻole i hoʻohana ʻole ʻia e kekahi mea o ka kakapake, a me nā lālani o ka kakapake i nalowale ko lākou faila. Mālama ʻia nā mea e hoʻohana ʻia ana i ka manawa e holoi ʻia ai. E kikokiko i ka helu o nā mea makua ʻole e hoʻomau ai:",
+  "gitea-orphans-delete-wrong-number": "ʻAʻole ka helu i kikokiko ʻia ka helu o nā mea makua ʻole. ʻAʻohe mea i holoi ʻia."
 }

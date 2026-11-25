@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Kusuliwe",
   "gitea-freed": "kukhululiwe",
   "gitea-deleted-list": "Emarepository lasusiwe",
-  "gitea-index-stale": "Akusesikhatsini kusukela kusulwa: linganisa futsi kute utfole bukhulu lobuncono."
+  "gitea-index-stale": "Akusesikhatsini kusukela kusulwa: linganisa futsi kute utfole bukhulu lobuncono.",
+  "gitea-db-migration-version": "Inguculo yekutfutsa i-database ye-Gitea",
+  "gitea-orphans-delete": "Susa tonkhe tintsandzane",
+  "gitea-orphans-delete-confirm": "Loku kusula unomphela elifoldeni le-Gitea emafayela etintsandzane langasetjentiswa ngalutfo ku-database, nemalayini e-database lalahlekelwe lifayela lawo. Nobe yini lesetjentiswako ngesikhatsi isulwa iyagcinwa. Bhala linani letintsandzane kute uchubeke:",
+  "gitea-orphans-delete-wrong-number": "Inombolo lebhaliwe akusilo linani letintsandzane. Kute lokusuliwe."
 }

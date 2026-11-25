@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Borttagen",
   "gitea-freed": "frigjort",
   "gitea-deleted-list": "Borttagna utvecklingskataloger",
-  "gitea-index-stale": "Inaktuellt sedan en borttagning: mät igen för exakta storlekar."
+  "gitea-index-stale": "Inaktuellt sedan en borttagning: mät igen för exakta storlekar.",
+  "gitea-db-migration-version": "Migreringsversion för Gitea-databasen",
+  "gitea-orphans-delete": "Ta bort alla föräldralösa",
+  "gitea-orphans-delete-confirm": "Detta tar för gott bort från Gitea-mappen de föräldralösa filer som ingenting i databasen använder och de databasrader vars fil är borta. Allt som används när det tas bort behålls. Skriv antalet föräldralösa för att fortsätta:",
+  "gitea-orphans-delete-wrong-number": "Det inskrivna talet är inte antalet föräldralösa. Inget togs bort."
 }

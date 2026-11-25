@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Byasibwe",
   "gitea-freed": "byarekuwe",
   "gitea-deleted-list": "Ububiko bwasibwe",
-  "gitea-index-stale": "Ntibigezweho kuva habayeho gusiba: ongera upime kugira ngo ubone ingano nyayo."
+  "gitea-index-stale": "Ntibigezweho kuva habayeho gusiba: ongera upime kugira ngo ubone ingano nyayo.",
+  "gitea-db-migration-version": "Verisiyo y'iyimurwa ry'ububiko bw'amakuru bwa Gitea",
+  "gitea-orphans-delete": "Siba impfubyi zose",
+  "gitea-orphans-delete-confirm": "Ibi bisiba burundu mu bubiko bwa Gitea amadosiye y'impfubyi nta kintu na kimwe mu bubiko bw'amakuru gikoresha, n'imirongo y'ububiko bw'amakuru yabuze idosiye yayo. Ikintu cyose gikoreshwa igihe gisibwa kirabikwa. Andika umubare w'impfubyi kugira ngo ukomeze:",
+  "gitea-orphans-delete-wrong-number": "Umubare wanditse si umubare w'impfubyi. Nta kintu cyasibwe."
 }

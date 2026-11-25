@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Esborrat",
   "gitea-freed": "alliberats",
   "gitea-deleted-list": "Repositoris esborrats",
-  "gitea-index-stale": "Desactualitzat des d'un esborrat: torneu a mesurar per a tindre les mides exactes."
+  "gitea-index-stale": "Desactualitzat des d'un esborrat: torneu a mesurar per a tindre les mides exactes.",
+  "gitea-db-migration-version": "Versió de migració de la base de dades de Gitea",
+  "gitea-orphans-delete": "Esborra tots els òrfens",
+  "gitea-orphans-delete-confirm": "Això esborra per sempre, de la carpeta de Gitea, els fitxers òrfens que res de la base de dades no fa servir i les files de la base de dades que ja no tenen el seu fitxer. Tot el que estiga en ús en el moment d'esborrar-ho es conserva. Escriviu el nombre d'òrfens per continuar:",
+  "gitea-orphans-delete-wrong-number": "El nombre escrit no és el nombre d'òrfens. No s'ha esborrat res."
 }

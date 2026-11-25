@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Squassatu",
   "gitea-freed": "liberati",
   "gitea-deleted-list": "Ripusitorii squassati",
-  "gitea-index-stale": "Ùn hè più à ghjornu dapoi una squassatura: misurate torna per avè e dimensioni esatte."
+  "gitea-index-stale": "Ùn hè più à ghjornu dapoi una squassatura: misurate torna per avè e dimensioni esatte.",
+  "gitea-db-migration-version": "Versione di migrazione di a basa di dati di Gitea",
+  "gitea-orphans-delete": "Squassà tutti l'orfani",
+  "gitea-orphans-delete-confirm": "Questu squassa per sempre da u cartulare di Gitea i schedarii orfani chì nunda in a basa di dati ùn adopra è e file di a basa di dati chì u so schedariu ùn esiste più. Ciò chì hè in usu quandu hè squassatu hè cunservatu. Scrivite u numeru d'orfani per cuntinuà:",
+  "gitea-orphans-delete-wrong-number": "U numeru scrittu ùn hè micca u numeru d'orfani. Nunda hè statu squassatu."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "E phimotswe",
   "gitea-freed": "e golotsweng",
   "gitea-deleted-list": "Dipolokelo tse di phimotsweng",
-  "gitea-index-stale": "Ga e sa le ya gompieno fa e sale go phimolwa: lekanya gape go bona bogolo jo bo nepagetseng."
+  "gitea-index-stale": "Ga e sa le ya gompieno fa e sale go phimolwa: lekanya gape go bona bogolo jo bo nepagetseng.",
+  "gitea-db-migration-version": "Thanolo ya go fudusa database ya Gitea",
+  "gitea-orphans-delete": "Phimola dikhutsana tsotlhe",
+  "gitea-orphans-delete-confirm": "Se se phimola ka bosakhutleng mo foltareng ya Gitea difaele tsa dikhutsana tse go se nang sepe mo database se se di dirisang, le mela ya database e faele ya yone e latlhegileng. Sengwe le sengwe se se dirisiwang fa se phimolwa se a bolokwa. Kwala palo ya dikhutsana go tswelela:",
+  "gitea-orphans-delete-wrong-number": "Nomoro e e kwadilweng ga se palo ya dikhutsana. Ga go sepe se se phimotsweng."
 }

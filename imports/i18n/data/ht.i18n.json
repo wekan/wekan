@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Efase",
   "gitea-freed": "libere",
   "gitea-deleted-list": "Repòzitwa ki efase",
-  "gitea-index-stale": "Pa ajou depi yon efasman: mezire ankò pou gwosè egzak."
+  "gitea-index-stale": "Pa ajou depi yon efasman: mezire ankò pou gwosè egzak.",
+  "gitea-db-migration-version": "Vèsyon migrasyon baz done Gitea a",
+  "gitea-orphans-delete": "Efase tout òfelen yo",
+  "gitea-orphans-delete-confirm": "Sa a efase nèt nan dosye Gitea a fichye òfelen ke anyen nan baz done a pa itilize, ak ranje nan baz done a ki pa gen fichye yo ankò. Tout sa k ap itilize nan moman yo efase l la ap rete. Tape kantite òfelen yo pou kontinye:",
+  "gitea-orphans-delete-wrong-number": "Nimewo ki tape a se pa kantite òfelen yo. Anyen pa efase."
 }

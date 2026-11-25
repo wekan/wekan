@@ -5797,5 +5797,9 @@
   "gitea-deleted": "삭제됨",
   "gitea-freed": "확보됨",
   "gitea-deleted-list": "삭제된 리포지토리",
-  "gitea-index-stale": "삭제 이후 최신 상태가 아님: 정확한 크기를 보려면 다시 측정하세요."
+  "gitea-index-stale": "삭제 이후 최신 상태가 아님: 정확한 크기를 보려면 다시 측정하세요.",
+  "gitea-db-migration-version": "Gitea 데이터베이스 마이그레이션 버전",
+  "gitea-orphans-delete": "고아 항목 모두 삭제",
+  "gitea-orphans-delete-confirm": "이 작업은 데이터베이스에서 아무것도 사용하지 않는 고아 파일과 파일이 사라진 데이터베이스 행을 Gitea 폴더에서 영구히 삭제합니다. 삭제 시점에 사용 중인 항목은 유지됩니다. 계속하려면 고아 항목의 개수를 입력하세요:",
+  "gitea-orphans-delete-wrong-number": "입력한 숫자가 고아 항목의 개수가 아닙니다. 아무것도 삭제되지 않았습니다."
 }

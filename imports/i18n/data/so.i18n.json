@@ -5797,5 +5797,9 @@
   "gitea-deleted": "La tirtiray",
   "gitea-freed": "la xoreeyay",
   "gitea-deleted-list": "Kayd-xogeedyada la tirtiray",
-  "gitea-index-stale": "Duugoobay tan iyo tirtiris: mar kale cabbir si aad u hesho cabbirro sax ah."
+  "gitea-index-stale": "Duugoobay tan iyo tirtiris: mar kale cabbir si aad u hesho cabbirro sax ah.",
+  "gitea-db-migration-version": "Nooca guuritaanka kaydka xogta Gitea",
+  "gitea-orphans-delete": "Tirtir dhammaan agoomaha",
+  "gitea-orphans-delete-confirm": "Tani waxay si joogto ah uga tirtiraysaa galka Gitea faylasha agoonta ah ee aysan waxba kaydka xogta ku isticmaalin, iyo safafka kaydka xogta ee faylkoodii lumay. Wax kasta oo la isticmaalayo marka la tirtirayo waa la hayaa. Qor tirada agoomaha si aad u sii wadato:",
+  "gitea-orphans-delete-wrong-number": "Tirada la qoray ma aha tirada agoomaha. Waxba lama tirtirin."
 }

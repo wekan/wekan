@@ -5797,5 +5797,9 @@
   "gitea-deleted": "E hlakotswe",
   "gitea-freed": "e lokolotsweng",
   "gitea-deleted-list": "Direpository tse hlakotsweng",
-  "gitea-index-stale": "Ha e sa le ya morao-rao ho tloha ha ho hlakolwa: lekanya hape bakeng sa maholo a nepahetseng."
+  "gitea-index-stale": "Ha e sa le ya morao-rao ho tloha ha ho hlakolwa: lekanya hape bakeng sa maholo a nepahetseng.",
+  "gitea-db-migration-version": "Phetolelo ya ho fallisa database ya Gitea",
+  "gitea-orphans-delete": "Hlakola dikhutsana tsohle",
+  "gitea-orphans-delete-confirm": "Sena se hlakola ka ho sa feleng ho tswa foldareng ya Gitea difaele tsa dikhutsana tseo ho seng letho ka hara database le di sebedisang, le mela ya database eo faele ya yona e lahlehileng. Eng kapa eng e sebediswang ha e hlakolwa e a bolokwa. Ngola palo ya dikhutsana ho tswela pele:",
+  "gitea-orphans-delete-wrong-number": "Nomoro e ngotsweng hase palo ya dikhutsana. Ha ho letho le hlakotsweng."
 }

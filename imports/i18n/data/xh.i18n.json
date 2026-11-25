@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Icinyiwe",
   "gitea-freed": "ikhululiwe",
   "gitea-deleted-list": "Iindawo zokugcina ezicinyiweyo",
-  "gitea-index-stale": "Iphelelwe lixesha ukususela ekucimeni: linganisa kwakhona ukuze ufumane ubungakanani obuchanekileyo."
+  "gitea-index-stale": "Iphelelwe lixesha ukususela ekucimeni: linganisa kwakhona ukuze ufumane ubungakanani obuchanekileyo.",
+  "gitea-db-migration-version": "Inguqulelo yokufuduswa kwesiseko sedatha se-Gitea",
+  "gitea-orphans-delete": "Cima zonke iinkedama",
+  "gitea-orphans-delete-confirm": "Oku kucima ngonaphakade kwifolda ye-Gitea iifayile eziinkedama ekungekho nto kwisiseko sedatha izisebenzisayo, kunye nemigca yesiseko sedatha elahlekelwe yifayile yayo. Nantoni na esetyenziswayo xa icinywa iyagcinwa. Chwetheza inani leenkedama ukuze uqhubeke:",
+  "gitea-orphans-delete-wrong-number": "Inombolo echwethezwe asilonani leenkedama. Akukho nto icinyiweyo."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Wotutui",
   "gitea-freed": "wovoe",
   "gitea-deleted-list": "Nudzraɖoƒe siwo wotutu",
-  "gitea-index-stale": "Mele yeye o tso esime wotutu nane: gadzidze be nàkpɔ lolome vavãwo."
+  "gitea-index-stale": "Mele yeye o tso esime wotutu nane: gadzidze be nàkpɔ lolome vavãwo.",
+  "gitea-db-migration-version": "Gitea nyatakakadzraɖoƒe ƒe ʋuʋu ƒe tɔtrɔ",
+  "gitea-orphans-delete": "Tutu tsyɔ̃eviwo katã",
+  "gitea-orphans-delete-confirm": "Esia tutua tsyɔ̃evifaɛl siwo nanekee le nyatakakadzraɖoƒe la me mezãna o, kple nyatakakadzraɖoƒe ƒe fli siwo ƒe faɛl bu la ɖa le Gitea nudzraɖoƒe la me tegbee. Nu sia nu si wole zãzãm ne wole etutum la, woadzrae ɖo. Ŋlɔ tsyɔ̃eviwo ƒe xexlẽme be nàyi edzi:",
+  "gitea-orphans-delete-wrong-number": "Xexlẽdzesi si nèŋlɔ la menye tsyɔ̃eviwo ƒe xexlẽme o. Wometutu naneke o."
 }

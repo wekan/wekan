@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Geskrap",
   "gitea-freed": "vrygemaak",
   "gitea-deleted-list": "Geskrapte bewaarplekke",
-  "gitea-index-stale": "Verouderd sedert 'n skrapping: meet weer vir presiese groottes."
+  "gitea-index-stale": "Verouderd sedert 'n skrapping: meet weer vir presiese groottes.",
+  "gitea-db-migration-version": "Gitea-databasismigrasieweergawe",
+  "gitea-orphans-delete": "Vee alle weeskinders uit",
+  "gitea-orphans-delete-confirm": "Dit skrap die weeslêers wat niks in die databasis gebruik nie, en die databasisrye waarvan die lêer weg is, permanent uit die Gitea-gids. Enigiets wat in gebruik is wanneer dit geskrap word, word behou. Tik die aantal weeskinders om voort te gaan:",
+  "gitea-orphans-delete-wrong-number": "Die getikte getal is nie die aantal weeskinders nie. Niks is geskrap nie."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Eliminât",
   "gitea-freed": "liberâts",
   "gitea-deleted-list": "Depuesits eliminâts",
-  "gitea-index-stale": "No inzornât di une eliminazion: misure di gnûf pes dimensions precisis."
+  "gitea-index-stale": "No inzornât di une eliminazion: misure di gnûf pes dimensions precisis.",
+  "gitea-db-migration-version": "Version di migrazion de base di dâts di Gitea",
+  "gitea-orphans-delete": "Elimine ducj i orfins",
+  "gitea-orphans-delete-confirm": "Chest al elimine par simpri de cartele di Gitea i files orfins che nuie te base di dâts al dopre e lis riis de base di dâts che il lôr file nol è plui. Dut ce che al è in ûs cuant che al ven eliminât al ven tignût. Scrîf il numar dai orfins par lâ indevant:",
+  "gitea-orphans-delete-wrong-number": "Il numar scrit nol è il numar dai orfins. Nuie al è stât eliminât."
 }

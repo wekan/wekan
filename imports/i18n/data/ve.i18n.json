@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Zwo bviswa",
   "gitea-freed": "zwo vhofhololwa",
   "gitea-deleted-list": "Vhuvhulungelo ho bviswaho",
-  "gitea-index-stale": "A zwi tsha vha zwa zwino u bva musi hu tshi bviswa: kalani hafhu u wana masaizi o teaho."
+  "gitea-index-stale": "A zwi tsha vha zwa zwino u bva musi hu tshi bviswa: kalani hafhu u wana masaizi o teaho.",
+  "gitea-db-migration-version": "Vesheni ya u pfulutshela database ya Gitea",
+  "gitea-orphans-delete": "Bvisa zwiswiswana zwoṱhe",
+  "gitea-orphans-delete-confirm": "Hezwi zwi bvisa tshoṱhe kha folodara ya Gitea faela dza zwiswiswana dzine a hu na tshithu kha database tshine tsha dzi shumisa, na mitalo ya database ine faela yayo ya xela. Tshiṅwe na tshiṅwe tshine tsha khou shumiswa musi tshi tshi bviswa tshi a vhulungwa. Thaiphani tshivhalo tsha zwiswiswana u bvela phanḓa:",
+  "gitea-orphans-delete-wrong-number": "Nomboro yo thaiphiwaho a si tshivhalo tsha zwiswiswana. A hu na tshe tsha bviswa."
 }

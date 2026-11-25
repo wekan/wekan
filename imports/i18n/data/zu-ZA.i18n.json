@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Isusiwe",
   "gitea-freed": "kukhululiwe",
   "gitea-deleted-list": "Izindawo zokugcina ezisusiwe",
-  "gitea-index-stale": "Akusesona esamanje kusukela kususwa: linganisa futhi ukuze uthole osayizi abaqondile."
+  "gitea-index-stale": "Akusesona esamanje kusukela kususwa: linganisa futhi ukuze uthole osayizi abaqondile.",
+  "gitea-db-migration-version": "Inguqulo yokufuduswa kwesizindalwazi se-Gitea",
+  "gitea-orphans-delete": "Susa zonke izintandane",
+  "gitea-orphans-delete-confirm": "Lokhu kususa unomphela kufolda ye-Gitea amafayela ayizintandane okungekho lutho kusizindalwazi oluwasebenzisayo, kanye nemigqa yesizindalwazi elahlekelwe ifayela layo. Noma yini esetshenziswayo ngesikhathi isuswa iyagcinwa. Thayipha inani lezintandane ukuze uqhubeke:",
+  "gitea-orphans-delete-wrong-number": "Inombolo ethayiphiwe akulona inani lezintandane. Akukho okususiwe."
 }

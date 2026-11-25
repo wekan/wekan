@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Deleted",
   "gitea-freed": "freed",
   "gitea-deleted-list": "Deleted repositories",
-  "gitea-index-stale": "Out of date since a deletion: measure again for exact sizes."
+  "gitea-index-stale": "Out of date since a deletion: measure again for exact sizes.",
+  "gitea-db-migration-version": "Gitea database migration version",
+  "gitea-orphans-delete": "Delete all orphans",
+  "gitea-orphans-delete-confirm": "This deletes for good, from the Gitea folder, the orphan files that nothing in the database uses and the database rows whose file is gone. Anything that is in use when it is deleted is kept. Type the number of orphans to go on:",
+  "gitea-orphans-delete-wrong-number": "The number typed is not the number of orphans. Nothing was deleted."
 }

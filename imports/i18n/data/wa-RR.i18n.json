@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ginpara",
   "gitea-freed": "nabuhian",
   "gitea-deleted-list": "Mga ginpara nga repository",
-  "gitea-index-stale": "Daan na tikang han usa nga pagpara: sukola utro para han eksakto nga kadaku."
+  "gitea-index-stale": "Daan na tikang han usa nga pagpara: sukola utro para han eksakto nga kadaku.",
+  "gitea-db-migration-version": "Bersyon han migration han database han Gitea",
+  "gitea-orphans-delete": "Paraa an ngatanan nga ilo",
+  "gitea-orphans-delete-confirm": "Pirmi nga pinapara hini tikang ha folder han Gitea an mga ilo nga file nga waray bisan ano ha database nga gumagamit, ngan an mga row han database nga nawara an ira file. Bisan ano nga ginagamit ha oras nga ginpapara ini, igtatago. I-type an ihap han mga ilo basi magpadayon:",
+  "gitea-orphans-delete-wrong-number": "An gin-type nga numero diri an ihap han mga ilo. Waray napara."
 }

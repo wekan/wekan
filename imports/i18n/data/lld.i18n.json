@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Scancelà",
   "gitea-freed": "liberà",
   "gitea-deleted-list": "Archifs de codesc scancelei",
-  "gitea-index-stale": "No plu atual dò na scancelazion: mesurëde inò per grandeces esates."
+  "gitea-index-stale": "No plu atual dò na scancelazion: mesurëde inò per grandeces esates.",
+  "gitea-db-migration-version": "Verjion de migraziun dla banca dac de Gitea",
+  "gitea-orphans-delete": "Scancelé duc i orfans",
+  "gitea-orphans-delete-confirm": "Chësc scancela per for dala cartela de Gitea i files orfans che nia tla banca dac ne adora, y les ries dla banca dac che ne à nia plu si file. Dut chël che vegn adurà canche al vegn scancelà vegn tenì. Scrij l numer di orfans per jì inant:",
+  "gitea-orphans-delete-wrong-number": "L numer scrit ne n'ie nia l numer di orfans. Nia ne n'é stat scancelà."
 }

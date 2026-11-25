@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Gelöscht",
   "gitea-freed": "freigegeben",
   "gitea-deleted-list": "Gelöschte Repositorys",
-  "gitea-index-stale": "Veraltet seit einer Löschung: erneut messen für genaue Größen."
+  "gitea-index-stale": "Veraltet seit einer Löschung: erneut messen für genaue Größen.",
+  "gitea-db-migration-version": "Migrationsversion der Gitea-Datenbank",
+  "gitea-orphans-delete": "Alle Waisen löschen",
+  "gitea-orphans-delete-confirm": "Dies löscht endgültig aus dem Gitea-Ordner die verwaisten Dateien, die nichts in der Datenbank verwendet, und die Datenbankzeilen, deren Datei fehlt. Alles, was beim Löschen in Gebrauch ist, bleibt erhalten. Geben Sie zum Fortfahren die Anzahl der Waisen ein:",
+  "gitea-orphans-delete-wrong-number": "Die eingegebene Zahl ist nicht die Anzahl der Waisen. Es wurde nichts gelöscht."
 }

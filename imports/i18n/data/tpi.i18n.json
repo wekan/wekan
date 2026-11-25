@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Rausim",
   "gitea-freed": "i fri",
   "gitea-deleted-list": "Ol ripositori i rausim pinis",
-  "gitea-index-stale": "I no nupela moa bihain long wanpela rausim: mesarim gen long kisim stretpela sais."
+  "gitea-index-stale": "I no nupela moa bihain long wanpela rausim: mesarim gen long kisim stretpela sais.",
+  "gitea-db-migration-version": "Namba bilong senis bilong database bilong Gitea",
+  "gitea-orphans-delete": "Rausim olgeta wanpis",
+  "gitea-orphans-delete-confirm": "Dispela i rausim olgeta taim long folda bilong Gitea ol wanpis fail we i no gat wanpela samting long database i yusim, na ol lain long database we fail bilong ol i lus pinis. Olgeta samting ol i yusim taim ol i rausim, bai i stap yet. Raitim hamas wanpis i gat bilong go het:",
+  "gitea-orphans-delete-wrong-number": "Namba yu raitim i no hamas wanpis i gat. I no rausim wanpela samting."
 }

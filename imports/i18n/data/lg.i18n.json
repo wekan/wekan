@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Kisaziddwamu",
   "gitea-freed": "kiteereddwa",
   "gitea-deleted-list": "Ebitereke ebisaziddwamu",
-  "gitea-index-stale": "Kikadde okuva ku kusazaamu: pima nate okufuna obunene obutuufu."
+  "gitea-index-stale": "Kikadde okuva ku kusazaamu: pima nate okufuna obunene obutuufu.",
+  "gitea-db-migration-version": "Enkyusa y'okusengula tterekero ly'ebikwata erya Gitea",
+  "gitea-orphans-delete": "Sangula bamulekwa bonna",
+  "gitea-orphans-delete-confirm": "Kino kisazaamu emirembe gyonna okuva mu kifo kya Gitea fayiro bamulekwa ezitakozesebwa kintu kyonna mu tterekero ly'ebikwata, n'ennyiriri z'omu tterekero ly'ebikwata ezibuzeeko fayiro zaazo. Buli kikozesebwa mu kiseera we kisazibwamu kikuumibwa. Wandiika omuwendo gwa bamulekwa okugenda mu maaso:",
+  "gitea-orphans-delete-wrong-number": "Ennamba ewandiikiddwa si gwe muwendo gwa bamulekwa. Tewali kisaziddwamu."
 }

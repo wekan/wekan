@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Kustutatud",
   "gitea-freed": "vabastatud",
   "gitea-deleted-list": "Kustutatud hoidlad",
-  "gitea-index-stale": "Aegunud pärast kustutamist: mõõda täpsete suuruste jaoks uuesti."
+  "gitea-index-stale": "Aegunud pärast kustutamist: mõõda täpsete suuruste jaoks uuesti.",
+  "gitea-db-migration-version": "Gitea andmebaasi migratsiooni versioon",
+  "gitea-orphans-delete": "Kustuta kõik orvud",
+  "gitea-orphans-delete-confirm": "See kustutab Gitea kaustast jäädavalt orbfailid, mida miski andmebaasis ei kasuta, ja andmebaasi read, mille fail on kadunud. Kõik, mis on kustutamise hetkel kasutusel, jäetakse alles. Jätkamiseks kirjuta orbude arv:",
+  "gitea-orphans-delete-wrong-number": "Kirjutatud number pole orbude arv. Midagi ei kustutatud."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Swi susiwile",
   "gitea-freed": "swi ntshunxiwile",
   "gitea-deleted-list": "Swihlayiselo leswi susiweke",
-  "gitea-index-stale": "A swa ha ri swa sweswi ku sukela loko ku susiwile: pima nakambe ku kuma vukulu lebyi kongomeke."
+  "gitea-index-stale": "A swa ha ri swa sweswi ku sukela loko ku susiwile: pima nakambe ku kuma vukulu lebyi kongomeke.",
+  "gitea-db-migration-version": "Versiyoni ya ku rhurhisa database ya Gitea",
+  "gitea-orphans-delete": "Susa swisiwana hinkwaswo",
+  "gitea-orphans-delete-confirm": "Leswi swi susa hi ku helela eka folda ya Gitea tifayili ta swisiwana leti ku nga riki na nchumu eka database lexi ti tirhisaka, na mintila ya database leyi fayili ya yona yi lahlekeke. Xin'wana na xin'wana lexi tirhisiwaka loko xi susiwa xa hlayisiwa. Thayipa nhlayo ya swisiwana ku ya emahlweni:",
+  "gitea-orphans-delete-wrong-number": "Nomboro leyi thayipiweke a hi nhlayo ya swisiwana. A ku susiwanga nchumu."
 }

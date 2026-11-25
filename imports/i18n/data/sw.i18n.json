@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Imefutwa",
   "gitea-freed": "zimeachiliwa",
   "gitea-deleted-list": "Hazina zilizofutwa",
-  "gitea-index-stale": "Imepitwa na wakati tangu ufutaji: pima tena kwa ukubwa kamili."
+  "gitea-index-stale": "Imepitwa na wakati tangu ufutaji: pima tena kwa ukubwa kamili.",
+  "gitea-db-migration-version": "Toleo la uhamishaji wa hifadhidata ya Gitea",
+  "gitea-orphans-delete": "Futa yatima wote",
+  "gitea-orphans-delete-confirm": "Hii inafuta kabisa kutoka kwenye folda ya Gitea faili yatima ambazo hakuna kitu kwenye hifadhidata kinachozitumia, na safu za hifadhidata ambazo faili zake zimepotea. Chochote kinachotumika wakati kinapofutwa kinahifadhiwa. Andika idadi ya yatima ili kuendelea:",
+  "gitea-orphans-delete-wrong-number": "Nambari iliyoandikwa si idadi ya yatima. Hakuna kilichofutwa."
 }

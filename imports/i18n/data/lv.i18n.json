@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dzēsts",
   "gitea-freed": "atbrīvoti",
   "gitea-deleted-list": "Dzēstie repozitoriji",
-  "gitea-index-stale": "Novecojis kopš dzēšanas: izmēriet vēlreiz, lai iegūtu precīzus izmērus."
+  "gitea-index-stale": "Novecojis kopš dzēšanas: izmēriet vēlreiz, lai iegūtu precīzus izmērus.",
+  "gitea-db-migration-version": "Gitea datubāzes migrācijas versija",
+  "gitea-orphans-delete": "Dzēst visus bāreņus",
+  "gitea-orphans-delete-confirm": "Šis neatgriezeniski dzēš no Gitea mapes bāreņu failus, kurus nekas datubāzē neizmanto, un datubāzes rindas, kuru fails ir pazudis. Viss, kas dzēšanas brīdī tiek izmantots, tiek saglabāts. Ierakstiet bāreņu skaitu, lai turpinātu:",
+  "gitea-orphans-delete-wrong-number": "Ierakstītais skaitlis nav bāreņu skaits. Nekas netika dzēsts."
 }

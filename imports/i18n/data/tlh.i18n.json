@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Qaw'lu'pu'",
   "gitea-freed": "tlhab",
   "gitea-deleted-list": "polwI'mey Qaw'lu'pu'bogh",
-  "gitea-index-stale": "Qaw'lu'DI' ghu'vam choHlu'be': tInqu'ghachmey lugh DaSovmeH yIjuvqa'."
+  "gitea-index-stale": "Qaw'lu'DI' ghu'vam choHlu'be': tInqu'ghachmey lugh DaSovmeH yIjuvqa'.",
+  "gitea-db-migration-version": "Gitea qawHaq lIlmeH mI'",
+  "gitea-orphans-delete": "ghajwI' Hutlhbogh Dochmey Hoch yIQaw'",
+  "gitea-orphans-delete-confirm": "Gitea ngaSwI'vo' ghajwI' Hutlhbogh De'wI' QonoSmey'e' lo'be'bogh qawHaq Doch, qawHaq tlheghmey'e' QonoSchaj Hutlhbogh je reH Qaw'. Qaw'lu'DI' Doch lo'lu'bogh Hoch pollu'. ruchmeH ghajwI' Hutlhbogh Dochmey mI' yIghItlh:",
+  "gitea-orphans-delete-wrong-number": "ghajwI' Hutlhbogh Dochmey mI' ghaHbe' mI' ghItlhlu'pu'bogh'e'. pagh Qaw'lu'pu'."
 }

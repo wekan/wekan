@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Silindi",
   "gitea-freed": "boşaltıldı",
   "gitea-deleted-list": "Silinen depolar",
-  "gitea-index-stale": "Bir silmeden beri güncel değil: kesin boyutlar için yeniden ölçün."
+  "gitea-index-stale": "Bir silmeden beri güncel değil: kesin boyutlar için yeniden ölçün.",
+  "gitea-db-migration-version": "Gitea veritabanı geçiş sürümü",
+  "gitea-orphans-delete": "Tüm sahipsiz öğeleri sil",
+  "gitea-orphans-delete-confirm": "Bu işlem, veritabanında hiçbir şeyin kullanmadığı sahipsiz dosyaları ve dosyası kaybolmuş veritabanı satırlarını Gitea klasöründen kalıcı olarak siler. Silindiği anda kullanımda olan her şey korunur. Devam etmek için sahipsiz öğe sayısını yazın:",
+  "gitea-orphans-delete-wrong-number": "Yazılan sayı sahipsiz öğe sayısı değil. Hiçbir şey silinmedi."
 }

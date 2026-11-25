@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Pichasqa",
   "gitea-freed": "kacharisqa",
   "gitea-deleted-list": "Pichasqa waqaychanakuna",
-  "gitea-index-stale": "Huk pichaymanta manaña musuqchu: yapamanta tupuy chiqan hatun kaykunapaq."
+  "gitea-index-stale": "Huk pichaymanta manaña musuqchu: yapamanta tupuy chiqan hatun kaykunapaq.",
+  "gitea-db-migration-version": "Gitea willakuy waqaychanapa astaynin versionnin",
+  "gitea-orphans-delete": "Llapan wakchakunata pichay",
+  "gitea-orphans-delete-confirm": "Kayqa wiñaypaq pichan Gitea q'epimanta wakcha willañiqikunata, mayqinkunatachus willakuy waqaychanapi mana imapas llamk'achinchu, willakuy waqaychanapa siq'ikunatapas, mayqinkunapachus willañiqin chinkarqan. Pichasqa kaptin llamk'achisqa kaq imapas waqaychasqa qhepan. Wakchakunap yupayninta qillqay qatinapaq:",
+  "gitea-orphans-delete-wrong-number": "Qillqasqa yupayqa mana wakchakunap yupayninchu. Mana imapas pichasqachu."
 }

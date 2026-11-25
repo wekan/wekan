@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Borrau",
   "gitea-freed": "liberaus",
   "gitea-deleted-list": "Repositorios borraus",
-  "gitea-index-stale": "Desactualizau dende un borrau: mesura de nuevo ta tener os tamaños exactos."
+  "gitea-index-stale": "Desactualizau dende un borrau: mesura de nuevo ta tener os tamaños exactos.",
+  "gitea-db-migration-version": "Versión de migración d'a base de datos de Gitea",
+  "gitea-orphans-delete": "Borrar totz os orfes",
+  "gitea-orphans-delete-confirm": "Isto borra ta cutio, d'a carpeta de Gitea, os fichers orfes que denguna cosa d'a base de datos no fa servir y as ringleras d'a base de datos que ya no tienen o suyo ficher. Lo que siga en uso en borrar-lo se mantiene. Escribe o numero d'orfes ta continar:",
+  "gitea-orphans-delete-wrong-number": "O numero escrito no ye o numero d'orfes. No s'ha borrau cosa."
 }

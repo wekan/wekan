@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Wiske",
   "gitea-freed": "frijmakke",
   "gitea-deleted-list": "Wiske repositories",
-  "gitea-index-stale": "Ferâldere sûnt in wisking: mjit opnij foar krekte grutte."
+  "gitea-index-stale": "Ferâldere sûnt in wisking: mjit opnij foar krekte grutte.",
+  "gitea-db-migration-version": "Migraasjeferzje fan de Gitea-databank",
+  "gitea-orphans-delete": "Alle wezen wiskje",
+  "gitea-orphans-delete-confirm": "Dit wisket foargoed út de Gitea-map de wezebestannen dy't neat yn de databank brûkt, en de rigels yn de databank wêrfan't it bestân fuort is. Alles wat yn gebrûk is as it wiske wurdt, wurdt bewarre. Typ it oantal wezen om troch te gean:",
+  "gitea-orphans-delete-wrong-number": "It typte getal is net it oantal wezen. Der is neat wiske."
 }

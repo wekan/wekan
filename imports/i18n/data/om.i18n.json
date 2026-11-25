@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Haqame",
   "gitea-freed": "bilisa ba'e",
   "gitea-deleted-list": "Kuusaawwan haqaman",
-  "gitea-index-stale": "Erga haqamee as dulloomeera: hamma sirrii argachuuf irra deebi'ii safari."
+  "gitea-index-stale": "Erga haqamee as dulloomeera: hamma sirrii argachuuf irra deebi'ii safari.",
+  "gitea-db-migration-version": "Gosa godaansa kuusa daataa Gitea",
+  "gitea-orphans-delete": "Ijoollee abbaa hin qabne hunda haqi",
+  "gitea-orphans-delete-confirm": "Kun faayilota ijoollee abbaa hin qabne kan wanti tokkollee kuusa daataa keessatti hin fayyadamne, fi tarreewwan kuusa daataa kan faayilli isaanii bade, kuusaa Gitea keessaa bara baraaf haqa. Wanti yeroo haqamutti itti fayyadamamaa jiru hundi ni eegama. Itti fufuuf baay'ina ijoollee abbaa hin qabnee barreessi:",
+  "gitea-orphans-delete-wrong-number": "Lakkoofsi barreeffame baay'ina ijoollee abbaa hin qabnee miti. Wanti tokkollee hin haqamne."
 }

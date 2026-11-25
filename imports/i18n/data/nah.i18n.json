@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Mopolo",
   "gitea-freed": "omomaquix",
   "gitea-deleted-list": "Tlapiyalcalli tlein mopolohqueh",
-  "gitea-index-stale": "Ahmo yancuic ihuicpa ce tlapololiztli: occeppa xictamachihua ic melahuac huehueyiliztli."
+  "gitea-index-stale": "Ahmo yancuic ihuicpa ce tlapololiztli: occeppa xictamachihua ic melahuac huehueyiliztli.",
+  "gitea-db-migration-version": "Inyancuiyoliz in Gitea tlapiyalcalli",
+  "gitea-orphans-delete": "Xicpolo mochintin icnotlacah",
+  "gitea-orphans-delete-confirm": "Inin quipolohua mochipa ipan Gitea tlapiyalli in icnoamatl in ahtlein quitequitiltia ipan tlapiyalcalli, ihuan in tecpantli ipan tlapiyalcalli in ahmo occeppa quipiya inamauh. In tlein motequitiltia ihcuac mopolohua, mopiya. Xicihcuilo quezqui icnotlacah ic tiyaz:",
+  "gitea-orphans-delete-wrong-number": "In tlapohualli tlahcuiloltli ahmo quezqui icnotlacah. Ahtlein mopolo."
 }

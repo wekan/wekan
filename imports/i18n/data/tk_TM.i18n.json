@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Öçürildi",
   "gitea-freed": "boşadyldy",
   "gitea-deleted-list": "Öçürilen repozitoriýler",
-  "gitea-index-stale": "Bir öçürmeden bäri köne: takyk ölçegler üçin täzeden ölçäň."
+  "gitea-index-stale": "Bir öçürmeden bäri köne: takyk ölçegler üçin täzeden ölçäň.",
+  "gitea-db-migration-version": "Gitea maglumatlar bazasynyň göçüriş wersiýasy",
+  "gitea-orphans-delete": "Ähli ýetimleri poz",
+  "gitea-orphans-delete-confirm": "Bu Gitea bukjasyndan maglumatlar bazasynda hiç zadyň ulanmaýan ýetim faýllaryny we faýly ýitip giden maglumatlar bazasynyň setirlerini biratola öçürýär. Öçürilýän pursatynda ulanylýan islendik zat saklanýar. Dowam etmek üçin ýetimleriň sanyny ýazyň:",
+  "gitea-orphans-delete-wrong-number": "Ýazylan san ýetimleriň sany däl. Hiç zat öçürilmedi."
 }

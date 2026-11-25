@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Cancillatu",
   "gitea-freed": "libbirati",
   "gitea-deleted-list": "Dipòsiti cancillati",
-  "gitea-index-stale": "Nun aggiurnatu di quannu ci fu na cancillazzioni: misura arrè pi granni esatti."
+  "gitea-index-stale": "Nun aggiurnatu di quannu ci fu na cancillazzioni: misura arrè pi granni esatti.",
+  "gitea-db-migration-version": "Virsioni di migrazzioni dâ basi di dati di Gitea",
+  "gitea-orphans-delete": "Cancella tutti li òrfani",
+  "gitea-orphans-delete-confirm": "Chistu cancella pi sempri dâ cartedda di Gitea li file òrfani ca nenti ntâ basi di dati usa, e li righi dâ basi di dati ca lu so file nun c'è cchiù. Tuttu chiddu ca è n'usu quannu si cancella si teni. Scrivi lu nùmmiru di òrfani pi jiri avanti:",
+  "gitea-orphans-delete-wrong-number": "Lu nùmmiru scrittu nun è lu nùmmiru di òrfani. Nun fu cancillatu nenti."
 }

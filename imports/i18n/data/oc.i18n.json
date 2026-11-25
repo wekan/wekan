@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Suprimit lo",
   "gitea-freed": "liberats",
   "gitea-deleted-list": "Depauses suprimits",
-  "gitea-index-stale": "Obsolet dempuèi una supression : mesuratz tornamai per las talhas exactas."
+  "gitea-index-stale": "Obsolet dempuèi una supression : mesuratz tornamai per las talhas exactas.",
+  "gitea-db-migration-version": "Version de migracion de la basa de donadas de Gitea",
+  "gitea-orphans-delete": "Suprimir totes los orfanèls",
+  "gitea-orphans-delete-confirm": "Aquò suprimís per totjorn del dossièr de Gitea los fichièrs orfanèls que res dins la basa de donadas utiliza pas, e las linhas de la basa de donadas que lor fichièr es desaparegut. Tot çò qu'es en utilizacion al moment de la supression es gardat. Picatz lo nombre d'orfanèls per contunhar :",
+  "gitea-orphans-delete-wrong-number": "Lo nombre picat es pas lo nombre d'orfanèls. Res es pas estat suprimit."
 }

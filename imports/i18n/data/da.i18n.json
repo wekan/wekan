@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Slettet",
   "gitea-freed": "frigjort",
   "gitea-deleted-list": "Slettede repositories",
-  "gitea-index-stale": "Forældet siden en sletning: mål igen for nøjagtige størrelser."
+  "gitea-index-stale": "Forældet siden en sletning: mål igen for nøjagtige størrelser.",
+  "gitea-db-migration-version": "Gitea-databasens migreringsversion",
+  "gitea-orphans-delete": "Slet alle forældreløse",
+  "gitea-orphans-delete-confirm": "Dette sletter for altid de forældreløse filer, som intet i databasen bruger, og de databaserækker, hvis fil er væk, fra Gitea-mappen. Alt, der er i brug, når det slettes, bevares. Skriv antallet af forældreløse for at fortsætte:",
+  "gitea-orphans-delete-wrong-number": "Det indtastede tal er ikke antallet af forældreløse. Intet blev slettet."
 }

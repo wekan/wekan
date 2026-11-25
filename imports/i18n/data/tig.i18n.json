@@ -5797,5 +5797,9 @@
   "gitea-deleted": "ተምሰሐ",
   "gitea-freed": "ተፈትሐ",
   "gitea-deleted-list": "መክዘናት ኮድ እለ ተምሰሐ",
-  "gitea-index-stale": "ምን ምሳሕ ሐቆ ኢተሐደሰ: እግል ቅያሳት ሰሐል ካልኣይ ቀይስ።"
+  "gitea-index-stale": "ምን ምሳሕ ሐቆ ኢተሐደሰ: እግል ቅያሳት ሰሐል ካልኣይ ቀይስ።",
+  "gitea-db-migration-version": "ሕላፍ ዳታቤዝ Gitea ስሪት",
+  "gitea-orphans-delete": "ኵሎም የቲማት ደምስስ",
+  "gitea-orphans-delete-confirm": "እሊ ምን መክዘን ፈይል Gitea ለዐለም ለፋይላት የቲማት እለ ሐጌ ዲብ ዳታቤዝ ኢልትቀድም ቦሙ፡ ወሰጠራት ዳታቤዝ እለ ፋይሎም ጠፍአ ልምሰሕ። ክል ሽቅል እለ ዲብ ወቅት ምሳሕ ልትቀደም ልትዐቀብ። ብዕድ እግል ትትበገስ ምዝገበ የቲማት ጽሐፍ:",
+  "gitea-orphans-delete-wrong-number": "ቍጽር እለ ተጽሕፈ ምዝገበ የቲማት ኢኮን። ሐጌ ኢተምሰሐ።"
 }

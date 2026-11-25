@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Eytt",
   "gitea-freed": "losað",
   "gitea-deleted-list": "Eydd hugbúnaðarsöfn",
-  "gitea-index-stale": "Úrelt síðan eyðing var gerð: mældu aftur fyrir nákvæmar stærðir."
+  "gitea-index-stale": "Úrelt síðan eyðing var gerð: mældu aftur fyrir nákvæmar stærðir.",
+  "gitea-db-migration-version": "Flutningsútgáfa Gitea-gagnagrunnsins",
+  "gitea-orphans-delete": "Eyða öllum munaðarleysingjum",
+  "gitea-orphans-delete-confirm": "Þetta eyðir fyrir fullt og allt úr Gitea-möppunni munaðarlausum skrám sem ekkert í gagnagrunninum notar og röðum í gagnagrunninum sem hafa misst skrána sína. Öllu sem er í notkun þegar því er eytt er haldið. Sláðu inn fjölda munaðarleysingja til að halda áfram:",
+  "gitea-orphans-delete-wrong-number": "Talan sem var slegin inn er ekki fjöldi munaðarleysingja. Engu var eytt."
 }

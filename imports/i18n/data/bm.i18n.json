@@ -5797,5 +5797,9 @@
   "gitea-deleted": "A jɔsira",
   "gitea-freed": "labɔra",
   "gitea-deleted-list": "Dosye marayɔrɔ jɔsilenw",
-  "gitea-index-stale": "A kɔrɔla kabini jɔsili dɔ: a suman tugun walasa ka bonya tigitigi sɔrɔ."
+  "gitea-index-stale": "A kɔrɔla kabini jɔsili dɔ: a suman tugun walasa ka bonya tigitigi sɔrɔ.",
+  "gitea-db-migration-version": "Gitea kunnafonimarayɔrɔ yɛlɛmali jɔyɔrɔ",
+  "gitea-orphans-delete": "Falentɔw bɛɛ jɔsi",
+  "gitea-orphans-delete-confirm": "Nin bɛ falentɔ sɛbɛnw jɔsi Gitea dosye la fo abada, minnu tɛ baara la kunnafonimarayɔrɔ fɛn si fɛ, ani kunnafonimarayɔrɔ cogoyaw minnu ka sɛbɛn tununna. Fɛn o fɛn bɛ baara la jɔsili waati la, o bɛ mara. Falentɔw hakɛ sɛbɛn walasa ka taa a fɛ:",
+  "gitea-orphans-delete-wrong-number": "Jate sɛbɛnnen tɛ falentɔw hakɛ ye. Foyi ma jɔsi."
 }

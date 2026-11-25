@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Supprimé le",
   "gitea-freed": "libérés",
   "gitea-deleted-list": "Dépôts supprimés",
-  "gitea-index-stale": "Obsolète depuis une suppression : mesurez à nouveau pour obtenir les tailles exactes."
+  "gitea-index-stale": "Obsolète depuis une suppression : mesurez à nouveau pour obtenir les tailles exactes.",
+  "gitea-db-migration-version": "Version de migration de la base de données Gitea",
+  "gitea-orphans-delete": "Supprimer tous les orphelins",
+  "gitea-orphans-delete-confirm": "Ceci supprime définitivement du dossier Gitea les fichiers orphelins que rien dans la base de données n'utilise et les lignes de la base de données dont le fichier a disparu. Tout ce qui est utilisé au moment de la suppression est conservé. Saisissez le nombre d'orphelins pour continuer :",
+  "gitea-orphans-delete-wrong-number": "Le nombre saisi n'est pas le nombre d'orphelins. Rien n'a été supprimé."
 }

@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Air a sguabadh às",
   "gitea-freed": "air a shaoradh",
   "gitea-deleted-list": "Ionadan-tasgaidh a chaidh a sguabadh às",
-  "gitea-index-stale": "Às an ceann-latha bho sguabadh às: tomhais a-rithist airson meudan pongail."
+  "gitea-index-stale": "Às an ceann-latha bho sguabadh às: tomhais a-rithist airson meudan pongail.",
+  "gitea-db-migration-version": "Tionndadh imrich stòr-dàta Gitea",
+  "gitea-orphans-delete": "Sguab às na dìlleachdain uile",
+  "gitea-orphans-delete-confirm": "Sguabaidh seo às gu buan on phasgan Gitea na faidhlichean dìlleachdail nach eil dad san stòr-dàta a' cleachdadh agus na sreathan san stòr-dàta aig a bheil am faidhle air falbh. Thèid rud sam bith a tha ga chleachdadh nuair a thèid a sguabadh às a chumail. Sgrìobh àireamh nan dìlleachdan airson leantainn air adhart:",
+  "gitea-orphans-delete-wrong-number": "Chan e àireamh nan dìlleachdan an àireamh a chaidh a sgrìobhadh. Cha deach dad a sguabadh às."
 }

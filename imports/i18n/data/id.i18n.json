@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Dihapus",
   "gitea-freed": "dibebaskan",
   "gitea-deleted-list": "Repositori yang dihapus",
-  "gitea-index-stale": "Kedaluwarsa sejak penghapusan: ukur lagi untuk ukuran yang tepat."
+  "gitea-index-stale": "Kedaluwarsa sejak penghapusan: ukur lagi untuk ukuran yang tepat.",
+  "gitea-db-migration-version": "Versi migrasi basis data Gitea",
+  "gitea-orphans-delete": "Hapus semua yatim",
+  "gitea-orphans-delete-confirm": "Ini menghapus untuk selamanya dari folder Gitea berkas yatim yang tidak dipakai apa pun di basis data, dan baris basis data yang berkasnya sudah hilang. Apa pun yang sedang dipakai saat dihapus tetap disimpan. Ketik jumlah yatim untuk melanjutkan:",
+  "gitea-orphans-delete-wrong-number": "Angka yang diketik bukan jumlah yatim. Tidak ada yang dihapus."
 }

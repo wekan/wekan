@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Momtaama",
   "gitea-freed": "rimɗinaama",
   "gitea-deleted-list": "Mooftorde kod momtaaɗe",
-  "gitea-index-stale": "Ɓooyi gila momtagol: betu kadi ngam mawneeje goonga."
+  "gitea-index-stale": "Ɓooyi gila momtagol: betu kadi ngam mawneeje goonga.",
+  "gitea-db-migration-version": "Yamre eggitgol mooftorde keɓe Gitea",
+  "gitea-orphans-delete": "Momtu baanɗi ɗi fof",
+  "gitea-orphans-delete-confirm": "Ɗum momtata haa abada e runngere Gitea fiilde baanɗe ɗe hay huunde e nder mooftorde keɓe huutortaa, e daa mooftorde keɓe ɗe fiilde mum'en majjii. Kala ko huutoraa tuma nde momtetee ina mooftee. Winndu limoore baanɗi ngam jokkude:",
+  "gitea-orphans-delete-wrong-number": "Limoore winndaande nde wonaa limoore baanɗi. Hay huunde momtaaka."
 }

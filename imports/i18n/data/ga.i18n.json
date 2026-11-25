@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Scriosta",
   "gitea-freed": "saortha",
   "gitea-deleted-list": "Stórais scriosta",
-  "gitea-index-stale": "As dáta ó scriosadh: tomhais arís le haghaidh méideanna beachta."
+  "gitea-index-stale": "As dáta ó scriosadh: tomhais arís le haghaidh méideanna beachta.",
+  "gitea-db-migration-version": "Leagan imirce bhunachar sonraí Gitea",
+  "gitea-orphans-delete": "Scrios na dílleachtaí go léir",
+  "gitea-orphans-delete-confirm": "Scriosann sé seo go buan as an bhfillteán Gitea na comhaid dhílleachta nach n-úsáideann aon rud sa bhunachar sonraí, agus na sraitheanna sa bhunachar sonraí a bhfuil a gcomhad imithe. Coinnítear aon rud atá in úsáid nuair a scriostar é. Clóscríobh líon na ndílleachtaí chun leanúint ar aghaidh:",
+  "gitea-orphans-delete-wrong-number": "Ní hé an uimhir a clóscríobhadh líon na ndílleachtaí. Níor scriosadh aon rud."
 }

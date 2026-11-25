@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Peerneqarpoq",
   "gitea-freed": "qaangiisinneqarpoq",
   "gitea-deleted-list": "Kode-toqqorsiviit peerneqartut",
-  "gitea-index-stale": "Peersinerup kingorna nutaajunnaarpoq: angissusii eqqortut pillugit uuttoqqiguk."
+  "gitea-index-stale": "Peersinerup kingorna nutaajunnaarpoq: angissusii eqqortut pillugit uuttoqqiguk.",
+  "gitea-db-migration-version": "Gitea-p paasissutissanik toqqorsiviata nuutsinerata normua",
+  "gitea-orphans-delete": "Angajoqqaaqanngitsut tamaasa piikkit",
+  "gitea-orphans-delete-confirm": "Una Gitea-mi mappimit isumaannaartumik peersisarpoq angajoqqaaqanngitsunik filinik paasissutissanik toqqorsivimmi sumilluunniit atorneqanngitsunik, paasissutissanillu toqqorsivimmi titarnernik filiat annaasimasunik. Peersinermi atorneqartoq tamarmi toqqorneqassaaq. Ingerlaqqinniarlutit angajoqqaaqanngitsut amerlassusaat allaguk:",
+  "gitea-orphans-delete-wrong-number": "Kisitsit allanneqartoq angajoqqaaqanngitsut amerlassusaanngilaq. Sunik peersisoqanngilaq."
 }

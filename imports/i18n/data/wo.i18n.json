@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Far nañu ko",
   "gitea-freed": "goreel nañu",
   "gitea-deleted-list": "Dencukaay yi ñu far",
-  "gitea-index-stale": "Yeesaluñu ko bi ñu faree: nattaatal ngir dayo yu wóor."
+  "gitea-index-stale": "Yeesaluñu ko bi ñu faree: nattaatal ngir dayo yu wóor.",
+  "gitea-db-migration-version": "Sumb tuxal dàttub xibaar Gitea",
+  "gitea-orphans-delete": "Far jirim yi yépp",
+  "gitea-orphans-delete-confirm": "Lii dafay far ba fàww ci dosiyeb Gitea fiise jirim yi dara ci dàttub xibaar bi jëfandikoowul, ak rëddi dàttub xibaar bi seen fiise réer. Lépp lu ñu jëfandikoo ci waxtu bi ñu koy far dañu koy denc. Bindal limu jirim yi ngir wéy:",
+  "gitea-orphans-delete-wrong-number": "Lim bi ñu bind du limu jirim yi. Dara faruwul."
 }

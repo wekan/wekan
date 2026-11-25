@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Verwijderd",
   "gitea-freed": "vrijgemaakt",
   "gitea-deleted-list": "Verwijderde repository's",
-  "gitea-index-stale": "Verouderd sinds een verwijdering: meet opnieuw voor exacte groottes."
+  "gitea-index-stale": "Verouderd sinds een verwijdering: meet opnieuw voor exacte groottes.",
+  "gitea-db-migration-version": "Migratieversie van de Gitea-databank",
+  "gitea-orphans-delete": "Alle wezen verwijderen",
+  "gitea-orphans-delete-confirm": "Dit verwijdert definitief uit de Gitea-map de weesbestanden die niets in de databank gebruikt, en de databankrijen waarvan het bestand weg is. Alles wat in gebruik is op het moment van verwijderen, blijft behouden. Typ het aantal wezen om verder te gaan:",
+  "gitea-orphans-delete-wrong-number": "Het getypte getal is niet het aantal wezen. Er is niets verwijderd."
 }

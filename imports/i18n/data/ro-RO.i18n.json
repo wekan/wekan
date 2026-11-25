@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Șters",
   "gitea-freed": "eliberați",
   "gitea-deleted-list": "Depozite șterse",
-  "gitea-index-stale": "Neactualizat de la o ștergere: măsurați din nou pentru dimensiuni exacte."
+  "gitea-index-stale": "Neactualizat de la o ștergere: măsurați din nou pentru dimensiuni exacte.",
+  "gitea-db-migration-version": "Versiunea de migrare a bazei de date Gitea",
+  "gitea-orphans-delete": "Șterge toți orfanii",
+  "gitea-orphans-delete-confirm": "Aceasta șterge definitiv din dosarul Gitea fișierele orfane pe care nimic din baza de date nu le folosește și rândurile din baza de date al căror fișier a dispărut. Tot ce este în uz în momentul ștergerii este păstrat. Tastați numărul de orfani pentru a continua:",
+  "gitea-orphans-delete-wrong-number": "Numărul tastat nu este numărul de orfani. Nu s-a șters nimic."
 }

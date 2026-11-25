@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Ezabatua",
   "gitea-freed": "askatuta",
   "gitea-deleted-list": "Ezabatutako biltegiak",
-  "gitea-index-stale": "Zaharkituta ezabaketa batetik: neurtu berriro tamaina zehatzetarako."
+  "gitea-index-stale": "Zaharkituta ezabaketa batetik: neurtu berriro tamaina zehatzetarako.",
+  "gitea-db-migration-version": "Gitea datu-basearen migrazio-bertsioa",
+  "gitea-orphans-delete": "Ezabatu umezurtz guztiak",
+  "gitea-orphans-delete-confirm": "Honek betiko ezabatzen ditu Gitea karpetatik datu-baseko ezerk erabiltzen ez dituen fitxategi umezurtzak eta fitxategia galdu duten datu-baseko errenkadak. Ezabatzeko unean erabiltzen ari den guztia gordetzen da. Idatzi umezurtz kopurua jarraitzeko:",
+  "gitea-orphans-delete-wrong-number": "Idatzitako zenbakia ez da umezurtz kopurua. Ez da ezer ezabatu."
 }

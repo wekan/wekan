@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Yakadzimwa",
   "gitea-freed": "zvasunungurwa",
   "gitea-deleted-list": "Marepository akadzimwa",
-  "gitea-index-stale": "Hazvisi zvazvino kubva pakudzima: yera zvakare kuti uwane masaizi chaiwo."
+  "gitea-index-stale": "Hazvisi zvazvino kubva pakudzima: yera zvakare kuti uwane masaizi chaiwo.",
+  "gitea-db-migration-version": "Shanduro yekutamisa dhatabhesi yeGitea",
+  "gitea-orphans-delete": "Dzima nherera dzose",
+  "gitea-orphans-delete-confirm": "Izvi zvinodzima zvachose kubva mufodha yeGitea mafaira enherera asingashandiswe nechinhu chipi zvacho mudhatabhesi, nemitsara yedhatabhesi yakarasikirwa nefaira rayo. Chero chinhu chiri kushandiswa pachinodzimwa chinochengetwa. Nyora huwandu hwenherera kuti uenderere:",
+  "gitea-orphans-delete-wrong-number": "Nhamba yakanyorwa haisi huwandu hwenherera. Hapana chakadzimwa."
 }

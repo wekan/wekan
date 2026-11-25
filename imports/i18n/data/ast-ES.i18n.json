@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Desaniciáu",
   "gitea-freed": "lliberaos",
   "gitea-deleted-list": "Repositorios desaniciaos",
-  "gitea-index-stale": "Desanováu dende un desaniciu: midi de nuevo pa tener los tamaños exactos."
+  "gitea-index-stale": "Desanováu dende un desaniciu: midi de nuevo pa tener los tamaños exactos.",
+  "gitea-db-migration-version": "Versión de migración de la base de datos de Gitea",
+  "gitea-orphans-delete": "Desaniciar tolos güérfanos",
+  "gitea-orphans-delete-confirm": "Esto desanicia pa siempres, de la carpeta de Gitea, los ficheros güérfanos que nada de la base de datos usa y les fileres de la base de datos que yá nun tienen el so ficheru. Lo que tea n'usu cuando se desanicia caltiénse. Escribi'l númberu de güérfanos pa siguir:",
+  "gitea-orphans-delete-wrong-number": "El númberu escritu nun ye'l númberu de güérfanos. Nun se desanició nada."
 }

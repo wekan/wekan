@@ -5797,5 +5797,9 @@
   "gitea-deleted": "Strikað",
   "gitea-freed": "frígjørt",
   "gitea-deleted-list": "Strikað søvn",
-  "gitea-index-stale": "Ikki dagført síðan eina striking: mát aftur fyri neyvar stødd."
+  "gitea-index-stale": "Ikki dagført síðan eina striking: mát aftur fyri neyvar stødd.",
+  "gitea-db-migration-version": "Flytiútgáva av dátugrunninum hjá Gitea",
+  "gitea-orphans-delete": "Strika allar foreldraleysar",
+  "gitea-orphans-delete-confirm": "Hetta strikar fyri altíð úr Gitea-mappuni tær foreldraleysu fílurnar, sum einki í dátugrunninum brúkar, og tær raðirnar í dátugrunninum, sum fílan er horvin hjá. Alt, sum er í brúki, tá ið tað verður strikað, verður varðveitt. Skriva talið av foreldraleysum fyri at halda fram:",
+  "gitea-orphans-delete-wrong-number": "Talið, sum varð skrivað, er ikki talið av foreldraleysum. Einki varð strikað."
 }
