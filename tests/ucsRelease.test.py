@@ -61,14 +61,14 @@ class UcsRelease(unittest.TestCase):
             if command[0] == 'docker':
                 self.assertEqual(command[1], '--config')
                 config = Path(command[2])
-                self.assertEqual(command[3:5], ['run', '--rm'])
+                self.assertIn(command[3], ('run', 'image'))
             else:
                 self.assertEqual(command[:2], ['bash', '-c'])
                 config = Path(kwargs['env']['DOCKER_CONFIG'])
             self.assertTrue(config.is_dir())
             self.assertEqual(list(config.iterdir()), [])
             configs.append(config)
-            return subprocess.CompletedProcess(command, 0, stdout='1000\n' if command[-1] == '-u' else '')
+            return subprocess.CompletedProcess(command, 0, stdout='1000:1000\n' if command[3] == 'image' else '')
         with patch.object(ucs.subprocess, 'run', side_effect=pull) as run:
             ucs.verify_public_images(self.output)
         self.assertEqual([call.args[0][-1] for call in run.call_args_list[:2]], [
@@ -100,11 +100,53 @@ class UcsRelease(unittest.TestCase):
     def test_wrong_database_uid_blocks_portal_write(self):
         self.public_patcher.stop()
         portal = FakePortal()
-        responses = [subprocess.CompletedProcess([], 0)] * 4 + [subprocess.CompletedProcess([], 0, '0\n')]
+        responses = [subprocess.CompletedProcess([], 0)] * 4 + [subprocess.CompletedProcess([], 0, '0:0\n')]
         with patch.object(ucs.subprocess, 'run', side_effect=responses):
             with self.assertRaisesRegex(RuntimeError, 'UID 1000'):
                 ucs.upload(portal, self.output, '4.4/wekan=6.09', '5.2/wekan=12.28')
         self.assertEqual([call[0] for call in portal.calls], ['list'])
+
+    def test_distroless_database_user_is_read_from_its_passwd(self):
+        """The FerretDB image is distroless: no `id` to run. Its USER ferretdb is
+        looked up in the image's own /etc/passwd (docker cp, a tar stream)."""
+        import io, tarfile
+        def passwd_tar(text):
+            data = text.encode()
+            buffer = io.BytesIO()
+            with tarfile.open(fileobj=buffer, mode='w') as archive:
+                info = tarfile.TarInfo('passwd')
+                info.size = len(data)
+                archive.addfile(info, io.BytesIO(data))
+            return buffer.getvalue()
+        for passwd, uid in (('root:x:0:0::/:/sbin/nologin\nferretdb:x:1000:1000::/state:/sbin/nologin\n', '1000'),
+                            ('nonroot:x:65532:65532::/home/nonroot:/sbin/nologin\nferretdb:x:65532:65532::/:/x\n', '65532'),
+                            ('nonroot:x:65532:65532::/home/nonroot:/sbin/nologin\n', None)):
+            removed = []
+            def docker(command, **kwargs):
+                if command[3:5] == ['image', 'inspect']:
+                    return subprocess.CompletedProcess(command, 0, 'ferretdb:ferretdb\n')
+                if command[3] == 'create':
+                    return subprocess.CompletedProcess(command, 0, 'c0ffee\n')
+                if command[3] == 'cp':
+                    self.assertEqual(command[4:], ['c0ffee:/etc/passwd', '-'])
+                    return subprocess.CompletedProcess(command, 0, passwd_tar(passwd))
+                if command[3] == 'rm':
+                    removed.append(command[4])
+                    return subprocess.CompletedProcess(command, 0, '')
+                raise AssertionError(command)
+            with patch.object(ucs.subprocess, 'run', side_effect=docker):
+                self.assertEqual(ucs.image_uid('cfg', DATABASE_IMAGE), uid)
+            self.assertEqual(removed, ['c0ffee'], 'the container made for the copy is removed')
+        # A numeric USER needs no copy; no USER is root.
+        self.assertEqual(ucs.uid_of('1000:1000', ''), '1000')
+        self.assertEqual(ucs.uid_of('', ''), '0')
+
+    def test_no_check_runs_a_program_the_distroless_images_lack(self):
+        """Negative: nothing in the UCS publisher runs id, sh or another tool
+        inside the WeKan or FerretDB image - both are distroless (v13.32's UCS
+        run failed on `docker run --entrypoint id`)."""
+        source = (Path(__file__).resolve().parents[1] / 'releases/ucs-release.py').read_text(encoding='utf-8')
+        self.assertNotRegex(source, r"'--entrypoint',\s*'(id|sh|bash|/bin/sh|whoami)'")
 
     def test_invalid_or_duplicate_image_is_rejected_before_pull(self):
         self.public_patcher.stop()

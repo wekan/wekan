@@ -5,12 +5,14 @@ No git refs are written. Published portal versions are immutable; retries finish
 an existing draft. The Provider Portal still requires human/Univention approval.
 """
 import argparse
+import io
 import json
 import os
 from pathlib import Path
 import re
 import shutil
 import subprocess
+import tarfile
 import tempfile
 
 FILES = ('compose', 'preinst', 'inst', 'uinst', 'test', 'README_EN', 'README_DE')
@@ -245,6 +247,52 @@ def plan(portal, source_app, target_app):
     return 'draft' if target else 'new'
 
 
+def uid_of(user, passwd):
+    """The numeric UID of an image's USER (name, uid, name:group or uid:gid),
+    looked up in the image's own /etc/passwd; None when it is not there."""
+    name = (user or '').split(':', 1)[0]
+    if name == '':
+        return '0'
+    if name.isdigit():
+        return name
+    for line in passwd.splitlines():
+        fields = line.split(':')
+        if len(fields) >= 3 and fields[0] == name:
+            return fields[2]
+    return None
+
+
+def image_uid(config, reference):
+    """The UID the image runs as, read without running anything in it.
+
+    The FerretDB image is distroless (no shell, no id program), so `docker run
+    --entrypoint id` cannot tell; its USER and its /etc/passwd can."""
+    docker = ['docker', '--config', config]
+    result = subprocess.run(docker + ['image', 'inspect', '--format', '{{.Config.User}}', reference],
+                            capture_output=True, text=True)
+    if result.returncode:
+        return None
+    user = result.stdout.strip()
+    if (user.split(':', 1)[0] or '0').isdigit():
+        return uid_of(user, '')
+    created = subprocess.run(docker + ['create', reference], capture_output=True, text=True)
+    if created.returncode:
+        return None
+    container = created.stdout.strip()
+    try:
+        copied = subprocess.run(docker + ['cp', f'{container}:/etc/passwd', '-'], capture_output=True)
+        if copied.returncode:
+            return None
+        with tarfile.open(fileobj=io.BytesIO(copied.stdout)) as archive:
+            member = archive.extractfile(archive.getmembers()[0])
+            passwd = member.read().decode('utf-8', 'replace') if member else ''
+    except (tarfile.TarError, IndexError):
+        return None
+    finally:
+        subprocess.run(docker + ['rm', container], capture_output=True)
+    return uid_of(user, passwd)
+
+
 def verify_public_images(directory=None, app_image=None):
     """Use the same unauthenticated pulls as a UCS host, including image layers."""
     references = [app_image] if app_image else []
@@ -278,9 +326,7 @@ def verify_public_images(directory=None, app_image=None):
                                     capture_output=True, text=True)
             if result.returncode:
                 raise RuntimeError('Selected FerretDB image cannot run; portal draft not uploaded')
-            result = subprocess.run(['docker', '--config', config, 'run', '--rm', '--entrypoint',
-                                     'id', references[1], '-u'], capture_output=True, text=True)
-            if result.returncode or result.stdout.strip() != '1000':
+            if image_uid(config, references[1]) != '1000':
                 raise RuntimeError('Selected FerretDB image must use UID 1000; portal draft not uploaded')
 
 
