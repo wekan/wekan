@@ -98,10 +98,11 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** Every bundle, snap and Docker image is **about 160 MiB
-smaller**: translations are one copy on the server, and the files of a test
-build no longer ship. Languages that are a copy of another, such as en-IT, no
-longer fail on the server. The Docker image's start no longer logs paths read
+**In short:** Every bundle, snap and Docker image is **about 220 MiB
+smaller**: translations are one copy on the server, and neither a test build's
+files, the TypeScript compiler nor Azure's sign-in libraries ship any more.
+Languages that are a copy of another, such as en-IT, no longer fail on the
+server. The Docker image's start no longer logs paths read
 from the environment, as **GitHub CodeQL** found, and the documentation says
 the license rule plainly: **permissive licenses, no GPL**.
 
@@ -156,6 +157,35 @@ Playwright spec `i18n-one-copy.e2e.js` pin it.
 build, so a bundle built after the tests carried them. `bundle-trim.mjs`, which
 every release path runs, drops them with their manifest entries.
 `tests/bundleTrim.test.cjs` pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09424fd9ba8e9a2c2afc5d4031d931b4af837792">The TypeScript compiler no longer ships, 23 MiB less: it is named in the bundle and loaded nowhere</a>. Thanks to xet7.</summary>
+
+`releases/prune-unreachable-npm.mjs` had it in its policy and kept it anyway,
+because it counts every quoted package name as a reference: a language map's
+"typescript", the package.json files inlined into the server bundle, parser
+names and i18next's optional peer dependency. For typescript only a load now
+counts - `require()`, `import`, `import()`, `module.link()`, `Npm.require()`
+or a dependency - and any load still keeps it. The pruned bundle boots and
+passes the boards, cards and translations Playwright specs.
+`tests/pruneUnreachableNpm.test.cjs` pins both directions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de7b622960b7f471e173348bf999ef47364e2062">Azure Blob storage is WeKan's own adapter on @azure/storage-blob, without @azure/identity and MSAL, 36 MiB less</a>. Thanks to xet7.</summary>
+
+The package adapter loaded `@azure/identity` and the MSAL libraries for
+Microsoft Entra passwordless sign-in, which WeKan never uses: Admin Panel /
+Attachments always gives a connection string or an account key. The new
+`server/lib/azureBlobAdapter.js` takes the same settings and keeps the old
+answers. WeKan's login with Azure AD is OIDC and is not affected. The
+`@azure/msal-node` override for GHSA-xcx6-jx8p-x3h5 went with the package.
+`tests/azureBlobAdapter.test.cjs` runs it against Azurite, Microsoft's Azure
+Storage emulator; `tests/msalNodeAdvisory.test.cjs` pins that no MSAL package
+is locked.
 
 </details>
 
