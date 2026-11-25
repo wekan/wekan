@@ -35,14 +35,19 @@ also set anybody's password: **Admin Panel / People / People**, the user's
 
 **Without email: repair it in the database**
 
-> Newer WeKan Snaps no longer bundle a MongoDB shell (`mongo` or `mongosh`),
-> and the default `docker-compose.yml` runs the database as FerretDB in the
-> container `wekan-ferretdb` (published on `127.0.0.1:27017`), which has no
-> shell inside it either. Connect with a `mongosh` installed on the host, or
-> with DBGate, to the same database: on Snap `mongodb://127.0.0.1:27019/wekan`,
-> on the default Docker `mongodb://127.0.0.1:27017/wekan`. The commands below
-> are the same once you are connected. In `mongosh`, `update` is deprecated;
-> `updateOne` does the same here.
+> Newer WeKan Snaps no longer bundle a MongoDB shell (`mongo` or `mongosh`).
+> The default `docker-compose.yml` runs the database as FerretDB in the
+> container `wekan-ferretdb` (published on `127.0.0.1:27017`), and since
+> FerretDB v1.116.0 its `ferretdb` binary is also `mongosh`, written in Go:
+> `docker exec -it wekan-ferretdb mongosh wekan` opens the `wekan` database
+> of that same FerretDB, with no address needed. It has the common `db`,
+> collection and cursor methods, `show` and `use`, but no Node.js modules
+> (`require`). On Snap, or with an older FerretDB image, connect with a
+> `mongosh` installed on the host, or with DBGate: on Snap
+> `mongodb://127.0.0.1:27019/wekan`, on the default Docker
+> `mongodb://127.0.0.1:27017/wekan`. The commands below are the same once you
+> are connected. In `mongosh`, `update` is deprecated; `updateOne` does the
+> same here.
 
 **a) Wekan Snap**
 ```
@@ -123,8 +128,10 @@ Then login to Wekan and change any users passwords at `Admin Panel / People / Pe
 
 **Docker**
 
-1. Change to inside of wekan database Docker container (a MongoDB container;
-   for the default FerretDB container see the note above):
+For the default FerretDB container, the one step
+`docker exec -it wekan-ferretdb mongosh wekan` replaces steps 1, 2 and 4.
+
+1. Change to inside of wekan database Docker container (a MongoDB container):
 ```
 docker exec -it wekan-db bash
 ```
