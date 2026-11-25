@@ -140,7 +140,8 @@
       "minimatch": "^11.0.1"
     },
     "@babel/cli": {
-      "minimatch": "^11.0.1"
+      "minimatch": "^11.0.1",
+      "glob": "$glob"
     },
     "uuid": "^14.0.0",
     "webpack-dev-server": "^5.2.6",
