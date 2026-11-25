@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.32 2026-11-25 WeKan ® release
 
 Every bundle, snap and Docker image is **about 220 MiB
 smaller**: translations are one copy on the server, and neither a test build's
@@ -17,7 +17,7 @@ Docker image's start no longer logs paths read
 from the environment, as **GitHub CodeQL** found, and the documentation says
 the license rule plainly: **permissive licenses, no GPL**.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.32](CHANGELOG-big.md#v1332-2026-11-25-wekan--release)
 
 # v13.31 2026-11-25 WeKan ® release
 
@@ -66,11 +66,3 @@ address retention** and a **personal-data inventory** begin the missing law and
 standard features, and every **feature page** of the docs has one shape.
 
 [All changes in v13.28](CHANGELOG-big.md#v1328-2026-11-23-wekan--release)
-
-# v13.27 2026-11-22 WeKan ® release
-
-**CodeQL** alert #611 is fixed: the **autolink rules** find the
-links already in a card's text in linear time, so a description built of
-thousands of brackets no longer takes seconds to render.
-
-[All changes in v13.27](CHANGELOG-big.md#v1327-2026-11-22-wekan--release)

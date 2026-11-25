@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.32 2026-11-25 WeKan ® release
 
 **In short:** Every bundle, snap and Docker image is **about 220 MiB
 smaller**: translations are one copy on the server, and neither a test build's
