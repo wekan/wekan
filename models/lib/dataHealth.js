@@ -125,6 +125,11 @@ const finite = v => typeof v !== 'number' || Number.isFinite(v);
 const filled = v => !(v === null || v === undefined || (typeof v === 'string' && v.trim() === '') ||
   (Array.isArray(v) && v.length === 0));
 const str = v => (v === null || v === undefined ? '' : String(v));
+// #6944: a field the scan reads as a list, only when it IS one. Older and
+// imported data has single objects and scalars where WeKan writes arrays
+// (a user's emails, a card's customFields); `|| []` lets such an object
+// through, and one iteration of it threw and ended the whole scan.
+const asArray = v => (Array.isArray(v) ? v : []);
 
 // The boards a custom field is on. Current WeKan writes an array `boardIds`;
 // fields from before v2.49 (mutate-boardIds-in-customfields, now the startup
@@ -210,7 +215,7 @@ function dedupeMembers(members) {
 }
 
 function deadFieldValues(card, fieldBoards) {
-  return (card.customFields || []).filter(v => v && filled(v.value) &&
+  return asArray(card.customFields).filter(v => v && filled(v.value) &&
     !(v._id && (fieldBoards.get(str(v._id)) || []).includes(str(card.boardId))));
 }
 
@@ -339,7 +344,7 @@ async function scanDataHealth(db, { pause = async () => {} } = {}) {
   }
   const emails = new Map();
   for await (const u of db.collection('users').find({}, { projection: { 'emails.address': 1 } })) {
-    for (const e of u.emails || []) {
+    for (const e of asArray(u.emails)) {
       const key = str(e && e.address).trim().toLowerCase();
       if (!key) continue;
       if (emails.has(key) && emails.get(key) !== str(u._id)) t.add('user-duplicate-email', u._id);

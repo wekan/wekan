@@ -602,5 +602,27 @@ async function test(name, fn) { await fn(); passed += 1; console.log('  ok -', n
     assert.strictEqual(count(after, 'customfield-dead-board'), 1, 'fDead only');
   });
 
+  // #6944: older and imported data has a single object or a scalar where WeKan
+  // writes an array. One such user's emails ended the scan with "object is
+  // not iterable", so 30 of 31 checks never ran.
+  await test('#6944: a non-array emails or customFields is skipped, and every check still runs', async () => {
+    const data = sample();
+    data.users.push({ _id: 'uObj', emails: { address: 'anna@x.nl' } }, { _id: 'uStr', emails: 'anna@x.nl' });
+    card(data, 'twin').customFields = { _id: 'fDead', value: 'x' };
+    const scan = await scanDataHealth(fakeDb(data));
+    assert.strictEqual(scan.results.length, CHECKS.length, 'every check reported');
+    // Negative: the arrays beside them are still read - u1 and u2 share an email.
+    assert.strictEqual(count(scan, 'user-duplicate-email'), count(await scanDataHealth(fakeDb(sample())), 'user-duplicate-email'));
+    assert.ok(count(scan, 'user-duplicate-email') > 0);
+    await repairDataHealth(fakeDb(data), 'card-dead-field-values', { confirmed: true });
+    assert.deepStrictEqual(card(data, 'twin').customFields, { _id: 'fDead', value: 'x' }, 'the repair leaves what it cannot read');
+  });
+
+  await test('#6944: negative - no document field is iterated with a bare `|| []`', async () => {
+    const src = read('models/lib/dataHealth.js');
+    assert.doesNotMatch(src, /\b(?:u|card|c|b|f)\.[A-Za-z]+ \|\| \[\]/);
+    assert.match(src, /const asArray = v => \(Array\.isArray\(v\) \? v : \[\]\);/);
+  });
+
   console.log(`\n${passed} tests passed`);
 })().catch(error => { console.error(error); process.exit(1); });
