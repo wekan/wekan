@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.31 2026-11-25 WeKan ® release
 
 **In short:** A person can **download everything WeKan holds about them**
 and **be erased everywhere**; an operator publishes a **privacy notice, terms
