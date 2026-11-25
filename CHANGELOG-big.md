@@ -123,6 +123,22 @@ Problems: this changes what a log line carries, and there is no attempt to see.
 
 </details>
 
+and has the following developer-tooling fix:
+
+**Security downloads** - Artifact Hub's report of the Helm chart.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca788de4d701905f7a2e91de9bc0daa0ee9a91e0">A chart version not scanned yet says so, and the newest scanned version is downloaded</a>. Thanks to xet7.</summary>
+
+Artifact Hub scans a new chart version some hours after it is published, and
+until then answers its security report with an empty body, which
+`releases/sec/download_artifacthub_security.py` reported as "the answer is not
+JSON". Now `status.txt` says the version is not scanned yet, and the newest
+scanned version is downloaded into `scanned-<version>/` beside it.
+`tests/securityDownloadArtifactHub.test.cjs` pins it.
+
+</details>
+
 and reorganises the documentation:
 
 **Licenses** - what WeKan accepts, in plain words.
