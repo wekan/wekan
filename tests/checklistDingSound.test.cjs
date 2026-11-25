@@ -8,7 +8,7 @@
 //     off by default.
 //  2. client/lib/checklistDingSound.js - a synthesized Web Audio tone (no
 //     bundled audio file: the issue thread rejected a bundled sound because
-//     its license was not copyfree/MIT/BSD). It must guard on AudioContext
+//     its license was not a permissive one). It must guard on AudioContext
 //     being available and never throw.
 //  3. client/components/cards/checklists.js's checklistItemDetail toggle
 //     handler - plays the sound only on the unchecked -> checked transition,

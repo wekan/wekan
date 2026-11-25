@@ -7,7 +7,7 @@ For all code at WeKan GitHub Organization https://github.com/wekan
 - The AI a human works with is thanked in one place only: https://wekan.fi/sponsors , under "AI donated by. All code and PRs verified by xet7", where Claude, Codex and GitHub Copilot are listed with the other sponsors. There were too many AI mentions before, so they were all moved to that one page.
 - Maintainer Lauri Ojansivu (xet7) commits directly to the `main` branch as `Lauri Ojansivu <x@xet7.org>`, and an AI working for the maintainer commits the same way, under that same name. Everyone else sends a pull request.
 - All code in pull requests need to have permission already to add it to WeKan with MIT license, and will become MIT license.
-- For any dependencies, permissive licenses like https://copyfree.org are preferred
+- For any dependencies, permissive licenses (MIT, BSD, ISC, Apache-2.0 and the like) are preferred. No GPL: GPL code would turn the license of the whole program into GPL
 - For anything currently that is non-permissive (like GPL, AGPL, SSPL), those will be replaced with permissive-licensed alternatives
 - All code is checked and validated by xet7 and many different security AI. If code is real working fix or feature, it usually will be merged.
 - All known vulnerabilities have been fixed at newest WeKan, please upgrade https://wekan.fi/upgrade/

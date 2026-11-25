@@ -649,7 +649,7 @@ sandbox, and the pane in Chromium and WebKit.
 
 Beside Backup, a new pane streams the database, filesystem attachments,
 avatars and logs to a target directory within seconds, and restores them to a
-chosen moment. Its built-in engines are copyfree - WeKan's own code, Node.js
+chosen moment. Its built-in engines are permissively licensed - WeKan's own code, Node.js
 and node:sqlite - and start no other program: an oplog engine on a MongoDB
 replica set or FerretDB with its oplog, a SQLite page engine storing only
 changed pages, and file streams by watching and rescans. Litestream is an

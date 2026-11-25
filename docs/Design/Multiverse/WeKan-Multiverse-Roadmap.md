@@ -87,7 +87,7 @@ This was added at [WeKan v7.93](../../../CHANGELOG.md#v793-2025-07-18-wekan--rel
 - Both On-Premise AND MultiCloud possible
   - https://github.com/serverless/multicloud
   - https://github.com/xet7/multicloud
-- License: MIT and other https://copyfree.org
+- License: MIT and other permissive licenses (BSD, ISC, Apache-2.0 and the like), no GPL
 
 ## List of realtime web frameworks
 

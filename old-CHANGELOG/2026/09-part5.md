@@ -208,7 +208,7 @@ Admin Panel labels are translated in every locale file.
 <summary><a href="https://github.com/wekan/wekan/commit/e5e4c97154f5ecf940958504c65f1159cf0b7165">Frappe Gantt and DHTMLX Gantt added as their own Board View pages; report charts now draw with Chart.js</a>. Thanks to xet7.</summary>
 
 Three full-featured, permissively-licensed charting libraries replace the
-plain CSS bars used so far, chosen for a copyfree license and a minimal,
+plain CSS bars used so far, chosen for a permissive license and a minimal,
 auditable dependency tree over feature richness:
 [Frappe Gantt](https://github.com/frappe/gantt) (MIT, zero runtime
 dependencies, ~15 KB gzipped), [DHTMLX Gantt Community Edition](https://dhtmlx.com/docs/products/dhtmlxGantt/)
@@ -481,7 +481,7 @@ popup.
 [#5427](https://github.com/wekan/wekan/issues/5427) asked for a short sound
 when a checklist task is checked off. An earlier attempt to bundle a
 downloaded (Pixabay) sound file was rejected in the issue thread because its
-license was not copyfree/MIT/BSD-compatible for WeKan to ship, so instead
+license was not a permissive one WeKan can ship, so instead
 `client/lib/checklistDingSound.js` synthesizes a short two-note chime with
 the Web Audio API (`OscillatorNode` + a `GainNode` envelope) - no audio file,
 no licensing question. Playback is wrapped in try/catch and guarded on

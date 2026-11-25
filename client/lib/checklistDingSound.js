@@ -4,8 +4,9 @@
 //
 // The sound is synthesized with the Web Audio API rather than bundled as an
 // audio file on purpose: the issue thread rejected a bundled file (a Pixabay
-// download) because its license was not copyfree/MIT/BSD-compatible for
-// WeKan to ship. A synthesized tone has no such licensing question at all.
+// download) because its license was not a permissive one (MIT, BSD,
+// Apache-2.0 and the like) that WeKan can ship. A synthesized tone has no such
+// licensing question at all.
 //
 // Two short notes (a quick major-third-ish chime) with a fast attack and an
 // exponential fade-out, so it reads as a "ding" rather than a raw beep.

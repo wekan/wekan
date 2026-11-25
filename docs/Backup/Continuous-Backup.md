@@ -44,7 +44,7 @@ directory is still one place: with several servers it must be on storage they al
 volume, NFS, an [rclone mount](Rclone/Rclone.md)), or the server that takes over starts a new
 generation instead of continuing.
 
-## Licences: only copyfree code by default
+## Licences: permissive only, no GPL
 
 The built-in engines are part of WeKan and use the MIT licence. They depend
 only on:
