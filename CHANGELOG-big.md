@@ -96,6 +96,57 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The **UCS App Center** publisher works again with the distroless
+FerretDB image, so v13.32 can go to Univention. **Omi** gets strings for
+deleting a Gitea folder's orphans in every language, and the Azure Blob test no
+longer hangs where no node is on the PATH.
+
+This release fixes the following bugs:
+
+**UCS App Center** - publishing a release to Univention's App Center.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e42c01c77d506a0fca11d1eccad29cb15311feff">The FerretDB UID check works on the distroless image, so v13.32 can be published</a>. Thanks to xet7.</summary>
+
+The UCS App Center run for v13.32 stopped before uploading the portal draft:
+"Selected FerretDB image must use UID 1000". The image does use UID 1000, but
+the check ran `docker run --entrypoint id` in it, and the FerretDB image is
+distroless: there is no `id` program, so the check failed on every image. Now
+the UID is read without running anything in the image - its USER from `docker
+image inspect` and, for a user name, the uid from the image's own
+`/etc/passwd`. `tests/ucsRelease.test.py` drives it with a distroless-style
+passwd, and a negative test fails when the publisher runs `id`, `sh` or another
+tool inside an image again.
+
+</details>
+
+and has the following developer-tooling fix:
+
+**Tests** - the Azure Blob storage test.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/586e44739bff21406e43e490b72744cd0d814015">The Azurite test starts Azurite with its own node, so it no longer hangs</a>. Thanks to xet7.</summary>
+
+Azurite's `node_modules/.bin` shim starts with `#!/usr/bin/env node`. Where no
+node is on the PATH, Azurite never started, the Azure SDK retried every request
+and the suite runner killed `tests/azureBlobAdapter.test.cjs` after 300 s. It
+now runs Azurite's script with `process.execPath`: 3 tests in 4 s.
+
+</details>
+
+and updates the translations:
+
+**Translations** - strings for Omi's Gitea folder pages.
+
+**Languages updated:** 244 languages.
+
+- [Delete all orphans and Gitea database migration version, in every language](https://github.com/wekan/wekan/commit/0d370b84b1b03e047732270b2cea1a88101c21b4):
+  four new strings Omi copies into its catalogs. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.32 2026-11-25 WeKan ® release
 
 **In short:** Every bundle, snap and Docker image is **about 220 MiB

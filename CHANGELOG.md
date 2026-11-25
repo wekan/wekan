@@ -5,6 +5,15 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The **UCS App Center** publisher works again with the distroless
+FerretDB image, so v13.32 can go to Univention. **Omi** gets strings for
+deleting a Gitea folder's orphans in every language, and the Azure Blob test no
+longer hangs where no node is on the PATH.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.32 2026-11-25 WeKan ® release
 
 Every bundle, snap and Docker image is **about 220 MiB
