@@ -222,6 +222,7 @@ test('the platform fetch() is used only for fixed, WeKan-chosen hosts (negative)
     // API_IMPORT_ALLOWED_PRIVATE_HOSTS, without redirects; every other
     // request goes through fetchSafe on the next line.
     'server/lib/apiImportRequest.js': 'only a host in API_IMPORT_ALLOWED_PRIVATE_HOSTS, set by the administrator',
+    'imports/i18n/tap.js': "only this WeKan's own /i18n/<hash>.json, at the page's origin (models/lib/i18nAsset.js)",
     // The services' clients DEFINE fetch(credentials, id, request) - the
     // contract of models/lib/apiImportServices.js - and send every request
     // through the `request` they are given (checked below), never the platform's.

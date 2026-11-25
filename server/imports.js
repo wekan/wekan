@@ -225,6 +225,7 @@ import '/server/cron/syncedCron';
 import '/server/card-opened-webhook';
 import '/server/cards-loading';
 import '/server/dynamicImportOrigin';
+import '/server/i18nAssets';
 
 // ----------------------------------------------------------------------------
 // 8. Server — import helpers

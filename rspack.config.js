@@ -62,16 +62,20 @@ module.exports = defineConfig(Meteor => ({
   }),
   module: {
     rules: [
-      ...(Meteor.isServer
-        ? [{
-            test: /\.i18n\.json$/,
-            include: path.resolve(__dirname, 'imports/i18n/data'),
-            // English is the synchronous fallback in tap.js on both platforms.
-            exclude: /[/\\]en\.i18n\.json$/,
-            type: 'javascript/auto',
-            use: [path.resolve(__dirname, 'npm-packages/meteor-i18n-server-loader')],
-          }]
-        : []),
+      // Every dictionary but English is ONE file in the bundle, a server asset.
+      // The server reads it; the browser's module is only its hash, and
+      // imports/i18n/tap.js fetches /i18n/<hash>.json (server/i18nAssets.js).
+      // English is the synchronous fallback in tap.js on both platforms, so it
+      // stays bundled.
+      {
+        test: /\.i18n\.json$/,
+        include: path.resolve(__dirname, 'imports/i18n/data'),
+        exclude: /[/\\]en\.i18n\.json$/,
+        type: 'javascript/auto',
+        use: [Meteor.isServer
+          ? path.resolve(__dirname, 'npm-packages/meteor-i18n-server-loader')
+          : { loader: path.resolve(__dirname, 'npm-packages/meteor-i18n-server-loader'), options: { target: 'client' } }],
+      },
       {
         test: /\.jade$/,
         use: [path.resolve(__dirname, 'npm-packages/meteor-jade-loader')],

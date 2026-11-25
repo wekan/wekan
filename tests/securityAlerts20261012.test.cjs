@@ -99,7 +99,7 @@ test('567/568: the i18n loader writes a literal that stays one literal', () => {
 
 test('567/568: the loader refuses a file name that is not a dictionary name (negative)', () => {
   const run = (resourcePath) => loader.call({ resourcePath, emitFile() {} }, '{"a":"b"}');
-  assert.match(run('/x/imports/i18n/data/pt-BR.i18n.json'), /Assets\.absoluteFilePath\("build-assets\\u002fi18n\\u002fpt-BR\.i18n\.[0-9a-f]{20}\.json"\)/);
+  assert.match(run('/x/imports/i18n/data/pt-BR.i18n.json'), /Assets\.absoluteFilePath\("build-assets\\u002fi18n\\u002f[0-9a-f]{20}\.json"\)/);
   for (const bad of ["fr');process.exit(1);('.i18n.json", 'fr".i18n.json', 'f r.i18n.json', 'fr\u2028.i18n.json']) {
     assert.throws(() => run(`/x/${bad}`), /refusing translation file name/, bad);
   }

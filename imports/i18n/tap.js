@@ -4,6 +4,28 @@ import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 import languages from './languages';
 import { unwrapI18nModule } from './loadHelpers';
+const { i18nAssetHash, i18nAssetUrl } = require('/models/lib/i18nAsset');
+
+// In the browser a language's module is only its dictionary's hash, and the
+// dictionary is fetched from the server's one copy (server/i18nAssets.js): the
+// bundle used to carry every dictionary twice. One fetch per dictionary; a
+// failed one is forgotten, so the next attempt asks again. On the server the
+// module is the dictionary itself and nothing is fetched.
+const fetchedDictionaries = new Map();
+function fetchDictionary(hash) {
+  if (!fetchedDictionaries.has(hash)) {
+    const prefix = (typeof __meteor_runtime_config__ !== 'undefined' &&
+      __meteor_runtime_config__.ROOT_URL_PATH_PREFIX) || '';
+    const pending = fetch(i18nAssetUrl(hash, prefix), { credentials: 'same-origin' }).then(response => {
+      if (!response.ok) throw new Error(`translation ${hash}: HTTP ${response.status}`);
+      return response.json();
+    });
+    pending.catch(() => fetchedDictionaries.delete(hash));
+    fetchedDictionaries.set(hash, pending);
+  }
+  // A copy: custom translations are merged into what this returns.
+  return fetchedDictionaries.get(hash).then(data => ({ ...data }));
+}
 const { normalizeLanguageTag } = require('./browserLanguage');
 // #6503: STATICALLY bundle the default English translations. Every other
 // language still loads lazily via `import('./data/<tag>.i18n.json')`, but the
@@ -194,6 +216,8 @@ export const TAPi18n = {
       // that merely has a "default" key — the translation data itself contains a
       // literal "default" key (#5756). Shared with init()'s bundled English.
       let data = unwrapI18nModule(await languages[key].load());
+      const dictionaryHash = i18nAssetHash(data);
+      if (dictionaryHash) data = await fetchDictionary(dictionaryHash);
 
       let custom_translations = [];
       await this.loadTranslation(key);
