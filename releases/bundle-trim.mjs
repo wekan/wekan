@@ -365,6 +365,48 @@ if (flag('drop-legacy-client')) {
   legacyNote = `, dropped the legacy client (${removed - before} files)`;
 }
 
+// 4. A test build's client assets. `meteor test` (build.sh's mocha run, with
+//    METEOR_LOCAL_DIR=.meteor/local-test) has rspack write its assets to
+//    public/build-assets-local-test-app-test/, and public/ is copied into every
+//    later build - so a release bundle built after the tests carried a second,
+//    17 MiB set of wasm and js that only the test app asks for. Nothing a
+//    production client loads is in it: its URLs are /build-assets-local-*/, and
+//    the production app's own are /build-assets/ and /build-chunks/. Each
+//    client program's manifest names every file, and webapp serves from that
+//    list, so the entries go with the files.
+let testAssetsNote = '';
+{
+  const before = removed;
+  const isTestAssets = rel => /^app\/build-assets-local-[^/]*\//.test(rel);
+  let programs = [];
+  try { programs = readdirSync(join(bundle, 'programs'), { withFileTypes: true }); } catch { /* not a bundle */ }
+  for (const p of programs) {
+    if (!p.isDirectory() || !p.name.startsWith('web.')) continue;
+    const programDir = join(bundle, 'programs', p.name);
+    const programJson = join(programDir, 'program.json');
+    if (existsSync(programJson)) {
+      rewriteJson(programJson, program => {
+        if (Array.isArray(program.manifest)) program.manifest = program.manifest.filter(m => !isTestAssets(String(m.path || '')));
+      });
+    }
+    const appDir = join(programDir, 'app');
+    let entries = [];
+    try { entries = readdirSync(appDir, { withFileTypes: true }); } catch { /* no app dir */ }
+    for (const e of entries) {
+      if (!e.isDirectory() || e.isSymbolicLink() || !e.name.startsWith('build-assets-local-')) continue;
+      const dropDir = dir => {
+        for (const f of readdirSync(dir, { withFileTypes: true })) {
+          if (f.isDirectory() && !f.isSymbolicLink()) dropDir(join(dir, f.name));
+          else drop(join(dir, f.name));
+        }
+      };
+      dropDir(join(appDir, e.name));
+      try { rmSync(join(appDir, e.name), { recursive: true, force: true }); } catch { /* leftovers are harmless */ }
+    }
+  }
+  if (removed > before) testAssetsNote = `, dropped a test build's client assets (${removed - before} files)`;
+}
+
 const mib = n => (n / 1048576).toFixed(0);
 const uwsNote = transport === 'sockjs'
   ? `removed uWebSockets.js entirely (transport is sockjs)`
@@ -377,5 +419,5 @@ console.log(
   `bundle-trim: removed ${removed} files, ${mib(freed)} MiB from ${bundle} ` +
   `(${uwsNote}${prebuildNote}` +
   `${flag('keep-maps') ? ', kept source maps' : `, dropped ${maps.length} source maps`}` +
-  `${legacyNote})`,
+  `${legacyNote}${testAssetsNote})`,
 );

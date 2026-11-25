@@ -526,4 +526,45 @@ test('declaration pruning reduces server file count without deleting TypeScript 
   assert.match(trim(bundle), /removed 0 server dependency declaration files/);
 });
 
+// ── A test build's client assets ──────────────────────────────────────────
+// `meteor test` writes public/build-assets-local-test-app-test/, and public/
+// goes into every later build: a release bundle carried 17 MiB of the test
+// app's wasm and js. They go, with their manifest entries; the production
+// app's own build-assets/ and build-chunks/ stay.
+function testAssetsBundle(dir) {
+  const entry = (rel, url) => ({ path: rel, where: 'client', type: 'asset', cacheable: false, url, size: 4 });
+  const manifest = [
+    entry('app/build-assets-local-test-app-test/a.wasm', '/build-assets-local-test-app-test/a.wasm'),
+    entry('app/build-assets-local-test-app-test/b.js', '/build-assets-local-test-app-test/b.js'),
+    entry('app/build-assets/c.wasm', '/build-assets/c.wasm'),
+    entry('app/build-chunks/1.js', '/build-chunks/1.js'),
+    entry('app/build-assets-localish.txt', '/build-assets-localish.txt'),
+  ];
+  const files = { 'programs/web.browser/program.json': JSON.stringify({ format: 'web-program-pre1', manifest }) };
+  for (const m of manifest) files[`programs/web.browser/${m.path}`] = 'body';
+  return makeBundle(dir, files);
+}
+
+test("a test build's client assets go, with their manifest entries", dir => {
+  const bundle = testAssetsBundle(dir);
+  fs.chmodSync(path.join(bundle, 'programs/web.browser/program.json'), 0o444);
+  const out = trim(bundle);
+  assert.match(out, /dropped a test build's client assets \(2 files\)/);
+  assert.ok(!exists(bundle, 'programs/web.browser/app/build-assets-local-test-app-test'));
+  const program = JSON.parse(fs.readFileSync(path.join(bundle, 'programs/web.browser/program.json'), 'utf8'));
+  assert.deepEqual(program.manifest.map(m => m.path),
+    ['app/build-assets/c.wasm', 'app/build-chunks/1.js', 'app/build-assets-localish.txt']);
+  for (const m of program.manifest) assert.ok(exists(bundle, `programs/web.browser/${m.path}`), `${m.path} is named and on disk`);
+  assert.equal(fs.statSync(path.join(bundle, 'programs/web.browser/program.json')).mode & 0o777, 0o444, 'the manifest keeps its mode');
+});
+
+test("negative: the production app's assets stay, and a second trim finds nothing more", dir => {
+  const bundle = testAssetsBundle(dir);
+  trim(bundle);
+  for (const rel of ['app/build-assets/c.wasm', 'app/build-chunks/1.js', 'app/build-assets-localish.txt']) {
+    assert.ok(exists(bundle, `programs/web.browser/${rel}`), rel);
+  }
+  assert.doesNotMatch(trim(bundle), /test build's client assets/);
+});
+
 console.log(`\nbundleTrim: ${passed} tests passed`);
