@@ -96,6 +96,56 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** WeKan's default database runs on **FerretDB v1.116.0**, whose one
+static binary is also **mongosh, sh and bash, written in Go**: `docker exec -it
+wekan-ferretdb mongosh wekan` works again in the distroless FerretDB image,
+with no Node.js and no C library added. The same FerretDB release moves
+**gorilla/websocket** past GO-2026-6278.
+
+This release has the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bec508107f43bb8d5892cf4d11ea12903a0c6d57">FerretDB v1.116.0: mongosh, sh and bash in the FerretDB container again, in Go</a>. Thanks to xet7.</summary>
+
+Since v1.115.0 the FerretDB image is distroless static, which brought its
+scanned findings to none but left `docker exec -it wekan-ferretdb mongosh`
+and `... bash` with nothing to run. In
+[FerretDB v1.116.0](https://github.com/wekan/FerretDB/releases/tag/v1.116.0)
+the static `ferretdb` binary is all three, BusyBox-style: it picks what to be
+from the name it is started as, and `/usr/bin/mongosh`, `/bin/sh` and
+`/bin/bash` are links to `/ferretdb`
+([the shells](https://github.com/wekan/FerretDB/commit/a87f3b232fd5659a9a45bf4bb1ecfe81c088543d),
+[their links](https://github.com/wekan/FerretDB/commit/1ae1fc1d481b60a429420aee0e4450e1ee80ca54),
+[all in /usr/bin](https://github.com/wekan/FerretDB/commit/3ea28b612ac8f160f9f73defd484bfa572ae97ae)).
+
+- **mongosh** is the goja JavaScript engine with the Go driver: `--eval`,
+  script files, piped statements and an interactive prompt with history; the
+  common `db`, collection and cursor methods, `rs.status()`, `show` and `use`,
+  in mongosh's own output. With no address it connects to the FerretDB it
+  runs in. Node.js modules (`require`) are not available.
+- **sh and bash** are the mvdan.cc/sh interpreter with `ls`, `cat`, `cp`,
+  `mv`, `rm`, `mkdir`, `df`, `du`, `ps`, `env`, `grep`, `head`, `tail`, `wc`
+  and more built in; any other program is "not available in this image"
+  (exit 127). `--build-arg FERRETDB_SHELL=false` leaves the sh and bash links
+  out.
+
+The image still has no Node.js, no C library and no C++ runtime: FerretDB's
+`tests/docker-runtime.py` and `integration/docker_release_test.sh` refuse any
+program that is not `/ferretdb`. The same release requires gorilla/websocket's
+newest commit, past GO-2026-6278 (a weak PRNG for the WebSocket mask key, found
+by the Quay scanner through statsviz in the debug handler,
+[the update](https://github.com/wekan/FerretDB/commit/51b4b1cb0c37480561e70ada7f6509670c0f8fe5)),
+and FerretDB's `tests/dependency-floors.py` keeps it there. WeKan's
+`docker-compose.yml` takes the newest FerretDB release, so nothing in WeKan
+pins a version. [Forgot Password](docs/Features/Login-Page/Forgot-Password.md)
+now repairs the database with `docker exec -it wekan-ferretdb mongosh wekan`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.33 2026-11-26 WeKan ® release
 
 **In short:** The Docker entrypoint logs **no value read from the environment**

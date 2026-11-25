@@ -5,6 +5,16 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+WeKan's default database runs on **FerretDB v1.116.0**, whose one
+static binary is also **mongosh, sh and bash, written in Go**: `docker exec -it
+wekan-ferretdb mongosh wekan` works again in the distroless FerretDB image,
+with no Node.js and no C library added. The same FerretDB release moves
+**gorilla/websocket** past GO-2026-6278.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.33 2026-11-26 WeKan ® release
 
 The Docker entrypoint logs **no value read from the environment**
