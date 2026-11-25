@@ -52,7 +52,11 @@ const freePort = () => new Promise(resolve => {
 test('against Azurite: up, down, a range, listed, removed', { skip: !fs.existsSync(azuriteBin) && 'Azurite is not installed' }, async t => {
   const dir = fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'azurite-'));
   const port = await freePort();
-  const server = spawn(azuriteBin, ['--silent', '--skipApiVersionCheck', '--location', dir, '--blobHost', '127.0.0.1', '--blobPort', String(port)], { stdio: 'ignore' });
+  // Its node_modules/.bin shim starts with `#!/usr/bin/env node`: where no node
+  // is on the PATH (the sandbox runs the suites by the full path of its node),
+  // Azurite never started and the SDK's retries made the test hang until the
+  // suite runner's 300 s timeout. Run its script with this test's own node.
+  const server = spawn(process.execPath, [fs.realpathSync(azuriteBin), '--silent', '--skipApiVersionCheck', '--location', dir, '--blobHost', '127.0.0.1', '--blobPort', String(port)], { stdio: 'ignore' });
   t.after(() => { server.kill(); fs.rmSync(dir, { recursive: true, force: true }); });
   const connectionString = `DefaultEndpointsProtocol=http;AccountName=${DEV_ACCOUNT};AccountKey=${DEV_KEY};BlobEndpoint=http://127.0.0.1:${port}/${DEV_ACCOUNT};`;
   const { BlobServiceClient } = require('@azure/storage-blob');
