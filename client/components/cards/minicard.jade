@@ -15,6 +15,7 @@ template(name="minicard")
     class="{{agingClass}}"
     class="{{#if showCardColorOnMinicard}}{{#if colorClass}}minicard-{{colorClass}}{{/if}}{{/if}}"
     class="{{#if minicardCollapsed}}minicard-collapsed{{/if}}"
+    class="{{#unless showMinicardMenu}}minicard-no-menu{{/unless}}"
     class="{{#if hasUnreadComments}}minicard-unread-comments{{/if}}"
     class="{{#if hasUnreadChanges}}minicard-unread-changes{{/if}}"
     class="{{#if splitDoneHere}}minicard-split-done{{/if}}"
@@ -28,9 +29,12 @@ template(name="minicard")
       .minicard-move-buttons.sr-only
         a.js-card-move-up(href="#" role="button" aria-label="{{_ 'move-card-up'}}") {{_ 'move-card-up'}}
         a.js-card-move-down(href="#" role="button" aria-label="{{_ 'move-card-down'}}") {{_ 'move-card-down'}}
+    //- #6943: Board Settings / Card (Card Actions) and the Admin Panel can
+      hide it; the opened card's own menu has the same actions.
     if canModifyCard
-      a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-        i.fa.fa-bars
+      if showMinicardMenu
+        a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+          i.fa.fa-bars
     //- Done here, in a list split into Doing and Done (listFlowPolicies.jade).
     +minicardSplitDone
     if showDependencyConnectHandle

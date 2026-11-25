@@ -190,6 +190,13 @@
   display: block;
   margin-inline-end: 84px;
 }
+/* #6943: the 84px beside the labels and the custom fields is the corner
+   that holds the card actions menu. With the menu hidden (Board Settings /
+   Card, or the Admin Panel) and no drag handle there, the content takes it. */
+.minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-labels,
+.minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-custom-fields {
+  margin-inline-end: 0;
+}
 .minicard .minicard-custom-field {
   display: flex;
 }

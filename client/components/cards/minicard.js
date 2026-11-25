@@ -87,6 +87,9 @@ Template.minicard.helpers({
   },
   // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
   showCollapseControl() { return minicardBoardOf(this)?.allowsMinicardCollapse !== false; },
+  // #6943: the card actions menu, unless Board Settings / Card or the Admin
+  // Panel hides it (allowsMinicardMenu, a flag a board that never set reads as on).
+  showMinicardMenu() { return minicardBoardOf(this)?.allowsMinicardMenu !== false; },
   showLabelsAboveTitle() {
     const board = minicardBoardOf(this);
     return board?.labelsAboveTitleOnMinicard === true && (board.allowsMinicardCollapse === false || !Utils.getCardCollapseState(this));

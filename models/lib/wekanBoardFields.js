@@ -38,6 +38,7 @@ export const BOARD_COPIED = [
   'allowsChecklistDueDateOnMinicard', 'allowsLocationOnMinicard', 'allowsSwimlaneNameOnCard',
   'allowsFlowtimeOnMinicard', 'allowsPomodoroOnMinicard', 'allowsAttachmentListOnMinicard',
   'allowsTextNotesOnMinicard', 'allowsCommentCountOnCard', 'allowsActivitiesOnMinicard',
+  'allowsMinicardMenu',
   'allowsCardColorOnCard', 'allowsCardColorOnMinicard', 'allowsParentCardOnCard',
   'allowsParentCardOnMinicard', 'allowsLinkedCardOnCard', 'allowsLinkedCardOnMinicard',
   'allowsCardButtonsOnCard', 'allowsDescriptionBadgeOnMinicard', 'allowsUnreadCommentsOnMinicard',

@@ -38,6 +38,12 @@ const CARD_SETTINGS_ROWS = [
   { key: 'collapse', icons: ['fa-caret-down'], label: ['collapse'],
     card: { toggle: 'js-board-card-flag', field: 'allowsCardCollapse', flag: true, default: true, after: 'dueComplete' },
     minicard: { toggle: 'js-field-minicard-collapse', field: 'allowsMinicardCollapse', after: 'dueComplete' } },
+  // #6943: the minicard's card actions menu (the ☰ at its top corner), named
+  // as the menu is (cardDetailsActionsPopup-title). Off, the minicard's
+  // content takes its place; the same actions stay in the opened card's menu.
+  // The opened card has its own menu, always there, so there is no card side.
+  { key: 'minicardMenu', icons: ['fa-bars'], label: ['cardDetailsActionsPopup-title'],
+    minicard: { toggle: 'js-board-card-flag', field: 'allowsMinicardMenu', flag: true, default: true, after: 'collapse' } },
   { key: 'labelsAboveTitle', icons: ['fa-arrow-up'], label: ['labels', 'title'], labelSeparator: ' ↑ ',
     card: { toggle: 'js-board-card-flag', field: 'labelsAboveTitleOnCard', flag: true, default: false, after: 'labels' },
     minicard: { toggle: 'js-field-labels-above-title', field: 'labelsAboveTitleOnMinicard', after: 'labels' } },

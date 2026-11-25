@@ -1407,6 +1407,8 @@ Boards.attachSchema(
     allowsTextNotesOnMinicard: { type: Boolean, optional: true },
     allowsCommentCountOnCard: { type: Boolean, optional: true },
     allowsActivitiesOnMinicard: { type: Boolean, optional: true },
+    // #6943: the minicard's card actions menu; missing reads as shown.
+    allowsMinicardMenu: { type: Boolean, optional: true },
     // ...and the rows for what both surfaces drew with no row of their own.
     allowsCardColorOnCard: { type: Boolean, defaultValue: true },
     allowsCardColorOnMinicard: { type: Boolean, defaultValue: true },
