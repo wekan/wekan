@@ -98,12 +98,35 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** The **UCS App Center** publisher works again with the distroless
-FerretDB image, so v13.32 can go to Univention. **Omi** gets strings for
-deleting a Gitea folder's orphans in every language, and the Azure Blob test no
-longer hangs where no node is on the PATH.
+**In short:** A **board export without archived items** moves a board to
+another WeKan without its archive. The **UCS App Center** publisher works again
+with the distroless FerretDB image, so v13.32 can go to Univention. **Omi** gets
+strings for deleting a Gitea folder's orphans in every language, and the Azure
+Blob test no longer hangs where no node is on the PATH.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Board export** - what the export of a board carries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f0647e2d8b962b6974b7b95c75d53c62fa99b83">JSON without archived items, for moving a board to another WeKan</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+A board export is a complete copy, archive included, so a board moved to
+another WeKan brought years of archived cards, lists and swimlanes that had to
+be emptied by hand ([#6946](https://github.com/wekan/wekan/issues/6946)). The
+export popup now has **JSON (without archived items)**, `?archived=false` at
+the JSON and `.zip` export routes. It leaves out the archived cards, lists and
+swimlanes, the cards on an archived list or swimlane, and their comments,
+checklists and attachments - the reporter's patch left an archived card's
+attachment files in the export, because attachments are read by the board,
+not by the cards. An ordinary export is still a complete backup.
+`tests/exportExcludeArchived.test.cjs` runs the selectors against sample rows
+and fails when a whole-board attachment read is left unfiltered; an e2e test
+exports through the API with and without the archive.
+
+</details>
+
+and fixes the following bugs:
 
 **UCS App Center** - publishing a release to Univention's App Center.
 
@@ -138,12 +161,14 @@ now runs Azurite's script with `process.execPath`: 3 tests in 4 s.
 
 and updates the translations:
 
-**Translations** - strings for Omi's Gitea folder pages.
+**Translations** - strings for Omi's Gitea folder pages and the board export.
 
 **Languages updated:** 244 languages.
 
 - [Delete all orphans and Gitea database migration version, in every language](https://github.com/wekan/wekan/commit/0d370b84b1b03e047732270b2cea1a88101c21b4):
   four new strings Omi copies into its catalogs. Thanks to xet7.
+- [Without archived items, in every language](https://github.com/wekan/wekan/commit/3f0647e2d8b962b6974b7b95c75d53c62fa99b83):
+  the board export's new entry. Thanks to Raymond-Voogt and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

@@ -7,10 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-The **UCS App Center** publisher works again with the distroless
-FerretDB image, so v13.32 can go to Univention. **Omi** gets strings for
-deleting a Gitea folder's orphans in every language, and the Azure Blob test no
-longer hangs where no node is on the PATH.
+A **board export without archived items** moves a board to
+another WeKan without its archive. The **UCS App Center** publisher works again
+with the distroless FerretDB image, so v13.32 can go to Univention. **Omi** gets
+strings for deleting a Gitea folder's orphans in every language, and the Azure
+Blob test no longer hangs where no node is on the PATH.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
