@@ -63,6 +63,14 @@ const hub = url => {
   if (url === `/api/v1/packages/${ID}/13.30.0/security-report`) return [200, REPORT];
   if (url === '/api/v1/packages/helm/acme/noreport') return [200, { ...PACKAGE, package_id: '00000000-0000-0000-0000-000000000000' }];
   if (url === '/api/v1/packages/helm/acme/badid') return [200, { package_id: '../../x', version: '1' }];
+  // Published, not scanned yet: Artifact Hub answers its report with an empty body.
+  if (url === '/api/v1/packages/helm/acme/fresh') return [200, { package_id: '11111111-1111-1111-1111-111111111111', version: '13.31.0',
+    security_report_summary: null, security_report_created_at: null,
+    available_versions: [{ version: '13.29.0' }, { version: '13.31.0' }, { version: '13.30.0' }] }];
+  if (url === '/api/v1/packages/helm/acme/fresh/13.30.0') return [200, PACKAGE];
+  if (url === '/api/v1/packages/helm/acme/never') return [200, { package_id: '22222222-2222-2222-2222-222222222222', version: '1.0.0',
+    security_report_created_at: null, available_versions: [{ version: '1.0.0' }] }];
+  if (url === '/api/v1/packages/11111111-1111-1111-1111-111111111111/13.31.0/security-report') return [200, ''];
   return [404, { message: 'not found' }];
 };
 
@@ -107,6 +115,33 @@ test('the whole report, one file per image, and the summary', { skip: !python },
     const v = path.join(dir, 'v');
     assert.equal((await run(script, ['helm/wekan/wekan', '--version', '13.30.0', '--out', v], { ARTIFACTHUB_URL: url })).status, 0);
     assert.ok(fs.existsSync(path.join(runDir(v, 'helm', 'wekan', 'wekan'), 'security-report.json')));
+  } finally {
+    server.close();
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('a version not scanned yet says so, and the newest scanned one is downloaded beside it', { skip: !python }, async () => {
+  const { server, url, asked } = await serve(hub);
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ahdl-'));
+  try {
+    const r = await run(script, ['helm/acme/fresh', '--out', dir], { ARTIFACTHUB_URL: url });
+    assert.equal(r.status, 0, r.stderr);
+    const d = runDir(dir, 'helm', 'acme', 'fresh');
+    const status = fs.readFileSync(path.join(d, 'status.txt'), 'utf8');
+    assert.match(status, /has not scanned 13\.31\.0 yet/);
+    assert.match(status, /newest scanned version is 13\.30\.0: its report is in scanned-13\.30\.0\//);
+    assert.doesNotMatch(status, /not JSON/, 'an empty report is not called a broken answer');
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(d, 'scanned-13.30.0', 'security-report.json'), 'utf8')), REPORT);
+    assert.ok(!asked.includes('/api/v1/packages/11111111-1111-1111-1111-111111111111/13.31.0/security-report'),
+      'the unscanned report is not asked for');
+    assert.ok(!asked.includes('/api/v1/packages/helm/acme/fresh/13.29.0'), 'the newest scanned one, not an older one');
+    // Negative: no scanned version at all - said so, and nothing more is written.
+    const n = await run(script, ['helm/acme/never', '--out', dir], { ARTIFACTHUB_URL: url });
+    assert.equal(n.status, 0, n.stderr);
+    const nd = runDir(dir, 'helm', 'acme', 'never');
+    assert.match(fs.readFileSync(path.join(nd, 'status.txt'), 'utf8'), /has not scanned 1\.0\.0 yet/);
+    assert.deepEqual(fs.readdirSync(nd).sort(), ['package.json', 'status.txt']);
   } finally {
     server.close();
     fs.rmSync(dir, { recursive: true, force: true });

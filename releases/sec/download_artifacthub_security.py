@@ -162,11 +162,22 @@ def write_summary(path, package, pkg, version, report):
     return len(vulns)
 
 
-def download_package(package, out, stamp, log, version=None):
+# How many older versions to look through for the newest one Artifact Hub
+# has scanned, when the newest is not scanned yet.
+SCANNED_LOOKBACK = 5
+
+
+def download_package(package, out, stamp, log, version=None, run_dir=None):
     """Download one package's report. Returns the number of vulnerabilities, or
-    None when Artifact Hub had no report to give (the reason is in status.txt)."""
+    None when Artifact Hub had no report to give (the reason is in status.txt).
+
+    Artifact Hub scans a new version some hours after it is published; until
+    then its report is empty. So when the newest version is not scanned yet,
+    status.txt says so, and the newest version that is scanned is downloaded
+    into scanned-<version>/ beside it."""
     kind, repo, name = package.split("/")
-    run_dir = os.path.join(out, OUT_DIR, kind, repo, name, stamp)
+    asked = version
+    run_dir = run_dir or os.path.join(out, OUT_DIR, kind, repo, name, stamp)
     path = f"/api/v1/packages/{kind}/{repo}/{name}" + (f"/{urllib.parse.quote(version)}" if version else "")
     pkg = hub_get(path)
     package_id = str(pkg.get("package_id", ""))
@@ -175,6 +186,26 @@ def download_package(package, out, stamp, log, version=None):
         raise HubError(f"{BASE_URL}{path}: the answer names no package id and version")
     log(f"Artifact Hub {package} {version} -> {run_dir}")
     write_json(os.path.join(run_dir, "package.json"), pkg)
+    if not pkg.get("security_report_created_at"):
+        os.makedirs(run_dir, exist_ok=True)
+        said = f"Artifact Hub has not scanned {version} yet: it has no security report for it.\n"
+        older = [str(v.get("version", "")) for v in pkg.get("available_versions") or []
+                 if isinstance(v, dict) and VERSION.match(str(v.get("version", ""))) and str(v.get("version")) != version]
+        older.sort(key=lambda v: [int(x) if x.isdigit() else x for x in re.split(r"[.-]", v)], reverse=True)
+        if asked is None:
+            for prev in older[:SCANNED_LOOKBACK]:
+                old = hub_get(f"/api/v1/packages/{kind}/{repo}/{name}/{urllib.parse.quote(prev)}")
+                if old.get("security_report_created_at"):
+                    said += f"The newest scanned version is {prev}: its report is in scanned-{prev}/.\n"
+                    with open(os.path.join(run_dir, "status.txt"), "w", encoding="utf-8") as f:
+                        f.write(said)
+                    log(f"  {version} is not scanned yet; {prev} is")
+                    return download_package(package, out, stamp, log, version=prev,
+                                            run_dir=os.path.join(run_dir, f"scanned-{prev}"))
+        with open(os.path.join(run_dir, "status.txt"), "w", encoding="utf-8") as f:
+            f.write(said)
+        log(f"  {version} is not scanned yet")
+        return None
     try:
         report = hub_get(f"/api/v1/packages/{package_id}/{urllib.parse.quote(version)}/security-report")
     except HubError as e:

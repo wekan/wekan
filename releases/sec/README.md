@@ -107,7 +107,11 @@ releases/sec/download-artifacthub-security.sh helm/wekan/wekan --version 13.30.0
 | `--artifacthub KIND/REPO/PACKAGE` | that package's report instead; may be given more than once (default for the wekan organization: `helm/wekan/wekan`, for another organization none) |
 | `--no-artifacthub` | no Artifact Hub report |
 
-A package with no report yet gets `status.txt` with Artifact Hub's answer. The
+A package with no report yet gets `status.txt` with Artifact Hub's answer.
+Artifact Hub scans a new version some hours after it is published (its
+control panel shows the next scan), and until then answers with an empty
+report: `status.txt` then says the version is not scanned yet, and the newest
+version that is scanned is downloaded into `scanned-<version>/` beside it. The
 `_` makes `_artifacthub` a name no GitHub organization can have, like
 `_organization`. The "Fixed" column is what can be fixed by updating: a
 vulnerability with no fixed version is one the distribution has not fixed yet.
