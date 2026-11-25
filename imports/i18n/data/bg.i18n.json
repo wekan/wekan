@@ -279,6 +279,7 @@
   "desktop-mode": "Режим за настолен компютър",
   "mobile-mode": "Мобилен режим",
   "mobile-desktop-toggle": "Превключване между мобилен и настолен режим",
+  "html4-html5-toggle": "Превключване между изглед HTML4 и HTML5",
   "zoom-in": "Приближи",
   "zoom-out": "Отдалечи",
   "zoom-level": "Ниво",

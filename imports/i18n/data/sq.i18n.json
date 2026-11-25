@@ -279,6 +279,7 @@
   "desktop-mode": "Modaliteti desktop",
   "mobile-mode": "Modaliteti celular",
   "mobile-desktop-toggle": "Kalo mes modalitetit celular dhe desktop",
+  "html4-html5-toggle": "Kalo mes pamjes HTML4 dhe HTML5",
   "zoom-in": "Zmadho",
   "zoom-out": "Zvogëlo",
   "zoom-level": "Niveli i zmadhimit",

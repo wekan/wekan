@@ -279,6 +279,7 @@
   "desktop-mode": "デスクトップモード",
   "mobile-mode": "モバイルモード",
   "mobile-desktop-toggle": "モバイルモードとデスクトップモードを切り替え",
+  "html4-html5-toggle": "HTML4 表示と HTML5 表示を切り替え",
   "zoom-in": "拡大",
   "zoom-out": "縮小",
   "zoom-level": "ズームレベル",

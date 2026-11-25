@@ -279,6 +279,7 @@
   "desktop-mode": "Skrivebordsmodus",
   "mobile-mode": "Mobilmodus",
   "mobile-desktop-toggle": "Veksle mellom mobil- og skrivebordsmodus",
+  "html4-html5-toggle": "Veksle mellom HTML4- og HTML5-visning",
   "zoom-in": "Zoom inn",
   "zoom-out": "Zoom ut",
   "zoom-level": "Zoomnivå",

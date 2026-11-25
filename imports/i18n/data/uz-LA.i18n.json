@@ -279,6 +279,7 @@
   "desktop-mode": "Ish stoli rejimi",
   "mobile-mode": "Mobil rejim",
   "mobile-desktop-toggle": "Mobil va ish stoli rejimini almashtiring",
+  "html4-html5-toggle": "HTML4 va HTML5 ko‘rinishini almashtiring",
   "zoom-in": "Kattalashtirish",
   "zoom-out": "Kichraytirish",
   "zoom-level": "Kattalashtirish darajasi",

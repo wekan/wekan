@@ -279,6 +279,7 @@
   "desktop-mode": "데스크톱 모드",
   "mobile-mode": "모바일 모드",
   "mobile-desktop-toggle": "모바일과 데스크톱 모드 전환",
+  "html4-html5-toggle": "HTML4와 HTML5 보기 전환",
   "zoom-in": "확대",
   "zoom-out": "축소",
   "zoom-level": "확대/축소 수준",

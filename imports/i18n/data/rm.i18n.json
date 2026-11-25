@@ -279,6 +279,7 @@
   "desktop-mode": "Modus desktop",
   "mobile-mode": "Modus mobil",
   "mobile-desktop-toggle": "Midar tranter il modus mobil ed il modus desktop",
+  "html4-html5-toggle": "Midar tranter la vista HTML4 e la vista HTML5",
   "zoom-in": "Engrondir",
   "zoom-out": "Empitschnir",
   "zoom-level": "Nivel da zoom",

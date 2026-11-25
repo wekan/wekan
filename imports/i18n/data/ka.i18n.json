@@ -279,6 +279,7 @@
   "desktop-mode": "დესკტოპის რეჟიმი",
   "mobile-mode": "მობილურის რეჟიმი",
   "mobile-desktop-toggle": "მობილურისა და დესკტოპის რეჟიმებს შორის გადართვა",
+  "html4-html5-toggle": "HTML4 და HTML5 ხედებს შორის გადართვა",
   "zoom-in": "გადიდება",
   "zoom-out": "დაპატარავება",
   "zoom-level": "მასშტაბი",

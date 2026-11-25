@@ -279,6 +279,7 @@
   "desktop-mode": "โหมดเดสก์ท็อป",
   "mobile-mode": "โหมดมือถือ",
   "mobile-desktop-toggle": "สลับระหว่างโหมดมือถือและเดสก์ท็อป",
+  "html4-html5-toggle": "สลับระหว่างมุมมอง HTML4 และ HTML5",
   "zoom-in": "ซูมเข้า",
   "zoom-out": "ซูมออก",
   "zoom-level": "ระดับการซูม",

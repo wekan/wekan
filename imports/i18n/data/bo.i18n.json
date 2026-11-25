@@ -279,6 +279,7 @@
   "desktop-mode": "ཅོག་ངོས་རྣམ་པ།",
   "mobile-mode": "ལག་འཁྱེར་རྣམ་པ།",
   "mobile-desktop-toggle": "ལག་འཁྱེར་དང་ཅོག་ངོས་རྣམ་པའི་བར་བསྒྱུར།",
+  "html4-html5-toggle": "HTML4 དང་ HTML5 མཐོང་སྣང་གི་བར་བསྒྱུར།",
   "zoom-in": "ཆེར་སྐྱེད།",
   "zoom-out": "ཆུང་སྐྱེད།",
   "zoom-level": "ཆེ་ཆུང་ཚད།",

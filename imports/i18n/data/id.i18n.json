@@ -279,6 +279,7 @@
   "desktop-mode": "Mode Desktop",
   "mobile-mode": "Mode Seluler",
   "mobile-desktop-toggle": "Beralih antara mode seluler dan desktop",
+  "html4-html5-toggle": "Beralih antara tampilan HTML4 dan HTML5",
   "zoom-in": "Perbesar",
   "zoom-out": "Perkecil",
   "zoom-level": "Tingkat pembesaran",

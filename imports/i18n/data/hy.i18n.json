@@ -279,6 +279,7 @@
   "desktop-mode": "Սեղանի ռեժիմ",
   "mobile-mode": "Բջջային ռեժիմ",
   "mobile-desktop-toggle": "Անցնել շարժական և աշխատասեղանի ռեժիմների միջև",
+  "html4-html5-toggle": "Անցնել HTML4 և HTML5 տեսքերի միջև",
   "zoom-in": "Մեծացնել",
   "zoom-out": "Մեծացնել",
   "zoom-level": "Մեծացման մակարդակ",

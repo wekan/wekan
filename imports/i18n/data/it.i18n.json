@@ -279,6 +279,7 @@
   "desktop-mode": "Modalità desktop",
   "mobile-mode": "Modalità mobile",
   "mobile-desktop-toggle": "Alterna tra modalità mobile e desktop",
+  "html4-html5-toggle": "Alterna tra vista HTML4 e HTML5",
   "zoom-in": "Ingrandisci",
   "zoom-out": "Riduci",
   "zoom-level": "Livello di zoom",

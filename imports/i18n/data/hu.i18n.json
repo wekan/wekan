@@ -279,6 +279,7 @@
   "desktop-mode": "Asztali mód",
   "mobile-mode": "Mobil mód",
   "mobile-desktop-toggle": "Váltás a mobil és az asztali mód között",
+  "html4-html5-toggle": "Váltás a HTML4 és a HTML5 nézet között",
   "zoom-in": "Nagyítás",
   "zoom-out": "Kicsinyítés",
   "zoom-level": "Nagyítási szint",

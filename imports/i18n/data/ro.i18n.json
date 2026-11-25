@@ -279,6 +279,7 @@
   "desktop-mode": "Mod desktop",
   "mobile-mode": "Mod mobil",
   "mobile-desktop-toggle": "Comută între modul mobil și modul desktop",
+  "html4-html5-toggle": "Comută între vizualizarea HTML4 și vizualizarea HTML5",
   "zoom-in": "Mărește",
   "zoom-out": "Micșorează",
   "zoom-level": "Nivel de zoom",

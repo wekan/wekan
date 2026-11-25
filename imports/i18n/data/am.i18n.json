@@ -279,6 +279,7 @@
   "desktop-mode": "የዴስክቶፕ ሁኔታ",
   "mobile-mode": "የሞባይል ሁኔታ",
   "mobile-desktop-toggle": "በሞባይልና በዴስክቶፕ ሁኔታ መካከል ቀያይር",
+  "html4-html5-toggle": "በHTML4 እና በHTML5 እይታ መካከል ቀያይር",
   "zoom-in": "አጉላ",
   "zoom-out": "አሳንስ",
   "zoom-level": "የማጉላት ደረጃ",

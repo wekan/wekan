@@ -279,6 +279,7 @@
   "desktop-mode": "桌面模式",
   "mobile-mode": "行動裝置模式",
   "mobile-desktop-toggle": "在行動裝置與桌面模式間切換",
+  "html4-html5-toggle": "在 HTML4 與 HTML5 檢視間切換",
   "zoom-in": "放大",
   "zoom-out": "縮小",
   "zoom-level": "縮放層級",

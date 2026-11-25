@@ -279,6 +279,7 @@
   "desktop-mode": "Skjáborðsstilling",
   "mobile-mode": "Farsímastilling",
   "mobile-desktop-toggle": "Skipta milli farsíma- og skjáborðsstillingar",
+  "html4-html5-toggle": "Skipta milli HTML4- og HTML5-sýnar",
   "zoom-in": "Þysja inn",
   "zoom-out": "Þysja út",
   "zoom-level": "Þysjunarstig",

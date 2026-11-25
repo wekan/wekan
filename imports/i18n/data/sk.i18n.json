@@ -279,6 +279,7 @@
   "desktop-mode": "Režim počítača",
   "mobile-mode": "Mobilný režim",
   "mobile-desktop-toggle": "Prepínať medzi mobilným režimom a režimom počítača",
+  "html4-html5-toggle": "Prepínať medzi zobrazením HTML4 a HTML5",
   "zoom-in": "Priblížiť",
   "zoom-out": "Oddialiť",
   "zoom-level": "Úroveň priblíženia",

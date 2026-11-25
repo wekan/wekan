@@ -279,6 +279,7 @@
   "desktop-mode": "حالت دسکتاپ",
   "mobile-mode": "حالت موبایل",
   "mobile-desktop-toggle": "جابه‌جایی بین حالت موبایل و دسکتاپ",
+  "html4-html5-toggle": "جابه‌جایی بین نمای HTML4 و HTML5",
   "zoom-in": "بزرگ‌نمایی",
   "zoom-out": "کوچک‌نمایی",
   "zoom-level": "سطح بزرگ‌نمایی",

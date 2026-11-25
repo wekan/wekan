@@ -279,6 +279,7 @@
   "desktop-mode": "Desktop Modus",
   "mobile-mode": "Mobil Modus",
   "mobile-desktop-toggle": "Wechseln zwischen Mobil und Desktop Modus",
+  "html4-html5-toggle": "Wechseln zwischen HTML4 und HTML5 Ansicht",
   "zoom-in": "Zoom vergrössern",
   "zoom-out": "Zoom verkleinern",
   "zoom-level": "Zoom Stufe",

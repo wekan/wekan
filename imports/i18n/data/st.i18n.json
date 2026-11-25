@@ -279,6 +279,7 @@
   "desktop-mode": "Mokgwa wa komporo",
   "mobile-mode": "Mokgwa wa selefouno",
   "mobile-desktop-toggle": "Fetola pakeng tsa mokgwa wa selefouno le wa komporo",
+  "html4-html5-toggle": "Fetola pakeng tsa pono ya HTML4 le ya HTML5",
   "zoom-in": "Atametsa",
   "zoom-out": "Suthisetsa hole",
   "zoom-level": "Boemo ba katametso",

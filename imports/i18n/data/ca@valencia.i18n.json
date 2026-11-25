@@ -279,6 +279,7 @@
   "desktop-mode": "Mode d'escriptori",
   "mobile-mode": "Mode mòbil",
   "mobile-desktop-toggle": "Commuta entre el mode mòbil i el mode d'escriptori",
+  "html4-html5-toggle": "Commuta entre la vista HTML4 i la vista HTML5",
   "zoom-in": "Amplia",
   "zoom-out": "Redueix",
   "zoom-level": "Nivell d'ampliació",

@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.33 2026-11-26 WeKan ® release
 
 **In short:** The Docker entrypoint logs **no value read from the environment**
 (two GitHub CodeQL alerts). A **board export without archived items** moves a

@@ -279,6 +279,7 @@
   "desktop-mode": "Modo Desktop",
   "mobile-mode": "Modo Celular",
   "mobile-desktop-toggle": "Alternar entre modo Celular e Desktop",
+  "html4-html5-toggle": "Alternar entre visualização HTML4 e HTML5",
   "zoom-in": "Aumentar Zoom",
   "zoom-out": "Diminuir Zoom",
   "zoom-level": "Nível de Zoom",

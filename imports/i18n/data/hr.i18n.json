@@ -279,6 +279,7 @@
   "desktop-mode": "Način rada za računalo",
   "mobile-mode": "Način rada za mobilne uređaje",
   "mobile-desktop-toggle": "Prebaci između načina rada za mobilne uređaje i računalo",
+  "html4-html5-toggle": "Prebaci između HTML4 i HTML5 prikaza",
   "zoom-in": "Povećaj",
   "zoom-out": "Smanji",
   "zoom-level": "Razina zumiranja",

@@ -279,6 +279,7 @@
   "desktop-mode": "Modus computatri mensalis",
   "mobile-mode": "Modus instrumenti mobilis",
   "mobile-desktop-toggle": "Alterna inter modum instrumenti mobilis et modum computatri mensalis",
+  "html4-html5-toggle": "Alterna inter speciem HTML4 et speciem HTML5",
   "zoom-in": "Amplifica",
   "zoom-out": "Minue",
   "zoom-level": "Gradus amplificationis",

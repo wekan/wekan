@@ -5,7 +5,7 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.33 2026-11-26 WeKan ® release
 
 The Docker entrypoint logs **no value read from the environment**
 (two GitHub CodeQL alerts). A **board export without archived items** moves a
@@ -14,7 +14,7 @@ works with the distroless FerretDB image again, and **Walloon** is Walloon
 instead of French and invented words. Omi gets its Gitea orphan strings in every
 language, and the Azure Blob test no longer hangs.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.33](CHANGELOG-big.md#v1333-2026-11-26-wekan--release)
 
 # v13.32 2026-11-25 WeKan ® release
 
@@ -63,17 +63,3 @@ default, so a full test run no longer runs the machine out of RAM; the
 two-worker mode stays available when asked for.
 
 [All changes in v13.29](CHANGELOG-big.md#v1329-2026-11-23-wekan--release)
-
-# v13.28 2026-11-23 WeKan ® release
-
-A board can be a **Shop** with invoices and order email, the
-**Admin Panel** can be
-limited to chosen addresses, all **webhooks** can be turned off at once, the
-**Cloud Panel** exists only in a
-Cloud Admin container with the `CLOUD` variable (**CloudPanelBleed**), a forged
-bounce report can no longer stop email (**BounceBleed**), and every setting that
-turns something off is **refused on the server**. The **audit log**, **sign-in
-address retention** and a **personal-data inventory** begin the missing law and
-standard features, and every **feature page** of the docs has one shape.
-
-[All changes in v13.28](CHANGELOG-big.md#v1328-2026-11-23-wekan--release)

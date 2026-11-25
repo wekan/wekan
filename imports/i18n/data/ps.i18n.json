@@ -279,6 +279,7 @@
   "desktop-mode": "د ډېسکټاپ حالت",
   "mobile-mode": "د موبايل حالت",
   "mobile-desktop-toggle": "د موبايل او ډېسکټاپ حالتونو ترمنځ واړوئ",
+  "html4-html5-toggle": "د HTML4 او HTML5 لید ترمنځ واړوئ",
   "zoom-in": "لوی يې کړئ",
   "zoom-out": "کوچنی يې کړئ",
   "zoom-level": "د لويولو کچه",
