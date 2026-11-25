@@ -11,7 +11,9 @@ Every bundle, snap and Docker image is **about 220 MiB
 smaller**: translations are one copy on the server, and neither a test build's
 files, the TypeScript compiler nor Azure's sign-in libraries ship any more.
 Languages that are a copy of another, such as en-IT, no longer fail on the
-server. The Docker image's start no longer logs paths read
+server. Minicards are **compact again**, and their caret and menu can be
+hidden; the health checks survive odd data and a nightly **mongodump**. The
+Docker image's start no longer logs paths read
 from the environment, as **GitHub CodeQL** found, and the documentation says
 the license rule plainly: **permissive licenses, no GPL**.
 

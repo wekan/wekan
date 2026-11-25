@@ -102,7 +102,9 @@ Which databases WeKan supports
 smaller**: translations are one copy on the server, and neither a test build's
 files, the TypeScript compiler nor Azure's sign-in libraries ship any more.
 Languages that are a copy of another, such as en-IT, no longer fail on the
-server. The Docker image's start no longer logs paths read
+server. Minicards are **compact again**, and their caret and menu can be
+hidden; the health checks survive odd data and a nightly **mongodump**. The
+Docker image's start no longer logs paths read
 from the environment, as **GitHub CodeQL** found, and the documentation says
 the license rule plainly: **permissive licenses, no GPL**.
 
@@ -189,11 +191,68 @@ is locked.
 
 </details>
 
+**Minicards** - the caret and the menu at the top of every card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7c743313b0f21b30dabfeeb14cb5c1a864e99cb">The card actions menu can be hidden like the collapse caret, and the content takes its place</a>. Thanks to sirup and xet7.</summary>
+
+[#6943](https://github.com/wekan/wekan/issues/6943): the collapse caret
+already had a row in Board Settings / Card (Card, Show on Minicard: Collapse)
+and a tick in the Admin Panel's card fields; the menu had neither. Now it has
+both: the row Card Actions under Collapse, a board flag `allowsMinicardMenu`
+that a board which never chose reads as on, and the Admin Panel tick. Hiding
+section Card on the minicard hides both. With the menu hidden, the labels and
+custom fields no longer keep its 84px corner free. The opened card keeps its
+own menu. `tests/minicardControls6943.test.cjs` and
+`tests/playwright/specs/minicard-controls-6943.e2e.js` pin it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15bf9305025c32ac591e2d5c2f6d0c80d349eaf0">The 24px caret and menu no longer make every card taller</a>. Thanks to sirup and xet7.</summary>
+
+v13.31 gave both a 24 x 24 target (WCAG 2.2, 2.5.8). They float on the
+title's line, so every minicard grew by about 8px. A -4px block margin takes
+the height back out of the line, and the box that is clicked stays 24 x 24:
+the UI test measures the card the same height with and without them, and the
+axe scan still passes.
+
+</details>
+
+**Admin Panel / Problems** - the data and database health checks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b32a736c62a9f84551885eb3c6f1edc7ec86872b">A user's emails or a card's custom fields that are not a list no longer end the data health scan</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6944](https://github.com/wekan/wekan/issues/6944): `u.emails || []` and
+`card.customFields || []` let a single object or a scalar from older or
+imported data through, and the first one ended the scan with "object is not
+iterable" - 30 of 31 checks never ran. Both are read through `asArray()` now,
+as the board members already were. `tests/dataHealth6818.test.cjs` scans such
+documents and finds every check run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f27060b4ed2ccdf7ce1d4a58b46398d4a629fdf">A nightly mongodump no longer raises the documents per second problem</a>. Thanks to Raymond-Voogt and xet7.</summary>
+
+[#6945](https://github.com/wekan/wekan/issues/6945): `scannedObjects` counts
+every document read by anything, and a dump reads the whole database, so its
+interval went over the limit every morning, naming no query. The rate is
+reported now only when a collection scan in MongoDB's "Slow query" log of the
+same interval explains it, or the log cannot be read; and the scans of
+mongodump and mongoexport themselves, named by their appName, are no missing
+index. `tests/databaseHealthScans.test.cjs` pins both, with negative cases.
+
+</details>
+
 and has the following developer-tooling fixes:
 
 **Tests** - guards that read the source.
 
 - [The cpu-exec wiring guard reads the entrypoint's named programs](https://github.com/wekan/wekan/commit/524ea6a41e1e4eaa280df747547643b63ef003e2).
+  Thanks to xet7.
+- [The S3 encryption guard knows the Azure Blob adapter is not S3](https://github.com/wekan/wekan/commit/9f15776df80b7318efcab824154d329ed6916955).
   Thanks to xet7.
 
 **Security downloads** - Artifact Hub's report of the Helm chart.
