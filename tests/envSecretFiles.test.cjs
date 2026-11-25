@@ -112,7 +112,9 @@ test('negative, for real: an unreadable or empty MONGO_URL_FILE stops the start 
   for (const env of [{ MONGO_URL_FILE: path.join(TMP, 'missing') }, { MONGO_URL_FILE: file('blank', '\n') }]) {
     const result = runBlock(env);
     assert.equal(result.status, 1, JSON.stringify(env));
-    assert.match(result.stderr, /^ERROR: MONGO_URL_FILE=/m);
+    // It names the variable, not the path (CodeQL js/clear-text-logging #618).
+    assert.match(result.stderr, /^ERROR: the file MONGO_URL_FILE names (cannot be read|is empty)\./m);
+    assert.doesNotMatch(result.stderr, new RegExp(TMP.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), 'not its path');
     assert.doesNotMatch(result.stdout, /mongodb:/, 'WeKan was not started');
   }
 });

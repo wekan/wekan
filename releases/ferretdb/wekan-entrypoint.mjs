@@ -91,16 +91,18 @@ export function memoryLimits(bytes) {
 // MONGO_URL_FILE (#5724): a file holding the whole MongoDB URL, password
 // included (Docker / Kubernetes secrets). Read here because Meteor connects
 // with MONGO_URL before any WeKan code runs. MONGO_URL wins when both are set.
-// Returns the URL, or throws with the message to print.
+// Returns the URL, or throws with the message to print. The message names the
+// variable, not its value: CodeQL js/clear-text-logging (#617/#618) - nothing
+// read from the environment is logged, and the admin knows which file it is.
 export function mongoUrlFromFile(env, read = file => fs.readFileSync(file, 'utf8')) {
   if (env.MONGO_URL || !env.MONGO_URL_FILE) return env.MONGO_URL || '';
   let text;
   try { text = read(env.MONGO_URL_FILE); } catch {
-    throw new Error(`ERROR: MONGO_URL_FILE=${env.MONGO_URL_FILE} cannot be read.`);
+    throw new Error('ERROR: the file MONGO_URL_FILE names cannot be read.');
   }
   // `$(cat file)` dropped the trailing newlines; so does this.
   const url = String(text).replace(/\n+$/, '');
-  if (!url) throw new Error(`ERROR: MONGO_URL_FILE=${env.MONGO_URL_FILE} is empty.`);
+  if (!url) throw new Error('ERROR: the file MONGO_URL_FILE names is empty.');
   return url;
 }
 
@@ -118,7 +120,9 @@ export function wantFerret(env, markerExists) {
     case 'ferretdb': return true;
     case 'mongodb': return false;
     case '': return Boolean(markerExists) && !env.MONGO_URL;
-    default: throw new Error(`ERROR: WEKAN_DB must be 'mongodb' or 'ferretdb' (got '${env.WEKAN_DB}')`);
+    // The value is not repeated: it was read from the environment (CodeQL
+    // js/clear-text-logging), and the admin can see what they set.
+    default: throw new Error("ERROR: WEKAN_DB must be 'mongodb' or 'ferretdb'.");
   }
 }
 
@@ -371,7 +375,7 @@ export async function main({ build = path.dirname(fileURLToPath(import.meta.url)
     }
     requestedRestore(dbDir, env, log, warn);
     if (!fs.existsSync(recovery) && (env.WEKAN_SQLITE_BACKUP || 'true') === 'true') rotatingBackup(dbDir, log, warn);
-    log(`Starting bundled FerretDB v1 (SQLite) on ${listen} (standalone polling) ...`);
+    log('Starting bundled FerretDB v1 (SQLite) on FERRETDB_LISTEN_ADDR (default 127.0.0.1:27017, standalone polling) ...');
     const [cmd, args] = cpuExecPlan(ferretBin, [
       '--handler=sqlite',
       `--sqlite-url=file:${dbDir}/`,
@@ -423,7 +427,7 @@ export async function main({ build = path.dirname(fileURLToPath(import.meta.url)
       log(`Cannot check whether the database is answering (${first.stderr || 'no reason given'}); starting WeKan without the waiting page.`);
     } else if (first.status !== 0) {
       const max = Number(env.WEKAN_DB_WAIT_MAX_SECONDS || 600);
-      log(`The database is not answering yet; serving the 'waiting for database' page on port ${env.PORT || '8080'} while it comes up.`);
+      log("The database is not answering yet; serving the 'waiting for database' page on WeKan's web port while it comes up.");
       // The reason goes on the PAGE too: whoever is waiting is looking at a browser.
       const page = spawn(node, [bridge], { env: bridgeEnv({ WEKAN_BRIDGE_REASON: 'database', WEKAN_BRIDGE_DETAIL: first.stderr }), stdio: 'inherit' });
       let waited = 0;

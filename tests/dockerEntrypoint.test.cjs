@@ -74,8 +74,29 @@ test('#5724 MONGO_URL_FILE: read without its trailing newline; MONGO_URL wins; u
   const reader = f => { if (f in files) return files[f]; throw new Error('EACCES'); };
   assert.equal(mongoUrlFromFile({ MONGO_URL_FILE: '/run/secrets/mongo' }, reader), 'mongodb://wekan:hunter2@db:27017/wekan');
   assert.equal(mongoUrlFromFile({ MONGO_URL: 'mongodb://a/b', MONGO_URL_FILE: '/run/secrets/mongo' }, reader), 'mongodb://a/b');
-  assert.throws(() => mongoUrlFromFile({ MONGO_URL_FILE: '/nope' }, reader), /MONGO_URL_FILE=\/nope cannot be read/);
-  assert.throws(() => mongoUrlFromFile({ MONGO_URL_FILE: '/empty' }, reader), /MONGO_URL_FILE=\/empty is empty/);
+  assert.throws(() => mongoUrlFromFile({ MONGO_URL_FILE: '/nope' }, reader), /MONGO_URL_FILE names cannot be read/);
+  assert.throws(() => mongoUrlFromFile({ MONGO_URL_FILE: '/empty' }, reader), /MONGO_URL_FILE names is empty/);
+  // Negative (CodeQL js/clear-text-logging #618): the message is printed, so it
+  // carries no value read from the environment, not even the path.
+  assert.throws(() => mongoUrlFromFile({ MONGO_URL_FILE: '/nope' }, reader), e => !/\/nope/.test(e.message));
+});
+
+// The probe's reason goes to the log AND onto the public 'waiting for
+// database' page, so it never carries the URL's username or password - one of
+// the driver's messages names the username of a malformed URL.
+test('db-ready says why, without the username or password of MONGO_URL', { skip: !fs.existsSync(path.join(ROOT, 'node_modules/mongodb')) && 'no mongodb driver' }, () => {
+  const { spawnSync } = require('node:child_process');
+  const probe = url => spawnSync(process.execPath, [path.join(ROOT, 'releases/ferretdb/db-ready.mjs'), url],
+    { env: { ...process.env, NODE_PATH: path.join(ROOT, 'node_modules') }, encoding: 'utf8', timeout: 30000 });
+  const bad = probe('mongodb://us/er:hunter2@db/wekan');
+  assert.equal(bad.status, 1);
+  assert.match(bad.stderr, /rejected by the driver: Username contains unescaped characters \*\*\*/);
+  assert.doesNotMatch(bad.stderr, /us\/er|hunter2/);
+  // Negative: an ordinary reason keeps what the admin needs - the host and port.
+  const refused = probe('mongodb://wekan:hunter2@127.0.0.1:1/wekan');
+  assert.equal(refused.status, 1);
+  assert.match(refused.stderr, /ECONNREFUSED 127\.0\.0\.1:1/);
+  assert.doesNotMatch(refused.stderr, /hunter2|wekan:/);
 });
 
 test('WEKAN_DB and the .ferretdb-default marker choose the backend; anything else is refused', async () => {
@@ -85,7 +106,10 @@ test('WEKAN_DB and the .ferretdb-default marker choose the backend; anything els
   assert.equal(wantFerret({}, true), true, 'a MongoDB-less arch with no MONGO_URL');
   assert.equal(wantFerret({ MONGO_URL: 'mongodb://db/wekan' }, true), false);
   assert.equal(wantFerret({}, false), false);
-  assert.throws(() => wantFerret({ WEKAN_DB: 'postgres' }, false), /WEKAN_DB must be 'mongodb' or 'ferretdb' \(got 'postgres'\)/);
+  assert.throws(() => wantFerret({ WEKAN_DB: 'postgres' }, false), /WEKAN_DB must be 'mongodb' or 'ferretdb'/);
+  // Negative (CodeQL js/clear-text-logging): the message is printed, so the
+  // value read from the environment is not repeated in it.
+  assert.throws(() => wantFerret({ WEKAN_DB: 'postgres' }, false), e => !/postgres/.test(e.message));
   assert.equal(sqliteDir({}), '/data/files/db');
   assert.equal(sqliteDir({ WRITABLE_PATH: '/srv/files' }), '/srv/files/db');
   assert.equal(sqliteDir({ WRITABLE_PATH: '/srv' }), '/srv/files/db');
@@ -125,14 +149,17 @@ test('negative: the entrypoint logs no value taken from the environment (CodeQL 
   // What a log or warn line may interpolate: counts, the port, the listen
   // address, a child's exit, the CPU architecture and the caller's own name
   // for a program. A path, the CPU feature list or a qemu path is not on it.
-  const allowed = new Set(['heapMb', 'rc', 'listen', 'grace', 'max', 'e.message', 'signal || code', 'machine', 'name',
-    "first.stderr || 'no reason given'", "env.PORT || '8080'", 'from', 'ferretBin']);
+  const allowed = new Set(['heapMb', 'rc', 'grace', 'max', 'e.message', 'signal || code', 'machine', 'name',
+    "first.stderr || 'no reason given'", 'from', 'ferretBin']);
   const found = [];
   for (const m of src.matchAll(/\b(?:log|warn)\(`([^`]*)`/g)) {
     for (const v of m[1].matchAll(/\$\{([^}]*)\}/g)) if (!allowed.has(v[1].trim())) found.push(v[1]);
   }
   assert.deepEqual(found, [], 'a log line interpolates something not on the list');
   assert.doesNotMatch(src, /\b(?:log|warn)\(`[^`]*\$\{(?:source|backup|binary|qemu|missing[^}]*)\}/, 'the six CodeQL found are gone');
+  // #617: the port came from the environment; #618: an Error built from one.
+  assert.doesNotMatch(src, /\b(?:log|warn)\([^)]*env\.PORT/, '#617 is gone');
+  assert.doesNotMatch(src, /new Error\(`[^`]*\$\{env\./, '#618: no thrown message is built from the environment');
 });
 
 function tmp() { return fs.mkdtempSync(path.join(process.env.TMPDIR || os.tmpdir(), 'entry-')); }

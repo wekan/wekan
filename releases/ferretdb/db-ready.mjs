@@ -18,6 +18,27 @@ import { pathToFileURL } from 'node:url';
 const url = process.argv[2] || process.env.MONGO_URL || '';
 if (!url) process.exit(1);
 
+// The reason is logged AND shown on the 'waiting for database' page, which
+// anyone who can reach WeKan's port can read. The driver does not put the
+// password in its messages, but one of them names the username, so whatever
+// the URL's userinfo holds is taken out of every message before it is said.
+// The userinfo is everything between "://" and the last "@" - the driver
+// allows a "/" in a username - and a part shorter than 3 characters is left to
+// the URL pattern below, so a one-letter name cannot blank every such letter.
+function withoutCredentials(message, connectionUrl) {
+  let text = String(message);
+  const userinfo = /^[^:/]+:\/\/(.*)@/.exec(String(connectionUrl));
+  if (userinfo) {
+    for (const part of [userinfo[1], ...userinfo[1].split(':')]) {
+      for (const form of new Set([part, safeDecode(part)])) {
+        if (form.length >= 3) text = text.split(form).join('***');
+      }
+    }
+  }
+  return text.replace(/(mongodb(?:\+srv)?:\/\/)\S*@/gi, '$1***@');
+}
+function safeDecode(s) { try { return decodeURIComponent(s); } catch { return s; } }
+
 // WHERE THE DRIVER ACTUALLY IS IN A BUNDLE.
 //
 // `mongodb` is a devDependency, not a dependency, so a production bundle has
@@ -88,7 +109,7 @@ try {
 } catch (err) {
   // A URL the driver refuses is not a database that is still coming up: waiting
   // will never fix it. Say so, with the driver's own words.
-  console.error(`db-ready: MONGO_URL rejected by the driver: ${err.message}`);
+  console.error(`db-ready: MONGO_URL rejected by the driver: ${withoutCredentials(err.message, url)}`);
   process.exit(1);
 }
 
@@ -99,7 +120,7 @@ try {
 } catch (err) {
   // Why, in one line. The caller decides whether to print it; a probe that
   // fails silently is why this took a bug report to find.
-  console.error(`db-ready: ${err.name}: ${err.message.split('\n')[0]}`);
+  console.error(`db-ready: ${err.name}: ${withoutCredentials(err.message.split('\n')[0], url)}`);
   process.exitCode = 1;
 } finally {
   try { await client.close(true); } catch { /* closing a failed connect is fine */ }
