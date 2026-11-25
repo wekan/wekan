@@ -96,6 +96,43 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** The Docker image's start no longer logs paths or settings read
+from the environment, as **GitHub CodeQL** found, and WeKan's documentation
+says its license rule plainly: **permissive licenses, no GPL**.
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**The Docker image** - what its start writes to the log.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af2d29b293043b263577ca37815690b5d39dfcff">The entrypoint logs what happens in fixed words, with nothing read from the environment</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL js/clear-text-logging, alerts 613-618, on
+`releases/ferretdb/wekan-entrypoint.mjs`, the Node.js entrypoint of the
+distroless image in v13.31: cpu-exec logged the CPU feature list of
+`WEKAN_REQUIRED_CPU_FEATURES`, the program's path and the qemu-user path, and
+recovery and the rotating backup logged the backup folder's path - all derived
+from the environment, which can hold secrets. Now cpu-exec names the
+architecture and the program (FerretDB, WeKan (node)), and recovery and backup
+say `backup/`, `backup/prev/` or `continuous-restore/` of the data folder.
+`tests/dockerEntrypoint.test.cjs` lists what a log line of the entrypoint may
+contain and fails on the old code. Nothing is recorded in Admin Panel /
+Problems: this changes what a log line carries, and there is no attempt to see.
+
+</details>
+
+and reorganises the documentation:
+
+**Licenses** - what WeKan accepts, in plain words.
+
+- [Permissive licenses only - MIT, BSD, ISC, Apache-2.0 and the like - and no GPL](https://github.com/wekan/wekan/commit/e30a3129bb3b57f5f9cb80961cbcdffaa0a9f059):
+  the Code of Conduct and the docs say it so; GPL is not used, since it would
+  turn the license of the whole program into GPL. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.31 2026-11-25 WeKan ® release
 
 **In short:** A person can **download everything WeKan holds about them**
@@ -623,12 +660,6 @@ needs no login; `download-github-security.sh wekan` runs it too.
 </details>
 
 and reorganises the documentation:
-
-**Licenses** - what WeKan accepts, in plain words.
-
-- [Permissive licenses only - MIT, BSD, ISC, Apache-2.0 and the like - and no GPL](https://github.com/wekan/wekan/commit/e30a3129bb3b57f5f9cb80961cbcdffaa0a9f059):
-  the Code of Conduct and the docs say it so; GPL is not used, since it would
-  turn the license of the whole program into GPL. Thanks to xet7.
 
 **Feature docs** - one folder per topic, as GitHub shows it.
 

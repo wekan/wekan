@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+The Docker image's start no longer logs paths or settings read
+from the environment, as **GitHub CodeQL** found, and WeKan's documentation
+says its license rule plainly: **permissive licenses, no GPL**.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.31 2026-11-25 WeKan ® release
 
 A person can **download everything WeKan holds about them**
