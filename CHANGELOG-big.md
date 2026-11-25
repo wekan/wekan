@@ -98,14 +98,33 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** A **board export without archived items** moves a board to
-another WeKan without its archive. The **UCS App Center** publisher works again
-with the distroless FerretDB image, so v13.32 can go to Univention. **Omi** gets
-strings for deleting a Gitea folder's orphans in every language, **Walloon** is
-Walloon again instead of French and invented words, and the Azure Blob test no
-longer hangs where no node is on the PATH.
+**In short:** The Docker entrypoint logs **no value read from the environment**
+(two GitHub CodeQL alerts). A **board export without archived items** moves a
+board to another WeKan without its archive, the **UCS App Center** publisher
+works with the distroless FerretDB image again, and **Walloon** is Walloon
+instead of French and invented words. Omi gets its Gitea orphan strings in every
+language, and the Azure Blob test no longer hangs.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/254adfd57704330770de5c6defbb6c973ef680e7">The Docker entrypoint logs no value read from the environment, and db-ready no credentials</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+CodeQL alerts #617 and #618 (`js/clear-text-logging`, high): the entrypoint
+printed the port in its "waiting for database" line and the `MONGO_URL_FILE`
+path in its error. The same query run locally found two more behind them, the
+FerretDB listen address and the `WEKAN_DB` value repeated in its error. Each is
+now a fixed sentence that names the variable, not its value, and the query
+finds nothing left in `releases/ferretdb/`. And one CodeQL cannot see: the
+database probe's reason is also shown on the public "waiting for database" page,
+and one driver message names the username of a malformed `MONGO_URL`, so the
+URL's username and password are taken out of every message first. There is no
+attempt to record in Admin Panel / Problems: this changes what a log line says.
+`tests/dockerEntrypoint.test.cjs` runs the probe for real.
+
+</details>
+
+and adds the following new features:
 
 **Board export** - what the export of a board carries.
 
@@ -126,6 +145,13 @@ and fails when a whole-board attachment read is left unfiltered; an e2e test
 exports through the API with and without the archive, and passes in Chromium.
 
 </details>
+
+and updates the following dependencies:
+
+- [@babel/cli uses glob 14.0.3, past CVE-2026-118773](https://github.com/wekan/wekan/commit/31ab7207922bbea23234f65e6be1dcfbcbd340f2):
+  a development tool's glob 13.0.6 kept walking the filesystem after its
+  AbortSignal fired; @babel/cli never passes one, and now has WeKan's glob.
+  Thanks to xet7.
 
 and fixes the following bugs:
 
