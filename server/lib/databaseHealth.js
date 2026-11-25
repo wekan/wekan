@@ -129,24 +129,29 @@ export async function probeDatabaseHealth() {
     }
   }
 
-  // How much the database reads, between two probes (#6826).
+  // Queries without an index, from the "Slow query" lines MongoDB keeps. Only
+  // lines newer than the last probe, so one scan is reported once per process.
+  // Read first: the read rate below is reported only with a scan behind it.
+  const log = await globalLog(db);
+  let scanGroups = null;
+  if (log) {
+    const { groups, newestMs } = health.collectionScans(log, state.logSeenMs);
+    state.logSeenMs = newestMs;
+    scanGroups = groups;
+    if (groups.length) recordDatabaseHealth(health.collectionScanProblem(groups));
+  }
+
+  // How much the database reads, between two probes (#6826). A nightly
+  // mongodump reads everything and names no query (#6945): reported only when
+  // a collection scan of the same period explains it, or the log is unreadable.
   const scanned = status && status.metrics && status.metrics.queryExecutor
     && Number(status.metrics.queryExecutor.scannedObjects);
   if (Number.isFinite(scanned)) {
     const now = Date.now();
     const perSecond = state.scanned
       ? health.scanRate(state.scanned.value, scanned, (now - state.scanned.at) / 1000) : null;
-    if (perSecond !== null && perSecond > health.SCAN_RATE_PER_SEC) recordDatabaseHealth(health.scanRateProblem(perSecond));
+    if (health.scanRateReportable(perSecond, scanGroups)) recordDatabaseHealth(health.scanRateProblem(perSecond));
     state.scanned = { value: scanned, at: now };
-  }
-
-  // Queries without an index, from the "Slow query" lines MongoDB keeps. Only
-  // lines newer than the last probe, so one scan is reported once per process.
-  const log = await globalLog(db);
-  if (log) {
-    const { groups, newestMs } = health.collectionScans(log, state.logSeenMs);
-    state.logSeenMs = newestMs;
-    if (groups.length) recordDatabaseHealth(health.collectionScanProblem(groups));
   }
 
   const stats = await dbStats(db);

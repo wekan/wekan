@@ -98,6 +98,41 @@ test('documents read per second between two probes', () => {
   assert.strictEqual(h.scanRateProblem(227000).type, 'db.scan-rate');
 });
 
+// #6945: a nightly mongodump read ~630,000 documents per second for one
+// interval and raised "db.scan-rate" every morning with no query to name.
+test('#6945: a read rate is a problem only with a collection scan behind it', () => {
+  const scan = h.collectionScans(LOG, 0).groups;
+  assert.ok(scan.length > 0);
+  assert.strictEqual(h.scanRateReportable(632900, scan), true, 'a missing index: rate and scan');
+  assert.strictEqual(h.scanRateReportable(632900, null), true, 'the log unreadable: the rate alone, as before');
+  assert.strictEqual(h.scanRateReportable(632900, undefined), true);
+  // Negative: the mongodump interval - the log was read and has no scan.
+  assert.strictEqual(h.scanRateReportable(632900, []), false);
+  for (const rate of [null, undefined, 0, 1000, h.SCAN_RATE_PER_SEC, NaN]) {
+    assert.strictEqual(h.scanRateReportable(rate, scan), false, String(rate));
+  }
+});
+
+test('#6945: the Database Tools reading whole collections are no missing index', () => {
+  const dump = ['mongodump', 'mongodump 100.12.0', 'mongoexport'].map((appName, i) => line(`2026-11-25T03:0${i}:00.000+00:00`,
+    { ns: 'wekan.activities', appName, planSummary: 'COLLSCAN', docsExamined: 4300000, durationMillis: 5000,
+      command: { getMore: 1, collection: 'activities' }, originatingCommand: { find: 'activities', filter: {} } }));
+  assert.deepStrictEqual(h.collectionScans(dump, 0).groups, []);
+  assert.strictEqual(h.scanRateReportable(632900, h.collectionScans(dump, 0).groups), false);
+  // Negative: WeKan's own query, or another client, scanning the same way is.
+  const app = line('2026-11-25T03:05:00.000+00:00', { ns: 'wekan.activities', appName: 'wekan', planSummary: 'COLLSCAN',
+    docsExamined: 4300000, durationMillis: 5000, command: { find: 'activities', filter: { cardId: 'x' } } });
+  assert.strictEqual(h.collectionScans([...dump, app], 0).groups.length, 1);
+});
+
+test('#6945: the probe reads the log before it judges the rate', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'server/lib/databaseHealth.js'), 'utf8');
+  assert.ok(src.indexOf('scanGroups = groups;') > 0);
+  assert.ok(src.indexOf('scanGroups = groups;') < src.indexOf('health.scanRateReportable(perSecond, scanGroups)'));
+  // Negative: no path reports the rate on the threshold alone.
+  assert.doesNotMatch(src, /perSecond > health\.SCAN_RATE_PER_SEC/);
+});
+
 test('the probe reads the log and the counter, and a refused getLog is skipped', () => {
   const src = fs.readFileSync(path.join(__dirname, '..', 'server/lib/databaseHealth.js'), 'utf8');
   assert.match(src, /db\.admin\(\)\.command\(\{ getLog: 'global' \}\)/);

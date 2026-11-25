@@ -249,6 +249,8 @@ function slowQueryFilter(command) {
 // The getLog('global') lines (JSON strings) newer than `sinceMs`: the big
 // collection scans, grouped by collection and the fields they filtered on.
 // Returns { groups, newestMs }.
+const BACKUP_APP = /^(mongodump|mongoexport)\b/i;
+
 function collectionScans(logLines, sinceMs = 0) {
   const groups = new Map();
   let newestMs = sinceMs;
@@ -260,6 +262,9 @@ function collectionScans(logLines, sinceMs = 0) {
     if (at > newestMs) newestMs = at;
     const a = entry.msg === 'Slow query' && entry.attr;
     if (!a || typeof a.ns !== 'string' || /^(local|config|admin)\./.test(a.ns)) continue;
+    // #6945: a backup or an export reads every collection whole, by design -
+    // no index is missing. MongoDB's Database Tools name themselves (appName).
+    if (BACKUP_APP.test(String(a.appName || ''))) continue;
     if (!/COLLSCAN/.test(String(a.planSummary || '')) || !(Number(a.docsExamined) >= SCAN_MIN_DOCS)) continue;
     const command = originOf(a);
     const filter = slowQueryFilter(command);
@@ -297,6 +302,19 @@ function scanRate(previous, current, seconds) {
   const before = Number(previous), after = Number(current);
   if (!Number.isFinite(before) || !Number.isFinite(after) || !(seconds > 0) || after < before) return null;
   return (after - before) / seconds;
+}
+
+// #6945: whether a read rate over SCAN_RATE_PER_SEC is a problem to report.
+// scannedObjects counts every document read, by anything: a nightly mongodump
+// reads the whole database, and its interval alone went over the limit every
+// morning, naming no query and with nothing to fix. A query without a fitting
+// index is also a collection scan in MongoDB's "Slow query" log, so the rate is
+// reported when the same period has one (`scanGroups`, collectionScans()), and
+// not when the log was read and has none. When the log cannot be read (null),
+// the rate alone decides, as before: a missing index is never hidden.
+function scanRateReportable(perSecond, scanGroups) {
+  if (perSecond === null || perSecond === undefined || !(perSecond > SCAN_RATE_PER_SEC)) return false;
+  return !Array.isArray(scanGroups) || scanGroups.length > 0;
 }
 
 function scanRateProblem(perSecond) {
@@ -378,5 +396,6 @@ module.exports = {
   PROBE_CLAIM_ID,
   SHARED_STATE,
   scanRate,
+  scanRateReportable,
   scanRateProblem,
 };
