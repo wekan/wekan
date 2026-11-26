@@ -13,6 +13,8 @@ finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
 Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
 **wekan-gantt-gpl** snap and Docker image are no longer published.
+**Minicards are compact again**: no empty line at their top, one margin
+between them.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

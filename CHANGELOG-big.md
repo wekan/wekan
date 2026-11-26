@@ -104,6 +104,8 @@ finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
 Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
 **wekan-gantt-gpl** snap and Docker image are no longer published.
+**Minicards are compact again**: no empty line at their top, one margin
+between them.
 
 This release has the following new features:
 
@@ -172,6 +174,27 @@ and FerretDB's `tests/dependency-floors.py` keeps it there. WeKan's
 `docker-compose.yml` takes the newest FerretDB release, so nothing in WeKan
 pins a version. [Forgot Password](docs/Features/Login-Page/Forgot-Password.md)
 now repairs the database with `docker exec -it wekan-ferretdb mongosh wekan`.
+
+</details>
+
+and fixes the following bugs:
+
+**Minicards** - how much room a card of the board takes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5b0b754ac77621084a4febdaa1d771411bd49bc">No empty line at the top of every card, and one margin between cards</a>. Thanks to sirup and xet7.</summary>
+
+[#6943](https://github.com/wekan/wekan/issues/6943#issuecomment-7190880990):
+with the collapse caret hidden the board was still less compact than before.
+The space at the top was the keyboard move buttons: visually hidden, but a 14px
+line above every title. They are out of the flow now, 1px until focused, and
+still shown and usable from the keyboard. Between two cards the wrapper's 8px
+(12px on moderndark) came on top of the card's own 9px; it adds none now. With
+the menu hidden the title takes its corner too, a badge strip with no badge
+takes no line, and the desktop drag handle stays inside a one-line card.
+`tests/playwright/specs/minicard-spacing-6943.e2e.js` measures the board with
+the caret and the menu shown and hidden, with and without badges, and fails
+without the fix; `tests/minicardControls6943.test.cjs` pins the rules.
 
 </details>
 
