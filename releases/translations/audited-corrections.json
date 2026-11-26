@@ -226847,5 +226847,12 @@
     "before": "Çouchal disfåt po todi foû do ridant Gitea les fitchîs orfulins ki rén el båze di dnêyes n' eploye, eyet les royes del båze di dnêyes dont l' fitchî a stî pierdou. Tot çou k' est eployî cwand on l' disfåt est wårdé. Tapez l' nombe d' orfulins po continuwer:",
     "after": "Çouchal disfwait po todi foû do ridant Gitea les fitchîs orfulins ki rén el båze di dnêyes n' eploye, eyet les royes del båze di dnêyes dont l' fitchî a stî pierdou. Tot çou k' est eployî cwand on l' disfwait est wårdé. Tapez l' nombe d' orfulins po continuwer:",
     "reason": "Walloon, 2026-11-25: the value was French, Catalan/Occitan or invented (\"Esportar\", \"Mintrepond\", \"Scolar la căte\"), used \"ă\" for Walloon \"å\", was left in English, or translated an older English text. Rewritten in Walloon with the file's own vocabulary (cåte, tåvlea, djivêye, coridôr, responsåve, Ebaguer, Abaguer, Rimete, Rindjî); references: wa.wiktionary.org, https://dtw.walon.org. Low confidence where the grammar is complex; tokens retained."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-limit-unit-bytes",
+    "before": "Bytes",
+    "after": "Bajtovi",
+    "reason": "Bosnian, 2026-11-26: the value was the English word. \"Bajt\", plural \"bajtovi\", as Bosnian, Croatian and Serbian computing write it (hr.wiktionary.org, bs.wikipedia.org \"Bajt\")."
   }
 ]

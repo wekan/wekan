@@ -10,6 +10,9 @@ for (const row of corrections) {
   assert.doesNotMatch(row.after, /[А-Яа-яЁё]/, `${row.key}: Serbian seed must be replaced with reviewed Bosnian wording`);
 }
 assert.equal(data.accessibility, 'Pristupačnost');
+// Negative: the byte unit is Bosnian, not the English word (2026-11-26).
+assert.equal(data['attachment-limit-unit-bytes'], 'Bajtovi');
+assert.notEqual(data['attachment-limit-unit-bytes'], 'Bytes');
 assert.match(data['accessibility-page-enabled'], /omogućena/);
 assert.match(data['accessibility-info-not-added-yet'], /još nisu dodane/);
 assert.match(data['Node_heap_does_zap_garbage'], /uzorkom bitova/);
