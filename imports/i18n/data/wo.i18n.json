@@ -440,6 +440,8 @@
   "due-today": "Tey mooy jamono ji",
   "due-days-left": "bes yu %s desnaal",
   "due-days-overdue": "bes yu %s wees",
+  "due-soon-hours": "Jamono ji jege na: waxtu yi balaa bés bi",
+  "overdue-after-hours": "Jamono ji jàll na: waxtu yi ginnaaw bés bi",
   "card-spent": "Diir bi ñu jëfandikoo",
   "card-edit-attachments": "Soppi takkaay yi",
   "card-edit-custom-fields": "Soppi wàlli dugal yu ñu def ci soxla",

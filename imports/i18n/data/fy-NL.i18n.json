@@ -440,6 +440,8 @@
   "due-today": "Foar hjoed",
   "due-days-left": "noch %s dagen",
   "due-days-overdue": "%s dagen te let",
+  "due-soon-hours": "Gau ferfallen: oeren foar de ferfaldatum",
+  "overdue-after-hours": "Te let: oeren nei de ferfaldatum",
   "card-spent": "Tiid trochbrocht",
   "card-edit-attachments": "Taheaksels bewurkje",
   "card-edit-custom-fields": "Oanpaste fjilden bewurkje",

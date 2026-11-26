@@ -8,6 +8,7 @@ import './dateFormatSettings.jade';
 import './dateFormatSettings.css';
 const { availableCalendarSystems } = require('/imports/lib/calendarSystems');
 const { DATE_FORMATS } = require('/models/lib/dateFormatPolicy');
+const { dueThresholdsOf } = require('/models/lib/dueDateThresholds');
 
 Template.dateFormatEditor.onCreated(function () {
   this.boardId = Utils.getCurrentBoard()?._id;
@@ -119,6 +120,7 @@ Template.dateFormatEditor.events({
 
 // #687: the board's CalDAV link, for board admins (server/caldavSync.js).
 Template.boardDateSettingsPopup.onCreated(function () {
+  this.dueThresholdsError = new ReactiveVar('');
   this.caldav = new ReactiveVar({ url: '', username: '', enabled: false, hasPassword: false });
   this.caldavMessage = new ReactiveVar('');
   const board = Utils.getCurrentBoard();
@@ -128,6 +130,11 @@ Template.boardDateSettingsPopup.onCreated(function () {
 });
 
 Template.boardDateSettingsPopup.helpers({
+  // #6947: the board's due date thresholds, its defaults while unset.
+  dueSoonHours() { return dueThresholdsOf(Utils.getCurrentBoard()).soonHours; },
+  overdueAfterHours() { return dueThresholdsOf(Utils.getCurrentBoard()).overdueAfterHours; },
+  notBoardAdmin() { return !ReactiveCache.getCurrentUser()?.isBoardAdmin(); },
+  dueThresholdsError() { return Template.instance().dueThresholdsError.get(); },
   caldav() { return Template.instance().caldav.get(); },
   caldavMessage() { return Template.instance().caldavMessage.get(); },
   isShowWeekOfYear() {
@@ -138,6 +145,22 @@ Template.boardDateSettingsPopup.helpers({
 });
 
 Template.boardDateSettingsPopup.events({
+  // An empty field is the default again (null).
+  async 'submit .js-due-thresholds-form'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    const read = selector => {
+      const raw = String(tpl.$(selector).val() || '').trim();
+      return raw === '' ? null : Number(raw);
+    };
+    tpl.dueThresholdsError.set('');
+    try {
+      await Meteor.callAsync('setBoardDueThresholds', board._id, read('.js-due-soon-hours'), read('.js-overdue-after-hours'));
+    } catch (error) {
+      tpl.dueThresholdsError.set(error.reason || error.message);
+    }
+  },
   'click .js-caldav-enabled'(event, tpl) {
     event.preventDefault();
     tpl.caldav.set({ ...tpl.caldav.get(), enabled: !tpl.caldav.get().enabled });

@@ -440,6 +440,8 @@
   "due-today": "Dospěje dźensa",
   "due-days-left": "hišće %s dnjow",
   "due-days-overdue": "%s dnjow po terminje",
+  "due-soon-hours": "Bórze termin: hodźiny před terminom",
+  "overdue-after-hours": "Po terminje: hodźiny po terminje",
   "card-spent": "Přetrjebany čas",
   "card-edit-attachments": "Přiwěški wobdźěłać",
   "card-edit-custom-fields": "Swójske pola wobdźěłać",

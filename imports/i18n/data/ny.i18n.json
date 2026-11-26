@@ -440,6 +440,8 @@
   "due-today": "Tsiku lomaliza ndi lero",
   "due-days-left": "masiku %s otsala",
   "due-days-overdue": "masiku %s achedwa",
+  "due-soon-hours": "Posachedwa nthawi: maola tsiku lisanafike",
+  "overdue-after-hours": "Yadutsa nthawi: maola tsiku litapita",
   "card-spent": "Nthawi Yogwiritsidwa Ntchito",
   "card-edit-attachments": "Sinthani zolumikizidwa",
   "card-edit-custom-fields": "Sinthani malo apadera",

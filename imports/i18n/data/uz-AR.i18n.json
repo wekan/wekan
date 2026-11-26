@@ -440,6 +440,8 @@
   "due-today": "بجریش مهلتی بوگون",
   "due-days-left": "%s کون قالدی",
   "due-days-overdue": "%s کون کیچیکدی",
+  "due-soon-hours": "مۉلتی یقین: مۉلتدن آلدینگی ساعتلر",
+  "overdue-after-hours": "مۉلتی اۉتگن: مۉلتدن کېیینگی ساعتلر",
   "card-spent": "صرفلنگن وقت",
   "card-edit-attachments": "بیریکتیرمه‌لرنی تحریرلش",
   "card-edit-custom-fields": "مخصوص میدان‌لرنی تحریرلش",

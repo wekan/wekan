@@ -440,6 +440,8 @@
   "due-today": "Lilanga lanamuhla",
   "due-days-left": "kusele emalanga la-%s",
   "due-days-overdue": "emalanga la-%s aphelile",
+  "due-soon-hours": "Sekusedvute: emahora ngaphambi kwelilanga",
+  "overdue-after-hours": "Sekwendlulile: emahora emva kwelilanga",
   "card-spent": "Sikhatsi Lesisetjentisiwe",
   "card-edit-attachments": "Hlela lokunamatsiselwe",
   "card-edit-custom-fields": "Hlela tindzawo letikhetsekile",

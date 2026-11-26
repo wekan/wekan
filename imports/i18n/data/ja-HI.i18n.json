@@ -440,6 +440,8 @@
   "due-today": "本日期限",
   "due-days-left": "残り%s日",
   "due-days-overdue": "%s日超過",
+  "due-soon-hours": "きげんまぢか：きげんの なんじかん まえから",
+  "overdue-after-hours": "きげんぎれ：きげんの なんじかん あとから",
   "card-spent": "作業時間",
   "card-edit-attachments": "添付ファイルの編集",
   "card-edit-custom-fields": "カスタムフィールドの編集",

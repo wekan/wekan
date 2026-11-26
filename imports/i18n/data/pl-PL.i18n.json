@@ -440,6 +440,8 @@
   "due-today": "Termin przypada dzisiaj",
   "due-days-left": "zostało %s dni",
   "due-days-overdue": "opóźnienie o %s dni",
+  "due-soon-hours": "Wkrótce termin: godziny przed terminem",
+  "overdue-after-hours": "Po terminie: godziny po terminie",
   "card-spent": "Czas pracy",
   "card-edit-attachments": "Edytuj załączniki",
   "card-edit-custom-fields": "Edytuj niestandardowe pola",

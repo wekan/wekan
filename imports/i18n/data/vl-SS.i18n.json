@@ -440,6 +440,8 @@
   "due-today": "Vervalt vandaag",
   "due-days-left": "nog %s dagen",
   "due-days-overdue": "%s dagen te laat",
+  "due-soon-hours": "Binnenkort vervallen: uren vóór de vervaldatum",
+  "overdue-after-hours": "Te laat: uren na de vervaldatum",
   "card-spent": "Gespendeerde tijd",
   "card-edit-attachments": "Wijzig bijlagen",
   "card-edit-custom-fields": "Wijzig maatwerkvelden",

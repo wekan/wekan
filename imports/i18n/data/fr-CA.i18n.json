@@ -440,6 +440,8 @@
   "due-today": "Échéance aujourd'hui",
   "due-days-left": "il reste %s jours",
   "due-days-overdue": "en retard de %s jours",
+  "due-soon-hours": "Échéance proche : heures avant la date d'échéance",
+  "overdue-after-hours": "En retard : heures après la date d'échéance",
   "card-spent": "Temps passé",
   "card-edit-attachments": "Modifier les pièces jointes",
   "card-edit-custom-fields": "Éditer les champs personnalisés",

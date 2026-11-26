@@ -440,6 +440,8 @@
   "due-today": "Şu gün",
   "due-days-left": "%s gün galdy",
   "due-days-overdue": "%s gün gijikdi",
+  "due-soon-hours": "Möhleti ýakyn: möhletden öňki sagatlar",
+  "overdue-after-hours": "Möhleti geçen: möhletden soňky sagatlar",
   "card-spent": "Wagt sarp etdi",
   "card-edit-attachments": "Goşundylary redaktirläň",
   "card-edit-custom-fields": "Customörite meýdanlary redaktirläň",

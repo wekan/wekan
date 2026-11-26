@@ -440,6 +440,8 @@
   "due-today": "Limita easti adzã",
   "due-days-left": "armasirã %s dzãli",
   "due-days-overdue": "%s dzãli amãnat",
+  "due-soon-hours": "Ahoarã yini: orli ninte di data",
+  "overdue-after-hours": "Aminatã: orli dupã data",
   "card-spent": "Chiro hãrgiuit",
   "card-edit-attachments": "Alãxea atashamentili",
   "card-edit-custom-fields": "Alãxea cãmpurli personalizati",

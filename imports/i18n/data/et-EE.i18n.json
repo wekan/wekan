@@ -440,6 +440,8 @@
   "due-today": "Saabub täna",
   "due-days-left": "%s päeva jäänud",
   "due-days-overdue": "%s päeva hilinenud",
+  "due-soon-hours": "Peagi tähtaeg: tunnid enne tähtaega",
+  "overdue-after-hours": "Üle tähtaja: tunnid pärast tähtaega",
   "card-spent": "Kulutatud aeg",
   "card-edit-attachments": "Muuda manuseid",
   "card-edit-custom-fields": "Muuda kohandatud väljad",

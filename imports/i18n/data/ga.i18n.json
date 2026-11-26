@@ -440,6 +440,8 @@
   "due-today": "Dlite inniu",
   "due-days-left": "%s lá fágtha",
   "due-days-overdue": "%s lá thar téarma",
+  "due-soon-hours": "Dlite go luath: uaireanta roimh an dáta dlite",
+  "overdue-after-hours": "Thar téarma: uaireanta tar éis an dáta dlite",
   "card-spent": "Am Caite",
   "card-edit-attachments": "Cuir ceangaltáin in eagar",
   "card-edit-custom-fields": "Cuir réimsí saincheaptha in eagar",

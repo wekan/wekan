@@ -440,6 +440,8 @@
   "due-today": "Diwezhañ hiziv",
   "due-days-left": "%s devezh a chom",
   "due-days-overdue": "%s devezh dale",
+  "due-soon-hours": "Termen tost: eurioù a-raok an termen",
+  "overdue-after-hours": "Dale: eurioù goude an termen",
   "card-spent": "Amzer tremenet",
   "card-edit-attachments": "Kemmañ ar stagadennoù",
   "card-edit-custom-fields": "Kemmañ ar maeziennoù personelaet",

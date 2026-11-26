@@ -440,6 +440,8 @@
   "due-today": "आज तारीख बा",
   "due-days-left": "%s दिन बाँकी बा",
   "due-days-overdue": "%s दिन बीत गइल",
+  "due-soon-hours": "जल्दिए समय सीमा: समय सीमा से पहिले के घंटा",
+  "overdue-after-hours": "समय बीत गइल: समय सीमा के बाद के घंटा",
   "card-spent": "लागल समय",
   "card-edit-attachments": "संलग्नक बदलीं",
   "card-edit-custom-fields": "मनमाफिक फील्ड बदलीं",

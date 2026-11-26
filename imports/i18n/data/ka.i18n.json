@@ -440,6 +440,8 @@
   "due-today": "ვადა დღეს",
   "due-days-left": "დარჩა %s დღე",
   "due-days-overdue": "დაგვიანებულია %s დღით",
+  "due-soon-hours": "მალე ვადა: საათები ვადამდე",
+  "overdue-after-hours": "ვადაგადაცილებული: საათები ვადის შემდეგ",
   "card-spent": "დახარჯული დრო",
   "card-edit-attachments": "მიბმული ფაილის შესწორება",
   "card-edit-custom-fields": "მომხმარებლის ველის შესწორება",

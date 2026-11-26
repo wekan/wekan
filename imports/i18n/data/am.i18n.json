@@ -440,6 +440,8 @@
   "due-today": "ዛሬ ይደርሳል",
   "due-days-left": "%s ቀናት ቀሩ",
   "due-days-overdue": "%s ቀናት አልፏል",
+  "due-soon-hours": "በቅርቡ የሚያበቃ፦ ከማብቂያ ቀኑ በፊት ያሉ ሰዓታት",
+  "overdue-after-hours": "ጊዜው ያለፈበት፦ ከማብቂያ ቀኑ በኋላ ያሉ ሰዓታት",
   "card-spent": "የወጣ ጊዜ",
   "card-edit-attachments": "አባሪዎችን አርትዕ",
   "card-edit-custom-fields": "ብጁ መስኮችን አርትዕ",

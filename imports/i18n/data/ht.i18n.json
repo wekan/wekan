@@ -440,6 +440,8 @@
   "due-today": "Delè a se jodi a",
   "due-days-left": "rete %s jou",
   "due-days-overdue": "%s jou an reta",
+  "due-soon-hours": "Dat limit pre: èdtan anvan dat limit la",
+  "overdue-after-hours": "An reta: èdtan apre dat limit la",
   "card-spent": "Tan ki pase",
   "card-edit-attachments": "Modifye pyès atache",
   "card-edit-custom-fields": "Modifye chan pèsonalize",

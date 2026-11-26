@@ -440,6 +440,8 @@
   "due-today": "Hoʻopau i kēia lā",
   "due-days-left": "%s mau lā i koe",
   "due-days-overdue": "%s mau lā i hala",
+  "due-soon-hours": "Kokoke ka lā palena: nā hola ma mua o ka lā palena",
+  "overdue-after-hours": "Ua hala: nā hola ma hope o ka lā palena",
   "card-spent": "kapenaka manawa",
   "card-edit-attachments": "hoʻoponopono nā mea hoʻopili",
   "card-edit-custom-fields": "Hoʻoponopono i nā kahua hoʻopilikino",

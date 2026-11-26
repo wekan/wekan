@@ -440,6 +440,8 @@
   "due-today": "Ferdafrestur í dag",
   "due-days-left": "%s dagar eftir",
   "due-days-overdue": "%s dagar seint",
+  "due-soon-hours": "Fellur skjótt: tímar áðrenn freistina",
+  "overdue-after-hours": "Farið um freist: tímar eftir freistina",
   "card-spent": "Nýtt tíð",
   "card-edit-attachments": "Broyt viðheft",
   "card-edit-custom-fields": "Broyt egin øki",

@@ -440,6 +440,8 @@
   "due-today": "Uyu musi niwo wagenewe",
   "due-days-left": "iminsi %s isigaye",
   "due-days-overdue": "iminsi %s yarenze",
+  "due-soon-hours": "Igihe kiregereje: amasaha imbere y'itariki",
+  "overdue-after-hours": "Igihe cararenze: amasaha inyuma y'itariki",
   "card-spent": "Igihe cakoreshejwe",
   "card-edit-attachments": "Hindura ivyometse",
   "card-edit-custom-fields": "Hindura imirima yihariye",

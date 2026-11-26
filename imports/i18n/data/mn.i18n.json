@@ -440,6 +440,8 @@
   "due-today": "Хугацаа өнөөдөр",
   "due-days-left": "%s хоног үлдлээ",
   "due-days-overdue": "%s хоногоор хоцорсон",
+  "due-soon-hours": "Удахгүй хугацаа дуусна: хугацааны өмнөх цаг",
+  "overdue-after-hours": "Хугацаа хэтэрсэн: хугацааны дараах цаг",
   "card-spent": "Зарцуулсан хугацаа",
   "card-edit-attachments": "Хавсралтуудыг засах",
   "card-edit-custom-fields": "Тусгай талбаруудыг засах",

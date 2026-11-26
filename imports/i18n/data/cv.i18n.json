@@ -440,6 +440,8 @@
   "due-today": "Паян вӗҫленет",
   "due-days-left": "%s кун юлчӗ",
   "due-days-overdue": "%s кун иртсе кайрӗ",
+  "due-soon-hours": "Часах срок: срок умӗнхи сехетсем",
+  "overdue-after-hours": "Срокран иртнӗ: срок хыҫҫӑнхи сехетсем",
   "card-spent": "Ирттернӗ вӑхӑт",
   "card-edit-attachments": "Хушӑннисене улӑштарас",
   "card-edit-custom-fields": "Уйрӑм уйсене улӑштарас",

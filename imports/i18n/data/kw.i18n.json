@@ -440,6 +440,8 @@
   "due-today": "Res hedhyw",
   "due-days-left": "%s dydh a wra",
   "due-days-overdue": "%s dydh diwedhes",
+  "due-soon-hours": "Ogas dhe'n termyn: euryow kyns an termyn",
+  "overdue-after-hours": "Diwedhes: euryow wosa an termyn",
   "card-spent": "Termyn usys",
   "card-edit-attachments": "Chanjya stagellow",
   "card-edit-custom-fields": "Chanjya meys a-vusur",

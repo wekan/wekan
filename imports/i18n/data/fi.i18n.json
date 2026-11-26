@@ -440,6 +440,8 @@
   "due-today": "Erääntyy tänään",
   "due-days-left": "%s päivää jäljellä",
   "due-days-overdue": "%s päivää myöhässä",
+  "due-soon-hours": "Pian erääntyvä: tunnit ennen eräpäivää",
+  "overdue-after-hours": "Myöhässä: tunnit eräpäivän jälkeen",
   "card-spent": "Käytetty aika",
   "card-edit-attachments": "Muokkaa liitetiedostoja",
   "card-edit-custom-fields": "Muokkaa mukautettuja kenttiä",

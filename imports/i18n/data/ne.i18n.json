@@ -440,6 +440,8 @@
   "due-today": "आज म्याद सकिन्छ",
   "due-days-left": "%s दिन बाँकी",
   "due-days-overdue": "%s दिन ढिलो",
+  "due-soon-hours": "चाँडै म्याद: म्यादअघिका घण्टा",
+  "overdue-after-hours": "म्याद नाघेको: म्यादपछिका घण्टा",
   "card-spent": "खर्चिएको समय",
   "card-edit-attachments": "संलग्नकहरू सम्पादन गर्नुहोस्",
   "card-edit-custom-fields": "अनुकूल फिल्डहरू सम्पादन गर्नुहोस्",

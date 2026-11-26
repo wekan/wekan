@@ -440,6 +440,8 @@
   "due-today": "Îro dawî ye",
   "due-days-left": "%s roj mane",
   "due-days-overdue": "%s roj dereng",
+  "due-soon-hours": "Nêzîk e: demjimêrên berî dîroka dawî",
+  "overdue-after-hours": "Dereng ma: demjimêrên piştî dîroka dawî",
   "card-spent": "Dema derbasbûyî",
   "card-edit-attachments": "Pêvekan biguherîne",
   "card-edit-custom-fields": "Qadên taybet biguherîne",

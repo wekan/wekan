@@ -440,6 +440,8 @@
   "due-today": "مقتضی امروز",
   "due-days-left": "%s روز باقی مانده",
   "due-days-overdue": "%s روز تأخیر",
+  "due-soon-hours": "به‌زودی سررسید: ساعت‌های پیش از سررسید",
+  "overdue-after-hours": "سررسید گذشته: ساعت‌های پس از سررسید",
   "card-spent": "زمان صرف شده",
   "card-edit-attachments": "ویرایش ضمائم",
   "card-edit-custom-fields": "ویرایش فیلدهای سفارشی",

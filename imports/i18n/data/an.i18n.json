@@ -440,6 +440,8 @@
   "due-today": "Bienza güei",
   "due-days-left": "%s diyas restants",
   "due-days-overdue": "%s diyas de retraso",
+  "due-soon-hours": "Vence luego: horas antes d'a data de vencimiento",
+  "overdue-after-hours": "Vencida: horas dimpués d'a data de vencimiento",
   "card-spent": "Tiempo consumido",
   "card-edit-attachments": "Editar os adjuntos",
   "card-edit-custom-fields": "Editar os campos personalizados",

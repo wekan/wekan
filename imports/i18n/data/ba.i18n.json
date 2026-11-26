@@ -440,6 +440,8 @@
   "due-today": "Бөгөн срогы бөтә",
   "due-days-left": "%s көн ҡалды",
   "due-days-overdue": "%s көн кисекте",
+  "due-soon-hours": "Тиҙҙән срогы етә: сроктан алдағы сәғәттәр",
+  "overdue-after-hours": "Срогы үткән: сроктан һуңғы сәғәттәр",
   "card-spent": "Сарыф ителгән ваҡыт",
   "card-edit-attachments": "Ҡушымталарҙы үҙгәртергә",
   "card-edit-custom-fields": "Махсус яландарҙы үҙгәртергә",

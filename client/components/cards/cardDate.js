@@ -27,6 +27,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import { dueDateClass, dueCountdown } from '/client/lib/dueDateColor';
+import { dueThresholdsOf } from '/models/lib/dueDateThresholds';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 import { formatDateForDisplay as formatCardDateForDisplay } from '/client/lib/dateDisplay';
 
@@ -266,7 +267,9 @@ const CARD_DATE_KINDS = {
         const theDate = tpl.date.get();
         const nowVal = tpl.now.get();
 
-        return `due-date ${dueDateClass(theDate, nowVal, endAt)}`;
+        // #6947: the board's own due-soon and overdue hours.
+        const board = data.boardId ? ReactiveCache.getBoard(data.boardId) : null;
+        return `due-date ${dueDateClass(theDate, nowVal, endAt, dueThresholdsOf(board))}`;
       },
       showTitle() {
         const tpl = Template.instance();

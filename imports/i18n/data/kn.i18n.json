@@ -440,6 +440,8 @@
   "due-today": "ಇಂದು ಅಂತಿಮ ದಿನಾಂಕ",
   "due-days-left": "%s ದಿನಗಳು ಬಾಕಿ",
   "due-days-overdue": "%s ದಿನಗಳು ತಡವಾಗಿದೆ",
+  "due-soon-hours": "ಶೀಘ್ರದಲ್ಲೇ ಗಡುವು: ಗಡುವಿನ ಮೊದಲು ಗಂಟೆಗಳು",
+  "overdue-after-hours": "ಗಡುವು ಮೀರಿದೆ: ಗಡುವಿನ ನಂತರ ಗಂಟೆಗಳು",
   "card-spent": "ವ್ಯಯಿಸಿದ ಸಮಯ",
   "card-edit-attachments": "ಲಗತ್ತುಗಳನ್ನು ಸಂಪಾದಿಸಿ",
   "card-edit-custom-fields": "ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳನ್ನು ಸಂಪಾದಿಸಿ",

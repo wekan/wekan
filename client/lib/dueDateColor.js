@@ -9,18 +9,21 @@
  *   - If the card has an end date:
  *       - end before due  => 'completed-early'
  *       - otherwise       => 'completed'
- *   - Otherwise, compare the due date against "now":
- *       - due in the past            => 'overdue'   (red)
- *       - due within 48 hours        => 'due-soon'  (amber)
- *       - due more than 48h in future => 'not-due'  (grey)
+ *   - Otherwise, compare the due date against "now", with the board's
+ *     thresholds (#6947, models/lib/dueDateThresholds.js dueThresholdsOf):
+ *       - more than overdueAfterHours past the due date => 'overdue' (red)
+ *       - within soonHours of it, or past it by less    => 'due-soon' (amber)
+ *       - more than soonHours before it                 => 'not-due'  (grey)
+ *     Without thresholds: 48 hours before, and overdue at the due time.
  *
  * @param {Date|string|number} dueDate - The card due date.
  * @param {Date|string|number} now - The current time.
  * @param {Date|string|number} [endDate] - The card end date, if set.
+ * @param {{soonHours: number, overdueAfterHours: number}} [thresholds]
  * @returns {string} One of 'overdue' | 'due-soon' | 'not-due' |
  *                   'completed-early' | 'completed'.
  */
-export function dueDateClass(dueDate, now, endDate) {
+export function dueDateClass(dueDate, now, endDate, thresholds) {
   const due = new Date(dueDate);
   const nowVal = new Date(now);
 
@@ -35,9 +38,17 @@ export function dueDateClass(dueDate, now, endDate) {
   const diffMs = due.getTime() - nowVal.getTime();
   const hoursDiff = diffMs / (1000 * 60 * 60);
 
-  if (hoursDiff < 0) {
+  // No imports here (tests load this file on its own): the thresholds come
+  // checked from dueThresholdsOf, and only a number is taken.
+  const hours = v => (typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : null);
+  const soon = hours(thresholds && thresholds.soonHours);
+  const after = hours(thresholds && thresholds.overdueAfterHours);
+  const soonHours = soon === null ? 48 : soon;
+  const overdueAfterHours = after === null ? 0 : after;
+
+  if (hoursDiff < -overdueAfterHours) {
     return 'overdue';
-  } else if (hoursDiff <= 48) {
+  } else if (hoursDiff <= soonHours) {
     return 'due-soon';
   }
   return 'not-due';

@@ -440,6 +440,8 @@
   "due-today": "רעכט הייַנט",
   "due-days-left": "%s טעג געבליבן",
   "due-days-overdue": "%s טעג פֿאַרשפּעטיקט",
+  "due-soon-hours": "באַלד פֿעליק: שעהן פֿאַרן טערמין",
+  "overdue-after-hours": "פֿאַרשפּעטיקט: שעהן נאָכן טערמין",
   "card-spent": "פארבראכט צייט",
   "card-edit-attachments": "רעדאַגירן אַטאַטשמאַנץ",
   "card-edit-custom-fields": "רעדאַקטירן אייגענע פֿעלדער",

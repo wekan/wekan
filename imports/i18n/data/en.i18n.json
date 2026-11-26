@@ -440,6 +440,8 @@
   "due-today": "Due today",
   "due-days-left": "%s days left",
   "due-days-overdue": "%s days overdue",
+  "due-soon-hours": "Due soon: hours before the due date",
+  "overdue-after-hours": "Overdue: hours after the due date",
   "card-spent": "Spent Time",
   "card-edit-attachments": "Edit attachments",
   "card-edit-custom-fields": "Edit custom fields",

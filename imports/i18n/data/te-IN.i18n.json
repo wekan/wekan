@@ -440,6 +440,8 @@
   "due-today": "ఈరోజు గడువు",
   "due-days-left": "%s రోజులు మిగిలి ఉన్నాయి",
   "due-days-overdue": "%s రోజులు ఆలస్యం",
+  "due-soon-hours": "త్వరలో గడువు: గడువుకు ముందు గంటలు",
+  "overdue-after-hours": "గడువు దాటింది: గడువు తర్వాత గంటలు",
   "card-spent": "సమయం గడిపారు",
   "card-edit-attachments": "జోడింపులను సవరించండి",
   "card-edit-custom-fields": "అనుకూల ఫీల్డ్‌లను సవరించండి",

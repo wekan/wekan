@@ -440,6 +440,8 @@
   "due-today": "Nhasi ndiro zuva rokupedzisira",
   "due-days-left": "mazuva %s asara",
   "due-days-overdue": "mazuva %s apfuura",
+  "due-soon-hours": "Yave pedyo: maawa nguva isati yasvika",
+  "overdue-after-hours": "Yakapfuura: maawa mushure menguva",
   "card-spent": "Nguva yakashandiswa",
   "card-edit-attachments": "Gadzirisa zvinamatidzwa",
   "card-edit-custom-fields": "Gadzirisa ndima dzakasarudzika",

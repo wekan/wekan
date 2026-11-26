@@ -440,6 +440,8 @@
   "due-today": "今天到期",
   "due-days-left": "还剩 %s 天",
   "due-days-overdue": "已逾期 %s 天",
+  "due-soon-hours": "即将到期：到期日之前的小时数",
+  "overdue-after-hours": "已逾期：到期日之后的小时数",
   "card-spent": "花费的时间",
   "card-edit-attachments": "编辑附件",
   "card-edit-custom-fields": "编辑自定义字段",

@@ -440,6 +440,8 @@
   "due-today": "Son tarihi bügün",
   "due-days-left": "%s gün kaldı",
   "due-days-overdue": "%s gün gecikti",
+  "due-soon-hours": "Yakında süresi doluyor: son tarihten önceki saatler",
+  "overdue-after-hours": "Gecikmiş: son tarihten sonraki saatler",
   "card-spent": "Harcanan Zaman",
   "card-edit-attachments": "Ek dosyasını düzenle",
   "card-edit-custom-fields": "Özel alanları düzenle",

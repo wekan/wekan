@@ -440,6 +440,8 @@
   "due-today": "Kikoleddwa leero",
   "due-days-left": "ennaku %s zisigadde",
   "due-days-overdue": "ennaku %s ziyise",
+  "due-soon-hours": "Kinaatera okuggwako: essaawa ng'olunaku terunnatuuka",
+  "overdue-after-hours": "Kiyise: essaawa oluvannyuma lw'olunaku",
   "card-spent": "Spent Budde",
   "card-edit-attachments": "Kyusa ebiyungiddwa",
   "card-edit-custom-fields": "Kyusa ennimiro ez'enjawulo",

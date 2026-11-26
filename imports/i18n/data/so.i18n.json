@@ -440,6 +440,8 @@
   "due-today": "Maanta waa xilliga dhammaadka",
   "due-days-left": "%s maalmood baa hadhay",
   "due-days-overdue": "%s maalmood baa daahay",
+  "due-soon-hours": "Dhawaan waqtiga: saacadaha ka hor taariikhda",
+  "overdue-after-hours": "Dib u dhacay: saacadaha ka dib taariikhda",
   "card-spent": "Waqtiga La Qaatay",
   "card-edit-attachments": "Wax ka beddel lifaaqyada",
   "card-edit-custom-fields": "Wax ka beddel goobaha gaarka ah",

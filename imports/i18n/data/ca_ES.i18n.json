@@ -440,6 +440,8 @@
   "due-today": "Degut avui",
   "due-days-left": "queden %s dies",
   "due-days-overdue": "%s dies de retard",
+  "due-soon-hours": "Venç aviat: hores abans de la data de venciment",
+  "overdue-after-hours": "Vençuda: hores després de la data de venciment",
   "card-spent": "Temps Dedicat",
   "card-edit-attachments": "Edita arxius adjunts",
   "card-edit-custom-fields": "Editar campaments personalitzats",

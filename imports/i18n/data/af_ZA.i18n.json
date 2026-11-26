@@ -440,6 +440,8 @@
   "due-today": "Vandag betaalbaar",
   "due-days-left": "%s dae oor",
   "due-days-overdue": "%s dae oortyd",
+  "due-soon-hours": "Binnekort verval: ure voor die sperdatum",
+  "overdue-after-hours": "Agterstallig: ure na die sperdatum",
   "card-spent": "Tyd spandeer",
   "card-edit-attachments": "Wysig aanhegsels",
   "card-edit-custom-fields": "Wysig pasgemaakte velde",

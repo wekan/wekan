@@ -440,6 +440,8 @@
   "due-today": "Ժամկետը այսօր",
   "due-days-left": "մնացել է %s օր",
   "due-days-overdue": "%s օր ուշացած",
+  "due-soon-hours": "Շուտով ժամկետ: ժամեր ժամկետից առաջ",
+  "overdue-after-hours": "Ժամկետանց: ժամեր ժամկետից հետո",
   "card-spent": "Ծախսած ժամանակ",
   "card-edit-attachments": "Խմբագրել հավելվածները",
   "card-edit-custom-fields": "Խմբագրել հատուկ դաշտերը",

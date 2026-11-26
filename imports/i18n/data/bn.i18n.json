@@ -440,6 +440,8 @@
   "due-today": "আজ শেষ তারিখ",
   "due-days-left": "%s দিন বাকি",
   "due-days-overdue": "%s দিন বিলম্বিত",
+  "due-soon-hours": "শীঘ্রই নির্ধারিত: নির্ধারিত তারিখের আগের ঘণ্টা",
+  "overdue-after-hours": "সময় পেরিয়ে গেছে: নির্ধারিত তারিখের পরের ঘণ্টা",
   "card-spent": "ব্যয়িত সময়",
   "card-edit-attachments": "সংযুক্তি সম্পাদনা করুন",
   "card-edit-custom-fields": "কাস্টম ক্ষেত্র সম্পাদনা করুন",

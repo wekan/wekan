@@ -440,6 +440,8 @@
   "due-today": "Terminowô dzysô",
   "due-days-left": "òstało %s dni",
   "due-days-overdue": "zapóźnienié %s dni",
+  "due-soon-hours": "Wnetkã termin: gòdzënë przed terminã",
+  "overdue-after-hours": "Pò terminie: gòdzënë pò terminie",
   "card-spent": "Ùżëti czas",
   "card-edit-attachments": "Edytuj przëdôwczi",
   "card-edit-custom-fields": "Edytuj niestandardowé pola",

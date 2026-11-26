@@ -440,6 +440,8 @@
   "due-today": "Scadënza ncuei",
   "due-days-left": "ancora %s dis",
   "due-days-overdue": "%s dis do la scadënza",
+  "due-soon-hours": "Tert da fenì: ores dant la data de scadënza",
+  "overdue-after-hours": "Te retert: ores do la data de scadënza",
   "card-spent": "Tëmp adurvà",
   "card-edit-attachments": "Mudé la injuntes",
   "card-edit-custom-fields": "Mudé i ciamps persunalisei",

@@ -440,6 +440,8 @@
   "due-today": "Dligheach an-diugh",
   "due-days-left": "%s latha air fhàgail",
   "due-days-overdue": "%s latha air dheireadh",
+  "due-soon-hours": "Ri thighinn a dh'aithghearr: uairean ron cheann-latha",
+  "overdue-after-hours": "Air dheireadh: uairean às dèidh a' cheann-latha",
   "card-spent": "Ùine a Chaiteadh",
   "card-edit-attachments": "Deasaich ceanglachain",
   "card-edit-custom-fields": "Deasaich raointean gnàthaichte",

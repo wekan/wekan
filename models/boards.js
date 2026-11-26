@@ -1650,6 +1650,10 @@ Boards.attachSchema(
     },
 
     dateFormatOverride: { type: Boolean, optional: true },
+    // #6947: hours before the due date a card is due soon, and after it a
+    // card is overdue (models/lib/dueDateThresholds.js; unset: 48 and 0).
+    dueSoonHours: { type: Number, optional: true, min: 0, max: 24 * 366 },
+    overdueAfterHours: { type: Number, optional: true, min: 0, max: 24 * 366 },
     dateFormat: { type: String, optional: true, allowedValues: require('/models/lib/dateFormatPolicy').DATE_FORMATS },
     allowsStartDate: {
       /**

@@ -440,6 +440,8 @@
   "due-today": "Afati sot",
   "due-days-left": "%s ditë të mbetura",
   "due-days-overdue": "%s ditë vonesë",
+  "due-soon-hours": "Afati afër: orë para afatit",
+  "overdue-after-hours": "Me vonesë: orë pas afatit",
   "card-spent": "Koha e shpenzuar",
   "card-edit-attachments": "Redakto bashkëngjitjet",
   "card-edit-custom-fields": "Redakto fushat e personalizuara",

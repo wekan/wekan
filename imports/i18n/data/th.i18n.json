@@ -440,6 +440,8 @@
   "due-today": "ครบกำหนดวันนี้",
   "due-days-left": "เหลืออีก %s วัน",
   "due-days-overdue": "เลยกำหนด %s วัน",
+  "due-soon-hours": "ใกล้ครบกำหนด: ชั่วโมงก่อนวันครบกำหนด",
+  "overdue-after-hours": "เกินกำหนด: ชั่วโมงหลังวันครบกำหนด",
   "card-spent": "เวลาที่ใช้ไป",
   "card-edit-attachments": "แก้ไขสิ่งที่แนบมา",
   "card-edit-custom-fields": "แก้ไขฟิลด์ที่กำหนดเอง",

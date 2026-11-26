@@ -440,6 +440,8 @@
   "due-today": "Ullumi naatsoq",
   "due-days-left": "ulloq %s sinneqarpoq",
   "due-days-overdue": "ulloq %s qaangiuppoq",
+  "due-soon-hours": "Piffissaq qaninneruleqqat: piffissap killiata siornagut nalunaaquttap akunneri",
+  "overdue-after-hours": "Kingusinaarpoq: piffissap killiata kingornagut nalunaaquttap akunneri",
   "card-spent": "Piffissaq atorneqartoq",
   "card-edit-attachments": "Ilanngussat allanngortikkit",
   "card-edit-custom-fields": "Immikkoortut nammineq ilusilikkat allanngortikkit",

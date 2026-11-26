@@ -440,6 +440,8 @@
   "due-today": "Mas pinis tude",
   "due-days-left": "%s de i stap yet",
   "due-days-overdue": "%s de i lus pinis",
+  "due-soon-hours": "Klostu de: ol aua paslain long de",
+  "overdue-after-hours": "Taim i pinis: ol aua bihain long de",
   "card-spent": "Taim i yusim pinis",
   "card-edit-attachments": "Senisim ol fail i pas",
   "card-edit-custom-fields": "Senisim ol kastam fil",

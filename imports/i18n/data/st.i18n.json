@@ -440,6 +440,8 @@
   "due-today": "E lokela ho phethwa kajeno",
   "due-days-left": "matsatsi a %s a setse",
   "due-days-overdue": "E fetilwe ke nako ka matsatsi a %s",
+  "due-soon-hours": "Haufinyane nako: dihora pele ho letsatsi",
+  "overdue-after-hours": "Nako e fetile: dihora ka mor'a letsatsi",
   "card-spent": "Nako e sebedisitsweng",
   "card-edit-attachments": "Hlophisa diphuthelwana",
   "card-edit-custom-fields": "Hlophisa dibaka tse ikgethileng",

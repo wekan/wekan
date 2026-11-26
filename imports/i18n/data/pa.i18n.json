@@ -440,6 +440,8 @@
   "due-today": "ਅੱਜ ਬਕਾਇਆ ਹੈ",
   "due-days-left": "%s ਦਿਨ ਬਾਕੀ",
   "due-days-overdue": "%s ਦਿਨ ਲੇਟ",
+  "due-soon-hours": "ਜਲਦੀ ਨਿਯਤ: ਨਿਯਤ ਮਿਤੀ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਘੰਟੇ",
+  "overdue-after-hours": "ਸਮਾਂ ਲੰਘ ਗਿਆ: ਨਿਯਤ ਮਿਤੀ ਤੋਂ ਬਾਅਦ ਦੇ ਘੰਟੇ",
   "card-spent": "ਸਮਾਂ ਬਿਤਾਇਆ",
   "card-edit-attachments": "ਅਟੈਚਮੈਂਟਾਂ ਦਾ ਸੰਪਾਦਨ ਕਰੋ",
   "card-edit-custom-fields": "ਕਸਟਮ ਖੇਤਰਾਂ ਦਾ ਸੰਪਾਦਨ ਕਰੋ",

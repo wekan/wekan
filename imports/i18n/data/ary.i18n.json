@@ -440,6 +440,8 @@
   "due-today": "خاصو اليوم",
   "due-days-left": "باقي %s ديال الأيام",
   "due-days-overdue": "متأخر %s ديال الأيام",
+  "due-soon-hours": "قريب يسالي الوقت: السوايع قبل تاريخ النهاية",
+  "overdue-after-hours": "فات الوقت: السوايع من بعد تاريخ النهاية",
   "card-spent": "امضى وقتا",
   "card-edit-attachments": "تعديل المرفقات",
   "card-edit-custom-fields": "تعديل الحقل المعدل",

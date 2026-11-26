@@ -440,6 +440,8 @@
   "due-today": "இன்று கெடு",
   "due-days-left": "%s நாட்கள் மீதம்",
   "due-days-overdue": "%s நாட்கள் தாமதம்",
+  "due-soon-hours": "விரைவில் கெடு: கெடுவுக்கு முந்தைய மணிநேரம்",
+  "overdue-after-hours": "கெடு தாண்டியது: கெடுவுக்குப் பிந்தைய மணிநேரம்",
   "card-spent": "செலவழித்த நேரம்",
   "card-edit-attachments": "இணைப்புகளைத் திருத்து",
   "card-edit-custom-fields": "தனிப்பயன் புலங்களைத் திருத்து",

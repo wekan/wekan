@@ -135,6 +135,26 @@ const foreachRemovedMember = (doc, modifier, callback) => {
 };
 
 Meteor.methods({
+  // #6947: Board Settings / Date's due date colours, a board admin's. A
+  // threshold null goes back to the default; anything but 0 to a year of
+  // hours is refused.
+  async setBoardDueThresholds(boardId, dueSoonHours, overdueAfterHours) {
+    check(boardId, String);
+    check(dueSoonHours, Match.OneOf(Number, null));
+    check(overdueAfterHours, Match.OneOf(Number, null));
+    const { validThresholdHours } = require('/models/lib/dueDateThresholds');
+    for (const value of [dueSoonHours, overdueAfterHours]) {
+      if (value !== null && !validThresholdHours(value)) throw new Meteor.Error('invalid-due-threshold');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!this.userId || !board || !allowIsBoardAdmin(this.userId, board)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const $set = {}, $unset = {};
+    if (dueSoonHours === null) $unset.dueSoonHours = ''; else $set.dueSoonHours = dueSoonHours;
+    if (overdueAfterHours === null) $unset.overdueAfterHours = ''; else $set.overdueAfterHours = overdueAfterHours;
+    return Boards.updateAsync(boardId, { ...(Object.keys($set).length ? { $set } : {}), ...(Object.keys($unset).length ? { $unset } : {}) });
+  },
   async setBoardDateFormat(boardId, dateFormat, override) {
     check(boardId, String);
     check(dateFormat, String);

@@ -440,6 +440,8 @@
   "due-today": "Scadenza oghje",
   "due-days-left": "restanu %s ghjorni",
   "due-days-overdue": "ritardu di %s ghjorni",
+  "due-soon-hours": "Scade prestu: ore nanzu à a data di scadenza",
+  "overdue-after-hours": "Scaduta: ore dopu à a data di scadenza",
   "card-spent": "Tempu passatu",
   "card-edit-attachments": "Mudificà l’appicci",
   "card-edit-custom-fields": "Mudificà i campi persunalizati",

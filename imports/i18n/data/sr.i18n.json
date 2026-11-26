@@ -440,6 +440,8 @@
   "due-today": "Где рок истиче данас",
   "due-days-left": "преостало %s дана",
   "due-days-overdue": "касни %s дана",
+  "due-soon-hours": "Ускоро рок: сати пре рока",
+  "overdue-after-hours": "Касни: сати после рока",
   "card-spent": "Утрошено време",
   "card-edit-attachments": "Рад са прилозима",
   "card-edit-custom-fields": "Придружене рубрике",

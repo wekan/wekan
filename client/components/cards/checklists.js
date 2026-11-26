@@ -1,6 +1,7 @@
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { Random } from 'meteor/random';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
+import { dueThresholdsOf } from '/models/lib/dueDateThresholds';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Filter } from '/client/lib/filter';
@@ -728,7 +729,8 @@ Template.checklistItemDueDate.helpers({
   },
   classes() {
     const tpl = Template.instance();
-    return dueDateClass(tpl.date.get(), tpl.now.get());
+    // #6947: the board's own due-soon and overdue hours.
+    return dueDateClass(tpl.date.get(), tpl.now.get(), null, dueThresholdsOf(Utils.getCurrentBoard()));
   },
   showTitle() {
     const tpl = Template.instance();
@@ -987,7 +989,8 @@ Template.checklistDueDate.helpers({
   },
   classes() {
     const tpl = Template.instance();
-    return dueDateClass(tpl.date.get(), tpl.now.get());
+    // #6947: the board's own due-soon and overdue hours.
+    return dueDateClass(tpl.date.get(), tpl.now.get(), null, dueThresholdsOf(Utils.getCurrentBoard()));
   },
   showTitle() {
     const tpl = Template.instance();

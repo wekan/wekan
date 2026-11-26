@@ -440,6 +440,8 @@
   "due-today": "本日期限",
   "due-days-left": "残り%s日",
   "due-days-overdue": "%s日超過",
+  "due-soon-hours": "期限間近：期限の何時間前から",
+  "overdue-after-hours": "期限切れ：期限の何時間後から",
   "card-spent": "作業時間",
   "card-edit-attachments": "添付ファイルの編集",
   "card-edit-custom-fields": "カスタムフィールドの編集",

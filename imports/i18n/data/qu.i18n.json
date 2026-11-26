@@ -440,6 +440,8 @@
   "due-today": "Kunanmi tukukun",
   "due-days-left": "%s p’unchaw kaykun",
   "due-days-overdue": "%s p’unchaw yallisqa",
+  "due-soon-hours": "Pachan chayamushan: tukukuy p'unchaw ñawpaq horakuna",
+  "overdue-after-hours": "Pachan pasasqa: tukukuy p'unchaw qhipa horakuna",
   "card-spent": "Llamkasqa pacha",
   "card-edit-attachments": "Watasqakunata allichay",
   "card-edit-custom-fields": "Kikin ruwasqa chaqrakunata allichay",

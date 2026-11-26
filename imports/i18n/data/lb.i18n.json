@@ -440,6 +440,8 @@
   "due-today": "Fälleg haut",
   "due-days-left": "%s Deeg iwwreg",
   "due-days-overdue": "%s Deeg ze spéit",
+  "due-soon-hours": "Geschwënn fälleg: Stonnen virum Fällegkeetsdatum",
+  "overdue-after-hours": "Iwwerfälleg: Stonnen nom Fällegkeetsdatum",
   "card-spent": "Aufgewendete Zäit",
   "card-edit-attachments": "Uschlëss änneren",
   "card-edit-custom-fields": "Benotzerdefinéiert Felder änneren",

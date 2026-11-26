@@ -440,6 +440,8 @@
   "due-today": "Scada oz",
   "due-days-left": "restan %s dis",
   "due-days-overdue": "%s dis en retard",
+  "due-soon-hours": "Scada prest: uras avant il termin",
+  "overdue-after-hours": "Tardiv: uras suenter il termin",
   "card-spent": "Temp impundì",
   "card-edit-attachments": "Modifitgar las agiuntas",
   "card-edit-custom-fields": "Modifitgar ils champs persunalisads",

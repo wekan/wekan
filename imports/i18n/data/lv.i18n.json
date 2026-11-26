@@ -440,6 +440,8 @@
   "due-today": "Termiņš šodien",
   "due-days-left": "atlikušas %s dienas",
   "due-days-overdue": "nokavēts par %s dienām",
+  "due-soon-hours": "Drīz termiņš: stundas pirms termiņa",
+  "overdue-after-hours": "Nokavēts: stundas pēc termiņa",
   "card-spent": "Patērētais laiks",
   "card-edit-attachments": "Labot failus",
   "card-edit-custom-fields": "Labot laukus",

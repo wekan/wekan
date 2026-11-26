@@ -440,6 +440,8 @@
   "due-today": "Kwanan wa yau",
   "due-days-left": "kwanaki %s suka rage",
   "due-days-overdue": "kwanaki %s sun wuce",
+  "due-soon-hours": "Ya kusa cika: awanni kafin ranar cika",
+  "overdue-after-hours": "Ya wuce lokaci: awanni bayan ranar cika",
   "card-spent": "Lokacin da aka kashe",
   "card-edit-attachments": "Gyara maƙaloli",
   "card-edit-custom-fields": "Gyara filaye na musamman",

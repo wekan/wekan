@@ -440,6 +440,8 @@
   "due-today": "Бүгүн кэрэһит",
   "due-days-left": "%s хонук хаалла",
   "due-days-overdue": "%s хонук халты барда",
+  "due-soon-hours": "Болдьох чугаһаата: болдьох иннинээҕи чаастар",
+  "overdue-after-hours": "Болдьох ааспыт: болдьох кэнниттэн чаастар",
   "card-spent": "Туттуллубут кэм",
   "card-edit-attachments": "Холбоһуктары уларыт",
   "card-edit-custom-fields": "Ураты паалаталары уларыт",

@@ -440,6 +440,8 @@
   "due-today": "Limdato hodiaŭ",
   "due-days-left": "%s tagoj restas",
   "due-days-overdue": "%s tagoj prokrastita",
+  "due-soon-hours": "Baldaŭ limdata: horoj antaŭ la limdato",
+  "overdue-after-hours": "Malfrua: horoj post la limdato",
   "card-spent": "Pasigita tempo",
   "card-edit-attachments": "Redakti aldonaĵojn",
   "card-edit-custom-fields": "Redakti proprajn kampojn",

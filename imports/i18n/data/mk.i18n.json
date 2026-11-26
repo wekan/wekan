@@ -440,6 +440,8 @@
   "due-today": "Рокот е денес",
   "due-days-left": "преостануваат %s дена",
   "due-days-overdue": "доцни %s дена",
+  "due-soon-hours": "Наскоро рок: часови пред рокот",
+  "overdue-after-hours": "Задоцнето: часови по рокот",
   "card-spent": "Потрошено време",
   "card-edit-attachments": "Промени прикачените датотеки",
   "card-edit-custom-fields": "Уреди ги приспособените полиња",

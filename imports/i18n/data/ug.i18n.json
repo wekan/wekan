@@ -440,6 +440,8 @@
   "due-today": "بۈگۈن",
   "due-days-left": "%s كۈن قالدى",
   "due-days-overdue": "%s كۈن كېچىكتى",
+  "due-soon-hours": "مۆھلىتى يېقىن: مۆھلەتتىن ئىلگىرىكى سائەتلەر",
+  "overdue-after-hours": "مۆھلىتى ئۆتكەن: مۆھلەتتىن كېيىنكى سائەتلەر",
   "card-spent": "ۋاقىت سەرپ قىلدى",
   "card-edit-attachments": "قوشۇمچە ھۆججەتلەرنى تەھرىرلەڭ",
   "card-edit-custom-fields": "ئىختىيارىي بۆلەكلەرنى تەھرىرلەڭ",

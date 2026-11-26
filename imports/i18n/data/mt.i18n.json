@@ -440,6 +440,8 @@
   "due-today": "Skadenza llum",
   "due-days-left": "fadal %s jum",
   "due-days-overdue": "%s jum tard",
+  "due-soon-hours": "Dalwaqt dovut: sigħat qabel id-data dovuta",
+  "overdue-after-hours": "Tard: sigħat wara d-data dovuta",
   "card-spent": "Spent Ħin",
   "card-edit-attachments": "Editja attachments",
   "card-edit-custom-fields": "Editja l-oqsma personalizzati",

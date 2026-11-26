@@ -440,6 +440,8 @@
   "due-today": "اَز آخری تٲریخ",
   "due-days-left": "%s دۄہ باقی",
   "due-days-overdue": "%s دۄہ دیر",
+  "due-soon-hours": "جلد آخری تأریخ: آخری تأریخہٕ برونٹھ گنٹہٕ",
+  "overdue-after-hours": "تأریخ گٔیہٕ: آخری تأریخہٕ پتہٕ گنٹہٕ",
   "card-spent": "خرچ کرنہٕ آمُت وقت",
   "card-edit-attachments": "منسلک بدلٲویو",
   "card-edit-custom-fields": "مخصوص خانہٕ بدلٲویو",

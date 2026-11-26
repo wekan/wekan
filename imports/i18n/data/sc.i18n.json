@@ -440,6 +440,8 @@
   "due-today": "Iscadèntzia oe",
   "due-days-left": "abarrant %s dies",
   "due-days-overdue": "%s dies de retardu",
+  "due-soon-hours": "Iscadit luego: oras in antis de sa data de iscadèntzia",
+  "overdue-after-hours": "Iscadida: oras a pustis de sa data de iscadèntzia",
   "card-spent": "Tempus impreadu",
   "card-edit-attachments": "Modìfica sos alligados",
   "card-edit-custom-fields": "Modìfica sos campos personalizados",

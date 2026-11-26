@@ -440,6 +440,8 @@
   "due-today": "Scade oggi",
   "due-days-left": "mancano %s giorni",
   "due-days-overdue": "%s giorni di ritardo",
+  "due-soon-hours": "In scadenza: ore prima della data di scadenza",
+  "overdue-after-hours": "Scaduta: ore dopo la data di scadenza",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Modifica allegati",
   "card-edit-custom-fields": "Modifica campi personalizzati",

@@ -440,6 +440,8 @@
   "due-today": "Scjadince vuê",
   "due-days-left": "restin %s dîs",
   "due-days-overdue": "%s dîs di ritart",
+  "due-soon-hours": "Scjadence dongje: oris prime de date di scjadence",
+  "overdue-after-hours": "In ritart: oris dopo de date di scjadence",
   "card-spent": "Timp doprât",
   "card-edit-attachments": "Modifiche zontis",
   "card-edit-custom-fields": "Modifiche campi personalizzati",

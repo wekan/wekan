@@ -440,6 +440,8 @@
   "due-today": "Data limite hoje",
   "due-days-left": "faltam %s dias",
   "due-days-overdue": "%s dias de atraso",
+  "due-soon-hours": "Vence em breve: horas antes da data de vencimento",
+  "overdue-after-hours": "Atrasado: horas depois da data de vencimento",
   "card-spent": "Tempo Gasto",
   "card-edit-attachments": "Editar anexos",
   "card-edit-custom-fields": "Editar campos personalizados",

@@ -440,6 +440,8 @@
   "due-today": "مستحق اليوم",
   "due-days-left": "باقي %s أيام",
   "due-days-overdue": "متأخر %s أيام",
+  "due-soon-hours": "يستحق قريبًا: ساعات قبل تاريخ الاستحقاق",
+  "overdue-after-hours": "متأخر: ساعات بعد تاريخ الاستحقاق",
   "card-spent": "امضى وقتا",
   "card-edit-attachments": "تعديل المرفقات",
   "card-edit-custom-fields": "تعديل الحقل المعدل",

@@ -440,6 +440,8 @@
   "due-today": "Forfall i dag",
   "due-days-left": "%s dager igjen",
   "due-days-overdue": "%s dager forsinket",
+  "due-soon-hours": "Forfaller snart: timer før forfallsdatoen",
+  "overdue-after-hours": "Forfalt: timer etter forfallsdatoen",
   "card-spent": "Forbrukt tid",
   "card-edit-attachments": "Rediger vedlegg",
   "card-edit-custom-fields": "Rediger tilpassede felt",

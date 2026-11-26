@@ -440,6 +440,8 @@
   "due-today": "Hachchi gallassaa wodhdhanna",
   "due-days-left": "gallassaa %s attin attees",
   "due-days-overdue": "gallassaa %s aadhees",
+  "due-soon-hours": "Matan gakkiis: wodiyaa kasetiyaa saatiyaa",
+  "overdue-after-hours": "Aadhdhiis: wodiyaa simmin saatiyaa",
   "card-spent": "Aadhdhida wodiyaa",
   "card-edit-attachments": "Gattidobata laamma",
   "card-edit-custom-fields": "Dumma saaxinetuwaa laamma",

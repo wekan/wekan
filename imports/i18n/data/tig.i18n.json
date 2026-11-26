@@ -440,6 +440,8 @@
   "due-today": "ዕለታ ናይ ሎሚ",
   "due-days-left": "%s መዓልቲ ተሪፉ",
   "due-days-overdue": "%s መዓልቲ ደንጉዩ",
+  "due-soon-hours": "ቀሪብ ገደብ: ቅድም ዕለት ገደብ ሰዓታት",
+  "overdue-after-hours": "ሐልፈ: ድሕር ዕለት ገደብ ሰዓታት",
   "card-spent": "ዝወጸ ግዜ",
   "card-edit-attachments": "ተለጠፍቲ አስነ",
   "card-edit-custom-fields": "ብሕታዊ ሜዳታት አስነ",

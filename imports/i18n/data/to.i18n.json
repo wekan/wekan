@@ -440,6 +440,8 @@
   "due-today": "ʻAho ni ʻa e ʻaho fakaʻosi",
   "due-days-left": "%s ʻaho toe",
   "due-days-overdue": "%s ʻaho tōmui",
+  "due-soon-hours": "Vavé ke aʻu ki he ʻaho: ngaahi houa kimuʻa he ʻaho",
+  "overdue-after-hours": "Kuo tōmui: ngaahi houa hili e ʻaho",
   "card-spent": "Taimi kuo ngāueʻaki",
   "card-edit-attachments": "Fakatonutonu ʻa e ngaahi meʻa fakapipiki",
   "card-edit-custom-fields": "Fakatonutonu ʻa e ngaahi konga fakafoʻituitui",

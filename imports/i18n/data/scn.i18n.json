@@ -440,6 +440,8 @@
   "due-today": "Scadi oggi",
   "due-days-left": "restanu %s jorna",
   "due-days-overdue": "%s jorna di ritardu",
+  "due-soon-hours": "Scadi prestu: uri prima dâ data di scadenza",
+  "overdue-after-hours": "Scaduta: uri doppu dâ data di scadenza",
   "card-spent": "Tempu passatu",
   "card-edit-attachments": "Cancia allegati",
   "card-edit-custom-fields": "Cancia campi personalizzati",

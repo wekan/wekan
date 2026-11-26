@@ -440,6 +440,8 @@
   "due-today": "Термін сьогодні",
   "due-days-left": "залишилось %s днів",
   "due-days-overdue": "прострочено на %s днів",
+  "due-soon-hours": "Скоро термін: години до терміну",
+  "overdue-after-hours": "Прострочено: години після терміну",
   "card-spent": "Витрачено часу",
   "card-edit-attachments": "Змінити вкладення",
   "card-edit-custom-fields": "Редагувати налаштування",

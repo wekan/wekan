@@ -440,6 +440,8 @@
   "due-today": "Vence hoxe",
   "due-days-left": "quedan %s días",
   "due-days-overdue": "%s días de atraso",
+  "due-soon-hours": "Vence pronto: horas antes da data de vencemento",
+  "overdue-after-hours": "Vencida: horas despois da data de vencemento",
   "card-spent": "Tempo empregado",
   "card-edit-attachments": "Editar anexos",
   "card-edit-custom-fields": "Editar campos personalizados",

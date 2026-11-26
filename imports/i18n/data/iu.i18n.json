@@ -440,6 +440,8 @@
   "due-today": "ᐅᓪᓗᒥ ᐱᔭᕆᐊᖃᖅᑐᖅ",
   "due-days-left": "ᐅᓪᓗᑦ %s ᐊᒃᓱᐊ",
   "due-days-overdue": "ᐅᓪᓗᑦ %s ᑲᔪᓯᒪᔪᖅ",
+  "due-soon-hours": "ᖃᓂᓕᓕᖅᑐᖅ: ᐃᑲᕐᕋᐃᑦ ᐅᓪᓗᖓᑕ ᓯᕗᓂᐊᓂ",
+  "overdue-after-hours": "ᐊᖏᓂᖅᓴᐅᓂᖓ: ᐃᑲᕐᕋᐃᑦ ᐅᓪᓗᖓᑕ ᑭᖑᓂᐊᓂ",
   "card-spent": "ᐊᑐᖅᑕᐅᔪᖅ ᖃᐅᔨᓴᐅᑎ",
   "card-edit-attachments": "ᐱᑕᖃᑎᓂᒃ ᐋᖅᑭᒋᐊᕐᓗᒋᑦ",
   "card-edit-custom-fields": "ᐃᓚᒋᐊᖅᓯᒪᔪᓂᒃ ᐃᓂᓂᒃ ᐋᖅᑭᒋᐊᕐᓗᒋᑦ",

@@ -440,6 +440,8 @@
   "due-today": "Aso e tatau ai le mea nei",
   "due-days-left": "%s aso o totoe",
   "due-days-overdue": "%s aso tuai",
+  "due-soon-hours": "Lata ona taunuu: itula a o lei oo i le aso",
+  "overdue-after-hours": "Ua tuai: itula pe a uma le aso",
   "card-spent": "Taimi na Faaaoga",
   "card-edit-attachments": "Teuteu faapipii",
   "card-edit-custom-fields": "Teuteu fanua patino",

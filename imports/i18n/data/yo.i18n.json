@@ -440,6 +440,8 @@
   "due-today": "Idi loni",
   "due-days-left": "ọjọ́ %s ku",
   "due-days-overdue": "ọjọ́ %s ti kọjá",
+  "due-soon-hours": "Ó fẹ́rẹ̀ tó àkókò: wákàtí ṣáájú ọjọ́ àkókò",
+  "overdue-after-hours": "Ó ti kọjá àkókò: wákàtí lẹ́yìn ọjọ́ àkókò",
   "card-spent": "Lo Akoko",
   "card-edit-attachments": "Ṣatunkọ awọn asomọ",
   "card-edit-custom-fields": "Ṣatunkọ aṣa awọn aaye",

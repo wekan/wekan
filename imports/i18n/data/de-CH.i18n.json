@@ -440,6 +440,8 @@
   "due-today": "heute fällig",
   "due-days-left": "noch %s Tage",
   "due-days-overdue": "%s Tage überfällig",
+  "due-soon-hours": "Bald fällig: Stunden vor dem Fälligkeitsdatum",
+  "overdue-after-hours": "Überfällig: Stunden nach dem Fälligkeitsdatum",
   "card-spent": "Aufgewendete Zeit",
   "card-edit-attachments": "Anhänge ändern",
   "card-edit-custom-fields": "Benutzerdefinierte Felder bearbeiten",

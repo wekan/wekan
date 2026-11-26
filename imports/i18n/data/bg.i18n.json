@@ -440,6 +440,8 @@
   "due-today": "С краен срок днес",
   "due-days-left": "остават %s дни",
   "due-days-overdue": "просрочено с %s дни",
+  "due-soon-hours": "Скоро изтича: часове преди крайния срок",
+  "overdue-after-hours": "Просрочено: часове след крайния срок",
   "card-spent": "Изработено време",
   "card-edit-attachments": "Промени прикачените файлове",
   "card-edit-custom-fields": "Промени собствените полета",

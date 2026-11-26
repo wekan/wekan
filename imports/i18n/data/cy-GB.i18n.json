@@ -440,6 +440,8 @@
   "due-today": "Yn ddyledus heddiw",
   "due-days-left": "%s diwrnod ar ôl",
   "due-days-overdue": "%s diwrnod yn hwyr",
+  "due-soon-hours": "Yn ddyledus cyn bo hir: oriau cyn y dyddiad dyledus",
+  "overdue-after-hours": "Hwyr: oriau ar ôl y dyddiad dyledus",
   "card-spent": "Treulio Amser",
   "card-edit-attachments": "Golygu atodiadau",
   "card-edit-custom-fields": "Golygu meysydd personol",

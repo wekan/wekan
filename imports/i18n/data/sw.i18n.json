@@ -440,6 +440,8 @@
   "due-today": "Inadaiwa leo",
   "due-days-left": "siku %s zimebaki",
   "due-days-overdue": "siku %s zimepita",
+  "due-soon-hours": "Inakaribia: saa kabla ya tarehe ya mwisho",
+  "overdue-after-hours": "Imechelewa: saa baada ya tarehe ya mwisho",
   "card-spent": "Muda uliotumika",
   "card-edit-attachments": "Hariri viambatisho",
   "card-edit-custom-fields": "Badilisha sehemu maalum",

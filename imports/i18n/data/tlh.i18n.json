@@ -440,6 +440,8 @@
   "due-today": "DaHjaj qaSnIS",
   "due-days-left": "jaj %s chaH",
   "due-days-overdue": "jaj %s poH nIH",
+  "due-soon-hours": "tugh Qaw' poH: poH Qaw' qaSpa' rep",
+  "overdue-after-hours": "poH Qaw'ta': poH Qaw' qaSDI' rep",
   "card-spent": "poH lo'lu'bogh",
   "card-edit-attachments": "rarDochmey choH",
   "card-edit-custom-fields": "De' 'ay'mey cherbogh lo'wI' tIchoH",

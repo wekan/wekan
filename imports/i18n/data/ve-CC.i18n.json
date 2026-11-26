@@ -440,6 +440,8 @@
   "due-today": "Scade ancuo",
   "due-days-left": "%s dì restanti",
   "due-days-overdue": "%s dì de ritardo",
+  "due-soon-hours": "Scadensa vixina: ore prima de ła data de scadensa",
+  "overdue-after-hours": "In ritardo: ore dopo ła data de scadensa",
   "card-spent": "Tenpo pasà",
   "card-edit-attachments": "Modìfega i ałegati",
   "card-edit-custom-fields": "Canbia i canpi personałizài",

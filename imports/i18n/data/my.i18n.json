@@ -440,6 +440,8 @@
   "due-today": "ယနေ့ သတ်မှတ်ရက်",
   "due-days-left": "%s ရက် ကျန်",
   "due-days-overdue": "%s ရက် နောက်ကျ",
+  "due-soon-hours": "မကြာမီ သတ်မှတ်ရက်: သတ်မှတ်ရက်မတိုင်မီ နာရီ",
+  "overdue-after-hours": "ရက်လွန်: သတ်မှတ်ရက်ပြီးနောက် နာရီ",
   "card-spent": "အသုံးပြုချိန်",
   "card-edit-attachments": "ပူးတွဲဖိုင်များ ပြင်ရန်",
   "card-edit-custom-fields": "စိတ်ကြိုက်အကွက်များ ပြင်ရန်",

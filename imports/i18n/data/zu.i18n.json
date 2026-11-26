@@ -440,6 +440,8 @@
   "due-today": "Ifuneka namuhla",
   "due-days-left": "kusele izinsuku ezingu-%s",
   "due-days-overdue": "izinsuku ezingu-%s zedlule",
+  "due-soon-hours": "Kuseduze: amahora ngaphambi kosuku",
+  "overdue-after-hours": "Sekudlulile: amahora emva kosuku",
   "card-spent": "Isikhathi Esichithiwe",
   "card-edit-attachments": "Hlela okunamathiselwe",
   "card-edit-custom-fields": "Hlela izinkambu zangokwezifiso",

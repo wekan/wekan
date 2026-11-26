@@ -440,6 +440,8 @@
   "due-today": "Tamat Hari ini",
   "due-days-left": "%s hari lagi",
   "due-days-overdue": "terlewat %s hari",
+  "due-soon-hours": "Hampir tamat tempoh: jam sebelum tarikh akhir",
+  "overdue-after-hours": "Lewat: jam selepas tarikh akhir",
   "card-spent": "Masa diluangkan",
   "card-edit-attachments": "Ubahsuai lampiran",
   "card-edit-custom-fields": "Ubah suai ruangan khas",

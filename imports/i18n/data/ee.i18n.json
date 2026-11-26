@@ -440,6 +440,8 @@
   "due-today": "Egbe nye ŋkeke la",
   "due-days-left": "ŋkeke %s susɔ",
   "due-days-overdue": "ŋkeke %s to",
+  "due-soon-hours": "Ɣeyiɣi gogo: gaƒoƒo siwo do ŋgɔ na ɣeyiɣi",
+  "overdue-after-hours": "Ɣeyiɣi va yi: gaƒoƒo siwo kplɔ ɣeyiɣi ɖo",
   "card-spent": "Ɣeyiɣi si wozã",
   "card-edit-attachments": "Trɔ̃ nusiwo wokpe ɖe eŋu",
   "card-edit-custom-fields": "Trɔ̃ agble tɔxɛwo",

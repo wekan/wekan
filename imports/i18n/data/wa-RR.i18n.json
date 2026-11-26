@@ -440,6 +440,8 @@
   "due-today": "Deadline yana nga adlaw",
   "due-days-left": "%s ka adlaw an nahibibilin",
   "due-days-overdue": "%s ka adlaw na an pagkalapas han takdang petsa",
+  "due-soon-hours": "Hapit na an takna: oras antes han takna nga petsa",
+  "overdue-after-hours": "Lapos na: oras kahuman han takna nga petsa",
   "card-spent": "Ginamit nga Oras",
   "card-edit-attachments": "I-edit an mga attachment",
   "card-edit-custom-fields": "I-edit an mga custom field",

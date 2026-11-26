@@ -440,6 +440,8 @@
   "due-today": "Ma jár le",
   "due-days-left": "%s nap van hátra",
   "due-days-overdue": "%s napja lejárt",
+  "due-soon-hours": "Hamarosan esedékes: órák a határidő előtt",
+  "overdue-after-hours": "Lejárt: órák a határidő után",
   "card-spent": "Eltöltött idő",
   "card-edit-attachments": "Mellékletek szerkesztése",
   "card-edit-custom-fields": "Egyéni mezők szerkesztése",

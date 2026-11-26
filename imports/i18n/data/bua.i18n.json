@@ -440,6 +440,8 @@
   "due-today": "Мүнөөдэр хугасаа",
   "due-days-left": "%s үдэр үлэдэг",
   "due-days-overdue": "%s үдэрэй хойшолуулагдаа",
+  "due-soon-hours": "Удахгүй болзор: болзорой урда сагууд",
+  "overdue-after-hours": "Болзор хэтэрhэн: болзорой хойно сагууд",
   "card-spent": "Зарсуулагдаһан саг",
   "card-edit-attachments": "Хабсаргалтануудые заһаха",
   "card-edit-custom-fields": "Тусхай талбарнуудые заһаха",

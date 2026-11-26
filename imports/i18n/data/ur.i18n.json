@@ -440,6 +440,8 @@
   "due-today": "آج آخری تاریخ ہے",
   "due-days-left": "%s دن باقی",
   "due-days-overdue": "%s دن تاخیر",
+  "due-soon-hours": "جلد مقررہ: مقررہ تاریخ سے پہلے کے گھنٹے",
+  "overdue-after-hours": "تاخیر: مقررہ تاریخ کے بعد کے گھنٹے",
   "card-spent": "صرف شدہ وقت",
   "card-edit-attachments": "منسلکات میں ترمیم کریں",
   "card-edit-custom-fields": "حسب ضرورت فیلڈز میں ترمیم کریں",

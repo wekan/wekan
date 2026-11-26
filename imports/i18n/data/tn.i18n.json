@@ -440,6 +440,8 @@
   "due-today": "Letsatsi ke lone",
   "due-days-left": "matsatsi a %s a setse",
   "due-days-overdue": "matsatsi a %s a fetile",
+  "due-soon-hours": "Go ya bokhutlong: diura pele ga letlha",
+  "overdue-after-hours": "Go fetile: diura morago ga letlha",
   "card-spent": "Nako e e dirisitsweng",
   "card-edit-attachments": "Fetola tse di tshwaraganeng",
   "card-edit-custom-fields": "Fetola mabala a a rulagantsweng",

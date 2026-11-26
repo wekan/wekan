@@ -54,7 +54,7 @@ export const BOARD_COPIED = [
   'restrictCommentEditing', 'stickyListHeaders', 'listWidthResizeLocked', 'columnSets', 'sharedListHeaders',
   'swimlaneHeightResizeLocked', 'boardViewSettings', 'defaultPublicBoardView', 'defaultPrivateBoardView',
   'boardViewOrder', 'sameWidthForAllLists', 'sameWidthForAllListsValue', 'allowsReceivedDateOnMinicard',
-  'dateFormatOverride', 'dateFormat', 'allowsStartDate', 'allowsStartDateOnMinicard', 'allowsEndDate',
+  'dateFormatOverride', 'dateFormat', 'dueSoonHours', 'overdueAfterHours', 'allowsStartDate', 'allowsStartDateOnMinicard', 'allowsEndDate',
   'allowsEndDateOnMinicard', 'allowsDueDate', 'allowsDueDateOnMinicard', 'allowsDueComplete',
   'allowsDueCompleteOnMinicard', 'showActivities', 'notificationDelivery'
 ];

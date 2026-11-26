@@ -440,6 +440,8 @@
   "due-today": "आयज निमणी तारीख",
   "due-days-left": "%s दीस उरात",
   "due-days-overdue": "%s दीस उशीर",
+  "due-soon-hours": "बेगीनूच मुदत: मुदती आदीचीं वरां",
+  "overdue-after-hours": "मुदत सोंपल्या: मुदती उपरांतचीं वरां",
   "card-spent": "खर्चिल्लो वेळ",
   "card-edit-attachments": "जोडण्यो संपादित करात",
   "card-edit-custom-fields": "सानुकूल क्षेत्रां संपादित करात",

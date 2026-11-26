@@ -440,6 +440,8 @@
   "due-today": "نن ورځ نېټه ده",
   "due-days-left": "%s ورځې پاتې",
   "due-days-overdue": "%s ورځې ناوخته",
+  "due-soon-hours": "ژر نیټه: د نیټې مخکې ساعتونه",
+  "overdue-after-hours": "ناوخته: د نیټې وروسته ساعتونه",
   "card-spent": "لګول شوی وخت",
   "card-edit-attachments": "ضميمې سمې کړئ",
   "card-edit-custom-fields": "دوديز ډګرونه سم کړئ",

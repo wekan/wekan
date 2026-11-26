@@ -440,6 +440,8 @@
   "due-today": "Ekwesịrị taa",
   "due-days-left": "ụbọchị %s fọdụrụ",
   "due-days-overdue": "ụbọchị %s gafeworo",
+  "due-soon-hours": "Ọ fọrọ obere: awa tupu ụbọchị njedebe",
+  "overdue-after-hours": "Ọ gafeela: awa mgbe ụbọchị njedebe gasịrị",
   "card-spent": "Eji oge",
   "card-edit-attachments": "Dezie mgbakwunye",
   "card-edit-custom-fields": "Dezie ubi omenala",

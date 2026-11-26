@@ -440,6 +440,8 @@
   "due-today": "Terminowanie dzisiej",
   "due-days-left": "zostało %s dni",
   "due-days-overdue": "spóźnienie %s dni",
+  "due-soon-hours": "Wartko termin: godziny przed terminym",
+  "overdue-after-hours": "Po terminie: godziny po terminie",
   "card-spent": "Poświęcony czŏs",
   "card-edit-attachments": "Edytuj przidŏwki",
   "card-edit-custom-fields": "Edytuj włŏsne pola",

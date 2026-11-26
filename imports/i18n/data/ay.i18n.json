@@ -440,6 +440,8 @@
   "due-today": "Jichhüru puriwa",
   "due-days-left": "%s uru jutʼata",
   "due-days-overdue": "%s uru jaljata",
+  "due-soon-hours": "Jichhakiw tukusi: tukusiñ urutx nayraqat pacha",
+  "overdue-after-hours": "Tukusiwayi: tukusiñ uru qhipat pacha",
   "card-spent": "Spent pacha",
   "card-edit-attachments": "askichaña attachments",
   "card-edit-custom-fields": "askichaña custom fields",

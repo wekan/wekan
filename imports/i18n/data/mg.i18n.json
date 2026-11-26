@@ -440,6 +440,8 @@
   "due-today": "Voatondro anio",
   "due-days-left": "mbola %s andro",
   "due-days-overdue": "tara %s andro",
+  "due-soon-hours": "Efa ho tapitra: ora alohan'ny daty farany",
+  "overdue-after-hours": "Tara: ora aorian'ny daty farany",
   "card-spent": "Fotoana lany",
   "card-edit-attachments": "Ovay ny rakitra miaraka",
   "card-edit-custom-fields": "Ovay ny saha namboarina",

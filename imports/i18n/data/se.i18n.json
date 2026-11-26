@@ -440,6 +440,8 @@
   "due-today": "Loahppaáigi otne",
   "due-days-left": "%s beaivvi báhcán",
   "due-days-overdue": "%s beaivvi maŋŋonan",
+  "due-soon-hours": "Áigemearri lahkona: diimmut ovdal áigemeari",
+  "overdue-after-hours": "Maŋŋonan: diimmut maŋŋel áigemeari",
   "card-spent": "Geavahuvvon áigi",
   "card-edit-attachments": "Rievdat mildosiid",
   "card-edit-custom-fields": "Rievdat iešmearriduvvon giettuid",

@@ -440,6 +440,8 @@
   "due-today": "Jatuh tempo dina iki",
   "due-days-left": "%s dina maneh",
   "due-days-overdue": "telat %s dina",
+  "due-soon-hours": "Enggal tempo: jam sadurunge tanggal tempo",
+  "overdue-after-hours": "Telat: jam sawise tanggal tempo",
   "card-spent": "Wektu sing Dienggo",
   "card-edit-attachments": "Owahi lampiran",
   "card-edit-custom-fields": "Owahi kolom kustom",

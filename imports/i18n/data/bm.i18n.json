@@ -440,6 +440,8 @@
   "due-today": "A ka kan ka kɛ bi",
   "due-days-left": "tile %s tora",
   "due-days-overdue": "tile %s tɛmɛna",
+  "due-soon-hours": "A waati surunyana: lɛrɛ minnu bɛ waati ɲɛfɛ",
+  "overdue-after-hours": "A waati tɛmɛna: lɛrɛ minnu bɛ waati kɔfɛ",
   "card-spent": "Waati min kɛra",
   "card-edit-attachments": "Ɲɔgɔnnanw yɛlɛma",
   "card-edit-custom-fields": "Foroba kɛrɛnkɛrɛnnenw yɛlɛma",

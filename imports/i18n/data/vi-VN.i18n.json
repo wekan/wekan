@@ -440,6 +440,8 @@
   "due-today": "Đến hạn hôm nay",
   "due-days-left": "còn %s ngày",
   "due-days-overdue": "trễ %s ngày",
+  "due-soon-hours": "Sắp đến hạn: số giờ trước ngày đến hạn",
+  "overdue-after-hours": "Quá hạn: số giờ sau ngày đến hạn",
   "card-spent": "Thời lượng",
   "card-edit-attachments": "Sửa tệp đính kèm",
   "card-edit-custom-fields": "Sửa trường tuỳ chỉnh",

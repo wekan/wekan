@@ -440,6 +440,8 @@
   "due-today": "Á gjalddaga í dag",
   "due-days-left": "%s dagar eftir",
   "due-days-overdue": "%s daga of seint",
+  "due-soon-hours": "Á gjalddaga bráðum: klukkustundir fyrir gjalddaga",
+  "overdue-after-hours": "Komið fram yfir: klukkustundir eftir gjalddaga",
   "card-spent": "Notaður tími",
   "card-edit-attachments": "Breyta viðhengjum",
   "card-edit-custom-fields": "Breyta sérsniðnum reitum",

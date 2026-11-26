@@ -440,6 +440,8 @@
   "due-today": "Крайний срок - сегодня",
   "due-days-left": "осталось %s дней",
   "due-days-overdue": "просрочено на %s дней",
+  "due-soon-hours": "Скоро срок: часы до срока",
+  "overdue-after-hours": "Просрочено: часы после срока",
   "card-spent": "Затраченное время",
   "card-edit-attachments": "Изменить вложения",
   "card-edit-custom-fields": "редактировать настраиваемые поля",

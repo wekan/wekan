@@ -440,6 +440,8 @@
   "due-today": "I tea u fhela ṋamusi",
   "due-days-left": "maḓuvha a %s o sala",
   "due-days-overdue": "maḓuvha a %s o fhira",
+  "due-soon-hours": "Tshifhinga tsho tsini: awara phanḓa ha ḓuvha",
+  "overdue-after-hours": "Tshifhinga tsho fhela: awara nga murahu ha ḓuvha",
   "card-spent": "Tshifhinga tsho shumiswaho",
   "card-edit-attachments": "Khwinisa ṱumetshedzo",
   "card-edit-custom-fields": "Khwinisa fhethu ha data ho dzudzanywaho",

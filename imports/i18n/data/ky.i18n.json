@@ -440,6 +440,8 @@
   "due-today": "Мөөнөтү бүгүн",
   "due-days-left": "%s күн калды",
   "due-days-overdue": "%s күн кечикти",
+  "due-soon-hours": "Мөөнөтү жакын: мөөнөткө чейинки сааттар",
+  "overdue-after-hours": "Мөөнөтү өткөн: мөөнөттөн кийинки сааттар",
   "card-spent": "Сарпталган убакыт",
   "card-edit-attachments": "Тиркемелерди өзгөртүү",
   "card-edit-custom-fields": "Ыңгайлаштырылган талааларды өзгөртүү",

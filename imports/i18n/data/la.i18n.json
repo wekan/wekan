@@ -440,6 +440,8 @@
   "due-today": "Hodie debitum",
   "due-days-left": "%s dies restant",
   "due-days-overdue": "%s dies serius",
+  "due-soon-hours": "Mox debitum: horae ante diem debitum",
+  "overdue-after-hours": "Serum: horae post diem debitum",
   "card-spent": "Tempus impensum",
   "card-edit-attachments": "Muta adiuncta",
   "card-edit-custom-fields": "Muta campos proprios",

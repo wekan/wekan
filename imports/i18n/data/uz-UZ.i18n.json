@@ -440,6 +440,8 @@
   "due-today": "Muddati bugun",
   "due-days-left": "%s kun qoldi",
   "due-days-overdue": "%s kun kechikdi",
+  "due-soon-hours": "Muddati yaqin: muddatdan oldingi soatlar",
+  "overdue-after-hours": "Muddati o'tgan: muddatdan keyingi soatlar",
   "card-spent": "Vaqt o'tkazdi",
   "card-edit-attachments": "Qo'shimchalarni tahrirlash",
   "card-edit-custom-fields": "Maxsus maydonlarni tahrirlash",

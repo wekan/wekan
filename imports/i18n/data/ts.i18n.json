@@ -440,6 +440,8 @@
   "due-today": "Siku ra namuntlha",
   "due-days-left": "masiku %s ya sele",
   "due-days-overdue": "masiku %s ya hundzile",
+  "due-soon-hours": "Ku kusuhi: tiawara emahlweni ka siku",
+  "overdue-after-hours": "Ku hundzile: tiawara endzhaku ka siku",
   "card-spent": "mhaka nkarhi",
   "card-edit-attachments": "hlela swikhomanisiwa",
   "card-edit-custom-fields": "hlela wa wena mhaka",

@@ -440,6 +440,8 @@
   "due-today": "Termen astăzi",
   "due-days-left": "mai sunt %s zile",
   "due-days-overdue": "%s zile întârziere",
+  "due-soon-hours": "Scadență apropiată: ore înainte de termen",
+  "overdue-after-hours": "Întârziat: ore după termen",
   "card-spent": "Timp petrecut",
   "card-edit-attachments": "Editează atașamente",
   "card-edit-custom-fields": "Modifică câmpurile personalizate",

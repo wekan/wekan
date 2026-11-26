@@ -440,6 +440,8 @@
   "due-today": "Axcan tlamiliztli",
   "due-days-left": "%s tonalli mocahua",
   "due-days-overdue": "%s tonalli opanoc",
+  "due-soon-hours": "Ye ahci tlami: horas achtopa in tlamiliztonalli",
+  "overdue-after-hours": "Ye panoc: horas zatepan in tlamiliztonalli",
   "card-spent": "Tequiticahuitl",
   "card-edit-attachments": "Xiquinpatla tlanamictiltin",
   "card-edit-custom-fields": "Xiquinpatla monemac tlaltin",

@@ -440,6 +440,8 @@
   "due-today": "Bataih watèë uroe nyoe",
   "due-days-left": "%s uroe lom",
   "due-days-overdue": "Leupah %s uroe",
+  "due-soon-hours": "Hampir trôk watèe: jeum sigohlom watèe trôk",
+  "overdue-after-hours": "Ka leupah watèe: jeum lheuh watèe trôk",
   "card-spent": "Watèe nyang ka geungui",
   "card-edit-attachments": "Sunting lampiran",
   "card-edit-custom-fields": "Sunting field khusus",

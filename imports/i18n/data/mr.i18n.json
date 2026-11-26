@@ -440,6 +440,8 @@
   "due-today": "आज अंतिम तारीख आहे",
   "due-days-left": "%s दिवस शिल्लक",
   "due-days-overdue": "%s दिवस उशीर",
+  "due-soon-hours": "लवकरच मुदत: मुदतीपूर्वीचे तास",
+  "overdue-after-hours": "मुदत उलटली: मुदतीनंतरचे तास",
   "card-spent": "घालवलेला वेळ",
   "card-edit-attachments": "संलग्नके संपादित करा",
   "card-edit-custom-fields": "सानुकूल क्षेत्रे संपादित करा",

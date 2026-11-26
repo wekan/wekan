@@ -440,6 +440,8 @@
   "due-today": "מועד הסיום הוא היום",
   "due-days-left": "נותרו %s ימים",
   "due-days-overdue": "באיחור של %s ימים",
+  "due-soon-hours": "תאריך היעד מתקרב: שעות לפני תאריך היעד",
+  "overdue-after-hours": "באיחור: שעות אחרי תאריך היעד",
   "card-spent": "זמן שהושקע",
   "card-edit-attachments": "עריכת קבצים מצורפים",
   "card-edit-custom-fields": "עריכת שדות בהתאמה אישית",

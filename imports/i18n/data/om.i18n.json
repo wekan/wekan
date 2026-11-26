@@ -440,6 +440,8 @@
   "due-today": "Guyyaan har’a",
   "due-days-left": "guyyaa %s hafe",
   "due-days-overdue": "guyyaa %s darbe",
+  "due-soon-hours": "Yeroon dhiyaate: sa'aatii guyyaa xumuraa dura",
+  "overdue-after-hours": "Yeroon darbe: sa'aatii guyyaa xumuraa booda",
   "card-spent": "Yeroo Fudhatame",
   "card-edit-attachments": "Maxxansaalee gulaali",
   "card-edit-custom-fields": "Dirreewwan dhuunfaa gulaali",

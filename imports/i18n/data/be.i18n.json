@@ -440,6 +440,8 @@
   "due-today": "Тэрмін сёння",
   "due-days-left": "засталося %s дзён",
   "due-days-overdue": "прострочана на %s дзён",
+  "due-soon-hours": "Хутка тэрмін: гадзіны да тэрміну",
+  "overdue-after-hours": "Пратэрмінавана: гадзіны пасля тэрміну",
   "card-spent": "Затрачаны час",
   "card-edit-attachments": "Рэдагаваць укладанні",
   "card-edit-custom-fields": "Рэдагаваць карыстальніцкія палі",

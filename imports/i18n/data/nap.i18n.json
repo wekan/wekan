@@ -440,6 +440,8 @@
   "due-today": "Scaré ogge",
   "due-days-left": "restano %s juorne",
   "due-days-overdue": "%s juorne 'e retardo",
+  "due-soon-hours": "Scade ambressa: ore primma d''a data 'e scadenza",
+  "overdue-after-hours": "Scaruta: ore doppo 'a data 'e scadenza",
   "card-spent": "Tiempo trascorso",
   "card-edit-attachments": "Cagna allegate",
   "card-edit-custom-fields": "Cagna campi personalizzati",

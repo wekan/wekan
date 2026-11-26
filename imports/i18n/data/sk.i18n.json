@@ -440,6 +440,8 @@
   "due-today": "Termín dnes",
   "due-days-left": "zostáva %s dní",
   "due-days-overdue": "meškanie %s dní",
+  "due-soon-hours": "Čoskoro termín: hodiny pred termínom",
+  "overdue-after-hours": "Po termíne: hodiny po termíne",
   "card-spent": "Strávený čas",
   "card-edit-attachments": "Upraviť prílohy",
   "card-edit-custom-fields": "Upraviť vlastné polia",

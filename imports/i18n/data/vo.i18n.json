@@ -440,6 +440,8 @@
   "due-today": "Termadat adelo",
   "due-days-left": "dels %s retons",
   "due-days-overdue": "dels %s tu lätik",
+  "due-soon-hours": "Föfo jü fin: düps bü findät",
+  "overdue-after-hours": "Pos fin: düps pos findät",
   "card-spent": "Tim pegeböl",
   "card-edit-attachments": "Votükön fimükotis",
   "card-edit-custom-fields": "Votükön felis lönik",

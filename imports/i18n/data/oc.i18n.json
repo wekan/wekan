@@ -440,6 +440,8 @@
   "due-today": "Escasença uèi",
   "due-days-left": "demòran %s jorns",
   "due-days-overdue": "%s jorns de retard",
+  "due-soon-hours": "Escasença pròcha: oras abans la data d'escasença",
+  "overdue-after-hours": "En retard: oras aprèp la data d'escasença",
   "card-spent": "Temps passat",
   "card-edit-attachments": "Cambiar las pèças jonchas",
   "card-edit-custom-fields": "Cambiar los camps personalizats",

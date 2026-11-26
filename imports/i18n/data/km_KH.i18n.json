@@ -440,6 +440,8 @@
   "due-today": "ដល់កំណត់ថ្ងៃនេះ",
   "due-days-left": "នៅសល់ %s ថ្ងៃ",
   "due-days-overdue": "ហួសកំណត់ %s ថ្ងៃ",
+  "due-soon-hours": "ជិតដល់ពេលកំណត់៖ ម៉ោងមុនកាលបរិច្ឆេទកំណត់",
+  "overdue-after-hours": "ហួសពេលកំណត់៖ ម៉ោងក្រោយកាលបរិច្ឆេទកំណត់",
   "card-spent": "ចំណាយពេលវេលា",
   "card-edit-attachments": "កែសម្រួលឯកសារភ្ជាប់",
   "card-edit-custom-fields": "កែសម្រួលវាលផ្ទាល់ខ្លួន",

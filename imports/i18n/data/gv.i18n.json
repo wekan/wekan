@@ -440,6 +440,8 @@
   "due-today": "Dyllit jiu",
   "due-days-left": "%s laa faagit",
   "due-days-overdue": "%s laa anmagh",
+  "due-soon-hours": "Ry-heet dy gerrid: ooryn roish y laa",
+  "overdue-after-hours": "Er-deiney: ooryn lurg y laa",
   "card-spent": "Traa ceaut",
   "card-edit-attachments": "Reaghey kiangltaghyn",
   "card-edit-custom-fields": "Reaghey magheryn reih't",

@@ -440,6 +440,8 @@
   "due-today": "Мӯҳлат имрӯз",
   "due-days-left": "%s рӯз боқӣ мондааст",
   "due-days-overdue": "%s рӯз таъхир шудааст",
+  "due-soon-hours": "Мӯҳлат наздик: соатҳо пеш аз мӯҳлат",
+  "overdue-after-hours": "Мӯҳлат гузашта: соатҳо пас аз мӯҳлат",
   "card-spent": "Вақти сарфшуда",
   "card-edit-attachments": "Таҳрири замимаҳо",
   "card-edit-custom-fields": "Таҳрири майдонҳои фармоишӣ",

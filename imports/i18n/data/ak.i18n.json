@@ -440,6 +440,8 @@
   "due-today": "Ɛda yi na ɛsɛ sɛ ɛba",
   "due-days-left": "nna %s aka",
   "due-days-overdue": "nna %s atwam",
+  "due-soon-hours": "Ɛreba nnansa yi: nnɔnhwerew ansa na da no aduru",
+  "overdue-after-hours": "Atwam: nnɔnhwerew wɔ da no akyi",
   "card-spent": "Bere a wɔde yɛɛ adwuma",
   "card-edit-attachments": "Sesa fael a wɔde aka hos",
   "card-edit-custom-fields": "Sesa afuw titiriws",

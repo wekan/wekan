@@ -440,6 +440,8 @@
   "due-today": "Deadline ngayon",
   "due-days-left": "%s araw na lang",
   "due-days-overdue": "%s araw na huli",
+  "due-soon-hours": "Malapit na ang takdang petsa: oras bago ang takdang petsa",
+  "overdue-after-hours": "Lampas na: oras pagkatapos ng takdang petsa",
   "card-spent": "Spent Oras",
   "card-edit-attachments": "I-edit kalakips",
   "card-edit-custom-fields": "I-edit pasadyang patlangs",

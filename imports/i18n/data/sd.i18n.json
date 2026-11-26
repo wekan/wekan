@@ -440,6 +440,8 @@
   "due-today": "اڄ آخري تاريخ آهي",
   "due-days-left": "%s ڏينهن باقي",
   "due-days-overdue": "%s ڏينهن دير",
+  "due-soon-hours": "جلد مقرر: مقرر تاريخ کان اڳ ڪلاڪ",
+  "overdue-after-hours": "دير ٿيل: مقرر تاريخ کان پوءِ ڪلاڪ",
   "card-spent": "خرچ ٿيل وقت",
   "card-edit-attachments": "منسلڪ سنواريو",
   "card-edit-custom-fields": "حسب ضرورت خانا سنواريو",

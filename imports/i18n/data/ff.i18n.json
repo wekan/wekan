@@ -440,6 +440,8 @@
   "due-today": "Hannde woni final",
   "due-days-left": "ñalɗi %s heddii",
   "due-days-overdue": "ñalɗi %s yawtii",
+  "due-soon-hours": "Ɓadike sahaa: waktuuji ado sahaa",
+  "overdue-after-hours": "Sahaa ɓennii: waktuuji caggal sahaa",
   "card-spent": "Sahaa huuwiraaɗo",
   "card-edit-attachments": "Taƴto ceŋaaɗi",
   "card-edit-custom-fields": "Taƴto galle keeriɗe",

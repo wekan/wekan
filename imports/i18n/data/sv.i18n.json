@@ -440,6 +440,8 @@
   "due-today": "Förfaller idag",
   "due-days-left": "%s dagar kvar",
   "due-days-overdue": "%s dagar försenad",
+  "due-soon-hours": "Förfaller snart: timmar före förfallodatumet",
+  "overdue-after-hours": "Försenad: timmar efter förfallodatumet",
   "card-spent": "Spenderad tid",
   "card-edit-attachments": "Redigera bilagor",
   "card-edit-custom-fields": "Redigera anpassade fält",

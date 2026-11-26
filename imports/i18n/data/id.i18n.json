@@ -440,6 +440,8 @@
   "due-today": "Jatuh tempo hari ini",
   "due-days-left": "%s hari lagi",
   "due-days-overdue": "terlambat %s hari",
+  "due-soon-hours": "Segera jatuh tempo: jam sebelum tanggal jatuh tempo",
+  "overdue-after-hours": "Terlambat: jam setelah tanggal jatuh tempo",
   "card-spent": "Waktu yang Dihabiskan",
   "card-edit-attachments": "Sunting lampiran",
   "card-edit-custom-fields": "Sunting kolom khusus",

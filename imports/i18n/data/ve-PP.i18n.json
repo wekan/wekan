@@ -440,6 +440,8 @@
   "due-today": "Märaig tämbei",
   "due-days-left": "%s päiväd oma jänuded",
   "due-days-overdue": "%s päiväd märaigan jäl'ghe",
+  "due-soon-hours": "Lähin tähtpäivoi: časud edel tähtpäivad",
+  "overdue-after-hours": "Tähtpäiv mäni: časud jäl'ghe tähtpäivad",
   "card-spent": "Kävutadud aig",
   "card-edit-attachments": "Vajehta tartutadud failoid",
   "card-edit-custom-fields": "Vajehta kävutajan märitud pöudoid",

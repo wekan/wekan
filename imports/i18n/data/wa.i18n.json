@@ -440,6 +440,8 @@
   "due-today": "Echeyance ouy",
   "due-days-left": "i dmeure %s djoûs",
   "due-days-overdue": "å rtård di %s djoûs",
+  "due-soon-hours": "Tins tot près: eures divant l' date di fén",
+  "overdue-after-hours": "Å rtåd: eures après l' date di fén",
   "card-spent": "Tins passé",
   "card-edit-attachments": "Candjî les pîces djondowes",
   "card-edit-custom-fields": "Candjî les tchamps da vosse",

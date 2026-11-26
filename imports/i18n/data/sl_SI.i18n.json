@@ -440,6 +440,8 @@
   "due-today": "Rok danes",
   "due-days-left": "ostalo je %s dni",
   "due-days-overdue": "zamuda %s dni",
+  "due-soon-hours": "Kmalu rok: ure pred rokom",
+  "overdue-after-hours": "Zamujeno: ure po roku",
   "card-spent": "Porabljen čas",
   "card-edit-attachments": "Uredi priponke",
   "card-edit-custom-fields": "Uredi poljubna polja",

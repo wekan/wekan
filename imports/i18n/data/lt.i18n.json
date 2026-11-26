@@ -440,6 +440,8 @@
   "due-today": "Terminas šiandien",
   "due-days-left": "liko %s d.",
   "due-days-overdue": "vėluoja %s d.",
+  "due-soon-hours": "Greitai terminas: valandos iki termino",
+  "overdue-after-hours": "Pavėluota: valandos po termino",
   "card-spent": "Praleistas Laikas",
   "card-edit-attachments": "Redaguoti priedus",
   "card-edit-custom-fields": "Redaguoti pasirinktinius laukus",

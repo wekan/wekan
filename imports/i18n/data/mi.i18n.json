@@ -440,6 +440,8 @@
   "due-today": "E rite ana i tēnei rā",
   "due-days-left": "%s rā e toe ana",
   "due-days-overdue": "roa ake i te %s rā",
+  "due-soon-hours": "Tata ana te rā: ngā hāora i mua i te rā",
+  "overdue-after-hours": "Kua hipa: ngā hāora i muri i te rā",
   "card-spent": "Wā i Pau",
   "card-edit-attachments": "Whakatika āpitihanga",
   "card-edit-custom-fields": "Whakatika āpure ritenga",

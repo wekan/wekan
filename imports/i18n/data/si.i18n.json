@@ -440,6 +440,8 @@
   "due-today": "අද අවසාන දිනයයි",
   "due-days-left": "%s දින ඉතිරිය",
   "due-days-overdue": "%s දින ප්‍රමාද",
+  "due-soon-hours": "ඉක්මනින් නියමිත: නියමිත දිනට පෙර පැය",
+  "overdue-after-hours": "කල් ඉකුත්: නියමිත දිනට පසු පැය",
   "card-spent": "වැය කළ කාලය",
   "card-edit-attachments": "ඇමුණුම් සංස්කරණය කරන්න",
   "card-edit-custom-fields": "අභිරුචි ක්ෂේත්‍ර සංස්කරණය කරන්න",

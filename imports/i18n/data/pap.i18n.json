@@ -440,6 +440,8 @@
   "due-today": "Vensementu awe",
   "due-days-left": "%s dia resta",
   "due-days-overdue": "%s dia atrasá",
+  "due-soon-hours": "Pronto vense: oranan promé ku e fecha di vensimentu",
+  "overdue-after-hours": "Atrasá: oranan despues di e fecha di vensimentu",
   "card-spent": "Tiempo consumido",
   "card-edit-attachments": "Editá e adhuntos",
   "card-edit-custom-fields": "Editá e kamindanan personalisá",

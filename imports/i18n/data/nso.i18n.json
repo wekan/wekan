@@ -440,6 +440,8 @@
   "due-today": "E swanetšwe lehono",
   "due-days-left": "matšatši a %s a šetše",
   "due-days-overdue": "matšatši a %s a šetše morago",
+  "due-soon-hours": "Go fela kgauswi: diiri pele ga letšatšikgwedi",
+  "overdue-after-hours": "Go fetile: diiri ka morago ga letšatšikgwedi",
   "card-spent": "Nako ye e šomišitšwego",
   "card-edit-attachments": "Rulaganya dikgokaganywa",
   "card-edit-custom-fields": "Rulaganya mafelo a tlwaetšwego",

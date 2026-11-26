@@ -440,6 +440,8 @@
   "due-today": "오늘까지",
   "due-days-left": "%s일 남음",
   "due-days-overdue": "%s일 지남",
+  "due-soon-hours": "마감 임박: 마감일 전 시간",
+  "overdue-after-hours": "기한 초과: 마감일 후 시간",
   "card-spent": "소요 시간",
   "card-edit-attachments": "첨부 파일 수정",
   "card-edit-custom-fields": "사용자정의 항목 수정",

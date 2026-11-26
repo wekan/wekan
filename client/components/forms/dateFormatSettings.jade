@@ -5,6 +5,19 @@ template(name="boardDateSettingsPopup")
     a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
       i.fa(class="{{#if isShowWeekOfYear}}fa-check{{else}}fa-square-o{{/if}}")
       span {{_ 'show-week-of-year'}}
+  //- #6947: when this board's due dates turn amber and red, in hours. A
+    board admin's; everybody else reads them.
+  hr
+  form.js-due-thresholds-form
+    label(for="due-soon-hours") {{_ 'due-soon-hours'}}
+    input#due-soon-hours.js-due-soon-hours(type="number" min="0" max="8784" step="any" value=dueSoonHours disabled=notBoardAdmin)
+    label(for="overdue-after-hours") {{_ 'overdue-after-hours'}}
+    input#overdue-after-hours.js-overdue-after-hours(type="number" min="0" max="8784" step="any" value=overdueAfterHours disabled=notBoardAdmin)
+    if dueThresholdsError
+      p.error.js-due-thresholds-error {{dueThresholdsError}}
+    unless notBoardAdmin
+      //- Saved by the form's submit (dateFormatSettings.js).
+      button.primary(type="submit") {{_ 'save'}}
   //- #687: this board's due dates in a CalDAV calendar (Nextcloud Calendar...).
     Board admins; the password is never sent back to the browser.
   if currentUser.isBoardAdmin
