@@ -1,6 +1,15 @@
-# The image is DISTROLESS: gcr.io/distroless/base-nossl-debian13 - glibc, CA
-# certificates and tzdata - plus the C++ runtime node needs (libstdc++6,
-# libgcc-s1, libatomic1), and nothing else. Not distroless cc-debian13: that
+# amd64 and arm64 run on MUSL, not glibc: the release's musl bundle
+# (wekan-<version>-linux-<x64|arm64>-musl.zip, releases/musl/build-bundle.sh,
+# its node and native modules built for musl and started in Alpine) on a root
+# of Alpine's packages only - musl, libstdc++, libgcc, libatomic, CA
+# certificates and tzdata, each with its apk record (the runtime-root-musl
+# stage) - in scratch: no shell, no apk. Every finding of Artifact Hub's scan of
+# v13.33 (42, none with a Debian fix) was in glibc and the GCC runtime that the
+# glibc node needs, which this root does not have.
+#
+# The other platforms are DISTROLESS: gcr.io/distroless/base-nossl-debian13 -
+# glibc, CA certificates and tzdata - plus the C++ runtime node needs
+# (libstdc++6, libgcc-s1, libatomic1), and nothing else. Not distroless cc-debian13: that
 # adds libssl3t64 and libgomp1, which nothing here loads - node links OpenSSL
 # statically, and no native module needs either - and which were 20 of its 55
 # scanner findings. No shell, no apt, no
@@ -74,9 +83,10 @@ apt-get install --assume-yes --no-install-recommends ca-certificates wget unzip 
 # ferretdb binary is baked into their .zip and started by wekan-entrypoint.sh).
 # Debian's 32-bit ARM port is armhf (ARMv7, VFPv3-D16), which is what
 # linux/arm/v7 runs. ELF_MACHINE is the e_machine the bundle's node must carry.
+# amd64 and arm64 take the musl bundle: their runtime root is musl.
 case "${TARGETARCH}" in
-    "amd64")   WEKAN_ARCH="amd64";   ELF_MACHINE=62  ;;
-    "arm64")   WEKAN_ARCH="arm64";   ELF_MACHINE=183 ;;
+    "amd64")   WEKAN_ARCH="linux-x64-musl";   ELF_MACHINE=62  ;;
+    "arm64")   WEKAN_ARCH="linux-arm64-musl"; ELF_MACHINE=183 ;;
     "ppc64le") WEKAN_ARCH="ppc64le"; ELF_MACHINE=21  ;;
     "s390x")   WEKAN_ARCH="s390x";   ELF_MACHINE=22  ;;
     "riscv64") WEKAN_ARCH="riscv64"; ELF_MACHINE=243 ;;
@@ -135,6 +145,9 @@ if got != want:
     sys.exit(f'{path} is for ELF machine {got}, not {want}: the bundle is for another CPU')
 print(f'{path}: ELF machine {got}, as expected')
 EOP
+# The musl bundle's node-runtime holds GCC's libraries copied from Alpine for a
+# bare system; the image has them as Alpine's own packages (runtime-root-musl).
+case "${WEKAN_ARCH}" in *-musl) rm -rf bundle/node-runtime ;; esac
 
 # /out is laid out as the image's root: the app at /build, node on PATH, and
 # the accounts. The image has no useradd, so /etc/passwd and /etc/group are
@@ -202,9 +215,14 @@ unpack() {
   done
   rm -rf /work
 }
-# Every platform: the C++ runtime node needs (libstdc++.so.6, libgcc_s.so.1,
-# libatomic.so.1), which distroless base-nossl does not have.
-unpack /extra gcc-14-base libgcc-s1 libstdc++6 libatomic1
+# Every glibc platform: the C++ runtime node needs (libstdc++.so.6,
+# libgcc_s.so.1, libatomic.so.1), which distroless base-nossl does not have.
+# amd64 and arm64 are musl (runtime-root-musl) and take nothing from here.
+mkdir -p /extra
+case "$TARGETARCH" in
+  amd64|arm64) ;;
+  *) unpack /extra gcc-14-base libgcc-s1 libstdc++6 libatomic1 ;;
+esac
 mkdir -p /rootfs
 if [ "$TARGETARCH" = "386" ]; then
   # distroless base-nossl-debian13's packages, for the one platform it does not publish.
@@ -222,6 +240,29 @@ fi
 rm -rf /var/lib/apt/lists/*
 EOR
 
+# ── Stage 2b: the musl root, for amd64 and arm64 ─────────────────────────────
+#
+# Alpine's packages installed into an empty root with their apk records
+# (lib/apk/db/installed, etc/alpine-release), so a scanner reads them as the
+# Alpine packages they are: musl, the GCC runtime the musl node and sharp's
+# native module need, CA certificates and tzdata. apk itself, busybox and
+# alpine-baselayout are not installed, so the image has no shell and no
+# package manager. Not pinned to a digest, so each release gets Alpine's
+# security updates.
+FROM alpine:3.22 AS runtime-root-musl
+RUN <<EOR
+set -eux
+apk upgrade --no-cache
+apk add --no-cache --root /rootfs --initdb --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
+  --no-scripts alpine-release musl libstdc++ libgcc libatomic ca-certificates-bundle tzdata
+mkdir -p /rootfs/tmp /rootfs/root /rootfs/home/nonroot
+chmod 1777 /rootfs/tmp
+chmod 700 /rootfs/root
+test -s /rootfs/etc/ssl/certs/ca-certificates.crt
+test -s /rootfs/etc/alpine-release
+test -s /rootfs/lib/apk/db/installed
+EOR
+
 # ── Stage 3: the runtime root, per platform ──────────────────────────────────
 #
 # Not pinned to a digest, for the same reason debian:trixie is not: distroless
@@ -229,8 +270,10 @@ EOR
 # should get those. A platform not listed here has no runtime root, and the
 # build for it stops at FROM runtime-${TARGETARCH}.
 FROM gcr.io/distroless/base-nossl-debian13:nonroot AS distroless
-FROM distroless AS runtime-amd64
-FROM distroless AS runtime-arm64
+FROM scratch AS runtime-amd64
+COPY --from=runtime-root-musl /rootfs/ /
+FROM scratch AS runtime-arm64
+COPY --from=runtime-root-musl /rootfs/ /
 FROM distroless AS runtime-arm
 FROM distroless AS runtime-ppc64le
 FROM distroless AS runtime-s390x

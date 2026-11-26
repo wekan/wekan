@@ -3870,7 +3870,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [prepare, release, build-extra-arches]
+    needs: [prepare, release, build-extra-arches, musl]
     # always() + release success: build-extra-arches is a matrix, and if ANY leg
     # fails (e.g. one exotic CPU) the whole matrix job is "failed", which would
     # SKIP this job the moment it appears in `needs`. That is how one failed
@@ -3990,7 +3990,9 @@ jobs:
           # docker platform : the wekan bundle arch the Dockerfile downloads for it.
           # linux/arm/v6 and linux/arm/v7 are BOTH TARGETARCH=arm and differ only in
           # TARGETVARIANT, which is why the Dockerfile's arch case reads the variant.
-          req="linux/amd64:amd64 linux/arm64:arm64"
+          # amd64 and arm64 are the musl bundles (musl.yml): the image's root for
+          # them is Alpine's musl, not glibc (the Dockerfile's runtime-root-musl).
+          req="linux/amd64:linux-x64-musl linux/arm64:linux-arm64-musl"
           opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64 linux/386:i386 linux/arm/v6:armv6 linux/arm/v7:armhf"
 
           # A bundle on the release is not enough: the BASE IMAGE has to publish the
@@ -4031,6 +4033,16 @@ jobs:
           echo "Base image ${root_image} publishes: ${root_plats}"
           echo "Base image ${distroless_image} publishes: ${distroless_plats}"
           echo "Root assembled by the Dockerfile for: ${assembled:-none}"
+          # amd64 and arm64 assemble theirs from Alpine's musl packages
+          # (runtime-root-musl): that base must publish both, or there is no image.
+          musl_image="$(awk '$1 == "FROM" && $NF == "runtime-root-musl" {print $2}' Dockerfile)"
+          [ -n "$musl_image" ] || { echo "::error::The Dockerfile names no runtime-root-musl stage."; exit 1; }
+          musl_plats="$(plats_of "$musl_image")" || {
+            echo "::error::Cannot read the platform list of the base image ${musl_image}."; exit 1; }
+          echo "Base image ${musl_image} publishes: ${musl_plats}"
+          for p in linux/amd64 linux/arm64; do
+            case " $musl_plats " in *" $p "*) ;; *) echo "::error::The musl base image ${musl_image} does not publish $p."; exit 1 ;; esac
+          done
           base_plats=""
           for p in $root_plats; do
             case " $distroless_plats $assembled " in *" $p "*) base_plats="$base_plats $p" ;; esac

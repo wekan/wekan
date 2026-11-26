@@ -346,9 +346,10 @@ test('negative: nothing in the image needs a shell', () => {
   assert.match(final, /^CMD \["\/usr\/local\/bin\/node", "\/build\/wekan-entrypoint\.mjs"\]$/m);
   assert.doesNotMatch(final, /\b(bash|\/bin\/sh)\b/);
   assert.match(docker, /^FROM gcr\.io\/distroless\/base-nossl-debian13:nonroot AS distroless$/m);
-  // The C++ runtime node needs comes from Debian; libssl and libgomp, which
+  // The C++ runtime node needs comes from Debian on the glibc platforms (from
+  // Alpine on the musl ones, amd64 and arm64); libssl and libgomp, which
   // nothing loads (node links OpenSSL statically), are not in the image.
-  assert.match(docker, /^unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1$/m);
+  assert.match(docker, /^\s*\*\) unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1 ;;$/m);
   assert.doesNotMatch(docker.split('\n').filter(l => !/^\s*#/.test(l)).join('\n'), /libssl|libgomp|cc-debian13/);
   // The 386 root, which distroless does not publish, is assembled from Debian with dpkg records.
   assert.match(docker, /^FROM scratch AS runtime-386$/m);

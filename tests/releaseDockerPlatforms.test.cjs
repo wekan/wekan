@@ -130,8 +130,10 @@ test('the Dockerfile can install Node for every candidate platform, with the rig
   // is what mapping "arm" straight to armhf did - ships ARMv7-A instructions to a
   // CPU that cannot execute them.
   const platform = {
-    'linux/amd64':   { ta: 'amd64',   bundle: 'amd64' },
-    'linux/arm64':   { ta: 'arm64',   bundle: 'arm64' },
+    // amd64 and arm64 are the musl bundles since 2026-11-26 (Dockerfile:
+    // runtime-root-musl), so the image's root is musl, not glibc.
+    'linux/amd64':   { ta: 'amd64',   bundle: 'linux-x64-musl' },
+    'linux/arm64':   { ta: 'arm64',   bundle: 'linux-arm64-musl' },
     'linux/ppc64le': { ta: 'ppc64le', bundle: 'ppc64le' },
     'linux/s390x':   { ta: 's390x',   bundle: 's390x' },
     'linux/riscv64': { ta: 'riscv64', bundle: 'riscv64' },
@@ -188,7 +190,12 @@ test('a candidate platform the BASE image does not publish is dropped, not silen
   const run = name => execFileSync('sh', ['-c', `${awk(name)[1]}`], { cwd: path.join(__dirname, '..'), encoding: 'utf8' }).trim();
   assert.strictEqual(run('root_image'), 'debian:trixie');
   assert.strictEqual(run('distroless_image'), 'gcr.io/distroless/base-nossl-debian13:nonroot');
-  assert.strictEqual(run('assembled'), 'linux/386');
+  // amd64 and arm64 too since 2026-11-26: their root is Alpine's musl
+  // packages in scratch, and the musl base is checked to publish both.
+  assert.strictEqual(run('assembled'), 'linux/amd64 linux/arm64 linux/386');
+  assert.ok(awk('musl_image') && run('musl_image') === 'alpine:3.22', 'the Decide step reads the musl base out of the Dockerfile');
+  assert.ok(/for p in linux\/amd64 linux\/arm64; do\n\s+case " \$musl_plats " in/.test(body),
+    'and refuses to build when it does not publish amd64 and arm64');
   // A platform needs runtime-root to publish it exactly AND (distroless or an
   // assembled root): run the loop on the platform lists both bases publish.
   const loop = body.slice(body.indexOf('base_plats=""'), body.indexOf('base_image="${root_image}'));

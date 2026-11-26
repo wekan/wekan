@@ -8,11 +8,15 @@ test('runtime bundler rejects foreign architectures and preserves licensing', ()
   const result = spawnSync('python3', ['-B', 'tests/bundle-node-runtime.py'], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
 });
-test('Docker gives every platform libatomic and the C++ runtime, which distroless base-nossl lacks and node needs', () => {
+test('Docker gives every glibc platform libatomic and the C++ runtime, which distroless base-nossl lacks and node needs', () => {
   const docker = read('Dockerfile');
   // Unpacked from Debian 13 for the target CPU, with its dpkg record, then
-  // copied over the distroless (or, for 386, the assembled) root.
-  assert.match(docker, /^unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1$/m);
+  // copied over the distroless (or, for 386, the assembled) root. amd64 and
+  // arm64 are musl since 2026-11-26: Alpine's libstdc++, libgcc and libatomic
+  // are packages of their root (runtime-root-musl), and nothing from Debian.
+  assert.match(docker, /^\s*\*\) unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1 ;;$/m);
+  assert.match(docker, /^\s*amd64\|arm64\) ;;$/m);
+  assert.match(docker, /--no-scripts alpine-release musl libstdc\+\+ libgcc libatomic ca-certificates-bundle tzdata$/m);
   assert.match(docker, /^COPY --from=runtime-root \/extra\/ \/$/m);
   assert.ok(docker.indexOf('COPY --from=runtime-root /extra/ /') > docker.lastIndexOf('\nFROM '), 'into the image itself');
   assert.doesNotMatch(docker, /apt-get (?:remove|purge)[^\n]*libatomic1/);

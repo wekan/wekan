@@ -19,6 +19,11 @@
 // the image has no useradd. The image is distroless: runtime-root, the only
 // emulated part, unpacks the C++ runtime (and, for 386, which distroless does not
 // publish, the whole cc root) from Debian 13; the image itself is only COPY.
+//
+// amd64 and arm64 changed on 2026-11-26 from distroless glibc to musl: every
+// one of Artifact Hub's 42 findings in v13.33 was in glibc and the GCC runtime
+// the glibc node needs, none with a Debian fix. Their image is the release's
+// musl bundle (musl.yml) on a scratch root of Alpine's packages only.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -39,7 +44,8 @@ function test(name, fn) {
 
 const froms = [...dockerfile.matchAll(/^FROM .*$/gm)].map((m) => m[0]);
 const stage1 = dockerfile.slice(dockerfile.indexOf(froms[0]), dockerfile.indexOf(froms[1]));
-const emulated = dockerfile.slice(dockerfile.indexOf('FROM debian:trixie AS runtime-root'), dockerfile.indexOf('FROM gcr.io/distroless'));
+const emulated = dockerfile.slice(dockerfile.indexOf('FROM debian:trixie AS runtime-root'), dockerfile.indexOf('FROM alpine:'));
+const musl = dockerfile.slice(dockerfile.indexOf('FROM alpine:'), dockerfile.indexOf('FROM gcr.io/distroless'));
 const stage2 = dockerfile.slice(dockerfile.lastIndexOf(`\n${froms[froms.length - 1]}`));
 
 console.log('dockerImageFromBundle:');
@@ -48,9 +54,10 @@ test('the bundle on the build machine, the runtime root per platform, the image 
   assert.deepStrictEqual(froms, [
     'FROM --platform=$BUILDPLATFORM debian:trixie AS bundle',
     'FROM debian:trixie AS runtime-root',
+    'FROM alpine:3.22 AS runtime-root-musl',
     'FROM gcr.io/distroless/base-nossl-debian13:nonroot AS distroless',
-    'FROM distroless AS runtime-amd64',
-    'FROM distroless AS runtime-arm64',
+    'FROM scratch AS runtime-amd64',
+    'FROM scratch AS runtime-arm64',
     'FROM distroless AS runtime-arm',
     'FROM distroless AS runtime-ppc64le',
     'FROM distroless AS runtime-s390x',
@@ -98,11 +105,35 @@ test('no reinstall, no second Node.js download, no toolchain', () => {
 test('runtime-root, the emulated stage, only unpacks Debian packages for the target CPU', () => {
   const s = code(emulated);
   assert.strictEqual([...s.matchAll(/^RUN /gm)].length, 1);
-  assert.ok(/^unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1$/m.test(s), 'every platform: the C++ runtime');
+  assert.ok(/^\s*\*\) unpack \/extra gcc-14-base libgcc-s1 libstdc\+\+6 libatomic1 ;;$/m.test(s), 'every glibc platform: the C++ runtime');
+  assert.ok(/^\s*amd64\|arm64\) ;;$/m.test(s), 'negative: none of it for the musl platforms');
   assert.ok(/unpack \/rootfs base-files netbase tzdata ca-certificates libc6$/m.test(s),
     '386: distroless base-nossl-debian13\'s packages');
   assert.ok(!/docker|golang|\bfile\b/.test(s), 'no docker-cli, whose Go stdlib filled the image scan, and no file');
   assert.ok(!/wget|curl|unzip|python3/.test(s), 'nothing downloaded or checked here: that is stage 1');
+});
+
+test('amd64 and arm64: the musl bundle on a root of Alpine packages only', () => {
+  const s1 = code(stage1);
+  assert.ok(/"amd64"\)\s+WEKAN_ARCH="linux-x64-musl"/.test(s1) && /"arm64"\)\s+WEKAN_ARCH="linux-arm64-musl"/.test(s1),
+    'the musl bundles, verified like every other');
+  assert.ok(/\*-musl\) rm -rf bundle\/node-runtime ;;/.test(s1), 'its copied GCC libraries go: the root has them as packages');
+  const m = code(musl);
+  assert.ok(/apk add --no-cache --root \/rootfs --initdb/.test(m), 'installed into an empty root, with apk records');
+  // The packages, as the words of the apk add command after its options.
+  const add = m.slice(m.indexOf('apk add --no-cache --root'));
+  const words = add.slice(0, add.indexOf('\nmkdir')).replace(/\\\n/g, ' ').split(/\s+/).filter((w) => w && !w.startsWith('-'));
+  for (const pkg of ['alpine-release', 'musl', 'libstdc++', 'libgcc', 'libatomic', 'ca-certificates-bundle', 'tzdata']) {
+    assert.ok(words.includes(pkg), `the root has ${pkg}`);
+  }
+  // Negative: no shell, no package manager, no glibc in the musl root.
+  for (const pkg of ['busybox', 'apk-tools', 'alpine-baselayout', 'libc6', 'gcompat', 'bash']) {
+    assert.ok(!words.includes(pkg), `negative: no ${pkg}`);
+  }
+  assert.ok(/^COPY --from=runtime-root-musl \/rootfs\/ \/$/m.test(dockerfile.slice(dockerfile.indexOf('FROM scratch AS runtime-amd64'))));
+  const wf = read('.github/workflows/release-all.yml');
+  assert.ok(wf.includes('req="linux/amd64:linux-x64-musl linux/arm64:linux-arm64-musl"'), 'the docker job waits for the musl bundles');
+  assert.ok(/  docker:\n(?:.*\n){0,4}    needs: \[prepare, release, build-extra-arches, musl\]/.test(wf), 'after the musl job');
 });
 
 test('the image itself runs nothing: distroless has no shell', () => {

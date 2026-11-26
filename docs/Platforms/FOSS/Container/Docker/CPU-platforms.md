@@ -75,7 +75,7 @@ The `docker` job in
 [`.github/workflows/release-all.yml`](../../../../../.github/workflows/release-all.yml)
 does this before it builds anything:
 
-1. It holds two lists — `req="linux/amd64:amd64 linux/arm64:arm64"` and
+1. It holds two lists — `req="linux/amd64:linux-x64-musl linux/arm64:linux-arm64-musl"` and
    `opt="linux/ppc64le:ppc64le linux/s390x:s390x linux/riscv64:riscv64
    linux/386:i386 linux/arm/v6:armv6 linux/arm/v7:armhf"` — where each entry is
    *docker platform : the bundle arch the Dockerfile downloads for it*.
@@ -87,7 +87,14 @@ does this before it builds anything:
    platform exactly; and the root, `gcr.io/distroless/base-nossl-debian13`, must publish
    it too - unless the `Dockerfile` assembles that root itself in a
    `FROM scratch AS runtime-<arch>` stage, as it does for `386`, which distroless
-   does not publish.
+   does not publish, and for `amd64` and `arm64`, whose root is **musl**:
+   Alpine's `musl`, `libstdc++`, `libgcc`, `libatomic`, CA certificates and
+   `tzdata`, each with its apk record (the `runtime-root-musl` stage, from
+   `alpine:3.22`, which must then publish both). Their bundle is the release's
+   musl one, `wekan-<version>-linux-<x64|arm64>-musl.zip` (`musl.yml`), so
+   the docker job waits for it. Every finding of Artifact Hub's scan of v13.33
+   was in glibc and the GCC runtime the glibc Node.js needs; the musl root has
+   neither.
 3. It asks the **release**, with an HTTP `HEAD`, whether
    `wekan-<version>-<arch>.zip` is there.
 
