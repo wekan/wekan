@@ -90,6 +90,13 @@ details; WeKan's are below.
 
 ## Need the running app to reproduce/verify
 
+- [#6943](https://github.com/wekan/wekan/issues/6943) (from Chrome Desktop the
+  reporter cannot change settings such as hiding something on the minicard,
+  while Brave on a phone can. Board Settings / Card's checkboxes are drawn and
+  saved the same on both, their sortables start only from a handle, and
+  WeKan's Card Settings specs toggle them in desktop Chromium and pass; it
+  needs the reporter's details to reproduce - which popup, whether as a board
+  admin, and the browser console's error. The comment's spacing is fixed.)
 - The WebKit stage cannot run in the Flatpak sandbox: MiniBrowser needs its own
   sandbox, and turning that off is not allowed there. Run it on a host.
 - Firefox cannot run in the Flatpak sandbox either: Playwright's Firefox 159

@@ -12,9 +12,10 @@ of Alpine packages only, without the glibc and GCC runtime that held every
 finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
 Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
-**wekan-gantt-gpl** snap and Docker image are no longer published.
-**Minicards are compact again**: no empty line at their top, one margin
-between them.
+**wekan-gantt-gpl** snap and Docker image are no longer published, and
+**wekan-ondra** users get one script that moves them to the wekan snap.
+**Minicards are compact again**, and a board sets its own **due date
+colours**.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

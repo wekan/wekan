@@ -103,9 +103,10 @@ of Alpine packages only, without the glibc and GCC runtime that held every
 finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
 Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
-**wekan-gantt-gpl** snap and Docker image are no longer published.
-**Minicards are compact again**: no empty line at their top, one margin
-between them.
+**wekan-gantt-gpl** snap and Docker image are no longer published, and
+**wekan-ondra** users get one script that moves them to the wekan snap.
+**Minicards are compact again**, and a board sets its own **due date
+colours**.
 
 This release has the following new features:
 
@@ -177,6 +178,25 @@ now repairs the database with `docker exec -it wekan-ferretdb mongosh wekan`.
 
 </details>
 
+**Due dates** - when a card turns amber and red.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3de22209645d6c84af594ff454d40a38335fc90e">When a card turns amber and red is the board's own, in Board Settings / Date</a>. Thanks to BarbossHack and xet7.</summary>
+
+[#6947](https://github.com/wekan/wekan/issues/6947): the colours were fixed -
+amber 48 hours before the due date, red at it. Board Settings / Date now has
+the hours before the due date a card is due soon (48 until set) and the hours
+after it a card is overdue (0 until set), so a board can be grey above 24
+hours, amber within them and red when overdue. The card, the minicard and the
+checklist items read them (`models/lib/dueDateThresholds.js`); a board admin
+sets them with `setBoardDueThresholds`, which refuses anything but 0 to a year
+of hours, and they go with a board's WeKan export and import.
+`tests/dueDateThresholds6947.test.cjs` and
+`tests/playwright/specs/due-thresholds-6947.e2e.js` check the colours, the
+refusals and the form.
+
+</details>
+
 and fixes the following bugs:
 
 **Minicards** - how much room a card of the board takes.
@@ -200,6 +220,8 @@ without the fix; `tests/minicardControls6943.test.cjs` pins the rules.
 
 and changes the following releases:
 
+**Snaps** - which are published, and moving a server between them.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca473ab225277fa44eccbb990842891597731531">wekan-gantt-gpl is no longer built or published</a>. Thanks to xet7.</summary>
 
@@ -215,11 +237,28 @@ backup of the `wekan-gantt-gpl` data into it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8273479b7d742ace41e6743d7958ccb9f2bf8cf">wekan-ondra's page recommends the wekan snap, and one script moves a server to it</a>. Thanks to xet7.</summary>
+
+wekan-ondra is still published; its Snap Store page now recommends the
+official `wekan` snap. `migrate-wekan-ondra-to-wekan.sh`
+([the guide](docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md#moving-from-wekan-ondra-to-wekan))
+installs `wekan` from the channel wekan-ondra tracks, refusing one older than
+it, sets every setting of wekan-ondra on it, stops and disables wekan-ondra -
+they share their ports - and copies its data, wekan's own moved aside. It
+keeps wekan-ondra installed, so the move is undone with two commands, and
+`--dry-run` only shows what it would do. `tests/snapOndraMigrate.test.cjs`
+runs it against a fake `snap` command, and checks that every refusal changes
+nothing.
+
+</details>
+
 and updates the translations:
 
-**Translations** - a Bosnian unit that was left in English.
+**Translations** - a Bosnian unit that was left in English, and the due date
+colours' two hours in every language.
 
-**Languages updated:** Bosnian.
+**Languages updated:** 246 languages.
 
 - [Bosnian byte unit in Bosnian, not English](https://github.com/wekan/wekan/commit/bea9281a54bf891cb3c11843a4c51531d51cfd08):
   "Bajtovi" in place of "Bytes", kept by audited-corrections.json. Thanks to
