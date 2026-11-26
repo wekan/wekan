@@ -14,6 +14,46 @@ Docker image: its users moved to the official `wekan` snap, and
 To move from it, install `wekan` (`sudo snap install wekan`) and restore a
 backup of the `wekan-gantt-gpl` data into it.
 
+## Moving from wekan-ondra to wekan
+
+`wekan-ondra` is still published, and its Snap Store page recommends the
+official `wekan` snap. [migrate-wekan-ondra-to-wekan.sh](migrate-wekan-ondra-to-wekan.sh)
+makes the move on the server:
+
+```
+sudo snap run wekan-ondra.database-backup
+curl -fsSLO https://raw.githubusercontent.com/wekan/wekan/main/docs/Platforms/FOSS/Container/Snap/migrate-wekan-ondra-to-wekan.sh
+sudo bash migrate-wekan-ondra-to-wekan.sh --dry-run
+sudo bash migrate-wekan-ondra-to-wekan.sh
+```
+
+The dry run shows every command and changes nothing. The move then:
+
+1. installs `wekan` from the channel `wekan-ondra` tracks (`--channel` picks
+   another), or refreshes it when it is older than `wekan-ondra` - the data
+   moves forward, never back, so an older `wekan` is refused;
+2. sets every setting of `wekan-ondra` on `wekan` (`snap get -d`, then
+   `snap set`), a path under `/var/snap/wekan-ondra/` becoming `wekan`'s;
+3. stops and disables `wekan-ondra`: the two use the same ports (WeKan 8080,
+   MongoDB 27019, Caddy 3001), so only one runs;
+4. moves `wekan`'s own data aside to `/var/snap/wekan/common.before-wekan-ondra-<time>`
+   and copies `/var/snap/wekan-ondra/common` - the database, attachments,
+   avatars and Caddyfile - in its place;
+5. starts `wekan`.
+
+`wekan-ondra` stays installed with its data where it was. Check WeKan in the
+browser, then `sudo snap remove wekan-ondra`. To undo before that:
+
+```
+sudo snap stop --disable wekan
+sudo snap start --enable wekan-ondra
+```
+
+It needs `python3` or `jq` to read the settings. `tests/snapOndraMigrate.test.cjs`
+runs it against a fake `snap` command: the settings, the data, the order of
+stopping and starting, and that no wekan-ondra, an older wekan, a refused
+question, a dry run and a non-root run change nothing.
+
 ## Automated update
 
 `.github/workflows/update-ondra-gantt-repos.yml` can run manually against
