@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: WeKan REST API
-  version: v13.33
+  version: v13.34
   description: |
     The REST API allows you to control and extend WeKan with ease.
 
@@ -6182,6 +6182,12 @@ definitions:
         type: boolean
       dateFormatOverride:
         type: boolean
+        x-nullable: true
+      dueSoonHours:
+        type: number
+        x-nullable: true
+      overdueAfterHours:
+        type: number
         x-nullable: true
       dateFormat:
         type: string
