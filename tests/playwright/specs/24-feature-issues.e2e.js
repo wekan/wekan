@@ -41,8 +41,15 @@ test.describe('Feature issues', () => {
         )
         .toBe('Aaa,Bbb,Ccc');
 
-      // The move buttons are visually hidden (sr-only) but in the DOM — force-click.
-      await bp.minicard(listId, 'Aaa').locator('.js-card-move-down').click({ force: true });
+      // The move buttons are visually hidden (sr-only) controls for the
+      // keyboard and screen readers, so they are used the way those users use
+      // them: focused, then Enter. They were force-clicked at their 14px box;
+      // #6943 took that box out of the card's first line (it was 14px of empty
+      // space at the top of every minicard) and left a 1px target that a
+      // pointer click is not meant to hit - nor to cover the collapse caret.
+      const down = bp.minicard(listId, 'Aaa').locator('.js-card-move-down');
+      await down.focus();
+      await loggedInPage.keyboard.press('Enter');
 
       await expect.poll(async () =>
         (await bp.cardTitlesInList(listId).allInnerTexts()).map(s => s.trim()).join(','),

@@ -70,7 +70,40 @@ test('with the menu hidden the content takes the corner it kept free', () => {
   const jade = read('client/components/cards/minicard.jade');
   const css = read('client/components/cards/minicard.css');
   assert.match(jade, /class="\{\{#unless showMinicardMenu\}\}minicard-no-menu\{\{\/unless\}\}"/);
-  assert.match(css, /\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-labels,\n\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-custom-fields \{\n\s+margin-inline-end: 0;/);
+  // The title too (#6943 comment 7190880990): its 21px beside the menu.
+  assert.match(css, /\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-labels,\n\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-custom-fields,\n\.minicard\.minicard-no-menu:not\(\.minicard-with-handle\) \.minicard-title \{\n\s+margin-inline-end: 0;/);
+});
+
+// #6943 comment 7190880990: the space at the top of every card was the
+// keyboard move buttons' line, and the space between cards two margins.
+test('the move buttons take no line of the card, and one margin is the gap between cards', () => {
+  const layouts = read('client/components/main/layouts.css');
+  const css = read('client/components/cards/minicard.css');
+  const header = read('client/components/boards/boardHeader.css');
+  const rule = (text, selector) => {
+    const at = text.indexOf(selector + ' {');
+    assert.ok(at >= 0, selector);
+    return text.slice(at, text.indexOf('}', at));
+  };
+  const group = rule(layouts, '.minicard .minicard-move-buttons.sr-only');
+  assert.match(group, /position: absolute !important;/);
+  assert.match(group, /width: 0;/);
+  assert.match(group, /height: 0;/);
+  assert.match(rule(layouts, '.minicard .minicard-move-buttons.sr-only a'), /width: 1px;\s+height: 1px;/);
+  // Negative: still reachable - shown while focused, never display: none.
+  assert.doesNotMatch(group, /display:\s*none/);
+  assert.match(layouts, /\.minicard-move-buttons\.sr-only a:focus,/);
+  // Each mode gives the minicard its own bottom margin...
+  assert.match(rule(header, '.desktop-mode .minicard'), /margin-bottom: 9px !important;/);
+  assert.match(rule(header, '.mobile-mode .minicard'), /margin-bottom: 0\.5rem !important;|font-size/);
+  // ...so the wrapper adds none there, whatever the board color says.
+  assert.match(css, /body\.desktop-mode \.minicard-wrapper,\nbody\.mobile-mode \.minicard-wrapper \{\n\s+margin-bottom: 0;/);
+  // The desktop drag handle (top 28px, 20px) stays inside a card that no
+  // longer has the move buttons' line to make it tall enough.
+  assert.match(css, /body\.desktop-mode \.minicard\.minicard-with-handle:not\(\.minicard-no-menu\) \{\n\s+min-height: 49px !important;/);
+  assert.match(css, /body\.desktop-mode \.minicard\.minicard-with-handle\.minicard-no-menu \.handle \{\n\s+top: 4px;/);
+  // A strip with no badge element takes no line.
+  assert.match(css, /\.minicard \.badges:not\(:has\(\*\)\) \{\n\s+display: none;/);
 });
 
 test('the 24px targets do not make the card taller', () => {

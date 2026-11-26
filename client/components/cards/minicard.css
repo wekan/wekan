@@ -5,6 +5,14 @@
   align-items: center;
   margin-bottom: 8px;
 }
+/* #6943: in desktop and in mobile mode the minicard has a bottom margin of
+   its own (boardHeader.css: 9px, 0.5rem), so the wrapper's 8px - 12px on the
+   moderndark color - doubled the space between two cards to 17px or more.
+   One margin is the gap; `body.` outranks a board color's wrapper rule. */
+body.desktop-mode .minicard-wrapper,
+body.mobile-mode .minicard-wrapper {
+  margin-bottom: 0;
+}
 /* #3078: a subtle highlight for a minicard that has comments the current
    user has not seen yet. An inset ring plus a left-edge stripe, not a
    background fill, so it stays visible against every label swatch and
@@ -199,7 +207,8 @@
    that holds the card actions menu. With the menu hidden (Board Settings /
    Card, or the Admin Panel) and no drag handle there, the content takes it. */
 .minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-labels,
-.minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-custom-fields {
+.minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-custom-fields,
+.minicard.minicard-no-menu:not(.minicard-with-handle) .minicard-title {
   margin-inline-end: 0;
 }
 .minicard .minicard-custom-field {
@@ -239,6 +248,18 @@
   .minicard .handle {
     display: block;
   }
+}
+/* #6943: the desktop handle sits under the menu (top 28px, 20px high), and
+   the card was tall enough for it only because the keyboard move buttons took
+   a 14px line at its top. With that line gone a one-line card is about 27px
+   and clips the handle - nothing to grab. A card with a handle is as tall as
+   menu and handle; with the menu hidden the handle takes the menu's corner
+   and the card stays one line. */
+body.desktop-mode .minicard.minicard-with-handle:not(.minicard-no-menu) {
+  min-height: 49px !important;
+}
+body.desktop-mode .minicard.minicard-with-handle.minicard-no-menu .handle {
+  top: 4px;
 }
 /* #6521: on a touch device the handle is the ONLY way to drag a card - the rest
    of the minicard deliberately pans the board instead - so it has to be a target
@@ -550,6 +571,12 @@
   color: #808080;
 }
 .minicard .badges:empty {
+  display: none;
+}
+/* #6943: a strip with no badge in it - only the blank text a template leaves
+   where its fields render nothing - takes no line either: its 8px top margin
+   was empty space under the title of every card without badges. */
+.minicard .badges:not(:has(*)) {
   display: none;
 }
 .minicard .badges .badge {

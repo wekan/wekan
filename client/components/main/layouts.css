@@ -121,6 +121,23 @@ body.has-hide-focus-outline :is(a, button, input, select, textarea, summary, [ta
   position: relative;
   z-index: 30;
 }
+/* #6943: on a minicard the group took a line of its own above the title -
+   14px of empty space at the top of every card, the first thing a reader of
+   a full board saw. It is out of the flow now, in the card's starting top
+   corner, and its controls are 1px until focused: still hit-testable and
+   reachable by Tab (#459, #6521), no longer a line of the card. */
+.minicard .minicard-move-buttons.sr-only {
+  position: absolute !important;
+  top: 0;
+  inset-inline-start: 0;
+  width: 0;
+  height: 0;
+  z-index: 30;
+}
+.minicard .minicard-move-buttons.sr-only a {
+  width: 1px;
+  height: 1px;
+}
 
 /* #6521: these controls are focusable but `opacity: 0`, and they sit at the
    START of the card/list content. Tabbing therefore went: card (visible focus)
