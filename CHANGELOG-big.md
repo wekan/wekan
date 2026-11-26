@@ -215,6 +215,16 @@ backup of the `wekan-gantt-gpl` data into it.
 
 </details>
 
+and updates the translations:
+
+**Translations** - a Bosnian unit that was left in English.
+
+**Languages updated:** Bosnian.
+
+- [Bosnian byte unit in Bosnian, not English](https://github.com/wekan/wekan/commit/bea9281a54bf891cb3c11843a4c51531d51cfd08):
+  "Bajtovi" in place of "Bytes", kept by audited-corrections.json. Thanks to
+  xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v13.33 2026-11-26 WeKan ® release
