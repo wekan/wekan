@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ── Publish a variant Docker image, by hand ──────────────────────────────────
 #
-# wekanteam/wekan-gantt-gpl and wekanteam/wekan-ondra are the same WeKan as
-# wekanteam/wekan: the variant repositories are byte-identical to wekan/wekan
+# wekanteam/wekan-ondra is the same WeKan as wekanteam/wekan: the variant
+# repository is byte-identical to wekan/wekan
 # apart from the snap name in snapcraft.yaml. So this does not rebuild anything
 # - it points a variant tag at the multi-arch manifest the release already built
 # and verified (`docker buildx imagetools create`): same digests, all five
@@ -18,14 +18,17 @@
 # becomes wrong: build that repository's own Dockerfile instead.
 #
 # Usage:
-#   releases/docker-publish-variant.sh [wekan-gantt-gpl|wekan-ondra] [VERSION] [--no-latest]
+#   releases/docker-publish-variant.sh [wekan-ondra] [VERSION] [--no-latest]
+#
+#   wekan-gantt-gpl is no longer published: its users moved to the official
+#   wekan snap, and wekan/wekan-gantt-gpl is archived.
 #
 #   VERSION without the v (e.g. 10.49). Omitted: the newest wekan/wekan release.
 #   Needs `docker login docker.io` with an account that may push to wekanteam/.
 
 set -euo pipefail
 
-IMAGE="${1:-wekan-gantt-gpl}"
+IMAGE="${1:-wekan-ondra}"
 VERSION="${2:-}"
 MOVE_LATEST=1
 for arg in "$@"; do
@@ -33,10 +36,10 @@ for arg in "$@"; do
 done
 
 case "$IMAGE" in
-  wekan-gantt-gpl|wekan-ondra) ;;
+  wekan-ondra) ;;
   *)
     echo "Unknown variant image: $IMAGE" >&2
-    echo "Use wekan-gantt-gpl or wekan-ondra (or add the new one here first)." >&2
+    echo "Use wekan-ondra (or add the new one here first)." >&2
     exit 1
     ;;
 esac

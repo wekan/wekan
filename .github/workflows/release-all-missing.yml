@@ -570,7 +570,7 @@ jobs:
           esac
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
 
-  # wekan-ondra and wekan-gantt-gpl snaps the release lacks: the release's own
+  # wekan-ondra snaps the release lacks: the release's own
   # wekan snap of that architecture under the variant's name and title
   # (releases/snap-rename.sh) - what snap-variants builds from source, with
   # nothing else changed. Releases before v13.21 have none attached.
@@ -603,7 +603,6 @@ jobs:
           arch="${VARIANT#*:}"
           case "$name" in
             wekan-ondra) title='Wekan Ondra' ;;
-            wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
             *) echo "::error::'$name' is not a variant snap."; exit 1 ;;
           esac
           case "$arch" in *[!a-z0-9]*|'') echo "::error::'$arch' is not an architecture."; exit 1 ;; esac
@@ -633,7 +632,7 @@ jobs:
     uses: ./.github/workflows/snap-store.yml
     with:
       tag: v${{ needs.plan.outputs.version }}
-      snaps: wekan wekan-ondra wekan-gantt-gpl
+      snaps: wekan wekan-ondra
       channels: stable,candidate,beta,edge
     secrets:
       SNAP_AUTH: ${{ secrets.SNAP_AUTH }}

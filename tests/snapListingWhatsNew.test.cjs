@@ -92,7 +92,7 @@ test('the limit is counted in bytes: curly quotes cannot push a page over it', a
 });
 
 test('each snap has its listing text in the repository', () => {
-  for (const name of ['wekan', 'wekan-ondra', 'wekan-gantt-gpl']) {
+  for (const name of ['wekan', 'wekan-ondra']) {
     const text = read(`releases/snap-listing/${name}.md`);
     assert.match(text, /kanban/i, name);
     assert.ok(bytes(text) <= 4096, `${name} on its own fits the store`);
@@ -141,15 +141,17 @@ ${snapcraftFails ? 'echo "403 Forbidden" >&2; exit 1' : 'exit 0'}
 }
 
 test('the update sends the new description with the store\'s own title, summary, license and icon', () => {
-  const r = runUpdate('wekan-gantt-gpl');
+  const r = runUpdate('wekan-ondra');
   assert.equal(r.status, 0, r.out);
-  assert.match(r.args, /^upload-metadata --force \S+\/wekan-gantt-gpl_13\.30_listing\.snap$/);
-  assert.equal(r.snapYaml.name, 'wekan-gantt-gpl');
+  assert.match(r.args, /^upload-metadata --force \S+\/wekan-ondra_13\.30_listing\.snap$/);
+  assert.equal(r.snapYaml.name, 'wekan-ondra');
   assert.equal(r.snapYaml.title, 'WeKan');
   assert.equal(r.snapYaml.summary, 'Open-Source kanban');
   assert.equal(r.snapYaml.license, 'MIT');
   assert.match(r.snapYaml.description, /^\*\*What's new in WeKan v13\.30:\*\* The \*\*wekan-ondra\*\*/);
-  assert.ok(r.snapYaml.description.endsWith(read('releases/snap-listing/wekan-gantt-gpl.md').trimEnd()));
+  assert.ok(r.snapYaml.description.endsWith(read('releases/snap-listing/wekan-ondra.md').trimEnd()));
+  // Negative: wekan-gantt-gpl is no longer published, so its listing is not updated.
+  assert.notEqual(runUpdate('wekan-gantt-gpl').status, 0);
   assert.equal(r.icon, 'PNGDATA', 'the listing\'s icon is sent back, so upload-metadata does not replace or remove it');
 });
 

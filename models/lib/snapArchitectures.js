@@ -3,9 +3,10 @@
 // ============================================================================
 // Snap names, channels, and the two names every architecture has
 // ----------------------------------------------------------------------------
-// WeKan publishes three snaps of the same application - `wekan`, and the
-// `wekan-ondra` and `wekan-gantt-gpl` variants - and each must reach every
-// architecture on every channel.
+// WeKan publishes two snaps of the same application - `wekan`, and the
+// `wekan-ondra` variant - and each must reach every architecture on every
+// channel. `wekan-gantt-gpl` is no longer published: its users moved to the
+// official `wekan` snap.
 //
 // Two things make this less obvious than "three names times eight arches".
 //
@@ -33,8 +34,8 @@
 // no second copy of this table in bash.
 // ============================================================================
 
-// The three snaps. Same application, three store listings.
-const SNAP_NAMES = ['wekan', 'wekan-ondra', 'wekan-gantt-gpl'];
+// The two snaps. Same application, two store listings.
+const SNAP_NAMES = ['wekan', 'wekan-ondra'];
 
 // Every channel a revision is released to. `stable` is included deliberately:
 // the old helper released to `edge,beta,candidate` only, so a build reached

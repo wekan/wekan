@@ -341,7 +341,7 @@ four channels on every architecture it is built for**:
 |------|------------|
 | [`wekan`](https://snapcraft.io/wekan) | the default |
 | [`wekan-ondra`](https://snapcraft.io/wekan-ondra) | same WeKan, separate listing |
-| [`wekan-gantt-gpl`](https://snapcraft.io/wekan-gantt-gpl) | same WeKan, separate listing |
+| [`wekan-gantt-gpl`](https://snapcraft.io/wekan-gantt-gpl) | no longer published: its users moved to `wekan` |
 
 **All four channels — Stable, Candidate, Beta and Edge.** The default
 `snapcraft.yaml` is built on `base: core24`, a *released* base, so the snap carries

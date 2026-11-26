@@ -22,7 +22,7 @@ if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
 fi
 name=$1
 channels=${2:-stable,candidate,beta,edge}
-case "$name" in wekan|wekan-ondra|wekan-gantt-gpl) ;; *) echo "::error::'$name' is not one of WeKan's snaps." >&2; exit 2 ;; esac
+case "$name" in wekan|wekan-ondra) ;; *) echo "::error::'$name' is not one of WeKan's snaps." >&2; exit 2 ;; esac
 case "$channels" in *[!a-z0-9/,.-]*|'') echo "::error::'$channels' is not a channel list." >&2; exit 2 ;; esac
 
 # snapcraft 9 renamed list-revisions to revisions; the old name for an older one.

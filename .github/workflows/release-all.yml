@@ -65,8 +65,8 @@ run-name: Release v${{ inputs.new_version }}
 #              never fails the release
 #   - docker:  builds and pushes the multi-arch image (amd64, arm64, ppc64le, s390x,
 #              riscv64) to Docker Hub, Quay.io, GHCR - and on GHCR also under the
-#              two variant names, wekan-ondra and wekan-gantt-gpl, which are the
-#              same image (the variant repos differ only in the snap name)
+#              variant name wekan-ondra, which is the same image (the variant
+#              repo differs only in the snap name)
 #   - snap:    builds the snap from the default core24 snapcraft.yaml and pushes it
 #              to the Snap Store stable + candidate + beta + edge channels, and
 #              attaches the .snap files to the GitHub Release. Two jobs: snap-native
@@ -74,12 +74,13 @@ run-name: Release v${{ inputs.new_version }}
 #              ppc64el + s390x + riscv64 with `snapcraft remote-build` on Launchpad,
 #              which is the only mechanism that supports core24 on an arch with no
 #              native runner. core24 allows stable and candidate (core26 does not).
-#              snap-variants publishes the SAME snap under the two older names
-#              people still have installed, wekan-ondra and wekan-gantt-gpl, on
-#              amd64 + arm64, and each snap-launchpad leg makes them from its own
-#              wekan snap for ppc64el, s390x, riscv64 and armhf - so one release
-#              publishes all THREE snaps on every architecture. It needs
-#              SNAP_AUTH to carry the ACL for all three names.
+#              snap-variants publishes the SAME snap under the older name people
+#              still have installed, wekan-ondra, on amd64 + arm64, and each
+#              snap-launchpad leg makes it from its own wekan snap for ppc64el,
+#              s390x, riscv64 and armhf - so one release publishes both snaps
+#              on every architecture. It needs SNAP_AUTH to carry the ACL for
+#              both names. wekan-gantt-gpl is no longer published: its users
+#              moved to the official wekan snap.
 #              `snap set wekan database=ferretdb` switches the running backend to
 #              FerretDB v1 (snapcraft-core26.yaml is the core26 variant)
 #
@@ -96,10 +97,10 @@ run-name: Release v${{ inputs.new_version }}
 #                      and wekan/charts, used by the website + charts jobs to push
 #                      to those repos (the built-in GITHUB_TOKEN only covers
 #                      wekan/wekan). See releases/create-github-secrets.sh.
-#                      Also needs write access to wekan/wekan-ondra,
-#                      wekan/wekan-gantt-gpl for the snap-variants job below.
-#   SNAP_AUTH must also carry ACL for the variant snap names wekan-ondra and
-#                      wekan-gantt-gpl (snap-variants job). See
+#                      Also needs write access to wekan/wekan-ondra for the
+#                      snap-variants job below.
+#   SNAP_AUTH must also carry ACL for the variant snap name wekan-ondra
+#                      (snap-variants job). See
 #                      docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md.
 #
 #   Reading the logs: every job ends with a "Job result" step that runs whatever
@@ -4583,10 +4584,10 @@ jobs:
           # Every snap name this workflow publishes. snap-native and
           # snap-launchpad publish `wekan`; snap-variants publishes the two
           # older names people still have installed.
-          SNAP_NAMES: wekan wekan-ondra wekan-gantt-gpl
+          SNAP_NAMES: wekan wekan-ondra
         run: |
           set -uo pipefail
-          fix="snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+          fix="snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
 
           if [ -z "${SNAP_AUTH:-}" ]; then
             echo "::error::SNAP_AUTH is not set, so no snap can be published. Add it in Settings → Secrets and variables → Actions: $fix"
@@ -4713,7 +4714,7 @@ jobs:
           # rejected here; the format itself is snapcraft's business.
           chars=$(printf '%s' "$SNAP_AUTH" | wc -c)
           if [ "$chars" -lt 100 ]; then
-            echo "::error::snap-native: SNAP_AUTH is only $chars characters, which is far too short for an exported login. Set it to the CONTENTS OF THE FILE that snapcraft wrote: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+            echo "::error::snap-native: SNAP_AUTH is only $chars characters, which is far too short for an exported login. Set it to the CONTENTS OF THE FILE that snapcraft wrote: snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
             exit 1
           fi
           case "$SNAP_AUTH" in
@@ -4830,7 +4831,7 @@ jobs:
           #      output instead of the file contents. Nothing to do with the store.
           #   401 / 403 / "not authorized"       -> the credential is fine but does
           #      not carry the ACL for this snap NAME.
-          echo "::error::The ${MATRIX_ARCH} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for ALL THREE names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+          echo "::error::The ${MATRIX_ARCH} snap was built but not published. Read the snapcraft line above: 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login (mangled, or the terminal output instead of the file contents); 401/403/not authorized means it lacks the ACL for this snap name. Both are fixed by re-exporting for BOTH names: snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
           exit 1
 
       # always() + the verify step's outcome: a snap that was built and checked
@@ -5450,7 +5451,7 @@ jobs:
                 exit 1
                 ;;
               *)
-                echo "::error::The Snap Store refused the upload of $f. The snapcraft line above says which: 'is not a valid file' means the build produced nothing usable; 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login; 401/403 means it lacks the ACL for this snap name. The last two are fixed by re-exporting for all three names: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt" >&2
+                echo "::error::The Snap Store refused the upload of $f. The snapcraft line above says which: 'is not a valid file' means the build produced nothing usable; 'Credentials could not be parsed' means SNAP_AUTH is not a readable exported login; 401/403 means it lacks the ACL for this snap name. The last two are fixed by re-exporting for both names: snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt" >&2
                 exit 1
                 ;;
             esac
@@ -5487,8 +5488,8 @@ jobs:
             echo "No ${MATRIX_ARCH} snap to attach - the build produced none."
           fi
 
-      # wekan-ondra and wekan-gantt-gpl on this architecture too. They ARE
-      # wekan under another snap name, so they are made from the snap this leg
+      # wekan-ondra on this architecture too. It IS wekan under another snap
+      # name, so it is made from the snap this leg
       # just built - releases/snap-rename.sh changes `name:` and `title:` in
       # meta/snap.yaml and nothing else - instead of three Launchpad builds of
       # one program. snap-variants builds them natively for amd64 and arm64 only,
@@ -5496,7 +5497,7 @@ jobs:
       # older names were left on whatever the store last had. Each goes to every
       # channel, like wekan, and onto the GitHub Release, so "Push Snap to
       # Store" (snap-store below) finishes any the store keeps processing.
-      - name: Publish wekan-ondra and wekan-gantt-gpl ${{ matrix.arch }} from this snap (all channels)
+      - name: Publish wekan-ondra ${{ matrix.arch }} from this snap (all channels)
         if: ${{ always() && steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true' }}
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
@@ -5513,7 +5514,7 @@ jobs:
           # Their own directory: the wekan steps above glob *_<arch>.snap here.
           mkdir -p variant-snaps
           failed=""
-          for pair in 'wekan-ondra:Wekan Ondra' 'wekan-gantt-gpl:Wekan Gantt GPL'; do
+          for pair in 'wekan-ondra:Wekan Ondra'; do
             name="${pair%%:*}"
             title="${pair#*:}"
             out="$(bash releases/snap-rename.sh "$src" "$name" "$title" variant-snaps)"
@@ -5630,17 +5631,18 @@ jobs:
     secrets:
       WEKAN_REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
 
-  # ─── Variant snaps: wekan-ondra, wekan-gantt-gpl ────────────────────────────
-  # Publish two extra snaps that are the newest wekan code under a different snap
-  # name. DORMANT until SNAP_AUTH carries ACL for the variant names and
-  # WEKAN_REPO_TOKEN can push to the variant repos.
+  # ─── Variant snap: wekan-ondra ──────────────────────────────────────────────
+  # Publish an extra snap that is the newest wekan code under a different snap
+  # name. DORMANT until SNAP_AUTH carries ACL for the variant name and
+  # WEKAN_REPO_TOKEN can push to the variant repo. wekan-gantt-gpl is no longer
+  # published: its users moved to the official wekan snap.
   # See docs/Platforms/FOSS/Container/Snap/Snap-Ondra-Gantt.md.
   snap-variants:
-    # The SAME WeKan snap, published under the two older names people still have
-    # installed: wekan-ondra and wekan-gantt-gpl. One release publishes all three
-    # snaps - wekan from snap-native (and snap-launchpad for the exotic arches),
-    # these two from here - so nobody is left on a stale package because their
-    # snap has a different name.
+    # The SAME WeKan snap, published under the older name people still have
+    # installed: wekan-ondra. One release publishes both snaps - wekan from
+    # snap-native (and snap-launchpad for the exotic arches), this one from
+    # here - so nobody is left on a stale package because their snap has a
+    # different name.
     #
     # Building and publishing the snap needs SNAP_AUTH and NOTHING ELSE. The
     # repositories are updated once by update-ondra-gantt-repos above, instead
@@ -5668,16 +5670,6 @@ jobs:
             title: "Wekan Ondra"
             arch: arm64
             runner: ubuntu-24.04-arm
-          - repo: wekan-gantt-gpl
-            snapname: wekan-gantt-gpl
-            title: "Wekan Gantt GPL"
-            arch: amd64
-            runner: ubuntu-24.04
-          - repo: wekan-gantt-gpl
-            snapname: wekan-gantt-gpl
-            title: "Wekan Gantt GPL"
-            arch: arm64
-            runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -5691,7 +5683,7 @@ jobs:
         run: |
           # SNAP_AUTH decides whether this job can do its job at all. It must carry
           # the ACL for THIS snap name as well as for `wekan`:
-          #   snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl \
+          #   snapcraft export-login --snaps wekan,wekan-ondra \
           #     --acls package_access,package_push,package_release,package_update \
           #     snap-auth.txt
           if [ -z "$SNAP_AUTH" ]; then
@@ -5867,7 +5859,7 @@ jobs:
     uses: ./.github/workflows/snap-store.yml
     with:
       tag: v${{ needs.prepare.outputs.version }}
-      snaps: wekan wekan-ondra wekan-gantt-gpl
+      snaps: wekan wekan-ondra
       channels: stable,candidate,beta,edge
     secrets:
       SNAP_AUTH: ${{ secrets.SNAP_AUTH }}

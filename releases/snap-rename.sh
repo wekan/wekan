@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Makes a wekan-ondra or wekan-gantt-gpl snap out of a release's wekan snap.
+# Makes a wekan-ondra snap out of a release's wekan snap.
 #
 #   releases/snap-rename.sh wekan_<version>_<arch>.snap <new-name> <title> <out-dir>
 #
@@ -25,8 +25,8 @@ title=$3
 out_dir=$4
 
 case "$new_name" in
-  wekan-ondra|wekan-gantt-gpl) ;;
-  *) echo "::error::'$new_name' is not one of WeKan's variant snaps (wekan-ondra, wekan-gantt-gpl)." >&2; exit 2 ;;
+  wekan-ondra) ;;
+  *) echo "::error::'$new_name' is not one of WeKan's variant snaps (wekan-ondra)." >&2; exit 2 ;;
 esac
 case "$title" in
   *[!A-Za-z0-9\ ._-]*|'') echo "::error::'$title' is not a plain snap title." >&2; exit 2 ;;

@@ -23,10 +23,6 @@
 
 ## OLD
 
-# Wekan Gantt GPL
-#skopeo copy docker://ghcr.io/wekan/wekan-gantt-gpl docker://quay.io/wekan/wekan-gantt-gpl
-#skopeo copy docker://ghcr.io/wekan/wekan-gantt-gpl docker://wekanteam/wekan-gantt-gpl
-
 #---------------------------------------------------------------
 
 ## Auth errors, no permission to copy from Docker Hub to other Docker registry

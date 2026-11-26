@@ -1,7 +1,7 @@
 name: Push Snap to Store
 
 # Puts the .snap files of a GitHub release on the Snap Store and RELEASES them
-# to every channel: wekan, wekan-ondra and wekan-gantt-gpl, every architecture
+# to every channel: wekan and wekan-ondra, every architecture
 # the release carries.
 #
 # WHY: release-all.yml uploads each snap as it builds it, with
@@ -35,7 +35,7 @@ on:
       snaps:
         description: 'Snap names, space separated'
         required: false
-        default: 'wekan wekan-ondra wekan-gantt-gpl'
+        default: 'wekan wekan-ondra'
       channels:
         description: 'Channels to release to'
         required: false
@@ -48,7 +48,7 @@ on:
       snaps:
         type: string
         required: false
-        default: 'wekan wekan-ondra wekan-gantt-gpl'
+        default: 'wekan wekan-ondra'
       channels:
         type: string
         required: false
@@ -90,9 +90,9 @@ jobs:
             tag="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
           fi
           case "$tag" in v[0-9]*) ;; *) echo "::error::'$tag' is not a release tag like v13.20."; exit 1 ;; esac
-          snaps="${INPUT_SNAPS:-wekan wekan-ondra wekan-gantt-gpl}"
+          snaps="${INPUT_SNAPS:-wekan wekan-ondra}"
           for s in $snaps; do
-            case "$s" in wekan|wekan-ondra|wekan-gantt-gpl) ;; *) echo "::error::'$s' is not one of WeKan's snaps (wekan, wekan-ondra, wekan-gantt-gpl)."; exit 1 ;; esac
+            case "$s" in wekan|wekan-ondra) ;; *) echo "::error::'$s' is not one of WeKan's snaps (wekan, wekan-ondra). wekan-gantt-gpl is no longer published: its users moved to the official wekan snap."; exit 1 ;; esac
           done
           channels="${INPUT_CHANNELS:-stable,candidate,beta,edge}"
           case "$channels" in *[!a-z0-9/,.-]*) echo "::error::'$channels' is not a channel list."; exit 1 ;; esac
@@ -123,7 +123,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${SNAP_AUTH:-}" ]; then
-            echo "::error::SNAP_AUTH is not set. snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
+            echo "::error::SNAP_AUTH is not set. snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt && gh secret set SNAP_AUTH --repo wekan/wekan < snap-auth.txt"
             exit 1
           fi
           installed=""
@@ -146,7 +146,6 @@ jobs:
           gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir snaps --pattern "${SNAP}_*.snap" || true
           case "$SNAP" in
             wekan-ondra) title='Wekan Ondra' ;;
-            wekan-gantt-gpl) title='Wekan Gantt GPL' ;;
             *) title='' ;;
           esac
           if [ -z "$title" ]; then

@@ -74,22 +74,25 @@ test('and names each cause, including the one nobody had mentioned', () => {
   const errors = (job.match(/::error::/g) || []).length;
   assert.ok(errors >= 5, `expected an error message per cause, found ${errors}`);
   // And every one of them says how to fix it.
-  assert.ok(/snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl/.test(job),
+  assert.ok(/snapcraft export-login --snaps wekan,wekan-ondra /.test(job),
     'the fix is the export-login command');
 });
 
 test('it checks the credential covers every snap name this release publishes', () => {
   // A credential exported for `wekan` alone lets snap-native succeed and
   // snap-variants fail, which reads as two unrelated bugs.
-  assert.ok(/SNAP_NAMES: wekan wekan-ondra wekan-gantt-gpl/.test(job),
-    'all three names are checked');
+  assert.ok(/SNAP_NAMES: wekan wekan-ondra\n/.test(job),
+    'both names are checked');
+  // Negative: wekan-gantt-gpl is no longer published (its users moved to the
+  // official wekan snap), so a credential is not asked to cover it.
+  assert.ok(!/wekan-gantt-gpl/.test(job), 'no wekan-gantt-gpl in the preflight');
   // `packages: no restrictions` is a credential scoped to every snap the
-  // account owns, which covers all three.
+  // account owns, which covers both.
   assert.ok(/no restrictions/.test(job), 'an unrestricted credential passes');
 
-  // The three names must be the ones the workflow really publishes.
-  assert.ok(/name: wekan-ondra/.test(wf) && /name: wekan-gantt-gpl/.test(wf),
-    'the variants are renamed to those names');
+  // The names must be the ones the workflow really publishes.
+  assert.ok(/name: wekan-ondra/.test(wf) && !/name: wekan-gantt-gpl/.test(wf),
+    'the variant is renamed to wekan-ondra, and nothing to wekan-gantt-gpl');
   const snapcraft = fs.readFileSync(path.join(ROOT, 'snapcraft.yaml'), 'utf8');
   assert.ok(/^name: wekan$/m.test(snapcraft), 'and the default snap is wekan');
 });

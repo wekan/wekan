@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Puts "What's new in WeKan v<version>" on a snap's Snap Store page.
 #
-#   releases/snap-listing-update.sh <wekan|wekan-ondra|wekan-gantt-gpl> <version> <CHANGELOG-big.md>
+#   releases/snap-listing-update.sh <wekan|wekan-ondra> <version> <CHANGELOG-big.md>
 #
 # Needs SNAPCRAFT_STORE_CREDENTIALS (SNAP_AUTH: its package_update covers the
 # listing), snapcraft, mksquashfs, curl and node.
@@ -27,13 +27,13 @@ set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/tools-env.sh"   # temporary files go to .tools/tmp
 
 if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <wekan|wekan-ondra|wekan-gantt-gpl> <version> <CHANGELOG-big.md>" >&2
+  echo "Usage: $0 <wekan|wekan-ondra> <version> <CHANGELOG-big.md>" >&2
   exit 2
 fi
 name=$1
 version=$2
 changelog=$3
-case "$name" in wekan|wekan-ondra|wekan-gantt-gpl) ;; *) echo "::error::'$name' is not one of WeKan's snaps." >&2; exit 2 ;; esac
+case "$name" in wekan|wekan-ondra) ;; *) echo "::error::'$name' is not one of WeKan's snaps." >&2; exit 2 ;; esac
 case "$version" in [0-9]*.[0-9]*) ;; *) echo "::error::'$version' is not a version like 13.30." >&2; exit 2 ;; esac
 case "$version" in *[!0-9.]*) echo "::error::'$version' is not a version like 13.30." >&2; exit 2 ;; esac
 [ -s "$changelog" ] || { echo "::error::No changelog file: $changelog" >&2; exit 2; }
@@ -76,7 +76,7 @@ node -e '
 mksquashfs "$work/root" "$work/${name}_${version}_listing.snap" -noappend -comp xz -all-root -no-xattrs -no-fragments -no-progress -quiet >/dev/null
 
 if ! snapcraft upload-metadata --force "$work/${name}_${version}_listing.snap"; then
-  echo "::error::The Snap Store did not take the $name listing for v$version. A 401/403 means SNAP_AUTH lacks package_update for $name: snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl --acls package_access,package_push,package_release,package_update snap-auth.txt" >&2
+  echo "::error::The Snap Store did not take the $name listing for v$version. A 401/403 means SNAP_AUTH lacks package_update for $name: snapcraft export-login --snaps wekan,wekan-ondra --acls package_access,package_push,package_release,package_update snap-auth.txt" >&2
   exit 1
 fi
 echo "UPDATED the $name Snap Store page: What's new in WeKan v$version."

@@ -20,7 +20,7 @@
 #   windows    windows.yml
 #   flatpak    Flatpak.yml
 #   sandstorm  the .spk
-#   snap       the wekan snaps; variant the wekan-ondra and wekan-gantt-gpl
+#   snap       the wekan snaps; variant the wekan-ondra
 #              snaps (see the end)
 #
 # `selector` is what the matching workflow's `only` input filters its matrix on.
@@ -84,8 +84,9 @@ echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"
 #   snap     wekan, from release-all.yml's snap-native (amd64, arm64) and
 #            snap-launchpad (the other four). Not built here: "Release all
 #            missing" retries those jobs of the release (its recover job).
-#   variant  wekan-ondra and wekan-gantt-gpl on EVERY architecture wekan
-#            has: snap-variants builds amd64 and arm64, each snap-launchpad
+#   variant  wekan-ondra on EVERY architecture wekan has (wekan-gantt-gpl
+#            is no longer published: its users moved to the wekan snap):
+#            snap-variants builds amd64 and arm64, each snap-launchpad
 #            leg makes the other four from its wekan snap. Buildable here: the
 #            release's own wekan snap renamed (releases/snap-rename.sh). The
 #            selector is <name>:<arch>.
@@ -104,7 +105,7 @@ fi
 for arch in $snap_arches; do
     echo "snap wekan:${arch} wekan_${v}_${arch}.snap nosums"
 done
-for name in wekan-ondra wekan-gantt-gpl; do
+for name in wekan-ondra; do
     for arch in $variant_arches; do
         echo "variant ${name}:${arch} ${name}_${v}_${arch}.snap nosums"
     done

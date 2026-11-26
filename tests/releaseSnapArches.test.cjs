@@ -245,9 +245,11 @@ test('it names the secret it is missing, and the one Launchpad refused', () => {
     'a missing artifact must NOT be reported as a credential failure');
   assert.ok(/The Snap Store refused the upload/.test(launchpad),
     'and a real refusal by the store is its own message');
-  assert.ok(/snapcraft export-login --snaps wekan,wekan-ondra,wekan-gantt-gpl/.test(launchpad),
-    'which says how to fix it - and for ALL THREE snap names, since one release '
-    + 'publishes wekan, wekan-ondra and wekan-gantt-gpl');
+  assert.ok(/snapcraft export-login --snaps wekan,wekan-ondra /.test(launchpad),
+    'which says how to fix it - and for BOTH snap names, since one release '
+    + 'publishes wekan and wekan-ondra (wekan-gantt-gpl is no longer published as a snap: its users moved to the official wekan snap)');
+  assert.ok(!/export-login --snaps [^ ]*wekan-gantt-gpl/.test(launchpad),
+    'and no longer asks for a wekan-gantt-gpl credential');
   assert.ok(/Credentials could not be parsed/.test(launchpad),
     'and tells an unreadable credential apart from a refused one: v10.50 built '
     + 'every snap and then died on "Credentials could not be parsed", which is '

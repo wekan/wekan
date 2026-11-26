@@ -193,7 +193,7 @@ test('the newest store revision of every architecture is released; a held one is
   assert.match(wf, /if: \$\{\{ always\(\) && steps\.snapcraft\.outcome == 'success' \}\}[\s\S]*?run: bash releases\/snap-store-release-newest\.sh "\$SNAP" "\$CHANNELS"/);
 });
 
-test('the workflow pushes all three snaps of the release it is given, called by Release All and by hand', () => {
+test('the workflow pushes both snaps of the release it is given, called by Release All and by hand', () => {
   const wf = read('.github/workflows/snap-store.yml');
   assert.match(wf, /^name: Push Snap to Store$/m);
   assert.match(wf, /workflow_dispatch:/);
@@ -203,7 +203,9 @@ test('the workflow pushes all three snaps of the release it is given, called by 
   assert.doesNotMatch(wf, /workflow_run:/);
   assert.doesNotMatch(wf, /github\.event\.inputs/);
   assert.match(wf, /INPUT_TAG: \$\{\{ inputs\.tag \}\}/);
-  assert.match(wf, /default: 'wekan wekan-ondra wekan-gantt-gpl'/);
+  assert.match(wf, /default: 'wekan wekan-ondra'/);
+  // Negative: wekan-gantt-gpl is no longer published - its users moved to the official wekan snap.
+  assert.doesNotMatch(wf, /wekan-gantt-gpl\) title=/);
   assert.match(wf, /default: 'stable,candidate,beta,edge'/);
   assert.match(wf, /gh release download "\$TAG" --repo "\$GITHUB_REPOSITORY" --dir snaps --pattern "\$\{SNAP\}_\*\.snap"/);
   assert.match(wf, /has no \$\{SNAP\}_\*\.snap to push: its snap job did not attach one/);
@@ -214,27 +216,26 @@ test('the workflow pushes all three snaps of the release it is given, called by 
   assert.match(wf, /bash releases\/snap-store-push\.sh "\$f" "\$CHANNELS"/);
   assert.match(wf, /SNAPCRAFT_STORE_CREDENTIALS: \$\{\{ secrets\.SNAP_AUTH \}\}/);
   // Negative: an input is checked before it reaches a shell command.
-  assert.match(wf, /wekan\|wekan-ondra\|wekan-gantt-gpl\) ;; \*\) echo "::error::/);
+  assert.match(wf, /wekan\|wekan-ondra\) ;; \*\) echo "::error::/);
   assert.match(wf, /case "\$tag" in v\[0-9\]\*\) ;;/);
   // The release job's processing warning names the workflow that finishes it.
   assert.match(read('releases/snap-upload-retry.sh'), /Push Snap to Store/);
 });
 
-test('Release All builds all three snaps, attaches them to the release and finishes their store release', () => {
+test('Release All builds both snaps, attaches them to the release and finishes their store release', () => {
   const all = read('.github/workflows/release-all.yml');
   const job = name => { const i = all.indexOf(`\n  ${name}:\n`); assert.ok(i > 0, name); const rest = all.slice(i + 1); const end = rest.search(/\n  [a-z0-9-]+:\n/); return rest.slice(0, end); };
   const store = job('snap-store');
   assert.match(store, /needs: \[prepare, snap-native, snap-launchpad, snap-variants\]/);
   assert.match(store, /uses: \.\/\.github\/workflows\/snap-store\.yml/);
   assert.match(store, /tag: v\$\{\{ needs\.prepare\.outputs\.version \}\}/);
-  assert.match(store, /snaps: wekan wekan-ondra wekan-gantt-gpl/);
+  assert.match(store, /snaps: wekan wekan-ondra\n/);
   assert.match(store, /channels: stable,candidate,beta,edge/);
   const variants = job('snap-variants');
   assert.match(variants, /permissions:\n\s+contents: write/);
   assert.match(variants, /github-release-upload\.sh" "\$\{GITHUB_REPOSITORY:-wekan\/wekan\}" "v\$\{VERSION\}" "\$\{STEP_BUILD_SNAP\}"/);
-  for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) {
-    for (const arch of ['amd64', 'arm64']) assert.match(variants, new RegExp(`snapname: ${name}[\\s\\S]*?arch: ${arch}`));
-  }
+  for (const arch of ['amd64', 'arm64']) assert.match(variants, new RegExp(`snapname: wekan-ondra[\\s\\S]*?arch: ${arch}`));
+  assert.doesNotMatch(variants, /snapname: wekan-gantt-gpl/);
 });
 
 test('a complete release lists every snap, and Release All Missing makes the missing variants and pushes them', () => {
@@ -245,9 +246,11 @@ test('a complete release lists every snap, and Release All Missing makes the mis
   }
   // 13.21 is before v13.30, when snap-launchpad started making the other
   // architectures' variants: tests/snapVariantsAllArches.test.cjs pins both.
-  for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) for (const arch of ['amd64', 'arm64']) {
-    assert.match(expected, new RegExp(`^variant ${name}:${arch} ${name}_13\\.21_${arch}\\.snap nosums$`, 'm'));
+  for (const arch of ['amd64', 'arm64']) {
+    assert.match(expected, new RegExp(`^variant wekan-ondra:${arch} wekan-ondra_13\\.21_${arch}\\.snap nosums$`, 'm'));
   }
+  // Negative: no wekan-gantt-gpl snap is expected any more, so none is made.
+  assert.doesNotMatch(expected, /wekan-gantt-gpl/);
   const missing = read('.github/workflows/release-all-missing.yml');
   assert.match(missing, /for kind in extra appimage mac flatpak windows bun variant snap; do/);
   assert.match(missing, /bash releases\/snap-rename\.sh "source\/wekan_\$\{VERSION\}_\$\{arch\}\.snap" "\$name" "\$title" out/);
@@ -296,11 +299,12 @@ test('snap-rename.sh turns a wekan snap into a variant, name and title only; neg
   refused([snap, 'wekan', 'WeKan', out], 'not a variant name');
   refused([snap, 'other', 'X', out], 'not a variant name');
   refused([snap, 'wekan-ondra', 'a;rm -rf /', out], 'not a plain title');
-  refused([made, 'wekan-gantt-gpl', 'Wekan Gantt GPL', out], 'not a wekan_ snap');
+  refused([snap, 'wekan-gantt-gpl', 'Wekan Gantt GPL', out], 'no longer a variant snap name');
+  refused([made, 'wekan-ondra', 'Wekan Ondra', out], 'not a wekan_ snap');
   fs.writeFileSync(path.join(root, 'meta/snap.yaml'), 'name: wekan-ondra\n');
   const notWekan = path.join(dir, 'wekan_13.21_arm64.snap');
   spawnSync('tar', ['-cf', notWekan, '-C', root, '.']);
-  refused([notWekan, 'wekan-gantt-gpl', 'Wekan Gantt GPL', out], 'meta/snap.yaml is not wekan');
+  refused([notWekan, 'wekan-ondra', 'Wekan Ondra', out], 'meta/snap.yaml is not wekan');
   fs.rmSync(dir, { recursive: true, force: true });
 });
 

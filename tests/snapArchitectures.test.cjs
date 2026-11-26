@@ -45,10 +45,12 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-// ───────────────────────────────────────────────── the three snaps, four channels
+// ───────────────────────────────────────────────── the two snaps, four channels
 
-test('all three snaps are published, not just wekan', () => {
-  assert.deepStrictEqual(SNAP_NAMES, ['wekan', 'wekan-ondra', 'wekan-gantt-gpl']);
+test('both snaps are published, not just wekan - and wekan-gantt-gpl no longer is', () => {
+  // wekan-gantt-gpl's users moved to the official wekan snap, so it is not
+  // published any more.
+  assert.deepStrictEqual(SNAP_NAMES, ['wekan', 'wekan-ondra']);
 });
 
 test('all FOUR channels, stable included', () => {

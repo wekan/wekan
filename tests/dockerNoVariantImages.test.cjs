@@ -90,12 +90,12 @@ test('the manual workflow is still there for out-of-band work', () => {
   }
 });
 
-test('the SNAPS keep both names, which is the point (negative)', () => {
-  // This is the guard against over-correcting: the variants exist as snaps, and
-  // removing the Docker images must not take those with them.
-  assert.ok(/SNAP_NAMES: wekan wekan-ondra wekan-gantt-gpl/.test(workflow),
-    'the snap auth preflight still covers all three snap names');
-  for (const v of VARIANTS) {
+test('the wekan-ondra SNAP stays, which is the point (negative)', () => {
+  // This is the guard against over-correcting: wekan-ondra exists as a snap,
+  // and removing the Docker images must not take it with them. (wekan-gantt-gpl is no longer published as a snap: its users moved to the official wekan snap.)
+  assert.ok(/SNAP_NAMES: wekan wekan-ondra\n/.test(workflow),
+    'the snap auth preflight covers both published snap names');
+  for (const v of ['wekan-ondra']) {
     assert.ok(new RegExp(`snapname: ${v}`).test(workflow),
       `${v} is still built and published as a snap`);
   }

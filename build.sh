@@ -2895,8 +2895,8 @@ RELEASE_SCRIPTS=(	"Release|Release All: audit, commit, push and build with Actio
 	"Release|Add a git tag for a release|releases/add-tag.sh|Version tag, e.g. v10.50||"
 	"Release|Delete a git tag, locally and on the remote|releases/delete-tag.sh|Version tag, e.g. v10.50||"
 	"Release|Move the 'stable' tag to HEAD|!git tag --force stable HEAD && git push --tags --force && git push --follow-tags|||stable-tag"
-	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 1|releases/release-ondra-1.sh|||"
-	"Release|Release the wekan-ondra / wekan-gantt-gpl variants, part 2|releases/release-ondra-2.sh|||"
+	"Release|Release the wekan-ondra variant, part 1|releases/release-ondra-1.sh|||"
+	"Release|Release the wekan-ondra variant, part 2|releases/release-ondra-2.sh|||"
 	"Release|Report (or repair) the Helm chart index for past releases|releases/backfill-charts.sh|||"
 	"Release|Rebuild the Helm index.yaml from the chart packages|releases/reindex-charts.py|||"
 	"Snap|Build the snap from snapcraft.yaml|releases/snap-build.sh|||"
@@ -2926,8 +2926,7 @@ RELEASE_SCRIPTS=(	"Release|Release All: audit, commit, push and build with Actio
 	"Docker images|Test Nextcloud 32-35 with native local services|tests/nextcloud/run.sh|Nextcloud majors (default 32 33 34 35)|linux|nextcloud-tests"
 	"Docker images|Build the WeKan Docker image|releases/docker-build.sh|||"
 	"Docker images|Create the multi-platform buildx builder|releases/docker-build-deps.sh|||"
-	"Docker images|Publish a variant image (wekan-gantt-gpl / wekan-ondra)|releases/docker-publish-variant.sh|Image and version, e.g. wekan-gantt-gpl 10.50||"
-	"Docker images|Push the locally built images to Docker Hub and Quay|releases/docker-push-gantt.sh|Docker build tag and WeKan version||"
+	"Docker images|Publish a variant image (wekan-ondra)|releases/docker-publish-variant.sh|Image and version, e.g. wekan-ondra 10.50||"
 	"Docker images|Mirror the images between registries with skopeo|releases/docker-registry-sync.sh|||"
 	"Docker images|Start the Docker containers|!sudo systemctl enable docker containerd && sudo systemctl start docker containerd||linux|docker-start"
 	"Docker images|Stop the Docker containers|!sudo systemctl stop docker containerd && sudo systemctl disable docker containerd||linux|docker-stop"
@@ -3111,7 +3110,7 @@ Examples:
   ./build.sh push-translation ja      push one language to Transifex
   ./build.sh fill-translations        how many strings each language still needs
   ./build.sh add-tag v10.50           tag the release
-  ./build.sh docker-publish-variant wekan-gantt-gpl 10.50
+  ./build.sh docker-publish-variant wekan-ondra 10.50
   ./build.sh ufw-enable               what releases/ufw-enable.sh used to do
 
 Arguments after the name are passed to the script unchanged, so anything the

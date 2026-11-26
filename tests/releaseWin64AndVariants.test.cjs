@@ -137,11 +137,11 @@ test('release-all calls the required repository update workflow', () => {
     'a failed repository update must be visible as a failed release job');
 });
 
-test('the reusable workflow updates both repositories and pushes main', () => {
-  for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) {
-    assert.ok(updateWorkflow.includes(`repository: ${name}`), `${name} is missing`);
-    assert.ok(updateWorkflow.includes(`package: ${name}`), `${name} identity is missing`);
-  }
+test('the reusable workflow updates the wekan-ondra repository and pushes main', () => {
+  assert.ok(updateWorkflow.includes('repository: wekan-ondra'), 'wekan-ondra is missing');
+  assert.ok(updateWorkflow.includes('package: wekan-ondra'), 'wekan-ondra identity is missing');
+  // Negative: wekan-gantt-gpl is no longer published as a snap: its users moved to the official wekan snap.
+  assert.ok(!updateWorkflow.includes('repository: wekan-gantt-gpl'), 'wekan-gantt-gpl is no longer updated');
   assert.ok(/workflow_call:/.test(updateWorkflow) && /workflow_dispatch:/.test(updateWorkflow));
   assert.ok(/git push origin HEAD:main/.test(updateWorkflow));
 });
@@ -168,9 +168,8 @@ test('the sync preserves snap, npm and container package identities', () => {
 });
 
 test('variant snap publication remains independent of repository syncing', () => {
-  // This is the whole point of the two variants: people are still on the older
-  // snap names wekan-ondra and wekan-gantt-gpl, so one release must publish all
-  // three snaps. Keeping the GitHub repositories in step is a separate,
+  // This is the whole point of the variant: people are still on the older
+  // snap name wekan-ondra, so one release must publish both snaps. Keeping the GitHub repositories in step is a separate,
   // optional thing - it used to gate the entire job, so a token without push
   // rights meant no variant snaps at all (v10.48 and v10.49 published none).
   const build = variantStepOf('Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})');
@@ -199,13 +198,13 @@ test('variant snap publication calls the upload helper from the checkout path', 
     + 'the workspace root is absent in this job and fails with exit 127');
 });
 
-test('both variants are built for the two native architectures', () => {
+test('the variant is built for the two native architectures, and only wekan-ondra is', () => {
   const legs = [...job('snap-variants').matchAll(/snapname: (\S+)[\s\S]{0,200}?arch: (\S+)/g)]
     .map(m => `${m[1]} ${m[2]}`);
-  for (const want of ['wekan-ondra amd64', 'wekan-ondra arm64',
-                      'wekan-gantt-gpl amd64', 'wekan-gantt-gpl arm64']) {
+  for (const want of ['wekan-ondra amd64', 'wekan-ondra arm64']) {
     assert.ok(legs.includes(want), `${want} is missing from the matrix (${legs.join(', ')})`);
   }
+  assert.ok(!legs.some(l => l.startsWith('wekan-gantt-gpl')), 'wekan-gantt-gpl is no longer built: ' + legs.join(', '));
 });
 
 test('a variant build that produced the wrong snap is not published', () => {

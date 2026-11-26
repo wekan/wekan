@@ -1,12 +1,13 @@
-// wekan-ondra and wekan-gantt-gpl on EVERY architecture the wekan snap has,
-// released to every channel like wekan.
+// wekan-ondra on EVERY architecture the wekan snap has, released to every
+// channel like wekan. (wekan-gantt-gpl is no longer published: its users moved
+// to the official wekan snap.)
 //
 // They had amd64 and arm64 only: snap-variants builds those two natively, and
 // snap-launchpad - the only builder of armhf, ppc64el, s390x and riscv64 -
 // built only the wekan name. And "Push Snap to Store" made a variant from the
 // release's wekan snaps only when the release had NO variant at all, so a
 // release with the amd64 and arm64 ones never got the others either. Pins:
-// each snap-launchpad leg makes and publishes both variants from its own snap,
+// each snap-launchpad leg makes and publishes the variant from its own snap,
 // snap-store.yml fills in each missing architecture (run here against a fake
 // release), and Release All Missing expects them all.
 'use strict';
@@ -25,7 +26,7 @@ const { snapArchitectures, SNAP_CHANNELS } = require('../models/lib/snapArchitec
 const releaseAll = yaml.load(read('.github/workflows/release-all.yml'));
 const snapStore = yaml.load(read('.github/workflows/snap-store.yml'));
 const launchpad = releaseAll.jobs['snap-launchpad'];
-const VARIANT_STEP = 'Publish wekan-ondra and wekan-gantt-gpl ${{ matrix.arch }} from this snap (all channels)';
+const VARIANT_STEP = 'Publish wekan-ondra ${{ matrix.arch }} from this snap (all channels)';
 const ALL_CHANNELS = [...SNAP_CHANNELS].sort().join(',');
 
 test('the variants are made for every snap architecture: natively for two, from snap-launchpad for the rest', () => {
@@ -36,7 +37,7 @@ test('the variants are made for every snap architecture: natively for two, from 
   for (const arch of ['amd64', 'arm64', 'armhf', 'ppc64el', 's390x']) assert.ok(covered.has(arch), arch);
 });
 
-test('each snap-launchpad leg renames its own snap into both variants, publishes them to all channels and attaches them', () => {
+test('each snap-launchpad leg renames its own snap into the variant, publishes it to all channels and attaches it', () => {
   const steps = launchpad.steps.map(s => s.name);
   const at = steps.indexOf(VARIANT_STEP);
   assert.ok(at > steps.indexOf('Attach the ${{ matrix.arch }} snap to the GitHub Release'),
@@ -48,7 +49,7 @@ test('each snap-launchpad leg renames its own snap into both variants, publishes
   const run = step.run;
   assert.match(run, /src="wekan_\$\{VERSION\}_\$\{MATRIX_ARCH\}\.snap"/);
   assert.match(run, /'wekan-ondra:Wekan Ondra'/);
-  assert.match(run, /'wekan-gantt-gpl:Wekan Gantt GPL'/);
+  assert.doesNotMatch(run, /wekan-gantt-gpl/, 'wekan-gantt-gpl is no longer made');
   assert.match(run, /bash releases\/snap-rename\.sh "\$src" "\$name" "\$title" variant-snaps/);
   assert.match(run, /releases\/github-release-upload\.sh "\$\{GITHUB_REPOSITORY:-wekan\/wekan\}" "v\$\{VERSION\}" "\$out"/);
   const channels = run.match(/snap-upload-retry\.sh "\$out" (\S+)/);
@@ -119,7 +120,7 @@ test('Push Snap to Store makes every architecture of a variant the release lacks
 });
 
 test('a release with no variant attached at all still gets all of them, under the right title', () => {
-  const r = runDownload('wekan-gantt-gpl', wekanSnaps);
+  const r = runDownload('wekan-ondra', wekanSnaps);
   assert.equal(r.status, 0, r.out);
   assert.equal(r.made.length, snapArchitectures().length);
 });
@@ -136,13 +137,12 @@ test('negative: wekan itself is never renamed, and a release with nothing to pus
   assert.match(nothing.out, /has neither wekan-ondra_\*\.snap nor a wekan_\*\.snap/);
 });
 
-test('Release All Missing expects both variants on every snap architecture', () => {
+test('Release All Missing expects the variant on every snap architecture, and no wekan-gantt-gpl', () => {
   const expected = spawnSync('bash', [path.join(ROOT, 'releases/expected-assets.sh'), '13.30'], { encoding: 'utf8' }).stdout;
-  for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) {
-    for (const arch of snapArchitectures()) {
-      assert.match(expected, new RegExp(`^variant ${name}:${arch} ${name}_13\\.30_${arch}\\.snap nosums$`, 'm'));
-    }
+  for (const arch of snapArchitectures()) {
+    assert.match(expected, new RegExp(`^variant wekan-ondra:${arch} wekan-ondra_13\\.30_${arch}\\.snap nosums$`, 'm'));
   }
+  assert.doesNotMatch(expected, /wekan-gantt-gpl/);
   for (const arch of snapArchitectures()) assert.match(expected, new RegExp(`^snap wekan:${arch} `, 'm'));
 });
 
@@ -157,9 +157,9 @@ test('negative: releases before v13.30 are not completed with the new architectu
   }
 });
 
-test('the store release still covers all three snaps on all four channels', () => {
+test('the store release covers both snaps on all four channels', () => {
   const store = releaseAll.jobs['snap-store'];
   assert.ok(store.needs.includes('snap-launchpad'), 'after the legs that now make the variants');
-  assert.equal(store.with.snaps, 'wekan wekan-ondra wekan-gantt-gpl');
+  assert.equal(store.with.snaps, 'wekan wekan-ondra');
   assert.equal(store.with.channels.split(',').sort().join(','), ALL_CHANNELS);
 });

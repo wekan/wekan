@@ -1,13 +1,18 @@
-# Updating the `wekan-ondra` and `wekan-gantt-gpl` repositories
+# Updating the `wekan-ondra` repository
 
-WeKan keeps two compatibility package names for users who installed earlier
-Ondra and Gantt variants:
+WeKan keeps one compatibility package name for users who installed the earlier
+Ondra variant:
 
 - [`wekan/wekan-ondra`](https://github.com/wekan/wekan-ondra)
-- [`wekan/wekan-gantt-gpl`](https://github.com/wekan/wekan-gantt-gpl)
 
-They contain the current WeKan source. Their distinct install and publishing
-identities must remain distinct after every update.
+It contains the current WeKan source. Its distinct install and publishing
+identity must remain distinct after every update.
+
+`wekan-gantt-gpl` is no longer built or published - not as a snap, not as a
+Docker image: its users moved to the official `wekan` snap, and
+[`wekan/wekan-gantt-gpl`](https://github.com/wekan/wekan-gantt-gpl) is archived.
+To move from it, install `wekan` (`sudo snap install wekan`) and restore a
+backup of the `wekan-gantt-gpl` data into it.
 
 ## Automated update
 
@@ -46,16 +51,16 @@ missing or insufficient token therefore fails that job instead of silently
 leaving the repositories stale.
 
 Snap publication remains independent. `SNAP_AUTH` must include permission for
-`wekan`, `wekan-ondra` and `wekan-gantt-gpl`; the native amd64 and arm64 matrix
-continues publishing the two compatibility snaps even though repository updates
-are no longer performed inside that matrix.
+`wekan` and `wekan-ondra`; the native amd64 and arm64 matrix continues
+publishing the compatibility snap even though repository updates are no longer
+performed inside that matrix.
 
 ## Architectures and channels
 
-`wekan-ondra` and `wekan-gantt-gpl` are published on every architecture the
+`wekan-ondra` is published on every architecture the
 `wekan` snap has - amd64, arm64, armhf, ppc64el, s390x and riscv64 - and each
 revision is released to `stable`, `candidate`, `beta` and `edge`, exactly like
-`wekan`. Until this was changed they had amd64 and arm64 only, so people on the
+`wekan`. Until this was changed it had amd64 and arm64 only, so people on the
 other architectures stayed on whatever the store last had.
 
 | Architectures | Made by (`release-all.yml`) |
@@ -84,9 +89,6 @@ To inspect the exact changes without pushing:
 ```bash
 ./releases/prepare-variant-repo.sh \
   . .tools/wekan-ondra wekan-ondra 'Wekan Ondra'
-
-./releases/prepare-variant-repo.sh \
-  . .tools/wekan-gantt-gpl wekan-gantt-gpl 'Wekan Gantt GPL'
 ```
 
 Review `git status` and `git diff` in each target checkout before committing.
@@ -105,16 +107,16 @@ Keeping synchronization in a required reusable workflow gives it one clear
 result per repository and avoids attempting the same source update from
 architecture-specific snap jobs.
 
-## How the three snaps reach every Snap Store channel
+## How the two snaps reach every Snap Store channel
 
-`wekan`, `wekan-ondra` and `wekan-gantt-gpl` are the same program under three
-snap names. One run of `release-all.yml` makes all three:
+`wekan` and `wekan-ondra` are the same program under two snap names. One run
+of `release-all.yml` makes both:
 
 | Job | Snaps | Architectures |
 | --- | --- | --- |
 | `snap-native` | `wekan` | amd64, arm64 |
 | `snap-launchpad` | `wekan` | armhf, ppc64el, s390x, riscv64 |
-| `snap-variants` | `wekan-ondra`, `wekan-gantt-gpl` | amd64, arm64 |
+| `snap-variants` | `wekan-ondra` | amd64, arm64 |
 
 Each job uploads its snap with `--release` to stable, candidate, beta and edge,
 and attaches it to the GitHub Release. Until v13.21 `snap-variants` did not
@@ -135,7 +137,7 @@ Actions tab, for any release tag.
 
 - the `wekan` snaps come from retrying the release's own `snap-native` or
   `snap-launchpad` job (its `recover` job);
-- a missing `wekan-ondra` or `wekan-gantt-gpl` snap is made from the release's
+- a missing `wekan-ondra` snap is made from the release's
   `wekan` snap of the same architecture by `releases/snap-rename.sh`, which
   changes only `name:` and `title:` in `meta/snap.yaml` - what `snap-variants`
   changes in `snapcraft.yaml` - and attaches it;
@@ -173,6 +175,6 @@ While a revision is held:
   revision, then run "Push Snap to Store" again: it releases the reviewed
   revision to every channel.
 
-"Push Snap to Store" also makes a missing `wekan-ondra` or `wekan-gantt-gpl`
+"Push Snap to Store" also makes a missing `wekan-ondra`
 snap from the release's `wekan` snaps (`releases/snap-rename.sh`), so a
 release cut before the variants were attached can still be pushed.

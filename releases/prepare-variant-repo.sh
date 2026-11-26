@@ -16,7 +16,7 @@ VARIANT_NAME="$3"
 VARIANT_TITLE="$4"
 
 case "$VARIANT_NAME" in
-  wekan-ondra|wekan-gantt-gpl) ;;
+  wekan-ondra) ;;
   *)
     echo "Unsupported variant: $VARIANT_NAME" >&2
     exit 2

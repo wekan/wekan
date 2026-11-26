@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The Snap Store page text of wekan, wekan-ondra and wekan-gantt-gpl, with
+// The Snap Store page text of wekan and wekan-ondra, with
 // "What's new" first.
 //
 //   node releases/snap-listing.mjs <snap-name> <version> <CHANGELOG-big.md>
@@ -26,7 +26,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { releasesOf, inShortOf, anchorOf } from './changelog-short.mjs';
 
-export const SNAP_NAMES = ['wekan', 'wekan-ondra', 'wekan-gantt-gpl'];
+export const SNAP_NAMES = ['wekan', 'wekan-ondra'];
 // The store's own limit for a snap description. Counted in UTF-8 BYTES, the
 // stricter reading: the listings carry curly quotes, and which of the two the
 // store counts is not documented.
@@ -78,7 +78,7 @@ export function composeDescription({ snapName, base, version, heading, inShort, 
 function main() {
   const [snapName, version, changelog] = process.argv.slice(2);
   if (!SNAP_NAMES.includes(snapName) || !/^\d+\.\d+$/.test(version || '') || !changelog) {
-    console.error('Usage: node releases/snap-listing.mjs <wekan|wekan-ondra|wekan-gantt-gpl> <version, e.g. 13.30> <CHANGELOG-big.md>');
+    console.error('Usage: node releases/snap-listing.mjs <wekan|wekan-ondra> <version, e.g. 13.30> <CHANGELOG-big.md>');
     process.exit(2);
   }
   const here = path.dirname(fileURLToPath(import.meta.url));

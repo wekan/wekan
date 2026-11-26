@@ -1,8 +1,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Publish a variant Docker image — MANUALLY, never as part of a release.
 #
-# wekanteam/wekan-gantt-gpl (and wekanteam/wekan-ondra) are the same WeKan as
-# wekanteam/wekan: the variant repositories are byte-identical to wekan/wekan
+# wekanteam/wekan-ondra is the same WeKan as wekanteam/wekan (wekan-gantt-gpl
+# is no longer published, and its repository is archived): the variant
+# repository is byte-identical to wekan/wekan
 # apart from the snap name in snapcraft.yaml, so the image content is the same
 # image. This workflow therefore does not rebuild anything - it points a variant
 # tag at the multi-arch manifest the release already built and verified, with
@@ -33,10 +34,9 @@ on:
       image:
         description: 'Docker Hub repository under wekanteam/ to publish'
         required: true
-        default: 'wekan-gantt-gpl'
+        default: 'wekan-ondra'
         type: choice
         options:
-          - wekan-gantt-gpl
           - wekan-ondra
       version:
         description: 'WeKan version to publish, without the v (e.g. 10.49). Empty = newest GitHub release.'

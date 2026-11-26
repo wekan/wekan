@@ -1,6 +1,6 @@
 #/bin/bash
 
-# Release script for wekan-ondra and wekan-gantt-gpl
+# Release script for wekan-ondra
 # part 2. Before these, part 1 and merge and fix merge conflicts.
 
 # 1) Check that there is only one parameter

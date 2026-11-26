@@ -303,8 +303,8 @@ echo   18^) Create the GitHub Actions secrets a release needs
 echo   19^) Add a git tag for a release
 echo   20^) Delete a git tag, locally and on the remote
 echo   21^) Move the 'stable' tag to HEAD
-echo   22^) Release the wekan-ondra / wekan-gantt-gpl variants, part 1
-echo   23^) Release the wekan-ondra / wekan-gantt-gpl variants, part 2
+echo   22^) Release the wekan-ondra variant, part 1
+echo   23^) Release the wekan-ondra variant, part 2
 echo   24^) Report ^(or repair^) the Helm chart index for past releases
 echo   25^) Rebuild the Helm index.yaml from the chart packages
 set "choice="
@@ -405,16 +405,14 @@ echo.
 echo -- Releases / Docker images --   ^(0 = Back^)
 echo   1^) Build the WeKan Docker image
 echo   2^) Create the multi-platform buildx builder
-echo   3^) Publish a variant image ^(wekan-gantt-gpl / wekan-ondra^)
-echo   4^) Push the locally built images to Docker Hub and Quay
-echo   5^) Mirror the images between registries with skopeo
+echo   3^) Publish a variant image ^(wekan-ondra^)
+echo   4^) Mirror the images between registries with skopeo
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/docker-build.sh" ""
 if "%choice%"=="2" call :rel_run "releases/docker-build-deps.sh" ""
-if "%choice%"=="3" call :rel_run "releases/docker-publish-variant.sh" "Image and version, e.g. wekan-gantt-gpl 10.50"
-if "%choice%"=="4" call :rel_run "releases/docker-push-gantt.sh" "Docker build tag and WeKan version"
-if "%choice%"=="5" call :rel_run "releases/docker-registry-sync.sh" ""
+if "%choice%"=="3" call :rel_run "releases/docker-publish-variant.sh" "Image and version, e.g. wekan-ondra 10.50"
+if "%choice%"=="4" call :rel_run "releases/docker-registry-sync.sh" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_dockerimages
 
@@ -612,8 +610,8 @@ echo   create-github-secrets              Create the GitHub Actions secrets a re
 echo   add-tag                            Add a git tag for a release   ^<Version tag, e.g. v10.50^>
 echo   delete-tag                         Delete a git tag, locally and on the remote   ^<Version tag, e.g. v10.50^>
 echo   stable-tag                         Move the 'stable' tag to HEAD
-echo   release-ondra-1                    Release the wekan-ondra / wekan-gantt-gpl variants, part 1
-echo   release-ondra-2                    Release the wekan-ondra / wekan-gantt-gpl variants, part 2
+echo   release-ondra-1                    Release the wekan-ondra variant, part 1
+echo   release-ondra-2                    Release the wekan-ondra variant, part 2
 echo   snap-build                         Build the snap from snapcraft.yaml
 echo   snap-install                       Install the locally built .snap
 echo   snap-push-to-store                 Push one .snap to the Snap Store   ^<Path to the .snap file^>
@@ -638,8 +636,7 @@ echo   up-s                               Fetch the built bundle from the s390x 
 echo   up-w                               Upload the Windows bundle to the download server   ^<WeKan version, e.g. 10.50^>
 echo   docker-build                       Build the WeKan Docker image
 echo   docker-build-deps                  Create the multi-platform buildx builder
-echo   docker-publish-variant             Publish a variant image ^(wekan-gantt-gpl / wekan-ondra^)   ^<Image and version, e.g. wekan-gantt-gpl 10.50^>
-echo   docker-push-gantt                  Push the locally built images to Docker Hub and Quay   ^<Docker build tag and WeKan version^>
+echo   docker-publish-variant             Publish a variant image ^(wekan-ondra^)   ^<Image and version, e.g. wekan-ondra 10.50^>
 echo   docker-registry-sync               Mirror the images between registries with skopeo
 echo   install-sandstorm                  Install the Sandstorm-related files
 echo   disable-sandstorm                  Disable the Sandstorm files again
@@ -727,7 +724,6 @@ if /I "%K%"=="up-w" (set "CMD=bash releases/up-w.sh" ^& goto cli_go)
 if /I "%K%"=="docker-build" (set "CMD=bash releases/docker-build.sh" ^& goto cli_go)
 if /I "%K%"=="docker-build-deps" (set "CMD=bash releases/docker-build-deps.sh" ^& goto cli_go)
 if /I "%K%"=="docker-publish-variant" (set "CMD=bash releases/docker-publish-variant.sh" ^& goto cli_go)
-if /I "%K%"=="docker-push-gantt" (set "CMD=bash releases/docker-push-gantt.sh" ^& goto cli_go)
 if /I "%K%"=="docker-registry-sync" (set "CMD=bash releases/docker-registry-sync.sh" ^& goto cli_go)
 if /I "%K%"=="install-sandstorm" (set "CMD=bash releases/install-sandstorm.sh" ^& goto cli_go)
 if /I "%K%"=="disable-sandstorm" (set "CMD=bash releases/disable-sandstorm.sh" ^& goto cli_go)

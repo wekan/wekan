@@ -27,9 +27,10 @@ function init(root) {
   run('git', ['config', 'user.email', 'test@example.invalid'], root);
 }
 
+// wekan-gantt-gpl is not a variant any more: its users moved to the official
+// wekan snap and its repository is archived. Refused, below.
 for (const [variant, title] of [
   ['wekan-ondra', 'Wekan Ondra'],
-  ['wekan-gantt-gpl', 'Wekan Gantt GPL'],
 ]) {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-variant-test-'));
   const source = path.join(temp, 'source');
@@ -78,4 +79,12 @@ for (const [variant, title] of [
   assert.match(compose, new RegExp(`wekanteam/${variant}:`));
 }
 
-console.log('prepareVariantRepo: 2 variants passed');
+// Negative: wekan-gantt-gpl is refused before anything is touched.
+{
+  const r = require('child_process').spawnSync('bash', [script, repoRoot, path.join(os.tmpdir(), 'no-target'), 'wekan-gantt-gpl', 'Wekan Gantt GPL'],
+    { cwd: repoRoot, encoding: 'utf8' });
+  assert.notStrictEqual(r.status, 0, 'wekan-gantt-gpl is no longer a variant');
+  assert.match(r.stderr, /Unsupported variant: wekan-gantt-gpl/);
+}
+
+console.log('prepareVariantRepo: the variant passed, and wekan-gantt-gpl is refused');
