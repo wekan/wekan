@@ -102,7 +102,8 @@ Which databases WeKan supports
 of Alpine packages only, without the glibc and GCC runtime that held every
 finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
-Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again.
+Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
+**wekan-gantt-gpl** snap and Docker image are no longer published.
 
 This release has the following new features:
 
@@ -171,6 +172,23 @@ and FerretDB's `tests/dependency-floors.py` keeps it there. WeKan's
 `docker-compose.yml` takes the newest FerretDB release, so nothing in WeKan
 pins a version. [Forgot Password](docs/Features/Login-Page/Forgot-Password.md)
 now repairs the database with `docker exec -it wekan-ferretdb mongosh wekan`.
+
+</details>
+
+and changes the following releases:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca473ab225277fa44eccbb990842891597731531">wekan-gantt-gpl is no longer built or published</a>. Thanks to xet7.</summary>
+
+Its users moved to the official `wekan` snap, and
+[wekan/wekan-gantt-gpl](https://github.com/wekan/wekan-gantt-gpl) is archived.
+Release All, Push Snap to Store, Release All Missing and the repository update
+publish only `wekan` and `wekan-ondra`; the manual variant Docker image, the
+local release scripts and the build menus offer only `wekan-ondra`, and
+`releases/docker-push-gantt.sh` and the `wekan-gantt-gpl` store listing are
+removed. The release guards pin the two snaps, and refuse `wekan-gantt-gpl`
+wherever a snap name is checked. To move from it, install `wekan` and restore a
+backup of the `wekan-gantt-gpl` data into it.
 
 </details>
 

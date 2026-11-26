@@ -11,7 +11,8 @@ The **Docker image runs on musl** for amd64 and arm64, on a root
 of Alpine packages only, without the glibc and GCC runtime that held every
 finding of its security scan. WeKan's default database runs on **FerretDB
 v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
-Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again.
+Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again. The
+**wekan-gantt-gpl** snap and Docker image are no longer published.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 
