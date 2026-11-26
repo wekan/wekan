@@ -7,11 +7,11 @@ make changes there.
 
 # Upcoming WeKan ® release
 
-WeKan's default database runs on **FerretDB v1.116.0**, whose one
-static binary is also **mongosh, sh and bash, written in Go**: `docker exec -it
-wekan-ferretdb mongosh wekan` works again in the distroless FerretDB image,
-with no Node.js and no C library added. The same FerretDB release moves
-**gorilla/websocket** past GO-2026-6278.
+The **Docker image runs on musl** for amd64 and arm64, on a root
+of Alpine packages only, without the glibc and GCC runtime that held every
+finding of its security scan. WeKan's default database runs on **FerretDB
+v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
+Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again.
 
 [All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
 

@@ -98,13 +98,43 @@ Which databases WeKan supports
 
 # Upcoming WeKan ® release
 
-**In short:** WeKan's default database runs on **FerretDB v1.116.0**, whose one
-static binary is also **mongosh, sh and bash, written in Go**: `docker exec -it
-wekan-ferretdb mongosh wekan` works again in the distroless FerretDB image,
-with no Node.js and no C library added. The same FerretDB release moves
-**gorilla/websocket** past GO-2026-6278.
+**In short:** The **Docker image runs on musl** for amd64 and arm64, on a root
+of Alpine packages only, without the glibc and GCC runtime that held every
+finding of its security scan. WeKan's default database runs on **FerretDB
+v1.116.0**, whose one static binary is also **mongosh, sh and bash, written in
+Go**, so `docker exec -it wekan-ferretdb mongosh wekan` works again.
 
-This release has the following new feature:
+This release has the following new features:
+
+**The WeKan Docker image** - what it runs on.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/662a845870053b07d63a9e188101cc936a1bcdc5">amd64 and arm64 run on musl, on a root of Alpine packages only</a>. Thanks to xet7.</summary>
+
+Artifact Hub's scan of the v13.33 image listed 42 findings, and every one was
+in glibc (`libc6`) and the GCC runtime (`libstdc++6`, `libgcc-s1`,
+`libatomic1`, `gcc-14-base`) that the glibc Node.js and its native modules
+need; none has a Debian fix, so no update could remove them. amd64 and arm64
+now take the release's musl bundle,
+`wekan-<version>-linux-<x64|arm64>-musl.zip`,
+which `musl.yml` builds in Alpine with the musl Node.js and the musl sharp,
+canvas, bcrypt and argon2, and starts until it answers HTTP 200. Their root is
+`scratch` filled by `apk --root --initdb` from `alpine:3.22` with musl,
+libstdc++, libgcc, libatomic, CA certificates and tzdata, each with its apk
+record so a scanner reads them as the Alpine packages they are; there is no
+shell, no apk and no glibc. The docker job waits for the musl bundles and
+checks that the Alpine base publishes both platforms. ppc64le, s390x, riscv64,
+386 and 32-bit ARM stay distroless glibc. node-patches now also builds
+`node-x64-musl` and `node-arm64-musl` in Alpine.
+`tests/dockerImageFromBundle.test.cjs`
+pins the musl root's packages and that it has no busybox, apk-tools,
+alpine-baselayout, libc6, gcompat or bash. The image itself was not built in
+this environment, which has no Docker: the first release's docker job and
+Artifact Hub's next scan are where the count is confirmed.
+
+</details>
+
+**The FerretDB container** - its shells.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bec508107f43bb8d5892cf4d11ea12903a0c6d57">FerretDB v1.116.0: mongosh, sh and bash in the FerretDB container again, in Go</a>. Thanks to xet7.</summary>
@@ -8216,133 +8246,5 @@ card and custom fields. `sesotho-popup-titles.e2e.js` caught the first; the
 other two are low confidence.
 
 </details>
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v12.67 2026-10-28 WeKan ® release
-
-**In short:** a list's **Add card** form closes once the card is added, unless
-**Member Settings** keeps it open for the next one. And the v12.66 release build
-is whole again: the **emulated-CPU Linux bundles** and **win32**, **FreeBSD**,
-**OpenBSD**, the **Mac app**, the **Sandstorm** .spk, the **Ondra** and **Gantt
-GPL** snaps and the **Bun** bundles had failed to build or to start - most
-because build scripts had moved their files into `.tools/` and some callers had
-not.
-
-This release adds the following new features:
-
-**Add card** - a list's form for new cards.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/70de255333">The form closes after the card is added, unless Member Settings keeps it open</a>. Thanks to brlin-tw and xet7.</summary>
-
-The form stayed open after every card for the next one, which
-[#6827](https://github.com/wekan/wekan/issues/6827) found unexpected. It now
-closes once the card - or every card of a multi-line paste - is added. Member
-Settings / Change Settings has a new switch, **Keep the Add card form open
-after adding a card**, off by default, for typing several cards in a row. The
-form is closed after the last title rather than at submit, because the paste
-loop still reads the form between titles, and a failed add keeps the form and
-its text. The two new strings are translated into every language, many with
-low confidence (listed in the commit). `tests/keepAddCardFormOpen6827.test.cjs`
-and `keep-add-card-form-open-6827.e2e.js` pin both settings, a paste and a
-failure.
-
-</details>
-
-and fixes the following bugs:
-
-**Linux bundles for emulated CPUs** - armhf, armv6, armv7, i386, ppc64le,
-riscv64 and s390x, and win32 built from the i386 one.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/427d212627">The container that installs their Node.js gets .tools/tmp as its /tmp again</a>. Thanks to xet7.</summary>
-
-`install-node-for-arch.sh` refuses to run without `TMPDIR`, because a
-container's own `/tmp` is a small part of its writable layer.
-`releases/repack-bundle-for-arch.sh` mounts this checkout's `.tools/tmp` there
-and sets it; the release workflow's own `docker run` did not, so every
-emulated arch stopped at "TMPDIR must be the mounted .tools/tmp" in v12.66,
-and win32, which builds from the i386 bundle's Node.js, had nothing to build
-with. The step now mounts `.tools/tmp/repack-<arch>-tmp` as `/tmp`.
-
-</details>
-
-**FreeBSD, OpenBSD and the Mac app** - bundles started by `start-wekan.sh`
-where there is no `/proc`.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/290e525b46">start-wekan.sh starts WeKan again where there is no /proc</a>. Thanks to xet7.</summary>
-
-Since the macOS shell-script work, the memory budget read `/proc/meminfo` with
-no fallback. `awk` fails where there is no `/proc`, and under `set -eu` an
-assignment from a failed substitution ends the script without a word - so in
-v12.66 the FreeBSD and OpenBSD bundles and the Mac app never started WeKan,
-with an empty log. The read has its `|| true` again and `sysctl` gives the
-memory. `tests/macosShellPortability.test.cjs` runs those lines under `set
--eu` without `/proc` and requires a number, with the unguarded line as the
-negative case, and fails on any `set -e` script whose `/proc` read in `$(...)`
-has no fallback.
-
-</details>
-
-**Sandstorm** - the .spk and the meteor-spk toolchain it is packed with.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f68b130f15">meteor-spk is assembled where the .spk is packed from, in .tools</a>. Thanks to xet7.</summary>
-
-`sandstorm-src/build-deps.sh` still assembled `meteor-spk.deps` in
-`~/projects/meteor-spk`, and the workflows put that on PATH, while
-`releases/sandstorm-slim-spk.sh` looked in `.tools/projects/meteor-spk`: "no
-meteor-spk.deps", and the v12.66 .spk did not pack. `build-deps.sh` now uses
-the same `.tools` directory, as do the Sandstorm, Sandstorm store and
-meteor-spk workflows. `tests/toolsDirOnly.test.cjs` scans `sandstorm-src/`
-too, and fails on a workflow that names `~/projects`.
-
-</details>
-
-**Snaps** - the Ondra and Gantt GPL variants, built from a copy of the tree.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/d24598ce25">A copy of the source tree without .git gets its own .tools/tmp</a>. Thanks to xet7.</summary>
-
-`releases/tools-env.sh` made `.tools/tmp` only in a git checkout, so that
-scripts mounted alone into a container do not make a `/.tools` there. The
-variant snaps build from a copy without `.git`, so no `TMPDIR` was found and
-every `fetch.sh` in `snapcraft.yaml` stopped at "TMPDIR: unbound variable" -
-which v12.66 reported as the Caddy download failing. A tree with
-`package.json` beside `releases/tools-env.sh` counts as a source tree.
-`tests/toolsDirOnly.test.cjs` checks such a copy, and `releases/` alone as the
-negative case, where no `.tools/` is made and no `TMPDIR` is invented.
-
-</details>
-
-**Bun bundles** - their Linux smoke tests.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1167cbd3b0">The smoke-test MongoDB starts on a 6.19+ kernel, and Chromium is found</a>. Thanks to xet7.</summary>
-
-linux-x64: `mongo:8` refused to start on the runner's newer kernel ("Linux
-kernel versions 6.19 and newer has a known incompatibility"); the smoke test
-pins `mongo:9.0.4`, which recognises Ubuntu kernels that have the fix
-([Supported databases](docs/Databases/Supported.md)). linux-arm64: Chromium
-was installed into `~/.cache/ms-playwright` while the build looked in
-`.tools/ms-playwright`; the install step now uses the same path.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bce686ce46">Its guard pins mongo:9.0.4, not the mongo:8 that stopped starting</a>. Thanks to xet7.</summary>
-
-`tests/bunSmokeMongo.test.cjs` required the workflow to run `mongo:8`, the
-floating tag that refused to start on the runner's kernel. It now requires
-`mongo:9.0.4`, and fails if `mongo:8` comes back.
-
-</details>
-
-and updates the following documentation:
-
-- [WeKan vs Trello vs Jira says when WeKan added each feature it listed as missing](https://github.com/wekan/wekan/commit/cbdff47edb).
-  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
