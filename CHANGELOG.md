@@ -5,12 +5,12 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.36 2026-11-27 WeKan ® release
 
 Filtering a board by **yourself as assignee** now survives a page
 refresh, as filtering by anybody else already did.
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.36](CHANGELOG-big.md#v1336-2026-11-27-wekan--release)
 
 # v13.35 2026-11-27 WeKan ® release
 
@@ -58,18 +58,3 @@ from the environment, as **GitHub CodeQL** found, and the documentation says
 the license rule plainly: **permissive licenses, no GPL**.
 
 [All changes in v13.32](CHANGELOG-big.md#v1332-2026-11-25-wekan--release)
-
-# v13.31 2026-11-25 WeKan ® release
-
-A person can **download everything WeKan holds about them**
-and **be erased everywhere**; an operator publishes a **privacy notice, terms
-and imprint**, can **require accepting them**, and limits how long records are
-kept. Administrators **export their lists as CSV**, see **who downloaded what**,
-check a **Compliance** checklist; the pages pass **WCAG 2.2 AA** checks, and
-every
-release carries a **CycloneDX SBOM**, with **security.txt** from the security
-contact. **Problems / Summary** groups **sign-in refusals by reason** with the
-fix for each, the **delay after a wrong password** is applied at last, the
-**Docker image is distroless**, and the server tests pass again.
-
-[All changes in v13.31](CHANGELOG-big.md#v1331-2026-11-25-wekan--release)

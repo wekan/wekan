@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.36 2026-11-27 WeKan ® release
 
 **In short:** Filtering a board by **yourself as assignee** now survives a page
 refresh, as filtering by anybody else already did.
