@@ -96,6 +96,35 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** A **due date that is not due soon is grey** again, on the card
+and the minicard, instead of a yellow that looked almost like the amber of
+"due soon".
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59907832c54c29bc8991425eef3801ff556d5ea8">A due date that is not due soon is grey, not yellow</a>. Thanks to BarbossHack and xet7.</summary>
+
+[#6947](https://github.com/wekan/wekan/issues/6947): a due date three months
+away was yellow, although `client/lib/dueDateColor.js` gives it the class
+`not-due`, documented as grey. The `not-due` rule is empty, so the due date's
+own type colour (`.card-date.due-date`, `#ffd700`, in `cardDate.css` and
+`minicard.css`) showed through. A due badge always carries a status class -
+overdue, due-soon, completed or not-due - so that type colour only ever showed
+on not-due, and it is removed: not due is the plain grey `.card-date` badge,
+and the Clean Light and Clean Dark board themes keep their own badge colour.
+Amber and red are unchanged. `tests/dueDateThresholds6947.test.cjs` pins that
+no due-date rule without a status class sets a background and that no client
+CSS colours a due date yellow, and
+`tests/playwright/specs/due-thresholds-6947.e2e.js` checks the minicard's
+rendered grey and amber.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.34 2026-11-26 WeKan ® release
 
 **In short:** The **Docker image runs on musl** for amd64 and arm64, on a root

@@ -5,6 +5,14 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+A **due date that is not due soon is grey** again, on the card
+and the minicard, instead of a yellow that looked almost like the amber of
+"due soon".
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.34 2026-11-26 WeKan ® release
 
 The **Docker image runs on musl** for amd64 and arm64, on a root
