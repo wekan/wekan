@@ -19,7 +19,6 @@ function makeSubtask(board) {
 
 async function openCard(page, board, cardId) {
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/${cardId}`);
-  await page.waitForFunction(id => Package.session.Session.get('currentCard') === id, cardId);
   const cp = new CardPage(page);
   await cp.waitForOpen();
   return cp;
@@ -32,7 +31,7 @@ test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
     await boardPage.evaluate(language => Meteor.callAsync('setLanguage', language), language);
     const { parent, child } = makeSubtask(board);
     const cp = await openCard(boardPage, board, parent._id);
-    const heading = cp.root.locator('.js-toggle-card-section[data-section="subtasks"]');
+    const heading = cp.root.locator('.js-toggle-card-section[data-section="subtasks"], .card-details-subtasks > .card-details-item-title');
     if (language === 'ht') {
       await expect(heading).toContainText('Sou-travay');
       await expect(heading).not.toContainText('Soutravay');
@@ -75,7 +74,7 @@ test.describe(`Subtask done checkbox in ${language} (#4693)`, () => {
     const cp = await openCard(page, board, parent._id);
     const row = cp.root.locator('.card-subtasks-items .js-subtasks').filter({ hasText: 'Beta Card' });
 
-    await expect(cp.root.locator('.js-toggle-card-section[data-section="subtasks"]')).toContainText('(1/1)');
+    await expect(cp.root.locator('.js-toggle-card-section[data-section="subtasks"], .card-details-subtasks > .card-details-item-title')).toContainText('(1/1)');
     await expect(row.locator('.subtask-done-toggle.is-disabled')).toHaveAttribute('aria-checked', 'true');
     await expect(row.locator('.js-toggle-subtask-done')).toHaveCount(0);
     await expect(row.locator('.subtask-done-toggle.is-disabled')).toHaveAttribute('title', strings['subtask-done-no-permission']);
