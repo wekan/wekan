@@ -39,6 +39,24 @@ export function resolveUsernamesToIds(usernames, users) {
     .filter(Boolean);
 }
 
+// #6948: the board publication never sends the signed-in user's own
+// document (#6919, server/lib/notCurrentUser.js) - it comes from the accounts
+// publication instead - so a lookup by username among the board's users
+// misses `?assignee=<own username>`. Adds the current user ({ _id, username })
+// to the candidates when it is not among them already.
+export function withCurrentUser(users, currentUser) {
+  const list = (users || []).slice();
+  if (
+    currentUser &&
+    currentUser._id &&
+    currentUser.username &&
+    !list.some(user => user && user._id === currentUser._id)
+  ) {
+    list.push({ _id: currentUser._id, username: currentUser.username });
+  }
+  return list;
+}
+
 // Resolves a list of label names (case-insensitive) to label `_id`s using the
 // board's own labels array ({ _id, name, color }).
 export function resolveLabelNamesToIds(labelNames, labels) {

@@ -27,6 +27,7 @@ import { Filter } from '/client/lib/filter';
 import {
   parseBoardFilterQueryParams,
   buildBoardFilterQueryParams,
+  withCurrentUser,
 } from '/client/lib/filterQueryParams';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
 import { focusFirstControl } from '/client/lib/accessibility';
@@ -86,10 +87,14 @@ Template.board.onCreated(function () {
       .filter(Boolean)
       .forEach(u => usernames.add(u));
 
-    const users = ReactiveCache.getUsers(
-      { username: { $in: Array.from(usernames) } },
-      { fields: { _id: 1, username: 1 } },
-    ) || [];
+    // #6948: the current user is not among the board's users (#6919).
+    const users = withCurrentUser(
+      ReactiveCache.getUsers(
+        { username: { $in: Array.from(usernames) } },
+        { fields: { _id: 1, username: 1 } },
+      ) || [],
+      Meteor.users.findOne(Meteor.userId(), { fields: { username: 1 } }),
+    );
 
     const { assigneeIds, memberIds, labelIds } = parseBoardFilterQueryParams(
       { assignee: assigneeParam, member: memberParam, label: labelParam },
@@ -127,10 +132,13 @@ Template.board.onCreated(function () {
     }
 
     const userIds = new Set([...assigneeIds, ...memberIds]);
-    const users = ReactiveCache.getUsers(
-      { _id: { $in: Array.from(userIds) } },
-      { fields: { _id: 1, username: 1 } },
-    ) || [];
+    const users = withCurrentUser(
+      ReactiveCache.getUsers(
+        { _id: { $in: Array.from(userIds) } },
+        { fields: { _id: 1, username: 1 } },
+      ) || [],
+      Meteor.users.findOne(Meteor.userId(), { fields: { username: 1 } }),
+    );
 
     const queryParams = buildBoardFilterQueryParams(
       { assigneeIds, memberIds, labelIds },
@@ -268,9 +276,8 @@ Template.board.onCreated(function () {
       Tracker.nonreactive(() => this.ensureDefaultSwimlane(currentBoardId));
       // Also detect + run the shared board data-repairs once the board is ready.
       Tracker.nonreactive(() => this.maybeRepairBoard(currentBoardId));
-      // #4540: apply any ?assignee=/?member=/?label= URL filter params now
-      // that the board and its members/labels are loaded.
-      Tracker.nonreactive(() => this.applyQueryParamFilters(currentBoardId));
+      // #4540's ?assignee=/?member=/?label= URL filter params are applied in
+      // the URL sync autorun below, once the current user is loaded too.
     }
   });
 
@@ -284,6 +291,20 @@ Template.board.onCreated(function () {
     const currentBoardId = Session.get('currentBoard');
     if (!currentBoardId || !this.isBoardReady.get()) {
       return;
+    }
+    // #4540: apply the URL's filter params once, before anything writes the
+    // URL. #6948: not before the signed-in user's own document (and its
+    // username) has arrived - after a refresh it comes from the accounts
+    // publication, maybe after the board - or `?assignee=<own username>`
+    // resolves to nobody and the write below removes it from the URL.
+    if (!this._queryFiltersApplied.has(currentBoardId)) {
+      const ownUserId = Meteor.userId();
+      const ownUser = ownUserId
+        && Meteor.users.findOne(ownUserId, { fields: { username: 1 } });
+      if (Meteor.loggingIn() || (ownUserId && !(ownUser && ownUser.username))) {
+        return;
+      }
+      Tracker.nonreactive(() => this.applyQueryParamFilters(currentBoardId));
     }
     this.syncFilterQueryParams(currentBoardId);
   });
