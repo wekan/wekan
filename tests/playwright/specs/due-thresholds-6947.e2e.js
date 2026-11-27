@@ -2,7 +2,7 @@
 // #6947: a board's own due date colours. A card due in 30 hours is amber with
 // WeKan's 48 hours, grey once the board says 24, amber again at 36; Board
 // Settings / Date saves the hours, and a value that is no number of hours is
-// refused.
+// refused. Not due is grey (rgb 219,219,219), never the old yellow.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
@@ -17,8 +17,12 @@ test('#6947: the due date colour follows the board\'s due-soon hours', async ({ 
   db.updateOne('boards', { _id: board.boardId }, { $set: { dueSoonHours: 24 } });
   await expect(due).toHaveClass(/not-due/, { timeout: 15000 });
   await expect(due).not.toHaveClass(/due-soon/);
+  // #6947 comment 7205280494: not due is GREY, not the yellow (#ffd700) the
+  // due date's type colour used to paint through the empty not-due rule.
+  await expect(due).toHaveCSS('background-color', 'rgb(219, 219, 219)');
   db.updateOne('boards', { _id: board.boardId }, { $set: { dueSoonHours: 36 } });
   await expect(due).toHaveClass(/due-soon/, { timeout: 15000 });
+  await expect(due).toHaveCSS('background-color', 'rgb(255, 170, 0)'); // amber stays
   db.updateOne('boards', { _id: board.boardId }, { $unset: { dueSoonHours: '' } });
 });
 
