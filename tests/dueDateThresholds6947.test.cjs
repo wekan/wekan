@@ -113,3 +113,50 @@ test('the two words are in every language, with no English left outside English'
     }
   }
 });
+
+// #6947 comment 7205280494: a due date three months away was YELLOW, not the
+// grey dueDateColor.js documents for not-due - the due date's own type colour
+// (.card-date.due-date #ffd700) showed through the empty .not-due rule.
+const cssRules = (css, selectorRe) => {
+  const out = [];
+  const re = /([^{}]+)\{([^{}]*)\}/g;
+  let m;
+  while ((m = re.exec(css.replace(/\/\*[\s\S]*?\*\//g, '')))) {
+    if (m[1].split(',').some(sel => selectorRe.test(sel.trim()))) out.push(m[2]);
+  }
+  return out;
+};
+
+test('a due date that is not due soon is grey: the due badge has no background of its own', () => {
+  for (const [file, prefix] of [['client/components/cards/cardDate.css', ''], ['client/components/cards/minicard.css', '\\.minicard ']]) {
+    const css = read(file);
+    // Any rule matching the due badge without a status class (overdue,
+    // due-soon, completed…) is what a not-due badge shows.
+    const plainDue = new RegExp(`^${prefix}\\.card-date\\.due-date(\\.not-due)?(:hover|\\.is-active)?$`);
+    for (const body of cssRules(css, plainDue)) {
+      assert.doesNotMatch(body, /background/, `${file}: a not-due due date must not get a type colour`);
+    }
+    // The not-due rule itself paints nothing, so the grey .card-date base shows.
+    for (const body of cssRules(css, new RegExp(`^${prefix}\\.card-date\\.not-due$`))) {
+      assert.doesNotMatch(body, /background/, `${file}: not-due must stay the plain badge`);
+    }
+  }
+  const base = cssRules(read('client/components/cards/cardDate.css'), /^\.card-date$/).join('');
+  assert.match(base, /background-color:\s*#dbdbdb/, 'the plain badge is grey');
+});
+
+test('negative: no CSS anywhere gives a due-date badge yellow, and amber/red stay', () => {
+  const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e =>
+    e.isDirectory() ? walk(path.join(dir, e.name)) : e.name.endsWith('.css') ? [path.join(dir, e.name)] : []);
+  for (const file of walk(path.join(root, 'client'))) {
+    const css = fs.readFileSync(file, 'utf8');
+    for (const body of cssRules(css, /\.card-date\.due-date(?![\w-])(?!\S*\.(overdue|due-soon|completed))/)) {
+      assert.doesNotMatch(body, /#ffd700|#e6c200|yellow/i, `${path.relative(root, file)} colours a due date yellow`);
+    }
+  }
+  for (const file of ['client/components/cards/cardDate.css', 'client/components/cards/minicard.css']) {
+    const css = read(file);
+    assert.match(css, /\.card-date\.due-soon \{\s*background-color: #ffaa00 !important;/, `${file} amber`);
+    assert.match(css, /\.card-date\.overdue \{\s*background-color: #ff4444 !important;/, `${file} red`);
+  }
+});

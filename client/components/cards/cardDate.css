@@ -100,14 +100,15 @@
   background-color: #7dd87d;
 }
 
+/* #6947: no colour of its own for the due date. A due badge always carries
+   a status class from client/lib/dueDateColor.js - overdue (red), due-soon
+   (amber), completed (green) or not-due - so this type colour only ever
+   showed on not-due, which it painted yellow: a due date three months away
+   looked almost like one due soon. Not due is the plain grey .card-date
+   badge, as dueDateColor.js documents, and a board theme's own badge colour
+   still applies. */
 .card-date.due-date {
-  background-color: #ffd700; /* Yellow for due */
   color: #000; /* Black text for due */
-}
-
-.card-date.due-date:hover,
-.card-date.due-date.is-active {
-  background-color: #e6c200;
 }
 
 .card-date.end-date {
