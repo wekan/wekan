@@ -96,6 +96,33 @@ Which databases WeKan supports
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Filtering a board by **yourself as assignee** now survives a page
+refresh, as filtering by anybody else already did.
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/feb86c033a0acaf19c48db035f0e56f5c3f68b67">Filtering by your own username as assignee survives a page refresh</a>. Thanks to BarbossHack and xet7.</summary>
+
+[#6948](https://github.com/wekan/wekan/issues/6948): `?assignee=<username>`
+was re-applied on refresh for every user except the signed-in one, whose
+filter was lost and removed from the URL. The board publication never sends
+the current user's own document (#6919, `server/lib/notCurrentUser.js`), so
+the URL's own username resolved to nobody, and the URL sync then wrote the
+empty filter back. `withCurrentUser` in `client/lib/filterQueryParams.js` now
+adds the current user to the users the URL is resolved against, and the board
+reads the URL only once the login is done and the user's own username has
+arrived, before it writes the URL.
+`tests/filterQueryParamsOwnUser6948.test.cjs` checks the own username, a mix
+with another user, and the negative cases: no current user, one without a
+username, and no duplicate.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v13.35 2026-11-27 WeKan ® release
 
 **In short:** A **due date that is not due soon is grey** again, on the card

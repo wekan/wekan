@@ -5,6 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
+# Upcoming WeKan ® release
+
+Filtering a board by **yourself as assignee** now survives a page
+refresh, as filtering by anybody else already did.
+
+[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+
 # v13.35 2026-11-27 WeKan ® release
 
 A **due date that is not due soon is grey** again, on the card
