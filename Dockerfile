@@ -62,7 +62,7 @@ FROM --platform=$BUILDPLATFORM debian:trixie AS bundle
 
 ARG TARGETARCH
 ARG TARGETVARIANT
-ARG VERSION=13.34
+ARG VERSION=13.35
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
