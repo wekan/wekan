@@ -96,7 +96,7 @@ Which databases WeKan supports
 
 </details>
 
-# Upcoming WeKan ® release
+# v13.35 2026-11-27 WeKan ® release
 
 **In short:** A **due date that is not due soon is grey** again, on the card
 and the minicard, instead of a yellow that looked almost like the amber of

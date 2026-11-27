@@ -5,13 +5,13 @@ each one changed and the project status are in
 Written by `node releases/changelog-short.mjs` from CHANGELOG-big.md:
 make changes there.
 
-# Upcoming WeKan ® release
+# v13.35 2026-11-27 WeKan ® release
 
 A **due date that is not due soon is grey** again, on the card
 and the minicard, instead of a yellow that looked almost like the amber of
 "due soon".
 
-[All changes so far](CHANGELOG-big.md#upcoming-wekan--release)
+[All changes in v13.35](CHANGELOG-big.md#v1335-2026-11-27-wekan--release)
 
 # v13.34 2026-11-26 WeKan ® release
 
@@ -66,14 +66,3 @@ fix for each, the **delay after a wrong password** is applied at last, the
 **Docker image is distroless**, and the server tests pass again.
 
 [All changes in v13.31](CHANGELOG-big.md#v1331-2026-11-25-wekan--release)
-
-# v13.30 2026-11-23 WeKan ® release
-
-The **wekan-ondra** and **wekan-gantt-gpl** snaps are published on
-every architecture the wekan snap has, on all four channels, and each **Snap
-Store page** shows what is new in the newest release. **Time tracking**
-works again on imported cards whose spent time was stored empty, and the
-**Admin Panel recovery list** no longer fills up with old cancelled
-notifications.
-
-[All changes in v13.30](CHANGELOG-big.md#v1330-2026-11-23-wekan--release)
