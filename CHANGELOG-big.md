@@ -117,7 +117,24 @@ reads the URL only once the login is done and the user's own username has
 arrived, before it writes the URL.
 `tests/filterQueryParamsOwnUser6948.test.cjs` checks the own username, a mix
 with another user, and the negative cases: no current user, one without a
-username, and no duplicate.
+username, and no duplicate. The UI test
+[filter-own-assignee-6948.e2e.js](https://github.com/wekan/wekan/commit/f4ec808e4ab64b9331092e8f17f989a06f0d5c51)
+refreshes a board filtered by the signed-in user and by another member, and
+checks that an unknown username filters nothing.
+
+</details>
+
+and has the following developer-facing change:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55e5d81bced17653f9e26e169f4f0d1444344773">The subtask done checkbox test reads the rendered card, not the client's Session</a>. Thanks to xet7.</summary>
+
+`tests/playwright/specs/subtask-done-4693.e2e.js` waited for Meteor's
+`Session` to name the opened card, which only WeKan's own client has, and
+found the Subtasks heading only as a collapsible section toggle. It now waits
+for the card to be drawn and accepts the heading either as that toggle or as
+the card's plain Subtasks title, so the same test also runs against a page
+that draws the card without WeKan's client internals.
 
 </details>
 
